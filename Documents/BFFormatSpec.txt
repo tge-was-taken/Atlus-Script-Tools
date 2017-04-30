@@ -1,0 +1,98 @@
+
+struct bfHeader
+{
+	u8	fileType;		// always 0
+	u8	compressed;		// compression flag
+	u16 userId;			// unused
+	u32 fileSize;		// complete file size
+	u8	magic[4];		// 'FLW0'
+	u32 reserved1;		// reserved, used during runtime
+	u32	sectionCount;	
+	u16 field14;		// unknown
+	u16 reserved2[4];	// reserved, used during runtime
+	bfSectionDescriptor sectionDescriptors[numSections];
+};
+
+struct bfSectionHeader
+{
+	u32 id; // 0 = .label.proc	(procedure labels)
+			// 1 = .label.jmp	(jump labels)
+			// 2 = .text		(code)
+			// 3 = .data.msg	(message script data)
+			// 4 = .data.str	(string data)
+
+	u32 unitSize;	 // size of each 'unit' in the section
+	u32 unitCount;	 // number of 'units' in section
+	u32 startOffset; // start of data offset relative to beginning of file 
+};
+
+struct bfLabelv1
+{
+	u8[32]	name;		// symbolic name of label
+	u32		offset;		// offset relative to beginning of .text section in number of units (.text unit size is 4)
+	u32		reserved;	// used during runtime
+};
+
+// used by Persona 4 Dancing All Night
+struct bfLabelv2
+{
+	u8[56]	name;		// symbolic name of label
+	u32		offset;		// offset relative to beginning of .text section in number of units (.text unit size is 4)
+	u32		reserved;	// used during runtime
+};
+
+// used by Persona 5 & later games
+struct bfLabelv3
+{
+	u8[72]	name;		// symbolic name of label
+	u32		offset;		// offset relative to beginning of .text section in number of units (.text unit size is 4)
+	u32		reserved;	// used during runtime
+};
+
+union bfInstruction
+{
+	struct
+	{
+		u16 opcode;		// 00 = PUSHI
+						// 01 = PUSHF
+						// 02 = PUSHIX
+						// 03 = PUSHIF
+						// 04 = PUSHREG
+						// 05 = POPIX
+						// 06 = POPFX
+						// 07 = PROC
+						// 08 = COMM
+						// 09 = END
+						// 10 = JUMP
+						// 11 = CALL
+						// 12 = RUN
+						// 13 = GOTO
+						// 14 = ADD
+						// 15 = SUB
+						// 16 = MUL
+						// 17 = DIV
+						// 18 = MINUS
+						// 19 = NOT
+						// 20 = OR
+						// 21 = AND
+						// 22 = EQ
+						// 23 = NEQ
+						// 24 = S
+						// 25 = L
+						// 26 = SE
+						// 27 = LE
+						// 28 = IF
+						// 29 = PUSHIS
+						// 30 = PUSHLIX
+						// 31 = PUSHLFX
+						// 32 = POPLIX
+						// 33 = POPLFX
+						// 34 = PUSHSTR
+
+		u16 operandShort;	// used as operand if the opcode requires an integer operand whose value is between 0 & 65355
+							// otherwise the next 4 bytes are used
+	};
+
+	u32 operandInt;
+	f32 operandFloat;
+};
