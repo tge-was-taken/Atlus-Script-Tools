@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 
 namespace AtlusScriptLib.FlowScript.Disassembler
 {
@@ -29,6 +30,10 @@ namespace AtlusScriptLib.FlowScript.Disassembler
         public void PutNewline()
         {
             StringBuilder.AppendLine();
+        }
+
+        public void Dispose()
+        {
         }
     }
 

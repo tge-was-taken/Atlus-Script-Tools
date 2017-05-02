@@ -92,24 +92,33 @@ namespace AtlusScriptLib.Shared.IO
 
                 case TypeCode.Int16:
                     return SwapEndianness((short)value);
+
                 case TypeCode.UInt16:
                     return SwapEndianness((ushort)value);
+
                 case TypeCode.Int32:
                     return SwapEndianness((int)value);
+
                 case TypeCode.UInt32:
                     return SwapEndianness((uint)value);
+
                 case TypeCode.Int64:
                     return SwapEndianness((long)value);
+
                 case TypeCode.UInt64:
                     return SwapEndianness((ulong)value);
+
                 case TypeCode.Single:
                     return SwapEndianness((float)value);
+
                 case TypeCode.Double:
                     return SwapEndianness((double)value);
+
                 case TypeCode.Decimal:
                     return SwapEndianness((decimal)value);
+
                 default:
-                    throw new Exception();
+                    throw new NotImplementedException();
             }
         }
 
@@ -138,15 +147,15 @@ namespace AtlusScriptLib.Shared.IO
             }
             else if (type.IsGenericType)
             {
-                throw new Exception();
+                throw new NotImplementedException();
             }
             else if (type.IsInterface)
             {
-                throw new Exception();
+                throw new NotImplementedException();
             }
             else if (type.IsPointer)
             {
-                return new Exception();
+                throw new NotImplementedException();
             }
             else if (type.IsPrimitive)
             {
@@ -159,7 +168,7 @@ namespace AtlusScriptLib.Shared.IO
             }
             else
             {
-                throw new Exception();
+                throw new NotImplementedException();
             }
         }
 

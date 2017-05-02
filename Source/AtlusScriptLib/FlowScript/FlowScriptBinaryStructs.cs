@@ -10,19 +10,20 @@ namespace AtlusScriptLib.FlowScript
 
         public byte FileType;
         public byte Compressed;
-        public ushort UserId;
-        public uint FileSize;
+        public short UserId;
+        public int FileSize;
 
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
         public byte[] Magic;
 
-        public uint Reserved1;
-        public uint SectionCount;
-        public uint Field14;
-        public ushort Reserved2;
-        public ushort Reserved3;
-        public ushort Reserved4;
-        public ushort Reserved5;
+        public int Reserved1;
+        public int SectionCount;
+        public short Field14;
+        public short Field16;
+        public short Reserved2;
+        public short Reserved3;
+        public short Reserved4;
+        public short Reserved5;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -31,9 +32,9 @@ namespace AtlusScriptLib.FlowScript
         public const int SIZE = 16;
 
         public FlowScriptBinarySectionType sectionType;
-        public uint UnitSize;
-        public uint UnitCount;
-        public uint StartOffset;
+        public int UnitSize;
+        public int UnitCount;
+        public int StartOffset;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -44,8 +45,8 @@ namespace AtlusScriptLib.FlowScript
         public const int SIZE_V3 = 48;
 
         public string Name;
-        public uint Offset;
-        public uint Reserved;
+        public int Offset;
+        public int Reserved;
     }
 
     [StructLayout(LayoutKind.Explicit)]

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AtlusScriptLib.FlowScript.Disassembler
 {
-    public interface IDisassemblerTextOutput
+    public interface IDisassemblerTextOutput : IDisposable
     {
         void Put(string text);
 

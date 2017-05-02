@@ -1,15 +1,26 @@
 ﻿using System.Collections.Generic;
 using System;
+using System.Linq;
+using MoreLinq;
 
 using AtlusScriptLib.Shared.Syntax;
 
 namespace AtlusScriptLib.FlowScript.Parsers
 {
+    enum CompoundStatementContext
+    {
+        Global,
+        Procedure,
+        If
+    }
+
     public class FlowScriptBinarySyntaxParser
     {
         private FlowScriptBinary mScript;
         private int mInstructionIndex;
         private Stack<ExpressionStatement> mValueStack;
+        private Stack<CompoundStatementContext> mContext;
+        private FunctionCallOperator mLastCommCall;
 
         public FlowScriptBinarySyntaxParser()
         {
@@ -25,7 +36,7 @@ namespace AtlusScriptLib.FlowScript.Parsers
             return $"varFloat{index}";
         }
 
-        private CompoundStatement ParseCompoundStatement(int maxLength)
+        private CompoundStatement ParseCompoundStatement()
         {
             // for compound statement construction later
             var statements = new List<Statement>();
@@ -35,7 +46,29 @@ namespace AtlusScriptLib.FlowScript.Parsers
 
             while (!endFound)
             {
+                if (mInstructionIndex == mScript.TextSectionData.Count - 1)
+                {
+                    endFound = true;
+                    continue;
+                }
+
                 var instruction = mScript.TextSectionData[++mInstructionIndex];
+
+                var jumpLabels = mScript.JumpLabelSectionData.Where(x => x.Offset == mInstructionIndex);
+                foreach (var item in jumpLabels)
+                {
+                    statements.Add(new LabeledStatement(new Identifier(item.Name), null));
+                }
+
+                void parseBinaryArithmic<T>(Func<ExpressionStatement, ExpressionStatement, T> ctor)
+                    where T : BinaryArithmicExpression
+                {
+                    var node = ctor(mValueStack.Pop(), mValueStack.Pop());
+                    statements.Remove(node.LeftOperand);
+                    statements.Remove(node.RightOperand);
+                    statements.Add(node);
+                    mValueStack.Push(node);
+                }
 
                 switch (instruction.Opcode)
                 {
@@ -54,7 +87,20 @@ namespace AtlusScriptLib.FlowScript.Parsers
                         throw new Exception();
 
                     case FlowScriptBinaryOpcode.PUSHREG:
-                        mValueStack.Push(new IntLiteral(0)); // TODO: implement using COMM function table
+                        {
+                            //mValueStack.Push(new Identifier("__commResult")); // TODO: implement using COMM function table
+
+                            if (mLastCommCall == null)
+                                throw new Exception();
+                            
+                            mValueStack.Push(mLastCommCall);
+
+                            int last = statements.FindLastIndex(x => x == mLastCommCall);
+                            if (last == -1)
+                                throw new Exception();
+
+                            statements.RemoveAt(last);
+                        }
                         break;
 
                     case FlowScriptBinaryOpcode.POPIX:
@@ -69,17 +115,30 @@ namespace AtlusScriptLib.FlowScript.Parsers
                     case FlowScriptBinaryOpcode.COMM:
                         {
                             // TODO: implement using COMM function table
-                            statements.Add(new FunctionCallOperator(
+                            mLastCommCall = new FunctionCallOperator(
                                 new Identifier("__comm"),
                                 new FunctionArgumentList(new IntLiteral(instruction.OperandShort))
-                            ));
+                            );
+
+                            statements.Add(mLastCommCall);
                         }
                         break;
 
                     case FlowScriptBinaryOpcode.END:
                         {
+                            var context = mContext.Peek();
                             endFound = true;
-                            statements.Add(new ReturnStatement());
+
+                            switch (context)
+                            {
+                                case CompoundStatementContext.Procedure:
+                                    statements.Add(new ReturnStatement());
+                                    break;
+
+                                case CompoundStatementContext.If:
+                                    statements.Add(new BreakStatement());
+                                    break;
+                            }
                         }
                         break;
 
@@ -111,40 +170,25 @@ namespace AtlusScriptLib.FlowScript.Parsers
                         break;
 
                     case FlowScriptBinaryOpcode.ADD:
-                        {
-                            var node = new BinaryAddOperator(mValueStack.Pop(), mValueStack.Pop());
-                            statements.Add(node);
-                            mValueStack.Push(node);
-                        }
+                        parseBinaryArithmic((ExpressionStatement l, ExpressionStatement r) => { return new BinaryAddOperator(l, r); });
                         break;
 
                     case FlowScriptBinaryOpcode.SUB:
-                        {
-                            var node = new BinarySubtractOperator(mValueStack.Pop(), mValueStack.Pop());
-                            statements.Add(node);
-                            mValueStack.Push(node);
-                        }
+                        parseBinaryArithmic((ExpressionStatement l, ExpressionStatement r) => { return new BinarySubtractOperator(l, r); });
                         break;
 
                     case FlowScriptBinaryOpcode.MUL:
-                        {
-                            var node = new BinaryMultiplyOperator(mValueStack.Pop(), mValueStack.Pop());
-                            statements.Add(node);
-                            mValueStack.Push(node);
-                        }
+                        parseBinaryArithmic((ExpressionStatement l, ExpressionStatement r) => { return new BinaryMultiplyOperator(l, r); });
                         break;
 
                     case FlowScriptBinaryOpcode.DIV:
-                        {
-                            var node = new BinaryDivideOperator(mValueStack.Pop(), mValueStack.Pop());
-                            statements.Add(node);
-                            mValueStack.Push(node);
-                        }
+                        parseBinaryArithmic((ExpressionStatement l, ExpressionStatement r) => { return new BinaryDivideOperator(l, r); });
                         break;
 
                     case FlowScriptBinaryOpcode.MINUS:
                         {
                             var node = new UnaryMinusOperator(mValueStack.Pop());
+                            statements.Remove(node.Operand);
                             statements.Add(node);
                             mValueStack.Push(node);
                         }
@@ -152,74 +196,43 @@ namespace AtlusScriptLib.FlowScript.Parsers
 
                     case FlowScriptBinaryOpcode.NOT:
                         {
-                            var node = new BinaryNotOperator(mValueStack.Pop(), mValueStack.Pop());
+                            var node = new UnaryNotOperator(mValueStack.Pop());
+                            statements.Remove(node.Operand);
                             statements.Add(node);
                             mValueStack.Push(node);
                         }
                         break;
 
                     case FlowScriptBinaryOpcode.OR:
-                        {
-                            var node = new BinaryOrOperator(mValueStack.Pop(), mValueStack.Pop());
-                            statements.Add(node);
-                            mValueStack.Push(node);
-                        }
+                        parseBinaryArithmic((ExpressionStatement l, ExpressionStatement r) => { return new BinaryLogicalOrOperator(l, r); });
                         break;
 
                     case FlowScriptBinaryOpcode.AND:
-                        {
-                            var node = new BinaryAndOperator(mValueStack.Pop(), mValueStack.Pop());
-                            statements.Add(node);
-                            mValueStack.Push(node);
-                        }
+                        parseBinaryArithmic((ExpressionStatement l, ExpressionStatement r) => { return new BinaryLogicalAndOperator(l, r); });
                         break;
 
                     case FlowScriptBinaryOpcode.EQ:
-                        {
-                            var node = new BinaryEqualityOperator(mValueStack.Pop(), mValueStack.Pop());
-                            statements.Add(node);
-                            mValueStack.Push(node);
-                        }
+                        parseBinaryArithmic((ExpressionStatement l, ExpressionStatement r) => { return new BinaryEqualityOperator(l, r); });
                         break;
 
                     case FlowScriptBinaryOpcode.NEQ:
-                        {
-                            var node = new BinaryNonEqualityOperator(mValueStack.Pop(), mValueStack.Pop());
-                            statements.Add(node);
-                            mValueStack.Push(node);
-                        }
+                        parseBinaryArithmic((ExpressionStatement l, ExpressionStatement r) => { return new BinaryNonEqualityOperator(l, r); });
                         break;
 
                     case FlowScriptBinaryOpcode.S:
-                        {
-                            var node = new BinaryLessThanOperator(mValueStack.Pop(), mValueStack.Pop());
-                            statements.Add(node);
-                            mValueStack.Push(node);
-                        }
+                        parseBinaryArithmic((ExpressionStatement l, ExpressionStatement r) => { return new BinaryLessThanOperator(l, r); });
                         break;
 
                     case FlowScriptBinaryOpcode.L:
-                        {
-                            var node = new BinaryGreaterThanOperator(mValueStack.Pop(), mValueStack.Pop());
-                            statements.Add(node);
-                            mValueStack.Push(node);
-                        }
+                        parseBinaryArithmic((ExpressionStatement l, ExpressionStatement r) => { return new BinaryGreaterThanOperator(l, r); });
                         break;
 
                     case FlowScriptBinaryOpcode.SE:
-                        {
-                            var node = new BinaryLessThanOrEqualOperator(mValueStack.Pop(), mValueStack.Pop());
-                            statements.Add(node);
-                            mValueStack.Push(node);
-                        }
+                        parseBinaryArithmic((ExpressionStatement l, ExpressionStatement r) => { return new BinaryLessThanOrEqualOperator(l, r); });
                         break;
 
                     case FlowScriptBinaryOpcode.LE:
-                        {
-                            var node = new BinaryGreaterThanOrEqualOperator(mValueStack.Pop(), mValueStack.Pop());
-                            statements.Add(node);
-                            mValueStack.Push(node);
-                        }
+                        parseBinaryArithmic((ExpressionStatement l, ExpressionStatement r) => { return new BinaryGreaterThanOrEqualOperator(l, r); });
                         break;
 
                     case FlowScriptBinaryOpcode.IF:
@@ -228,7 +241,30 @@ namespace AtlusScriptLib.FlowScript.Parsers
                             int bodyStartIndex = mInstructionIndex + 1;
                             int bodyLength = (int)(falseBodyJumpLabel.Offset - bodyStartIndex);
 
-                            statements.Add(new SelectionStatement(mValueStack.Pop(), ParseCompoundStatement(bodyLength)));
+                            mContext.Push(CompoundStatementContext.If);
+
+                            var condition = mValueStack.Pop();
+                            var bodyIfTrue = ParseCompoundStatement();
+
+                            mContext.Pop();
+
+                            //mInstructionIndex = mScript.JumpLabelSectionData[instruction.OperandShort].Offset;
+
+                            // todo: not sure whether to parse the false black as a compound statement or parse it normally
+                            // var bodyIfFalse = ParseCompoundStatement();
+
+                            // remove expression that is evaluated in the if condition
+                            int index = statements.FindLastIndex( x => x == condition);
+                            if (index == -1)
+                                throw new Exception();
+
+                            statements.RemoveAt(index);
+
+                            // and place it in the if statement instead
+                            //statements.Add(new SelectionStatement(condition, bodyIfTrue, bodyIfFalse));
+                            statements.Add(new SelectionStatement(condition, bodyIfTrue, null));
+                            
+
                         }
                         break;
 
@@ -275,11 +311,6 @@ namespace AtlusScriptLib.FlowScript.Parsers
                     default:
                         throw new Exception();
                 }
-
-                // check if we have reached the max length of the compound statement
-                // primarily used to parse the if statement body properly
-                if (--maxLength == 0)
-                    endFound = true;
             }
 
             return new CompoundStatement(statements);
@@ -290,10 +321,12 @@ namespace AtlusScriptLib.FlowScript.Parsers
             mScript = script;
             mInstructionIndex = 0;
             mValueStack = new Stack<ExpressionStatement>();
+            mContext = new Stack<CompoundStatementContext>();
+            mContext.Push(CompoundStatementContext.Global);
 
             var tree = new SyntaxTree();
 
-            for (int mInstructionIndex = 0; mInstructionIndex < script.TextSectionData.Count; mInstructionIndex++)
+            for (; mInstructionIndex < script.TextSectionData.Count; mInstructionIndex++)
             {
                 var instruction = script.TextSectionData[mInstructionIndex];
 
@@ -301,10 +334,12 @@ namespace AtlusScriptLib.FlowScript.Parsers
                 {
                     case FlowScriptBinaryOpcode.PROC:
                         {
+                            mContext.Push(CompoundStatementContext.Procedure);
                             tree.Nodes.Add(new FunctionDefinition(
                                 new Identifier(script.ProcedureLabelSectionData[instruction.OperandShort].Name),
-                                ParseCompoundStatement(script.TextSectionData.Count - (mInstructionIndex + 1)))
+                                ParseCompoundStatement())
                             );
+                            mContext.Pop();
                         }
                         break;
 

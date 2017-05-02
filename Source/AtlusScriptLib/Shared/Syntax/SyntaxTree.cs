@@ -6,31 +6,53 @@ namespace AtlusScriptLib.Shared.Syntax
     public class SyntaxTree
     {
         public List<SyntaxNode> Nodes { get; }
+
+        public SyntaxTree()
+        {
+            Nodes = new List<SyntaxNode>();
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
     }
 
     public abstract class SyntaxNode
     {
-        protected SyntaxNode mParent;
     }
 
     // Argument list
     public class FunctionArgumentList : SyntaxNode
     {
-        public List<SyntaxNode> Arguments { get; }
+        public List<ExpressionStatement> Arguments { get; }
 
         public FunctionArgumentList()
         {
-            Arguments = new List<SyntaxNode>();
+            Arguments = new List<ExpressionStatement>();
         }
 
-        public FunctionArgumentList(List<SyntaxNode> arguments)
+        public FunctionArgumentList(List<ExpressionStatement> arguments)
         {
             Arguments = arguments;
         }
 
-        public FunctionArgumentList(params SyntaxNode[] arguments)
+        public FunctionArgumentList(params ExpressionStatement[] arguments)
         {
             Arguments = arguments.ToList();
+        }
+
+        public override string ToString()
+        {
+            var argsString = " ";
+
+            foreach (var item in Arguments)
+            {
+                argsString += item.ToString();
+                argsString += " ";
+            }
+
+            return $"({argsString})";
         }
     }
 
@@ -58,6 +80,11 @@ namespace AtlusScriptLib.Shared.Syntax
         {
             Statements = statements.ToList();
         }
+
+        public override string ToString()
+        {
+            return Statements.ToString();
+        }
     }
 
     public abstract class DeclarationStatement : Statement
@@ -67,6 +94,11 @@ namespace AtlusScriptLib.Shared.Syntax
         public DeclarationStatement(Identifier identifier)
         {
             Identifier = identifier;
+        }
+
+        public override string ToString()
+        {
+            return Identifier.Name;
         }
     }
 
@@ -89,17 +121,36 @@ namespace AtlusScriptLib.Shared.Syntax
             Identifier = identifier;
             Statement = statement;
         }
+
+        public override string ToString()
+        {
+            if (Statement != null)
+                return $"{Identifier}: {Statement}";
+            else
+                return $"{Identifier}:";
+        }
     }
 
     public class SelectionStatement : Statement
     {
         public ExpressionStatement Condition { get; }
-        public CompoundStatement Body { get; }
+        public CompoundStatement BodyIfTrue { get; }
 
-        public SelectionStatement(ExpressionStatement condition, CompoundStatement body)
+        public CompoundStatement BodyIfFalse { get; }
+
+        public SelectionStatement(ExpressionStatement condition, CompoundStatement bodyIfTrue, CompoundStatement bodyIfFalse)
         {
             Condition = condition;
-            Body = body;
+            BodyIfTrue = bodyIfTrue;
+            BodyIfFalse = bodyIfFalse;
+        }
+
+        public override string ToString()
+        {
+            return  $"if ({Condition}) \n" +
+                    $"{{{BodyIfTrue}}} " +
+                    $"else " +
+                    $"{{{BodyIfFalse}}}";
         }
     }
 
@@ -123,6 +174,14 @@ namespace AtlusScriptLib.Shared.Syntax
             : this(identifier, FunctionDeclarationFlags.None)
         {
         }
+
+        public override string ToString()
+        {
+            if (Flags != FunctionDeclarationFlags.None)
+                return $"func {Flags} {Identifier}";
+            else
+                return $"func {Identifier}";
+        }
     }
 
     public class FunctionDefinition : FunctionDeclaration
@@ -138,6 +197,15 @@ namespace AtlusScriptLib.Shared.Syntax
         public FunctionDefinition(Identifier identifier, CompoundStatement body)
             : base(identifier)
         {
+            Body = body;
+        }
+
+        public override string ToString()
+        {
+            if (Flags != FunctionDeclarationFlags.None)
+                return $"func {Flags} {Identifier} {Body}";
+            else
+                return $"func {Identifier} {Body}";
         }
     }
 
@@ -156,6 +224,14 @@ namespace AtlusScriptLib.Shared.Syntax
             : base(identifier)
         {
         }
+
+        public override string ToString()
+        {
+            if (Flags != VariableDeclarationFlags.None)
+                return $"var {Flags} {Identifier}";
+            else
+                return $"var {Identifier}";
+        }
     }
 
     public class VariableDefinition : VariableDeclaration
@@ -172,6 +248,14 @@ namespace AtlusScriptLib.Shared.Syntax
             : base(identifier, VariableDeclarationFlags.None)
         {
             Initializer = initializer;
+        }
+
+        public override string ToString()
+        {
+            if (Flags != VariableDeclarationFlags.None)
+                return $"var {Flags} {Identifier} = {Initializer}";
+            else
+                return $"var {Identifier} = {Initializer}";
         }
     }
 
@@ -245,6 +329,11 @@ namespace AtlusScriptLib.Shared.Syntax
             Identifier = identifier;
             ArgumentList = new FunctionArgumentList();
         }
+
+        public override string ToString()
+        {
+            return $"{Identifier}{ArgumentList}";
+        }
     }
 
     // Unary expressions - operators
@@ -255,6 +344,26 @@ namespace AtlusScriptLib.Shared.Syntax
         public UnaryMinusOperator(ExpressionStatement operand)
             : base(operand)
         {
+        }
+
+        public override string ToString()
+        {
+            return $"-{Operand}";
+        }
+    }
+
+    public class UnaryNotOperator : UnaryArithmicExpression, IOperator
+    {
+        public int Precedence => 2;
+
+        public UnaryNotOperator(ExpressionStatement operand)
+            : base(operand)
+        {
+        }
+
+        public override string ToString()
+        {
+            return $"~{Operand}";
         }
     }
 
@@ -267,6 +376,11 @@ namespace AtlusScriptLib.Shared.Syntax
             : base(leftOperand, rightOperand)
         {         
         }
+
+        public override string ToString()
+        {
+            return $"{LeftOperand} + {RightOperand}";
+        }
     }
 
     public class BinarySubtractOperator : BinaryArithmicExpression, IOperator
@@ -276,6 +390,11 @@ namespace AtlusScriptLib.Shared.Syntax
         public BinarySubtractOperator(ExpressionStatement leftOperand, ExpressionStatement rightOperand)
             : base(leftOperand, rightOperand)
         {
+        }
+
+        public override string ToString()
+        {
+            return $"{LeftOperand} - {RightOperand}";
         }
     }
 
@@ -287,6 +406,11 @@ namespace AtlusScriptLib.Shared.Syntax
             : base(leftOperand, rightOperand)
         {
         }
+
+        public override string ToString()
+        {
+            return $"{LeftOperand} * {RightOperand}";
+        }
     }
 
     public class BinaryDivideOperator : BinaryArithmicExpression, IOperator
@@ -297,35 +421,40 @@ namespace AtlusScriptLib.Shared.Syntax
             : base(leftOperand, rightOperand)
         {
         }
-    }
 
-    public class BinaryNotOperator : BinaryArithmicExpression, IOperator
-    {
-        public int Precedence => 2;
-
-        public BinaryNotOperator(ExpressionStatement leftOperand, ExpressionStatement rightOperand)
-            : base(leftOperand, rightOperand)
+        public override string ToString()
         {
+            return $"{LeftOperand} / {RightOperand}";
         }
     }
 
-    public class BinaryOrOperator : BinaryArithmicExpression, IOperator
+    public class BinaryLogicalOrOperator : BinaryArithmicExpression, IOperator
     {
         public int Precedence => 10;
 
-        public BinaryOrOperator(ExpressionStatement leftOperand, ExpressionStatement rightOperand)
+        public BinaryLogicalOrOperator(ExpressionStatement leftOperand, ExpressionStatement rightOperand)
             : base(leftOperand, rightOperand)
         {
         }
+
+        public override string ToString()
+        {
+            return $"{LeftOperand} || {RightOperand}";
+        }
     }
 
-    public class BinaryAndOperator : BinaryArithmicExpression, IOperator
+    public class BinaryLogicalAndOperator : BinaryArithmicExpression, IOperator
     {
         public int Precedence => 8;
 
-        public BinaryAndOperator(ExpressionStatement leftOperand, ExpressionStatement rightOperand)
+        public BinaryLogicalAndOperator(ExpressionStatement leftOperand, ExpressionStatement rightOperand)
             : base(leftOperand, rightOperand)
         {
+        }
+
+        public override string ToString()
+        {
+            return $"{LeftOperand} && {RightOperand}";
         }
     }
 
@@ -337,6 +466,11 @@ namespace AtlusScriptLib.Shared.Syntax
             : base(leftOperand, rightOperand)
         {
         }
+
+        public override string ToString()
+        {
+            return $"{LeftOperand} == {RightOperand}";
+        }
     }
 
     public class BinaryNonEqualityOperator : BinaryArithmicExpression, IOperator
@@ -346,6 +480,11 @@ namespace AtlusScriptLib.Shared.Syntax
         public BinaryNonEqualityOperator(ExpressionStatement leftOperand, ExpressionStatement rightOperand)
             : base(leftOperand, rightOperand)
         {
+        }
+
+        public override string ToString()
+        {
+            return $"{LeftOperand} != {RightOperand}";
         }
     }
 
@@ -357,6 +496,11 @@ namespace AtlusScriptLib.Shared.Syntax
             : base(leftOperand, rightOperand)
         {
         }
+
+        public override string ToString()
+        {
+            return $"{LeftOperand} < {RightOperand}";
+        }
     }
 
     public class BinaryGreaterThanOperator : BinaryArithmicExpression, IOperator
@@ -366,6 +510,11 @@ namespace AtlusScriptLib.Shared.Syntax
         public BinaryGreaterThanOperator(ExpressionStatement leftOperand, ExpressionStatement rightOperand)
             : base(leftOperand, rightOperand)
         {
+        }
+
+        public override string ToString()
+        {
+            return $"{LeftOperand} > {RightOperand}";
         }
     }
 
@@ -377,6 +526,11 @@ namespace AtlusScriptLib.Shared.Syntax
             : base(leftOperand, rightOperand)
         {
         }
+
+        public override string ToString()
+        {
+            return $"{LeftOperand} =< {RightOperand}";
+        }
     }
 
     public class BinaryGreaterThanOrEqualOperator : BinaryArithmicExpression, IOperator
@@ -386,6 +540,11 @@ namespace AtlusScriptLib.Shared.Syntax
         public BinaryGreaterThanOrEqualOperator(ExpressionStatement leftOperand, ExpressionStatement rightOperand)
             : base(leftOperand, rightOperand)
         {
+        }
+
+        public override string ToString()
+        {
+            return $"{LeftOperand} >= {RightOperand}";
         }
     }
 
@@ -401,6 +560,11 @@ namespace AtlusScriptLib.Shared.Syntax
             : base(leftOperand, rightOperand)
         {
         }
+
+        public override string ToString()
+        {
+            return $"{LeftOperand} = {RightOperand}";
+        }
     }
 
     // Literal expressions
@@ -411,6 +575,11 @@ namespace AtlusScriptLib.Shared.Syntax
         public Literal(T value)
         {
             Value = value;
+        }
+
+        public override string ToString()
+        {
+            return $"{Value}";
         }
     }
 
@@ -464,6 +633,11 @@ namespace AtlusScriptLib.Shared.Syntax
         {
             Name = name;
         }
+
+        public override string ToString()
+        {
+            return $"{Name}";
+        }
     }
 
     // jump statements
@@ -475,6 +649,11 @@ namespace AtlusScriptLib.Shared.Syntax
         {
             Identifier = identifier;
         }
+
+        public override string ToString()
+        {
+            return $"goto {Identifier}";
+        }
     }
 
     public class ReturnStatement : JumpStatement
@@ -485,9 +664,18 @@ namespace AtlusScriptLib.Shared.Syntax
         {
             Expression = expression;
         }
+
+        public override string ToString()
+        {
+            return $"return {Expression}";
+        }
     }
 
     public class BreakStatement : JumpStatement
     {
+        public override string ToString()
+        {
+            return $"break";
+        }
     }
 }

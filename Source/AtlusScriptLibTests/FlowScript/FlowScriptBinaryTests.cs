@@ -72,8 +72,7 @@ namespace AtlusScriptLib.FlowScript.Tests
         [TestMethod()]
         public void LoadFromFileTest_InvalidFileFormat_Small()
         {
-            FlowScriptBinary script;
-            var result = FlowScriptBinary.LoadFromFile("TestResources\\dummy_small.bin", FlowScriptBinaryVersion.Unknown, out script);
+            var result = FlowScriptBinary.LoadFromFile("TestResources\\dummy_small.bin", FlowScriptBinaryVersion.Unknown, out FlowScriptBinary script);
 
             Assert.AreEqual(FlowScriptBinaryLoadResult.InvalidFormat, result);
             Assert.IsNull(script);
@@ -82,8 +81,7 @@ namespace AtlusScriptLib.FlowScript.Tests
         [TestMethod()]
         public void LoadFromFileTest_InvalidFileFormat_Big()
         {
-            FlowScriptBinary script;
-            var result = FlowScriptBinary.LoadFromFile("TestResources\\dummy_big.bin", FlowScriptBinaryVersion.Unknown, out script);
+            var result = FlowScriptBinary.LoadFromFile("TestResources\\dummy_big.bin", FlowScriptBinaryVersion.Unknown, out FlowScriptBinary script);
 
             Assert.AreEqual(FlowScriptBinaryLoadResult.InvalidFormat, result);
             Assert.IsNull(script);
@@ -94,8 +92,7 @@ namespace AtlusScriptLib.FlowScript.Tests
         {
             foreach (var path in Directory.EnumerateFiles("TestResources\\Batch\\", "*.bf"))
             {
-                FlowScriptBinary script;
-                var result = FlowScriptBinary.LoadFromFile(path, FlowScriptBinaryVersion.V3_BE, out script);
+                var result = FlowScriptBinary.LoadFromFile(path, FlowScriptBinaryVersion.V3_BE, out FlowScriptBinary script);
 
                 Assert.AreEqual(FlowScriptBinaryLoadResult.OK, result, $"{nameof(FlowScriptBinaryLoadResult)} value is not OK");
                 Assert.IsNotNull(script, "Script object should not be null");

@@ -223,9 +223,9 @@ namespace AtlusScriptLib.FlowScript
             {
                 var label = new FlowScriptBinaryLabel()
                 {
-                    Name = reader.ReadCString((int)sectionHeader.UnitSize - sizeof(uint) * 2),
-                    Offset = reader.ReadUInt32(),
-                    Reserved = reader.ReadUInt32()
+                    Name = reader.ReadCString(sectionHeader.UnitSize - sizeof(int) * 2),
+                    Offset = reader.ReadInt32(),
+                    Reserved = reader.ReadInt32()
                 };
 
                 // Would indicate a possible endianness issue
