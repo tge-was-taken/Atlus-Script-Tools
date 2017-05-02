@@ -1,0 +1,152 @@
+
+PUSHI 	= <push int value to stack>
+PUSHF 	= <push float value to stack>
+PUSHIX 	= !!unknown!!
+PUSHIF 	= !!unknown!!
+PUSHREG = <push comm return value to stack>
+POPIX 	= !!unknown!!
+POPFX 	= !!unknown!!
+PROC 	= proc <name> 
+COMM 	= <commname>(<args>)
+END 	= return
+JUMP 	= jump <label>
+CALL 	= <proc name>(<args>)
+RUN 	= not implemented
+GOTO 	= goto <label>
+ADD 	= lhs + rhs
+SUB 	= lhs - rhs
+MUL 	= lhs * rhs
+DIV 	= lhs / div
+MINUS 	= -value
+NOT 	= ~value
+OR 		= lhs | rhs
+AND 	= lhs & rhs
+EQ 		= lhs == rhs
+NEQ 	= lhs != rhs
+S 		= lhs < rhs
+L		= lhs > rhs
+SE		= lhs <= rhs 
+LE		= lhs >= rhs
+IF		= if (<condition>) { <expression> } else { <expression> }
+PUSHIS	= <push integer short to stack>
+PUSHLIX	= <push value of integer n to stack>
+PUSHLFX	= <push value of float n to stack>
+POPLIX	= <pops value off stack and stores it in integer n>
+POPLFX	= <pops value off stack and stores it in float n>
+PUSHSTR	= <push string index value (index into string table) to stack>
+
+common expressions:
+
+integer variable:
+{
+	// script
+	int intvar = 1;
+
+	// asm
+	PUSHI 1
+	POPLIX 0 // assuming intvar = integer 0
+}
+
+float variable:
+{
+	// script
+	float floatvar = 1.11f;
+
+	// asm
+	PUSHF 1.11f
+	POPLFX 0 // assuming intvar = integer 0
+}
+
+result value from comm call
+{
+	// script
+	int resultValue = comm();
+	
+	// assembly
+	PUSHREG
+	POPLIX 0
+}
+
+procedure definition
+{
+	// script
+	proc myProc(int a, int b)
+	{
+		return a + b;
+	}
+	
+	// assembly of proc definition
+	PROC myProc
+	ADD
+	END
+}
+
+procedure call
+{
+	// script
+	int result = myProc(0, 1);
+	
+	// asm
+	PUSHI 1;
+	PUSHI 0;
+	CALL myProc
+}
+
+if statement
+{
+	// script
+	int a = 1;
+	int b = 2;
+	bool areEqual;
+	
+	if (a == b)
+	{
+		areEqual = true;
+	}
+	else
+	{
+		areEqual = false;
+	}
+	
+	// asm
+	
+	// int a = 1
+	PUSHI 1
+	POPLIX 0
+	
+	// int b = 2
+	PUSHI 2
+	POPLIX 1
+	
+	// a == b
+	PUSHLIX 1
+	PUSHLIX 0
+	EQ
+	
+	// if (a == b)
+	IF _notEqual
+	
+	// areEqual = true
+	PUSHIS 1
+	POPLIX 3
+	
+	// areEqual = false
+	_notEqual:
+	PUSHIS 0
+	POPLIX 3
+}
+
+// a = b + c * 3
+
+// c * 3
+PUSHIS 3
+PUSHLIX 2
+MUL
+
+// b + result of (c * 3)
+PUSHLIX 1
+ADD
+
+// a = result
+POPLIX 0
+

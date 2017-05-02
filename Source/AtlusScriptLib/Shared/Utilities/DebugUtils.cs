@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
-namespace AtlusScriptLib.Utilities
+namespace AtlusScriptLib.Shared.Utilities
 {
     internal static class DebugUtils
     {

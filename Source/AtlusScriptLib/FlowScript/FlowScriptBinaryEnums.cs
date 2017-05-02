@@ -2,7 +2,7 @@
 
 namespace AtlusScriptLib.FlowScript
 {
-    public enum BinaryFlowScriptSectionType : uint
+    public enum FlowScriptBinarySectionType : uint
     {
         ProcedureLabelSection,
         JumpLabelSection,
@@ -11,7 +11,7 @@ namespace AtlusScriptLib.FlowScript
         StringSection,
     }
 
-    public enum BinaryFlowScriptLoadResult
+    public enum FlowScriptBinaryLoadResult
     {  
         Unknown,
         OK,
@@ -19,7 +19,7 @@ namespace AtlusScriptLib.FlowScript
     }
 
     [Flags]
-    public enum BinaryFlowScriptVersion
+    public enum FlowScriptBinaryVersion
     {
         Unknown     = 1 << 0,
         V1          = 1 << 1,
@@ -30,7 +30,7 @@ namespace AtlusScriptLib.FlowScript
         V2_BE       = V2 | BE,
         V3_BE       = V3 | BE,
     }
-    public enum BinaryFlowScriptOpcode : ushort
+    public enum FlowScriptBinaryOpcode : ushort
     {
         PUSHI,
         PUSHF,

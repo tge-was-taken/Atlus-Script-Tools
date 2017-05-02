@@ -1,1 +1,0 @@
-<Playlist Version="1.0"><Add Test="AtlusScriptLib.FlowScript.Tests.BinaryFlowScriptDisassemblerTests.DisassembleToFileTest_Batch" /><Add Test="AtlusScriptLib.FlowScript.Tests.BinaryFlowScriptTests.LoadFromFileTest_Batch" /></Playlist>

@@ -1,0 +1,56 @@
+
+flowscript basic language constructs
+
+by order of opcodes:
+literal int
+literal float
+		
+function declaration
+function call
+
+return / break statement
+goto statement
+
+binary + operator
+binary - operator
+binary * operator
+binary / operator
+unary - operator
+unary ~ operator
+binary | operator
+binary & operator
+binary == operator
+binary != operator
+binary < operator
+binary > operator
+binary <= operator
+binary >= operator
+if statement
+
+literal short
+variable int
+variable float
+literal string
+
+sorted:
+
+literals:
+literal short
+literal int
+literal float
+literal string
+
+statements:
+
+function declaration
+return, break statements
+goto statement
+if statement
+expression statement
+compound statement
+
+expressions:
+function call
+variable assignment
+unary operators
+

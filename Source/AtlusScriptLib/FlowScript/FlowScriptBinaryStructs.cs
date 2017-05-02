@@ -3,7 +3,7 @@
 namespace AtlusScriptLib.FlowScript
 {
     [StructLayout(LayoutKind.Sequential)]
-    public struct BinaryFlowScriptHeader
+    public struct FlowScriptBinaryHeader
     {
         public const int SIZE = 32;
         public static byte[] MAGIC = new byte[] { (byte)'F', (byte)'L', (byte)'W', (byte)'0' };
@@ -26,18 +26,18 @@ namespace AtlusScriptLib.FlowScript
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct BinaryFlowScriptSectionHeader
+    public struct FlowScriptBinarySectionHeader
     {
         public const int SIZE = 16;
 
-        public BinaryFlowScriptSectionType sectionType;
+        public FlowScriptBinarySectionType sectionType;
         public uint UnitSize;
         public uint UnitCount;
         public uint StartOffset;
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct BinaryFlowScriptLabel
+    public struct FlowScriptBinaryLabel
     {
         public const int SIZE_V1 = 32;
         public const int SIZE_V2 = 56;
@@ -49,12 +49,12 @@ namespace AtlusScriptLib.FlowScript
     }
 
     [StructLayout(LayoutKind.Explicit)]
-    internal struct BinaryFlowScriptInstructionInternal
+    internal struct FlowScriptBinaryInstructionInternal
     {
         public const int SIZE = 4;
 
         [FieldOffset(0)]
-        public BinaryFlowScriptOpcode Opcode;
+        public FlowScriptBinaryOpcode Opcode;
 
         [FieldOffset(2)]
         public short OperandShort;
@@ -66,9 +66,10 @@ namespace AtlusScriptLib.FlowScript
         public float OperandFloat;
     }
 
-    public struct BinaryFlowScriptInstruction
+    // required for fixups
+    public struct FlowScriptBinaryInstruction
     {
-        public BinaryFlowScriptOpcode Opcode;
+        public FlowScriptBinaryOpcode Opcode;
         public short OperandShort;
         public int OperandInt;
         public float OperandFloat;

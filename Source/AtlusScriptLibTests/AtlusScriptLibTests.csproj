@@ -56,8 +56,9 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="FlowScript\Disassembler\BinaryFlowScriptDisassemblerTests.cs" />
-    <Compile Include="FlowScript\BinaryFlowScriptTests.cs" />
+    <Compile Include="FlowScript\Disassembler\FlowScriptDisassemblerTests.cs" />
+    <Compile Include="FlowScript\FlowScriptBinaryTests.cs" />
+    <Compile Include="FlowScript\Parsers\FlowScriptBinarySyntaxParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

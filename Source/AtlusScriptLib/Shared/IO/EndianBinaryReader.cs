@@ -2,9 +2,8 @@
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Linq;
 
-namespace AtlusScriptLib.IO
+namespace AtlusScriptLib.Shared.IO
 {
     public class EndianBinaryReader : BinaryReader
     {

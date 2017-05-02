@@ -1,12 +1,7 @@
-﻿using MoreLinq;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System;
 using System.Linq;
-using System.Reflection;
-using System.Runtime.InteropServices;
 
-namespace AtlusScriptLib.IO
+namespace AtlusScriptLib.Shared.IO
 {
     public enum Endianness
     {

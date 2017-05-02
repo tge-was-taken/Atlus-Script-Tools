@@ -5,52 +5,48 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 
-using AtlusScriptLib.IO;
-using AtlusScriptLib.Utilities;
+using AtlusScriptLib.Shared.IO;
+using AtlusScriptLib.Shared.Utilities;
 
 namespace AtlusScriptLib.FlowScript
 {
-    public class BinaryFlowScript
+    public class FlowScriptBinary
     {
         // Headers    
-        private BinaryFlowScriptHeader m_Header;
-        private BinaryFlowScriptSectionHeader[] m_SectionHeaders;
+        private FlowScriptBinaryHeader m_Header;
+        private FlowScriptBinarySectionHeader[] m_SectionHeaders;
 
         // Sections
-        private BinaryFlowScriptLabel[] m_ProcedureLabelSectionData;
-        private BinaryFlowScriptLabel[] m_JumpLabelSectionData;
-        private BinaryFlowScriptInstruction[] m_TextSectionData;
+        private FlowScriptBinaryLabel[] m_ProcedureLabelSectionData;
+        private FlowScriptBinaryLabel[] m_JumpLabelSectionData;
+        private FlowScriptBinaryInstruction[] m_TextSectionData;
         private byte[] m_MessageScriptSectionData; // todo: use a binary message script header here?
         private Dictionary<int, string> m_StringSectionData;
 
-        private BinaryFlowScript()
-        {
-        }
-
         // Properties
-        public BinaryFlowScriptHeader Header
+        public FlowScriptBinaryHeader Header
         {
             get { return m_Header; }
         }
 
-        public ReadOnlyCollection<BinaryFlowScriptSectionHeader> SectionHeaders
+        public ReadOnlyCollection<FlowScriptBinarySectionHeader> SectionHeaders
         {
-            get { return new ReadOnlyCollection<BinaryFlowScriptSectionHeader>(m_SectionHeaders); }
+            get { return new ReadOnlyCollection<FlowScriptBinarySectionHeader>(m_SectionHeaders); }
         }
 
-        public ReadOnlyCollection<BinaryFlowScriptLabel> ProcedureLabelSectionData
+        public ReadOnlyCollection<FlowScriptBinaryLabel> ProcedureLabelSectionData
         {
-            get { return new ReadOnlyCollection<BinaryFlowScriptLabel>(m_ProcedureLabelSectionData); }
+            get { return new ReadOnlyCollection<FlowScriptBinaryLabel>(m_ProcedureLabelSectionData); }
         }
 
-        public ReadOnlyCollection<BinaryFlowScriptLabel> JumpLabelSectionData
+        public ReadOnlyCollection<FlowScriptBinaryLabel> JumpLabelSectionData
         {
-            get { return new ReadOnlyCollection<BinaryFlowScriptLabel>(m_JumpLabelSectionData); }
+            get { return new ReadOnlyCollection<FlowScriptBinaryLabel>(m_JumpLabelSectionData); }
         }
 
-        public ReadOnlyCollection<BinaryFlowScriptInstruction> TextSectionData
+        public ReadOnlyCollection<FlowScriptBinaryInstruction> TextSectionData
         {
-            get { return new ReadOnlyCollection<BinaryFlowScriptInstruction>(m_TextSectionData); }
+            get { return new ReadOnlyCollection<FlowScriptBinaryInstruction>(m_TextSectionData); }
         }
 
         public ReadOnlyCollection<byte> MessageScriptSectionData
@@ -63,14 +59,18 @@ namespace AtlusScriptLib.FlowScript
             get { return new ReadOnlyDictionary<int, string>(m_StringSectionData); }
         }
 
-        public BinaryFlowScriptVersion Version
+        public FlowScriptBinaryVersion Version
         {
             get;
             private set;
         }
 
+        private FlowScriptBinary()
+        {
+        }
+
         // Static methods
-        public static BinaryFlowScriptLoadResult LoadFromFile(string path, BinaryFlowScriptVersion version, out BinaryFlowScript script)
+        public static FlowScriptBinaryLoadResult LoadFromFile(string path, FlowScriptBinaryVersion version, out FlowScriptBinary script)
         {
             using (var fileStream = File.OpenRead(path))
             {
@@ -78,29 +78,34 @@ namespace AtlusScriptLib.FlowScript
             }
         }
 
-        public static BinaryFlowScriptLoadResult LoadFromStream(Stream stream, BinaryFlowScriptVersion version, out BinaryFlowScript script)
+        public static FlowScriptBinaryLoadResult LoadFromFile(string path, out FlowScriptBinary script)
         {
-            script = new BinaryFlowScript();
+            return LoadFromFile(path, FlowScriptBinaryVersion.Unknown, out script);
+        }
 
-            using (EndianBinaryReader reader = new EndianBinaryReader(stream, version.HasFlag(BinaryFlowScriptVersion.BE) ? Endianness.BigEndian : Endianness.LittleEndian))
+        public static FlowScriptBinaryLoadResult LoadFromStream(Stream stream, FlowScriptBinaryVersion version, out FlowScriptBinary script)
+        {
+            script = new FlowScriptBinary();
+
+            using (EndianBinaryReader reader = new EndianBinaryReader(stream, version.HasFlag(FlowScriptBinaryVersion.BE) ? Endianness.BigEndian : Endianness.LittleEndian))
             {
                 script.Version = version;
 
                 // Check if the stream isn't too small to be a proper file
-                if (stream.Length < BinaryFlowScriptHeader.SIZE)
+                if (stream.Length < FlowScriptBinaryHeader.SIZE)
                 {
                     Trace.TraceError("Stream is too small to be a proper script file.");
                     script = null;
-                    return BinaryFlowScriptLoadResult.InvalidFormat;
+                    return FlowScriptBinaryLoadResult.InvalidFormat;
                 }
                 else
                 {
-                    script.m_Header = reader.ReadStruct<BinaryFlowScriptHeader>();
-                    if (!script.m_Header.Magic.SequenceEqual(BinaryFlowScriptHeader.MAGIC))
+                    script.m_Header = reader.ReadStruct<FlowScriptBinaryHeader>();
+                    if (!script.m_Header.Magic.SequenceEqual(FlowScriptBinaryHeader.MAGIC))
                     {
                         Trace.TraceError("Magic signature value does not match");
                         script = null;
-                        return BinaryFlowScriptLoadResult.InvalidFormat;
+                        return FlowScriptBinaryLoadResult.InvalidFormat;
                     }
                 }
 
@@ -112,20 +117,20 @@ namespace AtlusScriptLib.FlowScript
                     if (reader.Endianness == Endianness.LittleEndian)
                     {
                         reader.Endianness = Endianness.BigEndian;
-                        script.Version |= BinaryFlowScriptVersion.BE;
+                        script.Version |= FlowScriptBinaryVersion.BE;
                     }
                     else
                     {
                         reader.Endianness = Endianness.LittleEndian;
-                        script.Version ^= BinaryFlowScriptVersion.BE;
+                        script.Version ^= FlowScriptBinaryVersion.BE;
                     }
                 }
 
                 // Read section headers
-                script.m_SectionHeaders = new BinaryFlowScriptSectionHeader[script.m_Header.SectionCount];
+                script.m_SectionHeaders = new FlowScriptBinarySectionHeader[script.m_Header.SectionCount];
                 for (int i = 0; i < script.m_SectionHeaders.Length; i++)
                 {
-                    script.m_SectionHeaders[i] = reader.ReadStruct<BinaryFlowScriptSectionHeader>();
+                    script.m_SectionHeaders[i] = reader.ReadStruct<FlowScriptBinarySectionHeader>();
                 }
 
                 // Parse sections using the section headers
@@ -135,83 +140,88 @@ namespace AtlusScriptLib.FlowScript
                     {
                         DebugUtils.TraceError("Stream is too small for the amount of data described. File is likely truncated");
                         script = null;
-                        return BinaryFlowScriptLoadResult.InvalidFormat;
+                        return FlowScriptBinaryLoadResult.InvalidFormat;
                     }
 
                     reader.SeekBegin(sectionHeader.StartOffset);
 
-                    BinaryFlowScriptLoadResult result;
+                    FlowScriptBinaryLoadResult result;
 
                     switch (sectionHeader.sectionType)
                     {
-                        case BinaryFlowScriptSectionType.ProcedureLabelSection:
+                        case FlowScriptBinarySectionType.ProcedureLabelSection:
                             result = ReadLabelSectionData(reader, script, sectionHeader, out script.m_ProcedureLabelSectionData);
                             break;
 
-                        case BinaryFlowScriptSectionType.JumpLabelSection:
+                        case FlowScriptBinarySectionType.JumpLabelSection:
                             result = ReadLabelSectionData(reader, script, sectionHeader, out script.m_JumpLabelSectionData);
                             break;
 
-                        case BinaryFlowScriptSectionType.TextSection:
+                        case FlowScriptBinarySectionType.TextSection:
                             result = ReadTextSectionData(reader, script, sectionHeader);
                             break;
 
-                        case BinaryFlowScriptSectionType.MessageScriptSection:
+                        case FlowScriptBinarySectionType.MessageScriptSection:
                             result = ReadMessageScriptSectionData(reader, script, sectionHeader);
                             break;
 
-                        case BinaryFlowScriptSectionType.StringSection:
+                        case FlowScriptBinarySectionType.StringSection:
                             result = ReadStringSectionData(reader, script, sectionHeader);
                             break;
 
                         default:
                             DebugUtils.TraceError($"BinaryFlowScript::LoadFromStream: unknown section id {sectionHeader.sectionType}");
-                            return BinaryFlowScriptLoadResult.InvalidFormat;
+                            return FlowScriptBinaryLoadResult.InvalidFormat;
                     }
 
-                    if (result != BinaryFlowScriptLoadResult.OK)
+                    if (result != FlowScriptBinaryLoadResult.OK)
                         return result;
                 }
             }
 
-            return BinaryFlowScriptLoadResult.OK;
+            return FlowScriptBinaryLoadResult.OK;
         }
 
-        private static BinaryFlowScriptLoadResult ReadLabelSectionData(EndianBinaryReader reader, BinaryFlowScript script, BinaryFlowScriptSectionHeader sectionHeader, out BinaryFlowScriptLabel[] labels)
+        public static FlowScriptBinaryLoadResult LoadFromStream(Stream stream, out FlowScriptBinary script)
         {
-            if (sectionHeader.UnitSize != BinaryFlowScriptLabel.SIZE_V1 &&
-                sectionHeader.UnitSize != BinaryFlowScriptLabel.SIZE_V2 &&
-                sectionHeader.UnitSize != BinaryFlowScriptLabel.SIZE_V3)
+            return LoadFromStream(stream, FlowScriptBinaryVersion.Unknown, out script);
+        }
+
+        private static FlowScriptBinaryLoadResult ReadLabelSectionData(EndianBinaryReader reader, FlowScriptBinary script, FlowScriptBinarySectionHeader sectionHeader, out FlowScriptBinaryLabel[] labels)
+        {
+            if (sectionHeader.UnitSize != FlowScriptBinaryLabel.SIZE_V1 &&
+                sectionHeader.UnitSize != FlowScriptBinaryLabel.SIZE_V2 &&
+                sectionHeader.UnitSize != FlowScriptBinaryLabel.SIZE_V3)
             {
                 DebugUtils.TraceError("Unknown unit size for label");
 
                 labels = null;
-                return BinaryFlowScriptLoadResult.InvalidFormat;
+                return FlowScriptBinaryLoadResult.InvalidFormat;
             }
 
-            if (sectionHeader.UnitSize == BinaryFlowScriptLabel.SIZE_V1 && !script.Version.HasFlag(BinaryFlowScriptVersion.V1))
+            if (sectionHeader.UnitSize == FlowScriptBinaryLabel.SIZE_V1 && !script.Version.HasFlag(FlowScriptBinaryVersion.V1))
             {
-                script.Version = BinaryFlowScriptVersion.V1;
+                script.Version = FlowScriptBinaryVersion.V1;
                 if (reader.Endianness == Endianness.BigEndian)
-                    script.Version |= BinaryFlowScriptVersion.BE;
+                    script.Version |= FlowScriptBinaryVersion.BE;
             }
-            else if (sectionHeader.UnitSize == BinaryFlowScriptLabel.SIZE_V2 && !script.Version.HasFlag(BinaryFlowScriptVersion.V2))
+            else if (sectionHeader.UnitSize == FlowScriptBinaryLabel.SIZE_V2 && !script.Version.HasFlag(FlowScriptBinaryVersion.V2))
             {
-                script.Version = BinaryFlowScriptVersion.V2;
+                script.Version = FlowScriptBinaryVersion.V2;
                 if (reader.Endianness == Endianness.BigEndian)
-                    script.Version |= BinaryFlowScriptVersion.BE;
+                    script.Version |= FlowScriptBinaryVersion.BE;
             }
-            else if (sectionHeader.UnitSize == BinaryFlowScriptLabel.SIZE_V3 && !script.Version.HasFlag(BinaryFlowScriptVersion.V3))
+            else if (sectionHeader.UnitSize == FlowScriptBinaryLabel.SIZE_V3 && !script.Version.HasFlag(FlowScriptBinaryVersion.V3))
             {
-                script.Version = BinaryFlowScriptVersion.V3;
+                script.Version = FlowScriptBinaryVersion.V3;
                 if (reader.Endianness == Endianness.BigEndian)
-                    script.Version |= BinaryFlowScriptVersion.BE;
+                    script.Version |= FlowScriptBinaryVersion.BE;
             }
 
-            labels = new BinaryFlowScriptLabel[sectionHeader.UnitCount];
+            labels = new FlowScriptBinaryLabel[sectionHeader.UnitCount];
             for (int i = 0; i < labels.Length; i++)
             {
-                var label = new BinaryFlowScriptLabel()
+                var label = new FlowScriptBinaryLabel()
                 {
                     Name = reader.ReadCString((int)sectionHeader.UnitSize - sizeof(uint) * 2),
                     Offset = reader.ReadUInt32(),
@@ -227,15 +237,15 @@ namespace AtlusScriptLib.FlowScript
                 labels[i] = label;
             }
 
-            return BinaryFlowScriptLoadResult.OK;
+            return FlowScriptBinaryLoadResult.OK;
         }
 
-        private static BinaryFlowScriptLoadResult ReadTextSectionData(EndianBinaryReader reader, BinaryFlowScript script, BinaryFlowScriptSectionHeader sectionHeader)
+        private static FlowScriptBinaryLoadResult ReadTextSectionData(EndianBinaryReader reader, FlowScriptBinary script, FlowScriptBinarySectionHeader sectionHeader)
         {
-            if (!(sectionHeader.UnitSize == BinaryFlowScriptInstructionInternal.SIZE))
+            if (!(sectionHeader.UnitSize == FlowScriptBinaryInstructionInternal.SIZE))
             {
-                DebugUtils.TraceError($"{BinaryFlowScriptSectionType.TextSection} unit size must be 1");
-                return BinaryFlowScriptLoadResult.InvalidFormat;
+                DebugUtils.TraceError($"{FlowScriptBinarySectionType.TextSection} unit size must be 1");
+                return FlowScriptBinaryLoadResult.InvalidFormat;
             }
 
             // HACK: the instructions are stored in a tuple consisting of 2 shorts, an int and a float
@@ -248,12 +258,12 @@ namespace AtlusScriptLib.FlowScript
             if (needsSwap)
                 reader.Endianness = EndiannessHelper.SystemEndianness;
 
-            script.m_TextSectionData = new BinaryFlowScriptInstruction[sectionHeader.UnitCount];
+            script.m_TextSectionData = new FlowScriptBinaryInstruction[sectionHeader.UnitCount];
             for (int i = 0; i < script.m_TextSectionData.Length; i++)
             {
-                var instruction = reader.ReadStruct<BinaryFlowScriptInstructionInternal>();
+                var instruction = reader.ReadStruct<FlowScriptBinaryInstructionInternal>();
 
-                var instructionAux = new BinaryFlowScriptInstruction()
+                var instructionAux = new FlowScriptBinaryInstruction()
                 {
                     Opcode = instruction.Opcode,
                     OperandShort = instruction.OperandShort,
@@ -276,28 +286,28 @@ namespace AtlusScriptLib.FlowScript
             if (needsSwap)
                 reader.Endianness = sourceEndianness;
 
-            return BinaryFlowScriptLoadResult.OK;
+            return FlowScriptBinaryLoadResult.OK;
         }
 
-        private static BinaryFlowScriptLoadResult ReadMessageScriptSectionData(EndianBinaryReader reader, BinaryFlowScript script, BinaryFlowScriptSectionHeader sectionHeader)
+        private static FlowScriptBinaryLoadResult ReadMessageScriptSectionData(EndianBinaryReader reader, FlowScriptBinary script, FlowScriptBinarySectionHeader sectionHeader)
         {
             if (!(sectionHeader.UnitSize == sizeof(byte)))
             {
-                DebugUtils.TraceError($"{BinaryFlowScriptSectionType.MessageScriptSection} unit size must be 1");
-                return BinaryFlowScriptLoadResult.InvalidFormat;
+                DebugUtils.TraceError($"{FlowScriptBinarySectionType.MessageScriptSection} unit size must be 1");
+                return FlowScriptBinaryLoadResult.InvalidFormat;
             }
 
             script.m_MessageScriptSectionData = reader.ReadBytes((int)sectionHeader.UnitCount);
 
-            return BinaryFlowScriptLoadResult.OK;
+            return FlowScriptBinaryLoadResult.OK;
         }
 
-        private static BinaryFlowScriptLoadResult ReadStringSectionData(EndianBinaryReader reader, BinaryFlowScript script, BinaryFlowScriptSectionHeader sectionHeader)
+        private static FlowScriptBinaryLoadResult ReadStringSectionData(EndianBinaryReader reader, FlowScriptBinary script, FlowScriptBinarySectionHeader sectionHeader)
         {
             if (!(sectionHeader.UnitSize == sizeof(byte)))
             {
-                DebugUtils.TraceError($"{BinaryFlowScriptSectionType.StringSection} unit size must be 1");
-                return BinaryFlowScriptLoadResult.InvalidFormat;
+                DebugUtils.TraceError($"{FlowScriptBinarySectionType.StringSection} unit size must be 1");
+                return FlowScriptBinaryLoadResult.InvalidFormat;
             }
 
             script.m_StringSectionData = new Dictionary<int, string>();
@@ -324,7 +334,7 @@ namespace AtlusScriptLib.FlowScript
                 }           
             }
 
-            return BinaryFlowScriptLoadResult.OK;
+            return FlowScriptBinaryLoadResult.OK;
         }
     }
 }
