@@ -4,22 +4,16 @@ using System.Linq;
 using MoreLinq;
 
 using AtlusScriptLib.Shared.Syntax;
+using System.Diagnostics;
+using AtlusScriptLib.Shared.Utilities;
 
 namespace AtlusScriptLib.FlowScript.Parsers
 {
-    enum CompoundStatementContext
-    {
-        Global,
-        Procedure,
-        If
-    }
-
     public class FlowScriptBinarySyntaxParser
     {
         private FlowScriptBinary mScript;
         private int mInstructionIndex;
-        private Stack<ExpressionStatement> mValueStack;
-        private Stack<CompoundStatementContext> mContext;
+        private Stack<Expression> mValueStack;
         private FunctionCallOperator mLastCommCall;
 
         public FlowScriptBinarySyntaxParser()
@@ -36,31 +30,42 @@ namespace AtlusScriptLib.FlowScript.Parsers
             return $"varFloat{index}";
         }
 
-        private CompoundStatement ParseCompoundStatement()
+        private int CalculateProcedureLength()
+        {
+            int endIndex = mInstructionIndex;
+            while (++endIndex < mScript.TextSectionData.Count)
+            {
+                // Start of new procedure
+                if (mScript.TextSectionData[endIndex].Opcode == FlowScriptBinaryOpcode.PROC)
+                {
+                    break;
+                }
+            }
+
+            // No new procedure found- this is the last procedure left
+            if (mScript.TextSectionData[endIndex - 1].Opcode != FlowScriptBinaryOpcode.END)
+                DebugUtils.TraceError("Expected END opcode at end of procedure");
+
+            return (endIndex - mInstructionIndex) - 1;
+        }
+
+        private CompoundStatement ParseProcedureBody(int length)
         {
             // for compound statement construction later
             var statements = new List<Statement>();
 
-            // we're going to loop until we find an end instruction
-            bool endFound = false;
-
-            while (!endFound)
+            while (--length > 0)
             {
-                if (mInstructionIndex == mScript.TextSectionData.Count - 1)
-                {
-                    endFound = true;
-                    continue;
-                }
-
                 var instruction = mScript.TextSectionData[++mInstructionIndex];
 
+                // jump labels can appear anywhere, so check if there is one present at the current location
                 var jumpLabels = mScript.JumpLabelSectionData.Where(x => x.Offset == mInstructionIndex);
                 foreach (var item in jumpLabels)
                 {
                     statements.Add(new LabeledStatement(new Identifier(item.Name), null));
                 }
 
-                void parseBinaryArithmic<T>(Func<ExpressionStatement, ExpressionStatement, T> ctor)
+                void parseBinaryArithmic<T>(Func<Expression, Expression, T> ctor)
                     where T : BinaryArithmicExpression
                 {
                     var node = ctor(mValueStack.Pop(), mValueStack.Pop());
@@ -88,8 +93,6 @@ namespace AtlusScriptLib.FlowScript.Parsers
 
                     case FlowScriptBinaryOpcode.PUSHREG:
                         {
-                            //mValueStack.Push(new Identifier("__commResult")); // TODO: implement using COMM function table
-
                             if (mLastCommCall == null)
                                 throw new Exception();
                             
@@ -126,26 +129,14 @@ namespace AtlusScriptLib.FlowScript.Parsers
 
                     case FlowScriptBinaryOpcode.END:
                         {
-                            var context = mContext.Peek();
-                            endFound = true;
-
-                            switch (context)
-                            {
-                                case CompoundStatementContext.Procedure:
-                                    statements.Add(new ReturnStatement());
-                                    break;
-
-                                case CompoundStatementContext.If:
-                                    statements.Add(new BreakStatement());
-                                    break;
-                            }
+                            statements.Add(new ReturnStatement());
                         }
                         break;
 
                     case FlowScriptBinaryOpcode.JUMP:
                         {
                             statements.Add(new GotoStatement(
-                                new Identifier(mScript.JumpLabelSectionData[instruction.OperandShort].Name)
+                                new Identifier(mScript.ProcedureLabelSectionData[instruction.OperandShort].Name)
                             ));
                         }
                         break;
@@ -170,19 +161,19 @@ namespace AtlusScriptLib.FlowScript.Parsers
                         break;
 
                     case FlowScriptBinaryOpcode.ADD:
-                        parseBinaryArithmic((ExpressionStatement l, ExpressionStatement r) => { return new BinaryAddOperator(l, r); });
+                        parseBinaryArithmic((Expression l, Expression r) => { return new BinaryAddOperator(l, r); });
                         break;
 
                     case FlowScriptBinaryOpcode.SUB:
-                        parseBinaryArithmic((ExpressionStatement l, ExpressionStatement r) => { return new BinarySubtractOperator(l, r); });
+                        parseBinaryArithmic((Expression l, Expression r) => { return new BinarySubtractOperator(l, r); });
                         break;
 
                     case FlowScriptBinaryOpcode.MUL:
-                        parseBinaryArithmic((ExpressionStatement l, ExpressionStatement r) => { return new BinaryMultiplyOperator(l, r); });
+                        parseBinaryArithmic((Expression l, Expression r) => { return new BinaryMultiplyOperator(l, r); });
                         break;
 
                     case FlowScriptBinaryOpcode.DIV:
-                        parseBinaryArithmic((ExpressionStatement l, ExpressionStatement r) => { return new BinaryDivideOperator(l, r); });
+                        parseBinaryArithmic((Expression l, Expression r) => { return new BinaryDivideOperator(l, r); });
                         break;
 
                     case FlowScriptBinaryOpcode.MINUS:
@@ -204,54 +195,41 @@ namespace AtlusScriptLib.FlowScript.Parsers
                         break;
 
                     case FlowScriptBinaryOpcode.OR:
-                        parseBinaryArithmic((ExpressionStatement l, ExpressionStatement r) => { return new BinaryLogicalOrOperator(l, r); });
+                        parseBinaryArithmic((Expression l, Expression r) => { return new BinaryLogicalOrOperator(l, r); });
                         break;
 
                     case FlowScriptBinaryOpcode.AND:
-                        parseBinaryArithmic((ExpressionStatement l, ExpressionStatement r) => { return new BinaryLogicalAndOperator(l, r); });
+                        parseBinaryArithmic((Expression l, Expression r) => { return new BinaryLogicalAndOperator(l, r); });
                         break;
 
                     case FlowScriptBinaryOpcode.EQ:
-                        parseBinaryArithmic((ExpressionStatement l, ExpressionStatement r) => { return new BinaryEqualityOperator(l, r); });
+                        parseBinaryArithmic((Expression l, Expression r) => { return new BinaryEqualityOperator(l, r); });
                         break;
 
                     case FlowScriptBinaryOpcode.NEQ:
-                        parseBinaryArithmic((ExpressionStatement l, ExpressionStatement r) => { return new BinaryNonEqualityOperator(l, r); });
+                        parseBinaryArithmic((Expression l, Expression r) => { return new BinaryNonEqualityOperator(l, r); });
                         break;
 
                     case FlowScriptBinaryOpcode.S:
-                        parseBinaryArithmic((ExpressionStatement l, ExpressionStatement r) => { return new BinaryLessThanOperator(l, r); });
+                        parseBinaryArithmic((Expression l, Expression r) => { return new BinaryLessThanOperator(l, r); });
                         break;
 
                     case FlowScriptBinaryOpcode.L:
-                        parseBinaryArithmic((ExpressionStatement l, ExpressionStatement r) => { return new BinaryGreaterThanOperator(l, r); });
+                        parseBinaryArithmic((Expression l, Expression r) => { return new BinaryGreaterThanOperator(l, r); });
                         break;
 
                     case FlowScriptBinaryOpcode.SE:
-                        parseBinaryArithmic((ExpressionStatement l, ExpressionStatement r) => { return new BinaryLessThanOrEqualOperator(l, r); });
+                        parseBinaryArithmic((Expression l, Expression r) => { return new BinaryLessThanOrEqualOperator(l, r); });
                         break;
 
                     case FlowScriptBinaryOpcode.LE:
-                        parseBinaryArithmic((ExpressionStatement l, ExpressionStatement r) => { return new BinaryGreaterThanOrEqualOperator(l, r); });
+                        parseBinaryArithmic((Expression l, Expression r) => { return new BinaryGreaterThanOrEqualOperator(l, r); });
                         break;
 
                     case FlowScriptBinaryOpcode.IF:
                         {
-                            var falseBodyJumpLabel = mScript.JumpLabelSectionData[instruction.OperandShort];
-                            int bodyStartIndex = mInstructionIndex + 1;
-                            int bodyLength = (int)(falseBodyJumpLabel.Offset - bodyStartIndex);
-
-                            mContext.Push(CompoundStatementContext.If);
-
+                            var trueBodyJumpLabel = mScript.JumpLabelSectionData[instruction.OperandShort];
                             var condition = mValueStack.Pop();
-                            var bodyIfTrue = ParseCompoundStatement();
-
-                            mContext.Pop();
-
-                            //mInstructionIndex = mScript.JumpLabelSectionData[instruction.OperandShort].Offset;
-
-                            // todo: not sure whether to parse the false black as a compound statement or parse it normally
-                            // var bodyIfFalse = ParseCompoundStatement();
 
                             // remove expression that is evaluated in the if condition
                             int index = statements.FindLastIndex( x => x == condition);
@@ -261,10 +239,15 @@ namespace AtlusScriptLib.FlowScript.Parsers
                             statements.RemoveAt(index);
 
                             // and place it in the if statement instead
-                            //statements.Add(new SelectionStatement(condition, bodyIfTrue, bodyIfFalse));
-                            statements.Add(new SelectionStatement(condition, bodyIfTrue, null));
-                            
-
+                            //statements.Add(new Selection(condition, bodyIfTrue, bodyIfFalse));
+                            statements.Add(new Selection(
+                                condition, 
+                                new CompoundStatement(
+                                    new GotoStatement(new Identifier(trueBodyJumpLabel.Name))
+                                ), 
+                                null)
+                            );
+                           
                         }
                         break;
 
@@ -320,9 +303,7 @@ namespace AtlusScriptLib.FlowScript.Parsers
         {
             mScript = script;
             mInstructionIndex = 0;
-            mValueStack = new Stack<ExpressionStatement>();
-            mContext = new Stack<CompoundStatementContext>();
-            mContext.Push(CompoundStatementContext.Global);
+            mValueStack = new Stack<Expression>();
 
             var tree = new SyntaxTree();
 
@@ -334,19 +315,22 @@ namespace AtlusScriptLib.FlowScript.Parsers
                 {
                     case FlowScriptBinaryOpcode.PROC:
                         {
-                            mContext.Push(CompoundStatementContext.Procedure);
                             tree.Nodes.Add(new FunctionDefinition(
                                 new Identifier(script.ProcedureLabelSectionData[instruction.OperandShort].Name),
-                                ParseCompoundStatement())
+                                ParseProcedureBody(CalculateProcedureLength()))
                             );
-                            mContext.Pop();
                         }
+                        break;
+
+                    case FlowScriptBinaryOpcode.END:
                         break;
 
                     default:
                         throw new Exception();
                 }
             }
+
+            Debug.WriteLine(tree.Nodes[0].ToString());
 
             return tree;
         }

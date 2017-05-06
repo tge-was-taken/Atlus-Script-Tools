@@ -1,5 +1,5 @@
 
-flowscript basic language constructs
+flowscript basic language features
 
 by order of opcodes:
 literal int
@@ -17,8 +17,8 @@ binary * operator
 binary / operator
 unary - operator
 unary ~ operator
-binary | operator
-binary & operator
+binary || operator
+binary && operator
 binary == operator
 binary != operator
 binary < operator
@@ -53,4 +53,5 @@ expressions:
 function call
 variable assignment
 unary operators
+binary operators
 
