@@ -41,6 +41,7 @@ namespace AtlusScriptLib.FlowScript.Disassembler.Tests
         }
 
         [TestMethod()]
+        [Ignore]
         public void DisassembleToFileTest_Batch()
         {
             foreach (var path in Directory.EnumerateFiles("TestResources\\Batch\\", "*.bf"))
@@ -52,7 +53,10 @@ namespace AtlusScriptLib.FlowScript.Disassembler.Tests
         [TestMethod()]
         public void DisassembleTest()
         {
-            Assert.Fail();
+            FlowScriptBinary.LoadFromFile("TestResources\\V1.bf", out FlowScriptBinary script);
+            var builder = new StringBuilder();
+            Disassembler = new FlowScriptBinaryDisassembler(builder);
+            Disassembler.Disassemble(script);
         }
 
         [TestMethod()]

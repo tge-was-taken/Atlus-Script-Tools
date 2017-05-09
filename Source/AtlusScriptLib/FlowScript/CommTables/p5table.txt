@@ -1,1878 +1,1878 @@
-0x0000 void SYNC()
-0x0001 void WAIT(int arg0)
-0x0002 void PUT(int arg0)
-0x0003 void PUTS(string arg0)
-0x0004 void PUTF(float arg0)
-0x0005 void MSG(int arg0, int messageHandle)
-0x0006 null NULL()
-0x0007 void FADEIN(int arg0, int arg1)
-0x0008 void FADEOUT(int arg0, int arg1)
-0x0009 void FADEEND_CHECK()
-0x000a void FADE_SYNC()
-0x000b void FADE_COLOR(int arg0, int arg1, int arg2)
-0x000c int BIT_CHK(int arg0)
-0x000d void BIT_ON(int arg0)
-0x000e void BIT_OFF(int arg0)
-0x000f int GET_COUNT(int arg0)
-0x0010 void SET_COUNT(int arg0, int arg1)
-0x0011 int RND(int arg0)
-0x0012 void LIFESIM_SET_IMAGE(int arg0, int arg1)
-0x0013 void MDL_VISIBLE(int arg0, int arg1)
-0x0014 void LIFESIM_SHOW_BUSTUP(int arg0, int arg1, int arg2, int arg3)
-0x0015 void LIFESIM_HIDE_BUSTUP(int arg0)
-0x0016 void LIFESIM_MOUSEANIM_ENABLE(int arg0, int arg1)
-0x0017 void MDL_ANIM(int arg0, int arg1, int arg2, int arg3, float arg4)
-0x0018 void MDL_ANIM_SYNC(int arg0)
-0x0019 void CALL_CALENDAR()
-0x001a void SET_NEXT_DAY(int arg0, int arg1, int arg2)
-0x001b int GET_DAY()
-0x001c int GET_TIME()
-0x001d int CHK_DAYS(int arg0, int arg1)
-0x001e int GET_DAYOFWEEK()
-0x001f void SCENE_CHANGE_WAIT()
-0x0020 void MOVIE_PLAY(int arg0)
-0x0021 void MOVIE_SYNC()
-0x0022 void MSG_WND_DSP(int messageHandle)
-0x0023 void MSG_WND_CLS(int messageHandle)
-0x0024 int SEL(int messageHandle)
-0x0025 null SEL_WND_DSP()
-0x0026 null SEL_WND_CLS()
-0x0027 void SET_MSG_VAR(int messageHandle, int arg1, int arg2)
-0x0028 void SEL_DEFKEY(int messageHandle, int arg1)
-0x0029 void SEL_MASK(int messageHandle)
-0x002a void MSG_SYSTEM(int arg0, int messageHandle)
-0x002b int CAMERA_READ(int arg0, int arg1, int arg2)
-0x002c void CAMERA_READ_SYNC(int arg0)
-0x002d void CAMERA_FREE(int arg0)
-0x002e void CAMERA_SET(int arg0)
-0x002f void CAMERA_RESET()
-0x0030 void CAMERA_ANIM(int arg0, int arg1, int arg2, int arg3, float arg4)
-0x0031 void CAMERA_ANIM_SYNC(int arg0)
-0x0032 void MDL_ANIM_SEEK(int arg0, float arg1)
-0x0033 void MDL_ANIM_FRAMESYNC(int arg0, float arg1)
-0x0034 void MDL_SET_SCALE(int arg0, float arg1)
-0x0035 int ADD_PC_MONEY(int arg0)
-0x0036 int GET_SMN_LEVEL(int arg0)
-0x0037 int GET_HP(int arg0)
-0x0038 int GET_MAXHP(int arg0)
-0x0039 void SET_HP(int arg0, int arg1)
-0x003a int GET_SP(int arg0)
-0x003b int GET_MAXSP(int arg0)
-0x003c void SET_SP(int arg0, int arg1)
-0x003d int GET_ITEM_NUM(int arg0)
-0x003e void SET_ITEM_NUM(int arg0, int arg1)
-0x003f int GET_EQUIP(int arg0, int arg1)
-0x0040 void SET_EQUIP(int arg0, int arg1, int arg2)
-0x0041 void PARTY_IN(int arg0)
-0x0042 void PARTY_OUT(int arg0)
-0x0043 int GET_PARTY(int arg0)
-0x0044 void RECOVERY_ALL()
-0x0045 int GET_AND(int arg0, int arg1)
-0x0046 int GET_OR(int arg0, int arg1)
-0x0047 int GET_XOR(int arg0, int arg1)
-0x0048 int GET_L_SHIFT(int arg0, int arg1)
-0x0049 int GET_R_SHIFT(int arg0, int arg1)
-0x004a int REM(int arg0, int arg1)
-0x004b int SCRIPT_READ(int arg0, int arg1, int arg2)
-0x004c void SCRIPT_READ_SYNC(int arg0)
-0x004d void SCRIPT_FREE(int arg0)
-0x004e void SCRIPT_EXEC(int arg0, int arg1)
-0x004f int SCRIPT_SEARCH(int arg0, int arg1, int arg2)
-0x0050 void CAMERA_SET_HELPERPOS(int arg0, int arg1, int arg2)
-0x0051 void RUMBLE_START_L(int arg0, int arg1, int arg2, int arg3, int arg4)
-0x0052 void RUMBLE_STOP_L()
-0x0053 void RUMBLE_START_S(int arg0, int arg1, int arg2, int arg3)
-0x0054 void RUMBLE_STOP_S()
-0x0055 void RUMBLE_STOP()
-0x0056 void RUMBLE_CHECK()
-0x0057 int CHK_DAYS_STARTEND(int arg0, int arg1, int arg2, int arg3)
-0x0058 void SAVE()
-0x0059 int SAVE_SYNC()
-0x005a void SAVE_MENU()
-0x005b void SAVE_MENU_SYNC()
-0x005c void BGM(int arg0)
-0x005d void PAD_TRIG(int arg0)
-0x005e void PAD_PRESS(int arg0)
-0x005f int MSG_SELECT(int messageHandle, int arg1, int arg2)
-0x0060 void MSG_TUTORIAL(int arg0, int arg1, int arg2, int messageHandle)
-0x0061 void DATE_DISP(int arg0)
-0x0062 void BGM_STOP(int arg0)
-0x0063 void SET_DBG_DAY(unk arg0, unk arg1, unk arg2)
-0x0064 void MDL_ANIM_SPEED(int arg0, float arg1)
-0x0065 void MDL_ANIM_NEXT(int arg0, int arg1, int arg2, int arg3, float arg4)
-0x0066 int MDL_ICON(int arg0, int arg1)
-0x0067 int GET_PC_PARAM(int arg0, int arg1)
-0x0068 int GET_PC_PARAM_LV(int arg0, int arg1)
-0x0069 void ADD_PC_PARAM(unk arg0, unk arg1, unk arg2)
-0x006a void UPDATE_ENQUETE()
-0x006b void ADD_PC_PARAM_START(unk arg0, unk arg1, unk arg2)
-0x006c void ADD_PC_PARAM_SYNC()
-0x006d void SET_SUSPICION(unk arg0)
-0x006e void ADD_SUSPICION_START(unk arg0)
-0x006f void ADD_SUSPICION_SYNC()
-0x0070 int GET_SUSPICION()
-0x0071 int GET_SUSPICION_LV()
-0x0072 void DBG_SCRIPT_MENU(unk arg0)
-0x0073 int GET_TOTAL_DAY()
-0x0074 int GET_MONTH()
-0x0075 int GET_WEATHER()
-0x0076 int GET_MOON_AGE()
-0x0077 void ADD_SUSPICION(unk arg0)
-0x0078 void DISP_CAUTION()
-0x0079 int PAD_CHK_TRIG(int arg0)
-0x007a int PAD_CHK_PRESS(int arg0)
-0x007b void EVERY_MORNING_NETWORK()
-0x007c void ZEAL_TEX_READ(int arg0, int arg1)
-0x007d void ZEAL_TEX_SYNC(int arg0)
-0x007e void ZEAL_TEX_DISP(int arg0, int arg1)
-0x007f void ZEAL_TEX_FREE(int arg0, int arg1)
-0x0080 void BGENV_SE_PLAY(int arg0)
-0x0081 void BGENV_SE_FADEOUT(int arg0, int arg1)
-0x0082 void BGENV_SE_STOP(int arg0)
-0x0083 int BGENV_SE_CHECK(int arg0)
-0x0084 void MESSAGE_REF(int arg0, int arg1)
-0x0085 void MSG_CAPTION(int messageHandle)
-0x0086 void MSG_MIND(int arg0, int messageHandle)
-0x0087 void SET_SUSPICION_LV(int arg0)
-0x0088 void COMSE_PLAY(int arg0)
-0x0089 void COMSE_STOP(int arg0)
-0x008a void LOGICTREE_OPEN(int arg0, int messageHandle)
-0x008b void LOGICTREE_OPEN_SYNC()
-0x008c void LOGICTREE_CLOSE()
-0x008d void LOGICTREE_CLOSE_SYNC()
-0x008e void LOGICTREE_SET_BRANCH(int arg0, int arg1, int arg2)
-0x008f void LOGICTREE_RESET_BRANCH(int arg0)
-0x0090 void LOGICTREE_CLEAR_BRANCH()
-0x0091 int MDL_GET_ANIM(int arg0)
-0x0092 void CHAT_WND_DSP()
-0x0093 void CHAT_WND_CLS()
-0x0094 void MSG_TREE_SET_ROOT(int arg0, int arg1, int arg2, int messageHandle)
-0x0095 void MSG_TREE_SET_NODE(int arg0, int arg1, int arg2, int arg3, int arg4, int arg5, int arg6)
-0x0096 void MSG_TREE_OPEN()
-0x0097 int MSG_TREE_GET_MISS_COUNT()
-0x0098 void CAMERA_QUAKE_START(float arg0, float arg1, float arg2, float arg3, float arg4)
-0x0099 void CAMERA_QUAKE_STOP(float arg0)
-0x009a void MDL_ANIM_BLENDSYNC(int arg0)
-0x009b void TIMER_SETUP()
-0x009c void TIMER_SETUP_SYNC()
-0x009d void TIMER_DESTROY()
-0x009e void TIMER_SET_VISIBLE(int arg0)
-0x009f int TIMER_GET_VISIBLE()
-0x00a0 void TIMER_SET_PAUSE(int arg0)
-0x00a1 int TIMER_GET_PAUSE()
-0x00a2 void TIMER_SET_TIME(int arg0)
-0x00a3 void TIMER_ADD_TIME(int arg0)
-0x00a4 int TIMER_GET_TIME()
-0x00a5 int MDL_GET_ITEM_RESHND(int arg0, int arg1)
-0x00a6 void MDL_ADD_ANIM(int arg0, int arg1, int arg2, int arg3, float arg4)
-0x00a7 void MDL_ADD_ANIM_NEXT(int arg0, int arg1, int arg2, int arg3, float arg4)
-0x00a8 void MDL_ADD_SYNC(int arg0, int arg1)
-0x00a9 int SEL_TIME_LIMIT(int messageHandle, float arg1)
-0x00aa int MDL_GET_ANIM_COUNT(int arg0)
-0x00ab void MSG_WND_SET_POS(float arg0, float arg1, float arg2)
-0x00ac void MSG_WND_RESET_POS()
-0x00ad void CAMERA_SHAKE_START(int arg0, int arg1, float arg2)
-0x00ae void CAMERA_SHAKE_PAUSE()
-0x00af void CAMERA_SHAKE_STOP()
-0x00b0 void CAMERA_SHAKE_SCALE(float arg0)
-0x00b1 void CAMERA_SHAKE_SPEED(float arg0)
-0x00b2 int ANALOG_ASTICK_CHECK(int arg0, int arg1, int arg2)
-0x00b3 void MDL_TRACK_ADD_ANIM(int arg0, int arg1, int arg2, int arg3, int arg4, float arg5)
-0x00b4 void MDL_TRACK_ADD_ANIM_NEXT(int arg0, int arg1, int arg2, int arg3, int arg4, float arg5)
-0x00b5 void MDL_TRACK_ADD_ANIM_SYNC(int arg0, int arg1)
-0x00b6 float SIN(float arg0)
-0x00b7 float COS(float arg0)
-0x00b8 float TAN(float arg0)
-0x00b9 float ASIN(float arg0)
-0x00ba float ACOS(float arg0)
-0x00bb float ATAN(float arg0)
-0x00bc float ATAN2(float arg0, float arg1)
-0x00bd float SQRT(float arg0)
-0x00be void PUSH_UNIFORM(int arg0, int arg1)
-0x00bf void POP_UNIFORM(int arg0)
-0x00c0 void CLEAR_UNIFORM()
-0x00c1 void PUSH_WEATHER(int arg0)
-0x00c2 void POP_WEATHER()
-0x00c3 void CLEAR_WEATHER()
-0x00c4 void BGENV_SE_PLAY_CUEID(int arg0)
-0x00c5 void BGENV_SE_FADEOUT_CUEID(int arg0, int arg1)
-0x00c6 void BGENV_SE_STOP_CUEID(int arg0)
-0x00c7 int BGENV_SE_CHECK_CUEID(int arg0)
-0x00c8 void SKILL_ADD(int arg0, int arg1)
-0x00c9 void SKILL_ADD_CMM(int arg0, int arg1)
-0x00ca int FRIEND_SKILL_ADD(int arg0, int arg1)
-0x00cb int CHK_FRIEND_SKILL_ADD(int arg0, int arg1)
-0x00cc int NEXT_SKILL_ADD(int arg0)
-0x00cd int CHK_NEXT_SKILL_ADD()
-0x00ce void TEST_TEX_READ(int arg0, int arg1)
-0x00cf void TEST_TEX_SYNC(int arg0)
-0x00d0 void TEST_TEX_DISP(int arg0, int arg1, int arg2, int arg3)
-0x00d1 void TEST_TEX_FREE(int arg0, int arg1)
-0x00d2 int GET_MONTH_TOTAL_DAY(int arg0)
-0x00d3 int GET_DAY_TOTAL_DAY(int arg0)
-0x00d4 void BIT_SYNC(int arg0)
-0x00d5 int GET_WEATHER_DETAIL()
-0x00d6 void SET_HUMAN_LV(unk arg0, unk arg1)
-0x00d7 void SET_PERSONA_LV(unk arg0, unk arg1, unk arg2)
-0x00d8 void CLEAR_PERSONA_STOCK()
-0x00d9 void ADD_PERSONA_STOCK(int arg0)
-0x00da void ADD_PC_ALL_PARAM(int arg0, unk arg1, unk arg2, unk arg3, unk arg4)
-0x00db void SKILL_ADD_ARSENE(int arg0)
-0x00dc int MDL_GET_MAJOR_ID(int arg0)
-0x00dd int MDL_GET_MINOR_ID(int arg0)
-0x00de int MDL_GET_SUB_ID(int arg0)
-0x00df void ADD_MAIN_PERSONA_PARAM(int arg0, int arg1, int arg2)
-0x00e0 int GET_MAIN_PERSONA_PARAM(int arg0, int arg1)
-0x00e1 void ADD_EQUIP_PERSONA_PARAM(int arg0, int arg1, int arg2)
-0x00e2 void ADD_EQUIP_PERSONA_PARAM_INC(int arg0, int arg1, int arg2)
-0x00e3 int GET_EQUIP_PERSONA_PARAM(int arg0, int arg1)
-0x00e4 void KTAI_MENU_START()
-0x00e5 void KTAI_MENU_VISIBLE(int arg0)
-0x00e6 void KTAI_MENU_FADE(int arg0)
-0x00e7 void KTAI_MENU_FADE_SYNC()
-0x00e8 int KTAI_MENU_GET_PAD()
-0x00e9 void KTAI_MENU_EXIT()
-0x00ea void DBG_PUTS(unk arg0)
-0x00eb float GET_MAX(float arg0, float arg1)
-0x00ec float GET_MIN(float arg0, float arg1)
-0x00ed void ADD_PERSONA_SKILL(int arg0, int arg1, int arg2)
-0x00ee void REMOVE_PERSONA_SKILL(int arg0, int arg1, int arg2)
-0x00ef void BGENV_SE_PLAY_CUEID_ALL(int arg0)
-0x00f0 void BGENV_SE_FADEOUT_CUEID_ALL(int arg0, int arg1)
-0x00f1 void BGENV_SE_STOP_CUEID_ALL(int arg0)
-0x00f2 void SND_VOICE_FACILITY_SETUP(int arg0)
-0x00f3 void SND_VOICE_FACILITY_SYNC()
-0x00f4 void BGENV_LINK_BGOBJ(int arg0, int arg1, int arg2)
-0x00f5 void BGENV_UNLINK_BGOBJ(int arg0)
-0x00f6 int NPC_BIT_CHK(int arg0)
-0x00f7 void NPC_BIT_ON(int arg0)
-0x00f8 void NPC_BIT_OFF(int arg0)
-0x00f9 void ADD_MAXHP_UP(int arg0, int arg1)
-0x00fa int GET_MAXHP_UP(int arg0)
-0x00fb void ADD_MAXSP_UP(int arg0, int arg1)
-0x00fc int GET_MAXSP_UP(int arg0)
-0x00fd void BGENV_LINE_SE_PLAY(int arg0)
-0x00fe void BGENV_LINE_SE_FADEOUT(int arg0, int arg1)
-0x00ff void BGENV_LINE_SE_STOP(int arg0)
-0x0100 int BGENV_LINE_SE_CHECK(int arg0)
-0x0101 void BGENV_DEF_SE_PLAY(int arg0)
-0x0102 void BGENV_DEF_SE_FADEOUT(int arg0, int arg1)
-0x0103 void BGENV_DEF_SE_STOP(int arg0)
-0x0104 int BGENV_DEF_SE_CHECK(int arg0)
-0x0105 int NPC_EXIST_VALUE(int arg0)
-0x0106 int NPC_EXIST_VALUE_MD(int arg0, int arg1, int arg2)
-0x0107 int NPC_QUEST_GET_NUM()
-0x0108 int NPC_QUEST_GET_ID(int arg0)
-0x0109 int SEL_GENERIC(int messageHandle, int arg1)
-0x010a void GET_DBG_NUM()
-0x010b void NPC_QUEST_START(int arg0)
-0x010c void NPC_QUEST_END(int arg0)
-0x010d void NPC_QUEST_CLEAR()
-0x010e void COMENV_PLAY(int arg0)
-0x010f void COMENV_STOP(int arg0)
-0x0110 void VOICE1_PLAY(int arg0)
-0x0111 void VOICE1_STOP(int arg0)
-0x0112 void VOICE2_PLAY(int arg0)
-0x0113 void VOICE2_STOP(int arg0)
-0x0114 void VOICE3_PLAY(int arg0)
-0x0115 void VOICE3_STOP(int arg0)
-0x0116 int TBL_365_VALUE(int arg0)
-0x0117 int TBL_365_VALUE_MD(int arg0, int arg1, int arg2)
-0x0118 void NEXT_TIME()
-0x0119 void MDL_SET_LOOKAT(int arg0, int arg1, int arg2)
-0x011a void MDL_RESET_LOOKAT(int arg0, int arg1)
-0x011b int CHK_PERSONA_EXIST(int arg0, int arg1)
-0x011c int GET_DAY_WEATHER(int arg0, int arg1)
-0x011d int GET_DAY_WEATHER_DETAIL(int arg0, int arg1)
-0x011e int CHK_EXIST_WEATHER(int arg0, int arg1, int arg2)
-0x011f int CHK_EXIST_WEATHER_DETAIL(int arg0, int arg1, int arg2)
-0x0120 void SEL_OPEN(int arg0, int messageHandle)
-0x0121 void MDL_ANIM_NO_SE(int arg0, int arg1, int arg2, int arg3, float arg4)
-0x0122 void TROPHY_REQUEST(int arg0, int arg1)
-0x0123 void PERSONA_EVOLUTION(int arg0)
-0x0124 int GET_PC_PARAM_DIFFERENCE(int arg0)
-0x0125 int SEL_GENERIC_NOT_CANCEL(int messageHandle, int arg1)
-0x0126 void FOOTSTEP_SE_PLAYER_CREATE(int arg0)
-0x0127 void FOOTSTEP_SE_ENABLE(int arg0, int arg1)
-0x0128 void FOOTSTEP_EFFECT_ENABLE(int arg0, int arg1)
-0x0129 void FOOTSTEP_EFFECT2_ENABLE(int arg0, int arg1)
-0x012a void FOOTSTEP_EFFECT_SCALE(int arg0, float arg1)
-0x012b void BGTEX_STRIP_ENABLE(int arg0)
-0x012c void BGENV_LINK_BGOBJ_INDEX(int arg0, int arg1, int arg2)
-0x012d void RESET_PC_PARAM_UP()
-0x012e void DISP_PC_PARAM_METER()
-0x012f int GET_HERO_WANTED_EXP(int arg0)
-0x0130 void DISP_PC_PARAM_RANK_UP()
-0x0131 void SAVE_UI_SYNC()
-0x0132 int CHK_PC_PARAM_RANKUP(unk arg0)
-0x0133 void GET_ITEM_WINDOW(int arg0, int arg1, int arg2)
-0x0134 void GET_MONEY_WINDOW(int arg0, int arg1)
-0x0135 void GET_PERSONA_WINDOW(int arg0, int arg1)
-0x0136 void MSG_PERFORMANCE(int arg0, int messageHandle)
-0x0137 int CALL_STAMP_SAVE(int arg0)
-0x0138 int CALL_CLEAR_SAVE()
-0x0139 void BULLET_RECOVERY(int arg0)
-0x013a void BGENV_AISAC_FADEOUT(int arg0, int arg1, int arg2)
-0x013b void BGENV_AISAC_FADEIN(int arg0, int arg1, int arg2)
-0x013c void BGENV_AISAC_FADESYNC(int arg0)
-0x013d void BGM_FADEIN(int arg0)
-0x013e void TEST_TEX_DISP2(int arg0, int arg1, int arg2, int arg3)
-0x013f void DAY_DISP(int arg0)
-0x0140 void SND_VOICE_DNGEVT_SETUP(int arg0, int arg1)
-0x0141 void SND_VOICE_DNGEVT_SYNC()
-0x0142 void SND_VOICE_DNGEVT_FREE()
-0x0143 void TEST_TEX_DISP3(int arg0, int arg1, int arg2)
-0x0144 void TEST_TEX_MOVE(int arg0, int arg1)
-0x0145 void DISABLE_SHARE_PLAY(int arg0)
-0x0146 void ENABLE_SHARE_PLAY(int arg0)
-0x0147 void ALL_ENABLE_SHARE_PLAY()
-0x0148 void MDL_SET_LOOKAT_LIMIT(int arg0, int arg1)
-0x0149 void SND_VOICE_BGMOB_DISABLE(int arg0)
-0x014a void GOOD_GAUGE_DISP_ON()
-0x014b void GOOD_GAUGE_DISP_OFF()
-0x014c void GET_ITEMS_WINDOW(int arg0)
-0x014d void GET_ITEM_BUF_SET(int arg0, int arg1)
-0x014e void GET_ITEM_BUF_RESET()
-0x014f int CHK_PERSONA_IS_JAIL(int arg0)
-0x0150 void MDL_EMOTE_ANIM(int arg0, int arg1, int arg2, int arg3)
-0x0151 int SEL_GENERIC_EX(int messageHandle, int arg1, int arg2, int arg3)
-0x0152 int SEL_GENERIC_NOT_HELP(int messageHandle, int arg1)
-0x0153 void MDL_SET_LOOKAT_MOTION(int arg0, int arg1, int arg2, int arg3)
-0x0154 void MDL_SET_LOOKAT_HORIZON(int arg0, int arg1, float arg2)
-0x0155 int GET_CLOTH_TYPE()
-0x0156 int GET_YASUMI_SET_DAYS(float arg0, float arg1)
-0x0157 int GET_TOTALDAY_SET_DAYS(float arg0, float arg1)
-0x0158 void CAMERA_SET_RESRC(int arg0, int arg1)
-0x0159 void MSG_TRIVIA(int arg0, int messageHandle)
-0x015a void MDL_ANIM_LOOPSYNC(int arg0)
-0x015b void CHAT_MSG(int arg0, int messageHandle)
-0x015c int CHAT_SEL(int arg0, int messageHandle)
-0x015d void MDL_ANIM_LINK_SE(int arg0, int arg1)
-0x015e void MDL_ANIM_UNLINK_SE(int arg0)
-0x015f void MDL_SET_LOOKAT_POS(int arg0, float arg1, float arg2, float arg3, int arg4)
-0x0160 void LOADING_ICON_DISP(int arg0)
-0x0161 void GOOD_GAUGE_START(int arg0)
-0x0162 void GOOD_GAUGE_END()
-0x0163 int GET_SEASON()
-0x0164 void GOOD_GAUGE_START_EX()
-0x0165 void INIT_ITEM_SELECT()
-0x0166 void SET_ITEM_SELECT(int arg0)
-0x0167 int START_ITEM_SELECT(int arg0)
-0x0168 void CAMERA_QUAKE_2_START(float arg0, float arg1, float arg2, float arg3, float arg4, int arg5)
-0x0169 void CAMERA_QUAKE_2_STOP(float arg0)
-0x016a void MDL_ICON_END(int arg0, int arg1)
-0x016b int MDL_ICON_EX(int arg0, int arg1, int arg2)
-0x016c void MDL_ICON_SET_SCALE(int arg0, float arg1)
-0x016d void CLEAR_INHERIT_DATA()
-0x016e void GOOD_GAUGE_LOAD_EX(int arg0, int arg1)
-0x016f void GOOD_GAUGE_SYNC_EX()
-0x0170 void GOOD_GAUGE_END_SYNC()
-0x0171 void MDL_TRACK_CLEAR_ANIM(int arg0, int arg1)
-0x0172 void START_PLAY_GO_CHECK()
-0x0173 int SYNC_PLAY_GO_CHECK()
-0x0174 void NET_DISCONNECT_MATCH()
-0x1000 void CALL_FIELD(int arg0, int arg1, int arg2, int arg3)
-0x1001 int FLD_GET_SCRIPT_TIMING()
-0x1002 void FLD_PC_MODEL_CHANGE()
-0x1003 int FLD_PC_GET_RESHND(int arg0)
-0x1004 int FLD_NPC_GET_RESHND()
-0x1005 void FLD_CAMERA_LOCK()
-0x1006 void FLD_CAMERA_UNLOCK()
-0x1007 int FLD_OBJ_GET_RESHND()
-0x1008 int FLD_OPEN_DOOR()
-0x1009 int FLD_GET_TBOX()
-0x100a int FLD_GET_TBOX_FLAG()
-0x100b void FLD_SWITCH_FAILURE(int arg0)
-0x100c void FLD_PC_MODEL_SET_POS(int arg0)
-0x100d int FLD_OPEN_DOOR_NO(int arg0)
-0x100e void FLD_SET_SUBJECT_MODE(int arg0)
-0x100f void FLD_SOBJ_RECOVER()
-0x1010 void FLD_NEXT_DNG_LEVEL(int arg0)
-0x1011 int FLD_GET_DNG_LEVEL()
-0x1012 void FLD_MAP_SEARCH()
-0x1013 int FLD_GET_DNG_AREA_DIR()
-0x1014 void FLD_PC_MODEL_SET_DNG_POS()
-0x1015 void FLD_ROT_CAMERA(int arg0, int arg1)
-0x1016 void FLD_ROT_WORLD_CAMERA(int arg0, int arg1)
-0x1017 void FLD_ROT_DOOR_CAMERA(int arg0)
-0x1018 void FLD_REPORT_MSG(int arg0, int arg1)
-0x1019 void FLD_REPORT_MSGSYNC(int arg0, int arg1)
-0x101a void FLD_REPORT_FREE()
-0x101b int FLD_GET_TARGET_ENEMY_TYPE()
-0x101c int FLD_GET_ENCOUNTID(int arg0)
-0x101d int FLD_GET_MAJOR()
-0x101e int FLD_GET_MINOR()
-0x101f void FLD_RETRY_SAVE()
-0x1020 void FLD_RETRY_LOAD()
-0x1021 void FLD_MODEL_SET_POS(int arg0, int arg1)
-0x1022 int FLD_MODEL_LOADSYNC(int arg0)
-0x1023 int FLD_NPC_MODEL_LOAD(int arg0, int arg1, int arg2)
-0x1024 int FLD_OBJ_MODEL_LOAD(int arg0, int arg1)
-0x1025 int FLD_OBJ_MODEL_LOADSYNC(int arg0, int arg1)
-0x1026 void FLD_OBJ_MODEL_COLLIS(int arg0, int arg1)
-0x1027 void FLD_NPC_SYNC()
-0x1028 void CALL_BKUP_FIELD()
-0x1029 void FLD_SET_SAVE_COUNTER(int arg0)
-0x102a int FLD_GET_DNG_NO()
-0x102b void FLD_DUNGEON_EFFECT_ENABLE(int arg0)
-0x102c void FLD_CINEMASCOPE_VISIBLE(unk arg0)
-0x102d void FLD_REQ_FLASHBACK(int arg0, int arg1)
-0x102e int FLD_CHECK_DNG_EDIT_FLOOR()
-0x102f int FLD_OBJ_CNV_RESHND(int arg0)
-0x1030 void FLD_MODEL_SET_ROTATE(int arg0, float arg1, float arg2, float arg3, int arg4)
-0x1031 void FLD_MODEL_ADD_ROTATE(int arg0, float arg1, float arg2, float arg3, int arg4)
-0x1032 void FLD_OPEN_ORD_DOOR(int arg0)
-0x1033 int FLD_GET_ENEMY_NUM()
-0x1034 int FLD_GET_TBOX_TYPE()
-0x1035 void FLD_SETUP_MOVIE_TEX(int arg0, int arg1)
-0x1036 void FLD_PLAY_MOVIE_TEX(int arg0, int arg1)
-0x1037 void FLD_PAUSE_MOVIE_TEX(int arg0)
-0x1038 void FLD_SYNC_MOVIE_TEX(int arg0)
-0x1039 void FLD_OPEN_TBOX()
-0x103a void FLD_EFFECT_SET_HELPERID_POS(int arg0, int arg1, int arg2)
-0x103b int FLD_ENEMY_MODEL_LOAD(int arg0)
-0x103c int FLD_SYMBOL_MODEL_LOAD(int arg0)
-0x103d void FLD_END_FLASHBACK()
-0x103e int FLD_GET_ENCOUNT_ENEMY_ID(int arg0, int arg1)
-0x103f int FLD_GET_ENCOUNT_ENEMY_NUM(int arg0)
-0x1040 void CALL_TITLE()
-0x1041 float FLD_MODEL_GET_X_ROTATE(int arg0)
-0x1042 float FLD_MODEL_GET_Y_ROTATE(int arg0)
-0x1043 float FLD_MODEL_GET_Z_ROTATE(int arg0)
-0x1044 void FLD_MODEL_SYNC_ROTATE(int arg0)
-0x1045 int FLD_CAMERA_READ(int arg0, int arg1, int arg2)
-0x1046 void FLD_CAMERA_READ_SYNC(int arg0)
-0x1047 void FLD_CAMERA_FREE(int arg0)
-0x1048 void FLD_CAMERA_SET(int arg0)
-0x1049 void FLD_CAMERA_RESET()
-0x104a void FLD_CAMERA_ANIM(int arg0, int arg1, int arg2, int arg3, float arg4)
-0x104b void FLD_CAMERA_ANIM_SYNC(int arg0)
-0x104c int FLD_SCRIPT_READ(int arg0, int arg1, int arg2)
-0x104d void FLD_SCRIPT_READ_SYNC(int arg0)
-0x104e void FLD_SCRIPT_FREE(int arg0)
-0x104f void FLD_SCRIPT_EXEC(int arg0, int arg1)
-0x1050 int FLD_SCRIPT_SEARCH(int arg0, int arg1, int arg2)
-0x1051 void FLD_CAMERA_SET_HELPERPOS(int arg0, int arg1, int arg2)
-0x1052 void FLD_UNIT_SET_EVT_WAIT(int arg0)
-0x1053 int FLD_SEARCH_DNG_NEAR_QUEST()
-0x1054 void FLD_GET_SCH_OBJ_BEGIN(int arg0)
-0x1055 void FLD_SET_DOF(float arg0, float arg1, float arg2, float arg3, float arg4, int arg5)
-0x1056 void FLD_SET_DOF_DEFAULT(int arg0)
-0x1057 float FLD_GET_DOF_FOCAL_PLANE()
-0x1058 float FLD_GET_DOF_NEAR_BLUR_PLANE()
-0x1059 float FLD_GET_DOF_FAR_BLUR_PLANE()
-0x105a float FLD_GET_DOF_FAR_BLUR_LIMIT()
-0x105b float FLD_GET_DOF_BLUR_SCALE()
-0x105c void FLD_SET_HDR(float arg0, float arg1, float arg2, int arg3)
-0x105d void FLD_SET_HDR_STAR(int arg0, float arg1, float arg2, float arg3, float arg4, int arg5)
-0x105e void FLD_SET_HDR_DEFAULT(int arg0)
-0x105f void FLD_SET_HDR_STAR_DEFAULT(int arg0)
-0x1060 float FLD_GET_HDR_MIDDLE_GRAY()
-0x1061 float FLD_GET_HDR_BLOOM_SCALE()
-0x1062 float FLD_GET_HDR_ADAPTED_LUM()
-0x1063 int FLD_GET_HDR_STAR_NUM_LINES()
-0x1064 float FLD_GET_HDR_STAR_LENGTH()
-0x1065 float FLD_GET_HDR_STAR_SCALE()
-0x1066 float FLD_GET_HDR_STAR_GLARE_CA()
-0x1067 float FLD_GET_HDR_STAR_GLARE_SI()
-0x1068 void FLD_ROT_OBJ_CAMERA(int arg0, int arg1)
-0x1069 void FLD_PROHIBIT_ENEMY_PATH(int arg0)
-0x106a void FLD_START_SUPPORT_MSG()
-0x106b int FLD_CHECK_DUNGEON()
-0x106c int FLD_CHECK_AT_DUNGEON()
-0x106d void FLD_ROADMAP(int arg0)
-0x106e void FLD_CAMERA_INTERP(int arg0)
-0x106f void FLD_CAMERA_SYNC_INTERP()
-0x1070 void FLD_PC_MODEL_ATTACH_ITEM(int arg0, int arg1, int arg2)
-0x1071 void FLD_PC_MODEL_DETACH_ITEM(int arg0, int arg1, int arg2)
-0x1072 void FLD_PC_ATTACH_ITEM_VISIBLE(int arg0, int arg1, int arg2)
-0x1073 void FLD_TEX_TEST(int arg0)
-0x1074 void FLD_TEX_TEST_END()
-0x1075 void FLD_CAMERA_SET_POS(float arg0, float arg1, float arg2)
-0x1076 void FLD_CAMERA_SET_ROT(float arg0, float arg1, float arg2, float arg3)
-0x1077 void FLD_ROADMAP_OPEN(int arg0, int arg1, int arg2)
-0x1078 void FLD_ROADMAP_CLOSE()
-0x1079 void FLD_ROADMAP_SET_LAYER(int arg0)
-0x107a void FLD_ROADMAP_MASK_ON()
-0x107b void FLD_ROADMAP_MASK_OFF()
-0x107c void FLD_ROADMAP_MASK_SETCLIP(int arg0, int arg1, int arg2)
-0x107d void FLD_CAMERA_LOCK_INTERP(float arg0, float arg1, float arg2, float arg3, float arg4, float arg5, float arg6, int arg7)
-0x107e void FLD_CAMERA_LOCK_SYNC_INTERP()
-0x107f int FLD_EFFECT_START(int arg0)
-0x1080 int FLD_GET_ALERT_VALUE()
-0x1081 void FLD_SET_ALERT_VALUE(int arg0)
-0x1082 void FLD_CAMERA_SET_FIXED_COLLIS(int arg0)
-0x1083 void FLD_NPC_MODEL_READPAUSE_CANCEL()
-0x1084 void FLD_CROWD_MODEL_READPAUSE_CANCEL()
-0x1085 void FLD_SET_ENEMY_ENCOUNT_NO(int arg0, int arg1, int arg2)
-0x1086 void FLD_PROHIBIT_ENEMY_AREA(int arg0)
-0x1087 void FLD_SET_SUMMON_LIFE(int arg0, int arg1, int arg2)
-0x1088 void FLD_ROADMAP_SYNC()
-0x1089 void FLD_REQ_BGM()
-0x108a void FLD_SET_ENEMY_IGNORE(int arg0, int arg1, int arg2)
-0x108b void FLD_START_SMK_BALL(int arg0)
-0x108c void FLD_DOKIDOKI_ON(int arg0)
-0x108d void FLD_DOKIDOKI_OFF()
-0x108e int FLD_SUMMON_ENEMY(int arg0, int arg1)
-0x108f void FLD_MODEL_SET_TRANSLATE(int arg0, float arg1, float arg2, float arg3, int arg4)
-0x1090 void FLD_MODEL_ADD_TRANSLATE(int arg0, float arg1, float arg2, float arg3, int arg4)
-0x1091 void FLD_MODEL_PATH_TRANSLATE(int arg0, int arg1, int arg2)
-0x1092 void FLD_MODEL_SYNC_TRANSLATE(int arg0)
-0x1093 int FLD_LOAD_PATH_DATA(int arg0)
-0x1094 void FLD_SYNC_PATH_DATA(int arg0)
-0x1095 void FLD_FREE_PATH_DATA(int arg0)
-0x1096 int FLD_CHECK_DEBUG_FLAG()
-0x1097 int FLD_NPC_SEARCH_RESHND(int arg0, int arg1, int arg2)
-0x1098 void FLD_TODO_DISP()
-0x1099 void FLD_TODO_CLEAR()
-0x109a void FLD_SET_CELLPHONE(int arg0)
-0x109b void FLD_PANEL_DISP(int arg0)
-0x109c void FLD_EFFECT_BANK_LOAD(int arg0, int arg1)
-0x109d int FLD_EFFECT_BANK_SYNC(int arg0)
-0x109e void FLD_EFFECT_BANK_FREE(int arg0)
-0x109f int FLD_EFFECT_BANK_START(int arg0)
-0x10a0 void FLD_EFFECT_END(int arg0)
-0x10a1 void FLD_EFFECT_FADE_OUT(int arg0, int arg1)
-0x10a2 void FLD_EFFECT_SET_POS(int arg0, float arg1, float arg2, float arg3)
-0x10a3 void FLD_EFFECT_SET_RES_POS(int arg0, int arg1)
-0x10a4 void FLD_EFFECT_SET_ROT(int arg0, float arg1, float arg2, float arg3)
-0x10a5 void FLD_EFFECT_SET_RES_ROT(int arg0, int arg1)
-0x10a6 void FLD_EFFECT_SET_SCALE(int arg0, float arg1, float arg2, float arg3)
-0x10a7 void FLD_EFFECT_SET_ALPHA(int arg0, float arg1)
-0x10a8 void FLD_EFFECT_SET_SPEED(int arg0, float arg1)
-0x10a9 void FLD_SEARCH_EFFECT_ON()
-0x10aa void FLD_SEARCH_EFFECT_OFF()
-0x10ab int FLD_SEARCH_EFFECT_CHECK()
-0x10ac void FLD_PANEL_HIDE_DISABLE()
-0x10ad void FLD_CLEAR_SUMMON_ENEMY_ALL()
-0x10ae void FLD_MODEL_RELATE_TRANSLATE(int arg0, int arg1, float arg2, float arg3, float arg4, unk arg5)
-0x10af float FLD_MODEL_GET_X_TRANSLATE(int arg0)
-0x10b0 float FLD_MODEL_GET_Y_TRANSLATE(int arg0)
-0x10b1 float FLD_MODEL_GET_Z_TRANSLATE(int arg0)
-0x10b2 void FLD_MODEL_ORIENT_ROTATE(int arg0, int arg1, int arg2)
-0x10b3 int FLD_GET_POS_INDEX()
-0x10b4 void FLD_CAMERA_LOOKAT_INTERP(float arg0, float arg1, float arg2, int arg3)
-0x10b5 void FLD_CAMERA_FOVY_INTERP(float arg0, int arg1)
-0x10b6 void FLD_MODEL_SET_VISIBLE(int arg0, int arg1, int arg2)
-0x10b7 void FLD_MODEL_SYNC_VISIBLE(int arg0)
-0x10b8 void FLD_PTY_MODEL_SET_VISIBLE(int arg0, int arg1)
-0x10b9 void FLD_PTY_MODEL_SYNC_VISIBLE()
-0x10ba void FLD_EMY_MODEL_SET_VISIBLE(int arg0, int arg1)
-0x10bb void FLD_EMY_MODEL_SYNC_VISIBLE()
-0x10bc void FLD_START_FADE_DISABLE()
-0x10bd int FLD_GET_SCH_OBJ_ITEM(int arg0)
-0x10be float FLD_MODEL_GET_DISTANCE(int arg0, int arg1)
-0x10bf float FLD_MODEL_GET_DIFF_X_ANGLE(int arg0, int arg1)
-0x10c0 float FLD_MODEL_GET_DIFF_Y_ANGLE(int arg0, int arg1)
-0x10c1 float FLD_MODEL_GET_DIFF_Z_ANGLE(unk arg0, unk arg1)
-0x10c2 float FLD_CAMERA_GET_X_POS()
-0x10c3 float FLD_CAMERA_GET_Y_POS()
-0x10c4 float FLD_CAMERA_GET_Z_POS()
-0x10c5 float FLD_CAMERA_GET_X_ROT()
-0x10c6 float FLD_CAMERA_GET_Y_ROT()
-0x10c7 float FLD_CAMERA_GET_Z_ROT()
-0x10c8 float FLD_CAMERA_GET_W_ROT()
-0x10c9 float FLD_CAMERA_GET_FOVY()
-0x10ca void FLD_NPC_RELOAD()
-0x10cb int FLD_GET_SCH_OBJ_FIX_ITEM(int arg0)
-0x10cc int FLD_CHECK_FIND_SOMETHING()
-0x10cd void FLD_PTY_FOLLOW_ENABLE(int arg0)
-0x10ce void FLD_CAMERA_SET_FIXED(float arg0, float arg1, float arg2, float arg3, float arg4, float arg5, float arg6)
-0x10cf void FLD_SCH_OBJ_VISIBLE(int arg0, int arg1)
-0x10d0 void FLD_START_BOSS(int arg0)
-0x10d1 void FLD_RETRY_CLEAR()
-0x10d2 void FLD_RETRY_BOSS_SAVE()
-0x10d3 void FLD_RETRY_BOSS_LOAD()
-0x10d4 void FLD_RETRY_BOSS_CLEAR()
-0x10d5 int FLD_GET_PREV_MAJOR()
-0x10d6 int FLD_GET_PREV_MINOR()
-0x10d7 int FLD_GET_PREV_POS_INDEX()
-0x10d8 void FLD_CAMERA_BEHIND_LOCK()
-0x10d9 void FLD_CAMERA_BEHIND_UNLOCK()
-0x10da void FLD_CAMERA_SET_PARAM(float arg0, float arg1, float arg2, float arg3, float arg4, float arg5, int arg6)
-0x10db void FLD_CAMERA_RESET_PARAM(int arg0)
-0x10dc void FLD_SET_COVER_STATE()
-0x10dd void FLD_EFFECT_ATTACH_MODEL(int arg0, int arg1)
-0x10de int FLD_PC_ID_GET_RESHND(int arg0)
-0x10df int FLD_PC_ID_CHECK_RESHND(int arg0, int arg1)
-0x10e0 void FLD_PAUSE_ENEMY_MOVE(int arg0, int arg1)
-0x10e1 void FLD_RESUME_ENEMY_MOVE(int arg0, int arg1)
-0x10e2 void FLD_MODEL_FREE(int arg0)
-0x10e3 void CALL_AT_DUNGEON(int arg0, int arg1, int arg2)
-0x10e4 int FLD_GET_DOOR_DIR()
-0x10e5 void FLD_MISSION_LIST_ON()
-0x10e6 void FLD_MISSION_LIST_OFF()
-0x10e7 void FLD_MODEL_WALK_TRANSLATE(int arg0, float arg1, float arg2, float arg3)
-0x10e8 void FLD_MODEL_RUN_TRANSLATE(int arg0, float arg1, float arg2, float arg3)
-0x10e9 int FLD_MODEL_ADDMOTION_LOAD(int arg0, int arg1)
-0x10ea void FLD_MODEL_COPY_POSE_ANIM(int arg0, int arg1)
-0x10eb int FLD_MODEL_CLONE_ADDMOTION(int arg0, int arg1)
-0x10ec void FLD_MODEL_REVERT_ADDMOTION(int arg0, int arg1)
-0x10ed void FLD_START_BGM_DISABLE()
-0x10ee void FLD_MODEL_POINT_ROTATE(int arg0, float arg1, float arg2, float arg3, int arg4)
-0x10ef void FLD_ENCOUNT_SYMBOL(int arg0, int arg1, int arg2)
-0x10f0 int FLD_SEARCH_CLOSEST_ENEMY()
-0x10f1 int FLD_GET_WANTED_POINT()
-0x10f2 void FLD_SET_WANTED_POINT(int arg0)
-0x10f3 void FLD_ADD_WANTED_POINT(int arg0)
-0x10f4 void FLD_ENCOUNT_SYMBOL_FADE(int arg0, int arg1, int arg2, int arg3, int arg4)
-0x10f5 int CALL_LMAP(int arg0)
-0x10f6 void FLD_START_FADE_SYNC()
-0x10f7 int FLD_NPC_MODEL_LOAD_BASE(int arg0, int arg1, int arg2, int arg3)
-0x10f8 int FLD_TUTORIAL_SNEAK()
-0x10f9 void FLD_ENCOUNT_SYMBOL_CLOSE(int arg0, int arg1, int arg2)
-0x10fa int FLD_CHECK_BOSS()
-0x10fb void FLD_WEAPON_MODEL_VISIBLE(int arg0, int arg1)
-0x10fc void FLD_GUN_MODEL_VISIBLE(int arg0, int arg1)
-0x10fd void FLD_CELLPHONE_MODEL_VISIBLE(int arg0, int arg1)
-0x10fe void FLD_BAG_MODEL_VISIBLE(int arg0, int arg1)
-0x10ff void FLD_UMBRELLA_MODEL_VISIBLE(int arg0, int arg1)
-0x1100 void FLD_SET_LMAP_POS(int arg0, int arg1)
-0x1101 int FLD_GET_ENEMY_RESHND(int arg0, int arg1)
-0x1102 void FLD_TUTORIAL_OK_ONLY()
-0x1103 int FLD_CLOSE_DOOR_NO(int arg0)
-0x1104 void FLD_LOCAL_FLAG_ON(int arg0)
-0x1105 void FLD_LOCAL_FLAG_OFF(int arg0)
-0x1106 int FLD_LOCAL_FLAG_CHK(int arg0)
-0x1107 void FLD_REQ_SCN_CHANGE(int arg0)
-0x1108 void FLD_MODEL_TRANSLATION_KEY(int arg0)
-0x1109 void FLD_HIT_SET_TYPE(int arg0, int arg1, int arg2)
-0x110a void FLD_HIT_RESET_TYPE(int arg0)
-0x110b int FLD_HIT_GET_TYPE(int arg0)
-0x110c int FLD_HIT_GET_NAMEID(int arg0)
-0x110d void FLD_SOBJHIT_SET_TYPE(int arg0, int arg1, int arg2)
-0x110e void FLD_SOBJHIT_RESET_TYPE(int arg0)
-0x110f int FLD_SOBJHIT_GET_TYPE(int arg0)
-0x1110 int FLD_SOBJHIT_GET_NAMEID(int arg0)
-0x1111 void FLD_PLACE_NAME_SET_NO(int arg0, int arg1)
-0x1112 int FLD_NPC_SEARCH_RESHND2(int arg0, int arg1, int arg2, int arg3)
-0x1113 void FLD_NPC_REMOVE(int arg0)
-0x1114 void FLD_NPC_STOP_CHASE(int arg0)
-0x1115 int FLD_NPC_CHECK_CHASE(int arg0)
-0x1116 void FLD_CAMERA_ZOOM(int arg0)
-0x1117 void FLD_PLACENAME_TEX(int arg0, int arg1, int arg2, int arg3)
-0x1118 void FLD_NPC_START_CHASE(int arg0)
-0x1119 void FLD_UNIT_SET_COLLIS(int arg0, int arg1)
-0x111a int FLD_NOT_OPEN_DOOR()
-0x111b int FLD_OPEN_DOOR_FADE()
-0x111c void FLD_NPC_SET_LOOKAT(int arg0, int arg1)
-0x111d void FLD_OPEN_TBOX_SIMPLE()
-0x111e void FLD_SET_DIVDATA(int arg0)
-0x111f int FLD_GET_DIVDATA()
-0x1120 void FLD_UPDATE_DIVDATA()
-0x1121 int FLD_GET_SCH_OBJ_RND_ITEM(int arg0, int arg1)
-0x1122 void FLD_MODEL_UNIT_TRANSLATE(int arg0, float arg1, float arg2, float arg3, int arg4)
-0x1123 int FLD_OPEN_FRIDGE(int arg0)
-0x1124 void FLD_CLOSE_FRIDGE(int arg0)
-0x1125 void FLD_NPC_PRGANIM(int arg0, int arg1)
-0x1126 int FLD_PC_GET_CURRENT_RESHND(int arg0)
-0x1127 int FLD_NPCID_SEARCH_RESHND(int arg0)
-0x1128 int FLD_NPCID_SEARCH_RESHND2(int arg0, int arg1)
-0x1129 int FLD_GET_DIV_INDEX()
-0x112a int FLD_GET_PREV_DIV_INDEX()
-0x112b void FLD_SWITCH_ON(int arg0)
-0x112c void FLD_GET_SCH_OBJ_END()
-0x112d float FLD_POS_GET_X_POS(int arg0)
-0x112e float FLD_POS_GET_Y_POS(int arg0)
-0x112f float FLD_POS_GET_Z_POS(int arg0)
-0x1130 void FLD_SFTYROOM_MENU()
-0x1131 void FLD_SFTYROOM_MENU_SYNC()
-0x1132 void FLD_SFTYROOM_MENU_EXIT()
-0x1133 void FLD_SFTYROOM_MENU_SETMASK(int arg0)
-0x1134 void FLD_GREETING_MSG(int arg0)
-0x1135 void FLD_GREETING_MSGSYNC(int arg0)
-0x1136 void FLD_GREETING_FREE()
-0x1137 int FLD_NPC_GET_DISTANCE()
-0x1138 void FLD_CAMERA_INTERP_SMOOTH(int arg0)
-0x1139 void CALL_KF_EVENT(int arg0, int arg1, int arg2, int arg3)
-0x113a int FLD_CHECK_MORGANA_BAG()
-0x113b void FLD_PC_COVER_RUN(int arg0, float arg1, float arg2, float arg3)
-0x113c void FLD_PC_SYNC_COVER_RUN(int arg0)
-0x113d int FLD_SNUFF_GET_RESULT(int messageHandle)
-0x113e void FLD_PTY_MODEL_SET_STD_POS()
-0x113f void FLD_CAMERA_TUMBLE_INTERP(float arg0, float arg1, float arg2, float arg3, float arg4, float arg5, int arg6)
-0x1140 void FLD_PTY_MODEL_SET_PAUSE(int arg0, int arg1)
-0x1141 void FLD_DUNGEON_RESULT(int arg0, int arg1)
-0x1142 void FLD_DUNGEON_RESULT_SYNC()
-0x1143 void FLD_CROWD_SET_MESSAGE(int arg0, int arg1, float arg2)
-0x1144 void FLD_CAMERA_HIT_UPDATE()
-0x1145 void FLD_UNIT_WAIT_DISABLE(int arg0)
-0x1146 void FLD_SFTYROOM_SET_CAMERA(int arg0)
-0x1147 void FLD_SFTYROOM_MENU_SETHELP(int arg0, int arg1)
-0x1148 void FLD_BG_TRANSKEY_SYNC()
-0x1149 void FLD_RESET_SCH_OBJ_FLAG(int arg0, int arg1)
-0x114a void FLD_PC_MODEL_ACTION(float arg0, float arg1, float arg2, int arg3)
-0x114b void FLD_NPC_ROTATE(int arg0, int arg1, int arg2)
-0x114c void FLD_NPC_ROTATE_RESET(int arg0, int arg1)
-0x114d void FLD_NPC_ROTATE_SYNC(int arg0)
-0x114e void FLD_EFFECT_SYNC(int arg0)
-0x114f int FLD_CHOICE_REPORTER()
-0x1150 int FLD_PC_GET_ID(int arg0)
-0x1151 void FLD_UNIT_SET_WAIT(int arg0)
-0x1152 void FLD_SET_TBOX_VISIBLE(int arg0, int arg1)
-0x1153 void FLD_OVERTURN_TAG(int arg0)
-0x1154 void FLD_SMP_EVENT_BEGIN(int arg0)
-0x1155 void FLD_SMP_EVENT_END(int arg0)
-0x1156 void FLD_MISSION_LIST_INVISALL()
-0x1157 void FLD_MISSION_LIST_VISITEM(int arg0)
-0x1158 void FLD_MISSION_LIST_VISIBLE(int arg0)
-0x1159 void FLD_MISSION_LIST_INVIBLE(int arg0, int arg1)
-0x115a void FLD_MISSION_LIST_SYNC_VIS()
-0x115b int FLD_GET_REPORTER()
-0x115c int FLD_GET_FOUND_ENEMY_TYPE(int arg0)
-0x115d void FLD_CAMERA_SET_FIXED_REVERT(float arg0, float arg1, float arg2, float arg3, float arg4, float arg5, float arg6, int arg7)
-0x115e void FLD_ALERT_VISIBLE(int arg0)
-0x115f int FLD_ALERT_GET_VISIBLE()
-0x1160 int FLD_TUTORIAL_COVER_RUN()
-0x1161 int FLD_NPC_GET_CURRENT_PATHNODE(int arg0)
-0x1162 void FLD_NPC_STOP_PATHNODE(int arg0, int arg1)
-0x1163 int FLD_MAP_FRAG_CHECK_COLLECT()
-0x1164 int FLD_MAP_FRAG_CNV_COMP(int arg0)
-0x1165 void FLD_TOOL_CREATE()
-0x1166 void FLD_TOOL_CREATE_SYNC()
-0x1167 int FLD_PERSONA_MODEL_LOAD(int arg0)
-0x1168 void FLD_TOOL_SCR_YESNO(int arg0)
-0x1169 int FLD_TOOL_GET_ELEMENTID()
-0x116a void FLD_PTY_MODEL_SET_HIDE(int arg0, int arg1)
-0x116b void FLD_EXIT_TIME_DISP()
-0x116c void FLD_SYNC_TIME_DISP()
-0x116d void SAVE_TEMPORARY()
-0x116e int LOAD_TEMPORARY()
-0x116f void FLD_NPC_SET_RUNSTATE(int arg0, float arg1)
-0x1170 void FLD_RAIN_PAUSE(int arg0)
-0x1171 void FLD_NPC_READRESUME_DISABLE()
-0x1172 void FLD_CROWD_INTERCEPT_READ()
-0x1173 int FLD_TOOL_ACCOUNT()
-0x1174 void FLD_HITSCR_FORCE_EXEC(int arg0, int arg1)
-0x1175 void FLD_ALERT_HOLD_OFF(int arg0)
-0x1176 void FLD_STOP_FLASHBACK()
-0x1177 int FLD_MODEL_TYPMOTION_LOAD(int arg0, int arg1, int arg2)
-0x1178 int FLD_MODEL_CLONE_TYPMOTION(int arg0, int arg1, int arg2)
-0x1179 void FLD_UNIT_SET_WALK(int arg0)
-0x117a void FLD_UNIT_SET_RUN(int arg0)
-0x117b void FLD_UNIT_SET_C_WAIT(int arg0)
-0x117c void FLD_UNIT_SET_C_RUN(int arg0)
-0x117d int FLD_NPC_TBLID_LOAD(int arg0)
-0x117e void FLD_ESCAPE_EFFECT()
-0x117f float FLD_POS_GET_ROT(int arg0)
-0x1180 float FLD_POS_GET_DNG_X_POS()
-0x1181 float FLD_POS_GET_DNG_Y_POS()
-0x1182 float FLD_POS_GET_DNG_Z_POS()
-0x1183 float FLD_POS_GET_DNG_ROT()
-0x1184 void FLD_BGMNG_LINKPROC_TIME(int arg0, int arg1, float arg2)
-0x1185 void FLD_BGMNG_LINKPROC_ANIMSTART(int arg0, int arg1, int arg2, int arg3)
-0x1186 void FLD_BGMNG_LINKPROC_ANIMEND(int arg0, int arg1, int arg2, int arg3)
-0x1187 void FLD_SWITCH_OFF(int arg0)
-0x1188 int FLD_CORP_NPC_EXIST(int arg0)
-0x1189 int FLD_CORP_NPC_EXIST2(int arg0, int arg1, int arg2, int arg3)
-0x118a int FLD_OBJ_SEARCH_RESHND(int arg0, int arg1)
-0x118b void FLD_SET_FOG(float arg0, float arg1, int arg2, int arg3, int arg4, int arg5, int arg6)
-0x118c void FLD_SET_FOG_DEFAULT(int arg0)
-0x118d float FLD_GET_FOG_NEAR_CLIP()
-0x118e float FLD_GET_FOG_FAR_CLIP()
-0x118f int FLD_GET_FOG_HUE()
-0x1190 int FLD_GET_FOG_SATURATION()
-0x1191 int FLD_GET_FOG_LUMINANCE()
-0x1192 int FLD_GET_FOG_ALPHA()
-0x1193 void FLD_SET_CORRECT(float arg0, float arg1, float arg2, float arg3, float arg4, int arg5)
-0x1194 void FLD_SET_CORRECT_DEFAULT(int arg0)
-0x1195 float FLD_GET_CORRECT_CYAN()
-0x1196 float FLD_GET_CORRECT_MAGENTA()
-0x1197 float FLD_GET_CORRECT_YELLOW()
-0x1198 float FLD_GET_CORRECT_DODGE()
-0x1199 float FLD_GET_CORRECT_BURN()
-0x119a void FLD_SYNC_ENV()
-0x119b void FLD_GMC_PUZZLE_START(int arg0, int arg1)
-0x119c void FLD_GMC_PUZZLE_SYNC()
-0x119d int FLD_GMC_PUZZLE_PARAM_CMD(int arg0, int arg1, int arg2, int arg3)
-0x119e void FLD_UMBRELLA_ANIM_CHANGE(int arg0)
-0x119f void FLD_NPC_STOP_NOW(int arg0, int arg1)
-0x11a0 void FLD_LMAP_FADE(unk arg0)
-0x11a1 void FLD_NPC_SET_RUNSTATE2(int arg0, float arg1, int arg2)
-0x11a2 void FLD_CROWD_PATH_VISIBLE(int arg0, int arg1)
-0x11a3 void FLD_CROWD_PATH_WAIT(int arg0, int arg1)
-0x11a4 int FLD_CROWD_PATH_CHECK_UNIT(int arg0)
-0x11a5 void FLD_CROWD_PATH_REPOP_UNIT(int arg0)
-0x11a6 void FLD_CROWD_PATH_INTERCEPT_READ(int arg0, int arg1)
-0x11a7 void FLD_SET_LOCAL_COUNT(int arg0, int arg1)
-0x11a8 int FLD_GET_LOCAL_COUNT(int arg0)
-0x11a9 void FLD_SET_DOOR_HIT(int arg0, int arg1)
-0x11aa void FLD_REPORT_MSG_DTL(int arg0, int arg1, int arg2, int arg3)
-0x11ab void FLD_REPORT_MSGSYNC_DTL(int arg0, int arg1, int arg2, int arg3)
-0x11ac void FLD_MODEL_UNIT_ROTATE(int arg0, unk arg1, float arg2, unk arg3, int arg4)
-0x11ad void FLD_MODEL_UNIT_POINT_ROTATE(int arg0, float arg1, float arg2, float arg3, int arg4)
-0x11ae void FLD_TOOL_SET_ITEM_NAME(int messageHandle)
-0x11af int FLD_TOOL_CHK_ITEM_AVAILABLE()
-0x11b0 void FLD_TOOL_CREATE_ITEM(int arg0)
-0x11b1 void FLD_PC_MODEL_LOOK_AROUND(int arg0)
-0x11b2 void FLD_DUNGEON_RESULT_SET_MES(int arg0, unk arg1, unk arg2)
-0x11b3 void FLD_DUNGEON_RESULT_CLEAR_MES()
-0x11b4 void FLD_DUNGEON_RESULT_SET_VAR(int arg0, int arg1, int arg2)
-0x11b5 void FLD_DUNGEON_RESULT_CLEAR_VAR()
-0x11b6 int FLD_DUNGEON_RESULT_GET_TOTALPRICE()
-0x11b7 int FLD_CROWD_PATH_WAIT_UNIT(int arg0)
-0x11b8 void FLD_PC_MODEL_REQ_ACTION(float arg0, float arg1, float arg2, int arg3)
-0x11b9 void FLD_PC_MODEL_SYNC_ACTION()
-0x11ba void FLD_GMC_OBJ_MOVE(int arg0, int arg1, int arg2, int arg3)
-0x11bb void FLD_GMC_OBJ_MOVE_SYNC(int arg0)
-0x11bc void FLD_GMC_TENKEY_START(int arg0, int arg1, int arg2)
-0x11bd int FLD_GMC_TENKEY_SYNC()
-0x11be void FLD_GMC_TENKEY_END()
-0x11bf int FLD_GMC_TENKEY_CTRL(int arg0, int arg1, int arg2, int arg3)
-0x11c0 void FLD_SET_MOUSE(int arg0)
-0x11c1 int FLD_CHECK_MOUSE()
-0x11c2 int FLD_GET_PTYTALK_MSG(int arg0, int arg1, int arg2)
-0x11c3 int FLD_GET_PTYTALK_WND(int arg0, int arg1, int arg2)
-0x11c4 int FLD_GET_PTYTALK_FACE(int arg0, int arg1, int arg2)
-0x11c5 void FLD_CAMERA_LOCK_INTERP_S(float arg0, float arg1, float arg2, float arg3, float arg4, float arg5, float arg6, int arg7)
-0x11c6 int FLD_GET_BATTLE_RESULT()
-0x11c7 int FLD_CHECK_APPROACH_ENEMY()
-0x11c8 int FLD_CHOICE_MEMBER_REPORTER()
-0x11c9 int KFEVT_GET_MAJOR()
-0x11ca int KFEVT_GET_MINOR()
-0x11cb int KFEVT_GET_POS_INDEX()
-0x11cc int KFEVT_GET_DIV_INDEX()
-0x11cd void FLD_REQ_PC_SE(int arg0)
-0x11ce int FLD_NPC_EXIST_GROUP_VALUE(int arg0)
-0x11cf int FLD_NPC_EXIST_GROUP_VALUE_MD(int arg0, int arg1, int arg2)
-0x11d0 int FLD_NPC_BIT_CHK_GROUP(int arg0)
-0x11d1 int FLD_GET_CARTALK_THEME()
-0x11d2 void KFEVT_181_INIT()
-0x11d3 void KFEVT_181_INIT_SYNC()
-0x11d4 void KFEVT_181_RESET_TAKEOUT_INFO()
-0x11d5 void KFEVT_181_SET_TAKEOUT_INFO(int arg0, int arg1, int arg2)
-0x11d6 int KFEVT_181_GET_TAKEOUT_CATEGORY(int arg0)
-0x11d7 int KFEVT_181_GET_TAKEOUT_ID(int arg0)
-0x11d8 int KFEVT_181_CHECK_TAKEOUT_INFO(int arg0, int arg1)
-0x11d9 int KFEVT_181_EVALUATION(int arg0)
-0x11da int KFEVT_181_GET_BONUS_TYPE()
-0x11db int KFEVT_181_CHECK_BONUS_TYPE(int arg0)
-0x11dc int KFEVT_181_GET_REWARD_TYPE()
-0x11dd int KFEVT_181_GET_REWARD_VALUE(int arg0)
-0x11de void FLD_TOOL_USE()
-0x11df void FLD_TOOL_VIEW()
-0x11e0 int FLD_GET_PC_PARAM_ADD(int arg0)
-0x11e1 void FLD_SET_SCR_SKIP(int arg0)
-0x11e2 int FLD_CHECK_SCR_SKIP()
-0x11e3 void FLD_WAIT(int arg0)
-0x11e4 void FLD_MODEL_ANIM(int arg0, int arg1, int arg2, int arg3, float arg4)
-0x11e5 void FLD_MODEL_ANIM_SYNC(int arg0)
-0x11e6 void FLD_PC_MODEL_SET_GLIMPSE(int arg0)
-0x11e7 int FLD_TOOL_GET_ITEMID()
-0x11e8 void FLD_NPC_FBN_SYNC(int arg0)
-0x11e9 int FLD_SEL_EX(int arg0, int arg1, int arg2, int arg3, int arg4)
-0x11ea void FLD_SEL_SET_VISIBLE(int arg0)
-0x11eb int FLD_SEL_DATA_REQUEST(int arg0)
-0x11ec void FLD_MAP_PANEL_CHANGE(int arg0, int arg1, int arg2)
-0x11ed void KFEVT_181_SET_MSG_INFO(int arg0, int arg1, int arg2, int arg3, int arg4)
-0x11ee int KFEVT_181_GET_MSG_ID(int arg0, int arg1, int arg2)
-0x11ef int KFEVT_181_GET_MSG_NUM(int arg0, int arg1, int arg2)
-0x11f0 void FLD_PC_MODEL_LOOK_FRONT()
-0x11f1 void FLD_START_DEBUG_SCRIPT(int arg0, int arg1)
-0x11f2 void FLD_MODEL_DIR_TRANSLATE(int arg0, float arg1, float arg2, int arg3)
-0x11f3 void FLD_SHOW_ENEMY(int arg0, int arg1)
-0x11f4 int KFEVT_181_GET_BONUS_TYPE_NUM()
-0x11f5 void KFEVT_181_SET_FAVORABILITY_FLAG(int arg0)
-0x11f6 int KFEVT_181_GET_FAVORABILITY(int arg0)
-0x11f7 int KFEVT_181_GET_BONUS_FORMATION_COUNT(int arg0)
-0x11f8 void KFEVT_181_RESET_MSG_INFO()
-0x11f9 void KFEVT_181_RESET_DESIGNATION_MENU()
-0x11fa void KFEVT_181_SET_DESIGNATION_MENU(int arg0, int arg1, int arg2)
-0x11fb int KFEVT_181_GET_RAND_DESIGNATION_MENU(int arg0)
-0x11fc void FLD_LMAP_END(unk arg0)
-0x11fd void FLD_MODEL_ATTACH_TRANSLATE(int arg0, int arg1, int arg2)
-0x11fe void FLD_MODEL_DETACH_TRANSLATE(int arg0)
-0x11ff void FLD_MODEL_ATTACH_ROTATE(int arg0, int arg1, int arg2)
-0x1200 void FLD_MODEL_DETACH_ROTATE(int arg0)
-0x1201 void FLD_REQ_PRE_LOAD(int arg0, int arg1, int arg2, int arg3)
-0x1202 void KFEVT_181_SET_VAR_FOOD_NAME(int messageHandle)
-0x1203 void FLD_MODEL_TALK_ANIM(int arg0)
-0x1204 void FLD_UNIT_SET_SURPRISE(int arg0)
-0x1205 void FLD_GAYA_EFFECT_SET(int arg0)
-0x1206 void FLD_MISSION_ACCEPT()
-0x1207 int FLD_LMAP_GET_FARE(unk arg0)
-0x1208 void CALL_BATTING_CENTER()
-0x1209 void FLD_GREETING_MSG_DTL(int arg0, int arg1, int arg2)
-0x120a int FLD_CROWD_PATH_READ_WAIT(int arg0)
-0x120b void KFEVT_181_FOOD_VISIBLE(int arg0, int arg1, unk arg2, int arg3)
-0x120c void FLD_DUNGEON_RESULT_SET_EXP(int arg0)
-0x120d void FLD_HIT_ADD_ICON(int arg0, int arg1, int arg2)
-0x120e void KFEVT_181_FOOD_ALL_VISIBLE(int arg0)
-0x120f void KFEVT_181_DISH_CLONE(int arg0)
-0x1210 int FLD_CHECK_SMK_BALL()
-0x1211 int FLD_CHECK_FIND_ENEMY()
-0x1212 void FLD_PANEL_MAP_PROC_SYNC(unk arg0)
-0x1213 void FLD_PANEL_MAP_PROC_END(unk arg0)
-0x1214 void KFEVT_181_DISH_CLONE_SYNC()
-0x1215 void FLD_ROADMAP_SCALE(int arg0)
-0x1216 void FLD_TOOL_SET_DRAWFLAG(int arg0)
-0x1217 void FLD_PC_MODEL_SET_FLOATING(int arg0)
-0x1218 void FLD_PC_MODEL_MOVE_FLOATING(float arg0, float arg1, float arg2)
-0x1219 void FLD_PC_MODEL_SYNC_FLOATING()
-0x121a void CALL_FISHING_POND()
-0x121b void KFEVT_181_DISH_DRAWSET(int arg0)
-0x121c int KFEVT_181_GET_DISTANCE_X(float arg0, float arg1, float arg2, float arg3, float arg4, float arg5)
-0x121d int KFEVT_181_GET_DISTANCE_Z(float arg0, float arg1, float arg2, float arg3, float arg4, float arg5)
-0x121e int FLD_NPC_GREETING_GET_DISP_TIME()
-0x121f void FLD_SET_DISGUISE(int arg0)
-0x1220 int FLD_CHECK_DISGUISE()
-0x1221 void FLD_PC_MODEL_PERSONAL(int arg0)
-0x1222 void FLD_OBJ_SET_ALPHA(int arg0, int arg1, int arg2)
-0x1223 int FLD_PANEL_MMAP_WHOLE(unk arg0)
-0x1224 int FLD_PANEL_MAP_AT_CHECK_VISIBLE()
-0x1225 void KFEVT_SET_NANPA_TACTICS(float arg0, float arg1, int messageHandle)
-0x1226 void FLD_SET_DEBUG_OK()
-0x1227 int KFEVT_GET_NANPA_QUEST_VAL(float arg0, float arg1, float arg2)
-0x1228 void FLD_FASTTRAVEL_OPEN(int arg0, int arg1, int arg2)
-0x1229 void FLD_MODEL_SET_RIPPLE_EFF(int arg0, int arg1, float arg2)
-0x122a void FLD_MODEL_SET_SPOUT_EFF(int arg0, int arg1)
-0x122b void FLD_GET_FIX_ITEM(int arg0, int arg1, int messageHandle)
-0x122c int KFEVT_GET_NANPA_BEST_SEL(float arg0, float arg1)
-0x122d int KFEVT_NANPA_BITON(float arg0, float arg1, float arg2)
-0x122e int KFEVT_NANPA_BITCHECK(float arg0, float arg1, float arg2)
-0x122f void FLD_REQ_DOOR_SE(int arg0, int arg1)
-0x1230 void KFEVT_181_DISH_EFFECT()
-0x1231 void FLD_SET_ENEMY_WAIT_TIME(int arg0, int arg1, int arg2)
-0x1232 void FLD_OVERWRITE_ENC_NO(int arg0)
-0x1233 void FLD_SET_LOOK_AT_POS(int arg0, float arg1, int arg2)
-0x1234 void FLD_PTY_MODEL_SET_RND_POS()
-0x1235 void FLD_PTY_MODEL_SET_LINE_POS()
-0x1236 void FLD_OPEN_ORD_DOOR_ONLY(int arg0)
-0x1237 int FLD_MISSION_ACCEPT_GET_CHECK_NUM()
-0x1238 int FLD_MISSION_ACCEPT_GET_CHECK_ID(int arg0)
-0x1239 int FLD_SUMMON_ENEMY_MOVE(int arg0, int arg1)
-0x123a void FLD_MISSION_LIST_ON_FORCE()
-0x123b int FLD_GET_SCH_OBJ_ENEMY(int arg0, int arg1, float arg2, float arg3, float arg4)
-0x123c void FLD_TOOL_REQUEST_END()
-0x123d int FLD_PC_GET_BAG_TYPE()
-0x123e void FLD_OPEN_ORD_DOOR_FADE(int arg0, int arg1, int arg2)
-0x123f void FLD_SET_DOOR_HIT_TYPE(int arg0, int arg1, int arg2)
-0x1240 void FLD_SET_ENEMY_GLANCE(int arg0, int arg1, int arg2)
-0x1241 void FLD_NPC_SEPARATEOFF_MESH(int arg0)
-0x1242 void FLD_PARTY_IN(int arg0)
-0x1243 void FLD_PARTY_OUT(int arg0)
-0x1244 void FLD_REQ_PRE_LOAD_ATDNG(int arg0, int arg1, int arg2)
-0x1245 int FLD_CHECK_ENTRANCE_FLOOR()
-0x1246 int FLD_CHECK_SAFE_ROOM()
-0x1247 void FLD_SFTYROOM_MENU_SETMODE(int arg0)
-0x1248 void FLD_MODEL_ANIM_NEXT(int arg0, int arg1, int arg2, int arg3, float arg4)
-0x1249 int FLD_CHECK_SAVE_ENABLE()
-0x124a void FLD_SET_DIALY(int arg0)
-0x124b void FLD_DUNGEON_RESULT_SET_MVP(int arg0)
-0x124c void FLD_DUNGEON_RESULT_SET_BONUS(int arg0, int arg1, int arg2)
-0x124d void FLD_BAG_ANIM_DISABLE()
-0x124e void FLD_SET_BAG_ANIM(int arg0)
-0x124f int FLD_CHECK_DNG_EVENT()
-0x1250 int FLD_CHECK_DNG_TRAVERSE(int arg0, int arg1)
-0x1251 int FLD_GET_SYMBOL_ENCOUNTID(int arg0, int arg1)
-0x1252 void FLD_DUNGEON_RESULT_SET_DUNGEON_NO(int arg0)
-0x1253 void KFEVT_TBL_READ()
-0x1254 void KFEVT_TBL_FREE()
-0x1255 int KFEVT_TBL_GET_MAJOR(int arg0, int arg1, int arg2)
-0x1256 int KFEVT_TBL_GET_MINOR(int arg0, int arg1, int arg2)
-0x1257 int KFEVT_TBL_GET_DIV(int arg0, int arg1, int arg2)
-0x1258 int FLD_MISSION_ACCEPT_GET_SELECT_ID()
-0x1259 int FLD_GET_DNG_QUEST_NO(int arg0, int arg1)
-0x125a void CALL_ATDNG_QUEST_FLOOR(int arg0)
-0x125b void CALL_ATDNG_EVENT_FLOOR(int arg0)
-0x125c int FLD_CHECK_DNG_EVENT_BRANCH()
-0x125d float FLD_GET_DNG_PARTS_ROT()
-0x125e void FLD_NPC_UNDISP(int arg0, int arg1)
-0x125f int FLD_GET_ALERT_ADD_VALUE()
-0x1260 void FLD_BREAK_WALL()
-0x1261 int FLD_GET_SNEAKING_ITEM_ID()
-0x1262 void FLD_TOOL_END_EFFECT()
-0x1263 void FLD_TOOL_END_EFFECT_SYNC()
-0x1264 int FLD_CHECK_MSG_DISP()
-0x1265 void KAWAKAMI_SET_REQUEST_ITEM(float arg0, float arg1, float arg2)
-0x1266 int KAWAKAMI_GET_REQUEST_ITEMID(float arg0)
-0x1267 int KAWAKAMI_GET_REQUEST_ITEMNUM(float arg0)
-0x1268 void FLD_SET_RESHND_BANK(int arg0, int arg1)
-0x1269 int FLD_GET_RESHND_BANK(int arg0)
-0x126a void FLD_SFTYROOM_MENU_SETBOSSID(int arg0)
-0x126b void FLD_DASH_EFFECT(int arg0)
-0x126c int FLD_GET_CARTALK_PC(int arg0)
-0x126d int FLD_GET_CARTALK_MSG(int arg0, int arg1)
-0x126e int FLD_GET_CARTALK_WND(int arg0, int arg1)
-0x126f int FLD_GET_CARTALK_FACE(int arg0, int arg1)
-0x1270 int FLD_GET_CARTALK_ANSWER(int arg0, int arg1)
-0x1271 int FLD_GET_CARTALK_ANS_PC(int arg0, int arg1, int arg2)
-0x1272 int FLD_GET_CARTALK_ANS_MSG(int arg0, int arg1, int arg2)
-0x1273 int FLD_GET_CARTALK_ANS_WND(int arg0, int arg1, int arg2)
-0x1274 int FLD_GET_CARTALK_ANS_FACE(int arg0, int arg1, int arg2)
-0x1275 int FLD_RESIDENT_EFFECT_START(int arg0)
-0x1276 int GET_CHARA_CAMERA_DIR(float arg0, float arg1, float arg2, float arg3, float arg4, float arg5)
-0x1277 int FLD_CHECK_SAFE_DATA_LOAD()
-0x1278 void FLD_GFS_PARTS_SYNC(int arg0)
-0x1279 void FLD_CROWD_PAUSE(int arg0)
-0x127a void FLD_CALL_EVENT_SETUP()
-0x127b void FLD_ALERT_DISP_PLACENO(int arg0, int arg1)
-0x127c void FLD_ALERT_RAPID_DISP_PLACENO(int arg0, int arg1)
-0x127d void CROSSWORD_START(int arg0)
-0x127e void CROSSWORD_ENDSYNC()
-0x127f int CROSSWORD_RELUST()
-0x1280 void FLD_SET_SCR_NAME(int messageHandle, int arg1)
-0x1281 int FLD_MISSION_LIST_GET_FLAG(int arg0, int arg1)
-0x1282 void FLD_MISSION_LIST_SET_FLAG(int arg0, int arg1, int arg2)
-0x1283 void FLD_MISSION_LIST_CLEAR_FLAGS()
-0x1284 void FLD_MISSION_LIST_SWAPTBL()
-0x1285 void CALL_TV_PROGRAM()
-0x1286 void TV_PROGRAM_ENDSYNC()
-0x1287 void TODAY_TV_PROGRAM()
-0x1288 void TODAY_TV_PROGRAM_ENDSYNC()
-0x1289 int GET_TODAY_TV_PROGRAM_BG()
-0x128a void FLD_VLT_FILTER_VISIBLE(int arg0)
-0x128b void FLD_NPC_SET_EFFECT_TARGET(int arg0, int arg1)
-0x128c void FLD_MISSION_WINDOW(int arg0, int arg1)
-0x128d int FLD_GET_ALERT_DEC_VALUE()
-0x128e void FLD_VLT_FILTER_LOCK(int arg0)
-0x128f int FLD_CHECK_DNG_FIND_PARTS(int arg0)
-0x1290 void FLD_ALERT_SET_KEEP_FLAG(int arg0)
-0x1291 void FLD_BG_CASH_REMOVE()
-0x1292 int FLD_ITEM_MODEL_LOAD(int arg0, int arg1)
-0x1293 void FLD_PANEL_MMAP_NEW_STAGE(int arg0)
-0x1294 void FLD_PANEL_MMAP_NEW_STAGE_EXIT()
-0x1295 void FLD_NPC_VISIBLE_ALL(int arg0)
-0x1296 void FLD_NPC_SET_RADIUS(int arg0, float arg1)
-0x1297 void FLD_CROWD_PATH_VISIBLE_ALL(int arg0)
-0x1298 void FLD_START_SUPPORT_MSG_EX()
-0x1299 void FLD_SHOW_NEW_SPOT(int arg0)
-0x129a void FLD_TRANS_END_ANIM(int arg0, int arg1, int arg2, int arg3, float arg4)
-0x129b void FLD_ROTATE_END_ANIM(int arg0, int arg1, int arg2, int arg3, float arg4)
-0x129c void FLD_END_SMK_BALL()
-0x129d int FLD_ITEM_GET_RESHND(int arg0, int arg1)
-0x129e void FLD_NPC_LOOKAT_DISABLE(int arg0, int arg1)
-0x129f void FLD_SETBANK_BGENV_VOICE(int arg0)
-0x12a0 void FLD_GET_FIX_ITEMS(int messageHandle)
-0x12a1 void FLD_SLIDING_EFFECT(int arg0)
-0x12a2 int FLD_GET_TBOX_ITEM_ID(int arg0)
-0x12a3 void FLD_GET_SCH_OBJ_BEGIN_NG(int arg0)
-0x12a4 void FLD_PANEL_EXTRA_LIFE(int arg0, int arg1, int arg2)
-0x12a5 void FLD_PANEL_EXTRA_LOOP(int arg0, int arg1, int arg2)
-0x12a6 void FLD_PANEL_EXTRA_END_REQ()
-0x12a7 void FLD_PANEL_EXTRA_END_REQ_RAPID()
-0x12a8 int FLD_PANEL_EXTRA_CHK_VISIBLE()
-0x12a9 void FLD_NPC_APPEND_LOAD()
-0x12aa void FLD_SLEEP_ENEMY(int arg0, int arg1)
-0x12ab void FLD_NPC_SET_DEFMOTION(int arg0, int arg1)
-0x12ac void FLD_NPC_CANCEL_ENGULF(int arg0)
-0x12ad int FLD_SEL_EX2(int arg0, int arg1, int arg2, int arg3, int arg4, int arg5, int arg6)
-0x12ae void FLD_ROADMAP_SET_VISIBLE(int arg0)
-0x12af void FLD_GIMMICK_RAY_HIT(float arg0, float arg1, float arg2)
-0x12b0 void FLD_PC_CNV_NPC()
-0x12b1 void FLD_SET_EVT_EMY_ENCOUNT_NO(int arg0, int arg1, int arg2)
-0x12b2 void FLD_SET_ENEMY_INOUT(int arg0, int arg1, int arg2)
-0x12b3 void FLD_NPC_EMOTE_ANIM(int arg0, int arg1)
-0x12b4 void FLD_CAR_ONOFF_CHANGE(int arg0)
-0x12b5 void FLD_PARTY_SAVE()
-0x12b6 void FLD_PARTY_LOAD()
-0x12b7 float FLD_GET_DNG_PARTS_X_POS()
-0x12b8 float FLD_GET_DNG_PARTS_Y_POS()
-0x12b9 float FLD_GET_DNG_PARTS_Z_POS()
-0x12ba void FLD_CAMERA_SET_TGT_UPDATE(int arg0)
-0x12bb void FLD_SHOW_NEW_SPOT_SYNC_MODE(int arg0)
-0x12bc void FLD_SHOW_NEW_SPOT_SYNC_EXIT()
-0x12bd void FLD_REVERT_ENC_NO()
-0x12be void FLD_SET_ALL_ENCOUNT_NO(int arg0, int arg1, int arg2, int arg3)
-0x12bf void FLD_EMY_SET_EFFECT_TARGET(int arg0, int arg1)
-0x12c0 void FLD_SET_SCNLIGHT_AMB(int arg0, int arg1, int arg2, int arg3)
-0x12c1 void FLD_SET_SCNLIGHT_DIFF(int arg0, int arg1, int arg2, int arg3)
-0x12c2 void FLD_SET_SCNLIGHT_SPEC(int arg0, int arg1, int arg2, int arg3)
-0x12c3 void FLD_SET_SCNLIGHT_DEFAULT(unk arg0, int arg1)
-0x12c4 int FLD_GET_SCNLIGHT_AMB_H()
-0x12c5 int FLD_GET_SCNLIGHT_AMB_S()
-0x12c6 int FLD_GET_SCNLIGHT_AMB_L()
-0x12c7 int FLD_GET_SCNLIGHT_DIFF_H()
-0x12c8 int FLD_GET_SCNLIGHT_DIFF_S()
-0x12c9 int FLD_GET_SCNLIGHT_DIFF_L()
-0x12ca int FLD_GET_SCNLIGHT_SPEC_H()
-0x12cb int FLD_GET_SCNLIGHT_SPEC_S()
-0x12cc int FLD_GET_SCNLIGHT_SPEC_L()
-0x12cd void CALL_ALERT_SPECIAL(int arg0, int arg1)
-0x12ce int FLD_GET_TYPE_ALERT_VALUE(int arg0)
-0x12cf void FLD_SET_TYPE_ALERT_VALUE(int arg0, int arg1)
-0x12d0 int FLD_LMAP_GET_SELECT_ID()
-0x12d1 void FLD_SET_FIX_BGM(int arg0)
-0x12d2 void FLD_NPC_LOOKAT_DISABLE_FBNID(int arg0, int arg1)
-0x12d3 void CALL_ALERT_CHANGE(int arg0)
-0x12d4 float FLD_MODEL_GET_X_WORLD_TRANSLATE(int arg0)
-0x12d5 float FLD_MODEL_GET_Y_WORLD_TRANSLATE(int arg0)
-0x12d6 float FLD_MODEL_GET_Z_WORLD_TRANSLATE(int arg0)
-0x12d7 void FLD_MODEL_BGHELPER_TRANSLATE(int arg0, int arg1)
-0x12d8 void FLD_GREETING_MSG_BLOCK(int arg0, int arg1, int arg2)
-0x12d9 void FLD_GIMMICK_CAMERA_SET(int arg0, int arg1)
-0x12da int FLD_OBJ_MODEL_LOAD_UID(int arg0, int arg1, int arg2)
-0x12db void FLD_SWITCH_ELEVATOR(int arg0, int arg1)
-0x12dc float FLD_EMY_MODEL_GET_SCALE(int arg0)
-0x12dd void FLD_NOT_OPEN_DOOR_ANIM(unk arg0)
-0x12de void FLD_PANEL_GUIDE_HIGHLIGHT(int arg0)
-0x12df void FLD_SET_DARK_ZONE(int arg0)
-0x12e0 int FLD_CHECK_DARK_ZONE()
-0x12e1 void FLD_PANEL_COIN_SET_TYPE(int arg0, int arg1)
-0x12e2 void FLD_PANEL_COIN_SET_VISIBLE(int arg0)
-0x12e3 int FLD_PANEL_COIN_CHECK_VISIBLE()
-0x12e4 int FLD_GET_FISHING_RESULT(int arg0, int arg1)
-0x12e5 void PREPARE_CALL_FIELD(int arg0, int arg1, int arg2, int arg3)
-0x12e6 void PREPARE_CALL_KF_EVENT(int arg0, int arg1, int arg2, int arg3)
-0x12e7 void FLD_CLEAR_SUMMON_ENEMY(int arg0, int arg1)
-0x12e8 void FLD_CLEAR_SUMMON_LIFE(int arg0, int arg1)
-0x12e9 void FLD_CAMERA_INTERP_ASYNC(int arg0)
-0x12ea void FLD_PC_MODEL_SET_PASS_GATE(int arg0, int arg1)
-0x12eb void FLD_BFIELD_LOAD()
-0x12ec int FLD_CASINO_GAME_DEAL(int arg0, int arg1, int arg2)
-0x12ed int FLD_CASINO_GAME_CHECK_PLAY(int arg0, int arg1, int arg2)
-0x12ee void FLD_SET_BUTTON_HIT_DISABLE(int arg0)
-0x12ef void FLD_ALLY_SET_POINT_ROT(float arg0, float arg1, float arg2)
-0x12f0 void FLD_ALLY_SET_ORIENT_ROT(int arg0)
-0x12f1 void FLD_SYNC_COVER_STATE()
-0x12f2 void FLD_SET_PARTY_LOOKAT(int arg0, int arg1)
-0x12f3 void FLD_SET_PARTY_LOOKAT_POS(int arg0, float arg1, float arg2, float arg3)
-0x12f4 void FLD_RESET_PARTY_LOOKAT(int arg0)
-0x12f5 void FLD_ALLY_SET_WAIT(int arg0)
-0x12f6 void FLD_PLACENAME_TEX_EXIT()
-0x12f7 void FLD_PLACENAME_TEX_WAIT()
-0x12f8 void FLD_NPC_SET_CURRENT_PATHNODE(int arg0, int arg1)
-0x12f9 void FLD_SWITCH_REQ_ANIM(int arg0, int arg1)
-0x12fa void FLD_SWITCH_SYNC_ANIM()
-0x12fb int FLD_CHECK_AUTO_RECOVER()
-0x12fc int FLD_USE_AUTO_RECOVER()
-0x12fd int FLD_SIMPLE_SYS_MSG(int arg0, int arg1, int arg2)
-0x12fe void FLD_MEMBER_RECOVER(int arg0)
-0x12ff void FLD_NPC_TALKICON_FORCEDISP_FBNID(int arg0, int arg1)
-0x1300 void FLD_DNG_SET_CENTER_POS(int arg0)
-0x1301 void FLD_MODEL_SET_SCALE(int arg0, float arg1)
-0x1302 void FLD_CROWD_SET_DIVNO_DNG(int arg0)
-0x1303 int FLD_CROWD_GET_DIVNO_DNG()
-0x1304 void FLD_PTY_ADD_BUF(int arg0, int arg1)
-0x1305 void FLD_PTY_RESET_BUF()
-0x1306 void FLD_SET_DUCT_POS(float arg0, float arg1, float arg2, float arg3, float arg4)
-0x1307 float FLD_GET_DUCT_POS(int arg0)
-0x1308 void FLD_SET_CAMERA_DEFAULT_POS(int arg0)
-0x1309 void FLD_PANEL_GUIDE_UNDISP(int arg0, int arg1)
-0x130a void FLD_GEN_FISHING_SEED()
-0x130b void FLD_CASINO_WORK_INIT()
-0x130c void FLD_CLEAR_COVER_STATE(int arg0)
-0x130d void FLD_SET_ENEMY_ORNAMENT(int arg0, int arg1, int arg2)
-0x130e int FLD_PANEL_GUIDE_UNDISP_CHECK(int arg0)
-0x130f void FLD_PANEL_COIN_SET_ENABLE(int arg0)
-0x1310 int FLD_PANEL_COIN_CHECK_ENABLE()
-0x1311 void FLD_ROADMAP_MMAP_OPEN(int arg0)
-0x1312 void FLD_ROADMAP_MMAP_SYNC()
-0x1313 void FLD_ROADMAP_MMAP_CLOSE()
-0x1314 void FLD_SET_CAMERA_FAR_MODE(int arg0)
-0x1315 void FLD_SET_DOOR_HIT_TYPE_DTL(int arg0, int arg1, int arg2, int arg3, int arg4)
-0x1316 void FLD_PC_OFS_TRANSLATE(float arg0, float arg1, float arg2, int arg3)
-0x1317 int FLD_FBNID_TO_NPCID(int arg0)
-0x1318 void FLD_NPC_SET_ROTATE_RATIO(int arg0, float arg1)
-0x1319 void FLD_CAMERA_SET_FOVY(float arg0)
-0x131a void FLD_MODEL_DST_TRANSLATE(int arg0, float arg1, float arg2, float arg3, float arg4, int arg5)
-0x131b void FLD_CAMERA_SET_FIXED_INTERP(float arg0, float arg1, float arg2, float arg3, float arg4, float arg5, float arg6, int arg7)
-0x131c void FLD_SET_GMK_CAMERA_UID(int arg0)
-0x131d int FLD_GET_GMK_CAMERA_UID()
-0x131e void FLD_MMT_MAP_END()
-0x131f void FLD_GREETING_MSG_DTL_HIGH(int arg0, int arg1, int arg2)
-0x1320 void FLD_SET_DOOR_OPEN_POS(unk arg0, unk arg1)
-0x1321 void FLD_ROADMAP_MMAP_CHANGE(int arg0)
-0x1322 void FLD_CAR_INTERCEPT_READ(int arg0)
-0x1323 void FLD_NPC_TALKICON_UNDISP_FBNID(int arg0, int arg1)
-0x1324 void FLD_CAR_ADD_ENGINE_SE(int arg0)
-0x1325 void FLD_CAR_ENGINE_SE_ENABLE(int arg0, int arg1)
-0x1326 void FLD_CRAFT_ITEM_TROPHY(int arg0)
-0x1327 void FLD_ALLY_WEAPON_SETUP()
-0x1328 void FLD_SYNC_SCN_CHANGE()
-0x1329 int FLD_GET_BKUP_FIELD_TYPE()
-0x132a void FLD_OBJ_MODEL_LINKBG(int arg0)
-0x132b float FLD_MODEL_GET_X_HELPER_TRANSLATE(int arg0, int arg1)
-0x132c float FLD_MODEL_GET_Y_HELPER_TRANSLATE(int arg0, int arg1)
-0x132d float FLD_MODEL_GET_Z_HELPER_TRANSLATE(int arg0, int arg1)
-0x132e void BGENV_LINK_BGOBJ_INDEX_ANIM(int arg0, int arg1, int arg2, int arg3)
-0x132f void FLD_ROADMAP_UPDATE()
-0x1330 void FLD_NPC_SHADOWCAST_FBNID(int arg0, int arg1)
-0x1331 void FLD_PTY_PANEL_SET_VISIBLE(int arg0)
-0x1332 int CALL_PLAY_GO_SAVE()
-0x1333 void FLD_CROWD_BBEFECT_VISIBLE(int arg0)
-0x1334 void FLD_NPC_FBN_FADE_SYNC(int arg0)
-0x1335 void FLD_LMAP_SPOT_TROPHY_PROC()
-0x2000 int AI_RND(int arg0)
-0x2001 void AI_ACT_ATTACK()
-0x2002 int AI_TAR_RND()
-0x2003 void AI_ACT_SKILL(int arg0)
-0x2004 void AI_DEBUG_PRINT(string arg0)
-0x2005 void AI_DEBUG_PRINT_VALUE(int arg0, float arg1)
-0x2006 int AI_CHK_FRID_VOID()
-0x2007 int AI_CHK_MYHP(int arg0)
-0x2008 int AI_CHK_MYMP(int arg0)
-0x2009 int AI_CHK_FRHP(int arg0)
-0x200a int AI_CHK_ENHP(int arg0)
-0x200b int AI_CHK_ENHP_O(int arg0)
-0x200c int AI_CHK_MYLV_O(int arg0)
-0x200d int AI_CHK_FRLV_O(int arg0)
-0x200e int AI_CHK_EN_LV_O(int arg0)
-0x200f int AI_CHK_FRCNT(int arg0)
-0x2010 int AI_CHK_ENCNT(int arg0)
-0x2011 int AI_CHK_MYBAD(int arg0)
-0x2012 int AI_CHK_FRBAD(int arg0)
-0x2013 int AI_CHK_ENBAD(int arg0)
-0x2014 int AI_CHK_FRID(int arg0)
-0x2015 int AI_CHK_ENID(int arg0)
-0x2016 int AI_CHK_FRHOJO(int arg0)
-0x2017 int AI_CHK_ENHOJO(int arg0)
-0x2018 int AI_CHK_ESCAPE(int arg0)
-0x2019 int AI_CHK_SUMMON(int arg0)
-0x201a int AI_CHK_SENSEI(int arg0)
-0x201b int AI_CHK_MYHANSYA(int arg0)
-0x201c int AI_CHK_FRHANSYA(int arg0)
-0x201d int AI_CHK_ENHANSYA(int arg0)
-0x201e int AI_CHK_MYKYUSYU(int arg0)
-0x201f int AI_CHK_FRKYUSYU(int arg0)
-0x2020 int AI_CHK_ENKYUSYU(int arg0)
-0x2021 int AI_CHK_MYMUKOU(int arg0)
-0x2022 int AI_CHK_FRMUKOU(int arg0)
-0x2023 int AI_CHK_ENMUKOU(int arg0)
-0x2024 int AI_CHK_MYWEAK(int arg0)
-0x2025 int AI_CHK_FRWEAK(int arg0)
-0x2026 int AI_CHK_ENWEAK(int arg0)
-0x2027 int AI_CHK_MYUSEATTR(int arg0)
-0x2028 int AI_CHK_FRUSEATTR(int arg0)
-0x2029 int AI_CHK_ENUSEATTR(int arg0)
-0x202a int AI_CHK_MYUSESKIL(int arg0)
-0x202b int AI_CHK_FRUSESKIL(int arg0)
-0x202c int AI_CHK_ENUSESKIL(int arg0)
-0x202d int AI_CHK_MYGROUP(int arg0)
-0x202e int AI_CHK_FRGROUP(int arg0)
-0x202f int AI_CHK_ENGROUP(int arg0)
-0x2030 int AI_CHK_TURN(int arg0)
-0x2031 int AI_CHK_TURN_O(int arg0)
-0x2032 int AI_CHK_MYHREC(int arg0)
-0x2033 int AI_CHK_MORE()
-0x2034 int AI_CHK_FRHANSYA_ST(int arg0)
-0x2035 int AI_CHK_ENHANSYA_ST(int arg0)
-0x2036 int AI_CHK_FRKYUSYU_ST(int arg0)
-0x2037 int AI_CHK_ENKYUSYU_ST(int arg0)
-0x2038 int AI_CHK_FRMUKOU_ST(int arg0)
-0x2039 int AI_CHK_ENMUKOU_ST(int arg0)
-0x203a int AI_CHK_FRWEAK_ST(int arg0)
-0x203b int AI_CHK_ENWEAK_ST(int arg0)
-0x203c int AI_CHK_FRIDHP(int arg0, int arg1)
-0x203d int AI_CHK_FRIDMP(int arg0, int arg1)
-0x203e int AI_CHK_FRIDLV_O(int arg0, int arg1)
-0x203f int AI_CHK_FRIDBAD(int arg0, int arg1)
-0x2040 int AI_CHK_FRIDBAD_ALL(int arg0, int arg1)
-0x2041 int AI_CHK_FRIDHOJO(int arg0, int arg1)
-0x2042 int AI_CHK_FRIDHANSYA(int arg0, int arg1)
-0x2043 int AI_CHK_FRIDKYUSYU(int arg0, int arg1)
-0x2044 int AI_CHK_FRIDMUKOU(int arg0, int arg1)
-0x2045 int AI_CHK_FRIDWEAK(int arg0, int arg1)
-0x2046 int AI_CHK_FRIDUSEATTR(int arg0, int arg1)
-0x2047 int AI_CHK_FRIDUSESKIL(int arg0, int arg1)
-0x2048 int AI_CHK_FRIDUSEGROUP(int arg0, int arg1)
-0x2049 int AI_CHK_FRIDHREC(int arg0, int arg1)
-0x204a int AI_CHK_ENIDHP(int arg0, int arg1)
-0x204b int AI_CHK_ENIDMP(int arg0, int arg1)
-0x204c int AI_CHK_ENIDLV_O(int arg0, int arg1)
-0x204d int AI_CHK_ENIDBAD(int arg0, int arg1)
-0x204e int AI_CHK_ENIDBAD_ALL(int arg0, int arg1)
-0x204f int AI_CHK_ENIDHOJO(int arg0, int arg1)
-0x2050 int AI_CHK_ENIDHANSYA(int arg0, int arg1)
-0x2051 int AI_CHK_ENIDKYUSYU(int arg0, int arg1)
-0x2052 int AI_CHK_ENIDMUKOU(int arg0, int arg1)
-0x2053 int AI_CHK_ENIDWEAK(int arg0, int arg1)
-0x2054 int AI_CHK_ENIDUSEATTR(int arg0, int arg1)
-0x2055 int AI_CHK_ENIDUSESKIL(int arg0, int arg1)
-0x2056 int AI_CHK_ENIDUSEGROUP(int arg0, int arg1)
-0x2057 int AI_CHK_ENIDHREC(int arg0, int arg1)
-0x2058 int AI_CHK_ID(int arg0)
-0x2059 int AI_CHK_FRALLHP(int arg0)
-0x205a int AI_CHK_ENALLHP(int arg0)
-0x205b int AI_CHK_MYABLESKIL(int arg0)
-0x205c int AI_CHK_MYATTRSKIL(int arg0)
-0x205d int AI_CHK_ELEMENT_HITSUB(int arg0, int arg1)
-0x205e int AI_CHK_ELEMENT_HIT(int arg0)
-0x205f int AI_CHK_ELEMENT_RESIST(int arg0)
-0x2060 int AI_CHK_ELEMENT_NULLIFY(int arg0)
-0x2061 int AI_CHK_ANALYZE(int arg0)
-0x2062 int AI_CHK_DOWN(int arg0)
-0x2063 int AI_CHK_SLIP(int arg0)
-0x2064 int AI_CHK_ENOVERLV(int arg0)
-0x2065 int AI_CHK_WALL(int arg0)
-0x2066 int AI_CHK_NONE(int arg0)
-0x2067 int AI_TAR_AI()
-0x2068 int AI_TAR_HPMIN()
-0x2069 int AI_TAR_LVMIN()
-0x206a int AI_TAR_MPMAX()
-0x206b int AI_TAR_BAD(int arg0)
-0x206c int AI_TAR_NOTBAD(int arg0)
-0x206d int AI_TAR_ID(int arg0)
-0x206e int AI_TAR_MINE()
-0x206f int AI_TAR_MYAI()
-0x2070 int AI_TAR_HANSYA(int arg0)
-0x2071 int AI_TAR_KYUSYU(int arg0)
-0x2072 int AI_TAR_MUKOU(int arg0)
-0x2073 int AI_TAR_WEAK(int arg0)
-0x2074 int AI_TAR_NOTHANSYA(int arg0)
-0x2075 int AI_TAR_NOTKYUSYU(int arg0)
-0x2076 int AI_TAR_NOTMUKOU(int arg0)
-0x2077 int AI_TAR_NOTWEAK(int arg0)
-0x2078 int AI_TAR_APPOINT(int arg0)
-0x2079 int AI_TAR_DOWN(int arg0)
-0x207a int AI_TAR_STAND(int arg0)
-0x207b int AI_TAR_HANSYA_ST(int arg0)
-0x207c int AI_TAR_KYUSYU_ST(int arg0)
-0x207d int AI_TAR_MUKOU_ST(int arg0)
-0x207e int AI_TAR_WEAK_ST(int arg0)
-0x207f int AI_TAR_NOTHANSYA_ST(int arg0)
-0x2080 int AI_TAR_NOTKYUSYU_ST(int arg0)
-0x2081 int AI_TAR_NOTMUKOU_ST(int arg0)
-0x2082 int AI_TAR_NOTWEAK_ST(int arg0)
-0x2083 int AI_TAR_HERO(int arg0)
-0x2084 int AI_TAR_NOTID(int arg0)
-0x2085 int AI_TAR_HOJO(int arg0)
-0x2086 int AI_TAR_NOTHOJO(int arg0)
-0x2087 int AI_SET_AFFINITY(int arg0)
-0x2088 int AI_SET_DOWN(int arg0)
-0x2089 int AI_SET_SLIP(int arg0)
-0x208a int AI_SET_DROPITEM(int arg0, int arg1)
-0x208b int AI_GET_AFFINITY()
-0x208c int AI_GET_FRIDTURN(int arg0)
-0x208d int AI_GET_ENIDTURN(int arg0)
-0x208e int AI_GET_FRHOJO_ON(int arg0)
-0x208f int AI_GET_FRHOJO_OFF(int arg0)
-0x2090 int AI_GET_ENHOJO_ON(int arg0)
-0x2091 int AI_GET_FRBAD_ON(int arg0)
-0x2092 int AI_GET_ENBAD_ON(int arg0)
-0x2093 int AI_GET_FRHP(int arg0)
-0x2094 int AI_GET_FRLV(int arg0)
-0x2095 int AI_GET_ENLV(int arg0)
-0x2096 int AI_GET_SKILATTR(int arg0)
-0x2097 int AI_GET_FRCNT(int arg0)
-0x2098 int AI_GET_UNI(int arg0, int arg1)
-0x2099 int AI_GET_UNIHPMIN()
-0x209a int AI_GET_UNIWEAK(int arg0)
-0x209b int AI_GET_UNIWEAK_ST(int arg0)
-0x209c int AI_GET_UNIWEAK_DW(int arg0)
-0x209d int AI_GET_UNIWEAKHPMIN(int arg0)
-0x209e int AI_GET_UNIWEAKHPMIN_ST(int arg0)
-0x209f int AI_GET_UNIWEAKHPMIN_DW(int arg0)
-0x20a0 int AI_GET_UNINOMALHPMIN(int arg0)
-0x20a1 int AI_GET_UNINOMALHPMIN_ST(int arg0)
-0x20a2 int AI_GET_UNINOMALHPMIN_DW(int arg0)
-0x20a3 int AI_GET_UNIBESTATTRSKIL(int arg0, int arg1, int arg2)
-0x20a4 int AI_GET_UNIBESTATTRITEM(int arg0, int arg1, int arg2)
-0x20a5 int AI_GET_UNIBESTATKSKIL(int arg0, int arg1, int arg2)
-0x20a6 int AI_GET_UNIAPPOINT(int arg0)
-0x20a7 int AI_GET_UNIWEAKATTRSKIL(int arg0, int arg1)
-0x20a8 int AI_GET_UNIHERO(int arg0)
-0x20a9 int AI_GET_UNIATAB(int arg0)
-0x20aa int AI_GET_UNIATAB_ST(int arg0)
-0x20ab int AI_GET_UNIATAB_DW(int arg0)
-0x20ac int AI_GET_UNICND_FR(int arg0, int arg1, int arg2)
-0x20ad int AI_GET_UNIHOJO_OFF_FR(int arg0)
-0x20ae int AI_GET_UNIHOJO_OFF_EN(int arg0)
-0x20af int AI_GET_UNILVMAX_EN(int arg0)
-0x20b0 int AI_GET_UNINOMALLVMAXHPMAX(int arg0)
-0x20b1 int AI_GET_UNINOMALNOTBAD(int arg0)
-0x20b2 int AI_GET_UNINOTNOMAL(int arg0)
-0x20b3 int AI_GET_MY_ID()
-0x20b4 int AI_GET_P_MAX_HP(int arg0)
-0x20b5 int AI_GET_P_NOW_HP(int arg0)
-0x20b6 int AI_GET_NEXT_ID(int arg0)
-0x20b7 int AI_GET_P_ORDER(int arg0)
-0x20b8 int AI_GET_P_MAX_SP(int arg0)
-0x20b9 int AI_GET_P_NOW_SP(int arg0)
-0x20ba int AI_GET_UNIHOJO_ON_EN(int arg0)
-0x20bb int AI_GET_UNIHANSYA(int arg0)
-0x20bc int AI_GET_UNIKYUSYU(int arg0)
-0x20bd int AI_GET_UNIMUKOU(int arg0)
-0x20be int AI_GET_UNIRESIST(int arg0)
-0x20bf int AI_GET_UNIWEAKHPMAX(int arg0)
-0x20c0 int AI_GET_UNIWEAKHPMAX_ST(int arg0)
-0x20c1 int AI_GET_UNIWEAKHPMAX_DW(int arg0)
-0x20c2 int AI_GET_UNIBADHPMAX(int arg0)
-0x20c3 int AI_GET_UNIBADHPMIN(int arg0)
-0x20c4 int AI_GET_UNIRANDOM(int arg0)
-0x20c5 int AI_DEB_PRI_TARUNI_ID()
-0x20c6 int AI_CHK_ISENEMY()
-0x20c7 int AI_SET_BADSTATUS(int arg0)
-0x20c8 int AI_CHG_CAMERA_FIX(float arg0, float arg1, float arg2, float arg3, float arg4, float arg5)
-0x20c9 int AI_SET_CAMERA_ANM_S(float arg0, float arg1, float arg2, float arg3, float arg4, float arg5)
-0x20ca int AI_SET_CAMERA_ANM_E(float arg0, float arg1, float arg2, float arg3, float arg4, float arg5)
-0x20cb int AI_SET_CAMERA_ANM_TIME(int arg0)
-0x20cc int AI_CHG_CAMERA_ANM(int arg0)
-0x20cd int AI_SET_CAMERA_ANM_TYPE(int arg0)
-0x20ce void CALL_BATTLE(int arg0)
-0x20cf void WAIT_BATTLE()
-0x20d0 void BTL_FADE_IN()
-0x20d1 void BTL_FADE_SYNC()
-0x20d2 int BTL_CUTSCENE_LOAD(int arg0, int arg1)
-0x20d3 void BTL_CUTSCENE_LOADSYNC(int arg0)
-0x20d4 void BTL_CUTSCENE_PLAY(int arg0, int arg1, int arg2, int arg3, int arg4)
-0x20d5 void BTL_CUTSCENE_SYNC(int arg0)
-0x20d6 void BTL_CUTSCENE_END(int arg0)
-0x20d7 void AI_ACT_WAIT()
-0x20d8 int AI_CHK_PLAYER_ID(int arg0)
-0x20d9 int AI_CHK_MYID(int arg0, int arg1)
-0x20da int AI_GET_MYATTRATTACK()
-0x20db int AI_GET_E_NUM(int arg0)
-0x20dc int AI_GET_UNI_NOANALYZE(int arg0)
-0x20dd int AI_CHK_UNIHOJO(int arg0, int arg1)
-0x20de int AI_CHK_ENRESIST(int arg0)
-0x20df int AI_GET_ATTRSKIL(int arg0, int arg1)
-0x20e0 int AI_CHK_BOSS(int arg0)
-0x20e1 int AI_CHK_UNIATTACK(int arg0, int arg1)
-0x20e2 int AI_ACT_UNIBESTATKSKIL_ALL(int arg0)
-0x20e3 int AI_CHK_UNIRESIST(int arg0, int arg1)
-0x20e4 int AI_CHK_UNIBAD(int arg0, int arg1)
-0x20e5 int AI_CHK_UNINOMAL(int arg0, int arg1)
-0x20e6 int AI_CHK_P_ABLE_SKILL(int arg0, int arg1)
-0x20e7 int AI_GET_ENBADOFF(int arg0)
-0x20e8 int AI_GET_UNINOBADOFF(int arg0)
-0x20e9 int AI_CHK_UNIHP(int arg0, int arg1)
-0x20ea int AI_CHK_FRIDABLESKIL(int arg0, int arg1)
-0x20eb int AI_CHK_MYRESIST(int arg0)
-0x20ec int AI_CHK_MYHOJO(int arg0)
-0x20ed int AI_GET_FIRST_ACTION()
-0x20ee int AI_GET_GLOBAL(int arg0)
-0x20ef int AI_GET_P_NUM(int arg0)
-0x20f0 void AI_SET_ASSISTSKILL_MODE(unk arg0)
-0x20f1 int AI_CHK_FRALLSP(int arg0)
-0x20f2 int AI_SET_GLOBAL(int arg0, int arg1)
-0x20f3 int AI_SET_CAMERA_END(unk arg0)
-0x20f4 int AI_GET_UNI_TALKCHARA()
-0x20f5 int AI_CHK_ID_PSTOCK(int arg0)
-0x20f6 void AI_SET_TALKRESULT(int arg0)
-0x20f7 void AI_SET_CAMERA_FOV_S(float arg0)
-0x20f8 void AI_SET_CAMERA_ROTANM_S(float arg0)
-0x20f9 void AI_SET_CAMERA_ROTANM_E(float arg0)
-0x20fa void AI_SET_CAMERA_RESET()
-0x20fb void AI_SET_CAMERA_FOV_E(float arg0)
-0x20fc int AI_GET_ID_TALKCHARA()
-0x20fd int AI_GET_IDLV(int arg0)
-0x20fe void AI_SET_CAMERA_SHAKE_S(int arg0, float arg1, float arg2, float arg3)
-0x20ff void AI_SET_CAMERA_SHAKE_E(float arg0)
-0x2100 int AI_CHK_PBOOK_REGIST(int arg0)
-0x2101 int AI_GET_ID_TALK_TYPE(int arg0)
-0x2102 int AI_GET_ID_TALK_PERSON(int arg0)
-0x2103 int AI_GET_ID_TALK_MONEYMIN(int arg0)
-0x2104 int AI_GET_ID_TALK_MONEYMAX(int arg0)
-0x2105 int AI_GET_ID_TALK_ITEM(int arg0, int arg1)
-0x2106 int AI_GET_ID_TALK_ITEM_RARE(int arg0, int arg1)
-0x2107 void AI_SET_TALK_SPEAKER(int arg0, int messageHandle)
-0x2108 void AI_SET_ADD_FACEANIM(int arg0, int arg1, float arg2)
-0x2109 int AI_SET_GLOBAL_EVENT(int arg0, int arg1)
-0x210a int AI_GET_GLOBAL_EVENT(int arg0)
-0x210b int BTL_CUTSCENE_LOAD_TALK(int arg0)
-0x210c int AI_SET_LOCAL_PARAM(int arg0, int arg1)
-0x210d int AI_GET_LOCAL_PARAM(int arg0)
-0x210e void BTL_CUTSCENE_CANCEL(int arg0)
-0x210f void AI_ACT_WAIT3(int arg0)
-0x2110 void BTL_CUTSCENE_REMOVE(int arg0)
-0x2111 void BTL_RELOCATION()
-0x2112 int AI_CHK_ID_FRTARGET(int arg0)
-0x2113 int AI_TAR_UID(int arg0)
-0x2114 int AI_SET_ENIDAFFINITY(int arg0, int arg1)
-0x2115 int AI_GET_ENIDAFFINITY(int arg0)
-0x2116 int AI_CHK_ABLEWEAK(int arg0)
-0x2117 int AI_ACT_TAKEOVER(int arg0)
-0x2118 int AI_CHK_TAKEOVER(int arg0)
-0x2119 int AI_SET_ENID_MAXSERIAL(int arg0, int arg1)
-0x211a int AI_GET_ENID_MAXSERIAL(int arg0)
-0x211b int AI_GET_ENID_CURRENTSERIAL(int arg0)
-0x211c void AI_SET_TALKCUTSCENE_PLAY(int arg0)
-0x211d void AI_SET_TALKMESS_SCENE(int arg0)
-0x211e void AI_SET_TALKMESS_WAIT()
-0x211f void AI_SET_TALKMESS_PARAM(int messageHandle)
-0x2120 void AI_SET_TALKMESS_EN_PARAM(int messageHandle)
-0x2121 void AI_SET_TALKMESS_STATE(int messageHandle)
-0x2122 void CALL_EVENTBATTLE(int arg0, int arg1, int arg2)
-0x2123 void AI_SET_TALKMESS_OBTAIN(int arg0)
-0x2124 int AI_CHK_TALKMESS_INFODATA()
-0x2125 void AI_SET_TALKMESS_MASK(int arg0)
-0x2126 void AI_SET_TALKMESS_DOUBLE()
-0x2127 int AI_CHK_TALKMESS_CRITICAL()
-0x2128 int AI_CHK_TALKMESS_SURRENDER()
-0x2129 void AI_SET_TALKMESS_COOP(int arg0)
-0x212a void BTL_CUTSCENE_CAPTURE_ENDFRAME(int arg0)
-0x212b int AI_CHK_UNIANALYZE_OPEN(int arg0, int arg1)
-0x212c int AI_CHK_GUN()
-0x212d void AI_ACT_GUN()
-0x212e int AI_ACT_HIGHSKILL(int arg0)
-0x212f int AI_ACT_REZ()
-0x2130 int AI_ACT_BADSTATE()
-0x2131 int AI_ACT_BOSS_PRESIDENT_SUMMON()
-0x2132 int AI_CHK_TURN_EQUAL(int arg0)
-0x2133 int AI_CHK_TURN_DIVI(int arg0)
-0x2134 int AI_CHK_NOTMYBAD(int arg0)
-0x2135 int AI_CHK_NOTFRBAD(int arg0)
-0x2136 int AI_CHK_NOTENBAD(int arg0)
-0x2137 int AI_CHK_NOTMYHOJO(int arg0)
-0x2138 int AI_CHK_NOTFRHOJO(int arg0)
-0x2139 int AI_CHK_NOTENHOJO(int arg0)
-0x213a int AI_CHK_PREV_ATK()
-0x213b int AI_CHK_PREV_WAIT()
-0x213c void BTL_SYSTEM_MESS(int arg0)
-0x213d int AI_CHK_EXTENDEDWAIT()
-0x213e int AI_CHK_ENEMY_ABLEWEAK(int arg0)
-0x213f int AI_ACT_ENTAKEOVER(int arg0)
-0x2140 int BTL_ROULETTE_BET()
-0x2141 int AI_GET_UIDTOID(int arg0)
-0x2142 int AI_GET_ENHP(int arg0)
-0x2143 int AI_CHK_ENALLDOWN()
-0x2144 int AI_GET_BOSSDAMAGE()
-0x2145 void AI_CLEAR_BOSSDAMAGE()
-0x2146 int AI_GET_ACTUID()
-0x2147 void AI_SET_VOICE(int arg0)
-0x2148 int AI_GET_UNI_DARK(int arg0)
-0x2149 void BTL_ADD_SERIES(int arg0)
-0x214a int BTL_GET_SERIES()
-0x214b int AI_CHK_ID_TALK_FLAG(int arg0)
-0x214c void AI_SET_TALK_ITEM(int arg0, int messageHandle)
-0x214d void AI_SET_TALK_ITEM_RARE(int arg0, int messageHandle)
-0x214e int AI_ACT_DEBUFF(int arg0)
-0x214f int AI_ACT_UNKNOWN_ATTR(int arg0)
-0x2150 int AI_GET_TALK_MAJOR()
-0x2151 int AI_CHK_EXCEPTION()
-0x2152 void BTL_REQ_ASSIST(int arg0, int arg1)
-0x2153 void BTL_CLS_ASSIST()
-0x2154 int AI_CHK_ROUNDUP()
-0x2155 void AI_SET_MSGVAR(int arg0)
-0x2156 int AI_GET_UNIHPMIN_EN()
-0x2157 void AI_ACT_ESCAPE()
-0x2158 int BTL_CHK_ENCOUNTFLAG(int arg0)
-0x2159 int AI_GET_UNI_SKIMMING(int arg0)
-0x215a int AI_GET_UNI_TALKCONTACT(int arg0)
-0x215b int AI_SET_FRID_MAXSERIAL(int arg0, int arg1)
-0x215c int AI_GET_FRID_MAXSERIAL(int arg0)
-0x215d void AI_ACT_DEFENSE()
-0x215e int AI_ACT_FIXED()
-0x215f int AI_ACT_HEAL(unk arg0)
-0x2160 void BTL_TALK_ADDWANTED(int arg0)
-0x2161 int BTL_TALK_PERSONAGET_LOADREQ()
-0x2162 int BTL_TALK_PERSONAGET_LOADWAIT()
-0x2163 int AI_ACT_GUARDORDER()
-0x2164 int AI_SET_GUARDORDER(int arg0)
-0x2165 int AI_GET_UNI_ATTACK()
-0x2166 int BTL_CHK_DUNGEONMATCH()
-0x2167 int BTL_SET_STARTDUNGEONMATCH()
-0x2168 int BTL_WAIT_DUNGEONMATCH(int messageHandle)
-0x2169 void AI_ENID_SUSPEND(int arg0)
-0x216a void AI_ENID_RESUME(int arg0)
-0x216b int AI_CHK_EXCEPT_ENCOUNT(unk arg0)
-0x216c void AI_FRID_SUSPEND(int arg0)
-0x216d void AI_FRID_RESUME(int arg0)
-0x216e int BTL_TALK_WEATHER_ITEM(int arg0, int messageHandle)
-0x216f int BTL_TALK_CHECK_NO_YOU()
-0x2170 int BTL_TALK_NO_YOU()
-0x2171 void PREPARE_FIELDBATTLE(int arg0)
-0x2172 void CALL_FIELDBATTLE()
-0x2173 int BTL_TALK_ICON_PLAY(int arg0)
-0x2174 void BTL_SET_MSG_SPEAKER(int arg0, int messageHandle)
-0x2175 int BTL_TALK_GET_SELECTNO()
-0x2176 void BTL_BOSSSE_PLAY(int arg0)
-0x2177 int BTL_TALK_SET_RESETCAMERA()
-0x2178 int BTL_TALK_SET_ASSIST(int arg0)
-0x2179 void BTL_CUTSCENE_BOSS999_PLAY(int arg0, int arg1, int arg2, int arg3, int arg4)
-0x217a int BTL_TALK_GET_YOSHIDACOOP()
-0x217b int BTL_TALK_CHK_USONAKI()
-0x217c void BTL_MISSION_ADD(int arg0)
-0x217d void BTL_MISSION_REMOVE(int arg0)
-0x217e void BTL_LETTERBOX_IN(int arg0)
-0x217f void BTL_LETTERBOX_OUT(int arg0)
-0x2180 int BTL_CHK_NOTPHYSICAL()
-0x2181 void BTL_ROULETTE_BET_LOAD()
-0x2182 void AI_ACT_DANGERUP()
-0x2183 void BTL_SYNC_ASSIST()
-0x2184 int AI_ACT_TECHNICAL()
-0x2185 int AI_TAR_HPMAX()
-0x2186 int AI_CHK_FMTPINCH()
-0x2187 int AI_CHK_ID_ENTARGET(int arg0)
-0x2188 int AI_GET_UID_IDBAD(int arg0, int arg1)
-0x2189 int AI_GET_UID_IDSUPPORT(int arg0, int arg1)
-0x218a int AI_GET_UID_IDNOTBAD(int arg0, int arg1)
-0x218b int AI_GET_UID_IDNOTSUPPORT(int arg0, int arg1)
-0x218c int BTL_CUTIN_CREATE(int arg0)
-0x218d int BTL_CUTIN_SYNC()
-0x218e int BTL_CUTIN_START()
-0x218f int BTL_CUTIN_START_SYNC()
-0x2190 int BTL_CUTIN_END_SYNC()
-0x2191 int BTL_CUTIN_DELETE()
-0x2192 int BTL_TALK_EXIST_BLANK()
-0x2193 int AI_GET_ENTALK_ITEM()
-0x2194 int AI_GET_ENTALK_MONEY()
-0x2195 void BTL_TALK_ALLY_SPEAKER(int arg0, int messageHandle)
-0x2196 void AI_ADD_REINFORCEMENT(int arg0)
-0x2197 void BTL_TALK_REQ_JYOKYO(int arg0)
-0x2198 void BTL_TALK_REQ_SKILLNAME(int arg0)
-0x2199 int AI_ACT_ATTACK_WEAK(int arg0)
-0x219a int AI_CHK_DEATHMARCH()
-0x3000 void CALL_EVENT(int arg0, int arg1)
-0x3001 void EVT_ASSET_OVERWRITE(int arg0, int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7)
-0x3002 int EVT_GET_RESHND(int arg0, int arg1)
-0x3003 int EVT_GET_ASSET_RESHND(int arg0)
-0x3004 void CHARA_CAMERA(int arg0, int arg1, int arg2, int arg3)
-0x3005 int EVT_GET_ANIMCOUNT(int arg0)
-0x3006 int EVT_GET_ANIMCOUNT_U()
-0x3007 int EVT_GET_ANIMCOUNT_D()
-0x3008 int EVT_GET_ANIMCOUNT_L()
-0x3009 int EVT_GET_ANIMCOUNT_R()
-0x300a void CUTIN_START(int arg0, int arg1, int arg2, int arg3)
-0x300b void CUTIN_STOP(int arg0)
-0x300c void CMM_OPEN(int arg0)
-0x300d int CMM_EXIST(int arg0)
-0x300e int CMM_GET_LV(int arg0)
-0x300f void CMM_LVUP(int arg0)
-0x3010 int CMM_CHK_LVUP(int arg0)
-0x3011 void CMM_ADD_POINT(int arg0, int arg1)
-0x3012 void CMM_ADD_POINT_ID(int arg0, int arg1, int arg2)
-0x3013 int CMM_CHK_REVERSE(int arg0)
-0x3014 void CMM_SET_REVERSE(int arg0, int arg1)
-0x3015 int CMM_CHK_BROKEN(int arg0)
-0x3016 void CMM_SET_BROKEN(int arg0, int arg1)
-0x3017 int CMM_CHK_CALL(int arg0)
-0x3018 void CMM_SET_PROMISE(int arg0)
-0x3019 int CMM_GET_PROMISE()
-0x301a int CMM_CHK_PROMISE()
-0x301b int CMM_GET_PROMISE_DAY()
-0x301c void CMM_SETUP_EVENT(int arg0, int arg1)
-0x301d void CMM_EXEC_EVENT()
-0x301e int CMM_GET_EVENT_TYPE()
-0x301f void CMM_VSET_COMMUNITY(int arg0, int messageHandle)
-0x3020 int CMM_VSET_PS(int arg0, int arg1, int messageHandle)
-0x3021 int CMM_VSET_PSID(int arg0, int messageHandle)
-0x3022 void CMM_FRIEND(int arg0)
-0x3023 int CMM_CHK_EVENT(int arg0, int arg1)
-0x3024 void CMM_ACTIVE(int arg0)
-0x3025 int CMM_GET_LOVER_HIGH()
-0x3026 int CMM_CHK_ARCANA_PSSTOCKLV(int arg0)
-0x3027 int CMM_CHK_INVITE()
-0x3028 int CMM_CHK_FIX_INVITE()
-0x3029 void CMM_SET_INVITE(int arg0)
-0x302a int CMM_CNV_ID(int arg0)
-0x302b int CMM_GET_CLUB(int arg0)
-0x302c void CMM_ARBEIT_PAY(int arg0)
-0x302d int CMM_ARBEIT_PAY_RECEIVE()
-0x302e int CMM_ARBEIT_GET_MONEY(int arg0)
-0x302f void CMM_RANKUP(int arg0, int arg1, int arg2)
-0x3030 void CMM_EVERY_DAY_UPDATE_SUDDEN_DEATH()
-0x3031 void CMM_INC_SUDDEN_DEATH_COUNT(int arg0)
-0x3032 int CMM_CHK_SUDDEN_DEATH_DOUBT(int arg0)
-0x3033 int CMM_CHK_SUDDEN_DEATH(int arg0)
-0x3034 void CMM_SET_SUDDEN_DEATH_COUNT(int arg0, int arg1)
-0x3035 void CMM_DEC_SUDDEN_DEATH_COUNT(int arg0)
-0x3036 void CMM_SET_SUDDEN_DEATH_FLAGT(int arg0)
-0x3037 void CMM_RESET_SUDDEN_DEATH_FLAG(int arg0)
-0x3038 void CMM_GET_PERSONA_DAY_TIME_SKILL(unk arg0)
-0x3039 int CMM_MO_GET_INDEX()
-0x303a int CMM_MO_CHK_DAY()
-0x303b int CMM_MO_CHK_DAY_RECEIVE()
-0x303c int CMM_MO_GET_MONEY(int arg0, int arg1)
-0x303d int CMM_MO_SET_ITEM(int arg0)
-0x303e void CMM_MO_VSET(int arg0, int messageHandle)
-0x303f void CMM_DEC2_SUDDEN_DEATH_COUNT(int arg0, int arg1)
-0x3040 void CMM_START_AUTO_COMMAND()
-0x3041 int CMM_SYNC_AUTO_COMMAND()
-0x3042 void CMM_NEWS_PAPER()
-0x3043 void CMM_NEWS_PAPER_SYNC()
-0x3044 void MISSION_START(int arg0)
-0x3045 void MISSION_START_SYNC(int arg0)
-0x3046 void MISSION_END(int arg0)
-0x3047 void MISSION_SCRIPT_EXEC(int arg0, int arg1)
-0x3048 void LBX_IN_START(int arg0)
-0x3049 void LBX_IN_SYNC()
-0x304a void LBX_OUT_START(int arg0)
-0x304b void LBX_OUT_SYNC()
-0x304c void CUTIN_START2(int arg0, int arg1, int arg2, int arg3, int arg4)
-0x304d void CUTIN_START3(int arg0, int arg1, int arg2, int arg3, int arg4, int arg5)
-0x304e void CUTIN_START4(int arg0, int arg1, int arg2, int arg3, int arg4, int arg5, int arg6)
-0x304f void CALL_EVENT_TEST(unk arg0, unk arg1)
-0x3050 void EVT_MONOTONE_START()
-0x3051 void EVT_MONOTONE_END()
-0x3052 void EVT_MODEL_ADD_ROTATE(int arg0, float arg1, float arg2, float arg3, int arg4)
-0x3053 void CALL_EVENT_PREPARE(int arg0, int arg1, int arg2)
-0x3054 void CHAT_WAIT_PAD()
-0x3055 void CHAT_SEL_LINE(int arg0, int arg1, int messageHandle)
-0x3056 void CHAT_SET_SEL(int arg0, int arg1, int arg2)
-0x3057 int CHAT_GET_SEL(int arg0, int arg1)
-0x3058 void CALL_BOOK_READ(int arg0)
-0x3059 int CMM_BOOK_READ(int arg0, int arg1)
-0x305a int CMM_BOOK_SEARCH(int arg0, int arg1, int arg2)
-0x305b int CMM_BOOK_ACCESS(int arg0, int arg1)
-0x305c int CMM_BOOK_READ_END(int arg0)
-0x305d int CHAT_CHECK_READ(int arg0)
-0x305e void CHAT_SET_READ(int arg0, int arg1)
-0x305f int CMM_BOOK_SIZE(int arg0)
-0x3060 int CMM_RAPID_BUTTON_ACTION(int arg0, int arg1, unk arg2)
-0x3061 int CMM_DAICE_BUTTON_ACTION(int arg0, int arg1, int arg2, unk arg3)
-0x3062 int CMM_GOLF_BUTTON_ACTION(int arg0, int arg1, int arg2)
-0x3063 void CMM_SET_INVITE_COUNT(int arg0, int arg1)
-0x3064 int CMM_GET_INVITE_COUNT(int arg0)
-0x3065 void CMM_COUNTUP_REVERSE_DAY()
-0x3066 int CMM_GET_REVERSE_DAY(int arg0)
-0x3067 void CMM_START_REVERSE_RENDITION(int arg0)
-0x3068 void CMM_START_CANCEL_REVERSE_RENDITION(int arg0)
-0x3069 void CMM_START_BROKEN_RENDITION(int arg0)
-0x306a void CMM_FUNC_LIST_DRAW_START(unk arg0, unk arg1, unk arg2)
-0x306b void CMM_FUNC_LIST_DRAW_END()
-0x306c int CMM_CHECK_NOW_ACTIVE(float arg0)
-0x306d int CMM_FLAG_CONVERT(float arg0, float arg1)
-0x306e void CMM_AREA_NAME_DISP(int arg0)
-0x306f void CMM_TIMEWARP()
-0x3070 int CMM_CHECK_ENABLE_FUNC(int arg0)
-0x3071 void EVT_SET_LOCAL_COUNT(int arg0, int arg1)
-0x3072 int EVT_GET_LOCAL_COUNT(int arg0)
-0x3073 int CHAT_CHECK_ARRIVAL(int arg0)
-0x3074 int CHAT_GET_ARRIVAL_TIME(int arg0)
-0x3075 int CHAT_CHECK_PASS_TIME_ARRIVAL(int arg0)
-0x3076 void CALL_STAFF_ROLL()
-0x3077 void EVT_SET_LOCAL_DATA(int arg0, int arg1)
-0x3078 int EVT_GET_LOCAL_DATA(int arg0)
-0x3079 int CMM_RAPID_BUTTON_ACTION2(int arg0, int arg1, int arg2)
-0x307a int CMM_DAICE_BUTTON_ACTION2(int arg0, int arg1)
-0x307b int CMM_DAICE_BUTTON_GET_DAICE(int arg0)
-0x307c int CMM_GOLF_BUTTON_ACTION2(unk arg0, int arg1, int arg2, int arg3)
-0x307d int CMM_COMMAND_BUTTON_ACTION2(int arg0, int arg1, int arg2)
-0x307e void CMM_INTERROGATION_IN()
-0x307f void CMM_SET_LV(int arg0, int arg1)
-0x3080 void INIT_IME_DRIVER()
-0x3081 void END_IME_DRIVER()
-0x3082 void EVT_SE_PLAY(int arg0, int arg1)
-0x3083 void EVT_SE_STOP(int arg0, float arg1)
-0x3084 void KFEVT_EPL_READ(float arg0, float arg1)
-0x3085 void KFEVT_EPL_READ_SYNC()
-0x3086 void KFEVT_EPL_FREE()
-0x3087 void KFEVT_EPL_PLAY()
-0x3088 int GET_CHAT_INVITE_TIMING(float arg0, float arg1)
-0x3089 void MDL_ANIM_LINK_EVTSE(int arg0, int arg1, int arg2)
-0x308a void INVITE_WORK_INIT()
-0x308b void SET_INVITE_WORK(float arg0, float arg1)
-0x308c int GET_INVITE_WORK(float arg0)
-0x308d int GET_INVITE_CORP_MAX()
-0x308e void EVT_SET_LOG_DISP(int arg0)
-0x308f int CMM_CHECK_ENABLE_FUNC_DETAIL(int arg0)
-0x3090 int GET_PM_CHAT_INVITE_TYPE(int arg0, int arg1, int arg2, int arg3)
-0x3091 void CMM_TIMEWARP_FADE()
-0x3092 int CHECK_PUBLIC_HOLIDAY_NEXTDAY(int arg0, int arg1)
-0x3093 void SET_STR_PUBLIC_HOLIDAY_NEXTDAY(int arg0, int arg1, int messageHandle)
-0x3094 int GET_CONQUEST_DUNGEON()
-0x3095 int GET_DUNGEON_INVITE_CHAT(float arg0)
-0x3096 void EVT_SET_ENABLE_CTRL_KEY(int arg0)
-0x4000 void CALL_WEAPON_SHOP()
-0x4001 void CALL_ITEM_SHOP()
-0x4002 void CALL_COMBINE_SHOP()
-0x4003 void CALL_QUEST_DAYTIME()
-0x4004 null SET_QUEST_BEFORE_DUNGEON()
-0x4005 null RESET_QUEST_AFTER_DUNGEON()
-0x4006 null CHECK_CONSET_QUEST()
-0x4007 null START_QUEST_CLEAR_EFFECT()
-0x4008 null CHECK_QUEST_CLEAR_ENEMY()
-0x4009 null CHECK_QUEST_CLEAR_BOSS()
-0x400a null CHECK_QUEST_CLEAR_ITEM()
-0x400b int GET_COMB_MATPER_MAJOR(unk arg0)
-0x400c int GET_COMB_MATPER_MINOR(unk arg0)
-0x400d int GET_COMB_RETPER_MAJOR()
-0x400e int GET_COMB_RETPER_MINOR()
-0x400f void CALL_NAME_ENTRY()
-0x4010 void FCL_SHOP_CHANGE_FLAG()
-0x4011 void UI_MISSION_OFFER(int arg0)
-0x4012 void UI_MISSION_END(int arg0)
-0x4013 int UI_MISSION_CHECK_OFFER(int arg0)
-0x4014 int UI_MISSION_CHECK_END(int arg0)
-0x4015 void MISSION_START_EFFECT()
-0x4016 void MISSION_COMPLETE_EFFECT()
-0x4017 null CALL_ROUTE_MAP(unk arg0, unk arg1, unk arg2, unk arg3, unk arg4)
-0x4018 void CALL_ITEM_SHOP_EX()
-0x4019 void CALL_WEAPON_SHOP_EX()
-0x401a int MISSION_GET_STATE(int arg0)
-0x401b void MISSION_SET_STATE(int arg0, int arg1, int arg2)
-0x401c void MISSION_UPDATE_EVERY_DAY()
-0x401d int CALL_PUBLIC_SHOP(int arg0)
-0x401e void CALL_DIARY()
-0x401f int CHECK_PUBLIC_SHOP_STOCK(int arg0)
-0x4020 void CALL_CHAT_CHECK()
-0x4021 void CALL_CHAT_LIST()
-0x4022 null CALL_QUEST_ORDER()
-0x4023 void CALL_CHAT_DIRECT(int arg0)
-0x4024 void CALL_WEAPON_SHOP_DATA_LOAD()
-0x4025 void CALL_WEAPON_SHOP_END()
-0x4026 void CALL_TUTORIAL(int arg0, int arg1)
-0x4027 void CALL_GLOBAL_MONEY_PANEL()
-0x4028 void DEL_GLOBAL_MONEY_PANEL()
-0x4029 void CALL_WANTED_EXP_PANEL(int arg0)
-0x402a void CALL_WANTED_EXP_NO_WAIT(int arg0)
-0x402b void ADD_REPUTATION(int arg0, int arg1)
-0x402c void ADD_REPUTATION_NO_WAIT(int arg0, int arg1)
-0x402d void ADD_REPUTATION_FORCE_END()
-0x402e void SET_REPUTATION(int arg0, int arg1)
-0x402f int GET_REPUTATION(int arg0)
-0x4030 void CALL_ITEM_SHOP_DATA_LOAD()
-0x4031 int CALL_ARBEIT_BOOK(unk arg0)
-0x4032 void DIRECT_SUBSCRIBE_ARBEIT(int arg0)
-0x4033 int CHECK_SUBSCRIBE_ARBEIT(int arg0)
-0x4034 int CHECK_ENABLE_ARBEIT(int arg0)
-0x4035 void CALL_WANTED_EXP_BATTLE(int arg0, int arg1)
-0x4036 void RESET_INJECTION_EFFECT()
-0x4037 int SKILLCARD_COPY_CHK()
-0x4038 int SKILLCARD_LIST_DISP(int arg0)
-0x4039 void CALL_PHANTOM_NAME_ENTRY()
-0x403a void EXEC_EVT_COMBINE(int arg0)
-0x403b int GET_PUBLIC_SHOP_BUY_TYPE_NUM(int arg0)
-0x403c int GET_PUBLIC_SHOP_ITEM_ID(int arg0, int arg1)
-0x403d int GET_PUBLIC_SHOP_ITEM_BUY_NUM(int arg0, int arg1)
-0x403e int CHECK_PUBLIC_SHOP_SET_ITEM(int arg0, int arg1)
-0x403f int GET_PUBLIC_SHOP_SET_ITEM_PACK_NUM(int arg0)
-0x4040 int GET_PUBLIC_SHOP_SET_ITEM_PACK_ITEM_ID(int arg0, int arg1)
-0x4041 void PUBLIC_SHOP_BUY_ITEM_COPY()
-0x4042 void PUBLIC_SHOP_BUY_ITEM_BAG_IN()
-0x4043 void CALL_CHAT_READ_UN_READ()
-0x4044 void CALL_CONF_COOPERATION(int arg0, int arg1)
-0x4045 void CHAT_RESERVE_END()
-0x4046 void CALL_CHAT_ARRIVAL(int arg0)
-0x4047 void CHAT_ALL_CLEAR()
-0x4048 int CHAT_GET_ARRIVAL_MONTH(int arg0)
-0x4049 int CHAT_GET_ARRIVAL_DAY(int arg0)
-0x404a void CMB_CELL_ERASE()
-0x404b void CHAT_SET_SWITCH(int arg0, int arg1)
-0x404c int CHAT_CHECK_SWITCH(int arg0)
-0x404d void CMB_PREPARE_START()
-0x404e void CMB_PREPARE_END()
-0x404f int CHAT_GET_UNREAD_NUM()
-0x4050 void OPEN_FAILED_QUEST_LIST()
-0x4051 int SYNC_FAILED_QUEST_LIST()
-0x4052 void RESTART_FAILED_QUEST_LIST()
-0x4053 void CLOSE_FAILED_QUEST_LIST()
-0x4054 void CALL_WANTED_EXP_LEVELUP(int arg0)
-0x4055 int MISSION_GET_NUM_STATE(int arg0)
-0x4056 int CHANGE_GLOBAL_MONEY(int arg0, int arg1)
-0x4057 int MISSION_GET_RANK(int arg0)
-0x4058 void ADD_PUBLIC_SHOP_CHOICE_ITEM(int arg0, int arg1, int arg2)
-0x4059 void SET_PUBLIC_SHOP_CHOICE_ITEM(int arg0, int arg1, int arg2)
-0x405a void CALL_GLOBAL_MONEY_PANEL_EX(int arg0)
-0x405b void CHAT_SET_HOLD(int arg0, int arg1)
-0x405c int CHAT_CHECK_HOLD(int arg0)
-0x405d void CALL_GLOBAL_ITEM_PANEL(int arg0)
-0x405e void DEL_GLOBAL_ITEM_PANEL()
-0x405f int CHANGE_GLOBAL_ITEM()
-0x4060 int CHANGE_GLOBAL_ITEM_EX(int arg0)
-0x4061 int IMG_CREATE(int arg0, int arg1)
-0x4062 void IMG_DELETE(int arg0)
-0x4063 void IMG_LOAD_CALL(int arg0)
-0x4064 void IMG_LOAD_SYNC(int arg0)
-0x4065 void IMG_ANIM_CALL(int arg0, int arg1, int arg2, int arg3)
-0x4066 void IMG_ANIM_SYNC(int arg0)
-0x4067 int CHAT_GET_JOIN_ID(int arg0)
-0x4068 void IMG_DSP(int arg0, int arg1)
-0x4069 void IMG_CLS()
-0x406a int CHANGE_GLOBAL_MONEY_EX(int arg0, int arg1, int arg2)
-0x406b void OPEN_QUEST_LIST_DISP()
-0x406c int CMB_GET_PBOOK_REGIST_RATE()
-0x406d int CALL_FICTION_DRAW()
-0x406e void SET_PUBLIC_SHOP_CHOICE_ITEM_DISCOUNT(int arg0, int arg1, int arg2)
-0x406f void CHAT_RESET_DIRECT(int arg0)
-0x4070 void CALL_DIFFICULT_SET()
-0x5000 void NET_SET_AFTER_SCHOOL_ACTION(int arg0)
-0x5001 void NET_SET_NIGHT_ACTION(int arg0)
-0x5002 void NET_SET_ANSER_SELECT_NUM(int arg0)
-0x5003 void NET_SET_ANSER_SUCCESS(int arg0)
-0x5004 void NET_SET_STRATEGY(int arg0)
-0x5005 void NET_SET_STRATEGY_SUCCESS(int arg0)
-0x5006 void NET_START_AUDIENCE()
-0x5007 void NET_STOP_AUDIENCE()
+0000 void SYNC();
+0001 void WAIT(int arg0);
+0002 void PUT(int arg0);
+0003 void PUTS(string arg0);
+0004 void PUTF(float arg0);
+0005 void MSG(int arg0, unk arg1);
+0006 null NULL();
+0007 void FADEIN(int arg0, int arg1);
+0008 void FADEOUT(int arg0, int arg1);
+0009 void FADEEND_CHECK();
+000a void FADE_SYNC();
+000b void FADE_COLOR(int arg0, int arg1, int arg2);
+000c int BIT_CHK(int arg0);
+000d void BIT_ON(int arg0);
+000e void BIT_OFF(int arg0);
+000f int GET_COUNT(int arg0);
+0010 void SET_COUNT(int arg0, int arg1);
+0011 int RND(int arg0);
+0012 void LIFESIM_SET_IMAGE(int arg0, int arg1);
+0013 void MDL_VISIBLE(int arg0, int arg1);
+0014 void LIFESIM_SHOW_BUSTUP(int arg0, int arg1, int arg2, int arg3);
+0015 void LIFESIM_HIDE_BUSTUP(int arg0);
+0016 void LIFESIM_MOUSEANIM_ENABLE(int arg0, int arg1);
+0017 void MDL_ANIM(int arg0, int arg1, int arg2, int arg3, float arg4);
+0018 void MDL_ANIM_SYNC(int arg0);
+0019 void CALL_CALENDAR();
+001a void SET_NEXT_DAY(int arg0, int arg1, int arg2);
+001b int GET_DAY();
+001c int GET_TIME();
+001d int CHK_DAYS(int arg0, int arg1);
+001e int GET_DAYOFWEEK();
+001f void SCENE_CHANGE_WAIT();
+0020 void MOVIE_PLAY(int arg0);
+0021 void MOVIE_SYNC();
+0022 void MSG_WND_DSP();
+0023 void MSG_WND_CLS();
+0024 int SEL(int arg0);
+0025 null SEL_WND_DSP();
+0026 null SEL_WND_CLS();
+0027 void SET_MSG_VAR(int arg0, int arg1, int arg2);
+0028 void SEL_DEFKEY(int arg0, int arg1);
+0029 void SEL_MASK(int arg0);
+002a void MSG_SYSTEM(int arg0);
+002b int CAMERA_READ(int arg0, int arg1, int arg2);
+002c void CAMERA_READ_SYNC(int arg0);
+002d void CAMERA_FREE(int arg0);
+002e void CAMERA_SET(int arg0);
+002f void CAMERA_RESET();
+0030 void CAMERA_ANIM(int arg0, int arg1, int arg2, int arg3, float arg4);
+0031 void CAMERA_ANIM_SYNC(int arg0);
+0032 void MDL_ANIM_SEEK(int arg0, float arg1);
+0033 void MDL_ANIM_FRAMESYNC(int arg0, float arg1);
+0034 void MDL_SET_SCALE(int arg0, float arg1);
+0035 int ADD_PC_MONEY(int arg0);
+0036 int GET_SMN_LEVEL(int arg0);
+0037 int GET_HP(int arg0);
+0038 int GET_MAXHP(int arg0);
+0039 void SET_HP(int arg0, int arg1);
+003a int GET_SP(int arg0);
+003b int GET_MAXSP(int arg0);
+003c void SET_SP(int arg0, int arg1);
+003d int GET_ITEM_NUM(int arg0);
+003e void SET_ITEM_NUM(int arg0, int arg1);
+003f int GET_EQUIP(int arg0, int arg1);
+0040 void SET_EQUIP(int arg0, int arg1, int arg2);
+0041 void PARTY_IN(int arg0);
+0042 void PARTY_OUT(int arg0);
+0043 int GET_PARTY(int arg0);
+0044 void RECOVERY_ALL();
+0045 int GET_AND(int arg0, int arg1);
+0046 int GET_OR(int arg0, int arg1);
+0047 int GET_XOR(int arg0, int arg1);
+0048 int GET_L_SHIFT(int arg0, int arg1);
+0049 int GET_R_SHIFT(int arg0, int arg1);
+004a int REM(int arg0, int arg1);
+004b int SCRIPT_READ(int arg0, int arg1, int arg2);
+004c void SCRIPT_READ_SYNC(int arg0);
+004d void SCRIPT_FREE(int arg0);
+004e void SCRIPT_EXEC(int arg0, int arg1);
+004f int SCRIPT_SEARCH(int arg0, int arg1, int arg2);
+0050 void CAMERA_SET_HELPERPOS(int arg0, int arg1, int arg2);
+0051 void RUMBLE_START_L(int arg0, int arg1, int arg2, int arg3, int arg4);
+0052 void RUMBLE_STOP_L();
+0053 void RUMBLE_START_S(int arg0, int arg1, int arg2, int arg3);
+0054 void RUMBLE_STOP_S();
+0055 void RUMBLE_STOP();
+0056 void RUMBLE_CHECK();
+0057 int CHK_DAYS_STARTEND(int arg0, int arg1, int arg2, int arg3);
+0058 void SAVE();
+0059 int SAVE_SYNC();
+005a void SAVE_MENU();
+005b void SAVE_MENU_SYNC();
+005c void BGM(int arg0);
+005d void PAD_TRIG(int arg0);
+005e void PAD_PRESS(int arg0);
+005f int MSG_SELECT(int arg0, int arg1, int arg2);
+0060 void MSG_TUTORIAL(int arg0, int arg1, int arg2);
+0061 void DATE_DISP(int arg0);
+0062 void BGM_STOP(int arg0);
+0063 void SET_DBG_DAY(unk arg0, unk arg1, unk arg2);
+0064 void MDL_ANIM_SPEED(int arg0, float arg1);
+0065 void MDL_ANIM_NEXT(int arg0, int arg1, int arg2, int arg3, float arg4);
+0066 int MDL_ICON(int arg0, int arg1);
+0067 int GET_PC_PARAM(int arg0, int arg1);
+0068 int GET_PC_PARAM_LV(int arg0, int arg1);
+0069 void ADD_PC_PARAM(unk arg0, unk arg1, unk arg2);
+006a void UPDATE_ENQUETE();
+006b void ADD_PC_PARAM_START(unk arg0, unk arg1, unk arg2);
+006c void ADD_PC_PARAM_SYNC();
+006d void SET_SUSPICION(unk arg0);
+006e void ADD_SUSPICION_START(unk arg0);
+006f void ADD_SUSPICION_SYNC();
+0070 int GET_SUSPICION();
+0071 int GET_SUSPICION_LV();
+0072 void DBG_SCRIPT_MENU(unk arg0);
+0073 int GET_TOTAL_DAY();
+0074 int GET_MONTH();
+0075 int GET_WEATHER();
+0076 int GET_MOON_AGE();
+0077 void ADD_SUSPICION(unk arg0);
+0078 void DISP_CAUTION();
+0079 int PAD_CHK_TRIG(int arg0);
+007a int PAD_CHK_PRESS(int arg0);
+007b void EVERY_MORNING_NETWORK();
+007c void ZEAL_TEX_READ(int arg0, int arg1);
+007d void ZEAL_TEX_SYNC(int arg0);
+007e void ZEAL_TEX_DISP(int arg0, int arg1);
+007f void ZEAL_TEX_FREE(int arg0, int arg1);
+0080 void BGENV_SE_PLAY(int arg0);
+0081 void BGENV_SE_FADEOUT(int arg0, int arg1);
+0082 void BGENV_SE_STOP(int arg0);
+0083 int BGENV_SE_CHECK(int arg0);
+0084 void MESSAGE_REF(int arg0, int arg1);
+0085 void MSG_CAPTION(int arg0);
+0086 void MSG_MIND(int arg0, unk arg1);
+0087 void SET_SUSPICION_LV(int arg0);
+0088 void COMSE_PLAY(int arg0);
+0089 void COMSE_STOP(int arg0);
+008a void LOGICTREE_OPEN(int arg0);
+008b void LOGICTREE_OPEN_SYNC();
+008c void LOGICTREE_CLOSE();
+008d void LOGICTREE_CLOSE_SYNC();
+008e void LOGICTREE_SET_BRANCH(int arg0, int arg1, int arg2);
+008f void LOGICTREE_RESET_BRANCH(int arg0);
+0090 void LOGICTREE_CLEAR_BRANCH();
+0091 int MDL_GET_ANIM(int arg0);
+0092 void CHAT_WND_DSP();
+0093 void CHAT_WND_CLS();
+0094 void MSG_TREE_SET_ROOT(int arg0, int arg1, int arg2);
+0095 void MSG_TREE_SET_NODE(int arg0, int arg1, int arg2, int arg3, int arg4, int arg5, int arg6);
+0096 void MSG_TREE_OPEN();
+0097 int MSG_TREE_GET_MISS_COUNT();
+0098 void CAMERA_QUAKE_START(float arg0, float arg1, float arg2, float arg3, float arg4);
+0099 void CAMERA_QUAKE_STOP(float arg0);
+009a void MDL_ANIM_BLENDSYNC(int arg0);
+009b void TIMER_SETUP();
+009c void TIMER_SETUP_SYNC();
+009d void TIMER_DESTROY();
+009e void TIMER_SET_VISIBLE(int arg0);
+009f int TIMER_GET_VISIBLE();
+00a0 void TIMER_SET_PAUSE(int arg0);
+00a1 int TIMER_GET_PAUSE();
+00a2 void TIMER_SET_TIME(int arg0);
+00a3 void TIMER_ADD_TIME(int arg0);
+00a4 int TIMER_GET_TIME();
+00a5 int MDL_GET_ITEM_RESHND(int arg0, int arg1);
+00a6 void MDL_ADD_ANIM(int arg0, int arg1, int arg2, int arg3, float arg4);
+00a7 void MDL_ADD_ANIM_NEXT(int arg0, int arg1, int arg2, int arg3, float arg4);
+00a8 void MDL_ADD_SYNC(int arg0, int arg1);
+00a9 int SEL_TIME_LIMIT(int arg0, float arg1);
+00aa int MDL_GET_ANIM_COUNT(int arg0);
+00ab void MSG_WND_SET_POS(float arg0, float arg1, float arg2);
+00ac void MSG_WND_RESET_POS();
+00ad void CAMERA_SHAKE_START(int arg0, int arg1, float arg2);
+00ae void CAMERA_SHAKE_PAUSE();
+00af void CAMERA_SHAKE_STOP();
+00b0 void CAMERA_SHAKE_SCALE(float arg0);
+00b1 void CAMERA_SHAKE_SPEED(float arg0);
+00b2 int ANALOG_ASTICK_CHECK(int arg0, int arg1, int arg2);
+00b3 void MDL_TRACK_ADD_ANIM(int arg0, int arg1, int arg2, int arg3, int arg4, float arg5);
+00b4 void MDL_TRACK_ADD_ANIM_NEXT(int arg0, int arg1, int arg2, int arg3, int arg4, float arg5);
+00b5 void MDL_TRACK_ADD_ANIM_SYNC(int arg0, int arg1);
+00b6 float SIN(float arg0);
+00b7 float COS(float arg0);
+00b8 float TAN(float arg0);
+00b9 float ASIN(float arg0);
+00ba float ACOS(float arg0);
+00bb float ATAN(float arg0);
+00bc float ATAN2(float arg0, float arg1);
+00bd float SQRT(float arg0);
+00be void PUSH_UNIFORM(int arg0, int arg1);
+00bf void POP_UNIFORM(int arg0);
+00c0 void CLEAR_UNIFORM();
+00c1 void PUSH_WEATHER(int arg0);
+00c2 void POP_WEATHER();
+00c3 void CLEAR_WEATHER();
+00c4 void BGENV_SE_PLAY_CUEID(int arg0);
+00c5 void BGENV_SE_FADEOUT_CUEID(int arg0, int arg1);
+00c6 void BGENV_SE_STOP_CUEID(int arg0);
+00c7 int BGENV_SE_CHECK_CUEID(int arg0);
+00c8 void SKILL_ADD(int arg0, int arg1);
+00c9 void SKILL_ADD_CMM(int arg0, int arg1);
+00ca int FRIEND_SKILL_ADD(int arg0, int arg1);
+00cb int CHK_FRIEND_SKILL_ADD(int arg0, int arg1);
+00cc int NEXT_SKILL_ADD(int arg0);
+00cd int CHK_NEXT_SKILL_ADD();
+00ce void TEST_TEX_READ(int arg0, int arg1);
+00cf void TEST_TEX_SYNC(int arg0);
+00d0 void TEST_TEX_DISP(int arg0, int arg1, int arg2, int arg3);
+00d1 void TEST_TEX_FREE(int arg0, int arg1);
+00d2 int GET_MONTH_TOTAL_DAY(int arg0);
+00d3 int GET_DAY_TOTAL_DAY(int arg0);
+00d4 void BIT_SYNC(int arg0);
+00d5 int GET_WEATHER_DETAIL();
+00d6 void SET_HUMAN_LV(unk arg0, unk arg1);
+00d7 void SET_PERSONA_LV(unk arg0, unk arg1, unk arg2);
+00d8 void CLEAR_PERSONA_STOCK();
+00d9 void ADD_PERSONA_STOCK(int arg0);
+00da void ADD_PC_ALL_PARAM(int arg0, unk arg1, unk arg2, unk arg3, unk arg4);
+00db void SKILL_ADD_ARSENE(int arg0);
+00dc int MDL_GET_MAJOR_ID(int arg0);
+00dd int MDL_GET_MINOR_ID(int arg0);
+00de int MDL_GET_SUB_ID(int arg0);
+00df void ADD_MAIN_PERSONA_PARAM(int arg0, int arg1, int arg2);
+00e0 int GET_MAIN_PERSONA_PARAM(int arg0, int arg1);
+00e1 void ADD_EQUIP_PERSONA_PARAM(int arg0, int arg1, int arg2);
+00e2 void ADD_EQUIP_PERSONA_PARAM_INC(int arg0, int arg1, int arg2);
+00e3 int GET_EQUIP_PERSONA_PARAM(int arg0, int arg1);
+00e4 void KTAI_MENU_START();
+00e5 void KTAI_MENU_VISIBLE(int arg0);
+00e6 void KTAI_MENU_FADE(int arg0);
+00e7 void KTAI_MENU_FADE_SYNC();
+00e8 int KTAI_MENU_GET_PAD();
+00e9 void KTAI_MENU_EXIT();
+00ea void DBG_PUTS(unk arg0);
+00eb float GET_MAX(float arg0, float arg1);
+00ec float GET_MIN(float arg0, float arg1);
+00ed void ADD_PERSONA_SKILL(int arg0, int arg1, int arg2);
+00ee void REMOVE_PERSONA_SKILL(int arg0, int arg1, int arg2);
+00ef void BGENV_SE_PLAY_CUEID_ALL(int arg0);
+00f0 void BGENV_SE_FADEOUT_CUEID_ALL(int arg0, int arg1);
+00f1 void BGENV_SE_STOP_CUEID_ALL(int arg0);
+00f2 void SND_VOICE_FACILITY_SETUP(int arg0);
+00f3 void SND_VOICE_FACILITY_SYNC();
+00f4 void BGENV_LINK_BGOBJ(int arg0, int arg1, int arg2);
+00f5 void BGENV_UNLINK_BGOBJ(int arg0);
+00f6 int NPC_BIT_CHK(int arg0);
+00f7 void NPC_BIT_ON(int arg0);
+00f8 void NPC_BIT_OFF(int arg0);
+00f9 void ADD_MAXHP_UP(int arg0, int arg1);
+00fa int GET_MAXHP_UP(int arg0);
+00fb void ADD_MAXSP_UP(int arg0, int arg1);
+00fc int GET_MAXSP_UP(int arg0);
+00fd void BGENV_LINE_SE_PLAY(int arg0);
+00fe void BGENV_LINE_SE_FADEOUT(int arg0, int arg1);
+00ff void BGENV_LINE_SE_STOP(int arg0);
+0100 int BGENV_LINE_SE_CHECK(int arg0);
+0101 void BGENV_DEF_SE_PLAY(int arg0);
+0102 void BGENV_DEF_SE_FADEOUT(int arg0, int arg1);
+0103 void BGENV_DEF_SE_STOP(int arg0);
+0104 int BGENV_DEF_SE_CHECK(int arg0);
+0105 int NPC_EXIST_VALUE(int arg0);
+0106 int NPC_EXIST_VALUE_MD(int arg0, int arg1, int arg2);
+0107 int NPC_QUEST_GET_NUM();
+0108 int NPC_QUEST_GET_ID(int arg0);
+0109 int SEL_GENERIC(int arg0, int arg1);
+010a void GET_DBG_NUM();
+010b void NPC_QUEST_START(int arg0);
+010c void NPC_QUEST_END(int arg0);
+010d void NPC_QUEST_CLEAR();
+010e void COMENV_PLAY(int arg0);
+010f void COMENV_STOP(int arg0);
+0110 void VOICE1_PLAY(int arg0);
+0111 void VOICE1_STOP(int arg0);
+0112 void VOICE2_PLAY(int arg0);
+0113 void VOICE2_STOP(int arg0);
+0114 void VOICE3_PLAY(int arg0);
+0115 void VOICE3_STOP(int arg0);
+0116 int TBL_365_VALUE(int arg0);
+0117 int TBL_365_VALUE_MD(int arg0, int arg1, int arg2);
+0118 void NEXT_TIME();
+0119 void MDL_SET_LOOKAT(int arg0, int arg1, int arg2);
+011a void MDL_RESET_LOOKAT(int arg0, int arg1);
+011b int CHK_PERSONA_EXIST(int arg0, int arg1);
+011c int GET_DAY_WEATHER(int arg0, int arg1);
+011d int GET_DAY_WEATHER_DETAIL(int arg0, int arg1);
+011e int CHK_EXIST_WEATHER(int arg0, int arg1, int arg2);
+011f int CHK_EXIST_WEATHER_DETAIL(int arg0, int arg1, int arg2);
+0120 void SEL_OPEN(int arg0);
+0121 void MDL_ANIM_NO_SE(int arg0, int arg1, int arg2, int arg3, float arg4);
+0122 void TROPHY_REQUEST(int arg0, int arg1);
+0123 void PERSONA_EVOLUTION(int arg0);
+0124 int GET_PC_PARAM_DIFFERENCE(int arg0);
+0125 int SEL_GENERIC_NOT_CANCEL(int arg0, int arg1);
+0126 void FOOTSTEP_SE_PLAYER_CREATE(int arg0);
+0127 void FOOTSTEP_SE_ENABLE(int arg0, int arg1);
+0128 void FOOTSTEP_EFFECT_ENABLE(int arg0, int arg1);
+0129 void FOOTSTEP_EFFECT2_ENABLE(int arg0, int arg1);
+012a void FOOTSTEP_EFFECT_SCALE(int arg0, float arg1);
+012b void BGTEX_STRIP_ENABLE(int arg0);
+012c void BGENV_LINK_BGOBJ_INDEX(int arg0, int arg1, int arg2);
+012d void RESET_PC_PARAM_UP();
+012e void DISP_PC_PARAM_METER();
+012f int GET_HERO_WANTED_EXP(int arg0);
+0130 void DISP_PC_PARAM_RANK_UP();
+0131 void SAVE_UI_SYNC();
+0132 int CHK_PC_PARAM_RANKUP(unk arg0);
+0133 void GET_ITEM_WINDOW(int arg0, int arg1, int arg2);
+0134 void GET_MONEY_WINDOW(int arg0, int arg1);
+0135 void GET_PERSONA_WINDOW(int arg0, int arg1);
+0136 void MSG_PERFORMANCE(int arg0);
+0137 int CALL_STAMP_SAVE(int arg0);
+0138 int CALL_CLEAR_SAVE();
+0139 void BULLET_RECOVERY(int arg0);
+013a void BGENV_AISAC_FADEOUT(int arg0, int arg1, int arg2);
+013b void BGENV_AISAC_FADEIN(int arg0, int arg1, int arg2);
+013c void BGENV_AISAC_FADESYNC(int arg0);
+013d void BGM_FADEIN(int arg0);
+013e void TEST_TEX_DISP2(int arg0, int arg1, int arg2, int arg3);
+013f void DAY_DISP(int arg0);
+0140 void SND_VOICE_DNGEVT_SETUP(int arg0, int arg1);
+0141 void SND_VOICE_DNGEVT_SYNC();
+0142 void SND_VOICE_DNGEVT_FREE();
+0143 void TEST_TEX_DISP3(int arg0, int arg1, int arg2);
+0144 void TEST_TEX_MOVE(int arg0, int arg1);
+0145 void DISABLE_SHARE_PLAY(int arg0);
+0146 void ENABLE_SHARE_PLAY(int arg0);
+0147 void ALL_ENABLE_SHARE_PLAY();
+0148 void MDL_SET_LOOKAT_LIMIT(int arg0, int arg1);
+0149 void SND_VOICE_BGMOB_DISABLE(int arg0);
+014a void GOOD_GAUGE_DISP_ON();
+014b void GOOD_GAUGE_DISP_OFF();
+014c void GET_ITEMS_WINDOW(int arg0);
+014d void GET_ITEM_BUF_SET(int arg0, int arg1);
+014e void GET_ITEM_BUF_RESET();
+014f int CHK_PERSONA_IS_JAIL(int arg0);
+0150 void MDL_EMOTE_ANIM(int arg0, int arg1, int arg2, int arg3);
+0151 int SEL_GENERIC_EX(int arg0, int arg1, int arg2, int arg3);
+0152 int SEL_GENERIC_NOT_HELP(int arg0, int arg1);
+0153 void MDL_SET_LOOKAT_MOTION(int arg0, int arg1, int arg2, int arg3);
+0154 void MDL_SET_LOOKAT_HORIZON(int arg0, int arg1, float arg2);
+0155 int GET_CLOTH_TYPE();
+0156 int GET_YASUMI_SET_DAYS(float arg0, float arg1);
+0157 int GET_TOTALDAY_SET_DAYS(float arg0, float arg1);
+0158 void CAMERA_SET_RESRC(int arg0, int arg1);
+0159 void MSG_TRIVIA(int arg0);
+015a void MDL_ANIM_LOOPSYNC(int arg0);
+015b void CHAT_MSG(int arg0, unk arg1);
+015c int CHAT_SEL(int arg0);
+015d void MDL_ANIM_LINK_SE(int arg0, int arg1);
+015e void MDL_ANIM_UNLINK_SE(int arg0);
+015f void MDL_SET_LOOKAT_POS(int arg0, float arg1, float arg2, float arg3, int arg4);
+0160 void LOADING_ICON_DISP(int arg0);
+0161 void GOOD_GAUGE_START(int arg0);
+0162 void GOOD_GAUGE_END();
+0163 int GET_SEASON();
+0164 void GOOD_GAUGE_START_EX();
+0165 void INIT_ITEM_SELECT();
+0166 void SET_ITEM_SELECT(int arg0);
+0167 int START_ITEM_SELECT(int arg0);
+0168 void CAMERA_QUAKE_2_START(float arg0, float arg1, float arg2, float arg3, float arg4, int arg5);
+0169 void CAMERA_QUAKE_2_STOP(float arg0);
+016a void MDL_ICON_END(int arg0, int arg1);
+016b int MDL_ICON_EX(int arg0, int arg1, int arg2);
+016c void MDL_ICON_SET_SCALE(int arg0, float arg1);
+016d void CLEAR_INHERIT_DATA();
+016e void GOOD_GAUGE_LOAD_EX(int arg0, int arg1);
+016f void GOOD_GAUGE_SYNC_EX();
+0170 void GOOD_GAUGE_END_SYNC();
+0171 void MDL_TRACK_CLEAR_ANIM(int arg0, int arg1);
+0172 void START_PLAY_GO_CHECK();
+0173 int SYNC_PLAY_GO_CHECK();
+0174 void NET_DISCONNECT_MATCH();
+1000 void CALL_FIELD(int arg0, int arg1, int arg2, int arg3);
+1001 int FLD_GET_SCRIPT_TIMING();
+1002 void FLD_PC_MODEL_CHANGE();
+1003 int FLD_PC_GET_RESHND(int arg0);
+1004 int FLD_NPC_GET_RESHND();
+1005 void FLD_CAMERA_LOCK();
+1006 void FLD_CAMERA_UNLOCK();
+1007 int FLD_OBJ_GET_RESHND();
+1008 int FLD_OPEN_DOOR();
+1009 int FLD_GET_TBOX();
+100a int FLD_GET_TBOX_FLAG();
+100b void FLD_SWITCH_FAILURE(int arg0);
+100c void FLD_PC_MODEL_SET_POS(int arg0);
+100d int FLD_OPEN_DOOR_NO(int arg0);
+100e void FLD_SET_SUBJECT_MODE(int arg0);
+100f void FLD_SOBJ_RECOVER();
+1010 void FLD_NEXT_DNG_LEVEL(int arg0);
+1011 int FLD_GET_DNG_LEVEL();
+1012 void FLD_MAP_SEARCH();
+1013 int FLD_GET_DNG_AREA_DIR();
+1014 void FLD_PC_MODEL_SET_DNG_POS();
+1015 void FLD_ROT_CAMERA(int arg0, int arg1);
+1016 void FLD_ROT_WORLD_CAMERA(int arg0, int arg1);
+1017 void FLD_ROT_DOOR_CAMERA(int arg0);
+1018 void FLD_REPORT_MSG(int arg0, int arg1);
+1019 void FLD_REPORT_MSGSYNC(int arg0, int arg1);
+101a void FLD_REPORT_FREE();
+101b int FLD_GET_TARGET_ENEMY_TYPE();
+101c int FLD_GET_ENCOUNTID(int arg0);
+101d int FLD_GET_MAJOR();
+101e int FLD_GET_MINOR();
+101f void FLD_RETRY_SAVE();
+1020 void FLD_RETRY_LOAD();
+1021 void FLD_MODEL_SET_POS(int arg0, int arg1);
+1022 int FLD_MODEL_LOADSYNC(int arg0);
+1023 int FLD_NPC_MODEL_LOAD(int arg0, int arg1, int arg2);
+1024 int FLD_OBJ_MODEL_LOAD(int arg0, int arg1);
+1025 int FLD_OBJ_MODEL_LOADSYNC(int arg0, int arg1);
+1026 void FLD_OBJ_MODEL_COLLIS(int arg0, int arg1);
+1027 void FLD_NPC_SYNC();
+1028 void CALL_BKUP_FIELD();
+1029 void FLD_SET_SAVE_COUNTER(int arg0);
+102a int FLD_GET_DNG_NO();
+102b void FLD_DUNGEON_EFFECT_ENABLE(int arg0);
+102c void FLD_CINEMASCOPE_VISIBLE(unk arg0);
+102d void FLD_REQ_FLASHBACK(int arg0, int arg1);
+102e int FLD_CHECK_DNG_EDIT_FLOOR();
+102f int FLD_OBJ_CNV_RESHND(int arg0);
+1030 void FLD_MODEL_SET_ROTATE(int arg0, float arg1, float arg2, float arg3, int arg4);
+1031 void FLD_MODEL_ADD_ROTATE(int arg0, float arg1, float arg2, float arg3, int arg4);
+1032 void FLD_OPEN_ORD_DOOR(int arg0);
+1033 int FLD_GET_ENEMY_NUM();
+1034 int FLD_GET_TBOX_TYPE();
+1035 void FLD_SETUP_MOVIE_TEX(int arg0, int arg1);
+1036 void FLD_PLAY_MOVIE_TEX(int arg0, int arg1);
+1037 void FLD_PAUSE_MOVIE_TEX(int arg0);
+1038 void FLD_SYNC_MOVIE_TEX(int arg0);
+1039 void FLD_OPEN_TBOX();
+103a void FLD_EFFECT_SET_HELPERID_POS(int arg0, int arg1, int arg2);
+103b int FLD_ENEMY_MODEL_LOAD(int arg0);
+103c int FLD_SYMBOL_MODEL_LOAD(int arg0);
+103d void FLD_END_FLASHBACK();
+103e int FLD_GET_ENCOUNT_ENEMY_ID(int arg0, int arg1);
+103f int FLD_GET_ENCOUNT_ENEMY_NUM(int arg0);
+1040 void CALL_TITLE();
+1041 float FLD_MODEL_GET_X_ROTATE(int arg0);
+1042 float FLD_MODEL_GET_Y_ROTATE(int arg0);
+1043 float FLD_MODEL_GET_Z_ROTATE(int arg0);
+1044 void FLD_MODEL_SYNC_ROTATE(int arg0);
+1045 int FLD_CAMERA_READ(int arg0, int arg1, int arg2);
+1046 void FLD_CAMERA_READ_SYNC(int arg0);
+1047 void FLD_CAMERA_FREE(int arg0);
+1048 void FLD_CAMERA_SET(int arg0);
+1049 void FLD_CAMERA_RESET();
+104a void FLD_CAMERA_ANIM(int arg0, int arg1, int arg2, int arg3, float arg4);
+104b void FLD_CAMERA_ANIM_SYNC(int arg0);
+104c int FLD_SCRIPT_READ(int arg0, int arg1, int arg2);
+104d void FLD_SCRIPT_READ_SYNC(int arg0);
+104e void FLD_SCRIPT_FREE(int arg0);
+104f void FLD_SCRIPT_EXEC(int arg0, int arg1);
+1050 int FLD_SCRIPT_SEARCH(int arg0, int arg1, int arg2);
+1051 void FLD_CAMERA_SET_HELPERPOS(int arg0, int arg1, int arg2);
+1052 void FLD_UNIT_SET_EVT_WAIT(int arg0);
+1053 int FLD_SEARCH_DNG_NEAR_QUEST();
+1054 void FLD_GET_SCH_OBJ_BEGIN(int arg0);
+1055 void FLD_SET_DOF(float arg0, float arg1, float arg2, float arg3, float arg4, int arg5);
+1056 void FLD_SET_DOF_DEFAULT(int arg0);
+1057 float FLD_GET_DOF_FOCAL_PLANE();
+1058 float FLD_GET_DOF_NEAR_BLUR_PLANE();
+1059 float FLD_GET_DOF_FAR_BLUR_PLANE();
+105a float FLD_GET_DOF_FAR_BLUR_LIMIT();
+105b float FLD_GET_DOF_BLUR_SCALE();
+105c void FLD_SET_HDR(float arg0, float arg1, float arg2, int arg3);
+105d void FLD_SET_HDR_STAR(int arg0, float arg1, float arg2, float arg3, float arg4, int arg5);
+105e void FLD_SET_HDR_DEFAULT(int arg0);
+105f void FLD_SET_HDR_STAR_DEFAULT(int arg0);
+1060 float FLD_GET_HDR_MIDDLE_GRAY();
+1061 float FLD_GET_HDR_BLOOM_SCALE();
+1062 float FLD_GET_HDR_ADAPTED_LUM();
+1063 int FLD_GET_HDR_STAR_NUM_LINES();
+1064 float FLD_GET_HDR_STAR_LENGTH();
+1065 float FLD_GET_HDR_STAR_SCALE();
+1066 float FLD_GET_HDR_STAR_GLARE_CA();
+1067 float FLD_GET_HDR_STAR_GLARE_SI();
+1068 void FLD_ROT_OBJ_CAMERA(int arg0, int arg1);
+1069 void FLD_PROHIBIT_ENEMY_PATH(int arg0);
+106a void FLD_START_SUPPORT_MSG();
+106b int FLD_CHECK_DUNGEON();
+106c int FLD_CHECK_AT_DUNGEON();
+106d void FLD_ROADMAP(int arg0);
+106e void FLD_CAMERA_INTERP(int arg0);
+106f void FLD_CAMERA_SYNC_INTERP();
+1070 void FLD_PC_MODEL_ATTACH_ITEM(int arg0, int arg1, int arg2);
+1071 void FLD_PC_MODEL_DETACH_ITEM(int arg0, int arg1, int arg2);
+1072 void FLD_PC_ATTACH_ITEM_VISIBLE(int arg0, int arg1, int arg2);
+1073 void FLD_TEX_TEST(int arg0);
+1074 void FLD_TEX_TEST_END();
+1075 void FLD_CAMERA_SET_POS(float arg0, float arg1, float arg2);
+1076 void FLD_CAMERA_SET_ROT(float arg0, float arg1, float arg2, float arg3);
+1077 void FLD_ROADMAP_OPEN(int arg0, int arg1, int arg2);
+1078 void FLD_ROADMAP_CLOSE();
+1079 void FLD_ROADMAP_SET_LAYER(int arg0);
+107a void FLD_ROADMAP_MASK_ON();
+107b void FLD_ROADMAP_MASK_OFF();
+107c void FLD_ROADMAP_MASK_SETCLIP(int arg0, int arg1, int arg2);
+107d void FLD_CAMERA_LOCK_INTERP(float arg0, float arg1, float arg2, float arg3, float arg4, float arg5, float arg6, int arg7);
+107e void FLD_CAMERA_LOCK_SYNC_INTERP();
+107f int FLD_EFFECT_START(int arg0);
+1080 int FLD_GET_ALERT_VALUE();
+1081 void FLD_SET_ALERT_VALUE(int arg0);
+1082 void FLD_CAMERA_SET_FIXED_COLLIS(int arg0);
+1083 void FLD_NPC_MODEL_READPAUSE_CANCEL();
+1084 void FLD_CROWD_MODEL_READPAUSE_CANCEL();
+1085 void FLD_SET_ENEMY_ENCOUNT_NO(int arg0, int arg1, int arg2);
+1086 void FLD_PROHIBIT_ENEMY_AREA(int arg0);
+1087 void FLD_SET_SUMMON_LIFE(int arg0, int arg1, int arg2);
+1088 void FLD_ROADMAP_SYNC();
+1089 void FLD_REQ_BGM();
+108a void FLD_SET_ENEMY_IGNORE(int arg0, int arg1, int arg2);
+108b void FLD_START_SMK_BALL(int arg0);
+108c void FLD_DOKIDOKI_ON(int arg0);
+108d void FLD_DOKIDOKI_OFF();
+108e int FLD_SUMMON_ENEMY(int arg0, int arg1);
+108f void FLD_MODEL_SET_TRANSLATE(int arg0, float arg1, float arg2, float arg3, int arg4);
+1090 void FLD_MODEL_ADD_TRANSLATE(int arg0, float arg1, float arg2, float arg3, int arg4);
+1091 void FLD_MODEL_PATH_TRANSLATE(int arg0, int arg1, int arg2);
+1092 void FLD_MODEL_SYNC_TRANSLATE(int arg0);
+1093 int FLD_LOAD_PATH_DATA(int arg0);
+1094 void FLD_SYNC_PATH_DATA(int arg0);
+1095 void FLD_FREE_PATH_DATA(int arg0);
+1096 int FLD_CHECK_DEBUG_FLAG();
+1097 int FLD_NPC_SEARCH_RESHND(int arg0, int arg1, int arg2);
+1098 void FLD_TODO_DISP();
+1099 void FLD_TODO_CLEAR();
+109a void FLD_SET_CELLPHONE(int arg0);
+109b void FLD_PANEL_DISP(int arg0);
+109c void FLD_EFFECT_BANK_LOAD(int arg0, int arg1);
+109d int FLD_EFFECT_BANK_SYNC(int arg0);
+109e void FLD_EFFECT_BANK_FREE(int arg0);
+109f int FLD_EFFECT_BANK_START(int arg0);
+10a0 void FLD_EFFECT_END(int arg0);
+10a1 void FLD_EFFECT_FADE_OUT(int arg0, int arg1);
+10a2 void FLD_EFFECT_SET_POS(int arg0, float arg1, float arg2, float arg3);
+10a3 void FLD_EFFECT_SET_RES_POS(int arg0, int arg1);
+10a4 void FLD_EFFECT_SET_ROT(int arg0, float arg1, float arg2, float arg3);
+10a5 void FLD_EFFECT_SET_RES_ROT(int arg0, int arg1);
+10a6 void FLD_EFFECT_SET_SCALE(int arg0, float arg1, float arg2, float arg3);
+10a7 void FLD_EFFECT_SET_ALPHA(int arg0, float arg1);
+10a8 void FLD_EFFECT_SET_SPEED(int arg0, float arg1);
+10a9 void FLD_SEARCH_EFFECT_ON();
+10aa void FLD_SEARCH_EFFECT_OFF();
+10ab int FLD_SEARCH_EFFECT_CHECK();
+10ac void FLD_PANEL_HIDE_DISABLE();
+10ad void FLD_CLEAR_SUMMON_ENEMY_ALL();
+10ae void FLD_MODEL_RELATE_TRANSLATE(int arg0, int arg1, float arg2, float arg3, float arg4, unk arg5);
+10af float FLD_MODEL_GET_X_TRANSLATE(int arg0);
+10b0 float FLD_MODEL_GET_Y_TRANSLATE(int arg0);
+10b1 float FLD_MODEL_GET_Z_TRANSLATE(int arg0);
+10b2 void FLD_MODEL_ORIENT_ROTATE(int arg0, int arg1, int arg2);
+10b3 int FLD_GET_POS_INDEX();
+10b4 void FLD_CAMERA_LOOKAT_INTERP(float arg0, float arg1, float arg2, int arg3);
+10b5 void FLD_CAMERA_FOVY_INTERP(float arg0, int arg1);
+10b6 void FLD_MODEL_SET_VISIBLE(int arg0, int arg1, int arg2);
+10b7 void FLD_MODEL_SYNC_VISIBLE(int arg0);
+10b8 void FLD_PTY_MODEL_SET_VISIBLE(int arg0, int arg1);
+10b9 void FLD_PTY_MODEL_SYNC_VISIBLE();
+10ba void FLD_EMY_MODEL_SET_VISIBLE(int arg0, int arg1);
+10bb void FLD_EMY_MODEL_SYNC_VISIBLE();
+10bc void FLD_START_FADE_DISABLE();
+10bd int FLD_GET_SCH_OBJ_ITEM(int arg0);
+10be float FLD_MODEL_GET_DISTANCE(int arg0, int arg1);
+10bf float FLD_MODEL_GET_DIFF_X_ANGLE(int arg0, int arg1);
+10c0 float FLD_MODEL_GET_DIFF_Y_ANGLE(int arg0, int arg1);
+10c1 float FLD_MODEL_GET_DIFF_Z_ANGLE(unk arg0, unk arg1);
+10c2 float FLD_CAMERA_GET_X_POS();
+10c3 float FLD_CAMERA_GET_Y_POS();
+10c4 float FLD_CAMERA_GET_Z_POS();
+10c5 float FLD_CAMERA_GET_X_ROT();
+10c6 float FLD_CAMERA_GET_Y_ROT();
+10c7 float FLD_CAMERA_GET_Z_ROT();
+10c8 float FLD_CAMERA_GET_W_ROT();
+10c9 float FLD_CAMERA_GET_FOVY();
+10ca void FLD_NPC_RELOAD();
+10cb int FLD_GET_SCH_OBJ_FIX_ITEM(int arg0);
+10cc int FLD_CHECK_FIND_SOMETHING();
+10cd void FLD_PTY_FOLLOW_ENABLE(int arg0);
+10ce void FLD_CAMERA_SET_FIXED(float arg0, float arg1, float arg2, float arg3, float arg4, float arg5, float arg6);
+10cf void FLD_SCH_OBJ_VISIBLE(int arg0, int arg1);
+10d0 void FLD_START_BOSS(int arg0);
+10d1 void FLD_RETRY_CLEAR();
+10d2 void FLD_RETRY_BOSS_SAVE();
+10d3 void FLD_RETRY_BOSS_LOAD();
+10d4 void FLD_RETRY_BOSS_CLEAR();
+10d5 int FLD_GET_PREV_MAJOR();
+10d6 int FLD_GET_PREV_MINOR();
+10d7 int FLD_GET_PREV_POS_INDEX();
+10d8 void FLD_CAMERA_BEHIND_LOCK();
+10d9 void FLD_CAMERA_BEHIND_UNLOCK();
+10da void FLD_CAMERA_SET_PARAM(float arg0, float arg1, float arg2, float arg3, float arg4, float arg5, int arg6);
+10db void FLD_CAMERA_RESET_PARAM(int arg0);
+10dc void FLD_SET_COVER_STATE();
+10dd void FLD_EFFECT_ATTACH_MODEL(int arg0, int arg1);
+10de int FLD_PC_ID_GET_RESHND(int arg0);
+10df int FLD_PC_ID_CHECK_RESHND(int arg0, int arg1);
+10e0 void FLD_PAUSE_ENEMY_MOVE(int arg0, int arg1);
+10e1 void FLD_RESUME_ENEMY_MOVE(int arg0, int arg1);
+10e2 void FLD_MODEL_FREE(int arg0);
+10e3 void CALL_AT_DUNGEON(int arg0, int arg1, int arg2);
+10e4 int FLD_GET_DOOR_DIR();
+10e5 void FLD_MISSION_LIST_ON();
+10e6 void FLD_MISSION_LIST_OFF();
+10e7 void FLD_MODEL_WALK_TRANSLATE(int arg0, float arg1, float arg2, float arg3);
+10e8 void FLD_MODEL_RUN_TRANSLATE(int arg0, float arg1, float arg2, float arg3);
+10e9 int FLD_MODEL_ADDMOTION_LOAD(int arg0, int arg1);
+10ea void FLD_MODEL_COPY_POSE_ANIM(int arg0, int arg1);
+10eb int FLD_MODEL_CLONE_ADDMOTION(int arg0, int arg1);
+10ec void FLD_MODEL_REVERT_ADDMOTION(int arg0, int arg1);
+10ed void FLD_START_BGM_DISABLE();
+10ee void FLD_MODEL_POINT_ROTATE(int arg0, float arg1, float arg2, float arg3, int arg4);
+10ef int FLD_ENCOUNT_SYMBOL(int arg0, int arg1, int arg2);
+10f0 int FLD_SEARCH_CLOSEST_ENEMY();
+10f1 int FLD_GET_WANTED_POINT();
+10f2 void FLD_SET_WANTED_POINT(int arg0);
+10f3 void FLD_ADD_WANTED_POINT(int arg0);
+10f4 int FLD_ENCOUNT_SYMBOL_FADE(int arg0, int arg1, int arg2, int arg3, int arg4);
+10f5 int CALL_LMAP(int arg0);
+10f6 void FLD_START_FADE_SYNC();
+10f7 int FLD_NPC_MODEL_LOAD_BASE(int arg0, int arg1, int arg2, int arg3);
+10f8 int FLD_TUTORIAL_SNEAK();
+10f9 int FLD_ENCOUNT_SYMBOL_CLOSE(int arg0, int arg1, int arg2);
+10fa int FLD_CHECK_BOSS();
+10fb void FLD_WEAPON_MODEL_VISIBLE(int arg0, int arg1);
+10fc void FLD_GUN_MODEL_VISIBLE(int arg0, int arg1);
+10fd void FLD_CELLPHONE_MODEL_VISIBLE(int arg0, int arg1);
+10fe void FLD_BAG_MODEL_VISIBLE(int arg0, int arg1);
+10ff void FLD_UMBRELLA_MODEL_VISIBLE(int arg0, int arg1);
+1100 void FLD_SET_LMAP_POS(int arg0, int arg1);
+1101 int FLD_GET_ENEMY_RESHND(int arg0, int arg1);
+1102 void FLD_TUTORIAL_OK_ONLY();
+1103 int FLD_CLOSE_DOOR_NO(int arg0);
+1104 void FLD_LOCAL_FLAG_ON(int arg0);
+1105 void FLD_LOCAL_FLAG_OFF(int arg0);
+1106 int FLD_LOCAL_FLAG_CHK(int arg0);
+1107 void FLD_REQ_SCN_CHANGE(int arg0);
+1108 void FLD_MODEL_TRANSLATION_KEY(int arg0);
+1109 void FLD_HIT_SET_TYPE(int arg0, int arg1, int arg2);
+110a void FLD_HIT_RESET_TYPE(int arg0);
+110b int FLD_HIT_GET_TYPE(int arg0);
+110c int FLD_HIT_GET_NAMEID(int arg0);
+110d void FLD_SOBJHIT_SET_TYPE(int arg0, int arg1, int arg2);
+110e void FLD_SOBJHIT_RESET_TYPE(int arg0);
+110f int FLD_SOBJHIT_GET_TYPE(int arg0);
+1110 int FLD_SOBJHIT_GET_NAMEID(int arg0);
+1111 void FLD_PLACE_NAME_SET_NO(int arg0, int arg1);
+1112 int FLD_NPC_SEARCH_RESHND2(int arg0, int arg1, int arg2, int arg3);
+1113 void FLD_NPC_REMOVE(int arg0);
+1114 void FLD_NPC_STOP_CHASE(int arg0);
+1115 int FLD_NPC_CHECK_CHASE(int arg0);
+1116 void FLD_CAMERA_ZOOM(int arg0);
+1117 void FLD_PLACENAME_TEX(int arg0, int arg1, int arg2, int arg3);
+1118 void FLD_NPC_START_CHASE(int arg0);
+1119 void FLD_UNIT_SET_COLLIS(int arg0, int arg1);
+111a int FLD_NOT_OPEN_DOOR();
+111b int FLD_OPEN_DOOR_FADE();
+111c void FLD_NPC_SET_LOOKAT(int arg0, int arg1);
+111d void FLD_OPEN_TBOX_SIMPLE();
+111e void FLD_SET_DIVDATA(int arg0);
+111f int FLD_GET_DIVDATA();
+1120 void FLD_UPDATE_DIVDATA();
+1121 int FLD_GET_SCH_OBJ_RND_ITEM(int arg0, int arg1);
+1122 void FLD_MODEL_UNIT_TRANSLATE(int arg0, float arg1, float arg2, float arg3, int arg4);
+1123 int FLD_OPEN_FRIDGE(int arg0);
+1124 void FLD_CLOSE_FRIDGE(int arg0);
+1125 void FLD_NPC_PRGANIM(int arg0, int arg1);
+1126 int FLD_PC_GET_CURRENT_RESHND(int arg0);
+1127 int FLD_NPCID_SEARCH_RESHND(int arg0);
+1128 int FLD_NPCID_SEARCH_RESHND2(int arg0, int arg1);
+1129 int FLD_GET_DIV_INDEX();
+112a int FLD_GET_PREV_DIV_INDEX();
+112b void FLD_SWITCH_ON(int arg0);
+112c void FLD_GET_SCH_OBJ_END();
+112d float FLD_POS_GET_X_POS(int arg0);
+112e float FLD_POS_GET_Y_POS(int arg0);
+112f float FLD_POS_GET_Z_POS(int arg0);
+1130 void FLD_SFTYROOM_MENU();
+1131 void FLD_SFTYROOM_MENU_SYNC();
+1132 void FLD_SFTYROOM_MENU_EXIT();
+1133 void FLD_SFTYROOM_MENU_SETMASK(int arg0);
+1134 void FLD_GREETING_MSG(int arg0);
+1135 void FLD_GREETING_MSGSYNC(int arg0);
+1136 void FLD_GREETING_FREE();
+1137 int FLD_NPC_GET_DISTANCE();
+1138 void FLD_CAMERA_INTERP_SMOOTH(int arg0);
+1139 void CALL_KF_EVENT(int arg0, int arg1, int arg2, int arg3);
+113a int FLD_CHECK_MORGANA_BAG();
+113b void FLD_PC_COVER_RUN(int arg0, float arg1, float arg2, float arg3);
+113c void FLD_PC_SYNC_COVER_RUN(int arg0);
+113d int FLD_SNUFF_GET_RESULT();
+113e void FLD_PTY_MODEL_SET_STD_POS();
+113f void FLD_CAMERA_TUMBLE_INTERP(float arg0, float arg1, float arg2, float arg3, float arg4, float arg5, int arg6);
+1140 void FLD_PTY_MODEL_SET_PAUSE(int arg0, int arg1);
+1141 void FLD_DUNGEON_RESULT(int arg0, int arg1);
+1142 void FLD_DUNGEON_RESULT_SYNC();
+1143 void FLD_CROWD_SET_MESSAGE(int arg0, int arg1, float arg2);
+1144 void FLD_CAMERA_HIT_UPDATE();
+1145 void FLD_UNIT_WAIT_DISABLE(int arg0);
+1146 void FLD_SFTYROOM_SET_CAMERA(int arg0);
+1147 void FLD_SFTYROOM_MENU_SETHELP(int arg0, int arg1);
+1148 void FLD_BG_TRANSKEY_SYNC();
+1149 void FLD_RESET_SCH_OBJ_FLAG(int arg0, int arg1);
+114a void FLD_PC_MODEL_ACTION(float arg0, float arg1, float arg2, int arg3);
+114b void FLD_NPC_ROTATE(int arg0, int arg1, int arg2);
+114c void FLD_NPC_ROTATE_RESET(int arg0, int arg1);
+114d void FLD_NPC_ROTATE_SYNC(int arg0);
+114e void FLD_EFFECT_SYNC(int arg0);
+114f int FLD_CHOICE_REPORTER();
+1150 int FLD_PC_GET_ID(int arg0);
+1151 void FLD_UNIT_SET_WAIT(int arg0);
+1152 void FLD_SET_TBOX_VISIBLE(int arg0, int arg1);
+1153 void FLD_OVERTURN_TAG(int arg0);
+1154 void FLD_SMP_EVENT_BEGIN(int arg0);
+1155 void FLD_SMP_EVENT_END(int arg0);
+1156 void FLD_MISSION_LIST_INVISALL();
+1157 void FLD_MISSION_LIST_VISITEM(int arg0);
+1158 void FLD_MISSION_LIST_VISIBLE(int arg0);
+1159 void FLD_MISSION_LIST_INVIBLE(int arg0, int arg1);
+115a void FLD_MISSION_LIST_SYNC_VIS();
+115b int FLD_GET_REPORTER();
+115c int FLD_GET_FOUND_ENEMY_TYPE(int arg0);
+115d void FLD_CAMERA_SET_FIXED_REVERT(float arg0, float arg1, float arg2, float arg3, float arg4, float arg5, float arg6, int arg7);
+115e void FLD_ALERT_VISIBLE(int arg0);
+115f int FLD_ALERT_GET_VISIBLE();
+1160 int FLD_TUTORIAL_COVER_RUN();
+1161 int FLD_NPC_GET_CURRENT_PATHNODE(int arg0);
+1162 void FLD_NPC_STOP_PATHNODE(int arg0, int arg1);
+1163 int FLD_MAP_FRAG_CHECK_COLLECT();
+1164 int FLD_MAP_FRAG_CNV_COMP(int arg0);
+1165 void FLD_TOOL_CREATE();
+1166 void FLD_TOOL_CREATE_SYNC();
+1167 int FLD_PERSONA_MODEL_LOAD(int arg0);
+1168 void FLD_TOOL_SCR_YESNO(int arg0);
+1169 int FLD_TOOL_GET_ELEMENTID();
+116a void FLD_PTY_MODEL_SET_HIDE(int arg0, int arg1);
+116b void FLD_EXIT_TIME_DISP();
+116c void FLD_SYNC_TIME_DISP();
+116d void SAVE_TEMPORARY();
+116e int LOAD_TEMPORARY();
+116f void FLD_NPC_SET_RUNSTATE(int arg0, float arg1);
+1170 void FLD_RAIN_PAUSE(int arg0);
+1171 void FLD_NPC_READRESUME_DISABLE();
+1172 void FLD_CROWD_INTERCEPT_READ();
+1173 int FLD_TOOL_ACCOUNT();
+1174 void FLD_HITSCR_FORCE_EXEC(int arg0, int arg1);
+1175 void FLD_ALERT_HOLD_OFF(int arg0);
+1176 void FLD_STOP_FLASHBACK();
+1177 int FLD_MODEL_TYPMOTION_LOAD(int arg0, int arg1, int arg2);
+1178 int FLD_MODEL_CLONE_TYPMOTION(int arg0, int arg1, int arg2);
+1179 void FLD_UNIT_SET_WALK(int arg0);
+117a void FLD_UNIT_SET_RUN(int arg0);
+117b void FLD_UNIT_SET_C_WAIT(int arg0);
+117c void FLD_UNIT_SET_C_RUN(int arg0);
+117d int FLD_NPC_TBLID_LOAD(int arg0);
+117e void FLD_ESCAPE_EFFECT();
+117f float FLD_POS_GET_ROT(int arg0);
+1180 float FLD_POS_GET_DNG_X_POS();
+1181 float FLD_POS_GET_DNG_Y_POS();
+1182 float FLD_POS_GET_DNG_Z_POS();
+1183 float FLD_POS_GET_DNG_ROT();
+1184 void FLD_BGMNG_LINKPROC_TIME(int arg0, int arg1, float arg2);
+1185 void FLD_BGMNG_LINKPROC_ANIMSTART(int arg0, int arg1, int arg2, int arg3);
+1186 void FLD_BGMNG_LINKPROC_ANIMEND(int arg0, int arg1, int arg2, int arg3);
+1187 void FLD_SWITCH_OFF(int arg0);
+1188 int FLD_CORP_NPC_EXIST(int arg0);
+1189 int FLD_CORP_NPC_EXIST2(int arg0, int arg1, int arg2, int arg3);
+118a int FLD_OBJ_SEARCH_RESHND(int arg0, int arg1);
+118b void FLD_SET_FOG(float arg0, float arg1, int arg2, int arg3, int arg4, int arg5, int arg6);
+118c void FLD_SET_FOG_DEFAULT(int arg0);
+118d float FLD_GET_FOG_NEAR_CLIP();
+118e float FLD_GET_FOG_FAR_CLIP();
+118f int FLD_GET_FOG_HUE();
+1190 int FLD_GET_FOG_SATURATION();
+1191 int FLD_GET_FOG_LUMINANCE();
+1192 int FLD_GET_FOG_ALPHA();
+1193 void FLD_SET_CORRECT(float arg0, float arg1, float arg2, float arg3, float arg4, int arg5);
+1194 void FLD_SET_CORRECT_DEFAULT(int arg0);
+1195 float FLD_GET_CORRECT_CYAN();
+1196 float FLD_GET_CORRECT_MAGENTA();
+1197 float FLD_GET_CORRECT_YELLOW();
+1198 float FLD_GET_CORRECT_DODGE();
+1199 float FLD_GET_CORRECT_BURN();
+119a void FLD_SYNC_ENV();
+119b void FLD_GMC_PUZZLE_START(int arg0, int arg1);
+119c void FLD_GMC_PUZZLE_SYNC();
+119d int FLD_GMC_PUZZLE_PARAM_CMD(int arg0, int arg1, int arg2, int arg3);
+119e void FLD_UMBRELLA_ANIM_CHANGE(int arg0);
+119f void FLD_NPC_STOP_NOW(int arg0, int arg1);
+11a0 void FLD_LMAP_FADE(unk arg0);
+11a1 void FLD_NPC_SET_RUNSTATE2(int arg0, float arg1, int arg2);
+11a2 void FLD_CROWD_PATH_VISIBLE(int arg0, int arg1);
+11a3 void FLD_CROWD_PATH_WAIT(int arg0, int arg1);
+11a4 int FLD_CROWD_PATH_CHECK_UNIT(int arg0);
+11a5 void FLD_CROWD_PATH_REPOP_UNIT(int arg0);
+11a6 void FLD_CROWD_PATH_INTERCEPT_READ(int arg0, int arg1);
+11a7 void FLD_SET_LOCAL_COUNT(int arg0, int arg1);
+11a8 int FLD_GET_LOCAL_COUNT(int arg0);
+11a9 void FLD_SET_DOOR_HIT(int arg0, int arg1);
+11aa void FLD_REPORT_MSG_DTL(int arg0, int arg1, int arg2, int arg3);
+11ab void FLD_REPORT_MSGSYNC_DTL(int arg0, int arg1, int arg2, int arg3);
+11ac void FLD_MODEL_UNIT_ROTATE(int arg0, unk arg1, float arg2, unk arg3, int arg4);
+11ad void FLD_MODEL_UNIT_POINT_ROTATE(int arg0, float arg1, float arg2, float arg3, int arg4);
+11ae void FLD_TOOL_SET_ITEM_NAME();
+11af int FLD_TOOL_CHK_ITEM_AVAILABLE();
+11b0 void FLD_TOOL_CREATE_ITEM(int arg0);
+11b1 void FLD_PC_MODEL_LOOK_AROUND(int arg0);
+11b2 void FLD_DUNGEON_RESULT_SET_MES(int arg0, unk arg1, unk arg2);
+11b3 void FLD_DUNGEON_RESULT_CLEAR_MES();
+11b4 void FLD_DUNGEON_RESULT_SET_VAR(int arg0, int arg1, int arg2);
+11b5 void FLD_DUNGEON_RESULT_CLEAR_VAR();
+11b6 int FLD_DUNGEON_RESULT_GET_TOTALPRICE();
+11b7 int FLD_CROWD_PATH_WAIT_UNIT(int arg0);
+11b8 void FLD_PC_MODEL_REQ_ACTION(float arg0, float arg1, float arg2, int arg3);
+11b9 void FLD_PC_MODEL_SYNC_ACTION();
+11ba void FLD_GMC_OBJ_MOVE(int arg0, int arg1, int arg2, int arg3);
+11bb void FLD_GMC_OBJ_MOVE_SYNC(int arg0);
+11bc void FLD_GMC_TENKEY_START(int arg0, int arg1, int arg2);
+11bd int FLD_GMC_TENKEY_SYNC();
+11be void FLD_GMC_TENKEY_END();
+11bf int FLD_GMC_TENKEY_CTRL(int arg0, int arg1, int arg2, int arg3);
+11c0 void FLD_SET_MOUSE(int arg0);
+11c1 int FLD_CHECK_MOUSE();
+11c2 int FLD_GET_PTYTALK_MSG(int arg0, int arg1, int arg2);
+11c3 int FLD_GET_PTYTALK_WND(int arg0, int arg1, int arg2);
+11c4 int FLD_GET_PTYTALK_FACE(int arg0, int arg1, int arg2);
+11c5 void FLD_CAMERA_LOCK_INTERP_S(float arg0, float arg1, float arg2, float arg3, float arg4, float arg5, float arg6, int arg7);
+11c6 int FLD_GET_BATTLE_RESULT();
+11c7 int FLD_CHECK_APPROACH_ENEMY();
+11c8 int FLD_CHOICE_MEMBER_REPORTER();
+11c9 int KFEVT_GET_MAJOR();
+11ca int KFEVT_GET_MINOR();
+11cb int KFEVT_GET_POS_INDEX();
+11cc int KFEVT_GET_DIV_INDEX();
+11cd void FLD_REQ_PC_SE(int arg0);
+11ce int FLD_NPC_EXIST_GROUP_VALUE(int arg0);
+11cf int FLD_NPC_EXIST_GROUP_VALUE_MD(int arg0, int arg1, int arg2);
+11d0 int FLD_NPC_BIT_CHK_GROUP(int arg0);
+11d1 int FLD_GET_CARTALK_THEME();
+11d2 void KFEVT_181_INIT();
+11d3 void KFEVT_181_INIT_SYNC();
+11d4 void KFEVT_181_RESET_TAKEOUT_INFO();
+11d5 void KFEVT_181_SET_TAKEOUT_INFO(int arg0, int arg1, int arg2);
+11d6 int KFEVT_181_GET_TAKEOUT_CATEGORY(int arg0);
+11d7 int KFEVT_181_GET_TAKEOUT_ID(int arg0);
+11d8 int KFEVT_181_CHECK_TAKEOUT_INFO(int arg0, int arg1);
+11d9 int KFEVT_181_EVALUATION(int arg0);
+11da int KFEVT_181_GET_BONUS_TYPE();
+11db int KFEVT_181_CHECK_BONUS_TYPE(int arg0);
+11dc int KFEVT_181_GET_REWARD_TYPE();
+11dd int KFEVT_181_GET_REWARD_VALUE(int arg0);
+11de void FLD_TOOL_USE();
+11df void FLD_TOOL_VIEW();
+11e0 int FLD_GET_PC_PARAM_ADD(int arg0);
+11e1 void FLD_SET_SCR_SKIP(int arg0);
+11e2 int FLD_CHECK_SCR_SKIP();
+11e3 void FLD_WAIT(int arg0);
+11e4 void FLD_MODEL_ANIM(int arg0, int arg1, int arg2, int arg3, float arg4);
+11e5 void FLD_MODEL_ANIM_SYNC(int arg0);
+11e6 void FLD_PC_MODEL_SET_GLIMPSE(int arg0);
+11e7 int FLD_TOOL_GET_ITEMID();
+11e8 void FLD_NPC_FBN_SYNC(int arg0);
+11e9 int FLD_SEL_EX(int arg0, int arg1, int arg2, int arg3, int arg4);
+11ea void FLD_SEL_SET_VISIBLE(int arg0);
+11eb int FLD_SEL_DATA_REQUEST(int arg0);
+11ec void FLD_MAP_PANEL_CHANGE(int arg0, int arg1, int arg2);
+11ed void KFEVT_181_SET_MSG_INFO(int arg0, int arg1, int arg2, int arg3, int arg4);
+11ee int KFEVT_181_GET_MSG_ID(int arg0, int arg1, int arg2);
+11ef int KFEVT_181_GET_MSG_NUM(int arg0, int arg1, int arg2);
+11f0 void FLD_PC_MODEL_LOOK_FRONT();
+11f1 void FLD_START_DEBUG_SCRIPT(int arg0, int arg1);
+11f2 void FLD_MODEL_DIR_TRANSLATE(int arg0, float arg1, float arg2, int arg3);
+11f3 void FLD_SHOW_ENEMY(int arg0, int arg1);
+11f4 int KFEVT_181_GET_BONUS_TYPE_NUM();
+11f5 void KFEVT_181_SET_FAVORABILITY_FLAG(int arg0);
+11f6 int KFEVT_181_GET_FAVORABILITY(int arg0);
+11f7 int KFEVT_181_GET_BONUS_FORMATION_COUNT(int arg0);
+11f8 void KFEVT_181_RESET_MSG_INFO();
+11f9 void KFEVT_181_RESET_DESIGNATION_MENU();
+11fa void KFEVT_181_SET_DESIGNATION_MENU(int arg0, int arg1, int arg2);
+11fb int KFEVT_181_GET_RAND_DESIGNATION_MENU(int arg0);
+11fc void FLD_LMAP_END(unk arg0);
+11fd void FLD_MODEL_ATTACH_TRANSLATE(int arg0, int arg1, int arg2);
+11fe void FLD_MODEL_DETACH_TRANSLATE(int arg0);
+11ff void FLD_MODEL_ATTACH_ROTATE(int arg0, int arg1, int arg2);
+1200 void FLD_MODEL_DETACH_ROTATE(int arg0);
+1201 void FLD_REQ_PRE_LOAD(int arg0, int arg1, int arg2, int arg3);
+1202 void KFEVT_181_SET_VAR_FOOD_NAME();
+1203 void FLD_MODEL_TALK_ANIM(int arg0);
+1204 void FLD_UNIT_SET_SURPRISE(int arg0);
+1205 void FLD_GAYA_EFFECT_SET(int arg0);
+1206 void FLD_MISSION_ACCEPT();
+1207 int FLD_LMAP_GET_FARE(unk arg0);
+1208 void CALL_BATTING_CENTER();
+1209 void FLD_GREETING_MSG_DTL(int arg0, int arg1, int arg2);
+120a int FLD_CROWD_PATH_READ_WAIT(int arg0);
+120b void KFEVT_181_FOOD_VISIBLE(int arg0, int arg1, unk arg2, int arg3);
+120c void FLD_DUNGEON_RESULT_SET_EXP(int arg0);
+120d void FLD_HIT_ADD_ICON(int arg0, int arg1, int arg2);
+120e void KFEVT_181_FOOD_ALL_VISIBLE(int arg0);
+120f void KFEVT_181_DISH_CLONE(int arg0);
+1210 int FLD_CHECK_SMK_BALL();
+1211 int FLD_CHECK_FIND_ENEMY();
+1212 void FLD_PANEL_MAP_PROC_SYNC(unk arg0);
+1213 void FLD_PANEL_MAP_PROC_END(unk arg0);
+1214 void KFEVT_181_DISH_CLONE_SYNC();
+1215 void FLD_ROADMAP_SCALE(int arg0);
+1216 void FLD_TOOL_SET_DRAWFLAG(int arg0);
+1217 void FLD_PC_MODEL_SET_FLOATING(int arg0);
+1218 void FLD_PC_MODEL_MOVE_FLOATING(float arg0, float arg1, float arg2);
+1219 void FLD_PC_MODEL_SYNC_FLOATING();
+121a void CALL_FISHING_POND();
+121b void KFEVT_181_DISH_DRAWSET(int arg0);
+121c int KFEVT_181_GET_DISTANCE_X(float arg0, float arg1, float arg2, float arg3, float arg4, float arg5);
+121d int KFEVT_181_GET_DISTANCE_Z(float arg0, float arg1, float arg2, float arg3, float arg4, float arg5);
+121e int FLD_NPC_GREETING_GET_DISP_TIME();
+121f void FLD_SET_DISGUISE(int arg0);
+1220 int FLD_CHECK_DISGUISE();
+1221 void FLD_PC_MODEL_PERSONAL(int arg0);
+1222 void FLD_OBJ_SET_ALPHA(int arg0, int arg1, int arg2);
+1223 int FLD_PANEL_MMAP_WHOLE(unk arg0);
+1224 int FLD_PANEL_MAP_AT_CHECK_VISIBLE();
+1225 void KFEVT_SET_NANPA_TACTICS(float arg0, float arg1);
+1226 void FLD_SET_DEBUG_OK();
+1227 int KFEVT_GET_NANPA_QUEST_VAL(float arg0, float arg1, float arg2);
+1228 void FLD_FASTTRAVEL_OPEN(int arg0, int arg1, int arg2);
+1229 void FLD_MODEL_SET_RIPPLE_EFF(int arg0, int arg1, float arg2);
+122a void FLD_MODEL_SET_SPOUT_EFF(int arg0, int arg1);
+122b void FLD_GET_FIX_ITEM(int arg0, int arg1);
+122c int KFEVT_GET_NANPA_BEST_SEL(float arg0, float arg1);
+122d int KFEVT_NANPA_BITON(float arg0, float arg1, float arg2);
+122e int KFEVT_NANPA_BITCHECK(float arg0, float arg1, float arg2);
+122f void FLD_REQ_DOOR_SE(int arg0, int arg1);
+1230 void KFEVT_181_DISH_EFFECT();
+1231 void FLD_SET_ENEMY_WAIT_TIME(int arg0, int arg1, int arg2);
+1232 void FLD_OVERWRITE_ENC_NO(int arg0);
+1233 void FLD_SET_LOOK_AT_POS(int arg0, float arg1, int arg2);
+1234 void FLD_PTY_MODEL_SET_RND_POS();
+1235 void FLD_PTY_MODEL_SET_LINE_POS();
+1236 void FLD_OPEN_ORD_DOOR_ONLY(int arg0);
+1237 int FLD_MISSION_ACCEPT_GET_CHECK_NUM();
+1238 int FLD_MISSION_ACCEPT_GET_CHECK_ID(int arg0);
+1239 int FLD_SUMMON_ENEMY_MOVE(int arg0, int arg1);
+123a void FLD_MISSION_LIST_ON_FORCE();
+123b int FLD_GET_SCH_OBJ_ENEMY(int arg0, int arg1, float arg2, float arg3, float arg4);
+123c void FLD_TOOL_REQUEST_END();
+123d int FLD_PC_GET_BAG_TYPE();
+123e void FLD_OPEN_ORD_DOOR_FADE(int arg0, int arg1, int arg2);
+123f void FLD_SET_DOOR_HIT_TYPE(int arg0, int arg1, int arg2);
+1240 void FLD_SET_ENEMY_GLANCE(int arg0, int arg1, int arg2);
+1241 void FLD_NPC_SEPARATEOFF_MESH(int arg0);
+1242 void FLD_PARTY_IN(int arg0);
+1243 void FLD_PARTY_OUT(int arg0);
+1244 void FLD_REQ_PRE_LOAD_ATDNG(int arg0, int arg1, int arg2);
+1245 int FLD_CHECK_ENTRANCE_FLOOR();
+1246 int FLD_CHECK_SAFE_ROOM();
+1247 void FLD_SFTYROOM_MENU_SETMODE(int arg0);
+1248 void FLD_MODEL_ANIM_NEXT(int arg0, int arg1, int arg2, int arg3, float arg4);
+1249 int FLD_CHECK_SAVE_ENABLE();
+124a void FLD_SET_DIALY(int arg0);
+124b void FLD_DUNGEON_RESULT_SET_MVP(int arg0);
+124c void FLD_DUNGEON_RESULT_SET_BONUS(int arg0, int arg1, int arg2);
+124d void FLD_BAG_ANIM_DISABLE();
+124e void FLD_SET_BAG_ANIM(int arg0);
+124f int FLD_CHECK_DNG_EVENT();
+1250 int FLD_CHECK_DNG_TRAVERSE(int arg0, int arg1);
+1251 int FLD_GET_SYMBOL_ENCOUNTID(int arg0, int arg1);
+1252 void FLD_DUNGEON_RESULT_SET_DUNGEON_NO(int arg0);
+1253 void KFEVT_TBL_READ();
+1254 void KFEVT_TBL_FREE();
+1255 int KFEVT_TBL_GET_MAJOR(int arg0, int arg1, int arg2);
+1256 int KFEVT_TBL_GET_MINOR(int arg0, int arg1, int arg2);
+1257 int KFEVT_TBL_GET_DIV(int arg0, int arg1, int arg2);
+1258 int FLD_MISSION_ACCEPT_GET_SELECT_ID();
+1259 int FLD_GET_DNG_QUEST_NO(int arg0, int arg1);
+125a void CALL_ATDNG_QUEST_FLOOR(int arg0);
+125b void CALL_ATDNG_EVENT_FLOOR(int arg0);
+125c int FLD_CHECK_DNG_EVENT_BRANCH();
+125d float FLD_GET_DNG_PARTS_ROT();
+125e void FLD_NPC_UNDISP(int arg0, int arg1);
+125f int FLD_GET_ALERT_ADD_VALUE();
+1260 void FLD_BREAK_WALL();
+1261 int FLD_GET_SNEAKING_ITEM_ID();
+1262 void FLD_TOOL_END_EFFECT();
+1263 void FLD_TOOL_END_EFFECT_SYNC();
+1264 int FLD_CHECK_MSG_DISP();
+1265 void KAWAKAMI_SET_REQUEST_ITEM(float arg0, float arg1, float arg2);
+1266 int KAWAKAMI_GET_REQUEST_ITEMID(float arg0);
+1267 int KAWAKAMI_GET_REQUEST_ITEMNUM(float arg0);
+1268 void FLD_SET_RESHND_BANK(int arg0, int arg1);
+1269 int FLD_GET_RESHND_BANK(int arg0);
+126a void FLD_SFTYROOM_MENU_SETBOSSID(int arg0);
+126b void FLD_DASH_EFFECT(int arg0);
+126c int FLD_GET_CARTALK_PC(int arg0);
+126d int FLD_GET_CARTALK_MSG(int arg0, int arg1);
+126e int FLD_GET_CARTALK_WND(int arg0, int arg1);
+126f int FLD_GET_CARTALK_FACE(int arg0, int arg1);
+1270 int FLD_GET_CARTALK_ANSWER(int arg0, int arg1);
+1271 int FLD_GET_CARTALK_ANS_PC(int arg0, int arg1, int arg2);
+1272 int FLD_GET_CARTALK_ANS_MSG(int arg0, int arg1, int arg2);
+1273 int FLD_GET_CARTALK_ANS_WND(int arg0, int arg1, int arg2);
+1274 int FLD_GET_CARTALK_ANS_FACE(int arg0, int arg1, int arg2);
+1275 int FLD_RESIDENT_EFFECT_START(int arg0);
+1276 int GET_CHARA_CAMERA_DIR(float arg0, float arg1, float arg2, float arg3, float arg4, float arg5);
+1277 int FLD_CHECK_SAFE_DATA_LOAD();
+1278 void FLD_GFS_PARTS_SYNC(int arg0);
+1279 void FLD_CROWD_PAUSE(int arg0);
+127a void FLD_CALL_EVENT_SETUP();
+127b void FLD_ALERT_DISP_PLACENO(int arg0, int arg1);
+127c void FLD_ALERT_RAPID_DISP_PLACENO(int arg0, int arg1);
+127d void CROSSWORD_START(int arg0);
+127e void CROSSWORD_ENDSYNC();
+127f int CROSSWORD_RELUST();
+1280 void FLD_SET_SCR_NAME(int arg0, int arg1);
+1281 int FLD_MISSION_LIST_GET_FLAG(int arg0, int arg1);
+1282 void FLD_MISSION_LIST_SET_FLAG(int arg0, int arg1, int arg2);
+1283 void FLD_MISSION_LIST_CLEAR_FLAGS();
+1284 void FLD_MISSION_LIST_SWAPTBL();
+1285 void CALL_TV_PROGRAM();
+1286 void TV_PROGRAM_ENDSYNC();
+1287 void TODAY_TV_PROGRAM();
+1288 void TODAY_TV_PROGRAM_ENDSYNC();
+1289 int GET_TODAY_TV_PROGRAM_BG();
+128a void FLD_VLT_FILTER_VISIBLE(int arg0);
+128b void FLD_NPC_SET_EFFECT_TARGET(int arg0, int arg1);
+128c void FLD_MISSION_WINDOW(int arg0, int arg1);
+128d int FLD_GET_ALERT_DEC_VALUE();
+128e void FLD_VLT_FILTER_LOCK(int arg0);
+128f int FLD_CHECK_DNG_FIND_PARTS(int arg0);
+1290 void FLD_ALERT_SET_KEEP_FLAG(int arg0);
+1291 void FLD_BG_CASH_REMOVE();
+1292 int FLD_ITEM_MODEL_LOAD(int arg0, int arg1);
+1293 void FLD_PANEL_MMAP_NEW_STAGE(int arg0);
+1294 void FLD_PANEL_MMAP_NEW_STAGE_EXIT();
+1295 void FLD_NPC_VISIBLE_ALL(int arg0);
+1296 void FLD_NPC_SET_RADIUS(int arg0, float arg1);
+1297 void FLD_CROWD_PATH_VISIBLE_ALL(int arg0);
+1298 void FLD_START_SUPPORT_MSG_EX();
+1299 void FLD_SHOW_NEW_SPOT(int arg0);
+129a void FLD_TRANS_END_ANIM(int arg0, int arg1, int arg2, int arg3, float arg4);
+129b void FLD_ROTATE_END_ANIM(int arg0, int arg1, int arg2, int arg3, float arg4);
+129c void FLD_END_SMK_BALL();
+129d int FLD_ITEM_GET_RESHND(int arg0, int arg1);
+129e void FLD_NPC_LOOKAT_DISABLE(int arg0, int arg1);
+129f void FLD_SETBANK_BGENV_VOICE(int arg0);
+12a0 void FLD_GET_FIX_ITEMS();
+12a1 void FLD_SLIDING_EFFECT(int arg0);
+12a2 int FLD_GET_TBOX_ITEM_ID(int arg0);
+12a3 void FLD_GET_SCH_OBJ_BEGIN_NG(int arg0);
+12a4 void FLD_PANEL_EXTRA_LIFE(int arg0, int arg1, int arg2);
+12a5 void FLD_PANEL_EXTRA_LOOP(int arg0, int arg1, int arg2);
+12a6 void FLD_PANEL_EXTRA_END_REQ();
+12a7 void FLD_PANEL_EXTRA_END_REQ_RAPID();
+12a8 int FLD_PANEL_EXTRA_CHK_VISIBLE();
+12a9 void FLD_NPC_APPEND_LOAD();
+12aa void FLD_SLEEP_ENEMY(int arg0, int arg1);
+12ab void FLD_NPC_SET_DEFMOTION(int arg0, int arg1);
+12ac void FLD_NPC_CANCEL_ENGULF(int arg0);
+12ad int FLD_SEL_EX2(int arg0, int arg1, int arg2, int arg3, int arg4, int arg5, int arg6);
+12ae void FLD_ROADMAP_SET_VISIBLE(int arg0);
+12af void FLD_GIMMICK_RAY_HIT(float arg0, float arg1, float arg2);
+12b0 void FLD_PC_CNV_NPC();
+12b1 void FLD_SET_EVT_EMY_ENCOUNT_NO(int arg0, int arg1, int arg2);
+12b2 void FLD_SET_ENEMY_INOUT(int arg0, int arg1, int arg2);
+12b3 void FLD_NPC_EMOTE_ANIM(int arg0, int arg1);
+12b4 void FLD_CAR_ONOFF_CHANGE(int arg0);
+12b5 void FLD_PARTY_SAVE();
+12b6 void FLD_PARTY_LOAD();
+12b7 float FLD_GET_DNG_PARTS_X_POS();
+12b8 float FLD_GET_DNG_PARTS_Y_POS();
+12b9 float FLD_GET_DNG_PARTS_Z_POS();
+12ba void FLD_CAMERA_SET_TGT_UPDATE(int arg0);
+12bb void FLD_SHOW_NEW_SPOT_SYNC_MODE(int arg0);
+12bc void FLD_SHOW_NEW_SPOT_SYNC_EXIT();
+12bd void FLD_REVERT_ENC_NO();
+12be void FLD_SET_ALL_ENCOUNT_NO(int arg0, int arg1, int arg2, int arg3);
+12bf void FLD_EMY_SET_EFFECT_TARGET(int arg0, int arg1);
+12c0 void FLD_SET_SCNLIGHT_AMB(int arg0, int arg1, int arg2, int arg3);
+12c1 void FLD_SET_SCNLIGHT_DIFF(int arg0, int arg1, int arg2, int arg3);
+12c2 void FLD_SET_SCNLIGHT_SPEC(int arg0, int arg1, int arg2, int arg3);
+12c3 void FLD_SET_SCNLIGHT_DEFAULT(unk arg0, int arg1);
+12c4 int FLD_GET_SCNLIGHT_AMB_H();
+12c5 int FLD_GET_SCNLIGHT_AMB_S();
+12c6 int FLD_GET_SCNLIGHT_AMB_L();
+12c7 int FLD_GET_SCNLIGHT_DIFF_H();
+12c8 int FLD_GET_SCNLIGHT_DIFF_S();
+12c9 int FLD_GET_SCNLIGHT_DIFF_L();
+12ca int FLD_GET_SCNLIGHT_SPEC_H();
+12cb int FLD_GET_SCNLIGHT_SPEC_S();
+12cc int FLD_GET_SCNLIGHT_SPEC_L();
+12cd void CALL_ALERT_SPECIAL(int arg0, int arg1);
+12ce int FLD_GET_TYPE_ALERT_VALUE(int arg0);
+12cf void FLD_SET_TYPE_ALERT_VALUE(int arg0, int arg1);
+12d0 int FLD_LMAP_GET_SELECT_ID();
+12d1 void FLD_SET_FIX_BGM(int arg0);
+12d2 void FLD_NPC_LOOKAT_DISABLE_FBNID(int arg0, int arg1);
+12d3 void CALL_ALERT_CHANGE(int arg0);
+12d4 float FLD_MODEL_GET_X_WORLD_TRANSLATE(int arg0);
+12d5 float FLD_MODEL_GET_Y_WORLD_TRANSLATE(int arg0);
+12d6 float FLD_MODEL_GET_Z_WORLD_TRANSLATE(int arg0);
+12d7 void FLD_MODEL_BGHELPER_TRANSLATE(int arg0, int arg1);
+12d8 void FLD_GREETING_MSG_BLOCK(int arg0, int arg1, int arg2);
+12d9 void FLD_GIMMICK_CAMERA_SET(int arg0, int arg1);
+12da int FLD_OBJ_MODEL_LOAD_UID(int arg0, int arg1, int arg2);
+12db void FLD_SWITCH_ELEVATOR(int arg0, int arg1);
+12dc float FLD_EMY_MODEL_GET_SCALE(int arg0);
+12dd void FLD_NOT_OPEN_DOOR_ANIM(unk arg0);
+12de void FLD_PANEL_GUIDE_HIGHLIGHT(int arg0);
+12df void FLD_SET_DARK_ZONE(int arg0);
+12e0 int FLD_CHECK_DARK_ZONE();
+12e1 void FLD_PANEL_COIN_SET_TYPE(int arg0, int arg1);
+12e2 void FLD_PANEL_COIN_SET_VISIBLE(int arg0);
+12e3 int FLD_PANEL_COIN_CHECK_VISIBLE();
+12e4 int FLD_GET_FISHING_RESULT(int arg0, int arg1);
+12e5 void PREPARE_CALL_FIELD(int arg0, int arg1, int arg2, int arg3);
+12e6 void PREPARE_CALL_KF_EVENT(int arg0, int arg1, int arg2, int arg3);
+12e7 void FLD_CLEAR_SUMMON_ENEMY(int arg0, int arg1);
+12e8 void FLD_CLEAR_SUMMON_LIFE(int arg0, int arg1);
+12e9 void FLD_CAMERA_INTERP_ASYNC(int arg0);
+12ea void FLD_PC_MODEL_SET_PASS_GATE(int arg0, int arg1);
+12eb void FLD_BFIELD_LOAD();
+12ec int FLD_CASINO_GAME_DEAL(int arg0, int arg1, int arg2);
+12ed int FLD_CASINO_GAME_CHECK_PLAY(int arg0, int arg1, int arg2);
+12ee void FLD_SET_BUTTON_HIT_DISABLE(int arg0);
+12ef void FLD_ALLY_SET_POINT_ROT(float arg0, float arg1, float arg2);
+12f0 void FLD_ALLY_SET_ORIENT_ROT(int arg0);
+12f1 void FLD_SYNC_COVER_STATE();
+12f2 void FLD_SET_PARTY_LOOKAT(int arg0, int arg1);
+12f3 void FLD_SET_PARTY_LOOKAT_POS(int arg0, float arg1, float arg2, float arg3);
+12f4 void FLD_RESET_PARTY_LOOKAT(int arg0);
+12f5 void FLD_ALLY_SET_WAIT(int arg0);
+12f6 void FLD_PLACENAME_TEX_EXIT();
+12f7 void FLD_PLACENAME_TEX_WAIT();
+12f8 void FLD_NPC_SET_CURRENT_PATHNODE(int arg0, int arg1);
+12f9 void FLD_SWITCH_REQ_ANIM(int arg0, int arg1);
+12fa void FLD_SWITCH_SYNC_ANIM();
+12fb int FLD_CHECK_AUTO_RECOVER();
+12fc int FLD_USE_AUTO_RECOVER();
+12fd int FLD_SIMPLE_SYS_MSG(int arg0, int arg1, int arg2);
+12fe void FLD_MEMBER_RECOVER(int arg0);
+12ff void FLD_NPC_TALKICON_FORCEDISP_FBNID(int arg0, int arg1);
+1300 void FLD_DNG_SET_CENTER_POS(int arg0);
+1301 void FLD_MODEL_SET_SCALE(int arg0, float arg1);
+1302 void FLD_CROWD_SET_DIVNO_DNG(int arg0);
+1303 int FLD_CROWD_GET_DIVNO_DNG();
+1304 void FLD_PTY_ADD_BUF(int arg0, int arg1);
+1305 void FLD_PTY_RESET_BUF();
+1306 void FLD_SET_DUCT_POS(float arg0, float arg1, float arg2, float arg3, float arg4);
+1307 float FLD_GET_DUCT_POS(int arg0);
+1308 void FLD_SET_CAMERA_DEFAULT_POS(int arg0);
+1309 void FLD_PANEL_GUIDE_UNDISP(int arg0, int arg1);
+130a void FLD_GEN_FISHING_SEED();
+130b void FLD_CASINO_WORK_INIT();
+130c void FLD_CLEAR_COVER_STATE(int arg0);
+130d void FLD_SET_ENEMY_ORNAMENT(int arg0, int arg1, int arg2);
+130e int FLD_PANEL_GUIDE_UNDISP_CHECK(int arg0);
+130f void FLD_PANEL_COIN_SET_ENABLE(int arg0);
+1310 int FLD_PANEL_COIN_CHECK_ENABLE();
+1311 void FLD_ROADMAP_MMAP_OPEN(int arg0);
+1312 void FLD_ROADMAP_MMAP_SYNC();
+1313 void FLD_ROADMAP_MMAP_CLOSE();
+1314 void FLD_SET_CAMERA_FAR_MODE(int arg0);
+1315 void FLD_SET_DOOR_HIT_TYPE_DTL(int arg0, int arg1, int arg2, int arg3, int arg4);
+1316 void FLD_PC_OFS_TRANSLATE(float arg0, float arg1, float arg2, int arg3);
+1317 int FLD_FBNID_TO_NPCID(int arg0);
+1318 void FLD_NPC_SET_ROTATE_RATIO(int arg0, float arg1);
+1319 void FLD_CAMERA_SET_FOVY(float arg0);
+131a void FLD_MODEL_DST_TRANSLATE(int arg0, float arg1, float arg2, float arg3, float arg4, int arg5);
+131b void FLD_CAMERA_SET_FIXED_INTERP(float arg0, float arg1, float arg2, float arg3, float arg4, float arg5, float arg6, int arg7);
+131c void FLD_SET_GMK_CAMERA_UID(int arg0);
+131d int FLD_GET_GMK_CAMERA_UID();
+131e void FLD_MMT_MAP_END();
+131f void FLD_GREETING_MSG_DTL_HIGH(int arg0, int arg1, int arg2);
+1320 void FLD_SET_DOOR_OPEN_POS(unk arg0, unk arg1);
+1321 void FLD_ROADMAP_MMAP_CHANGE(int arg0);
+1322 void FLD_CAR_INTERCEPT_READ(int arg0);
+1323 void FLD_NPC_TALKICON_UNDISP_FBNID(int arg0, int arg1);
+1324 void FLD_CAR_ADD_ENGINE_SE(int arg0);
+1325 void FLD_CAR_ENGINE_SE_ENABLE(int arg0, int arg1);
+1326 void FLD_CRAFT_ITEM_TROPHY(int arg0);
+1327 void FLD_ALLY_WEAPON_SETUP();
+1328 void FLD_SYNC_SCN_CHANGE();
+1329 int FLD_GET_BKUP_FIELD_TYPE();
+132a void FLD_OBJ_MODEL_LINKBG(int arg0);
+132b float FLD_MODEL_GET_X_HELPER_TRANSLATE(int arg0, int arg1);
+132c float FLD_MODEL_GET_Y_HELPER_TRANSLATE(int arg0, int arg1);
+132d float FLD_MODEL_GET_Z_HELPER_TRANSLATE(int arg0, int arg1);
+132e void BGENV_LINK_BGOBJ_INDEX_ANIM(int arg0, int arg1, int arg2, int arg3);
+132f void FLD_ROADMAP_UPDATE();
+1330 void FLD_NPC_SHADOWCAST_FBNID(int arg0, int arg1);
+1331 void FLD_PTY_PANEL_SET_VISIBLE(int arg0);
+1332 int CALL_PLAY_GO_SAVE();
+1333 void FLD_CROWD_BBEFECT_VISIBLE(int arg0);
+1334 void FLD_NPC_FBN_FADE_SYNC(int arg0);
+1335 void FLD_LMAP_SPOT_TROPHY_PROC();
+2000 int AI_RND(int arg0);
+2001 void AI_ACT_ATTACK();
+2002 int AI_TAR_RND();
+2003 void AI_ACT_SKILL(int arg0);
+2004 void AI_DEBUG_PRINT(string arg0);
+2005 void AI_DEBUG_PRINT_VALUE(int arg0, float arg1);
+2006 int AI_CHK_FRID_VOID();
+2007 int AI_CHK_MYHP(int arg0);
+2008 int AI_CHK_MYMP(int arg0);
+2009 int AI_CHK_FRHP(int arg0);
+200a int AI_CHK_ENHP(int arg0);
+200b int AI_CHK_ENHP_O(int arg0);
+200c int AI_CHK_MYLV_O(int arg0);
+200d int AI_CHK_FRLV_O(int arg0);
+200e int AI_CHK_EN_LV_O(int arg0);
+200f int AI_CHK_FRCNT(int arg0);
+2010 int AI_CHK_ENCNT(int arg0);
+2011 int AI_CHK_MYBAD(int arg0);
+2012 int AI_CHK_FRBAD(int arg0);
+2013 int AI_CHK_ENBAD(int arg0);
+2014 int AI_CHK_FRID(int arg0);
+2015 int AI_CHK_ENID(int arg0);
+2016 int AI_CHK_FRHOJO(int arg0);
+2017 int AI_CHK_ENHOJO(int arg0);
+2018 int AI_CHK_ESCAPE(int arg0);
+2019 int AI_CHK_SUMMON(int arg0);
+201a int AI_CHK_SENSEI(int arg0);
+201b int AI_CHK_MYHANSYA(int arg0);
+201c int AI_CHK_FRHANSYA(int arg0);
+201d int AI_CHK_ENHANSYA(int arg0);
+201e int AI_CHK_MYKYUSYU(int arg0);
+201f int AI_CHK_FRKYUSYU(int arg0);
+2020 int AI_CHK_ENKYUSYU(int arg0);
+2021 int AI_CHK_MYMUKOU(int arg0);
+2022 int AI_CHK_FRMUKOU(int arg0);
+2023 int AI_CHK_ENMUKOU(int arg0);
+2024 int AI_CHK_MYWEAK(int arg0);
+2025 int AI_CHK_FRWEAK(int arg0);
+2026 int AI_CHK_ENWEAK(int arg0);
+2027 int AI_CHK_MYUSEATTR(int arg0);
+2028 int AI_CHK_FRUSEATTR(int arg0);
+2029 int AI_CHK_ENUSEATTR(int arg0);
+202a int AI_CHK_MYUSESKIL(int arg0);
+202b int AI_CHK_FRUSESKIL(int arg0);
+202c int AI_CHK_ENUSESKIL(int arg0);
+202d int AI_CHK_MYGROUP(int arg0);
+202e int AI_CHK_FRGROUP(int arg0);
+202f int AI_CHK_ENGROUP(int arg0);
+2030 int AI_CHK_TURN(int arg0);
+2031 int AI_CHK_TURN_O(int arg0);
+2032 int AI_CHK_MYHREC(int arg0);
+2033 int AI_CHK_MORE();
+2034 int AI_CHK_FRHANSYA_ST(int arg0);
+2035 int AI_CHK_ENHANSYA_ST(int arg0);
+2036 int AI_CHK_FRKYUSYU_ST(int arg0);
+2037 int AI_CHK_ENKYUSYU_ST(int arg0);
+2038 int AI_CHK_FRMUKOU_ST(int arg0);
+2039 int AI_CHK_ENMUKOU_ST(int arg0);
+203a int AI_CHK_FRWEAK_ST(int arg0);
+203b int AI_CHK_ENWEAK_ST(int arg0);
+203c int AI_CHK_FRIDHP(int arg0, int arg1);
+203d int AI_CHK_FRIDMP(int arg0, int arg1);
+203e int AI_CHK_FRIDLV_O(int arg0, int arg1);
+203f int AI_CHK_FRIDBAD(int arg0, int arg1);
+2040 int AI_CHK_FRIDBAD_ALL(int arg0, int arg1);
+2041 int AI_CHK_FRIDHOJO(int arg0, int arg1);
+2042 int AI_CHK_FRIDHANSYA(int arg0, int arg1);
+2043 int AI_CHK_FRIDKYUSYU(int arg0, int arg1);
+2044 int AI_CHK_FRIDMUKOU(int arg0, int arg1);
+2045 int AI_CHK_FRIDWEAK(int arg0, int arg1);
+2046 int AI_CHK_FRIDUSEATTR(int arg0, int arg1);
+2047 int AI_CHK_FRIDUSESKIL(int arg0, int arg1);
+2048 int AI_CHK_FRIDUSEGROUP(int arg0, int arg1);
+2049 int AI_CHK_FRIDHREC(int arg0, int arg1);
+204a int AI_CHK_ENIDHP(int arg0, int arg1);
+204b int AI_CHK_ENIDMP(int arg0, int arg1);
+204c int AI_CHK_ENIDLV_O(int arg0, int arg1);
+204d int AI_CHK_ENIDBAD(int arg0, int arg1);
+204e int AI_CHK_ENIDBAD_ALL(int arg0, int arg1);
+204f int AI_CHK_ENIDHOJO(int arg0, int arg1);
+2050 int AI_CHK_ENIDHANSYA(int arg0, int arg1);
+2051 int AI_CHK_ENIDKYUSYU(int arg0, int arg1);
+2052 int AI_CHK_ENIDMUKOU(int arg0, int arg1);
+2053 int AI_CHK_ENIDWEAK(int arg0, int arg1);
+2054 int AI_CHK_ENIDUSEATTR(int arg0, int arg1);
+2055 int AI_CHK_ENIDUSESKIL(int arg0, int arg1);
+2056 int AI_CHK_ENIDUSEGROUP(int arg0, int arg1);
+2057 int AI_CHK_ENIDHREC(int arg0, int arg1);
+2058 int AI_CHK_ID(int arg0);
+2059 int AI_CHK_FRALLHP(int arg0);
+205a int AI_CHK_ENALLHP(int arg0);
+205b int AI_CHK_MYABLESKIL(int arg0);
+205c int AI_CHK_MYATTRSKIL(int arg0);
+205d int AI_CHK_ELEMENT_HITSUB(int arg0, int arg1);
+205e int AI_CHK_ELEMENT_HIT(int arg0);
+205f int AI_CHK_ELEMENT_RESIST(int arg0);
+2060 int AI_CHK_ELEMENT_NULLIFY(int arg0);
+2061 int AI_CHK_ANALYZE(int arg0);
+2062 int AI_CHK_DOWN(int arg0);
+2063 int AI_CHK_SLIP(int arg0);
+2064 int AI_CHK_ENOVERLV(int arg0);
+2065 int AI_CHK_WALL(int arg0);
+2066 int AI_CHK_NONE(int arg0);
+2067 int AI_TAR_AI();
+2068 int AI_TAR_HPMIN();
+2069 int AI_TAR_LVMIN();
+206a int AI_TAR_MPMAX();
+206b int AI_TAR_BAD(int arg0);
+206c int AI_TAR_NOTBAD(int arg0);
+206d int AI_TAR_ID(int arg0);
+206e int AI_TAR_MINE();
+206f int AI_TAR_MYAI();
+2070 int AI_TAR_HANSYA(int arg0);
+2071 int AI_TAR_KYUSYU(int arg0);
+2072 int AI_TAR_MUKOU(int arg0);
+2073 int AI_TAR_WEAK(int arg0);
+2074 int AI_TAR_NOTHANSYA(int arg0);
+2075 int AI_TAR_NOTKYUSYU(int arg0);
+2076 int AI_TAR_NOTMUKOU(int arg0);
+2077 int AI_TAR_NOTWEAK(int arg0);
+2078 int AI_TAR_APPOINT(int arg0);
+2079 int AI_TAR_DOWN(int arg0);
+207a int AI_TAR_STAND(int arg0);
+207b int AI_TAR_HANSYA_ST(int arg0);
+207c int AI_TAR_KYUSYU_ST(int arg0);
+207d int AI_TAR_MUKOU_ST(int arg0);
+207e int AI_TAR_WEAK_ST(int arg0);
+207f int AI_TAR_NOTHANSYA_ST(int arg0);
+2080 int AI_TAR_NOTKYUSYU_ST(int arg0);
+2081 int AI_TAR_NOTMUKOU_ST(int arg0);
+2082 int AI_TAR_NOTWEAK_ST(int arg0);
+2083 int AI_TAR_HERO(int arg0);
+2084 int AI_TAR_NOTID(int arg0);
+2085 int AI_TAR_HOJO(int arg0);
+2086 int AI_TAR_NOTHOJO(int arg0);
+2087 int AI_SET_AFFINITY(int arg0);
+2088 int AI_SET_DOWN(int arg0);
+2089 int AI_SET_SLIP(int arg0);
+208a int AI_SET_DROPITEM(int arg0, int arg1);
+208b int AI_GET_AFFINITY();
+208c int AI_GET_FRIDTURN(int arg0);
+208d int AI_GET_ENIDTURN(int arg0);
+208e int AI_GET_FRHOJO_ON(int arg0);
+208f int AI_GET_FRHOJO_OFF(int arg0);
+2090 int AI_GET_ENHOJO_ON(int arg0);
+2091 int AI_GET_FRBAD_ON(int arg0);
+2092 int AI_GET_ENBAD_ON(int arg0);
+2093 int AI_GET_FRHP(int arg0);
+2094 int AI_GET_FRLV(int arg0);
+2095 int AI_GET_ENLV(int arg0);
+2096 int AI_GET_SKILATTR(int arg0);
+2097 int AI_GET_FRCNT(int arg0);
+2098 int AI_GET_UNI(int arg0, int arg1);
+2099 int AI_GET_UNIHPMIN();
+209a int AI_GET_UNIWEAK(int arg0);
+209b int AI_GET_UNIWEAK_ST(int arg0);
+209c int AI_GET_UNIWEAK_DW(int arg0);
+209d int AI_GET_UNIWEAKHPMIN(int arg0);
+209e int AI_GET_UNIWEAKHPMIN_ST(int arg0);
+209f int AI_GET_UNIWEAKHPMIN_DW(int arg0);
+20a0 int AI_GET_UNINOMALHPMIN(int arg0);
+20a1 int AI_GET_UNINOMALHPMIN_ST(int arg0);
+20a2 int AI_GET_UNINOMALHPMIN_DW(int arg0);
+20a3 int AI_GET_UNIBESTATTRSKIL(int arg0, int arg1, int arg2);
+20a4 int AI_GET_UNIBESTATTRITEM(int arg0, int arg1, int arg2);
+20a5 int AI_GET_UNIBESTATKSKIL(int arg0, int arg1, int arg2);
+20a6 int AI_GET_UNIAPPOINT(int arg0);
+20a7 int AI_GET_UNIWEAKATTRSKIL(int arg0, int arg1);
+20a8 int AI_GET_UNIHERO(int arg0);
+20a9 int AI_GET_UNIATAB(int arg0);
+20aa int AI_GET_UNIATAB_ST(int arg0);
+20ab int AI_GET_UNIATAB_DW(int arg0);
+20ac int AI_GET_UNICND_FR(int arg0, int arg1, int arg2);
+20ad int AI_GET_UNIHOJO_OFF_FR(int arg0);
+20ae int AI_GET_UNIHOJO_OFF_EN(int arg0);
+20af int AI_GET_UNILVMAX_EN(int arg0);
+20b0 int AI_GET_UNINOMALLVMAXHPMAX(int arg0);
+20b1 int AI_GET_UNINOMALNOTBAD(int arg0);
+20b2 int AI_GET_UNINOTNOMAL(int arg0);
+20b3 int AI_GET_MY_ID();
+20b4 int AI_GET_P_MAX_HP(int arg0);
+20b5 int AI_GET_P_NOW_HP(int arg0);
+20b6 int AI_GET_NEXT_ID(int arg0);
+20b7 int AI_GET_P_ORDER(int arg0);
+20b8 int AI_GET_P_MAX_SP(int arg0);
+20b9 int AI_GET_P_NOW_SP(int arg0);
+20ba int AI_GET_UNIHOJO_ON_EN(int arg0);
+20bb int AI_GET_UNIHANSYA(int arg0);
+20bc int AI_GET_UNIKYUSYU(int arg0);
+20bd int AI_GET_UNIMUKOU(int arg0);
+20be int AI_GET_UNIRESIST(int arg0);
+20bf int AI_GET_UNIWEAKHPMAX(int arg0);
+20c0 int AI_GET_UNIWEAKHPMAX_ST(int arg0);
+20c1 int AI_GET_UNIWEAKHPMAX_DW(int arg0);
+20c2 int AI_GET_UNIBADHPMAX(int arg0);
+20c3 int AI_GET_UNIBADHPMIN(int arg0);
+20c4 int AI_GET_UNIRANDOM(int arg0);
+20c5 int AI_DEB_PRI_TARUNI_ID();
+20c6 int AI_CHK_ISENEMY();
+20c7 int AI_SET_BADSTATUS(int arg0);
+20c8 int AI_CHG_CAMERA_FIX(float arg0, float arg1, float arg2, float arg3, float arg4, float arg5);
+20c9 int AI_SET_CAMERA_ANM_S(float arg0, float arg1, float arg2, float arg3, float arg4, float arg5);
+20ca int AI_SET_CAMERA_ANM_E(float arg0, float arg1, float arg2, float arg3, float arg4, float arg5);
+20cb int AI_SET_CAMERA_ANM_TIME(int arg0);
+20cc int AI_CHG_CAMERA_ANM(int arg0);
+20cd int AI_SET_CAMERA_ANM_TYPE(int arg0);
+20ce void CALL_BATTLE(int arg0);
+20cf void WAIT_BATTLE();
+20d0 void BTL_FADE_IN();
+20d1 void BTL_FADE_SYNC();
+20d2 int BTL_CUTSCENE_LOAD(int arg0, int arg1);
+20d3 void BTL_CUTSCENE_LOADSYNC(int arg0);
+20d4 void BTL_CUTSCENE_PLAY(int arg0, int arg1, int arg2, int arg3, int arg4);
+20d5 void BTL_CUTSCENE_SYNC(int arg0);
+20d6 void BTL_CUTSCENE_END(int arg0);
+20d7 void AI_ACT_WAIT();
+20d8 int AI_CHK_PLAYER_ID(int arg0);
+20d9 int AI_CHK_MYID(int arg0, int arg1);
+20da int AI_GET_MYATTRATTACK();
+20db int AI_GET_E_NUM(int arg0);
+20dc int AI_GET_UNI_NOANALYZE(int arg0);
+20dd int AI_CHK_UNIHOJO(int arg0, int arg1);
+20de int AI_CHK_ENRESIST(int arg0);
+20df int AI_GET_ATTRSKIL(int arg0, int arg1);
+20e0 int AI_CHK_BOSS(int arg0);
+20e1 int AI_CHK_UNIATTACK(int arg0, int arg1);
+20e2 int AI_ACT_UNIBESTATKSKIL_ALL(int arg0);
+20e3 int AI_CHK_UNIRESIST(int arg0, int arg1);
+20e4 int AI_CHK_UNIBAD(int arg0, int arg1);
+20e5 int AI_CHK_UNINOMAL(int arg0, int arg1);
+20e6 int AI_CHK_P_ABLE_SKILL(int arg0, int arg1);
+20e7 int AI_GET_ENBADOFF(int arg0);
+20e8 int AI_GET_UNINOBADOFF(int arg0);
+20e9 int AI_CHK_UNIHP(int arg0, int arg1);
+20ea int AI_CHK_FRIDABLESKIL(int arg0, int arg1);
+20eb int AI_CHK_MYRESIST(int arg0);
+20ec int AI_CHK_MYHOJO(int arg0);
+20ed int AI_GET_FIRST_ACTION();
+20ee int AI_GET_GLOBAL(int arg0);
+20ef int AI_GET_P_NUM(int arg0);
+20f0 void AI_SET_ASSISTSKILL_MODE(unk arg0);
+20f1 int AI_CHK_FRALLSP(int arg0);
+20f2 int AI_SET_GLOBAL(int arg0, int arg1);
+20f3 int AI_SET_CAMERA_END(unk arg0);
+20f4 int AI_GET_UNI_TALKCHARA();
+20f5 int AI_CHK_ID_PSTOCK(int arg0);
+20f6 void AI_SET_TALKRESULT(int arg0);
+20f7 void AI_SET_CAMERA_FOV_S(float arg0);
+20f8 void AI_SET_CAMERA_ROTANM_S(float arg0);
+20f9 void AI_SET_CAMERA_ROTANM_E(float arg0);
+20fa void AI_SET_CAMERA_RESET();
+20fb void AI_SET_CAMERA_FOV_E(float arg0);
+20fc int AI_GET_ID_TALKCHARA();
+20fd int AI_GET_IDLV(int arg0);
+20fe void AI_SET_CAMERA_SHAKE_S(int arg0, float arg1, float arg2, float arg3);
+20ff void AI_SET_CAMERA_SHAKE_E(float arg0);
+2100 int AI_CHK_PBOOK_REGIST(int arg0);
+2101 int AI_GET_ID_TALK_TYPE(int arg0);
+2102 int AI_GET_ID_TALK_PERSON(int arg0);
+2103 int AI_GET_ID_TALK_MONEYMIN(int arg0);
+2104 int AI_GET_ID_TALK_MONEYMAX(int arg0);
+2105 int AI_GET_ID_TALK_ITEM(int arg0, int arg1);
+2106 int AI_GET_ID_TALK_ITEM_RARE(int arg0, int arg1);
+2107 void AI_SET_TALK_SPEAKER(int arg0);
+2108 void AI_SET_ADD_FACEANIM(int arg0, int arg1, float arg2);
+2109 int AI_SET_GLOBAL_EVENT(int arg0, int arg1);
+210a int AI_GET_GLOBAL_EVENT(int arg0);
+210b int BTL_CUTSCENE_LOAD_TALK(int arg0);
+210c int AI_SET_LOCAL_PARAM(int arg0, int arg1);
+210d int AI_GET_LOCAL_PARAM(int arg0);
+210e void BTL_CUTSCENE_CANCEL(int arg0);
+210f void AI_ACT_WAIT3(int arg0);
+2110 void BTL_CUTSCENE_REMOVE(int arg0);
+2111 void BTL_RELOCATION();
+2112 int AI_CHK_ID_FRTARGET(int arg0);
+2113 int AI_TAR_UID(int arg0);
+2114 int AI_SET_ENIDAFFINITY(int arg0, int arg1);
+2115 int AI_GET_ENIDAFFINITY(int arg0);
+2116 int AI_CHK_ABLEWEAK(int arg0);
+2117 int AI_ACT_TAKEOVER(int arg0);
+2118 int AI_CHK_TAKEOVER(int arg0);
+2119 int AI_SET_ENID_MAXSERIAL(int arg0, int arg1);
+211a int AI_GET_ENID_MAXSERIAL(int arg0);
+211b int AI_GET_ENID_CURRENTSERIAL(int arg0);
+211c void AI_SET_TALKCUTSCENE_PLAY(int arg0);
+211d void AI_SET_TALKMESS_SCENE(int arg0);
+211e void AI_SET_TALKMESS_WAIT();
+211f void AI_SET_TALKMESS_PARAM();
+2120 void AI_SET_TALKMESS_EN_PARAM();
+2121 void AI_SET_TALKMESS_STATE(int arg0);
+2122 void CALL_EVENTBATTLE(int arg0, int arg1, int arg2);
+2123 void AI_SET_TALKMESS_OBTAIN(int arg0);
+2124 int AI_CHK_TALKMESS_INFODATA();
+2125 void AI_SET_TALKMESS_MASK(int arg0);
+2126 void AI_SET_TALKMESS_DOUBLE();
+2127 int AI_CHK_TALKMESS_CRITICAL();
+2128 int AI_CHK_TALKMESS_SURRENDER();
+2129 void AI_SET_TALKMESS_COOP(int arg0);
+212a void BTL_CUTSCENE_CAPTURE_ENDFRAME(int arg0);
+212b int AI_CHK_UNIANALYZE_OPEN(int arg0, int arg1);
+212c int AI_CHK_GUN();
+212d void AI_ACT_GUN();
+212e int AI_ACT_HIGHSKILL(int arg0);
+212f int AI_ACT_REZ();
+2130 int AI_ACT_BADSTATE();
+2131 int AI_ACT_BOSS_PRESIDENT_SUMMON();
+2132 int AI_CHK_TURN_EQUAL(int arg0);
+2133 int AI_CHK_TURN_DIVI(int arg0);
+2134 int AI_CHK_NOTMYBAD(int arg0);
+2135 int AI_CHK_NOTFRBAD(int arg0);
+2136 int AI_CHK_NOTENBAD(int arg0);
+2137 int AI_CHK_NOTMYHOJO(int arg0);
+2138 int AI_CHK_NOTFRHOJO(int arg0);
+2139 int AI_CHK_NOTENHOJO(int arg0);
+213a int AI_CHK_PREV_ATK();
+213b int AI_CHK_PREV_WAIT();
+213c void BTL_SYSTEM_MESS(int arg0);
+213d int AI_CHK_EXTENDEDWAIT();
+213e int AI_CHK_ENEMY_ABLEWEAK(int arg0);
+213f int AI_ACT_ENTAKEOVER(int arg0);
+2140 int BTL_ROULETTE_BET();
+2141 int AI_GET_UIDTOID(int arg0);
+2142 int AI_GET_ENHP(int arg0);
+2143 int AI_CHK_ENALLDOWN();
+2144 int AI_GET_BOSSDAMAGE();
+2145 void AI_CLEAR_BOSSDAMAGE();
+2146 int AI_GET_ACTUID();
+2147 void AI_SET_VOICE(int arg0);
+2148 int AI_GET_UNI_DARK(int arg0);
+2149 void BTL_ADD_SERIES(int arg0);
+214a int BTL_GET_SERIES();
+214b int AI_CHK_ID_TALK_FLAG(int arg0);
+214c void AI_SET_TALK_ITEM(int arg0);
+214d void AI_SET_TALK_ITEM_RARE(int arg0);
+214e int AI_ACT_DEBUFF(int arg0);
+214f int AI_ACT_UNKNOWN_ATTR(int arg0);
+2150 int AI_GET_TALK_MAJOR();
+2151 int AI_CHK_EXCEPTION();
+2152 void BTL_REQ_ASSIST(int arg0, int arg1);
+2153 void BTL_CLS_ASSIST();
+2154 int AI_CHK_ROUNDUP();
+2155 void AI_SET_MSGVAR(int arg0);
+2156 int AI_GET_UNIHPMIN_EN();
+2157 void AI_ACT_ESCAPE();
+2158 int BTL_CHK_ENCOUNTFLAG(int arg0);
+2159 int AI_GET_UNI_SKIMMING(int arg0);
+215a int AI_GET_UNI_TALKCONTACT(int arg0);
+215b int AI_SET_FRID_MAXSERIAL(int arg0, int arg1);
+215c int AI_GET_FRID_MAXSERIAL(int arg0);
+215d void AI_ACT_DEFENSE();
+215e int AI_ACT_FIXED();
+215f int AI_ACT_HEAL(unk arg0);
+2160 void BTL_TALK_ADDWANTED(int arg0);
+2161 int BTL_TALK_PERSONAGET_LOADREQ();
+2162 int BTL_TALK_PERSONAGET_LOADWAIT();
+2163 int AI_ACT_GUARDORDER();
+2164 int AI_SET_GUARDORDER(int arg0);
+2165 int AI_GET_UNI_ATTACK();
+2166 int BTL_CHK_DUNGEONMATCH();
+2167 int BTL_SET_STARTDUNGEONMATCH();
+2168 int BTL_WAIT_DUNGEONMATCH();
+2169 void AI_ENID_SUSPEND(int arg0);
+216a void AI_ENID_RESUME(int arg0);
+216b int AI_CHK_EXCEPT_ENCOUNT(unk arg0);
+216c void AI_FRID_SUSPEND(int arg0);
+216d void AI_FRID_RESUME(int arg0);
+216e int BTL_TALK_WEATHER_ITEM(int arg0);
+216f int BTL_TALK_CHECK_NO_YOU();
+2170 int BTL_TALK_NO_YOU();
+2171 void PREPARE_FIELDBATTLE(int arg0);
+2172 void CALL_FIELDBATTLE();
+2173 int BTL_TALK_ICON_PLAY(int arg0);
+2174 void BTL_SET_MSG_SPEAKER(int arg0);
+2175 int BTL_TALK_GET_SELECTNO();
+2176 void BTL_BOSSSE_PLAY(int arg0);
+2177 int BTL_TALK_SET_RESETCAMERA();
+2178 int BTL_TALK_SET_ASSIST(int arg0);
+2179 void BTL_CUTSCENE_BOSS999_PLAY(int arg0, int arg1, int arg2, int arg3, int arg4);
+217a int BTL_TALK_GET_YOSHIDACOOP();
+217b int BTL_TALK_CHK_USONAKI();
+217c void BTL_MISSION_ADD(int arg0);
+217d void BTL_MISSION_REMOVE(int arg0);
+217e void BTL_LETTERBOX_IN(int arg0);
+217f void BTL_LETTERBOX_OUT(int arg0);
+2180 int BTL_CHK_NOTPHYSICAL();
+2181 void BTL_ROULETTE_BET_LOAD();
+2182 void AI_ACT_DANGERUP();
+2183 void BTL_SYNC_ASSIST();
+2184 int AI_ACT_TECHNICAL();
+2185 int AI_TAR_HPMAX();
+2186 int AI_CHK_FMTPINCH();
+2187 int AI_CHK_ID_ENTARGET(int arg0);
+2188 int AI_GET_UID_IDBAD(int arg0, int arg1);
+2189 int AI_GET_UID_IDSUPPORT(int arg0, int arg1);
+218a int AI_GET_UID_IDNOTBAD(int arg0, int arg1);
+218b int AI_GET_UID_IDNOTSUPPORT(int arg0, int arg1);
+218c int BTL_CUTIN_CREATE(int arg0);
+218d int BTL_CUTIN_SYNC();
+218e int BTL_CUTIN_START();
+218f int BTL_CUTIN_START_SYNC();
+2190 int BTL_CUTIN_END_SYNC();
+2191 int BTL_CUTIN_DELETE();
+2192 int BTL_TALK_EXIST_BLANK();
+2193 int AI_GET_ENTALK_ITEM();
+2194 int AI_GET_ENTALK_MONEY();
+2195 void BTL_TALK_ALLY_SPEAKER(int arg0);
+2196 void AI_ADD_REINFORCEMENT(int arg0);
+2197 void BTL_TALK_REQ_JYOKYO(int arg0);
+2198 void BTL_TALK_REQ_SKILLNAME(int arg0);
+2199 int AI_ACT_ATTACK_WEAK(int arg0);
+219a int AI_CHK_DEATHMARCH();
+3000 void CALL_EVENT(int arg0, int arg1);
+3001 void EVT_ASSET_OVERWRITE(int arg0, int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7);
+3002 int EVT_GET_RESHND(int arg0, int arg1);
+3003 int EVT_GET_ASSET_RESHND(int arg0);
+3004 void CHARA_CAMERA(int arg0, int arg1, int arg2, int arg3);
+3005 int EVT_GET_ANIMCOUNT(int arg0);
+3006 int EVT_GET_ANIMCOUNT_U();
+3007 int EVT_GET_ANIMCOUNT_D();
+3008 int EVT_GET_ANIMCOUNT_L();
+3009 int EVT_GET_ANIMCOUNT_R();
+300a void CUTIN_START(int arg0, int arg1, int arg2, int arg3);
+300b void CUTIN_STOP(int arg0);
+300c void CMM_OPEN(int arg0);
+300d int CMM_EXIST(int arg0);
+300e int CMM_GET_LV(int arg0);
+300f void CMM_LVUP(int arg0);
+3010 int CMM_CHK_LVUP(int arg0);
+3011 void CMM_ADD_POINT(int arg0, int arg1);
+3012 void CMM_ADD_POINT_ID(int arg0, int arg1, int arg2);
+3013 int CMM_CHK_REVERSE(int arg0);
+3014 void CMM_SET_REVERSE(int arg0, int arg1);
+3015 int CMM_CHK_BROKEN(int arg0);
+3016 void CMM_SET_BROKEN(int arg0, int arg1);
+3017 int CMM_CHK_CALL(int arg0);
+3018 void CMM_SET_PROMISE(int arg0);
+3019 int CMM_GET_PROMISE();
+301a int CMM_CHK_PROMISE();
+301b int CMM_GET_PROMISE_DAY();
+301c void CMM_SETUP_EVENT(int arg0, int arg1);
+301d void CMM_EXEC_EVENT();
+301e int CMM_GET_EVENT_TYPE();
+301f void CMM_VSET_COMMUNITY(int arg0);
+3020 int CMM_VSET_PS(int arg0, int arg1);
+3021 int CMM_VSET_PSID(int arg0);
+3022 void CMM_FRIEND(int arg0);
+3023 int CMM_CHK_EVENT(int arg0, int arg1);
+3024 void CMM_ACTIVE(int arg0);
+3025 int CMM_GET_LOVER_HIGH();
+3026 int CMM_CHK_ARCANA_PSSTOCKLV(int arg0);
+3027 int CMM_CHK_INVITE();
+3028 int CMM_CHK_FIX_INVITE();
+3029 void CMM_SET_INVITE(int arg0);
+302a int CMM_CNV_ID(int arg0);
+302b int CMM_GET_CLUB(int arg0);
+302c void CMM_ARBEIT_PAY(int arg0);
+302d int CMM_ARBEIT_PAY_RECEIVE();
+302e int CMM_ARBEIT_GET_MONEY(int arg0);
+302f void CMM_RANKUP(int arg0, int arg1, int arg2);
+3030 void CMM_EVERY_DAY_UPDATE_SUDDEN_DEATH();
+3031 void CMM_INC_SUDDEN_DEATH_COUNT(int arg0);
+3032 int CMM_CHK_SUDDEN_DEATH_DOUBT(int arg0);
+3033 int CMM_CHK_SUDDEN_DEATH(int arg0);
+3034 void CMM_SET_SUDDEN_DEATH_COUNT(int arg0, int arg1);
+3035 void CMM_DEC_SUDDEN_DEATH_COUNT(int arg0);
+3036 void CMM_SET_SUDDEN_DEATH_FLAGT(int arg0);
+3037 void CMM_RESET_SUDDEN_DEATH_FLAG(int arg0);
+3038 void CMM_GET_PERSONA_DAY_TIME_SKILL(unk arg0);
+3039 int CMM_MO_GET_INDEX();
+303a int CMM_MO_CHK_DAY();
+303b int CMM_MO_CHK_DAY_RECEIVE();
+303c int CMM_MO_GET_MONEY(int arg0, int arg1);
+303d int CMM_MO_SET_ITEM(int arg0);
+303e void CMM_MO_VSET(int arg0);
+303f void CMM_DEC2_SUDDEN_DEATH_COUNT(int arg0, int arg1);
+3040 void CMM_START_AUTO_COMMAND();
+3041 int CMM_SYNC_AUTO_COMMAND();
+3042 void CMM_NEWS_PAPER();
+3043 void CMM_NEWS_PAPER_SYNC();
+3044 void MISSION_START(int arg0);
+3045 void MISSION_START_SYNC(int arg0);
+3046 void MISSION_END(int arg0);
+3047 void MISSION_SCRIPT_EXEC(int arg0, int arg1);
+3048 void LBX_IN_START(int arg0);
+3049 void LBX_IN_SYNC();
+304a void LBX_OUT_START(int arg0);
+304b void LBX_OUT_SYNC();
+304c void CUTIN_START2(int arg0, int arg1, int arg2, int arg3, int arg4);
+304d void CUTIN_START3(int arg0, int arg1, int arg2, int arg3, int arg4, int arg5);
+304e void CUTIN_START4(int arg0, int arg1, int arg2, int arg3, int arg4, int arg5, int arg6);
+304f void CALL_EVENT_TEST(unk arg0, unk arg1);
+3050 void EVT_MONOTONE_START();
+3051 void EVT_MONOTONE_END();
+3052 void EVT_MODEL_ADD_ROTATE(int arg0, float arg1, float arg2, float arg3, int arg4);
+3053 void CALL_EVENT_PREPARE(int arg0, int arg1, int arg2);
+3054 void CHAT_WAIT_PAD();
+3055 void CHAT_SEL_LINE(int arg0, int arg1);
+3056 void CHAT_SET_SEL(int arg0, int arg1, int arg2);
+3057 int CHAT_GET_SEL(int arg0, int arg1);
+3058 void CALL_BOOK_READ(int arg0);
+3059 int CMM_BOOK_READ(int arg0, int arg1);
+305a int CMM_BOOK_SEARCH(int arg0, int arg1, int arg2);
+305b int CMM_BOOK_ACCESS(int arg0, int arg1);
+305c int CMM_BOOK_READ_END(int arg0);
+305d int CHAT_CHECK_READ(int arg0);
+305e void CHAT_SET_READ(int arg0, int arg1);
+305f int CMM_BOOK_SIZE(int arg0);
+3060 int CMM_RAPID_BUTTON_ACTION(int arg0, int arg1, unk arg2);
+3061 int CMM_DAICE_BUTTON_ACTION(int arg0, int arg1, int arg2, unk arg3);
+3062 int CMM_GOLF_BUTTON_ACTION(int arg0, int arg1, int arg2);
+3063 void CMM_SET_INVITE_COUNT(int arg0, int arg1);
+3064 int CMM_GET_INVITE_COUNT(int arg0);
+3065 void CMM_COUNTUP_REVERSE_DAY();
+3066 int CMM_GET_REVERSE_DAY(int arg0);
+3067 void CMM_START_REVERSE_RENDITION(int arg0);
+3068 void CMM_START_CANCEL_REVERSE_RENDITION(int arg0);
+3069 void CMM_START_BROKEN_RENDITION(int arg0);
+306a void CMM_FUNC_LIST_DRAW_START(unk arg0, unk arg1, unk arg2);
+306b void CMM_FUNC_LIST_DRAW_END();
+306c int CMM_CHECK_NOW_ACTIVE(float arg0);
+306d int CMM_FLAG_CONVERT(float arg0, float arg1);
+306e void CMM_AREA_NAME_DISP(int arg0);
+306f void CMM_TIMEWARP();
+3070 int CMM_CHECK_ENABLE_FUNC(int arg0);
+3071 void EVT_SET_LOCAL_COUNT(int arg0, int arg1);
+3072 int EVT_GET_LOCAL_COUNT(int arg0);
+3073 int CHAT_CHECK_ARRIVAL(int arg0);
+3074 int CHAT_GET_ARRIVAL_TIME(int arg0);
+3075 int CHAT_CHECK_PASS_TIME_ARRIVAL(int arg0);
+3076 void CALL_STAFF_ROLL();
+3077 void EVT_SET_LOCAL_DATA(int arg0, int arg1);
+3078 int EVT_GET_LOCAL_DATA(int arg0);
+3079 int CMM_RAPID_BUTTON_ACTION2(int arg0, int arg1, int arg2);
+307a int CMM_DAICE_BUTTON_ACTION2(int arg0, int arg1);
+307b int CMM_DAICE_BUTTON_GET_DAICE(int arg0);
+307c int CMM_GOLF_BUTTON_ACTION2(unk arg0, int arg1, int arg2, int arg3);
+307d int CMM_COMMAND_BUTTON_ACTION2(int arg0, int arg1, int arg2);
+307e void CMM_INTERROGATION_IN();
+307f void CMM_SET_LV(int arg0, int arg1);
+3080 void INIT_IME_DRIVER();
+3081 void END_IME_DRIVER();
+3082 void EVT_SE_PLAY(int arg0, int arg1);
+3083 void EVT_SE_STOP(int arg0, float arg1);
+3084 void KFEVT_EPL_READ(float arg0, float arg1);
+3085 void KFEVT_EPL_READ_SYNC();
+3086 void KFEVT_EPL_FREE();
+3087 void KFEVT_EPL_PLAY();
+3088 int GET_CHAT_INVITE_TIMING(float arg0, float arg1);
+3089 void MDL_ANIM_LINK_EVTSE(int arg0, int arg1, int arg2);
+308a void INVITE_WORK_INIT();
+308b void SET_INVITE_WORK(float arg0, float arg1);
+308c int GET_INVITE_WORK(float arg0);
+308d int GET_INVITE_CORP_MAX();
+308e void EVT_SET_LOG_DISP(int arg0);
+308f int CMM_CHECK_ENABLE_FUNC_DETAIL(int arg0);
+3090 int GET_PM_CHAT_INVITE_TYPE(int arg0, int arg1, int arg2, int arg3);
+3091 void CMM_TIMEWARP_FADE();
+3092 int CHECK_PUBLIC_HOLIDAY_NEXTDAY(int arg0, int arg1);
+3093 void SET_STR_PUBLIC_HOLIDAY_NEXTDAY(int arg0, int arg1);
+3094 int GET_CONQUEST_DUNGEON();
+3095 int GET_DUNGEON_INVITE_CHAT(float arg0);
+3096 void EVT_SET_ENABLE_CTRL_KEY(int arg0);
+4000 void CALL_WEAPON_SHOP();
+4001 void CALL_ITEM_SHOP();
+4002 void CALL_COMBINE_SHOP();
+4003 void CALL_QUEST_DAYTIME();
+4004 null SET_QUEST_BEFORE_DUNGEON();
+4005 null RESET_QUEST_AFTER_DUNGEON();
+4006 null CHECK_CONSET_QUEST();
+4007 null START_QUEST_CLEAR_EFFECT();
+4008 null CHECK_QUEST_CLEAR_ENEMY();
+4009 null CHECK_QUEST_CLEAR_BOSS();
+400a null CHECK_QUEST_CLEAR_ITEM();
+400b int GET_COMB_MATPER_MAJOR(unk arg0);
+400c int GET_COMB_MATPER_MINOR(unk arg0);
+400d int GET_COMB_RETPER_MAJOR();
+400e int GET_COMB_RETPER_MINOR();
+400f void CALL_NAME_ENTRY();
+4010 void FCL_SHOP_CHANGE_FLAG();
+4011 void UI_MISSION_OFFER(int arg0);
+4012 void UI_MISSION_END(int arg0);
+4013 int UI_MISSION_CHECK_OFFER(int arg0);
+4014 int UI_MISSION_CHECK_END(int arg0);
+4015 void MISSION_START_EFFECT();
+4016 void MISSION_COMPLETE_EFFECT();
+4017 null CALL_ROUTE_MAP(unk arg0, unk arg1, unk arg2, unk arg3, unk arg4);
+4018 void CALL_ITEM_SHOP_EX();
+4019 void CALL_WEAPON_SHOP_EX();
+401a int MISSION_GET_STATE(int arg0);
+401b void MISSION_SET_STATE(int arg0, int arg1, int arg2);
+401c void MISSION_UPDATE_EVERY_DAY();
+401d int CALL_PUBLIC_SHOP(int arg0);
+401e void CALL_DIARY();
+401f int CHECK_PUBLIC_SHOP_STOCK(int arg0);
+4020 void CALL_CHAT_CHECK();
+4021 void CALL_CHAT_LIST();
+4022 null CALL_QUEST_ORDER();
+4023 void CALL_CHAT_DIRECT(int arg0);
+4024 void CALL_WEAPON_SHOP_DATA_LOAD();
+4025 void CALL_WEAPON_SHOP_END();
+4026 void CALL_TUTORIAL(int arg0, int arg1);
+4027 void CALL_GLOBAL_MONEY_PANEL();
+4028 void DEL_GLOBAL_MONEY_PANEL();
+4029 void CALL_WANTED_EXP_PANEL(int arg0);
+402a void CALL_WANTED_EXP_NO_WAIT(int arg0);
+402b void ADD_REPUTATION(int arg0, int arg1);
+402c void ADD_REPUTATION_NO_WAIT(int arg0, int arg1);
+402d void ADD_REPUTATION_FORCE_END();
+402e void SET_REPUTATION(int arg0, int arg1);
+402f int GET_REPUTATION(int arg0);
+4030 void CALL_ITEM_SHOP_DATA_LOAD();
+4031 int CALL_ARBEIT_BOOK(unk arg0);
+4032 void DIRECT_SUBSCRIBE_ARBEIT(int arg0);
+4033 int CHECK_SUBSCRIBE_ARBEIT(int arg0);
+4034 int CHECK_ENABLE_ARBEIT(int arg0);
+4035 void CALL_WANTED_EXP_BATTLE(int arg0, int arg1);
+4036 void RESET_INJECTION_EFFECT();
+4037 int SKILLCARD_COPY_CHK();
+4038 int SKILLCARD_LIST_DISP(int arg0);
+4039 void CALL_PHANTOM_NAME_ENTRY();
+403a void EXEC_EVT_COMBINE(int arg0);
+403b int GET_PUBLIC_SHOP_BUY_TYPE_NUM(int arg0);
+403c int GET_PUBLIC_SHOP_ITEM_ID(int arg0, int arg1);
+403d int GET_PUBLIC_SHOP_ITEM_BUY_NUM(int arg0, int arg1);
+403e int CHECK_PUBLIC_SHOP_SET_ITEM(int arg0, int arg1);
+403f int GET_PUBLIC_SHOP_SET_ITEM_PACK_NUM(int arg0);
+4040 int GET_PUBLIC_SHOP_SET_ITEM_PACK_ITEM_ID(int arg0, int arg1);
+4041 void PUBLIC_SHOP_BUY_ITEM_COPY();
+4042 void PUBLIC_SHOP_BUY_ITEM_BAG_IN();
+4043 void CALL_CHAT_READ_UN_READ();
+4044 void CALL_CONF_COOPERATION(int arg0, int arg1);
+4045 void CHAT_RESERVE_END();
+4046 void CALL_CHAT_ARRIVAL(int arg0);
+4047 void CHAT_ALL_CLEAR();
+4048 int CHAT_GET_ARRIVAL_MONTH(int arg0);
+4049 int CHAT_GET_ARRIVAL_DAY(int arg0);
+404a void CMB_CELL_ERASE();
+404b void CHAT_SET_SWITCH(int arg0, int arg1);
+404c int CHAT_CHECK_SWITCH(int arg0);
+404d void CMB_PREPARE_START();
+404e void CMB_PREPARE_END();
+404f int CHAT_GET_UNREAD_NUM();
+4050 void OPEN_FAILED_QUEST_LIST();
+4051 int SYNC_FAILED_QUEST_LIST();
+4052 void RESTART_FAILED_QUEST_LIST();
+4053 void CLOSE_FAILED_QUEST_LIST();
+4054 void CALL_WANTED_EXP_LEVELUP(int arg0);
+4055 int MISSION_GET_NUM_STATE(int arg0);
+4056 int CHANGE_GLOBAL_MONEY(int arg0, int arg1);
+4057 int MISSION_GET_RANK(int arg0);
+4058 void ADD_PUBLIC_SHOP_CHOICE_ITEM(int arg0, int arg1, int arg2);
+4059 void SET_PUBLIC_SHOP_CHOICE_ITEM(int arg0, int arg1, int arg2);
+405a void CALL_GLOBAL_MONEY_PANEL_EX(int arg0);
+405b void CHAT_SET_HOLD(int arg0, int arg1);
+405c int CHAT_CHECK_HOLD(int arg0);
+405d void CALL_GLOBAL_ITEM_PANEL(int arg0);
+405e void DEL_GLOBAL_ITEM_PANEL();
+405f int CHANGE_GLOBAL_ITEM();
+4060 int CHANGE_GLOBAL_ITEM_EX(int arg0);
+4061 int IMG_CREATE(int arg0, int arg1);
+4062 void IMG_DELETE(int arg0);
+4063 void IMG_LOAD_CALL(int arg0);
+4064 void IMG_LOAD_SYNC(int arg0);
+4065 void IMG_ANIM_CALL(int arg0, int arg1, int arg2, int arg3);
+4066 void IMG_ANIM_SYNC(int arg0);
+4067 int CHAT_GET_JOIN_ID(int arg0);
+4068 void IMG_DSP(int arg0, int arg1);
+4069 void IMG_CLS();
+406a int CHANGE_GLOBAL_MONEY_EX(int arg0, int arg1, int arg2);
+406b void OPEN_QUEST_LIST_DISP();
+406c int CMB_GET_PBOOK_REGIST_RATE();
+406d int CALL_FICTION_DRAW();
+406e void SET_PUBLIC_SHOP_CHOICE_ITEM_DISCOUNT(int arg0, int arg1, int arg2);
+406f void CHAT_RESET_DIRECT(int arg0);
+4070 void CALL_DIFFICULT_SET();
+5000 void NET_SET_AFTER_SCHOOL_ACTION(int arg0);
+5001 void NET_SET_NIGHT_ACTION(int arg0);
+5002 void NET_SET_ANSER_SELECT_NUM(int arg0);
+5003 void NET_SET_ANSER_SUCCESS(int arg0);
+5004 void NET_SET_STRATEGY(int arg0);
+5005 void NET_SET_STRATEGY_SUCCESS(int arg0);
+5006 void NET_START_AUDIENCE();
+5007 void NET_STOP_AUDIENCE();

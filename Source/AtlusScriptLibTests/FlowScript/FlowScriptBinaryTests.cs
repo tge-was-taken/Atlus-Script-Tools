@@ -88,6 +88,7 @@ namespace AtlusScriptLib.FlowScript.Tests
         }
 
         [TestMethod()]
+        [Ignore]
         public void LoadFromFileTest_Batch()
         {
             foreach (var path in Directory.EnumerateFiles("TestResources\\Batch\\", "*.bf"))

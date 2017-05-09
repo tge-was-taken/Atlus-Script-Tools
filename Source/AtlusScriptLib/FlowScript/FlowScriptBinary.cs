@@ -20,7 +20,7 @@ namespace AtlusScriptLib.FlowScript
         private FlowScriptBinaryLabel[] m_ProcedureLabelSectionData;
         private FlowScriptBinaryLabel[] m_JumpLabelSectionData;
         private FlowScriptBinaryInstruction[] m_TextSectionData;
-        private byte[] m_MessageScriptSectionData; // todo: use a binary message script header here?
+        private byte[] m_MessageScriptSectionData; // TODO: use a binary message script header here?
         private Dictionary<int, string> m_StringSectionData;
 
         // Properties
@@ -248,8 +248,8 @@ namespace AtlusScriptLib.FlowScript
                 return FlowScriptBinaryLoadResult.InvalidFormat;
             }
 
-            // HACK: the instructions are stored in a tuple consisting of 2 shorts, an int and a float
-            // due to endianness swapping, this tuple isn't portable in the sense that it retains the field order as the 2 shorts would be swapped around
+            // HACK: the instructions are stored in an union consisting of 2 shorts, an int and a float
+            // due to endianness swapping, this union isn't portable in the sense that it retains the field order as the 2 shorts would be swapped around
             // so we read instructions in system native endianness, and fix them up later
 
             Endianness sourceEndianness = reader.Endianness;
@@ -277,9 +277,6 @@ namespace AtlusScriptLib.FlowScript
                 }
 
                 script.m_TextSectionData[i] = instructionAux;
-
-                //if (script.m_TextSectionData[i].Opcode == BinaryFlowScriptOpcode.PUSHF)
-                    //DebugUtils.DebugBreak();
             }
 
             // HACK: set endianness back to what it was before we swapped it to fix the issue mentioning above

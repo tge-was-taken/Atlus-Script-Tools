@@ -3,6 +3,7 @@
 #include <stdint.h>
 
 // memset
+// strcpy
 #include <cstring> 
 
 static void* memzero(void* _Dst, size_t _Size)
@@ -51,7 +52,7 @@ typedef struct
 	/* 0x02 */ uint16_t userId;
 	/* 0x04 */ uint32_t size;
 	/* 0x08 */ uint32_t magic;
-	/* 0x0C */ uint32_t field0C;
+	/* 0x0C */ uint32_t field0c;
 	/* 0x10 */ uint32_t numSections;
 	/* 0x14 */ uint16_t numLocalIntVars;
 	/* 0x16 */ uint16_t numLocalFloatVars;
@@ -174,6 +175,8 @@ void MessageScript::RelocateEntryHeaders(MessageScriptHeader_t* header)
 
 class ScriptInterpreter
 {
+public:
+
 	// Static members
 	static ScriptInterpreter* spInstance;
 	static OPD_t* spOpcodeFuncTable[35];
@@ -192,8 +195,8 @@ class ScriptInterpreter
 	static uint32_t* spStaticFloatVariablePool;
 
 	// Static functions
-	static ScriptInterpreter* Create(ScriptHeader_t* script);
-	static ScriptInterpreter* CreateImpl(ScriptHeader_t* script);
+	static ScriptInterpreter* Create(ScriptHeader_t* pScriptHeader, uint32_t procedureIndex);
+	static ScriptInterpreter* Create(ScriptHeader_t* pScriptHeader, ScriptSegmentTableEntry_t* pSegmentTable, ScriptLabel_t* pProcedureLabels, ScriptLabel_t* pJumpLabels, ScriptInstruction_t* pInstructions, MessageScriptHeader_t* pMessageScriptHeader, uint8_t* pStringTable, uint32_t procedureIndex);
 	static OPD_t* GetCOMMFuncPtr(uint16_t funcId);
 	static uint32_t GetCOMMFuncNumArgs(uint16_t funcId);
 
@@ -249,7 +252,7 @@ class ScriptInterpreter
 	/* 0x0134 */ MessageScriptHeader_t* mpMessageScriptHeader;
 	/* 0x0138 */ uint8_t* mpStringTable;
 	/* 0x013C */ uint32_t mProcedureIndex;
-	/* 0x0140 */ uint32_t field140;
+	/* 0x0140 */ uint32_t mpMessageScript;
 	/* 0x0144 */ uint32_t field144;
 	/* 0x0148 */ uint32_t field148;
 	/* 0x014C */ uint32_t field14c;
@@ -273,9 +276,6 @@ class ScriptInterpreter
 // Instance function definitions
 uint32_t ScriptInterpreter::Execute()
 {
-	// r29 = this
-	uint32_t r31 = 0;
-
 	while (true)
 	{
 		uint16_t opcode = this->mpInstructions[this->mInstructionIndex]->opcode;
@@ -288,36 +288,26 @@ uint32_t ScriptInterpreter::Execute()
 		}
 
 		uint32_t traceLength = this->TraceInstruction();
-		uint32_t instructionResult = ScriptInterpreter::spOpcodeFuncTable[r4]->pFunc();
+		uint32_t interpRes = ScriptInterpreter::spOpcodeFuncTable[opcode]->pFunc();
 		this->TraceInstructionResult(traceLength, instructionResult);
 
-		if (interpRes != 0)
+		switch (switch_on)
 		{
-			if (interpRes == 2)
-			{
-				this->field148++;
-				this->field144++;
-				result = 1;
-			}
-			else if (interpRes == 1)
-			{
-				result = 1;
-			}
-			else
-			{
-				this->field148 = r31;
-				continue;
-			}
+		case 0:
+			this->field148 = 0;
+			return 2;
+		case 1:
+			this->field148 = 0;
+			continue;
+		case 2:
+			this->field148++;
+			this->field144++;
+			return 1;
+		default:
+			continue;
 		}
-		else
-		{
-			this->field148 = r31;
-			result = 2;
-		}
-
-		break;
 	}
-}
+};
 
 uint32_t ScriptInterpreter::PopIntValue()
 {
@@ -365,45 +355,45 @@ static ScriptInterpreter* ScriptInterpreter::Create(ScriptHeader_t* pScriptHeade
 
 	for (uint32_t i = 0; i < pScriptHeader->numSections; i++, pSegmentTableEntry++)
 	{
-		if (pSegmentTableEntry->id == 4)
+		switch (pSegmentTableEntry->id)
 		{
-			pStringTable = pScriptHeader + pSegmentTableEntry->pData;
-		}
-		else if (pSegmentTableEntry->id == 3)
-		{
-			if (pSegmentTableEntry->numElements != 0)
-			{
-				pMessageScriptHeader = pScriptHeader + pSegmentTableEntry->pData;
-			}
-		}
-		else if (pSegmentTableEntry->id == 2)
-		{
-			pInstructions = pScriptHeader + pSegmentTableEntry->pData;
-		}
-		else if (pSegmentTableEntry->id == 1)
-		{
-			pJumpLabels = pScriptHeader + pSegmentTableEntry->pData;
-		}
-		else if (pSegmentTableEntry->id == 0)
-		{
+		case 0:
 			pProcedureLabels = pScriptHeader + pSegmentTableEntry->pData;
+			break;
+
+		case 1:
+			pJumpLabels = pScriptHeader + pSegmentTableEntry->pData;
+			break;
+
+		case 2:
+			pInstructions = pScriptHeader + pSegmentTableEntry->pData;
+			break;
+
+		case 3:
+			if (pSegmentTableEntry->numElements != 0)
+				pMessageScriptHeader = pScriptHeader + pSegmentTableEntry->pData;
+			break;
+
+		case 4:
+			pStringTable = pScriptHeader + pSegmentTableEntry->pData;
+			break;
 		}
 	}
 
-	return ScriptInterpreter::Init(pScriptHeader, pProcedureLabels, pJumpLabels, pInstructions, pMessageScriptHeader, pStringTable, pSegmentTable, procedureIndex);
+	return new ScriptInterpreter(pScriptHeader, pProcedureLabels, pJumpLabels, pInstructions, pMessageScriptHeader, pStringTable, pSegmentTable, procedureIndex);
 };
 
-static ScriptInterpreter* ScriptInterpreter::Init(ScriptHeader_t* pScriptHeader, ScriptSegmentTableEntry_t* pSegmentTable, ScriptLabel_t* pProcedureLabels, ScriptLabel_t* pJumpLabels, ScriptInstruction_t* pInstructions, MessageScriptHeader_t* pMessageScriptHeader, uint8_t* pStringTable, uint32_t procedureIndex)
+static ScriptInterpreter* ScriptInterpreter::Create(ScriptHeader_t* pScriptHeader, ScriptSegmentTableEntry_t* pSegmentTable, ScriptLabel_t* pProcedureLabels, ScriptLabel_t* pJumpLabels, ScriptInstruction_t* pInstructions, MessageScriptHeader_t* pMessageScriptHeader, uint8_t* pStringTable, uint32_t procedureIndex)
 {
 	if (pScriptHeader == nullptr || pSegmentTable == nullptr || pProcedureLabels == nullptr || pInstructions == nullptr || procedureIndex < 0 || procedureIndex >= pSegmentTable->numElements)
 		return 0;
 
-	ScriptInterpreter* pScriptInterpreter = (ScriptInterpreter*)malloc(0x170);
+	ScriptInterpreter* pScriptInterpreter = (ScriptInterpreter*)malloc(sizeof(ScriptInterpreter));
 
 	if (pScriptInterpreter == nullptr)
 		return 0;
 
-	memzero(pScriptInterpreter, 0x170);
+	memzero(pScriptInterpreter, sizeof(ScriptInterpreter));
 
 	strcpy(pProcedureLabels[procedureIndex].name, pScriptInterpreter->mProcedureName);
 
@@ -429,7 +419,7 @@ static ScriptInterpreter* ScriptInterpreter::Init(ScriptHeader_t* pScriptHeader,
 	pScriptInterpreter->mpMessageScriptHeader = pMessageScriptHeader;
 	pScriptInterpreter->mpStringTable = pStringTable;
 	pScriptInterpreter->mProcedureIndex = procedureIndex;
-	pScriptInterpreter->field140 = -1;
+	pScriptInterpreter->mpMessageScript = -1;
 	pScriptInterpreter->field144 = nullptr;
 	pScriptInterpreter->field148 = nullptr;
 	pScriptInterpreter->field14C = nullptr;
@@ -470,7 +460,7 @@ static ScriptInterpreter* ScriptInterpreter::Init(ScriptHeader_t* pScriptHeader,
 
 	if (pMessageScriptHeader != 0)
 	{
-		pScriptInterpreter->field140 = MessageScript::LoadFromMemory(pMessageScriptHeader);
+		pScriptInterpreter->mpMessageScript = MessageScript::LoadFromMemory(pMessageScriptHeader);
 	}
 
 	if (ScriptInterpreter::spInstance2 != 0)
@@ -491,7 +481,7 @@ static ScriptInterpreter* ScriptInterpreter::Init(ScriptHeader_t* pScriptHeader,
 	dword_D59BF0->field00++;
 
 	return pScriptInterpreter;
-}
+};
 
 static uint32_t ScriptInterpreter::MaybeSwapEndianness(ScriptHeader_t* script)
 {
@@ -511,7 +501,7 @@ static uint32_t ScriptInterpreter::MaybeSwapEndianness(ScriptHeader_t* script)
 	}
 
 	ScriptInterpreter::SwapEndianness(script);
-}
+};
 
 static OPD_t* ScriptInterpreter::GetCOMMFuncPtr(uint16_t funcId)
 {
@@ -523,7 +513,7 @@ static OPD_t* ScriptInterpreter::GetCOMMFuncPtr(uint16_t funcId)
 	{
 		uint32_t r4 = (funcId >> 9) & 0x78;
 		if (funcIdx >= ScriptInterpreter::spScriptCOMMFuncTables[r4].numEntries)
-			break;
+			return pFuncTableEntry->pFunc;
 
 		pFuncTableEntry = ScriptInterpreter::spScriptCOMMFuncTables[r4].pTable[funcIdx];
 	}
@@ -541,7 +531,7 @@ static uint32_t ScriptInterpreter::GetCOMMFuncNumArgs(uint16_t funcId)
 	{
 		uint32_t r4 = (funcId >> 9) & 0x78;
 		if (funcIdx >= ScriptInterpreter::spScriptCOMMFuncTables[r4].numEntries)
-			break;
+			return pFuncTableEntry->numArgs;
 
 		pFuncTableEntry = ScriptInterpreter::spScriptCOMMFuncTables[r4].pTable[funcIdx];
 	}
@@ -599,7 +589,7 @@ static uint32_t ScriptInterpreter::ExecuteInstruction_PUSHIX(ScriptInterpreter* 
 
 	if ((instance->mpScript->endianness & 1) != 0)
 	{
-		uint16_t r6 = (operand16 << 8) & 0xFFFF00;
+		uint32_t r6 = (operand16 << 8) & 0xFFFF00;
 		r6 = (r6 & ~0xFF) | ((operand16 << 8) & 0xFF);
 		operand16 = r6;
 	}
@@ -608,7 +598,7 @@ static uint32_t ScriptInterpreter::ExecuteInstruction_PUSHIX(ScriptInterpreter* 
 	instance->mStackValues[instance->mNumStackValues++] = ScriptInterpreter::spStaticIntVariablePool[operand16];
 
 	return 1;
-}
+};
 
 static uint32_t ScriptInterpreter::ExecuteInstruction_PUSHLIX(ScriptInterpreter* instance)
 {
@@ -688,7 +678,7 @@ static uint32_t ScriptInterpreter::ExecuteInstruction_JUMP(ScriptInterpreter* in
 	instance->mInstructionIndex = instance->mpProcedureLabels[operand].instructionIndex;
 
 	return 1;
-}
+};
 
 static uint32_t ScriptInterpreter::ExecuteInstruction_CALL(ScriptInterpreter* instance)
 {
@@ -707,7 +697,7 @@ static uint32_t ScriptInterpreter::ExecuteInstruction_CALL(ScriptInterpreter* in
 	instance->mInstructionIndex = instance->mpProcedureLabels[operand16].instructionIndex;
 
 	return 1;
-}
+};
 
 static uint32_t ScriptInterpreter::ExecuteInstruction_GOTO(ScriptInterpreter* instance)
 {
@@ -723,7 +713,7 @@ static uint32_t ScriptInterpreter::ExecuteInstruction_GOTO(ScriptInterpreter* in
 	instance->mInstructionIndex = instance->mpJumpLabels[operand].instructionIndex;
 
 	return 1;
-}
+};
 
 static uint32_t ScriptInterpreter::ExecuteInstruction_IF(ScriptInterpreter* instance)
 {
@@ -760,7 +750,7 @@ static uint32_t ScriptInterpreter::ExecuteInstruction_IF(ScriptInterpreter* inst
 
 	if (!instance->mpHeader->endianness & 1)
 	{
-		r3 = (operand << 8) & 0xFFFF00;
+		uint32_t r3 = (operand << 8) & 0xFFFF00;
 		r3 = (r3 & 0xFFFFFF00) | ((operand >> 8) & 0xFF);
 		operand = r3;
 	}

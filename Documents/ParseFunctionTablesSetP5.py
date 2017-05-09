@@ -2,6 +2,7 @@ from idaapi import *
 import idautils
 import idc
 
+cMaxRecursionDepth = 4
 cGetFunctionIntArgumentFuncAddr 		= 0x1F266C
 cGetFunctionFloatArgumentFuncAddr 		= 0x1F2768
 cGetFunctionStringArgumentFuncAddr 		= 0x1F2868
@@ -59,6 +60,8 @@ def ParseFunctionTable(address, count, index):
 		
 		# retrieve function name
 		functionName = get_ascii_contents(functionNameAddress, get_max_ascii_length(functionNameAddress, ASCSTR_C), ASCSTR_C) 
+
+		#MakeName(functionOPDAddress, "ScriptInterpreter::ExecuteCommFunc_" + functionName)
 		
 		#print functionName
 		isNull = False
@@ -73,22 +76,23 @@ def ParseFunctionTable(address, count, index):
 			argNames.append("arg" + str(j))
 		
 		if (functionOPDAddress):
-			#MakeName(functionOPDAddress, "script_Function_" + functionName + "_OPD")	
-		
+				
 			# retrieve function address
 			functionAddress = get_32bit(functionOPDAddress)
 			functionStartAddress = functionAddress
 			functionEndAddress = FindFuncEnd(functionAddress)
-			
-			#MakeName(functionAddress, "script_Function_" + functionName)
+
+			#MakeName(functionAddress, ".ScriptInterpreter::ExecuteCommFunc_" + functionName)		
 			
 			# retrieve function return & argument types
 			retType = "void"
 			
-			prevFunctionAddress = 0
 			isDone = False
-			isInBranch = False
 			argIndex = -1
+			branchDepth = -1
+			startAddressStack = [ functionStartAddress ]
+			endAddressStack = [ functionEndAddress ]
+			returnAddressStack = []
 
 			while not isDone:
 				instruction = get_32bit(functionAddress)
@@ -98,9 +102,12 @@ def ParseFunctionTable(address, count, index):
 					continue
 				
 				if (GetIsPPCBranchLinkReturn(functionAddress)):
-					if (isInBranch):
-						functionAddress = prevFunctionAddress
-						isInBranch = False
+					#print "exit branch at %04x" % functionAddress
+					if (branchDepth > -1):				
+						functionAddress = returnAddressStack.pop()
+						functionStartAddress = startAddressStack.pop()
+						functionEndAddress = endAddressStack.pop()
+						branchDepth -= 1
 						continue
 					else:
 						isDone = True
@@ -133,17 +140,6 @@ def ParseFunctionTable(address, count, index):
 						functionArgumentCount += 1
 					else:
 						argTypes[argIndex] = "string"
-
-				elif (branchAddress == cGetFunctionMessageHandleArgument):
-					argIndex += 1
-
-					if (not argIndex < len(argTypes)):
-						argTypes.append("int")
-						argNames.append("messageHandle")
-						functionArgumentCount += 1
-					else:
-						argTypes[argIndex] = "int"
-						argNames[argIndex] = "messageHandle"
 					
 				elif (branchAddress == cSetFunctionIntReturnValueFuncAddr):
 					retType = "int"
@@ -151,13 +147,26 @@ def ParseFunctionTable(address, count, index):
 				elif (branchAddress == cSetFunctionFloatReturnValueFuncAddr):
 					retType = "float"
 					
-				elif (branchAddress < functionStartAddress or branchAddress >= functionEndAddress):
-					if (not isInBranch):
-						prevFunctionAddress = functionAddress + 4
-						functionAddress = branchAddress
-						isInBranch = True
+				elif ((instruction != 0x4E800421) and (instruction != 0x4E800420) and (branchAddress < functionStartAddress or branchAddress >= functionEndAddress) and (branchDepth < cMaxRecursionDepth - 1) and (branchAddress not in startAddressStack)):
+					#print "enter branch at %04x" % functionAddress
+					returnAddressStack.append(functionAddress + 4)
+					startAddressStack.append(functionStartAddress)
+					endAddressStack.append(functionEndAddress)
+					functionAddress = branchAddress
+					functionStartAddress = branchAddress
+					functionEndAddress = FindFuncEnd(branchAddress)
+					branchDepth += 1
+					continue
 					
 				functionAddress += 4
+
+				# no return functions
+				if (functionAddress >= functionEndAddress):
+					functionAddress = returnAddressStack.pop()
+					functionStartAddress = startAddressStack.pop()
+					functionEndAddress = endAddressStack.pop()
+					branchDepth -= 1
+					continue
 		
 			else:			
 				isNull = True
@@ -174,7 +183,7 @@ def ParseFunctionTable(address, count, index):
 			if (j != functionArgumentCount - 1):
 				functionArgsString += ", "
 
-		print "0x%04x %s %s(%s)" % (functionID, retType, functionName, functionArgsString)
+		print "%04x %s %s(%s);" % (functionID, retType, functionName, functionArgsString)
 		#print "%d %s %s(%s)" % (functionID, retType, functionName, functionArgsString)
 	
 	return

@@ -26,6 +26,7 @@ struct bfSectionHeader
 	u32 startOffset; // start of data offset relative to beginning of file 
 };
 
+// Persona 3, Persona 3 FES, Persona 4, Persona 4 Golden
 struct bfLabelv1
 {
 	u8[32]	name;		// symbolic name of label
@@ -33,7 +34,7 @@ struct bfLabelv1
 	u32		reserved;	// used during runtime
 };
 
-// used by Persona 4 Dancing All Night
+// Persona 4 DAN
 struct bfLabelv2
 {
 	u8[56]	name;		// symbolic name of label
@@ -41,7 +42,7 @@ struct bfLabelv2
 	u32		reserved;	// used during runtime
 };
 
-// used by Persona 5 & later games
+// Persona 5, Trauma Team
 struct bfLabelv3
 {
 	u8[72]	name;		// symbolic name of label
