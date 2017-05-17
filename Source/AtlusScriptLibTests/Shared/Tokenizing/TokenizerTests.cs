@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 
-namespace AtlusScriptLib.Shared.Tokenizing.Tests
+namespace AtlusScriptLib.Common.Tokenizing.Tests
 {
     [TestClass()]
     public class TokenizerTests

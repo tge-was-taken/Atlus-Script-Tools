@@ -88,7 +88,7 @@ typedef struct
 	/* 0x14 */ uint32_t relocTableSize;
 	/* 0x18 */ uint32_t numEntries; 
 	/* 0x1C */ uint16_t relocFlag;
-	/* 0x20 */ uint16_t field20;
+	/* 0x1E */ uint16_t field1E;
 
 } MessageScriptHeader_t;
 

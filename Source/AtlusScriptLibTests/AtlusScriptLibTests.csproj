@@ -56,10 +56,10 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="FlowScript\CommTables\CommTableParserTests.cs" />
-    <Compile Include="FlowScript\Disassembler\FlowScriptDisassemblerTests.cs" />
-    <Compile Include="FlowScript\FlowScriptBinaryTests.cs" />
-    <Compile Include="FlowScript\Parsers\FlowScriptBinarySyntaxParserTests.cs" />
+    <Compile Include="Disassembler\FlowScriptDisassemblerTests.cs" />
+    <Compile Include="FlowScriptTests.cs" />
+    <Compile Include="FunctionTables\FunctionTableParserTests.cs" />
+    <Compile Include="Parsers\FlowScriptBinarySyntaxParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shared\Tokenizing\TokenizerTests.cs" />
   </ItemGroup>

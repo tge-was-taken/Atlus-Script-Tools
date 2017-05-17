@@ -45,48 +45,67 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FlowScript\CommTables\CommTableEntry.cs" />
-    <Compile Include="FlowScript\CommTables\CommTableParser.cs" />
-    <Compile Include="FlowScript\CommTables\ICommTable.cs" />
-    <Compile Include="FlowScript\CommTables\P5CommTable.cs" />
-    <Compile Include="FlowScript\Decompiler\FlowScriptBinaryDecompiler.cs" />
-    <Compile Include="FlowScript\FlowScriptBinary.cs" />
-    <Compile Include="FlowScript\Parser\FlowScriptBinarySyntaxParser.cs" />
-    <Compile Include="FlowScript\Disassembler\FlowScriptBinaryDisassembler.cs" />
-    <Compile Include="FlowScript\FlowScriptBinaryEnums.cs" />
-    <Compile Include="FlowScript\FlowScriptBinaryStructs.cs" />
-    <Compile Include="FlowScript\Disassembler\IDisassemblerTextOutput.cs" />
-    <Compile Include="FlowScript\Disassembler\StringBuilderDisassemblerTextOutput.cs" />
-    <Compile Include="FlowScript\Disassembler\TextWriterDisassemblerTextOutput.cs" />
-    <Compile Include="Shared\Collections\IListExtensions.cs" />
-    <Compile Include="Shared\CommandLineArgument.cs" />
-    <Compile Include="Shared\CommandLineOption.cs" />
-    <Compile Include="Shared\CommandLineParser.cs" />
-    <Compile Include="Shared\IO\EndianBinaryReader.cs" />
-    <Compile Include="Shared\IO\Endianness.cs" />
+    <Compile Include="Common\IO\Bitwise.cs" />
+    <Compile Include="Common\IO\IOConstants.cs" />
+    <Compile Include="Common\IO\Unsafe.cs" />
+    <Compile Include="FlowScriptBinary.cs" />
+    <Compile Include="FlowScriptInstruction.cs" />
+    <Compile Include="FlowScriptLabel.cs" />
+    <Compile Include="FlowScriptReader.cs" />
+    <Compile Include="FunctionTables\FunctionTable.cs" />
+    <Compile Include="FunctionTables\FunctionTableEntry.cs" />
+    <Compile Include="FunctionTables\FunctionTableParser.cs" />
+    <Compile Include="FunctionTables\IFunctionTable.cs" />
+    <Compile Include="FunctionTables\P5FunctionTable.cs" />
+    <Compile Include="Decompilers\FlowScriptBinaryDecompiler.cs" />
+    <Compile Include="FlowScript.cs" />
+    <Compile Include="Parsers\FlowScriptBinarySyntaxParser.cs" />
+    <Compile Include="Disassemblers\FlowScriptBinaryDisassembler.cs" />
+    <Compile Include="FlowScriptEnums.cs" />
+    <Compile Include="FlowScriptBinaryStructs.cs" />
+    <Compile Include="Disassemblers\IDisassemblerTextOutput.cs" />
+    <Compile Include="Disassemblers\StringBuilderDisassemblerTextOutput.cs" />
+    <Compile Include="Disassemblers\TextWriterDisassemblerTextOutput.cs" />
+    <Compile Include="MessageScript.cs" />
+    <Compile Include="MessageScriptBinary.cs" />
+    <Compile Include="MessageScriptBinaryEnums.cs" />
+    <Compile Include="MessageScriptBinaryMessage.cs" />
+    <Compile Include="MessageScriptBinaryMessageDialog.cs" />
+    <Compile Include="MessageScriptBinarySelectionDialog.cs" />
+    <Compile Include="Message.cs" />
+    <Compile Include="MessageScriptLoader.cs" />
+    <Compile Include="MessageScriptStructs.cs" />
+    <Compile Include="Common\Collections\IListExtensions.cs" />
+    <Compile Include="Common\CommandLineArgument.cs" />
+    <Compile Include="Common\CommandLineOption.cs" />
+    <Compile Include="Common\CommandLineParser.cs" />
+    <Compile Include="Common\IO\EndianBinaryReader.cs" />
+    <Compile Include="Common\IO\EndianBinaryWriter.cs" />
+    <Compile Include="Common\IO\Endianness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Shared\Syntax\BinaryExpressions.cs" />
-    <Compile Include="Shared\Syntax\ConstantExpressions.cs" />
-    <Compile Include="Shared\Syntax\DeclarationStatements.cs" />
-    <Compile Include="Shared\Syntax\Expressions.cs" />
-    <Compile Include="Shared\Syntax\FunctionArgumentList.cs" />
-    <Compile Include="Shared\Syntax\FunctionDeclarations.cs" />
-    <Compile Include="Shared\Syntax\IOperator.cs" />
-    <Compile Include="Shared\Syntax\JumpStatements.cs" />
-    <Compile Include="Shared\SourceInfo.cs" />
-    <Compile Include="Shared\Syntax\Statements.cs" />
-    <Compile Include="Shared\Syntax\SyntaxNode.cs" />
-    <Compile Include="Shared\Syntax\SyntaxTree.cs" />
-    <Compile Include="Shared\Syntax\UnaryExpressions.cs" />
-    <Compile Include="Shared\Syntax\VariableDeclarations.cs" />
-    <Compile Include="Shared\Tokenizing\Tokenizer.cs" />
-    <Compile Include="Shared\Utilities\DebugUtils.cs" />
+    <Compile Include="Common\IO\StringBinaryFormat.cs" />
+    <Compile Include="Common\Syntax\BinaryExpressions.cs" />
+    <Compile Include="Common\Syntax\ConstantExpressions.cs" />
+    <Compile Include="Common\Syntax\DeclarationStatements.cs" />
+    <Compile Include="Common\Syntax\Expressions.cs" />
+    <Compile Include="Common\Syntax\FunctionArgumentList.cs" />
+    <Compile Include="Common\Syntax\FunctionDeclarations.cs" />
+    <Compile Include="Common\Syntax\IOperator.cs" />
+    <Compile Include="Common\Syntax\JumpStatements.cs" />
+    <Compile Include="Common\SourceInfo.cs" />
+    <Compile Include="Common\Syntax\Statements.cs" />
+    <Compile Include="Common\Syntax\SyntaxNode.cs" />
+    <Compile Include="Common\Syntax\SyntaxTree.cs" />
+    <Compile Include="Common\Syntax\UnaryExpressions.cs" />
+    <Compile Include="Common\Syntax\VariableDeclarations.cs" />
+    <Compile Include="Common\Tokenizing\Tokenizer.cs" />
+    <Compile Include="Common\Utilities\DebugUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FlowScript\CommTables\p5table.txt">
+    <Content Include="FunctionTables\p5table.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
