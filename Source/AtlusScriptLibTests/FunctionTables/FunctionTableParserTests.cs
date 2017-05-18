@@ -60,7 +60,10 @@ namespace AtlusScriptLib.FunctionTables.Tests
         {
             if (mDisposed)
                 return;
-            mParser.Dispose();
+
+            if (mParser != null)
+                mParser.Dispose();
+
             mDisposed = true;
         }
 

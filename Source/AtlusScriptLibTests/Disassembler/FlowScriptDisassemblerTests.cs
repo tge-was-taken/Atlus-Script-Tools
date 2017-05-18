@@ -140,7 +140,8 @@ namespace AtlusScriptLib.Disassembler.Tests
             if (mDisposed)
                 return;
 
-            Disassembler.Dispose();
+            if (Disassembler != null)
+                Disassembler.Dispose();
             mDisposed = true;
         }
 
