@@ -18,14 +18,16 @@ namespace AtlusScriptLib
         {
             mPositionBase = stream.Position;
             mReader = new EndianBinaryReader(stream, version.HasFlag(MessageScriptBinaryFormatVersion.BE) ? Endianness.BigEndian : Endianness.LittleEndian);
-            mVersion = version == MessageScriptBinaryFormatVersion.Unknown ? MessageScriptBinaryFormatVersion.V1 : version;
+            mVersion = version;
         }
 
         public MessageScriptBinary ReadBinary()
         {
-            var binary = new MessageScriptBinary();
+            var binary = new MessageScriptBinary()
+            {
+                mHeader = ReadHeader()
+            };
 
-            binary.mHeader              = ReadHeader();
             binary.mMessageHeaders      = ReadMessageHeaders(binary.mHeader.MessageCount);
             binary.mSpeakerTableHeader  = ReadSpeakerTableHeader();
             binary.mFormatVersion       = mVersion;
@@ -57,21 +59,21 @@ namespace AtlusScriptLib
                 header.Field1E                  = mReader.ReadInt16();
 
                 // swap endianness
-                if (header.Magic.SequenceEqual(MessageScriptBinaryHeader.MAGIC_LE))
+                if (header.Magic.SequenceEqual(MessageScriptBinaryHeader.MAGIC_V1))
                 {
                     if (mVersion.HasFlag(MessageScriptBinaryFormatVersion.BE))
                     {
                         SwapHeader(ref header);
-                        mVersion ^= MessageScriptBinaryFormatVersion.BE;
+                        mVersion = MessageScriptBinaryFormatVersion.V1;
                         mReader.Endianness = Endianness.LittleEndian;
                     }
                 }
-                else if (header.Magic.SequenceEqual(MessageScriptBinaryHeader.MAGIC_BE))
+                else if (header.Magic.SequenceEqual(MessageScriptBinaryHeader.MAGIC_V1_BE))
                 {
                     if (!mVersion.HasFlag(MessageScriptBinaryFormatVersion.BE))
                     {
                         SwapHeader(ref header);
-                        mVersion |= MessageScriptBinaryFormatVersion.BE;
+                        mVersion = MessageScriptBinaryFormatVersion.V1_BE;
                         mReader.Endianness = Endianness.BigEndian;
                     }
                 }
@@ -80,9 +82,12 @@ namespace AtlusScriptLib
                     throw new InvalidDataException("Header magic value does not match");
                 }
 
-                mReader.PushPositionSeekBegin(mPositionBase + header.RelocationTable.Address);
-                header.RelocationTable.Value = mReader.ReadBytes(header.RelocationTableSize);
-                mReader.PopPosition();
+                if (header.RelocationTable.Address != 0)
+                {
+                    mReader.PushPositionSeekBegin(mPositionBase + header.RelocationTable.Address);
+                    header.RelocationTable.Value = mReader.ReadBytes(header.RelocationTableSize);
+                    mReader.PopPosition();
+                }
             }
 
             return header;
@@ -108,7 +113,9 @@ namespace AtlusScriptLib
                 ref var messageHeader = ref messageHeaders[i];
                 messageHeader.MessageType = (MessageScriptBinaryMessageType)mReader.ReadInt32();
                 messageHeader.Message.Address = mReader.ReadInt32();
-                messageHeader.Message.Value = ReadMessage(messageHeader.MessageType, messageHeader.Message.Address);
+
+                if (messageHeader.Message.Address != 0)
+                    messageHeader.Message.Value = ReadMessage(messageHeader.MessageType, messageHeader.Message.Address);
             }
 
             return messageHeaders;
@@ -122,7 +129,11 @@ namespace AtlusScriptLib
             header.SpeakerCount = mReader.ReadInt32();
             header.Field08 = mReader.ReadInt32();
             header.Field0C = mReader.ReadInt32();
-            header.SpeakerNameArray.Value = ReadSpeakerNames(header.SpeakerNameArray.Address, header.SpeakerCount);
+
+            if (header.SpeakerNameArray.Address != 0)
+                header.SpeakerNameArray.Value = ReadSpeakerNames(header.SpeakerNameArray.Address, header.SpeakerCount);
+            else
+                header.SpeakerNameArray.Value = null;
 
             if (header.Field08 != 0)
                 Debug.WriteLine($"{nameof(MessageScriptBinarySpeakerTableHeader)}.{nameof(header.Field08)} = {header.Field08}");

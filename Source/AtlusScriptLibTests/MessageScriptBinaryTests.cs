@@ -66,19 +66,33 @@ namespace AtlusScriptLib.Tests
         [TestMethod()]
         public void ToFileTest_V1()
         {
-            script = MessageScriptBinary.FromFile("TestResources\\V1.bmd");
-            script.ToFile("TestResources\\V1_ToFileTest.bmd");
-            script = MessageScriptBinary.FromFile("TestResources\\V1_ToFileTest.bmd");
-            DoScriptChecks_V1();
+            try
+            {
+                script = MessageScriptBinary.FromFile("TestResources\\V1.bmd");
+                script.ToFile("TestResources\\V1_ToFileTest.bmd");
+                script = MessageScriptBinary.FromFile("TestResources\\V1_ToFileTest.bmd");
+                DoScriptChecks_V1();
+            }
+            finally
+            {
+                File.Delete("TestResources\\V1_ToFileTest.bmd");
+            }     
         }
 
         [TestMethod()]
         public void ToFileTest_V1_BE()
         {
-            script = MessageScriptBinary.FromFile("TestResources\\V1_BE.bmd");
-            script.ToFile("TestResources\\V1_BE_ToFileTest.bmd");
-            script = MessageScriptBinary.FromFile("TestResources\\V1_BE_ToFileTest.bmd");
-            DoScriptChecks_V1_BE();
+            try
+            {
+                script = MessageScriptBinary.FromFile("TestResources\\V1_BE.bmd");
+                script.ToFile("TestResources\\V1_BE_ToFileTest.bmd");
+                script = MessageScriptBinary.FromFile("TestResources\\V1_BE_ToFileTest.bmd");
+                DoScriptChecks_V1_BE();
+            }
+            finally
+            {
+                File.Delete("TestResources\\V1_BE_ToFileTest.bmd");
+            }       
         }
 
         [TestMethod()]
@@ -109,7 +123,7 @@ namespace AtlusScriptLib.Tests
             Assert.AreEqual(false, script.Header.IsCompressed);
             Assert.AreEqual(0, script.Header.UserId);
             Assert.AreEqual(0x987A, script.Header.FileSize);
-            Assert.IsTrue(script.Header.Magic.SequenceEqual(MessageScriptBinaryHeader.MAGIC_LE));
+            Assert.IsTrue(script.Header.Magic.SequenceEqual(MessageScriptBinaryHeader.MAGIC_V1));
             Assert.AreEqual(0, script.Header.Field0C);
             Assert.AreEqual(0x96EC, script.Header.RelocationTable.Address);
             Assert.AreEqual(0x018E, script.Header.RelocationTable.Value.Length);
@@ -155,7 +169,7 @@ namespace AtlusScriptLib.Tests
             Assert.AreEqual(false, script.Header.IsCompressed);
             Assert.AreEqual(0, script.Header.UserId);
             Assert.AreEqual(0x6F89, script.Header.FileSize);
-            Assert.IsTrue(script.Header.Magic.SequenceEqual(MessageScriptBinaryHeader.MAGIC_BE));
+            Assert.IsTrue(script.Header.Magic.SequenceEqual(MessageScriptBinaryHeader.MAGIC_V1_BE));
             Assert.AreEqual(0, script.Header.Field0C);
             Assert.AreEqual(0x6E50, script.Header.RelocationTable.Address);
             Assert.AreEqual(0x0139, script.Header.RelocationTableSize);
