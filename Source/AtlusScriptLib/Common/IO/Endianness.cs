@@ -22,109 +22,113 @@ namespace AtlusScriptLib.Common.IO
             }
         }
 
-        public static short SwapEndianness(short value)
+        public static short Swap(short value)
         {
             return (short)((value << 8) | ((value >> 8) & 0xFF));
         }
 
-        public static ushort SwapEndianness(ushort value)
+        public static void Swap(ref short value)
+        {
+            value = Swap(value);
+        }
+
+        public static ushort Swap(ushort value)
         {
             return (ushort)((value << 8) | (value >> 8));
         }
 
-        public static int SwapEndianness(int value)
+        public static void Swap(ref ushort value)
+        {
+            value = Swap(value);
+        }
+
+        public static int Swap(int value)
         {
             value = (int)((value << 8) & 0xFF00FF00) | ((value >> 8) & 0xFF00FF);
             return (value << 16) | ((value >> 16) & 0xFFFF);
         }
 
-        public static uint SwapEndianness(uint value)
+        public static void Swap(ref int value)
+        {
+            value = Swap(value);
+        }
+
+        public static uint Swap(uint value)
         {
             value = ((value << 8) & 0xFF00FF00) | ((value >> 8) & 0xFF00FF);
             return (value << 16) | (value >> 16);
         }
 
-        public static long SwapEndianness(long value)
+        public static void Swap(ref uint value)
+        {
+            value = Swap(value);
+        }
+
+        public static long Swap(long value)
         {
             value = (long)(((ulong)(value << 8) & 0xFF00FF00FF00FF00UL) | ((ulong)(value >> 8) & 0x00FF00FF00FF00FFUL));
             value = (long)(((ulong)(value << 16) & 0xFFFF0000FFFF0000UL) | ((ulong)(value >> 16) & 0x0000FFFF0000FFFFUL));
             return (long)((ulong)(value << 32) | ((ulong)(value >> 32) & 0xFFFFFFFFUL));
         }
 
-        public static ulong SwapEndianness(ulong value)
+        public static void Swap(ref long value)
+        {
+            value = Swap(value);
+        }
+
+        public static ulong Swap(ulong value)
         {
             value = ((value << 8) & 0xFF00FF00FF00FF00UL ) | ((value >> 8) & 0x00FF00FF00FF00FFUL );
             value = ((value << 16) & 0xFFFF0000FFFF0000UL ) | ((value >> 16) & 0x0000FFFF0000FFFFUL );
             return (value << 32) | (value >> 32);
         }
 
-        public unsafe static float SwapEndianness(float value)
+        public static void Swap(ref ulong value)
+        {
+            value = Swap(value);
+        }
+
+        public unsafe static float Swap(float value)
         {
             return Unsafe.ReinterpretCast<uint, float>(
-                SwapEndianness(Unsafe.ReinterpretCast<float, uint>(value))
+                Swap(Unsafe.ReinterpretCast<float, uint>(value))
             );
         }
 
-        public unsafe static double SwapEndianness(double value)
+        public static void Swap(ref float value)
+        {
+            value = Swap(value);
+        }
+
+        public unsafe static double Swap(double value)
         {
             return Unsafe.ReinterpretCast<ulong, double>(
-                SwapEndianness(Unsafe.ReinterpretCast<double, ulong>(value))
+                Swap(Unsafe.ReinterpretCast<double, ulong>(value))
             );
         }
 
-        public unsafe static decimal SwapEndianness(decimal value)
+        public static void Swap(ref double value)
+        {
+            value = Swap(value);
+        }
+
+        public unsafe static decimal Swap(decimal value)
         {
             ulong* pData = stackalloc ulong[2];
 
-            *pData = SwapEndianness(*(ulong*)&value);
+            *pData = Swap(*(ulong*)&value);
             pData++;
-            *pData = SwapEndianness(*((ulong*)&value + 16));
+            *pData = Swap(*((ulong*)&value + 16));
 
             return *(decimal*)pData;
         }
 
-        private static object SwapEndiannessPrimitive(Type type, object value)
+        public static void Swap(ref decimal value)
         {
-            switch (Type.GetTypeCode(type))
-            {
-                case TypeCode.Boolean:
-                case TypeCode.Byte:
-                case TypeCode.SByte:
-                    return value;
-
-                case TypeCode.Int16:
-                    return SwapEndianness((short)value);
-
-                case TypeCode.UInt16:
-                    return SwapEndianness((ushort)value);
-
-                case TypeCode.Int32:
-                    return SwapEndianness((int)value);
-
-                case TypeCode.UInt32:
-                    return SwapEndianness((uint)value);
-
-                case TypeCode.Int64:
-                    return SwapEndianness((long)value);
-
-                case TypeCode.UInt64:
-                    return SwapEndianness((ulong)value);
-
-                case TypeCode.Single:
-                    return SwapEndianness((float)value);
-
-                case TypeCode.Double:
-                    return SwapEndianness((double)value);
-
-                case TypeCode.Decimal:
-                    return SwapEndianness((decimal)value);
-
-                default:
-                    throw new NotImplementedException();
-            }
+            value = Swap(value);
         }
 
-        private static object SwapEndiannessRecursive(object obj, Type type)
+        private static object SwapRecursive(object obj, Type type)
         {
             if (type.IsArray)
             {
@@ -133,19 +137,19 @@ namespace AtlusScriptLib.Common.IO
 
                 for (int i = 0; i < array.Length; i++)
                 {
-                    array.SetValue(SwapEndiannessRecursive(array.GetValue(i), elemType), i);
+                    array.SetValue(SwapRecursive(array.GetValue(i), elemType), i);
                 }
 
                 return array;
             }
             else if (type.IsClass)
             {
-                SwapEndianness(obj, type);
+                Swap(obj, type);
                 return obj;
             }
             else if (type.IsEnum)
             {
-                return SwapEndiannessRecursive(obj, type.GetEnumUnderlyingType());
+                return SwapRecursive(obj, type.GetEnumUnderlyingType());
             }
             else if (type.IsGenericType)
             {
@@ -161,11 +165,12 @@ namespace AtlusScriptLib.Common.IO
             }
             else if (type.IsPrimitive)
             {
-                return SwapEndiannessPrimitive(type, obj);
+                return Swap((dynamic)obj);
+                //return SwapEndiannessPrimitive(type, obj);
             }
             else if (type.IsValueType)
             {
-                SwapEndianness(obj, type);
+                Swap(obj, type);
                 return obj;
             }
             else
@@ -174,7 +179,7 @@ namespace AtlusScriptLib.Common.IO
             }
         }
 
-        private static object SwapEndianness(object obj, Type type)
+        private static object Swap(object obj, Type type)
         {         
             var fields = type.GetFields().ToList();
 
@@ -245,17 +250,22 @@ namespace AtlusScriptLib.Common.IO
                 if (field.IsLiteral || field.IsStatic)
                     continue;
 
-                field.SetValue(obj, SwapEndiannessRecursive(field.GetValue(obj), field.FieldType));
+                field.SetValue(obj, SwapRecursive(field.GetValue(obj), field.FieldType));
             }
 
             return obj;
         }
 
-        public static T SwapEndianness<T>(T obj)
+        public static T Swap<T>(T obj)
         {
             object temp = obj;
-            temp = SwapEndianness(temp, typeof(T));
+            temp = Swap(temp, typeof(T));
             return (T)temp;
+        }
+
+        public static void Swap<T>(ref T obj)
+        {
+            obj = Swap(obj);
         }
     }
 }

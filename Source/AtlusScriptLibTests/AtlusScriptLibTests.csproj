@@ -60,6 +60,7 @@
     <Compile Include="FlowScriptBinaryTests.cs" />
     <Compile Include="FlowScriptTests.cs" />
     <Compile Include="FunctionTables\FunctionTableParserTests.cs" />
+    <Compile Include="MessageScriptBinaryTests.cs" />
     <Compile Include="Parsers\FlowScriptBinarySyntaxParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\Tokenizing\TokenizerTests.cs" />
@@ -70,6 +71,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestResources\dummy_small.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestResources\V1.bmd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestResources\V1_BE.bmd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestResources\V2.bf">

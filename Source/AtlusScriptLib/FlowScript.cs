@@ -33,10 +33,10 @@ namespace AtlusScriptLib
 
         public static FlowScript FromBinary(FlowScriptBinary binary)
         {
-            FlowScript instance = new FlowScript();
-
-            // assign header values
-            instance.mUserId = binary.Header.UserId;
+            FlowScript instance = new FlowScript()
+            {
+                mUserId = binary.Header.UserId
+            };
 
             // assign labels later after convert the instructions because we need to update the instruction indices
             // to reference the instructions in the list, and not the instructions in the array of instructions in the binary

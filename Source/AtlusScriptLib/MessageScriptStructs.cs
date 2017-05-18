@@ -1,12 +1,12 @@
-﻿using System.Runtime.InteropServices;
+﻿using AtlusScriptLib.Common.IO;
+using System.Runtime.InteropServices;
 
-namespace AtlusScriptLib.MessageScript
+namespace AtlusScriptLib
 {
-    [StructLayout(LayoutKind.Sequential, Pack = 1, Size = SIZE)]
     public struct MessageScriptBinaryHeader
     {
         public const int SIZE = 32;
-        public const int FILE_TYPE = 7;
+        public const byte FILE_TYPE = 7;
         public static byte[] MAGIC_LE = new byte[] { (byte)'M', (byte)'S', (byte)'G', (byte)'1' };
         public static byte[] MAGIC_BE = new byte[] { (byte)'1', (byte)'G', (byte)'S', (byte)'M' };
 
@@ -14,7 +14,6 @@ namespace AtlusScriptLib.MessageScript
         public byte FileType;
 
         // 01
-        [MarshalAs(UnmanagedType.U1)]
         public bool IsCompressed;
 
         // 02
@@ -24,14 +23,13 @@ namespace AtlusScriptLib.MessageScript
         public int FileSize;
 
         // 08
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
         public byte[] Magic;
 
         // 0C
         public int Field0C;
 
         // 10
-        public int RelocationTableOffset;
+        public AddressValuePair<byte[]> RelocationTable;
 
         // 14
         public int RelocationTableSize;
@@ -40,32 +38,29 @@ namespace AtlusScriptLib.MessageScript
         public int MessageCount;
 
         // 1C
-        [MarshalAs(UnmanagedType.U2)]
         public bool IsRelocated;
 
         // 1E
         public short Field1E;
     }
 
-    [StructLayout(LayoutKind.Sequential, Pack = 1, Size = SIZE)]
     public struct MessageScriptBinaryMessageHeader
     {
         public const int SIZE = 8;
 
         // 00
-        public int Type;
+        public MessageScriptBinaryMessageType MessageType;
 
         // 04
-        public int Offset;
+        public AddressValuePair<object> Message;
     }
 
-    [StructLayout(LayoutKind.Sequential, Pack = 1, Size = SIZE)]
     public struct MessageScriptBinarySpeakerTableHeader
     {
         public const int SIZE = 10;
 
         // 00
-        public int SpeakerNameTableOffset; // points to array of char*
+        public AddressValuePair<AddressValuePair<string>[]> SpeakerNameArray;
 
         // 04
         public int SpeakerCount;
@@ -77,41 +72,57 @@ namespace AtlusScriptLib.MessageScript
         public int Field0C;
     }
 
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1, Size = SIZE)]
-    public struct MessageScriptBinaryMessageDialogHeader
+    // Variable length
+    public struct MessageScriptBinaryDialogueMessage
     {
-        public const int SIZE = 28;
+        public const int IDENTIFIER_LENGTH = 24;
 
-        // 0x00
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 24)]
+        // 0x00 
         public string Identifier;
 
         // 0x18
-        public short DialogCount;
+        public short LineCount;
 
         // 0x1A
         public short SpeakerId;
+
+        // 0x1C
+        public int[] LineStartAddresses;
+
+        // 0x1C + LineCount * 4
+        public int TextBufferSize;
+
+        // 0x1C + LineCount * 4 + 4
+        public byte[] TextBuffer;
     }
 
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1, Size = SIZE)]
-    public struct MessageScriptBinaryMessageSelectionDialogHeader
+    // Variable length
+    public struct MessageScriptBinarySelectionMessage
     {
-        public const int SIZE = 32;
+        public const int IDENTIFIER_LENGTH = 24;
 
-        // 00
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 24)]
+        // 0x00
         public string Identifier;
 
-        // 18
+        // 0x18
         public short Field18;
 
-        // 1A
+        // 0x1A
         public short OptionCount;
 
-        // 1C
+        // 0x1C
         public short Field1C;
 
-        // 1E
+        // 0x1E
         public short Field1E;
+
+        // 0x20
+        public int[] OptionStartAddresses;
+
+        // 0x20 + OptionCount * 4
+        public int TextBufferSize;
+
+        // 0x20 + OptionCount * 4 + 4
+        public byte[] TextBuffer;
     }
 }

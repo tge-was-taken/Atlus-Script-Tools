@@ -1,28 +1,43 @@
-﻿using AtlusScriptLib.Common.IO;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
 
-namespace AtlusScriptLib.MessageScript
+namespace AtlusScriptLib
 {
     public class MessageScriptBinary
     {
-        private MessageScriptBinaryHeader mHeader;
-        private byte[] mRelocationTable;
-        private MessageScriptBinaryMessageHeader[] mMessageHeaders;
-        private MessageScriptBinarySpeakerTableHeader mSpeakerTableHeader;
-        private int[] mSpeakerNameOffsets;
-        private string[] mSpeakerNames;
-        private MessageScriptBinaryMessage[] mMessages;
+        public static MessageScriptBinary FromFile(string path)
+        {
+            return FromFile(path, MessageScriptBinaryFormatVersion.Unknown);
+        }
+
+        public static MessageScriptBinary FromFile(string path, MessageScriptBinaryFormatVersion version)
+        {
+            using (var fileStream = File.OpenRead(path))
+                return FromStream(fileStream, version);
+        }
+
+        public static MessageScriptBinary FromStream(Stream stream)
+        {
+            return FromStream(stream, MessageScriptBinaryFormatVersion.Unknown);
+        }
+
+        public static MessageScriptBinary FromStream(Stream stream, MessageScriptBinaryFormatVersion version)
+        {
+            using (var reader = new MessageScriptBinaryReader(stream, version))
+            {
+                return reader.ReadBinary();
+            }
+        }
+
+        // these fields are internal because they are used by the builder, reader & writer
+        internal MessageScriptBinaryHeader mHeader;
+        internal MessageScriptBinaryMessageHeader[] mMessageHeaders;
+        internal MessageScriptBinarySpeakerTableHeader mSpeakerTableHeader;
+        internal MessageScriptBinaryFormatVersion mFormatVersion;
 
         public MessageScriptBinaryHeader Header
         {
             get { return mHeader; }
-        }
-
-        public ReadOnlyCollection<byte> RelocationTable
-        {
-            get { return new ReadOnlyCollection<byte>(mRelocationTable); }
         }
 
         public ReadOnlyCollection<MessageScriptBinaryMessageHeader> MessageHeaders
@@ -35,69 +50,33 @@ namespace AtlusScriptLib.MessageScript
             get { return mSpeakerTableHeader; }
         }
 
-        public ReadOnlyCollection<MessageScriptBinaryMessage> Messages
+        public MessageScriptBinaryFormatVersion FormatVersion
         {
-            get { return new ReadOnlyCollection<MessageScriptBinaryMessage>(mMessages); }
+            get { return mFormatVersion; }
         }
 
-        public static void LoadFromStream(Stream stream)
+        // this constructor is internal because it is used by the builder, reader & writer
+        internal MessageScriptBinary()
         {
-            MessageScriptBinary instance = new MessageScriptBinary();
-            long positionBase = stream.Position + MessageScriptBinaryHeader.SIZE;
+        }
 
-            using (var reader = new EndianBinaryReader(stream, Endianness.LittleEndian))
+        public void ToFile(string path)
+        {
+            ToStream(File.Create(path));
+        }
+
+        public Stream ToStream()
+        {
+            var stream = new MemoryStream();
+            ToStream(stream);
+            return stream;
+        }
+
+        public void ToStream(Stream stream)
+        {
+            using (var writer = new MessageScriptBinaryWriter(stream, mFormatVersion))
             {
-                instance.mHeader = reader.ReadStruct<MessageScriptBinaryHeader>();
-                if (instance.mHeader.Magic.SequenceEqual(MessageScriptBinaryHeader.MAGIC_BE))
-                {
-                    reader.Endianness = Endianness.BigEndian;
-                    instance.mHeader = EndiannessHelper.SwapEndianness(instance.mHeader);
-                }
-
-                // Save position for later
-                reader.PushPosition();
-
-                // Read relocation table
-                reader.SeekBegin(positionBase + instance.mHeader.RelocationTableOffset);
-                instance.mRelocationTable = reader.ReadBytes(instance.mHeader.RelocationTableSize);
-
-                // Go back and read message headers
-                reader.SeekBegin(reader.PopPosition());
-                instance.mMessageHeaders = reader.ReadStruct<MessageScriptBinaryMessageHeader>(instance.mHeader.MessageCount);
-
-                // Read speaker table header
-                instance.mSpeakerTableHeader = reader.ReadStruct<MessageScriptBinarySpeakerTableHeader>();
-
-                // Read speaker name table
-                reader.SeekBegin(positionBase + instance.mSpeakerTableHeader.SpeakerNameTableOffset);
-                instance.mSpeakerNameOffsets = reader.ReadInt32s(instance.mSpeakerTableHeader.SpeakerCount);
-                instance.mSpeakerNames = new string[instance.mSpeakerTableHeader.SpeakerCount];
-
-                for (int i = 0; i < instance.mSpeakerTableHeader.SpeakerCount; i++)
-                {
-                    reader.SeekBegin(positionBase + instance.mSpeakerNameOffsets[i]);
-                    instance.mSpeakerNames[i] = reader.ReadString(StringBinaryFormat.NullTerminated);
-                }
-
-                // Read messages
-                instance.mMessages = new MessageScriptBinaryMessage[instance.mHeader.MessageCount];
-                for (int i = 0; i < instance.mMessages.Length; i++)
-                {
-                    reader.SeekBegin(positionBase + instance.mMessageHeaders[i].Offset);
-
-                    if (instance.mMessageHeaders[i].Type == 0)
-                    {
-                        instance.mMessages[i] = MessageScriptBinaryMessageDialog.Read(reader);
-                    }
-                    else if (instance.mMessageHeaders[i].Type == 1)
-                    {
-
-                    }
-                    else
-                    {
-
-                    }
-                }
+                writer.WriteBinary(this);
             }
         }
     }

@@ -216,7 +216,7 @@ namespace AtlusScriptLib
             // Swap endianness if high bits of section count are used
             if ((header.SectionCount & 0xFF000000) != 0)
             {
-                header = EndiannessHelper.SwapEndianness(header);
+                header = EndiannessHelper.Swap(header);
 
                 if (mReader.Endianness == Endianness.LittleEndian)
                 {

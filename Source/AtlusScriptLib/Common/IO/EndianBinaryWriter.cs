@@ -108,7 +108,7 @@ namespace AtlusScriptLib.Common.IO
         public override void Write(short value)
         {
             if (mSwap)
-                Write(EndiannessHelper.SwapEndianness(value));
+                Write(EndiannessHelper.Swap(value));
             else
                 base.Write(value);
         }
@@ -122,7 +122,7 @@ namespace AtlusScriptLib.Common.IO
         public override void Write(ushort value)
         {
             if (mSwap)
-                Write(EndiannessHelper.SwapEndianness(value));
+                Write(EndiannessHelper.Swap(value));
             else
                 base.Write(value);
         }
@@ -136,7 +136,7 @@ namespace AtlusScriptLib.Common.IO
         public override void Write(int value)
         {
             if (mSwap)
-                Write(EndiannessHelper.SwapEndianness(value));
+                Write(EndiannessHelper.Swap(value));
             else
                 base.Write(value);
         }
@@ -150,7 +150,7 @@ namespace AtlusScriptLib.Common.IO
         public override void Write(uint value)
         {
             if (mSwap)
-                Write(EndiannessHelper.SwapEndianness(value));
+                Write(EndiannessHelper.Swap(value));
             else
                 base.Write(value);
         }
@@ -164,7 +164,7 @@ namespace AtlusScriptLib.Common.IO
         public override void Write(long value)
         {
             if (mSwap)
-                Write(EndiannessHelper.SwapEndianness(value));
+                Write(EndiannessHelper.Swap(value));
             else
                 base.Write(value);
         }
@@ -178,7 +178,7 @@ namespace AtlusScriptLib.Common.IO
         public override void Write(ulong value)
         {
             if (mSwap)
-                Write(EndiannessHelper.SwapEndianness(value));
+                Write(EndiannessHelper.Swap(value));
             else
                 base.Write(value);
         }
@@ -192,7 +192,7 @@ namespace AtlusScriptLib.Common.IO
         public override void Write(float value)
         {
             if (mSwap)
-                Write(EndiannessHelper.SwapEndianness(value));
+                Write(EndiannessHelper.Swap(value));
             else
                 base.Write(value);
         }
@@ -206,7 +206,7 @@ namespace AtlusScriptLib.Common.IO
         public override void Write(decimal value)
         {
             if (mSwap)
-                Write(EndiannessHelper.SwapEndianness(value));
+                Write(EndiannessHelper.Swap(value));
             else
                 base.Write(value);
         }
@@ -288,7 +288,7 @@ namespace AtlusScriptLib.Common.IO
                 {
                     // Marshal the structure into the allocated byte array
                     if (mSwap)
-                        Marshal.StructureToPtr(EndiannessHelper.SwapEndianness(value), (IntPtr)ptr, true);
+                        Marshal.StructureToPtr(EndiannessHelper.Swap(value), (IntPtr)ptr, true);
                     else
                         Marshal.StructureToPtr(value, (IntPtr)ptr, true);
                 }
@@ -313,7 +313,7 @@ namespace AtlusScriptLib.Common.IO
                     {
                         // Marshal the structure into the allocated byte array
                         if (mSwap)
-                            Marshal.StructureToPtr(EndiannessHelper.SwapEndianness(value), (IntPtr)(ptr + (i * typeSize)), true);
+                            Marshal.StructureToPtr(EndiannessHelper.Swap(value), (IntPtr)(ptr + (i * typeSize)), true);
                         else
                             Marshal.StructureToPtr(value, (IntPtr)(ptr + (i * typeSize)), true);
                     }             

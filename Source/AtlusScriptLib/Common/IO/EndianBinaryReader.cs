@@ -95,7 +95,18 @@ namespace AtlusScriptLib.Common.IO
             mPosStack.Push(Position);
         }
 
-        public long PopPosition()
+        public void PushPositionSeekBegin(long offset)
+        {
+            mPosStack.Push(Position);
+            SeekBegin(offset);
+        }
+
+        public void PopPosition()
+        {
+            SeekBegin(mPosStack.Pop());
+        }
+
+        public long PopPositionValue()
         {
             return mPosStack.Pop();
         }
@@ -103,7 +114,7 @@ namespace AtlusScriptLib.Common.IO
         public override short ReadInt16()
         {
             if (mSwap)
-                return EndiannessHelper.SwapEndianness(base.ReadInt16());
+                return EndiannessHelper.Swap(base.ReadInt16());
             else
                 return base.ReadInt16();
         }
@@ -122,7 +133,7 @@ namespace AtlusScriptLib.Common.IO
         public override ushort ReadUInt16()
         {
             if (mSwap)
-                return EndiannessHelper.SwapEndianness(base.ReadUInt16());
+                return EndiannessHelper.Swap(base.ReadUInt16());
             else
                 return base.ReadUInt16();
         }
@@ -141,7 +152,7 @@ namespace AtlusScriptLib.Common.IO
         public override decimal ReadDecimal()
         {
             if (mSwap)
-                return EndiannessHelper.SwapEndianness(base.ReadDecimal());
+                return EndiannessHelper.Swap(base.ReadDecimal());
             else
                 return base.ReadDecimal();
         }
@@ -160,7 +171,7 @@ namespace AtlusScriptLib.Common.IO
         public override double ReadDouble()
         {
             if (mSwap)
-                return EndiannessHelper.SwapEndianness(base.ReadDouble());
+                return EndiannessHelper.Swap(base.ReadDouble());
             else
                 return base.ReadDouble();
         }
@@ -179,7 +190,7 @@ namespace AtlusScriptLib.Common.IO
         public override int ReadInt32()
         {
             if (mSwap)
-                return EndiannessHelper.SwapEndianness(base.ReadInt32());
+                return EndiannessHelper.Swap(base.ReadInt32());
             else
                 return base.ReadInt32();
         }
@@ -198,7 +209,7 @@ namespace AtlusScriptLib.Common.IO
         public override long ReadInt64()
         {
             if (mSwap)
-                return EndiannessHelper.SwapEndianness(base.ReadInt64());
+                return EndiannessHelper.Swap(base.ReadInt64());
             else
                 return base.ReadInt64();
         }
@@ -217,7 +228,7 @@ namespace AtlusScriptLib.Common.IO
         public override float ReadSingle()
         {
             if (mSwap)
-                return EndiannessHelper.SwapEndianness(base.ReadSingle());
+                return EndiannessHelper.Swap(base.ReadSingle());
             else
                 return base.ReadSingle();
         }
@@ -236,7 +247,7 @@ namespace AtlusScriptLib.Common.IO
         public override uint ReadUInt32()
         {
             if (mSwap)
-                return EndiannessHelper.SwapEndianness(base.ReadUInt32());
+                return EndiannessHelper.Swap(base.ReadUInt32());
             else
                 return base.ReadUInt32();
         }
@@ -255,7 +266,7 @@ namespace AtlusScriptLib.Common.IO
         public override ulong ReadUInt64()
         {
             if (mSwap)
-                return EndiannessHelper.SwapEndianness(base.ReadUInt64());
+                return EndiannessHelper.Swap(base.ReadUInt64());
             else
                 return base.ReadUInt64();
         }
@@ -356,7 +367,7 @@ namespace AtlusScriptLib.Common.IO
             }
 
             if (mSwap)
-                obj = EndiannessHelper.SwapEndianness(obj);
+                obj = EndiannessHelper.Swap(obj);
 
             return obj;
         }
@@ -376,7 +387,7 @@ namespace AtlusScriptLib.Common.IO
                     for (int i = 0; i < objects.Length; i++)
                     {
                         if (mSwap)
-                            objects[i] = EndiannessHelper.SwapEndianness(Marshal.PtrToStructure<T>((IntPtr)(ptr + (i * typeSize))));
+                            objects[i] = EndiannessHelper.Swap(Marshal.PtrToStructure<T>((IntPtr)(ptr + (i * typeSize))));
                         else
                             objects[i] = Marshal.PtrToStructure<T>((IntPtr)(ptr + (i * typeSize)));
                     }

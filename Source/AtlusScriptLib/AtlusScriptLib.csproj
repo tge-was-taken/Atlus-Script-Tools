@@ -49,6 +49,7 @@
     <Compile Include="Common\CommandLineArgumentParser.cs" />
     <Compile Include="Common\CommandLineArgumentValueTarget.cs" />
     <Compile Include="Common\ICommandLineArgument.cs" />
+    <Compile Include="Common\IO\AddressValuePair.cs" />
     <Compile Include="Common\IO\Bitwise.cs" />
     <Compile Include="Common\IO\IOConstants.cs" />
     <Compile Include="Common\IO\Unsafe.cs" />
@@ -66,6 +67,8 @@
     <Compile Include="FunctionTables\P5FunctionTable.cs" />
     <Compile Include="Decompilers\FlowScriptBinaryDecompiler.cs" />
     <Compile Include="FlowScript.cs" />
+    <Compile Include="MessageScriptBinaryReader.cs" />
+    <Compile Include="MessageScriptBinaryWriter.cs" />
     <Compile Include="Parsers\FlowScriptBinarySyntaxParser.cs" />
     <Compile Include="Disassemblers\FlowScriptBinaryDisassembler.cs" />
     <Compile Include="FlowScriptBinaryEnums.cs" />
@@ -73,14 +76,8 @@
     <Compile Include="Disassemblers\IDisassemblerTextOutput.cs" />
     <Compile Include="Disassemblers\StringBuilderDisassemblerTextOutput.cs" />
     <Compile Include="Disassemblers\TextWriterDisassemblerTextOutput.cs" />
-    <Compile Include="MessageScript.cs" />
     <Compile Include="MessageScriptBinary.cs" />
     <Compile Include="MessageScriptBinaryEnums.cs" />
-    <Compile Include="MessageScriptBinaryMessage.cs" />
-    <Compile Include="MessageScriptBinaryMessageDialog.cs" />
-    <Compile Include="MessageScriptBinarySelectionDialog.cs" />
-    <Compile Include="Message.cs" />
-    <Compile Include="MessageScriptLoader.cs" />
     <Compile Include="MessageScriptStructs.cs" />
     <Compile Include="Common\Collections\IListExtensions.cs" />
     <Compile Include="Common\IO\EndianBinaryReader.cs" />
