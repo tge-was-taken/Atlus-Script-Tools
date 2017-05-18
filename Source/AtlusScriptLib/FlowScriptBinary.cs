@@ -7,14 +7,15 @@ namespace AtlusScriptLib
     // Todo: ensure immutability
     public sealed class FlowScriptBinary
     {
-        private FlowScriptBinaryHeader mHeader;
-        private FlowScriptBinarySectionHeader[] mSectionHeaders;
-        private FlowScriptBinaryLabel[] mProcedureLabelSection;
-        private FlowScriptBinaryLabel[] mJumpLabelSection;
-        private FlowScriptBinaryInstruction[] mTextSection;
-        private byte[] mMessageScriptSection;
-        private byte[] mStringSection;
-        private FlowScriptBinaryFormatVersion mFormatVersion;
+        // these fields are internal because they are used by the builder
+        internal FlowScriptBinaryHeader mHeader;
+        internal FlowScriptBinarySectionHeader[] mSectionHeaders;
+        internal FlowScriptBinaryLabel[] mProcedureLabelSection;
+        internal FlowScriptBinaryLabel[] mJumpLabelSection;
+        internal FlowScriptBinaryInstruction[] mTextSection;
+        internal byte[] mMessageScriptSection;
+        internal byte[] mStringSection;
+        internal FlowScriptBinaryFormatVersion mFormatVersion;
 
         public FlowScriptBinaryHeader Header
         {
@@ -56,14 +57,9 @@ namespace AtlusScriptLib
             get { return mFormatVersion; }
         }
 
-        private FlowScriptBinary()
+        // this constructor is internal because it is used by the builder
+        internal FlowScriptBinary()
         {          
-        }
-
-        public void InvokeLinker()
-        {
-            var linker = new Linker(this);
-            linker.Link();
         }
 
         public static FlowScriptBinary FromFile(string path)
@@ -126,58 +122,6 @@ namespace AtlusScriptLib
             }
 
             return instance;
-        }
-
-        private class Linker
-        {
-            private FlowScriptBinary mBinary;
-
-            public Linker(FlowScriptBinary binary)
-            {
-                mBinary = binary;
-            }
-
-            public void Link()
-            {
-                // Header
-                mBinary.mHeader.FileSize = CalculateHeaderFileSize();
-
-                // Section headers
-                int nextSectionAddress = FlowScriptBinaryHeader.SIZE + (mBinary.mSectionHeaders.Length * FlowScriptBinarySectionHeader.SIZE);
-                for (int i = 0; i < mBinary.mSectionHeaders.Length; i++)
-                {
-                    ref var sectionheader = ref mBinary.mSectionHeaders[i];
-
-                    sectionheader.FirstElementAddress = nextSectionAddress;
-                    nextSectionAddress += (sectionheader.ElementCount * sectionheader.ElementSize);
-                }
-            }
-
-            private int CalculateHeaderFileSize()
-            {
-                int size = FlowScriptBinaryHeader.SIZE;
-                int labelSize = mBinary.mFormatVersion.HasFlag(FlowScriptBinaryFormatVersion.V1) ? FlowScriptBinaryLabel.SIZE_V1 :
-                                mBinary.mFormatVersion.HasFlag(FlowScriptBinaryFormatVersion.V2) ? FlowScriptBinaryLabel.SIZE_V2 :
-                                mBinary.mFormatVersion.HasFlag(FlowScriptBinaryFormatVersion.V3) ? FlowScriptBinaryLabel.SIZE_V3 :
-                                throw new Exception("Invalid format version");
-
-                if (mBinary.ProcedureLabelSection != null)
-                    size += (FlowScriptBinarySectionHeader.SIZE + (mBinary.ProcedureLabelSection.Count * labelSize));
-
-                if (mBinary.JumpLabelSection != null)
-                    size += (FlowScriptBinarySectionHeader.SIZE + (mBinary.JumpLabelSection.Count * labelSize));
-
-                if (mBinary.TextSection != null)
-                    size += mBinary.TextSection.Count * FlowScriptBinaryInstruction.SIZE;
-
-                if (mBinary.MessageScriptSection != null)
-                    size += mBinary.MessageScriptSection.Count;
-
-                if (mBinary.StringSection != null)
-                    size += mBinary.StringSection.Count;
-
-                return size;
-            }
         }
     }
 }

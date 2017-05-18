@@ -49,6 +49,7 @@
     <Compile Include="Common\IO\IOConstants.cs" />
     <Compile Include="Common\IO\Unsafe.cs" />
     <Compile Include="FlowScriptBinary.cs" />
+    <Compile Include="FlowScriptBinaryBuilder.cs" />
     <Compile Include="FlowScriptBinaryReader.cs" />
     <Compile Include="FlowScriptBinaryWriter.cs" />
     <Compile Include="FlowScriptInstruction.cs" />
