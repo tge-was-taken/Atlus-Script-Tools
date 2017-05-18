@@ -1,0 +1,58 @@
+
+// ---------------
+// functions
+// ---------------
+
+[d <string identifier> <string speakerName>]
+Defines a dialogue dialog with as identifier the value of parameter 'identifier'.
+Optionally you can specify a speaker name with the second parameter, 'speakerName'.
+
+[s <string identifier>]
+Defines a selection dialog with as identifier the value of parameter 'identifier'.
+
+[f <byte id> <variadic argument list>]
+Executes function by the specified id.
+The argument list is of variable length.
+
+[n]
+Inserts a newline.
+
+[e]
+Defines the end of a line.
+A line in this context is defined as a series of sentences that make up the dialogue before it moves on to the next phase.
+
+[w]
+Shorthand version of [f 20].
+Waits for the player to press A.
+
+[we]
+Shorthand version of [w][e].
+
+[nwe]
+Shorthand version of [n][w][e].
+
+[b <int16 a1> <int16 characterId> <int16 expressionId> <int16 costumeId> <int16 a5>
+Shorthand version of [f 85 a1 characterId expressionId costumeId a5]
+Defines the bustup to display.
+If you wanted to display bustup "b002_001_04", you could do so by using [b 0 2 1 4 0] in your script.
+Parameters can be left out, however for each of the parameters that were left out, the default value of 0 will be used.
+
+// ---------------
+// syntax 
+// ---------------
+
+// selection dialog style concepts
+[s "FCL_MSG_COMBINE_SELECT"]
+[f 04 ff ff][f 40]Go ahead.[e]
+[f 04 ff ff][f 40]Never mind.[e]
+
+[d "FCL_MSG_COMBINE_CONFIRM" "Igor"]
+[f 04 ff ff][f 40]Are you certain this[n]Persona is acceptable?[f 20][e]
+
+[d "fev0410_02_mes01" "Sakura"]
+[f 04 ff ff][f 40][f 85 00 00 67 00 58 02 00 00 00 00]Sheesh, that was annoying...[n]I didn't think the traffic[n]jam would get that bad.[n][f 20][e]
+[f 04 ff ff][f 40]I wonder what I should.do about the shop today.[n][f 20][e]
+
+[d "fev0410_02_mes01" "Sakura"]
+[f 04 ff ff][f 40][b 0 103 600]Sheesh, that was annoying...[n]I didn't think the traffic[n]jam would get that bad.[nwe]
+[f 04 ff ff][f 40]I wonder what I should.do about the shop today.[nwe]
