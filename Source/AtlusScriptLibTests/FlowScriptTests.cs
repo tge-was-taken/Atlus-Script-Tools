@@ -149,7 +149,7 @@ namespace AtlusScriptLib.Tests
         {
             var binaryIn = FlowScriptBinary.FromFile("TestResources\\V3_BE.bf");
             var script = FlowScript.FromBinary(binaryIn);
-            var binaryOut = FlowScript.ToBinary(script);
+            var binaryOut = script.ToBinary();
 
             // Compare headers
             Assert.AreEqual(binaryIn.Header.FileType, binaryOut.Header.FileType);

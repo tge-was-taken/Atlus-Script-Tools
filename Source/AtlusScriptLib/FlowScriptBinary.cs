@@ -7,6 +7,30 @@ namespace AtlusScriptLib
     // Todo: ensure immutability
     public sealed class FlowScriptBinary
     {
+        public static FlowScriptBinary FromFile(string path)
+        {
+            return FromFile(path, FlowScriptBinaryFormatVersion.Unknown);
+        }
+
+        public static FlowScriptBinary FromFile(string path, FlowScriptBinaryFormatVersion version)
+        {
+            using (var fileStream = File.OpenRead(path))
+                return FromStream(fileStream, version);
+        }
+
+        public static FlowScriptBinary FromStream(Stream stream)
+        {
+            return FromStream(stream, FlowScriptBinaryFormatVersion.Unknown);
+        }
+
+        public static FlowScriptBinary FromStream(Stream stream, FlowScriptBinaryFormatVersion version)
+        {
+            using (var reader = new FlowScriptBinaryReader(stream, version))
+            {
+                return reader.ReadBinary();
+            }
+        }
+
         // these fields are internal because they are used by the builder
         internal FlowScriptBinaryHeader mHeader;
         internal FlowScriptBinarySectionHeader[] mSectionHeaders;
@@ -62,116 +86,23 @@ namespace AtlusScriptLib
         {          
         }
 
-        public static FlowScriptBinary FromFile(string path)
+        public void ToFile(string path)
         {
-            return FromFile(path, FlowScriptBinaryFormatVersion.Unknown);
+            ToStream(File.Create(path));
         }
 
-        public static FlowScriptBinary FromFile(string path, FlowScriptBinaryFormatVersion version)
-        {
-            using (var fileStream = File.OpenRead(path))
-                return FromStream(fileStream, version);
-        }
-
-        public static FlowScriptBinary FromStream(Stream stream)
-        {
-            return FromStream(stream, FlowScriptBinaryFormatVersion.Unknown);
-        }
-
-        public static FlowScriptBinary FromStream(Stream stream, FlowScriptBinaryFormatVersion version)
-        {
-            FlowScriptBinary instance = new FlowScriptBinary();
-
-            using (var reader = new FlowScriptBinaryReader(stream, version))
-            {
-                instance.mHeader = reader.ReadHeader();
-                instance.mSectionHeaders = reader.ReadSectionHeaders(ref instance.mHeader);
-
-                for (int i = 0; i < instance.mSectionHeaders.Length; i++)
-                {
-                    ref var sectionHeader = ref instance.mSectionHeaders[i];
-
-                    switch (sectionHeader.SectionType)
-                    {
-                        case FlowScriptBinarySectionType.ProcedureLabelSection:
-                            instance.mProcedureLabelSection = reader.ReadLabelSection(ref sectionHeader);
-                            break;
-
-                        case FlowScriptBinarySectionType.JumpLabelSection:
-                            instance.mJumpLabelSection = reader.ReadLabelSection(ref sectionHeader);
-                            break;
-
-                        case FlowScriptBinarySectionType.TextSection:
-                            instance.mTextSection = reader.ReadTextSection(ref sectionHeader);
-                            break;
-
-                        case FlowScriptBinarySectionType.MessageScriptSection:
-                            instance.mMessageScriptSection = reader.ReadMessageScriptSection(ref sectionHeader);
-                            break;
-
-                        case FlowScriptBinarySectionType.StringSection:
-                            instance.mStringSection = reader.ReadStringSection(ref sectionHeader);
-                            break;
-
-                        default:
-                            throw new InvalidDataException("Unknown section type");
-                    }
-                }
-
-                instance.mFormatVersion = reader.GetDetectedFormatVersion();
-            }
-
-            return instance;
-        }
-
-        public static void ToFile(FlowScriptBinary binary, string path)
-        {
-            ToStream(binary, File.Create(path));
-        }
-
-        public static Stream ToStream(FlowScriptBinary binary)
+        public Stream ToStream()
         {
             var stream = new MemoryStream();
-            ToStream(binary, stream);
+            ToStream(stream);
             return stream;
         }
 
-        public static void ToStream(FlowScriptBinary binary, Stream stream)
+        public void ToStream(Stream stream)
         {
-            using (var writer = new FlowScriptBinaryWriter(stream, binary.mFormatVersion))
+            using (var writer = new FlowScriptBinaryWriter(stream, mFormatVersion))
             {
-                writer.WriteHeader(ref binary.mHeader);
-                writer.WriteSectionHeaders(binary.mSectionHeaders);
-                for (int i = 0; i < binary.mSectionHeaders.Length; i++)
-                {
-                    ref var sectionHeader = ref binary.mSectionHeaders[i];
-
-                    switch (sectionHeader.SectionType)
-                    {
-                        case FlowScriptBinarySectionType.ProcedureLabelSection:
-                            writer.WriteLabelSection(ref sectionHeader, binary.mProcedureLabelSection);
-                            break;
-
-                        case FlowScriptBinarySectionType.JumpLabelSection:
-                            writer.WriteLabelSection(ref sectionHeader, binary.mJumpLabelSection);
-                            break;
-
-                        case FlowScriptBinarySectionType.TextSection:
-                            writer.WriteTextSection(ref sectionHeader, binary.mTextSection);
-                            break;
-
-                        case FlowScriptBinarySectionType.MessageScriptSection:
-                            writer.WriteMessageScriptSection(ref sectionHeader, binary.mMessageScriptSection);
-                            break;
-
-                        case FlowScriptBinarySectionType.StringSection:
-                            writer.WriteStringSection(ref sectionHeader, binary.mStringSection);
-                            break;
-
-                        default:
-                            throw new Exception("Unknown section type");
-                    }
-                }
+                writer.WriteBinary(this);
             }
         }
     }

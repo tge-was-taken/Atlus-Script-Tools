@@ -2,67 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace AtlusScriptLib
 {
     public sealed class FlowScript
     {
-        private short mUserId;
-        private List<FlowScriptLabel> mProcedureLabels, mJumpLabels;
-        private List<FlowScriptInstruction> mInstructions;
-        private byte[] mMessageScript;
-        private List<string> mStrings;
-        private FlowScriptBinaryFormatVersion mFormatVersion;
-
-        public short UserId
-        {
-            get { return mUserId; }
-            set { mUserId = value; }
-        }
-
-        public List<FlowScriptLabel> ProcedureLabels
-        {
-            get { return mProcedureLabels; }
-        }
-
-        public List<FlowScriptLabel> JumpLabels
-        {
-            get { return mJumpLabels; }
-        }
-
-        public List<FlowScriptInstruction> Instructions
-        {
-            get { return mInstructions; }
-        }
-
-        public byte[] MessageScript
-        {
-            get { return mMessageScript; }
-            set { mMessageScript = value; }
-        }
-
-        public List<string> Strings
-        {
-            get { return mStrings; }
-        }
-
-        public FlowScriptBinaryFormatVersion FormatVersion
-        {
-            get { return mFormatVersion; }
-        }
-
-        private FlowScript()
-        {
-            mUserId = 0;
-            mProcedureLabels = new List<FlowScriptLabel>();
-            mJumpLabels = new List<FlowScriptLabel>();
-            mInstructions = new List<FlowScriptInstruction>();
-            mMessageScript = null;
-            mStrings = new List<string>();
-            mFormatVersion = FlowScriptBinaryFormatVersion.Unknown;
-        }
-
         // Static methods
         public static FlowScript FromFile(string path)
         {
@@ -132,7 +76,7 @@ namespace AtlusScriptLib
                 int instructionIndex = 0;
                 int instructionBinaryIndex = 0;
 
-                while( instructionBinaryIndex < binary.TextSection.Count )
+                while (instructionBinaryIndex < binary.TextSection.Count)
                 {
                     instructionBinaryIndexToListIndexMap[instructionBinaryIndex] = instructionIndex;
 
@@ -189,10 +133,66 @@ namespace AtlusScriptLib
             return instance;
         }
 
-        public static FlowScriptBinary ToBinary(FlowScript script)
+        // Instance fields
+        private short mUserId;
+        private List<FlowScriptLabel> mProcedureLabels, mJumpLabels;
+        private List<FlowScriptInstruction> mInstructions;
+        private byte[] mMessageScript;
+        private List<string> mStrings;
+        private FlowScriptBinaryFormatVersion mFormatVersion;
+
+        public short UserId
         {
-            var builder = new FlowScriptBinaryBuilder(script.mFormatVersion);
-            builder.SetUserId(script.mUserId);
+            get { return mUserId; }
+            set { mUserId = value; }
+        }
+
+        public List<FlowScriptLabel> ProcedureLabels
+        {
+            get { return mProcedureLabels; }
+        }
+
+        public List<FlowScriptLabel> JumpLabels
+        {
+            get { return mJumpLabels; }
+        }
+
+        public List<FlowScriptInstruction> Instructions
+        {
+            get { return mInstructions; }
+        }
+
+        public byte[] MessageScript
+        {
+            get { return mMessageScript; }
+            set { mMessageScript = value; }
+        }
+
+        public List<string> Strings
+        {
+            get { return mStrings; }
+        }
+
+        public FlowScriptBinaryFormatVersion FormatVersion
+        {
+            get { return mFormatVersion; }
+        }
+
+        private FlowScript()
+        {
+            mUserId = 0;
+            mProcedureLabels = new List<FlowScriptLabel>();
+            mJumpLabels = new List<FlowScriptLabel>();
+            mInstructions = new List<FlowScriptInstruction>();
+            mMessageScript = null;
+            mStrings = new List<string>();
+            mFormatVersion = FlowScriptBinaryFormatVersion.Unknown;
+        }
+
+        public FlowScriptBinary ToBinary()
+        {
+            var builder = new FlowScriptBinaryBuilder(mFormatVersion);
+            builder.SetUserId(mUserId);
 
             // Skip the labels until after the instructions have been converted, as we need to fix up
             // the instruction indices
@@ -201,18 +201,13 @@ namespace AtlusScriptLib
             // by building an index remap table
             var stringIndexToBinaryStringIndexMap = new Dictionary<short, short>();
 
-            if (script.mStrings.Count > 0)
+            if (mStrings.Count > 0)
             {
-                var binaryStrings = new List<byte>();
-
-                for (short stringIndex = 0; stringIndex < script.mStrings.Count; stringIndex++)
+                for (short stringIndex = 0; stringIndex < mStrings.Count; stringIndex++)
                 {
-                    stringIndexToBinaryStringIndexMap[stringIndex] = (short)binaryStrings.Count;
-                    binaryStrings.AddRange(Encoding.GetEncoding(932).GetBytes(script.mStrings[stringIndex]));
-                    binaryStrings.Add(0);
-                }
-
-                builder.SetStringSection(binaryStrings);
+                    builder.AddString(mStrings[stringIndex], out int binaryIndex);
+                    stringIndexToBinaryStringIndexMap[stringIndex] = (short)binaryIndex;
+                }                
             }
 
             // Convert instructions, build an instruction index remap table & remap string indices where necessary
@@ -220,16 +215,18 @@ namespace AtlusScriptLib
             int instructionBinaryIndex = 0;
             var instructionListIndexToBinaryIndexMap = new Dictionary<int, int>();
 
-            for (; instructionListIndex < script.mInstructions.Count; instructionListIndex++)
+            for (; instructionListIndex < mInstructions.Count; instructionListIndex++)
             {
                 instructionListIndexToBinaryIndexMap[instructionListIndex] = instructionBinaryIndex;
 
-                var instruction = script.mInstructions[instructionListIndex];
+                var instruction = mInstructions[instructionListIndex];
 
                 if (!instruction.UsesTwoBinaryInstructions)
                 {
-                    var binaryInstruction = new FlowScriptBinaryInstruction();
-                    binaryInstruction.Opcode = instruction.Opcode;
+                    var binaryInstruction = new FlowScriptBinaryInstruction()
+                    {
+                        Opcode = instruction.Opcode
+                    };
 
                     // Handle PUSHSTR seperately due to difference in string index usage
                     if (instruction.Opcode == FlowScriptOpcode.PUSHSTR)
@@ -272,19 +269,19 @@ namespace AtlusScriptLib
             }
 
             // Convert labels after the instructions to remap the instruction indices
-            foreach (var label in script.mProcedureLabels)
+            foreach (var label in mProcedureLabels)
             {
                 builder.AddProcedureLabel(new FlowScriptBinaryLabel() { InstructionIndex = instructionListIndexToBinaryIndexMap[label.InstructionIndex], Name = label.Name, Reserved = 0 });
             }
 
-            foreach (var label in script.mJumpLabels)
+            foreach (var label in mJumpLabels)
             {
                 builder.AddJumpLabel(new FlowScriptBinaryLabel() { InstructionIndex = instructionListIndexToBinaryIndexMap[label.InstructionIndex], Name = label.Name, Reserved = 0 });
             }
 
             // Convert message script
-            if (script.mMessageScript != null)
-                builder.SetMessageScriptSection(script.mMessageScript);
+            if (mMessageScript != null)
+                builder.SetMessageScriptSection(mMessageScript);
 
             return builder.Build();
         }

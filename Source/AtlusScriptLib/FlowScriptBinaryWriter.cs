@@ -6,17 +6,52 @@ namespace AtlusScriptLib
 {
     public sealed class FlowScriptBinaryWriter : IDisposable
     {
+        private bool mDisposed;
         private long mPositionBase;
         private EndianBinaryWriter mWriter;
-        private FlowScriptBinaryFormatVersion mVersion;
-        private bool mDisposed;
-
+        private FlowScriptBinaryFormatVersion mVersion;      
 
         public FlowScriptBinaryWriter(Stream stream, FlowScriptBinaryFormatVersion version)
         {
             mPositionBase = stream.Position;
             mWriter = new EndianBinaryWriter(stream, version.HasFlag(FlowScriptBinaryFormatVersion.BE) ? Endianness.BigEndian : Endianness.LittleEndian);
             mVersion = version;
+        }
+
+        public void WriteBinary(FlowScriptBinary binary)
+        {
+            WriteHeader(ref binary.mHeader);
+            WriteSectionHeaders(binary.mSectionHeaders);
+            for (int i = 0; i < binary.mSectionHeaders.Length; i++)
+            {
+                ref var sectionHeader = ref binary.mSectionHeaders[i];
+
+                switch (sectionHeader.SectionType)
+                {
+                    case FlowScriptBinarySectionType.ProcedureLabelSection:
+                        WriteLabelSection(ref sectionHeader, binary.mProcedureLabelSection);
+                        break;
+
+                    case FlowScriptBinarySectionType.JumpLabelSection:
+                        WriteLabelSection(ref sectionHeader, binary.mJumpLabelSection);
+                        break;
+
+                    case FlowScriptBinarySectionType.TextSection:
+                        WriteTextSection(ref sectionHeader, binary.mTextSection);
+                        break;
+
+                    case FlowScriptBinarySectionType.MessageScriptSection:
+                        WriteMessageScriptSection(ref sectionHeader, binary.mMessageScriptSection);
+                        break;
+
+                    case FlowScriptBinarySectionType.StringSection:
+                        WriteStringSection(ref sectionHeader, binary.mStringSection);
+                        break;
+
+                    default:
+                        throw new Exception("Unknown section type");
+                }
+            }
         }
 
         public void WriteHeader(ref FlowScriptBinaryHeader header)

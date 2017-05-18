@@ -19,40 +19,53 @@ namespace AtlusScriptLib
             mVersion = version;
         }
 
+        public FlowScriptBinary ReadBinary()
+        {
+            FlowScriptBinary instance = new FlowScriptBinary();
+
+            instance.mHeader = ReadHeader();
+            instance.mSectionHeaders = ReadSectionHeaders(ref instance.mHeader);
+
+            for (int i = 0; i < instance.mSectionHeaders.Length; i++)
+            {
+                ref var sectionHeader = ref instance.mSectionHeaders[i];
+
+                switch (sectionHeader.SectionType)
+                {
+                    case FlowScriptBinarySectionType.ProcedureLabelSection:
+                        instance.mProcedureLabelSection = ReadLabelSection(ref sectionHeader);
+                        break;
+
+                    case FlowScriptBinarySectionType.JumpLabelSection:
+                        instance.mJumpLabelSection = ReadLabelSection(ref sectionHeader);
+                        break;
+
+                    case FlowScriptBinarySectionType.TextSection:
+                        instance.mTextSection = ReadTextSection(ref sectionHeader);
+                        break;
+
+                    case FlowScriptBinarySectionType.MessageScriptSection:
+                        instance.mMessageScriptSection = ReadMessageScriptSection(ref sectionHeader);
+                        break;
+
+                    case FlowScriptBinarySectionType.StringSection:
+                        instance.mStringSection = ReadStringSection(ref sectionHeader);
+                        break;
+
+                    default:
+                        throw new InvalidDataException("Unknown section type");
+                }
+            }
+
+            instance.mFormatVersion = GetDetectedFormatVersion();
+
+            return instance;
+        }
+
         public FlowScriptBinaryHeader ReadHeader()
         {
-            FlowScriptBinaryHeader header;
-
-            // Check if the stream isn't too small to be a proper file
-            if (mReader.BaseStreamLength < FlowScriptBinaryHeader.SIZE)
-            {
-                throw new InvalidDataException("Stream is too small to be valid");
-            }
-            else
-            {
-                header = mReader.ReadStruct<FlowScriptBinaryHeader>();
-                if (!header.Magic.SequenceEqual(FlowScriptBinaryHeader.MAGIC))
-                {
-                    throw new InvalidDataException("Header magic value does not match");
-                }
-            }
-
-            // Swap endianness if high bits of section count are used
-            if ((header.SectionCount & 0xFF000000) != 0)
-            {
-                header = EndiannessHelper.SwapEndianness(header);
-
-                if (mReader.Endianness == Endianness.LittleEndian)
-                {
-                    mReader.Endianness = Endianness.BigEndian;
-                    mVersion |= FlowScriptBinaryFormatVersion.BE;
-                }
-                else
-                {
-                    mReader.Endianness = Endianness.LittleEndian;
-                    mVersion ^= FlowScriptBinaryFormatVersion.BE;
-                }
-            }
+            ReadHeaderInternal(out FlowScriptBinaryHeader header);
+            MaybeSwapHeaderEndianness(ref header);
 
             return header;
         }
@@ -64,7 +77,7 @@ namespace AtlusScriptLib
 
         public FlowScriptBinaryLabel[] ReadLabelSection(ref FlowScriptBinarySectionHeader sectionHeader)
         {
-            PerformBeforeSectionReadActions(ref sectionHeader);
+            EnsureSectionHeaderInitialValidState(ref sectionHeader);
 
             if (sectionHeader.ElementSize != FlowScriptBinaryLabel.SIZE_V1 &&
                 sectionHeader.ElementSize != FlowScriptBinaryLabel.SIZE_V2 &&
@@ -73,32 +86,18 @@ namespace AtlusScriptLib
                 throw new InvalidDataException("Unknown size for label");
             }
 
-            if (sectionHeader.ElementSize == FlowScriptBinaryLabel.SIZE_V1 && !mVersion.HasFlag(FlowScriptBinaryFormatVersion.V1))
-            {
-                mVersion = FlowScriptBinaryFormatVersion.V1;
-                if (mReader.Endianness == Endianness.BigEndian)
-                    mVersion |= FlowScriptBinaryFormatVersion.BE;
-            }
-            else if (sectionHeader.ElementSize == FlowScriptBinaryLabel.SIZE_V2 && !mVersion.HasFlag(FlowScriptBinaryFormatVersion.V2))
-            {
-                mVersion = FlowScriptBinaryFormatVersion.V2;
-                if (mReader.Endianness == Endianness.BigEndian)
-                    mVersion |= FlowScriptBinaryFormatVersion.BE;
-            }
-            else if (sectionHeader.ElementSize == FlowScriptBinaryLabel.SIZE_V3 && !mVersion.HasFlag(FlowScriptBinaryFormatVersion.V3))
-            {
-                mVersion = FlowScriptBinaryFormatVersion.V3;
-                if (mReader.Endianness == Endianness.BigEndian)
-                    mVersion |= FlowScriptBinaryFormatVersion.BE;
-            }
+            MaybeSwapVersionEndiannessByLabelSectionHeader(ref sectionHeader);
 
             var labels = new FlowScriptBinaryLabel[sectionHeader.ElementCount];
 
             for (int i = 0; i < labels.Length; i++)
             {
+                // length of string is equal to the size of the label without the 2 Int32 fields
+                int nameStringLength = sectionHeader.ElementSize - (sizeof(int) * 2);
+
                 var label = new FlowScriptBinaryLabel()
                 {
-                    Name = mReader.ReadString(StringBinaryFormat.FixedLength, sectionHeader.ElementSize - (sizeof(int) * 2)),
+                    Name = mReader.ReadString(StringBinaryFormat.FixedLength, nameStringLength),
                     InstructionIndex = mReader.ReadInt32(),
                     Reserved = mReader.ReadInt32()
                 };
@@ -123,7 +122,7 @@ namespace AtlusScriptLib
 
         public FlowScriptBinaryInstruction[] ReadTextSection(ref FlowScriptBinarySectionHeader sectionHeader)
         {
-            PerformBeforeSectionReadActions(ref sectionHeader);
+            EnsureSectionHeaderInitialValidState(ref sectionHeader);
 
             if (sectionHeader.ElementSize != FlowScriptBinaryInstruction.SIZE)
             {
@@ -159,7 +158,7 @@ namespace AtlusScriptLib
 
         public byte[] ReadMessageScriptSection(ref FlowScriptBinarySectionHeader sectionHeader)
         {
-            PerformBeforeSectionReadActions(ref sectionHeader);
+            EnsureSectionHeaderInitialValidState(ref sectionHeader);
 
             if (sectionHeader.ElementSize != sizeof(byte))
             {
@@ -171,7 +170,7 @@ namespace AtlusScriptLib
 
         public byte[] ReadStringSection(ref FlowScriptBinarySectionHeader sectionHeader)
         {
-            PerformBeforeSectionReadActions(ref sectionHeader);
+            EnsureSectionHeaderInitialValidState(ref sectionHeader);
 
             if (sectionHeader.ElementSize != sizeof(byte))
             {
@@ -195,7 +194,44 @@ namespace AtlusScriptLib
             mDisposed = true;
         }
 
-        private void PerformBeforeSectionReadActions(ref FlowScriptBinarySectionHeader sectionHeader)
+        private void ReadHeaderInternal(out FlowScriptBinaryHeader header)
+        {
+            // Check if the stream isn't too small to be a proper file
+            if (mReader.BaseStreamLength < FlowScriptBinaryHeader.SIZE)
+            {
+                throw new InvalidDataException("Stream is too small to be valid");
+            }
+            else
+            {
+                header = mReader.ReadStruct<FlowScriptBinaryHeader>();
+                if (!header.Magic.SequenceEqual(FlowScriptBinaryHeader.MAGIC))
+                {
+                    throw new InvalidDataException("Header magic value does not match");
+                }
+            }
+        }
+
+        private void MaybeSwapHeaderEndianness(ref FlowScriptBinaryHeader header)
+        {
+            // Swap endianness if high bits of section count are used
+            if ((header.SectionCount & 0xFF000000) != 0)
+            {
+                header = EndiannessHelper.SwapEndianness(header);
+
+                if (mReader.Endianness == Endianness.LittleEndian)
+                {
+                    mReader.Endianness = Endianness.BigEndian;
+                    mVersion |= FlowScriptBinaryFormatVersion.BE;
+                }
+                else
+                {
+                    mReader.Endianness = Endianness.LittleEndian;
+                    mVersion ^= FlowScriptBinaryFormatVersion.BE;
+                }
+            }
+        }
+
+        private void EnsureSectionHeaderInitialValidState(ref FlowScriptBinarySectionHeader sectionHeader)
         {
             if (sectionHeader.FirstElementAddress == IOConstants.NullPointer)
             {
@@ -210,6 +246,28 @@ namespace AtlusScriptLib
             }
 
             mReader.SeekBegin(absoluteAddress);
+        }
+
+        private void MaybeSwapVersionEndiannessByLabelSectionHeader(ref FlowScriptBinarySectionHeader sectionHeader)
+        {
+            if (sectionHeader.ElementSize == FlowScriptBinaryLabel.SIZE_V1 && !mVersion.HasFlag(FlowScriptBinaryFormatVersion.V1))
+            {
+                mVersion = FlowScriptBinaryFormatVersion.V1;
+                if (mReader.Endianness == Endianness.BigEndian)
+                    mVersion |= FlowScriptBinaryFormatVersion.BE;
+            }
+            else if (sectionHeader.ElementSize == FlowScriptBinaryLabel.SIZE_V2 && !mVersion.HasFlag(FlowScriptBinaryFormatVersion.V2))
+            {
+                mVersion = FlowScriptBinaryFormatVersion.V2;
+                if (mReader.Endianness == Endianness.BigEndian)
+                    mVersion |= FlowScriptBinaryFormatVersion.BE;
+            }
+            else if (sectionHeader.ElementSize == FlowScriptBinaryLabel.SIZE_V3 && !mVersion.HasFlag(FlowScriptBinaryFormatVersion.V3))
+            {
+                mVersion = FlowScriptBinaryFormatVersion.V3;
+                if (mReader.Endianness == Endianness.BigEndian)
+                    mVersion |= FlowScriptBinaryFormatVersion.BE;
+            }
         }
     }
 }

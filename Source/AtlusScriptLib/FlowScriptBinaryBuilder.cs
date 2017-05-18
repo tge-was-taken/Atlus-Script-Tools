@@ -77,8 +77,13 @@ namespace AtlusScriptLib
             mStringSection = stringSection;
         }
 
-        public void AddString(string value)
+        public void AddString(string value, out int index)
         {
+            if (mStringSection == null)
+                mStringSection = new List<byte>();
+
+            index = mStringSection.Count;
+
             var bytes = Encoding.GetEncoding(932).GetBytes(value);
 
             for (int i = 0; i < bytes.Length; i++)
@@ -89,11 +94,12 @@ namespace AtlusScriptLib
 
         public FlowScriptBinary Build()
         {
-            var binary = new FlowScriptBinary();
-
-            // Build the headers 
-            binary.mHeader = BuildHeader();
-            binary.mSectionHeaders = BuildSectionHeaders();
+            var binary = new FlowScriptBinary()
+            {
+                mHeader = BuildHeader(),
+                mSectionHeaders = BuildSectionHeaders(),
+                mFormatVersion = mFormatVersion
+            };
 
             // Copy the section data to the binary
             if (mProcedureLabelSection != null)
@@ -110,9 +116,6 @@ namespace AtlusScriptLib
 
             if (mStringSection != null)
                 binary.mStringSection = mStringSection.ToArray();
-
-            // Set format
-            binary.mFormatVersion = mFormatVersion;
 
             return binary;
         }
@@ -142,77 +145,54 @@ namespace AtlusScriptLib
 
             int nextFirstElementAddress = FlowScriptBinaryHeader.SIZE + (sectionHeaders.Length * FlowScriptBinarySectionHeader.SIZE);
             int currentSectionHeaderIndex = 0;
+            FlowScriptBinarySectionHeader sectionHeader;
 
             if (mProcedureLabelSection != null)
             {
-                var sectionHeader = new FlowScriptBinarySectionHeader()
-                {
-                    SectionType = FlowScriptBinarySectionType.ProcedureLabelSection,
-                    ElementSize = CalculateLabelSize(),
-                    ElementCount = mProcedureLabelSection.Count,
-                    FirstElementAddress = nextFirstElementAddress
-                };
-
-                nextFirstElementAddress += (sectionHeader.ElementCount * sectionHeader.ElementSize);
+                sectionHeader = BuildSectionHeader(FlowScriptBinarySectionType.ProcedureLabelSection, CalculateLabelSize(), mProcedureLabelSection.Count, nextFirstElementAddress);
                 sectionHeaders[currentSectionHeaderIndex++] = sectionHeader;
+                nextFirstElementAddress += (sectionHeader.ElementCount * sectionHeader.ElementSize);
             }
 
             if (mJumpLabelSection != null)
             {
-                var sectionHeader = new FlowScriptBinarySectionHeader()
-                {
-                    SectionType = FlowScriptBinarySectionType.JumpLabelSection,
-                    ElementSize = CalculateLabelSize(),
-                    ElementCount = mJumpLabelSection.Count,
-                    FirstElementAddress = nextFirstElementAddress
-                };
-
-                nextFirstElementAddress += (sectionHeader.ElementCount * sectionHeader.ElementSize);
+                sectionHeader = BuildSectionHeader(FlowScriptBinarySectionType.JumpLabelSection, CalculateLabelSize(), mJumpLabelSection.Count, nextFirstElementAddress);              
                 sectionHeaders[currentSectionHeaderIndex++] = sectionHeader;
+                nextFirstElementAddress += (sectionHeader.ElementCount * sectionHeader.ElementSize);
             }
 
             if (mTextSection != null)
             {
-                var sectionHeader = new FlowScriptBinarySectionHeader()
-                {
-                    SectionType = FlowScriptBinarySectionType.TextSection,
-                    ElementSize = FlowScriptBinaryInstruction.SIZE,
-                    ElementCount = mTextSection.Count,
-                    FirstElementAddress = nextFirstElementAddress
-                };
-
-                nextFirstElementAddress += (sectionHeader.ElementCount * sectionHeader.ElementSize);
+                sectionHeader = BuildSectionHeader(FlowScriptBinarySectionType.TextSection, FlowScriptBinaryInstruction.SIZE, mTextSection.Count, nextFirstElementAddress);             
                 sectionHeaders[currentSectionHeaderIndex++] = sectionHeader;
+                nextFirstElementAddress += (sectionHeader.ElementCount * sectionHeader.ElementSize);
             }
 
             if (mMessageScriptSection != null)
             {
-                var sectionHeader = new FlowScriptBinarySectionHeader()
-                {
-                    SectionType = FlowScriptBinarySectionType.MessageScriptSection,
-                    ElementSize = sizeof(byte),
-                    ElementCount = mMessageScriptSection.Count,
-                    FirstElementAddress = nextFirstElementAddress
-                };
-
-                nextFirstElementAddress += (sectionHeader.ElementCount * sectionHeader.ElementSize);
+                sectionHeader = BuildSectionHeader(FlowScriptBinarySectionType.MessageScriptSection, sizeof(byte), mMessageScriptSection.Count, nextFirstElementAddress);
                 sectionHeaders[currentSectionHeaderIndex++] = sectionHeader;
+                nextFirstElementAddress += (sectionHeader.ElementCount * sectionHeader.ElementSize);
             }
 
             if (mStringSection != null)
             {
-                var sectionHeader = new FlowScriptBinarySectionHeader()
-                {
-                    SectionType = FlowScriptBinarySectionType.StringSection,
-                    ElementSize = sizeof(byte),
-                    ElementCount = mStringSection.Count,
-                    FirstElementAddress = nextFirstElementAddress
-                };
-
+                sectionHeader = BuildSectionHeader(FlowScriptBinarySectionType.StringSection, sizeof(byte), mStringSection.Count, nextFirstElementAddress);
                 sectionHeaders[currentSectionHeaderIndex] = sectionHeader;
             }
 
             return sectionHeaders;
+        }
+
+        private FlowScriptBinarySectionHeader BuildSectionHeader(FlowScriptBinarySectionType type, int size, int count, int address)
+        {
+            return new FlowScriptBinarySectionHeader()
+            {
+                SectionType = type,
+                ElementSize = size,
+                ElementCount = count,
+                FirstElementAddress = address
+            };
         }
 
         private int CalculateLabelSize()
