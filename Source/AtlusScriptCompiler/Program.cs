@@ -2,11 +2,11 @@
 using System.Diagnostics;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 using AtlusScriptLib.Common;
 using AtlusScriptLib.Disassemblers;
 using AtlusScriptLib;
-using System.Threading;
 using AtlusScriptLib.Decompilers;
 
 namespace AtlusScriptCompiler

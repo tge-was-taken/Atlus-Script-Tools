@@ -256,7 +256,7 @@ public:
 	/* 0x0144 */ uint32_t field144;
 	/* 0x0148 */ uint32_t field148;
 	/* 0x014C */ uint32_t field14c;
-	/* 0x0150 */ uint32_t field150;
+	/* 0x0150 */ uint32_t field150; // ScriptHeader_t*
 	/* 0x0154 */ uint32_t* mpLocalIntVariablePool;
 	/* 0x0158 */ float* mpLocalFloatVariablePool;
 	/* 0x015C */ uint32_t field15c;

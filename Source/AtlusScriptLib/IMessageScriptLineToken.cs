@@ -8,10 +8,4 @@ namespace AtlusScriptLib
     {
         MessageScriptTokenType Type { get; }
     }
-
-    public enum MessageScriptTokenType
-    {
-        Text,
-        Function,
-    }
 }
