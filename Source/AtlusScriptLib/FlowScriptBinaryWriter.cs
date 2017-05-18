@@ -10,8 +10,6 @@ namespace AtlusScriptLib
         private EndianBinaryWriter mWriter;
         private FlowScriptBinaryFormatVersion mVersion;
         private bool mDisposed;
-        private FlowScriptBinary mBinary;
-        private FlowScriptBinaryHeader mHeader;
         
 
         public FlowScriptBinaryWriter(Stream stream, FlowScriptBinaryFormatVersion version)

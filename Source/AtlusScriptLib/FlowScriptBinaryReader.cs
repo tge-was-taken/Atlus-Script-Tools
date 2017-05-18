@@ -165,11 +165,11 @@ namespace AtlusScriptLib
                 }
 
                 // Fill in struct
-                FlowScriptBinaryInstruction instruction;
+                FlowScriptBinaryInstruction instruction = new FlowScriptBinaryInstruction();
                 instruction.Opcode = (FlowScriptOpcode)opcode;
                 instruction.OperandShort = operandShort;
-                instruction.OperandInt = operandInt;
-                instruction.OperandFloat = operandFloat;
+                //instruction.OperandInt = operandInt;
+                //instruction.OperandFloat = operandFloat;
 
                 instructions[i] = instruction;
             }

@@ -1,12 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace AtlusScriptLib
 {
     public sealed class FlowScript
     {
-        private short mUserId, mLocalIntVariableCount, mLocalFloatVariableCount;
+        private short mUserId;
         private List<FlowScriptLabel> mProcedureLabels, mJumpLabels;
         private List<FlowScriptInstruction> mInstructions;
         private byte[] mMessageScript;
@@ -17,16 +19,6 @@ namespace AtlusScriptLib
         {
             get { return mUserId; }
             set { mUserId = value; }
-        }
-
-        public short LocalIntVariableCount
-        {
-            get { return mLocalIntVariableCount; }
-        }
-
-        public short LocalFloatVariableCount
-        {
-            get { return mLocalFloatVariableCount; }
         }
 
         public List<FlowScriptLabel> ProcedureLabels
@@ -63,8 +55,6 @@ namespace AtlusScriptLib
         private FlowScript()
         {
             mUserId = 0;
-            mLocalIntVariableCount = 0;
-            mLocalFloatVariableCount = 0;
             mProcedureLabels = new List<FlowScriptLabel>();
             mJumpLabels = new List<FlowScriptLabel>();
             mInstructions = new List<FlowScriptInstruction>();
@@ -102,11 +92,9 @@ namespace AtlusScriptLib
             FlowScript instance = new FlowScript();
 
             // assign header values
-            instance.mUserId                  = binary.Header.UserId;
-            instance.mLocalIntVariableCount   = binary.Header.LocalIntVariableCount;
-            instance.mLocalFloatVariableCount = binary.Header.LocalFloatVariableCount;
+            instance.mUserId = binary.Header.UserId;
 
-            // assign labels later as we convert the instructions because we need to update the instruction indices
+            // assign labels later after convert the instructions because we need to update the instruction indices
             // to reference the instructions in the list, and not the instructions in the array of instructions in the binary
 
             // assign strings before instructions so we can assign proper string indices as we convert the instructions
@@ -136,6 +124,8 @@ namespace AtlusScriptLib
                 }
             }
 
+            var instructionBinaryIndexToListIndexMap = new Dictionary<int, int>();
+
             // assign instructions
             if (binary.TextSection != null)
             {
@@ -144,18 +134,7 @@ namespace AtlusScriptLib
 
                 while( instructionBinaryIndex < binary.TextSection.Count )
                 {
-                    // Check if there are any procedure labels that map to the current binary index, and reassign its instruction index
-                    // With the value of the current instruction index into the list we're creating
-                    foreach (var label in binary.ProcedureLabelSection.Where(x => x.InstructionIndex == instructionBinaryIndex))
-                    {
-                        instance.mProcedureLabels.Add(new FlowScriptLabel(label.Name, instructionIndex));
-                    }
-
-                    // Same goes for the jump labels
-                    foreach (var label in binary.JumpLabelSection.Where(x => x.InstructionIndex == instructionBinaryIndex))
-                    {
-                        instance.mJumpLabels.Add(new FlowScriptLabel(label.Name, instructionIndex));
-                    }
+                    instructionBinaryIndexToListIndexMap[instructionBinaryIndex] = instructionIndex;
 
                     // Convert each instruction
                     var binaryInstruction = binary.TextSection[instructionBinaryIndex];
@@ -185,6 +164,17 @@ namespace AtlusScriptLib
                 }
             }
 
+            // assign labels as the instruction index remap table has been built
+            foreach (var label in binary.ProcedureLabelSection)
+            {
+                instance.mProcedureLabels.Add(new FlowScriptLabel(label.Name, instructionBinaryIndexToListIndexMap[label.InstructionIndex]));
+            }
+
+            foreach (var label in binary.JumpLabelSection)
+            {
+                instance.mJumpLabels.Add(new FlowScriptLabel(label.Name, instructionBinaryIndexToListIndexMap[label.InstructionIndex]));
+            }
+
             // assign message script
             if (binary.MessageScriptSection != null)
             {
@@ -197,6 +187,106 @@ namespace AtlusScriptLib
 
             // everything is assigned, return the constructed instance
             return instance;
+        }
+
+        public static FlowScriptBinary ToBinary(FlowScript script)
+        {
+            var builder = new FlowScriptBinaryBuilder(script.mFormatVersion);
+            builder.SetUserId(script.mUserId);
+
+            // Skip the labels until after the instructions have been converted, as we need to fix up
+            // the instruction indices
+
+            // Convert string table before the instructions so we can fix up string instructions later
+            // by building an index remap table
+            var stringIndexToBinaryStringIndexMap = new Dictionary<short, short>();
+
+            if (script.mStrings.Count > 0)
+            {
+                var binaryStrings = new List<byte>();
+
+                for (short stringIndex = 0; stringIndex < script.mStrings.Count; stringIndex++)
+                {
+                    stringIndexToBinaryStringIndexMap[stringIndex] = (short)binaryStrings.Count;
+                    binaryStrings.AddRange(Encoding.GetEncoding(932).GetBytes(script.mStrings[stringIndex]));
+                    binaryStrings.Add(0);
+                }
+
+                builder.SetStringSection(binaryStrings);
+            }
+
+            // Convert instructions, build an instruction index remap table & remap string indices where necessary
+            int instructionListIndex = 0;
+            int instructionBinaryIndex = 0;
+            var instructionListIndexToBinaryIndexMap = new Dictionary<int, int>();
+
+            for (; instructionListIndex < script.mInstructions.Count; instructionListIndex++)
+            {
+                instructionListIndexToBinaryIndexMap[instructionListIndex] = instructionBinaryIndex;
+
+                var instruction = script.mInstructions[instructionListIndex];
+
+                if (!instruction.UsesTwoBinaryInstructions)
+                {
+                    var binaryInstruction = new FlowScriptBinaryInstruction();
+                    binaryInstruction.Opcode = instruction.Opcode;
+
+                    // Handle PUSHSTR seperately due to difference in string index usage
+                    if (instruction.Opcode == FlowScriptOpcode.PUSHSTR)
+                    {
+                        binaryInstruction.OperandShort = stringIndexToBinaryStringIndexMap[instruction.Operand.GetInt16Value()];
+                    }
+                    else
+                    {
+                        // Handle regular instruction
+                        if (instruction.Operand != null)
+                            binaryInstruction.OperandShort = instruction.Operand.GetInt16Value();
+                    }
+
+                    builder.AddInstruction(binaryInstruction);
+                    instructionBinaryIndex += 1;
+                }
+                else
+                {
+                    // Handle instruction that uses the next instruction as its operand
+                    var binaryInstruction = new FlowScriptBinaryInstruction() { Opcode = instruction.Opcode };
+                    var binaryInstruction2 = new FlowScriptBinaryInstruction();
+
+                    if (instruction.Operand.Type == FlowScriptInstruction.OperandValue.ValueType.Int32)
+                    {
+                        binaryInstruction2.OperandInt = instruction.Operand.GetInt32Value();
+                    }
+                    else if (instruction.Operand.Type == FlowScriptInstruction.OperandValue.ValueType.Single)
+                    {
+                        binaryInstruction2.OperandFloat = instruction.Operand.GetSingleValue();
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException();
+                    }
+
+                    builder.AddInstruction(binaryInstruction);
+                    builder.AddInstruction(binaryInstruction2);
+                    instructionBinaryIndex += 2;
+                }                
+            }
+
+            // Convert labels after the instructions to remap the instruction indices
+            foreach (var label in script.mProcedureLabels)
+            {
+                builder.AddProcedureLabel(new FlowScriptBinaryLabel() { InstructionIndex = instructionListIndexToBinaryIndexMap[label.InstructionIndex], Name = label.Name, Reserved = 0 });
+            }
+
+            foreach (var label in script.mJumpLabels)
+            {
+                builder.AddJumpLabel(new FlowScriptBinaryLabel() { InstructionIndex = instructionListIndexToBinaryIndexMap[label.InstructionIndex], Name = label.Name, Reserved = 0 });
+            }
+
+            // Convert message script
+            if (script.mMessageScript != null)
+                builder.SetMessageScriptSection(script.mMessageScript);
+
+            return builder.Build();
         }
     }
 }
