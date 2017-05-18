@@ -67,8 +67,10 @@
     <Compile Include="FunctionTables\P5FunctionTable.cs" />
     <Compile Include="Decompilers\FlowScriptBinaryDecompiler.cs" />
     <Compile Include="FlowScript.cs" />
+    <Compile Include="MessageScript.cs" />
     <Compile Include="MessageScriptBinaryReader.cs" />
     <Compile Include="MessageScriptBinaryWriter.cs" />
+    <Compile Include="MessageScriptMessage.cs" />
     <Compile Include="Parsers\FlowScriptBinarySyntaxParser.cs" />
     <Compile Include="Disassemblers\FlowScriptBinaryDisassembler.cs" />
     <Compile Include="FlowScriptBinaryEnums.cs" />
@@ -78,7 +80,7 @@
     <Compile Include="Disassemblers\TextWriterDisassemblerTextOutput.cs" />
     <Compile Include="MessageScriptBinary.cs" />
     <Compile Include="MessageScriptBinaryEnums.cs" />
-    <Compile Include="MessageScriptStructs.cs" />
+    <Compile Include="MessageScriptBinaryStructs.cs" />
     <Compile Include="Common\Collections\IListExtensions.cs" />
     <Compile Include="Common\IO\EndianBinaryReader.cs" />
     <Compile Include="Common\IO\EndianBinaryWriter.cs" />
