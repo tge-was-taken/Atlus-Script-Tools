@@ -48,32 +48,68 @@ namespace AtlusScriptLib
 
         public ReadOnlyCollection<FlowScriptBinarySectionHeader> SectionHeaders
         {
-            get { return new ReadOnlyCollection<FlowScriptBinarySectionHeader>(mSectionHeaders); }
+            get
+            {
+                if (mSectionHeaders == null)
+                    return null;
+                else
+                    return new ReadOnlyCollection<FlowScriptBinarySectionHeader>(mSectionHeaders);
+            }
         }
 
         public ReadOnlyCollection<FlowScriptBinaryLabel> ProcedureLabelSection
         {
-            get { return new ReadOnlyCollection<FlowScriptBinaryLabel>(mProcedureLabelSection); }
+            get
+            {
+                if (mProcedureLabelSection == null)
+                    return null;
+                else
+                    return new ReadOnlyCollection<FlowScriptBinaryLabel>(mProcedureLabelSection);
+            }
         }
 
         public ReadOnlyCollection<FlowScriptBinaryLabel> JumpLabelSection
         {
-            get { return new ReadOnlyCollection<FlowScriptBinaryLabel>(mJumpLabelSection); }
+            get
+            {
+                if (mJumpLabelSection == null)
+                    return null;
+                else
+                    return new ReadOnlyCollection<FlowScriptBinaryLabel>(mJumpLabelSection);
+            }
         }
 
         public ReadOnlyCollection<FlowScriptBinaryInstruction> TextSection
         {
-            get { return new ReadOnlyCollection<FlowScriptBinaryInstruction>(mTextSection); }
+            get
+            {
+                if (mTextSection == null)
+                    return null;
+                else
+                    return new ReadOnlyCollection<FlowScriptBinaryInstruction>(mTextSection);
+            }
         }
 
         public ReadOnlyCollection<byte> MessageScriptSection
         {
-            get { return new ReadOnlyCollection<byte>(mMessageScriptSection); }
+            get
+            {
+                if (mMessageScriptSection == null)
+                    return null;
+                else
+                    return new ReadOnlyCollection<byte>(mMessageScriptSection);
+            }
         }
 
         public ReadOnlyCollection<byte> StringSection
         {
-            get { return new ReadOnlyCollection<byte>(mStringSection); }
+            get
+            {
+                if (mStringSection == null)
+                    return null;
+                else
+                    return new ReadOnlyCollection<byte>(mStringSection);
+            }
         }
 
         public FlowScriptBinaryFormatVersion FormatVersion
