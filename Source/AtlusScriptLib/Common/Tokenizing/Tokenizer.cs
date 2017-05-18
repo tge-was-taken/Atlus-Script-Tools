@@ -21,6 +21,7 @@ namespace AtlusScriptLib.Common.Tokenizing
 
     public class Tokenizer : IDisposable, IEnumerable<Token>
     {
+        private bool mDisposed;
         private StreamReader mReader;
         private StringBuilder mBuilder;
         private char? mPrevChar;
@@ -134,7 +135,7 @@ namespace AtlusScriptLib.Common.Tokenizing
 
         public void Dispose()
         {
-            ((IDisposable)mReader).Dispose();
+            Dispose(true);
         }
 
         public bool TryGetToken(out Token token)
@@ -247,6 +248,16 @@ namespace AtlusScriptLib.Common.Tokenizing
             return new TokenEnumerator(this);
         }
 
+        protected virtual void Dispose(bool disposing)
+        {
+            if (mDisposed)
+                return;
+
+            mReader.Dispose();
+
+            mDisposed = true;
+        }
+
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
@@ -255,6 +266,7 @@ namespace AtlusScriptLib.Common.Tokenizing
 
     public class TokenEnumerator : IEnumerator<Token>
     {
+        private bool mDisposed;
         private Tokenizer mTokenizer;
 
         public Token Current { get; private set; }
@@ -268,7 +280,7 @@ namespace AtlusScriptLib.Common.Tokenizing
 
         public void Dispose()
         {
-            mTokenizer.Dispose();
+            Dispose(true);
         }
 
         public bool MoveNext()
@@ -281,6 +293,15 @@ namespace AtlusScriptLib.Common.Tokenizing
         public void Reset()
         {
             throw new InvalidOperationException();
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (mDisposed)
+                return;
+
+            mTokenizer.Dispose();
+            mDisposed = true;
         }
     }
 }

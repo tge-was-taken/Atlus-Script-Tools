@@ -4,12 +4,14 @@ using System.Text;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using AtlusScriptLib.Disassemblers;
+using System;
 
 namespace AtlusScriptLib.Disassembler.Tests
 {
     [TestClass()]
-    public class FlowScriptBinaryDisassemblerTests
+    public class FlowScriptBinaryDisassemblerTests : IDisposable
     {
+        private bool mDisposed;
         public FlowScriptBinaryDisassembler Disassembler;
         public FlowScriptBinary Script;
         public string DisassemblyText;
@@ -131,6 +133,20 @@ namespace AtlusScriptLib.Disassembler.Tests
             DisassemblyText = FlowScriptBinaryDisassembler.DisassembleInstructionWithCommReferenceOperand(new FlowScriptBinaryInstruction() { Opcode = Opcode, OperandShort = 0 });
             ExpectedDisassemblyText = "COMM 0";
             Assert.AreEqual(ExpectedDisassemblyText, DisassemblyText, $"Opcode {Opcode} should dissassemble to \"{ExpectedDisassemblyText}\", got {DisassemblyText}");
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (mDisposed)
+                return;
+
+            Disassembler.Dispose();
+            mDisposed = true;
+        }
+
+        public void Dispose()
+        { 
+            Dispose(true);
         }
     }
 }

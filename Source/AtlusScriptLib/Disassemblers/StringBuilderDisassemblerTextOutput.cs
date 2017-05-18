@@ -4,6 +4,8 @@ namespace AtlusScriptLib.Disassemblers
 {
     public class StringBuilderDisassemblerTextOutput : IDisassemblerTextOutput
     {
+        private bool mDisposed;
+
         public StringBuilder StringBuilder { get; }
 
         public StringBuilderDisassemblerTextOutput(StringBuilder stringBuilder)
@@ -33,6 +35,15 @@ namespace AtlusScriptLib.Disassemblers
 
         public void Dispose()
         {
+            Dispose(true);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (mDisposed)
+                return;
+
+            mDisposed = true;
         }
     }
 

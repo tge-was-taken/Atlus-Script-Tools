@@ -4,6 +4,8 @@ namespace AtlusScriptLib.Disassemblers
 {
     public class TextWriterDisassemblerTextOutput : IDisassemblerTextOutput
     {
+        private bool mDisposed;
+
         public TextWriter TextWriter { get; }
 
         public TextWriterDisassemblerTextOutput(TextWriter textWriter)
@@ -33,7 +35,16 @@ namespace AtlusScriptLib.Disassemblers
 
         public void Dispose()
         {
+            Dispose(true);   
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (mDisposed)
+                return;
+
             TextWriter.Dispose();
+            mDisposed = true;
         }
     }
 }

@@ -5,11 +5,13 @@ using System.IO;
 
 using AtlusScriptLib.Common.Syntax;
 using AtlusScriptLib.Common.Tokenizing;
+using System;
 
 namespace AtlusScriptLib.FunctionTables
 {
-    public class FunctionTableParser
+    public class FunctionTableParser : IDisposable
     {
+        private bool mDisposed = false;
         private Tokenizer mTokenizer;
 
         public FunctionTableParser(string path)
@@ -95,6 +97,20 @@ namespace AtlusScriptLib.FunctionTables
             }
 
             return dictionary;
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (mDisposed)
+                return;
+
+            mTokenizer.Dispose();
+            mDisposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
         }
     }
 }

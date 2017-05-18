@@ -21,9 +21,11 @@ namespace AtlusScriptLib
 
         public FlowScriptBinary ReadBinary()
         {
-            FlowScriptBinary instance = new FlowScriptBinary();
+            FlowScriptBinary instance = new FlowScriptBinary()
+            {
+                mHeader = ReadHeader()
+            };
 
-            instance.mHeader = ReadHeader();
             instance.mSectionHeaders = ReadSectionHeaders(ref instance.mHeader);
 
             for (int i = 0; i < instance.mSectionHeaders.Length; i++)
