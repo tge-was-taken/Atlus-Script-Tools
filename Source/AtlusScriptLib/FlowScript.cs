@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using MoreLinq;
-using System.Text;
 
 namespace AtlusScriptLib
 {

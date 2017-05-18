@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace AtlusScriptLib.FunctionTables
+﻿namespace AtlusScriptLib.FunctionTables
 {
     public class P5FunctionTable : FunctionTable
     {
