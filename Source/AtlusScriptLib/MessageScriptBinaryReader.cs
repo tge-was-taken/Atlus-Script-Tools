@@ -64,18 +64,22 @@ namespace AtlusScriptLib
                     if (mVersion.HasFlag(MessageScriptBinaryFormatVersion.BE))
                     {
                         SwapHeader(ref header);
-                        mVersion = MessageScriptBinaryFormatVersion.V1;
                         mReader.Endianness = Endianness.LittleEndian;
                     }
+
+                    mVersion = MessageScriptBinaryFormatVersion.V1;
                 }
                 else if (header.Magic.SequenceEqual(MessageScriptBinaryHeader.MAGIC_V1_BE))
                 {
+                   
+
                     if (!mVersion.HasFlag(MessageScriptBinaryFormatVersion.BE))
                     {
-                        SwapHeader(ref header);
-                        mVersion = MessageScriptBinaryFormatVersion.V1_BE;
+                        SwapHeader(ref header);                      
                         mReader.Endianness = Endianness.BigEndian;
                     }
+
+                    mVersion = MessageScriptBinaryFormatVersion.V1_BE;
                 }
                 else
                 {
