@@ -80,26 +80,20 @@ namespace AtlusScriptLib
     }
 
     // union
-    [StructLayout(LayoutKind.Explicit)]
+    [StructLayout(LayoutKind.Sequential)]
     public struct FlowScriptBinaryInstruction
     {
         public const int SIZE = 4;
 
     // union 
     // {
-        [FieldOffset(0)]
         public FlowScriptOpcode Opcode;
-
-        [FieldOffset(2)]
         public short OperandShort;
     // }
 
     // union 
     // {
-        [FieldOffset(0)]
         public int OperandInt;
-
-        [FieldOffset(0)]
         public float OperandFloat;
     // }
     }

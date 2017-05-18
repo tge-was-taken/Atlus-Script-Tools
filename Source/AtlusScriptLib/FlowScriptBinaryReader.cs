@@ -7,6 +7,7 @@ namespace AtlusScriptLib
 {
     public class FlowScriptBinaryReader : IDisposable
     {
+        private bool mDisposed;
         private long mPositionBase;
         private EndianBinaryReader mReader;     
         private FlowScriptBinaryFormatVersion mVersion;
@@ -129,54 +130,29 @@ namespace AtlusScriptLib
                 throw new InvalidDataException($"{FlowScriptBinarySectionType.TextSection} unit size must be 4");
             }
 
-            // HACK: the instructions are stored in an union consisting of 2 shorts, an int and a float
-            // due to endianness swapping, this union isn't portable in the sense that it retains the field order as the 2 shorts would be swapped around
-            // so we read instructions in system native endianness, and fix them up later
-
-            Endianness sourceEndianness = mReader.Endianness;
-            bool needsSwap = mReader.EndiannessNeedsSwapping;
-
-            if (needsSwap)
-                mReader.Endianness = EndiannessHelper.SystemEndianness;
-
             var instructions = new FlowScriptBinaryInstruction[sectionHeader.ElementCount];
             for (int i = 0; i < instructions.Length; i++)
             {
-                uint instructionValue = mReader.ReadUInt32();
-
-                // Opcode
-                short opcode = (short)Bitwise.Extract(instructionValue, 0, 15);
-
-                // Short operand
-                short operandShort = (short)Bitwise.Extract(instructionValue, 16, 31);
-
-                // Int operand
-                int operandInt = (int)instructionValue;
-
-                // Float operand
-                float operandFloat = Unsafe.ReinterpretCast<uint, float>(instructionValue);
-
-                if (needsSwap)
-                {
-                    opcode = EndiannessHelper.SwapEndianness(opcode); 
-                    operandShort = EndiannessHelper.SwapEndianness(operandShort);
-                    operandInt = EndiannessHelper.SwapEndianness(operandInt);
-                    operandFloat = EndiannessHelper.SwapEndianness(operandFloat);
-                }
-
-                // Fill in struct
                 FlowScriptBinaryInstruction instruction = new FlowScriptBinaryInstruction();
-                instruction.Opcode = (FlowScriptOpcode)opcode;
-                instruction.OperandShort = operandShort;
-                //instruction.OperandInt = operandInt;
-                //instruction.OperandFloat = operandFloat;
+
+                if (i != 0 && instructions[i - 1].Opcode == FlowScriptOpcode.PUSHI)
+                {
+                    instruction.Opcode = unchecked ((FlowScriptOpcode)(-1));
+                    instruction.OperandInt = mReader.ReadInt32();
+                }
+                else if (i != 0 && instructions[i - 1].Opcode == FlowScriptOpcode.PUSHF)
+                {
+                    instruction.Opcode = unchecked((FlowScriptOpcode)(-1));
+                    instruction.OperandFloat = mReader.ReadSingle();
+                }
+                else
+                {
+                    instruction.Opcode = (FlowScriptOpcode)mReader.ReadInt16();
+                    instruction.OperandShort = mReader.ReadInt16();
+                }
 
                 instructions[i] = instruction;
             }
-
-            // HACK: set endianness back to what it was before we swapped it to fix the issue mentioning above
-            if (needsSwap)
-                mReader.Endianness = sourceEndianness;
 
             return instructions;
         }
@@ -212,7 +188,11 @@ namespace AtlusScriptLib
 
         public void Dispose()
         {
+            if (mDisposed)
+                return;
+
             ((IDisposable)mReader).Dispose();
+            mDisposed = true;
         }
 
         private void PerformBeforeSectionReadActions(ref FlowScriptBinarySectionHeader sectionHeader)

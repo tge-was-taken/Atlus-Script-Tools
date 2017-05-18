@@ -10,7 +10,7 @@ namespace AtlusScriptLib
         private EndianBinaryWriter mWriter;
         private FlowScriptBinaryFormatVersion mVersion;
         private bool mDisposed;
-        
+
 
         public FlowScriptBinaryWriter(Stream stream, FlowScriptBinaryFormatVersion version)
         {
@@ -38,7 +38,21 @@ namespace AtlusScriptLib
         public void WriteTextSection(ref FlowScriptBinarySectionHeader sectionHeader, FlowScriptBinaryInstruction[] instructions)
         {
             mWriter.SeekBegin(mPositionBase + sectionHeader.FirstElementAddress);
-            mWriter.Write(instructions);
+
+            for (int i = 0; i < instructions.Length; i++)
+            {
+                ref var instruction = ref instructions[i];
+
+                if ( i != 0 && (instructions[i - 1].Opcode == FlowScriptOpcode.PUSHI || instructions[i - 1].Opcode == FlowScriptOpcode.PUSHF))
+                {
+                    mWriter.Write(instruction.OperandInt);
+                }
+                else
+                {
+                    mWriter.Write((short)instruction.Opcode);
+                    mWriter.Write(instruction.OperandShort);
+                }
+            }
         }
 
         public void WriteMessageScriptSection(ref FlowScriptBinarySectionHeader sectionHeader, byte[] messageScript)

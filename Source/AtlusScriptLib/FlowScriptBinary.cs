@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.IO;
 
 namespace AtlusScriptLib
@@ -121,6 +122,57 @@ namespace AtlusScriptLib
             }
 
             return instance;
+        }
+
+        public static void ToFile(FlowScriptBinary binary, string path)
+        {
+            ToStream(binary, File.Create(path));
+        }
+
+        public static Stream ToStream(FlowScriptBinary binary)
+        {
+            var stream = new MemoryStream();
+            ToStream(binary, stream);
+            return stream;
+        }
+
+        public static void ToStream(FlowScriptBinary binary, Stream stream)
+        {
+            using (var writer = new FlowScriptBinaryWriter(stream, binary.mFormatVersion))
+            {
+                writer.WriteHeader(ref binary.mHeader);
+                writer.WriteSectionHeaders(binary.mSectionHeaders);
+                for (int i = 0; i < binary.mSectionHeaders.Length; i++)
+                {
+                    ref var sectionHeader = ref binary.mSectionHeaders[i];
+
+                    switch (sectionHeader.SectionType)
+                    {
+                        case FlowScriptBinarySectionType.ProcedureLabelSection:
+                            writer.WriteLabelSection(ref sectionHeader, binary.mProcedureLabelSection);
+                            break;
+
+                        case FlowScriptBinarySectionType.JumpLabelSection:
+                            writer.WriteLabelSection(ref sectionHeader, binary.mJumpLabelSection);
+                            break;
+
+                        case FlowScriptBinarySectionType.TextSection:
+                            writer.WriteTextSection(ref sectionHeader, binary.mTextSection);
+                            break;
+
+                        case FlowScriptBinarySectionType.MessageScriptSection:
+                            writer.WriteMessageScriptSection(ref sectionHeader, binary.mMessageScriptSection);
+                            break;
+
+                        case FlowScriptBinarySectionType.StringSection:
+                            writer.WriteStringSection(ref sectionHeader, binary.mStringSection);
+                            break;
+
+                        default:
+                            throw new Exception("Unknown section type");
+                    }
+                }
+            }
         }
     }
 }
