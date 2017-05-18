@@ -51,8 +51,8 @@ namespace AtlusScriptLib
 
                 for (short i = 0; i < binary.StringSection.Count; i++)
                 {
-                    // check for string terminator
-                    if (binary.StringSection[i] == 0)
+                    // check for string terminator or end of string section
+                    if (binary.StringSection[i] == 0 || i + 1 == binary.StringSection.Count)
                     {
                         instance.mStrings.Add(curString);
                         stringBinaryIndexToListIndexMap[curStringBinaryIndex] = (short)(instance.mStrings.Count - 1);
