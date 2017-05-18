@@ -124,7 +124,7 @@ namespace AtlusScriptLib
         {
             PerformBeforeSectionReadActions(ref sectionHeader);
 
-            if (sectionHeader.ElementSize != 4)
+            if (sectionHeader.ElementSize != FlowScriptBinaryInstruction.SIZE)
             {
                 throw new InvalidDataException($"{FlowScriptBinarySectionType.TextSection} unit size must be 4");
             }
@@ -142,19 +142,19 @@ namespace AtlusScriptLib
             var instructions = new FlowScriptBinaryInstruction[sectionHeader.ElementCount];
             for (int i = 0; i < instructions.Length; i++)
             {
-                uint instruction = mReader.ReadUInt32();
+                uint instructionValue = mReader.ReadUInt32();
 
                 // Opcode
-                short opcode = (short)Bitwise.Extract(instruction, 0, 15);
+                short opcode = (short)Bitwise.Extract(instructionValue, 0, 15);
 
                 // Short operand
-                short operandShort = (short)Bitwise.Extract(instruction, 16, 31);
+                short operandShort = (short)Bitwise.Extract(instructionValue, 16, 31);
 
                 // Int operand
-                int operandInt = (int)instruction;
+                int operandInt = (int)instructionValue;
 
                 // Float operand
-                float operandFloat = Unsafe.ReinterpretCast<uint, float>(instruction);
+                float operandFloat = Unsafe.ReinterpretCast<uint, float>(instructionValue);
 
                 if (needsSwap)
                 {
@@ -164,7 +164,14 @@ namespace AtlusScriptLib
                     operandFloat = EndiannessHelper.SwapEndianness(operandFloat);
                 }
 
-                instructions[i] = new FlowScriptBinaryInstruction() { Opcode = (FlowScriptOpcode)opcode, OperandShort = operandShort, OperandInt = operandInt, OperandFloat = operandFloat };
+                // Fill in struct
+                FlowScriptBinaryInstruction instruction;
+                instruction.Opcode = (FlowScriptOpcode)opcode;
+                instruction.OperandShort = operandShort;
+                instruction.OperandInt = operandInt;
+                instruction.OperandFloat = operandFloat;
+
+                instructions[i] = instruction;
             }
 
             // HACK: set endianness back to what it was before we swapped it to fix the issue mentioning above
@@ -210,16 +217,19 @@ namespace AtlusScriptLib
 
         private void PerformBeforeSectionReadActions(ref FlowScriptBinarySectionHeader sectionHeader)
         {
-            if (!(sectionHeader.FirstElementOffset + (sectionHeader.ElementSize * sectionHeader.ElementCount) <= mReader.BaseStreamLength))
-            {
-                throw new InvalidDataException("Stream is too small for the amount of data described. File is likely truncated");
-            }
-            else if (sectionHeader.FirstElementOffset == IOConstants.NullPointer)
+            if (sectionHeader.FirstElementAddress == IOConstants.NullPointer)
             {
                 throw new InvalidOperationException("Section start offset is a null pointer");
             }
 
-            mReader.SeekBegin(mPositionBase + sectionHeader.FirstElementOffset);
+            long absoluteAddress = mPositionBase + sectionHeader.FirstElementAddress;
+
+            if (!(absoluteAddress + (sectionHeader.ElementSize * sectionHeader.ElementCount) <= mReader.BaseStreamLength))
+            {
+                throw new InvalidDataException("Stream is too small for the amount of data described. File is likely truncated");
+            }
+
+            mReader.SeekBegin(absoluteAddress);
         }
     }
 }

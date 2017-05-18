@@ -26,7 +26,7 @@ namespace AtlusScriptLib.Disassemblers
         {
             get
             {
-                if (mScript == null || mScript.TextSection == null || mScript.TextSection.Length == 0)
+                if (mScript == null || mScript.TextSection == null || mScript.TextSection.Count == 0)
                     throw new InvalidDataException("Invalid state");
 
                 return mScript.TextSection[mInstructionIndex];
@@ -37,10 +37,10 @@ namespace AtlusScriptLib.Disassemblers
         {
             get
             {
-                if (mScript == null || mScript.TextSection == null || mScript.TextSection.Length == 0)
+                if (mScript == null || mScript.TextSection == null || mScript.TextSection.Count == 0)
                     return null;
 
-                if ((mInstructionIndex + 1) < (mScript.TextSection.Length - 1))
+                if ((mInstructionIndex + 1) < (mScript.TextSection.Count - 1))
                     return mScript.TextSection[mInstructionIndex + 1];
                 else
                     return null;
@@ -93,7 +93,7 @@ namespace AtlusScriptLib.Disassemblers
         {
             mOutput.PutLine(".text");
 
-            while (mInstructionIndex < mScript.TextSection.Length)
+            while (mInstructionIndex < mScript.TextSection.Count)
             {
                 // Check if there is a possible jump label at the current index
                 foreach (var jump in mScript.JumpLabelSection.Where(x => x.InstructionIndex == mInstructionIndex))
@@ -212,7 +212,7 @@ namespace AtlusScriptLib.Disassemblers
         private void PutMessageScriptDisassembly()
         {
             mOutput.PutLine(".msgdata raw");
-            for (int i = 0; i < mScript.MessageScriptSection.Length; i++)
+            for (int i = 0; i < mScript.MessageScriptSection.Count; i++)
             {
                 mOutput.Put(mScript.MessageScriptSection[i].ToString("X2"));
             }
@@ -243,10 +243,10 @@ namespace AtlusScriptLib.Disassemblers
             return $"{instruction.Opcode} {instruction.OperandShort}";
         }
 
-        public static string DisassembleInstructionWithStringReferenceOperand(FlowScriptBinaryInstruction instruction, byte[] stringTable)
+        public static string DisassembleInstructionWithStringReferenceOperand(FlowScriptBinaryInstruction instruction, IList<byte> stringTable)
         {
             string value = string.Empty;
-            for (int i = instruction.OperandShort; i < stringTable.Length; i++)
+            for (int i = instruction.OperandShort; i < stringTable.Count; i++)
             {
                 if (stringTable[i] == 0)
                     break;

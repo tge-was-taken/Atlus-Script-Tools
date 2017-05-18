@@ -55,7 +55,7 @@ namespace AtlusScriptLib.Parsers
         private int CalculateProcedureLength()
         {
             int endIndex = mInstructionIndex;
-            while (++endIndex < mScript.TextSection.Length)
+            while (++endIndex < mScript.TextSection.Count)
             {
                 // Start of new procedure
                 if (mScript.TextSection[endIndex].Opcode == FlowScriptOpcode.PROC)
@@ -327,7 +327,7 @@ namespace AtlusScriptLib.Parsers
                     case FlowScriptOpcode.PUSHSTR:
                         {
                             string value = string.Empty;
-                            for (int i = instruction.OperandShort; i < mScript.StringSection.Length; i++)
+                            for (int i = instruction.OperandShort; i < mScript.StringSection.Count; i++)
                             {
                                 if (mScript.StringSection[i] == 0)
                                     break;
@@ -356,7 +356,7 @@ namespace AtlusScriptLib.Parsers
 
             var tree = new SyntaxTree();
 
-            for (; mInstructionIndex < script.TextSection.Length; mInstructionIndex++)
+            for (; mInstructionIndex < script.TextSection.Count; mInstructionIndex++)
             {
                 var instruction = script.TextSection[mInstructionIndex];
 

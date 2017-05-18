@@ -100,6 +100,11 @@ namespace AtlusScriptLib.Common.IO
             return mPosStack.Pop();
         }
 
+        public void SeekPopPosition()
+        {
+            SeekBegin(PopPosition());
+        }
+
         public override void Write(short value)
         {
             if (mSwap)

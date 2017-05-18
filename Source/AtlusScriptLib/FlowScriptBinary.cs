@@ -1,7 +1,10 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.IO;
 
 namespace AtlusScriptLib
 {
+    // Todo: ensure immutability
     public sealed class FlowScriptBinary
     {
         private FlowScriptBinaryHeader mHeader;
@@ -18,34 +21,34 @@ namespace AtlusScriptLib
             get { return mHeader; }
         }
 
-        public FlowScriptBinarySectionHeader[] SectionHeaders
+        public ReadOnlyCollection<FlowScriptBinarySectionHeader> SectionHeaders
         {
-            get { return mSectionHeaders; }
+            get { return new ReadOnlyCollection<FlowScriptBinarySectionHeader>(mSectionHeaders); }
         }
 
-        public FlowScriptBinaryLabel[] ProcedureLabelSection
+        public ReadOnlyCollection<FlowScriptBinaryLabel> ProcedureLabelSection
         {
-            get { return mProcedureLabelSection; }
+            get { return new ReadOnlyCollection<FlowScriptBinaryLabel>(mProcedureLabelSection); }
         }
 
-        public FlowScriptBinaryLabel[] JumpLabelSection
+        public ReadOnlyCollection<FlowScriptBinaryLabel> JumpLabelSection
         {
-            get { return mJumpLabelSection; }
+            get { return new ReadOnlyCollection<FlowScriptBinaryLabel>(mJumpLabelSection); }
         }
 
-        public FlowScriptBinaryInstruction[] TextSection
+        public ReadOnlyCollection<FlowScriptBinaryInstruction> TextSection
         {
-            get { return mTextSection; }
+            get { return new ReadOnlyCollection<FlowScriptBinaryInstruction>(mTextSection); }
         }
 
-        public byte[] MessageScriptSection
+        public ReadOnlyCollection<byte> MessageScriptSection
         {
-            get { return mMessageScriptSection; }
+            get { return new ReadOnlyCollection<byte>(mMessageScriptSection); }
         }
 
-        public byte[] StringSection
+        public ReadOnlyCollection<byte> StringSection
         {
-            get { return mStringSection; }
+            get { return new ReadOnlyCollection<byte>(mStringSection); }
         }
 
         public FlowScriptBinaryFormatVersion FormatVersion
@@ -55,6 +58,12 @@ namespace AtlusScriptLib
 
         private FlowScriptBinary()
         {          
+        }
+
+        public void InvokeLinker()
+        {
+            var linker = new Linker(this);
+            linker.Link();
         }
 
         public static FlowScriptBinary FromFile(string path)
@@ -117,6 +126,58 @@ namespace AtlusScriptLib
             }
 
             return instance;
+        }
+
+        private class Linker
+        {
+            private FlowScriptBinary mBinary;
+
+            public Linker(FlowScriptBinary binary)
+            {
+                mBinary = binary;
+            }
+
+            public void Link()
+            {
+                // Header
+                mBinary.mHeader.FileSize = CalculateHeaderFileSize();
+
+                // Section headers
+                int nextSectionAddress = FlowScriptBinaryHeader.SIZE + (mBinary.mSectionHeaders.Length * FlowScriptBinarySectionHeader.SIZE);
+                for (int i = 0; i < mBinary.mSectionHeaders.Length; i++)
+                {
+                    ref var sectionheader = ref mBinary.mSectionHeaders[i];
+
+                    sectionheader.FirstElementAddress = nextSectionAddress;
+                    nextSectionAddress += (sectionheader.ElementCount * sectionheader.ElementSize);
+                }
+            }
+
+            private int CalculateHeaderFileSize()
+            {
+                int size = FlowScriptBinaryHeader.SIZE;
+                int labelSize = mBinary.mFormatVersion.HasFlag(FlowScriptBinaryFormatVersion.V1) ? FlowScriptBinaryLabel.SIZE_V1 :
+                                mBinary.mFormatVersion.HasFlag(FlowScriptBinaryFormatVersion.V2) ? FlowScriptBinaryLabel.SIZE_V2 :
+                                mBinary.mFormatVersion.HasFlag(FlowScriptBinaryFormatVersion.V3) ? FlowScriptBinaryLabel.SIZE_V3 :
+                                throw new Exception("Invalid format version");
+
+                if (mBinary.ProcedureLabelSection != null)
+                    size += (FlowScriptBinarySectionHeader.SIZE + (mBinary.ProcedureLabelSection.Count * labelSize));
+
+                if (mBinary.JumpLabelSection != null)
+                    size += (FlowScriptBinarySectionHeader.SIZE + (mBinary.JumpLabelSection.Count * labelSize));
+
+                if (mBinary.TextSection != null)
+                    size += mBinary.TextSection.Count * FlowScriptBinaryInstruction.SIZE;
+
+                if (mBinary.MessageScriptSection != null)
+                    size += mBinary.MessageScriptSection.Count;
+
+                if (mBinary.StringSection != null)
+                    size += mBinary.StringSection.Count;
+
+                return size;
+            }
         }
     }
 }

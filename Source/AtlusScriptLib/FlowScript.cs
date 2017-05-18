@@ -119,7 +119,7 @@ namespace AtlusScriptLib
                 short curStringBinaryIndex = 0;
                 string curString = string.Empty;
 
-                for (short i = 0; i < binary.StringSection.Length; i++)
+                for (short i = 0; i < binary.StringSection.Count; i++)
                 {
                     // check for string terminator
                     if (binary.StringSection[i] == 0)
@@ -144,7 +144,7 @@ namespace AtlusScriptLib
                 int instructionIndex = 0;
                 int instructionBinaryIndex = 0;
 
-                while( instructionBinaryIndex < binary.TextSection.Length )
+                while( instructionBinaryIndex < binary.TextSection.Count )
                 {
                     // Check if there are any procedure labels that map to the current binary index, and reassign its instruction index
                     // With the value of the current instruction index into the list we're creating
@@ -160,7 +160,7 @@ namespace AtlusScriptLib
                     }
 
                     // Convert each instruction
-                    ref var binaryInstruction = ref binary.TextSection[instructionBinaryIndex];
+                    var binaryInstruction = binary.TextSection[instructionBinaryIndex];
 
                     FlowScriptInstruction instruction;
 
@@ -190,7 +190,7 @@ namespace AtlusScriptLib
             // assign message script
             if (binary.MessageScriptSection != null)
             {
-                instance.mMessageScript = binary.MessageScriptSection;
+                instance.mMessageScript = binary.MessageScriptSection.ToArray();
             }
 
             // strings have already been assigned previously, 

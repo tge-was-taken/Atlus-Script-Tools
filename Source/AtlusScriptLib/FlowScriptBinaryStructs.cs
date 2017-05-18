@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 
 namespace AtlusScriptLib
 {
@@ -64,7 +65,7 @@ namespace AtlusScriptLib
         public int ElementCount;
 
         // 0x0C
-        public int FirstElementOffset;
+        public int FirstElementAddress;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -82,6 +83,7 @@ namespace AtlusScriptLib
     // unuon
     public struct FlowScriptBinaryInstruction
     {
+        public const int SIZE = 4;
 
     // union 
     // {

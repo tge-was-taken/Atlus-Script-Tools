@@ -57,6 +57,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Disassembler\FlowScriptDisassemblerTests.cs" />
+    <Compile Include="FlowScriptBinaryTests.cs" />
     <Compile Include="FlowScriptTests.cs" />
     <Compile Include="FunctionTables\FunctionTableParserTests.cs" />
     <Compile Include="Parsers\FlowScriptBinarySyntaxParserTests.cs" />

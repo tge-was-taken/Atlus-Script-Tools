@@ -49,9 +49,11 @@
     <Compile Include="Common\IO\IOConstants.cs" />
     <Compile Include="Common\IO\Unsafe.cs" />
     <Compile Include="FlowScriptBinary.cs" />
+    <Compile Include="FlowScriptBinaryReader.cs" />
+    <Compile Include="FlowScriptBinaryWriter.cs" />
     <Compile Include="FlowScriptInstruction.cs" />
     <Compile Include="FlowScriptLabel.cs" />
-    <Compile Include="FlowScriptReader.cs" />
+    <Compile Include="FlowScriptEnums.cs" />
     <Compile Include="FunctionTables\FunctionTable.cs" />
     <Compile Include="FunctionTables\FunctionTableEntry.cs" />
     <Compile Include="FunctionTables\FunctionTableParser.cs" />
@@ -61,7 +63,7 @@
     <Compile Include="FlowScript.cs" />
     <Compile Include="Parsers\FlowScriptBinarySyntaxParser.cs" />
     <Compile Include="Disassemblers\FlowScriptBinaryDisassembler.cs" />
-    <Compile Include="FlowScriptEnums.cs" />
+    <Compile Include="FlowScriptBinaryEnums.cs" />
     <Compile Include="FlowScriptBinaryStructs.cs" />
     <Compile Include="Disassemblers\IDisassemblerTextOutput.cs" />
     <Compile Include="Disassemblers\StringBuilderDisassemblerTextOutput.cs" />
