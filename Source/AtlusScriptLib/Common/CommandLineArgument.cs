@@ -78,6 +78,9 @@ namespace AtlusScriptLib.Common
 
         public CommandLineArgument(string key)
         {
+            if (!key.StartsWith("-"))
+                key = "-" + key;
+
             Key = key;
             Required = false;
             TakesParameters = true;
