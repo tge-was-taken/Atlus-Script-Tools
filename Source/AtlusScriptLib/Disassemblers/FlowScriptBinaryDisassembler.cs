@@ -159,12 +159,12 @@ namespace AtlusScriptLib.Disassemblers
 
                 // branch procedure opcodes
                 case FlowScriptOpcode.PROC:
+                case FlowScriptOpcode.JUMP:
                 case FlowScriptOpcode.CALL:
                     mOutput.PutLine(DisassembleInstructionWithLabelReferenceOperand(CurrentInstruction, mScript.ProcedureLabelSection));
                     break;
 
-                // branch jump opcodes
-                case FlowScriptOpcode.JUMP:           
+                // branch jump opcodes                           
                 case FlowScriptOpcode.GOTO:
                 case FlowScriptOpcode.IF:
                     mOutput.PutLine(DisassembleInstructionWithLabelReferenceOperand(CurrentInstruction, mScript.JumpLabelSection));
