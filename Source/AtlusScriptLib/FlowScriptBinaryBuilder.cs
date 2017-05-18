@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AtlusScriptLib
 {
-    public class FlowScriptBinaryBuilder
+    public sealed class FlowScriptBinaryBuilder
     {
         // required
         private FlowScriptBinaryFormatVersion mFormatVersion;

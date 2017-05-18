@@ -10,7 +10,7 @@ using AtlusScriptLib.FunctionTables;
 
 namespace AtlusScriptLib.Parsers
 {
-    public class FlowScriptBinarySyntaxParser
+    public sealed class FlowScriptBinarySyntaxParser
     {
         private FlowScriptBinary mScript;
         private int mInstructionIndex;

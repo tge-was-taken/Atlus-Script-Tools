@@ -4,7 +4,7 @@ using System.IO;
 
 namespace AtlusScriptLib
 {
-    public class FlowScriptBinaryWriter : IDisposable
+    public sealed class FlowScriptBinaryWriter : IDisposable
     {
         private long mPositionBase;
         private EndianBinaryWriter mWriter;

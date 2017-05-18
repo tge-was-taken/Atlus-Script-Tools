@@ -5,7 +5,7 @@ using AtlusScriptLib.Common.IO;
 
 namespace AtlusScriptLib
 {
-    public class FlowScriptBinaryReader : IDisposable
+    public sealed class FlowScriptBinaryReader : IDisposable
     {
         private bool mDisposed;
         private long mPositionBase;

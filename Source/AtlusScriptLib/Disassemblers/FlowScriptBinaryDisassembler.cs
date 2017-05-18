@@ -81,7 +81,6 @@ namespace AtlusScriptLib.Disassemblers
             PutHeader();
             PutTextDisassembly();
             PutMessageScriptDisassembly();
-            mOutput.Dispose();
         }
 
         private void PutHeader()
