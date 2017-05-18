@@ -45,6 +45,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\CommandLineArgument.cs" />
+    <Compile Include="Common\CommandLineArgumentParser.cs" />
+    <Compile Include="Common\CommandLineArgumentValueTarget.cs" />
+    <Compile Include="Common\ICommandLineArgument.cs" />
     <Compile Include="Common\IO\Bitwise.cs" />
     <Compile Include="Common\IO\IOConstants.cs" />
     <Compile Include="Common\IO\Unsafe.cs" />
@@ -79,9 +83,6 @@
     <Compile Include="MessageScriptLoader.cs" />
     <Compile Include="MessageScriptStructs.cs" />
     <Compile Include="Common\Collections\IListExtensions.cs" />
-    <Compile Include="Common\CommandLineArgument.cs" />
-    <Compile Include="Common\CommandLineOption.cs" />
-    <Compile Include="Common\CommandLineParser.cs" />
     <Compile Include="Common\IO\EndianBinaryReader.cs" />
     <Compile Include="Common\IO\EndianBinaryWriter.cs" />
     <Compile Include="Common\IO\Endianness.cs" />
