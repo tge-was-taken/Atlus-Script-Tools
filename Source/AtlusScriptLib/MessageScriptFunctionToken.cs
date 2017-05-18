@@ -5,25 +5,30 @@ namespace AtlusScriptLib
 {
     public struct MessageScriptFunctionToken : IMessageScriptLineToken
     {
-        public int Id { get; }
+        public int FunctionTableIndex { get; }
 
-        public List<byte> Parameters { get; }
+        public int FunctionIndex { get; }
 
-        public MessageScriptFunctionToken(int id)
+        public List<short> Parameters { get; }
+
+        public MessageScriptFunctionToken(int functionTableIndex, int functionIndex)
         {
-            Id = id;
-            Parameters = new List<byte>();
+            FunctionTableIndex = functionTableIndex;
+            FunctionIndex = functionIndex;
+            Parameters = new List<short>();
         }
 
-        public MessageScriptFunctionToken(int id, List<byte> parameters)
+        public MessageScriptFunctionToken(int functionTableIndex, int functionIndex, List<short> parameters)
         {
-            Id = id;
+            FunctionTableIndex = functionTableIndex;
+            FunctionIndex = functionIndex;
             Parameters = parameters;
         }
 
-        public MessageScriptFunctionToken(int id, params byte[] parameters)
+        public MessageScriptFunctionToken(int functionTableIndex, int functionIndex, params short[] parameters)
         {
-            Id = id;
+            FunctionTableIndex = functionTableIndex;
+            FunctionIndex = functionIndex;
             Parameters = parameters.ToList();
         }
 

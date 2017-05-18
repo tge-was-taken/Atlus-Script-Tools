@@ -8,7 +8,7 @@ namespace AtlusScriptLib
     {
         public string Identifier { get; }
 
-        public string SpeakerName { get; }
+        public string SpeakerName { get; set; }
 
         public List<MessageScriptLine> Lines { get; }
 

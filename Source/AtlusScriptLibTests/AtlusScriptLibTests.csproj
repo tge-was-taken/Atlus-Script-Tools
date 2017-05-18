@@ -61,6 +61,7 @@
     <Compile Include="FlowScriptTests.cs" />
     <Compile Include="FunctionTables\FunctionTableParserTests.cs" />
     <Compile Include="MessageScriptBinaryTests.cs" />
+    <Compile Include="MessageScriptTests.cs" />
     <Compile Include="Parsers\FlowScriptBinarySyntaxParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\Tokenizing\TokenizerTests.cs" />
