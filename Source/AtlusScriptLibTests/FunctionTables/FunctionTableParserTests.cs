@@ -5,29 +5,26 @@ using System;
 namespace AtlusScriptLib.FunctionTables.Tests
 {
     [TestClass()]
-    public class FunctionTableParserTests : IDisposable
+    public class FunctionTableParserTests
     {
-        private bool mDisposed;
-        private FunctionTableParser mParser;
-
         [TestMethod()]
         public void FunctionTableParserTest()
         {
-            mParser = new FunctionTableParser("FunctionTables\\p5table.txt");
+            var parser = new FunctionTableParser("FunctionTables\\p5table.txt");
         }
 
         [TestMethod()]
         public void TryParseEntryTest()
         {
-            mParser = new FunctionTableParser("FunctionTables\\p5table.txt");
+            var parser = new FunctionTableParser("FunctionTables\\p5table.txt");
 
-            Assert.IsTrue(mParser.TryParseEntry(out FunctionTableEntry entry));
+            Assert.IsTrue(parser.TryParseEntry(out FunctionTableEntry entry));
             Assert.AreEqual(0, entry.Id);
             Assert.AreEqual("SYNC", entry.Declaration.Identifier.Name);
             Assert.AreEqual(FunctionDeclarationFlags.ReturnTypeVoid, entry.Declaration.Flags);
             Assert.AreEqual(0, entry.Declaration.ArgumentList.Arguments.Count);
 
-            Assert.IsTrue(mParser.TryParseEntry(out entry));
+            Assert.IsTrue(parser.TryParseEntry(out entry));
             Assert.AreEqual(1, entry.Id);
             Assert.AreEqual("WAIT", entry.Declaration.Identifier.Name);
             Assert.AreEqual(FunctionDeclarationFlags.ReturnTypeVoid, entry.Declaration.Flags);
@@ -39,10 +36,10 @@ namespace AtlusScriptLib.FunctionTables.Tests
 
             for (int i = 0; i < 7; i++)
             {
-                Assert.IsTrue(mParser.TryParseEntry(out entry));
+                Assert.IsTrue(parser.TryParseEntry(out entry));
             }
 
-            Assert.IsTrue(mParser.TryParseEntry(out entry));
+            Assert.IsTrue(parser.TryParseEntry(out entry));
             Assert.AreEqual(9, entry.Id);
             Assert.AreEqual("FADEEND_CHECK", entry.Declaration.Identifier.Name);
             Assert.AreEqual(FunctionDeclarationFlags.ReturnTypeVoid, entry.Declaration.Flags);
@@ -54,22 +51,6 @@ namespace AtlusScriptLib.FunctionTables.Tests
         {
             var dictionary = FunctionTableParser.Parse("FunctionTables\\p5table.txt");
             Assert.AreEqual(1878, dictionary.Count);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (mDisposed)
-                return;
-
-            if (mParser != null)
-                mParser.Dispose();
-
-            mDisposed = true;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
         }
     }
 }

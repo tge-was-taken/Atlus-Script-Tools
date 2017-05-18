@@ -5,37 +5,34 @@ using System.IO;
 namespace AtlusScriptLib.Common.Tokenizing.Tests
 {
     [TestClass()]
-    public class TokenizerTests : IDisposable
+    public class TokenizerTests
     {
-        private bool mDisposed;
-        private Tokenizer mTokenizer;
-
         [TestMethod()]
         public void TokenizerTest_String()
         {
-            mTokenizer = new Tokenizer("test", null);
+            var tokenizer = new Tokenizer("test", null);
         }
 
         [TestMethod()]
         public void TokenizerTest_Stream()
         {
-            mTokenizer = new Tokenizer(new MemoryStream(), null);
+            var tokenizer = new Tokenizer(new MemoryStream(), null);
         }
 
         [TestMethod()]
         public void DisposeTest()
         {
-            mTokenizer = new Tokenizer("", null);
-            mTokenizer.Dispose();
+            var tokenizer = new Tokenizer("", null);
+            tokenizer.Dispose();
         }
 
         [TestMethod()]
         public void GetTokenTest()
         {
-            mTokenizer = new Tokenizer(" Abc,@!\\123!0x123       ", null);
+            var tokenizer = new Tokenizer(" Abc,@!\\123!0x123       ", null);
 
             int index = 0;
-            while (mTokenizer.TryGetToken(out Token token))
+            while (tokenizer.TryGetToken(out Token token))
             {
                 switch (index)
                 {
@@ -79,10 +76,10 @@ namespace AtlusScriptLib.Common.Tokenizing.Tests
         [TestMethod()]
         public void GetTokenTest_CommTableDeclaration()
         {
-            mTokenizer = new Tokenizer("0005 void MSG(int arg0, unk arg1);", null);
+            var tokenizer = new Tokenizer("0005 void MSG(int arg0, unk arg1);", null);
 
             int index = 0;
-            while (mTokenizer.TryGetToken(out Token token))
+            while (tokenizer.TryGetToken(out Token token))
             {
                 switch (index)
                 {
@@ -128,13 +125,13 @@ namespace AtlusScriptLib.Common.Tokenizing.Tests
         [TestMethod()]
         public void GetTokenTest_Whitespace()
         {
-            mTokenizer = new Tokenizer(" @  !    abc", null)
+            var tokenizer = new Tokenizer(" @  !    abc", null)
             {
                 KeepWhitespace = true
             };
 
             int index = 0;
-            while (mTokenizer.TryGetToken(out Token token))
+            while (tokenizer.TryGetToken(out Token token))
             {
                 switch (index)
                 {
@@ -165,20 +162,6 @@ namespace AtlusScriptLib.Common.Tokenizing.Tests
 
                 index++;
             }
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (mDisposed)
-                return;
-
-            mTokenizer.Dispose();
-            mDisposed = true;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
         }
     }
 }

@@ -9,20 +9,13 @@ using System;
 namespace AtlusScriptLib.Disassembler.Tests
 {
     [TestClass()]
-    public class FlowScriptBinaryDisassemblerTests : IDisposable
+    public class FlowScriptBinaryDisassemblerTests
     {
-        private bool mDisposed;
-        public FlowScriptBinaryDisassembler Disassembler;
-        public FlowScriptBinary Script;
-        public string DisassemblyText;
-        public string ExpectedDisassemblyText;
-        public FlowScriptOpcode Opcode;
-
         private void DisassembleToFileTestBase(string path)
         {
-            Script = FlowScriptBinary.FromFile(path, FlowScriptBinaryFormatVersion.Unknown);
-            Disassembler = new FlowScriptBinaryDisassembler(Path.ChangeExtension(path, "flwasm"));
-            Disassembler.Disassemble(Script);
+            var script = FlowScriptBinary.FromFile(path, FlowScriptBinaryFormatVersion.Unknown);
+            using (var disassembler = new FlowScriptBinaryDisassembler(Path.ChangeExtension(path, "asm")))
+                disassembler.Disassemble(script);
         }
 
         [TestMethod()]
@@ -58,96 +51,81 @@ namespace AtlusScriptLib.Disassembler.Tests
         {
             var script = FlowScriptBinary.FromFile("TestResources\\V1.bf");
             var builder = new StringBuilder();
-            Disassembler = new FlowScriptBinaryDisassembler(builder);
-            Disassembler.Disassemble(script);
+            using (var disassembler = new FlowScriptBinaryDisassembler(builder))
+                disassembler.Disassemble(script);
         }
 
         [TestMethod()]
         public void DisassembleInstructionWithIntOperandTest()
         {
-            Opcode = FlowScriptOpcode.PUSHI;
-            DisassemblyText = FlowScriptBinaryDisassembler.DisassembleInstructionWithIntOperand(new FlowScriptBinaryInstruction() { Opcode = Opcode }, new FlowScriptBinaryInstruction() { OperandInt = 42 });
-            ExpectedDisassemblyText = "PUSHI 42";
-            Assert.AreEqual(ExpectedDisassemblyText, DisassemblyText, $"Opcode {Opcode} should dissassemble to \"{ExpectedDisassemblyText}\", got {DisassemblyText}");
+            var opcode = FlowScriptOpcode.PUSHI;
+            var disassemblyText = FlowScriptBinaryDisassembler.DisassembleInstructionWithIntOperand(new FlowScriptBinaryInstruction() { Opcode = opcode }, new FlowScriptBinaryInstruction() { OperandInt = 42 });
+            var expectedDisassemblyText = "PUSHI 42";
+            Assert.AreEqual(expectedDisassemblyText, disassemblyText);
         }
 
         [TestMethod()]
         public void DisassembleInstructionWithFloatOperandTest()
         {
-            Opcode = FlowScriptOpcode.PUSHF;
-            DisassemblyText = FlowScriptBinaryDisassembler.DisassembleInstructionWithFloatOperand(new FlowScriptBinaryInstruction() { Opcode = Opcode }, new FlowScriptBinaryInstruction() { OperandFloat = 42.42f });
-            ExpectedDisassemblyText = "PUSHF 42.42f";
-            Assert.AreEqual(ExpectedDisassemblyText, DisassemblyText, $"Opcode {Opcode} should dissassemble to \"{ExpectedDisassemblyText}\", got {DisassemblyText}");
+            var opcode = FlowScriptOpcode.PUSHF;
+            var disassemblyText = FlowScriptBinaryDisassembler.DisassembleInstructionWithFloatOperand(new FlowScriptBinaryInstruction() { Opcode = opcode }, new FlowScriptBinaryInstruction() { OperandFloat = 42.42f });
+            var expectedDisassemblyText = "PUSHF 42.42f";
+            Assert.AreEqual(expectedDisassemblyText, disassemblyText);
         }
 
         [TestMethod()]
         public void DisassembleInstructionWithShortOperandTest()
         {
-            Opcode = FlowScriptOpcode.PUSHIS;
-            DisassemblyText = FlowScriptBinaryDisassembler.DisassembleInstructionWithShortOperand(new FlowScriptBinaryInstruction() { Opcode = Opcode, OperandShort = 42 });
-            ExpectedDisassemblyText = "PUSHIS 42";
-            Assert.AreEqual(ExpectedDisassemblyText, DisassemblyText, $"Opcode {Opcode} should dissassemble to \"{ExpectedDisassemblyText}\", got {DisassemblyText}");
+            var opcode = FlowScriptOpcode.PUSHIS;
+            var disassemblyText = FlowScriptBinaryDisassembler.DisassembleInstructionWithShortOperand(new FlowScriptBinaryInstruction() { Opcode = opcode, OperandShort = 42 });
+            var expectedDisassemblyText = "PUSHIS 42";
+            Assert.AreEqual(expectedDisassemblyText, disassemblyText);
         }
 
         [TestMethod()]
         public void DisassembleInstructionWithStringReferenceOperandTest()
         {
-            Opcode = FlowScriptOpcode.PUSHSTR;
-            DisassemblyText = FlowScriptBinaryDisassembler.DisassembleInstructionWithStringReferenceOperand(
-                new FlowScriptBinaryInstruction() { Opcode = Opcode, OperandShort = 0 },
+            var opcode = FlowScriptOpcode.PUSHSTR;
+            var disassemblyText = FlowScriptBinaryDisassembler.DisassembleInstructionWithStringReferenceOperand(
+                new FlowScriptBinaryInstruction() { Opcode = opcode, OperandShort = 0 },
                 Encoding.ASCII.GetBytes("foobar")
                 );
 
-            ExpectedDisassemblyText = "PUSHSTR \"foobar\"";
-            Assert.AreEqual(ExpectedDisassemblyText, DisassemblyText, $"Opcode {Opcode} should dissassemble to \"{ExpectedDisassemblyText}\", got {DisassemblyText}");
+            var expectedDisassemblyText = "PUSHSTR \"foobar\"";
+            Assert.AreEqual(expectedDisassemblyText, disassemblyText);
         }
 
         [TestMethod()]
         public void DisassembleInstructionWithLabelReferenceOperandTest()
         {
             string labelName = "foobar";
-            Opcode = FlowScriptOpcode.PROC;
-            ExpectedDisassemblyText = $"PROC {labelName}";
-            DisassemblyText = FlowScriptBinaryDisassembler.DisassembleInstructionWithLabelReferenceOperand(
-                new FlowScriptBinaryInstruction() { Opcode = Opcode, OperandShort = 0 },
+            var opcode = FlowScriptOpcode.PROC;
+            var expectedDisassemblyText = $"PROC {labelName}";
+            var disassemblyText = FlowScriptBinaryDisassembler.DisassembleInstructionWithLabelReferenceOperand(
+                new FlowScriptBinaryInstruction() { Opcode = opcode, OperandShort = 0 },
                 new List<FlowScriptBinaryLabel>() { new FlowScriptBinaryLabel() {  InstructionIndex = 0, Name = labelName, Reserved = 0 } }
                 );          
 
-            Assert.AreEqual(ExpectedDisassemblyText, DisassemblyText, $"Opcode {Opcode} should dissassemble to \"{ExpectedDisassemblyText}\", got {DisassemblyText}");
+            Assert.AreEqual(expectedDisassemblyText, disassemblyText);
         }
 
         [TestMethod()]
         public void DisassembleInstructionWithNoOperandTest()
         {
-            Opcode = FlowScriptOpcode.ADD;
-            DisassemblyText = FlowScriptBinaryDisassembler.DisassembleInstructionWithNoOperand(new FlowScriptBinaryInstruction() { Opcode = FlowScriptOpcode.ADD });
-            ExpectedDisassemblyText = "ADD";
+            var opcode = FlowScriptOpcode.ADD;
+            var disassemblyText = FlowScriptBinaryDisassembler.DisassembleInstructionWithNoOperand(new FlowScriptBinaryInstruction() { Opcode = opcode });
+            var expectedDisassemblyText = "ADD";
 
-            Assert.AreEqual(ExpectedDisassemblyText, DisassemblyText, $"Opcode {Opcode} should dissassemble to \"{ExpectedDisassemblyText}\", got {DisassemblyText}");
+            Assert.AreEqual(expectedDisassemblyText, disassemblyText);
         }
 
         [TestMethod()]
         public void DisassembleInstructionWithCommReferenceTest()
         {
-            Opcode = FlowScriptOpcode.COMM;
-            DisassemblyText = FlowScriptBinaryDisassembler.DisassembleInstructionWithCommReferenceOperand(new FlowScriptBinaryInstruction() { Opcode = Opcode, OperandShort = 0 });
-            ExpectedDisassemblyText = "COMM 0";
-            Assert.AreEqual(ExpectedDisassemblyText, DisassemblyText, $"Opcode {Opcode} should dissassemble to \"{ExpectedDisassemblyText}\", got {DisassemblyText}");
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (mDisposed)
-                return;
-
-            if (Disassembler != null)
-                Disassembler.Dispose();
-            mDisposed = true;
-        }
-
-        public void Dispose()
-        { 
-            Dispose(true);
+            var opcode = FlowScriptOpcode.COMM;
+            var disassemblyText = FlowScriptBinaryDisassembler.DisassembleInstructionWithCommReferenceOperand(new FlowScriptBinaryInstruction() { Opcode = opcode, OperandShort = 0 });
+            var expectedDisassemblyText = "COMM 0";
+            Assert.AreEqual(expectedDisassemblyText, disassemblyText);
         }
     }
 }

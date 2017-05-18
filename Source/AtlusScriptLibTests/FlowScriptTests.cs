@@ -8,30 +8,30 @@ namespace AtlusScriptLib.Tests
 {
     [TestClass()]
     public class FlowScriptTests
-    {
-        FlowScript Script;
-
-        private void FromFileTestBase(string path, FlowScriptBinaryFormatVersion version, FlowScriptBinaryFormatVersion actualVersion)
+    { 
+        private FlowScript FromFileTestBase(string path, FlowScriptBinaryFormatVersion version, FlowScriptBinaryFormatVersion actualVersion)
         {
-            Script = FlowScript.FromFile(path, version);
+            var script = FlowScript.FromFile(path, version);
 
-            Assert.IsNotNull(Script, "Script object should not be null");
-            Assert.AreEqual(actualVersion, Script.FormatVersion);
+            Assert.IsNotNull(script, "Script object should not be null");
+            Assert.AreEqual(actualVersion, script.FormatVersion);
+
+            return script;
         }
 
         [TestMethod()]
         public void FromFileTest_V1_KnownVersion()
         {
-            FromFileTestBase("TestResources\\V1.bf", FlowScriptBinaryFormatVersion.V1, FlowScriptBinaryFormatVersion.V1);
+            var script = FromFileTestBase("TestResources\\V1.bf", FlowScriptBinaryFormatVersion.V1, FlowScriptBinaryFormatVersion.V1);
 
-            Assert.AreEqual(10061, Script.Instructions.Count);
-            Assert.AreEqual(742, Script.JumpLabels.Count);
-            Assert.AreEqual(77521, Script.MessageScript.Length);
-            Assert.AreEqual(96, Script.ProcedureLabels.Count);
-            Assert.AreEqual(240, Script.Strings.Count);
-            Assert.AreEqual(FlowScriptOpcode.COMM, Script.Instructions[2].Opcode);
-            Assert.AreEqual(102, Script.Instructions[2].Operand.GetInt16Value());
-            Assert.ThrowsException<InvalidOperationException>(() => Script.Instructions[2].Operand.GetInt32Value());
+            Assert.AreEqual(10061, script.Instructions.Count);
+            Assert.AreEqual(742, script.JumpLabels.Count);
+            Assert.AreEqual(77521, script.MessageScript.Length);
+            Assert.AreEqual(96, script.ProcedureLabels.Count);
+            Assert.AreEqual(240, script.Strings.Count);
+            Assert.AreEqual(FlowScriptOpcode.COMM, script.Instructions[2].Opcode);
+            Assert.AreEqual(102, script.Instructions[2].Operand.GetInt16Value());
+            Assert.ThrowsException<InvalidOperationException>(() => script.Instructions[2].Operand.GetInt32Value());
         }
 
         [TestMethod()]
@@ -95,14 +95,11 @@ namespace AtlusScriptLib.Tests
         }
 
         [TestMethod()]
-        [Ignore]
         public void FromFileTest_Batch()
         {
             foreach (var path in Directory.EnumerateFiles("TestResources\\Batch\\", "*.bf"))
             {
-                var script = FlowScript.FromFile(path, FlowScriptBinaryFormatVersion.V3_BE);
-
-                Assert.IsNotNull(script);
+                var script = FlowScript.FromFile(path);
             }
         }
 
@@ -138,9 +135,12 @@ namespace AtlusScriptLib.Tests
             }
 
             // Compare instructions
+            int binaryOffset = 0;
             for (int i = 0; i < script.Instructions.Count; i++)
             {
-                //Assert.AreEqual(binary.TextSection[i].Opcode, script.Instructions[i].Opcode);
+                Assert.AreEqual(binary.TextSection[i + binaryOffset].Opcode, script.Instructions[i].Opcode);
+                if (script.Instructions[i].UsesTwoBinaryInstructions)
+                    binaryOffset += 1;
             }
         }
 
