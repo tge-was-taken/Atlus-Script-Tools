@@ -51,6 +51,15 @@ namespace AtlusScriptLib
                         break;
 
                     case FlowScriptBinarySectionType.StringSection:
+
+                        // fix for early, broken files
+                        // see: e500.bf
+                        if (sectionHeader.FirstElementAddress == instance.mHeader.FileSize)
+                        {
+                            instance.mHeader.FileSize = (int)(mReader.BaseStreamLength - mPositionBase);
+                            sectionHeader.ElementCount = instance.mHeader.FileSize - sectionHeader.FirstElementAddress;
+                        }
+
                         instance.mStringSection = ReadStringSection(ref sectionHeader);
                         break;
 
