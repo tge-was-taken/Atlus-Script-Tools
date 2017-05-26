@@ -40,18 +40,17 @@ namespace AtlusScriptLib
                             lineStartAddresses = binaryMessage.LineStartAddresses;
                             buffer = binaryMessage.TextBuffer;
 
-                            // Check if a speaker name is present
-                            if (binaryMessage.SpeakerId >= 0 &&
-                                binaryMessage.SpeakerId < binary.SpeakerTableHeader.SpeakerCount &&
-                                binary.SpeakerTableHeader.SpeakerNameArray.Value != null &&
-                                binary.SpeakerTableHeader.SpeakerNameArray.Value[binaryMessage.SpeakerId].Value != null)
+                            if ((ushort)binaryMessage.SpeakerId == 0xFFFF)
                             {
-                                message = new MessageScriptDialogueMessage(binaryMessage.Identifier, binary.SpeakerTableHeader.SpeakerNameArray.Value[binaryMessage.SpeakerId].Value);
+                                message = new MessageScriptDialogueMessage(binaryMessage.Identifier);
+                            }
+                            else if (((ushort)binaryMessage.SpeakerId & 0x8000) == 0x8000)
+                            {
+                                message = new MessageScriptDialogueMessage(binaryMessage.Identifier, new MessageScriptDialogueMessageVariableNamedSpeaker());
                             }
                             else
                             {
-                                message = new MessageScriptDialogueMessage(binaryMessage.Identifier);
-                                Trace.WriteLine($"Special speaker id: {binaryMessage.SpeakerId}");
+                                message = new MessageScriptDialogueMessage(binaryMessage.Identifier, new MessageScriptDialogueMessageNamedSpeaker(binary.SpeakerTableHeader.SpeakerNameArray.Value[binaryMessage.SpeakerId].Value));
                             }
                         }
                         break;
@@ -99,9 +98,12 @@ namespace AtlusScriptLib
                 // Now that the line start addresses have been rebased, we can use them as indices into the buffer
                 int bufferIndex = lineStartAddresses[lineIndex];
 
-                // Loop over the buffer until we find a 0 byte
+                // Calculate the line end index
+                int lineEndIndex = (lineIndex + 1) != lineStartAddresses.Length ? lineStartAddresses[lineIndex + 1] : buffer.Length;
+
+                // Loop over the buffer until we find a 0 byte or have reached the end index
                 byte b;
-                while ( (b = buffer[bufferIndex++]) != 0 )
+                while ( bufferIndex < lineEndIndex && (b = buffer[bufferIndex++]) != 0 )
                 {
                     IMessageScriptLineToken token;
 

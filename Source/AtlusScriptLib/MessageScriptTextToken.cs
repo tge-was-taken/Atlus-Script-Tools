@@ -9,6 +9,11 @@
             Text = text;
         }
 
+        public override string ToString()
+        {
+            return Text;
+        }
+
         // IMessageScriptToken implementation
         MessageScriptTokenType IMessageScriptLineToken.Type => MessageScriptTokenType.Text;
     }

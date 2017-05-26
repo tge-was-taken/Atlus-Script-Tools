@@ -9,27 +9,49 @@ namespace AtlusScriptLib
 
         public int FunctionIndex { get; }
 
-        public List<short> Parameters { get; }
+        public List<short> Arguments { get; }
 
         public MessageScriptFunctionToken(int functionTableIndex, int functionIndex)
         {
             FunctionTableIndex = functionTableIndex;
             FunctionIndex = functionIndex;
-            Parameters = new List<short>();
+            Arguments = new List<short>();
         }
 
-        public MessageScriptFunctionToken(int functionTableIndex, int functionIndex, List<short> parameters)
+        public MessageScriptFunctionToken(int functionTableIndex, int functionIndex, List<short> arguments)
         {
             FunctionTableIndex = functionTableIndex;
             FunctionIndex = functionIndex;
-            Parameters = parameters;
+            Arguments = arguments;
         }
 
-        public MessageScriptFunctionToken(int functionTableIndex, int functionIndex, params short[] parameters)
+        public MessageScriptFunctionToken(int functionTableIndex, int functionIndex, params short[] arguments)
         {
             FunctionTableIndex = functionTableIndex;
             FunctionIndex = functionIndex;
-            Parameters = parameters.ToList();
+            Arguments = arguments.ToList();
+        }
+
+        public override string ToString()
+        {
+            string str = $"function {FunctionTableIndex} {FunctionIndex} ";
+            if (Arguments.Count == 0)
+            {
+                str += "(no arguments)";
+            }
+            else
+            {
+                str += "(";
+                for (int i = 0; i < Arguments.Count; i++)
+                {
+                    str += Arguments[i];
+                    if (i + 1 != Arguments.Count)
+                        str += ",";
+                }
+                str += ")";
+            }
+
+            return str;
         }
 
         // IMessageScriptToken implementation
