@@ -12,7 +12,7 @@ using AtlusScriptLib.Decompilers;
 namespace AtlusScriptCompiler
 {
 
-    class Program
+    internal class Program
     {
         public static string Input { get; set; }
 
@@ -24,10 +24,10 @@ namespace AtlusScriptCompiler
 
         public static bool IsWorkerThreadDone { get; set; }
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
 #if DEBUG
-            args = new string[] { "-i", @"d:\users\smart\documents\visual studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptLibTests\TestResources\V3_BE.bf", "-o", @"d:\users\smart\documents\visual studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptLibTests\TestResources\V3_BE.asm", "-dis" };
+            args = new[] { "-i", @"d:\users\smart\documents\visual studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptLibTests\TestResources\V3_BE.bf", "-o", @"d:\users\smart\documents\visual studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptLibTests\TestResources\V3_BE.asm", "-dis" };
 #endif
             if (!InitArguments(args))
             {
@@ -43,10 +43,12 @@ namespace AtlusScriptCompiler
                 PerformDecompilation();
             }
 
+            Console.WriteLine();
+            Console.WriteLine("Done.");
             Console.ReadKey();
         }
 
-        static bool InitArguments(string[] args)
+        private static bool InitArguments(string[] args)
         {
             var parser = new CommandLineArgumentParser()
             {
@@ -81,12 +83,12 @@ namespace AtlusScriptCompiler
 
             Console.WriteLine(parser.Description);
 
-#if RELEASE
+#if !DEBUG
             try
             {
 #endif
                 parser.Parse(args);
-#if RELEASE
+#if !DEBUG
             }
             catch (Exception e)
             {
@@ -98,10 +100,10 @@ namespace AtlusScriptCompiler
             }
 #endif
 
-            return true;
+                return true;
         }
 
-        static void CreateWorkerThreadAndWait(WaitCallback callback)
+        private static void CreateWorkerThreadAndWait(WaitCallback callback)
         {
             ThreadPool.QueueUserWorkItem(callback);
 
@@ -115,7 +117,7 @@ namespace AtlusScriptCompiler
             {
                 var elapsed = stopwatch.Elapsed;
 
-                if ((elapsed.TotalMilliseconds - lastElapsed.TotalMilliseconds) >= 2)
+                if (elapsed.Seconds - lastElapsed.Seconds >= 1)
                     Console.Write('|');
 
                 lastElapsed = elapsed;
@@ -124,7 +126,7 @@ namespace AtlusScriptCompiler
             stopwatch.Stop();
         }
 
-        static void PerformDisassembly()
+        private static void PerformDisassembly()
         {
             if (Path.GetExtension(Input) != "bf")
             {
@@ -146,14 +148,11 @@ namespace AtlusScriptCompiler
 
                 IsWorkerThreadDone = true;
             });
-
-            Console.WriteLine();
-            Console.WriteLine("Completed successfully.");
         }
 
-        static void PerformDecompilation()
+        private static void PerformDecompilation()
         {
-            if (Path.GetExtension(Input) == "bf")
+            if (Path.GetExtension(Input).Equals(".bf", StringComparison.InvariantCultureIgnoreCase))
             {
                 if (Output == null)
                     Output = Path.ChangeExtension(Input, "flow");
@@ -169,9 +168,25 @@ namespace AtlusScriptCompiler
 
                     IsWorkerThreadDone = true;
                 });
+            }
+            else if (Path.GetExtension(Input).Equals(".bmd", StringComparison.InvariantCultureIgnoreCase))
+            {
+                if (Output == null)
+                    Output = Path.ChangeExtension(Input, "msg");
 
-                Console.WriteLine();
-                Console.WriteLine("Completed successfully.");
+                Console.WriteLine($"Decompiling {Input} to {Output}");
+
+                CreateWorkerThreadAndWait((state) =>
+                {
+                    var decompiler = new MessageScriptDecompiler(MessageScript.FromBinary(MessageScriptBinary.FromFile(Input)));
+                    decompiler.Decompile(Output);
+
+                    IsWorkerThreadDone = true;
+                });
+            }
+            else
+            {
+                Console.WriteLine("Unknown input file type");
             }
         }
     }
