@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AtlusScriptLib.Decompilers;
 
 namespace AtlusScriptLib.Tests
 {
@@ -15,6 +16,9 @@ namespace AtlusScriptLib.Tests
         public void FromBinaryTest()
         {
             var script = MessageScript.FromBinary(MessageScriptBinary.FromFile("TestResources\\V1.bmd"));
+
+            var decompiler = new MessageScriptDecompiler(script);
+            decompiler.Decompile("TestResources\\V1.md");
         }
 
         [TestMethod()]

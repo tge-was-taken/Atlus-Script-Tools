@@ -53,6 +53,7 @@
     <Compile Include="Common\IO\Bitwise.cs" />
     <Compile Include="Common\IO\IOConstants.cs" />
     <Compile Include="Common\IO\Unsafe.cs" />
+    <Compile Include="Decompilers\MessageScriptDecompiler.cs" />
     <Compile Include="FlowScriptBinary.cs" />
     <Compile Include="FlowScriptBinaryBuilder.cs" />
     <Compile Include="FlowScriptBinaryReader.cs" />
