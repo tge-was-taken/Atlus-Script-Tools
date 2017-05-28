@@ -58,6 +58,7 @@
     <Compile Include="Common\Text\StreamTextOutputProvider.cs" />
     <Compile Include="Common\Text\StreamWriterTextOutputProvider.cs" />
     <Compile Include="Common\Text\StringBuilderTextOutputProvider.cs" />
+    <Compile Include="Common\Text\StringTextOutputProvider.cs" />
     <Compile Include="Decompilers\MessageScriptDecompiler.cs" />
     <Compile Include="FlowScriptBinary.cs" />
     <Compile Include="FlowScriptBinaryBuilder.cs" />
