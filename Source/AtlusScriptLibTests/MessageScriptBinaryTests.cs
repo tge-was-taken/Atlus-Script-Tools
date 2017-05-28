@@ -107,7 +107,7 @@ namespace AtlusScriptLib.Tests
             {
                 var script = MessageScriptBinary.FromFile("TestResources\\Version1.bmd");
                 script.ToFile("TestResources\\Version1_ToFile.bmd");
-                script = MessageScriptBinary.FromFile("TestResources\\V1_ToFile.bmd");
+                script = MessageScriptBinary.FromFile("TestResources\\Version1_ToFile.bmd");
                 PerformIntegrityCheckForVersion1(script);
             }
             finally
@@ -147,7 +147,7 @@ namespace AtlusScriptLib.Tests
         {
             var script = MessageScriptBinary.FromFile("TestResources\\Version1.bmd");
             var stream = new MemoryStream();
-            script.ToStream(stream);
+            script.ToStream(stream, true);
             Assert.IsNotNull(stream);
             Assert.AreNotEqual(0, stream.Length);
             Assert.AreEqual(script.Header.FileSize, stream.Length);

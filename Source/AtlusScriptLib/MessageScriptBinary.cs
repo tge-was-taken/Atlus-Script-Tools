@@ -92,13 +92,13 @@ namespace AtlusScriptLib
         public Stream ToStream()
         {
             var stream = new MemoryStream();
-            ToStream(stream);
+            ToStream(stream, true);
             return stream;
         }
 
-        public void ToStream(Stream stream)
+        public void ToStream(Stream stream, bool leaveOpen = false)
         {
-            using (var writer = new MessageScriptBinaryWriter(stream, mFormatVersion))
+            using (var writer = new MessageScriptBinaryWriter(stream, mFormatVersion, leaveOpen))
             {
                 writer.WriteBinary(this);
             }
