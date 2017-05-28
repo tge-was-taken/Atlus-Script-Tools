@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Linq;
@@ -9,56 +10,73 @@ namespace AtlusScriptLib.Tests
     public class MessageScriptBinaryTests
     {
         [TestMethod()]
-        public void FromFileTest_V1()
+        public void FromFile_ShouldPassIntegrityCheck_Version1WithUnknownVersionArgument()
         {
-            var script = MessageScriptBinary.FromFile("TestResources\\V1.bmd");
-            DoScriptChecks_V1(script);
+            var script = MessageScriptBinary.FromFile("TestResources\\Version1.bmd");
+            PerformIntegrityCheckForVersion1(script);
         }
 
         [TestMethod()]
-        public void FromFileTest_V1_RightVersion()
+        public void FromFile_ShouldPassIntegrityCheck_Version1WithVersion1Argument()
         {
-            var script = MessageScriptBinary.FromFile("TestResources\\V1.bmd", MessageScriptBinaryFormatVersion.V1);
-            DoScriptChecks_V1(script);
+            var script = MessageScriptBinary.FromFile("TestResources\\Version1.bmd", MessageScriptBinaryFormatVersion.Version1);
+            PerformIntegrityCheckForVersion1(script);
         }
 
         [TestMethod()]
-        public void FromFileTest_V1_WrongVersion()
+        public void FromFile_ShouldPassIntegrityCheck_Version1WithVersion1BigEndianArgument()
         {
-            var script = MessageScriptBinary.FromFile("TestResources\\V1.bmd", MessageScriptBinaryFormatVersion.V1_BE);
-            DoScriptChecks_V1(script);
+            var script = MessageScriptBinary.FromFile("TestResources\\Version1.bmd", MessageScriptBinaryFormatVersion.Version1BigEndian);
+            PerformIntegrityCheckForVersion1(script);
         }
 
         [TestMethod()]
-        public void FromFileTest_V1_BE()
+        public void FromFile_ShouldPassIntegrityCheck_Version1BigEndianWithUnknownVersionArgument()
         {
-            var script = MessageScriptBinary.FromFile("TestResources\\V1_BE.bmd");
-            DoScriptChecks_V1_BE(script);
+            var script = MessageScriptBinary.FromFile("TestResources\\Version1BigEndian.bmd");
+            PerformIntegrityCheckForVersion1BigEndian(script);
         }
 
         [TestMethod()]
-        public void FromFileTest_V1_BE_RightVersion()
+        public void FromFile_ShouldPassIntegrityCheck_Version1BigEndianWithVersion1BigEndianArgument()
         {
-            var script = MessageScriptBinary.FromFile("TestResources\\V1_BE.bmd", MessageScriptBinaryFormatVersion.V1_BE);
-            DoScriptChecks_V1_BE(script);
+            var script = MessageScriptBinary.FromFile("TestResources\\Version1BigEndian.bmd", MessageScriptBinaryFormatVersion.Version1BigEndian);
+            PerformIntegrityCheckForVersion1BigEndian(script);
         }
 
         [TestMethod()]
-        public void FromFileTest_V1_BE_WrongVersion()
+        public void FromFile_ShouldPassIntegrityCheck_Version1BigEndianWithVersion1Argument()
         {
-            var script = MessageScriptBinary.FromFile("TestResources\\V1_BE.bmd", MessageScriptBinaryFormatVersion.V1);
-            DoScriptChecks_V1_BE(script);
+            var script = MessageScriptBinary.FromFile("TestResources\\Version1BigEndian.bmd", MessageScriptBinaryFormatVersion.Version1);
+            PerformIntegrityCheckForVersion1BigEndian(script);
         }
 
         [TestMethod()]
-        //[Ignore]
-        public void FromFileTest_Batch()
+        public void FromFile_ShouldThrowException_NullArgument()
+        {
+            Assert.ThrowsException<ArgumentNullException>( () => MessageScriptBinary.FromFile(null) );
+        }
+
+        [TestMethod()]
+        public void FromFile_ShouldThrowException_EmptyStringArgument()
+        {
+            Assert.ThrowsException<ArgumentException>(() => MessageScriptBinary.FromFile(String.Empty));
+        }
+
+        [TestMethod()]
+        public void FromFile_ShouldThrowException_InvalidFileFormat()
+        {
+            Assert.ThrowsException<InvalidDataException>(() => MessageScriptBinary.FromFile("TestResources\\dummy_big.bin"));
+        }
+
+        [TestMethod()]
+        public void FromFile_NoException_Batch()
         {
             foreach (var path in Directory.EnumerateFiles("TestResources\\Batch\\", "*.bmd"))
             {
                 var script = MessageScriptBinary.FromFile(path);
 
-                CheckForUnusualSpeakerIds(script);
+                PrintSpeakerIdsIfHigherThanTotalSpeakers(script);
 
                 if (script.SpeakerTableHeader.Field08 != 0)
                     Trace.WriteLine($"{nameof(MessageScriptBinary)}.{nameof(script.SpeakerTableHeader)}.{nameof(script.SpeakerTableHeader.Field08)} = {script.SpeakerTableHeader.Field08}");
@@ -69,48 +87,55 @@ namespace AtlusScriptLib.Tests
         }
 
         [TestMethod()]
-        public void FromStreamTest()
+        public void FromStream_ShouldPassIntegrityCheck_Version1()
         {
-            var script = MessageScriptBinary.FromStream(File.OpenRead("TestResources\\V1.bmd"));
-            DoScriptChecks_V1(script);
+            var script = MessageScriptBinary.FromStream(File.OpenRead("TestResources\\Version1.bmd"));
+            PerformIntegrityCheckForVersion1(script);
         }
 
         [TestMethod()]
-        public void ToFileTest_V1()
+        public void FromStream_ShouldPassIntegrityCheck_Version1BigEndian()
+        {
+            var script = MessageScriptBinary.FromStream(File.OpenRead("TestResources\\Version1BigEndian.bmd"));
+            PerformIntegrityCheckForVersion1BigEndian(script);
+        }
+
+        [TestMethod()]
+        public void ToFile_ResultShouldPassIntegrityCheck_Version1()
         {
             try
             {
-                var script = MessageScriptBinary.FromFile("TestResources\\V1.bmd");
-                script.ToFile("TestResources\\V1_ToFileTest.bmd");
-                script = MessageScriptBinary.FromFile("TestResources\\V1_ToFileTest.bmd");
-                DoScriptChecks_V1(script);
+                var script = MessageScriptBinary.FromFile("TestResources\\Version1.bmd");
+                script.ToFile("TestResources\\Version1_ToFile.bmd");
+                script = MessageScriptBinary.FromFile("TestResources\\V1_ToFile.bmd");
+                PerformIntegrityCheckForVersion1(script);
             }
             finally
             {
-                File.Delete("TestResources\\V1_ToFileTest.bmd");
+                File.Delete("TestResources\\Version1_ToFileTest.bmd");
             }     
         }
 
         [TestMethod()]
-        public void ToFileTest_V1_BE()
+        public void ToFile_ResultShouldPassIntegrityCheck_Version1BigEndian()
         {
             try
             {
-                var script = MessageScriptBinary.FromFile("TestResources\\V1_BE.bmd");
-                script.ToFile("TestResources\\V1_BE_ToFileTest.bmd");
-                script = MessageScriptBinary.FromFile("TestResources\\V1_BE_ToFileTest.bmd");
-                DoScriptChecks_V1_BE(script);
+                var script = MessageScriptBinary.FromFile("TestResources\\Version1BigEndian.bmd");
+                script.ToFile("TestResources\\Version1BigEndian_ToFile.bmd");
+                script = MessageScriptBinary.FromFile("TestResources\\Version1BigEndian_ToFile.bmd");
+                PerformIntegrityCheckForVersion1BigEndian(script);
             }
             finally
             {
-                File.Delete("TestResources\\V1_BE_ToFileTest.bmd");
+                File.Delete("TestResources\\Version1BigEndian_ToFile.bmd");
             }       
         }
 
         [TestMethod()]
-        public void ToStreamTest()
+        public void ToStream_StreamNotNullOrEmptyAndLengthEqualToFileSize_Version1()
         {
-            var script = MessageScriptBinary.FromFile("TestResources\\V1.bmd");
+            var script = MessageScriptBinary.FromFile("TestResources\\Version1.bmd");
             var stream = script.ToStream();
             Assert.IsNotNull(stream);
             Assert.AreNotEqual(0, stream.Length);
@@ -118,9 +143,9 @@ namespace AtlusScriptLib.Tests
         }
 
         [TestMethod()]
-        public void ToStreamTest1()
+        public void ToStream_StreamNotNullOrEmptyAndLengthEqualToFileSize_Version1_TakesStreamParam()
         {
-            var script = MessageScriptBinary.FromFile("TestResources\\V1.bmd");
+            var script = MessageScriptBinary.FromFile("TestResources\\Version1.bmd");
             var stream = new MemoryStream();
             script.ToStream(stream);
             Assert.IsNotNull(stream);
@@ -128,7 +153,7 @@ namespace AtlusScriptLib.Tests
             Assert.AreEqual(script.Header.FileSize, stream.Length);
         }
 
-        private void CheckForUnusualSpeakerIds(MessageScriptBinary script)
+        private void PrintSpeakerIdsIfHigherThanTotalSpeakers(MessageScriptBinary script)
         {
             foreach (var messageHeader in script.MessageHeaders)
             {
@@ -144,9 +169,9 @@ namespace AtlusScriptLib.Tests
             }
         }
 
-        private void DoScriptChecks_V1(MessageScriptBinary script)
+        private void PerformIntegrityCheckForVersion1(MessageScriptBinary script)
         {
-            CheckForUnusualSpeakerIds(script);
+            PrintSpeakerIdsIfHigherThanTotalSpeakers(script);
 
             // header checks
             Assert.AreEqual(7, script.Header.FileType);
@@ -192,9 +217,9 @@ namespace AtlusScriptLib.Tests
             Assert.AreEqual(0x02CE, ((MessageScriptBinaryDialogueMessage)script.MessageHeaders[26].Message.Value).TextBuffer.Length);
         }
 
-        private void DoScriptChecks_V1_BE(MessageScriptBinary script)
+        private void PerformIntegrityCheckForVersion1BigEndian(MessageScriptBinary script)
         {
-            CheckForUnusualSpeakerIds(script);
+            PrintSpeakerIdsIfHigherThanTotalSpeakers(script);
 
             // header checks
             Assert.AreEqual(7, script.Header.FileType);

@@ -74,19 +74,19 @@
     <None Include="TestResources\dummy_small.bin">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestResources\V1.bmd">
+    <None Include="TestResources\Version1.bmd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestResources\V1_BE.bmd">
+    <None Include="TestResources\Version1BigEndian.bmd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestResources\V2.bf">
+    <None Include="TestResources\Version2.bf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestResources\V1.bf">
+    <None Include="TestResources\Version1.bf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="TestResources\V3_BE.bf">
+    <None Include="TestResources\Version3BigEndian.bf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

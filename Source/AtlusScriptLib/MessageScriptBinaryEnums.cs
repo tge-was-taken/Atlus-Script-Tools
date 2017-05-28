@@ -6,11 +6,11 @@
         Selection
     }
 
-    public enum MessageScriptBinaryFormatVersion
+    public enum MessageScriptBinaryFormatVersion : uint
     {
         Unknown = 1 << 0,
-        V1      = 1 << 1,
-        BE      = 1 << 15,
-        V1_BE   = V1 | BE,
+        Version1 = 1 << 1,
+        BigEndian = 1 << 15,
+        Version1BigEndian = Version1 | BigEndian,
     }
 }

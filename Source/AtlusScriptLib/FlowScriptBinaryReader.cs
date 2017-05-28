@@ -15,7 +15,7 @@ namespace AtlusScriptLib
         public FlowScriptBinaryReader(Stream stream, FlowScriptBinaryFormatVersion version)
         {
             mPositionBase = stream.Position;
-            mReader = new EndianBinaryReader(stream, version.HasFlag(FlowScriptBinaryFormatVersion.BE) ? Endianness.BigEndian : Endianness.LittleEndian);
+            mReader = new EndianBinaryReader(stream, version.HasFlag(FlowScriptBinaryFormatVersion.BigEndian) ? Endianness.BigEndian : Endianness.LittleEndian);
             mVersion = version;
         }
 
@@ -232,12 +232,12 @@ namespace AtlusScriptLib
                 if (mReader.Endianness == Endianness.LittleEndian)
                 {
                     mReader.Endianness = Endianness.BigEndian;
-                    mVersion |= FlowScriptBinaryFormatVersion.BE;
+                    mVersion |= FlowScriptBinaryFormatVersion.BigEndian;
                 }
                 else
                 {
                     mReader.Endianness = Endianness.LittleEndian;
-                    mVersion ^= FlowScriptBinaryFormatVersion.BE;
+                    mVersion ^= FlowScriptBinaryFormatVersion.BigEndian;
                 }
             }
         }
@@ -261,23 +261,23 @@ namespace AtlusScriptLib
 
         private void MaybeSwapVersionEndiannessByLabelSectionHeader(ref FlowScriptBinarySectionHeader sectionHeader)
         {
-            if (sectionHeader.ElementSize == FlowScriptBinaryLabel.SIZE_V1 && !mVersion.HasFlag(FlowScriptBinaryFormatVersion.V1))
+            if (sectionHeader.ElementSize == FlowScriptBinaryLabel.SIZE_V1 && !mVersion.HasFlag(FlowScriptBinaryFormatVersion.Version1))
             {
-                mVersion = FlowScriptBinaryFormatVersion.V1;
+                mVersion = FlowScriptBinaryFormatVersion.Version1;
                 if (mReader.Endianness == Endianness.BigEndian)
-                    mVersion |= FlowScriptBinaryFormatVersion.BE;
+                    mVersion |= FlowScriptBinaryFormatVersion.BigEndian;
             }
-            else if (sectionHeader.ElementSize == FlowScriptBinaryLabel.SIZE_V2 && !mVersion.HasFlag(FlowScriptBinaryFormatVersion.V2))
+            else if (sectionHeader.ElementSize == FlowScriptBinaryLabel.SIZE_V2 && !mVersion.HasFlag(FlowScriptBinaryFormatVersion.Version2))
             {
-                mVersion = FlowScriptBinaryFormatVersion.V2;
+                mVersion = FlowScriptBinaryFormatVersion.Version2;
                 if (mReader.Endianness == Endianness.BigEndian)
-                    mVersion |= FlowScriptBinaryFormatVersion.BE;
+                    mVersion |= FlowScriptBinaryFormatVersion.BigEndian;
             }
-            else if (sectionHeader.ElementSize == FlowScriptBinaryLabel.SIZE_V3 && !mVersion.HasFlag(FlowScriptBinaryFormatVersion.V3))
+            else if (sectionHeader.ElementSize == FlowScriptBinaryLabel.SIZE_V3 && !mVersion.HasFlag(FlowScriptBinaryFormatVersion.Version3))
             {
-                mVersion = FlowScriptBinaryFormatVersion.V3;
+                mVersion = FlowScriptBinaryFormatVersion.Version3;
                 if (mReader.Endianness == Endianness.BigEndian)
-                    mVersion |= FlowScriptBinaryFormatVersion.BE;
+                    mVersion |= FlowScriptBinaryFormatVersion.BigEndian;
             }
         }
     }

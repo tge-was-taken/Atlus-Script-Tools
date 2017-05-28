@@ -12,15 +12,15 @@ namespace AtlusScriptLib
     }
 
     [Flags]
-    public enum FlowScriptBinaryFormatVersion
+    public enum FlowScriptBinaryFormatVersion : uint
     {
-        Unknown     = 1 << 0,
-        V1          = 1 << 1,
-        V2          = 1 << 2,
-        V3          = 1 << 3,
-        BE          = 1 << 15,
-        V1_BE       = V1 | BE,     
-        V2_BE       = V2 | BE,
-        V3_BE       = V3 | BE,
+        Unknown = 1 << 0,
+        Version1 = 1 << 1,
+        Version2 = 1 << 2,
+        Version3 = 1 << 3,
+        BigEndian = 1 << 15,
+        Version1BigEndian = Version1 | BigEndian,
+        Version2BigEndian = Version2 | BigEndian,
+        Version3BigEndian = Version3 | BigEndian,
     }
 }

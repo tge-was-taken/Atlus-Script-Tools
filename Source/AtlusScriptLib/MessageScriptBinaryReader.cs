@@ -18,7 +18,7 @@ namespace AtlusScriptLib
         public MessageScriptBinaryReader(Stream stream, MessageScriptBinaryFormatVersion version)
         {
             mPositionBase = stream.Position;
-            mReader = new EndianBinaryReader(stream, version.HasFlag(MessageScriptBinaryFormatVersion.BE) ? Endianness.BigEndian : Endianness.LittleEndian);
+            mReader = new EndianBinaryReader(stream, version.HasFlag(MessageScriptBinaryFormatVersion.BigEndian) ? Endianness.BigEndian : Endianness.LittleEndian);
             mVersion = version;
         }
 
@@ -62,25 +62,25 @@ namespace AtlusScriptLib
                 // swap endianness
                 if (header.Magic.SequenceEqual(MessageScriptBinaryHeader.MAGIC_V1))
                 {
-                    if (mVersion.HasFlag(MessageScriptBinaryFormatVersion.BE))
+                    if (mVersion.HasFlag(MessageScriptBinaryFormatVersion.BigEndian))
                     {
                         SwapHeader(ref header);
                         mReader.Endianness = Endianness.LittleEndian;
                     }
 
-                    mVersion = MessageScriptBinaryFormatVersion.V1;
+                    mVersion = MessageScriptBinaryFormatVersion.Version1;
                 }
                 else if (header.Magic.SequenceEqual(MessageScriptBinaryHeader.MAGIC_V1_BE))
                 {
                    
 
-                    if (!mVersion.HasFlag(MessageScriptBinaryFormatVersion.BE))
+                    if (!mVersion.HasFlag(MessageScriptBinaryFormatVersion.BigEndian))
                     {
                         SwapHeader(ref header);                      
                         mReader.Endianness = Endianness.BigEndian;
                     }
 
-                    mVersion = MessageScriptBinaryFormatVersion.V1_BE;
+                    mVersion = MessageScriptBinaryFormatVersion.Version1BigEndian;
                 }
                 else
                 {

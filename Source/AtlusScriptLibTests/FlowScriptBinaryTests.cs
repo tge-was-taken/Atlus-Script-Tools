@@ -6,66 +6,66 @@ namespace AtlusScriptLib.Tests
     [TestClass()]
     public class FlowScriptBinaryTests
     {
-        private void FromFileTestBase(string path, FlowScriptBinaryFormatVersion version, FlowScriptBinaryFormatVersion actualVersion)
+        private void FromFile_ResultNotNullAndFormatIsEqualToParameter(FlowScriptBinaryFormatVersion version, FlowScriptBinaryFormatVersion actualVersion)
         {
-            var script = FlowScriptBinary.FromFile(path, version);
+            var script = FlowScriptBinary.FromFile($"TestResources\\{actualVersion}.bf", version);
 
             Assert.IsNotNull(script, "Script object should not be null");
             Assert.AreEqual(actualVersion, script.FormatVersion);
         }
 
         [TestMethod()]
-        public void FromFileTest_V1_KnownVersion()
+        public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version1WithVersion1Parameter()
         {
-            FromFileTestBase("TestResources\\V1.bf", FlowScriptBinaryFormatVersion.V1, FlowScriptBinaryFormatVersion.V1);
+            FromFile_ResultNotNullAndFormatIsEqualToParameter(FlowScriptBinaryFormatVersion.Version1, FlowScriptBinaryFormatVersion.Version1);
         }
 
         [TestMethod()]
-        public void FromFileTest_V1_UnknownVersion()
+        public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version1WithUnknownVersionParameter()
         {
-            FromFileTestBase("TestResources\\V1.bf", FlowScriptBinaryFormatVersion.Unknown, FlowScriptBinaryFormatVersion.V1);
+            FromFile_ResultNotNullAndFormatIsEqualToParameter(FlowScriptBinaryFormatVersion.Unknown, FlowScriptBinaryFormatVersion.Version1);
         }
 
         [TestMethod()]
-        public void FromFileTest_V1_WrongVersion()
+        public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version1WithVersion3BigEndianParameter()
         {
-            FromFileTestBase("TestResources\\V1.bf", FlowScriptBinaryFormatVersion.V3_BE, FlowScriptBinaryFormatVersion.V1);
+            FromFile_ResultNotNullAndFormatIsEqualToParameter(FlowScriptBinaryFormatVersion.Version3BigEndian, FlowScriptBinaryFormatVersion.Version1);
         }
 
         [TestMethod()]
-        public void FromFileTest_V2_KnownVersion()
+        public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version2WithVersion2Parameter()
         {
-            FromFileTestBase("TestResources\\V2.bf", FlowScriptBinaryFormatVersion.V2, FlowScriptBinaryFormatVersion.V2);
+            FromFile_ResultNotNullAndFormatIsEqualToParameter(FlowScriptBinaryFormatVersion.Version2, FlowScriptBinaryFormatVersion.Version2);
         }
 
         [TestMethod()]
-        public void FromFileTest_V2_UnknownVersion()
+        public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version2WithUnknownVersionParameter()
         {
-            FromFileTestBase("TestResources\\V2.bf", FlowScriptBinaryFormatVersion.Unknown, FlowScriptBinaryFormatVersion.V2);
+            FromFile_ResultNotNullAndFormatIsEqualToParameter(FlowScriptBinaryFormatVersion.Unknown, FlowScriptBinaryFormatVersion.Version2);
         }
 
         [TestMethod()]
-        public void FromFileTest_V2_WrongVersion()
+        public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version2WithVersion3BigEndianVersionParameter()
         {
-            FromFileTestBase("TestResources\\V2.bf", FlowScriptBinaryFormatVersion.V3_BE, FlowScriptBinaryFormatVersion.V2);
+            FromFile_ResultNotNullAndFormatIsEqualToParameter(FlowScriptBinaryFormatVersion.Version3BigEndian, FlowScriptBinaryFormatVersion.Version2);
         }
 
         [TestMethod()]
-        public void FromFileTest_V3_BE_KnownVersion()
+        public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version3BigEndianWithVersion3BigEndianVersionParameter()
         {
-            FromFileTestBase("TestResources\\V3_BE.bf", FlowScriptBinaryFormatVersion.V3_BE, FlowScriptBinaryFormatVersion.V3_BE);
+            FromFile_ResultNotNullAndFormatIsEqualToParameter(FlowScriptBinaryFormatVersion.Version3BigEndian, FlowScriptBinaryFormatVersion.Version3BigEndian);
         }
 
         [TestMethod()]
-        public void FromFileTest_V3_BE_UnknownVersion()
+        public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version3BigEndianWithUnknownVersionParameter()
         {
-            FromFileTestBase("TestResources\\V3_BE.bf", FlowScriptBinaryFormatVersion.Unknown, FlowScriptBinaryFormatVersion.V3_BE);
+            FromFile_ResultNotNullAndFormatIsEqualToParameter(FlowScriptBinaryFormatVersion.Unknown, FlowScriptBinaryFormatVersion.Version3BigEndian);
         }
 
         [TestMethod()]
-        public void FromFileTest_V3_BE_WrongVersion()
+        public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version3BigEndianWithVersion1Parameter()
         {
-            FromFileTestBase("TestResources\\V3_BE.bf", FlowScriptBinaryFormatVersion.V1, FlowScriptBinaryFormatVersion.V3_BE);
+            FromFile_ResultNotNullAndFormatIsEqualToParameter(FlowScriptBinaryFormatVersion.Version1, FlowScriptBinaryFormatVersion.Version3BigEndian);
         }
 
         [TestMethod()]
@@ -86,7 +86,7 @@ namespace AtlusScriptLib.Tests
         {
             foreach (var path in Directory.EnumerateFiles("TestResources\\Batch\\", "*.bf"))
             {
-                var script = FlowScriptBinary.FromFile(path, FlowScriptBinaryFormatVersion.V3_BE);
+                var script = FlowScriptBinary.FromFile(path, FlowScriptBinaryFormatVersion.Version3BigEndian);
 
                 Assert.IsNotNull(script);
             }
@@ -95,12 +95,12 @@ namespace AtlusScriptLib.Tests
         [TestMethod()]
         public void FromStreamTest()
         {
-            using (var fileStream = File.OpenRead("TestResources\\V3_BE.bf"))
+            using (var fileStream = File.OpenRead("TestResources\\Version3BigEndian.bf"))
             {
-                var script = FlowScriptBinary.FromStream(fileStream, FlowScriptBinaryFormatVersion.V3_BE);
+                var script = FlowScriptBinary.FromStream(fileStream, FlowScriptBinaryFormatVersion.Version3BigEndian);
 
                 Assert.IsNotNull(script);
-                Assert.AreEqual(FlowScriptBinaryFormatVersion.V3_BE, script.FormatVersion);
+                Assert.AreEqual(FlowScriptBinaryFormatVersion.Version3BigEndian, script.FormatVersion);
             }
         }
     }

@@ -197,9 +197,9 @@ namespace AtlusScriptLib
 
         private int CalculateLabelSize()
         {
-            return mFormatVersion.HasFlag(FlowScriptBinaryFormatVersion.V1) ? FlowScriptBinaryLabel.SIZE_V1 :
-                   mFormatVersion.HasFlag(FlowScriptBinaryFormatVersion.V2) ? FlowScriptBinaryLabel.SIZE_V2 :
-                   mFormatVersion.HasFlag(FlowScriptBinaryFormatVersion.V3) ? FlowScriptBinaryLabel.SIZE_V3 :
+            return mFormatVersion.HasFlag(FlowScriptBinaryFormatVersion.Version1) ? FlowScriptBinaryLabel.SIZE_V1 :
+                   mFormatVersion.HasFlag(FlowScriptBinaryFormatVersion.Version2) ? FlowScriptBinaryLabel.SIZE_V2 :
+                   mFormatVersion.HasFlag(FlowScriptBinaryFormatVersion.Version3) ? FlowScriptBinaryLabel.SIZE_V3 :
                    throw new Exception("Invalid format version");
         }
 

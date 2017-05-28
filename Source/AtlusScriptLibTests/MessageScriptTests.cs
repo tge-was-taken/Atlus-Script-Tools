@@ -7,51 +7,51 @@ namespace AtlusScriptLib.Tests
     public class MessageScriptTests
     {
         [TestMethod()]
-        public void FromBinaryTest_V1()
+        public void FromBinary_ShouldNotThrow_Version1()
         {
-            var binary = MessageScriptBinary.FromFile("TestResources\\V1.bmd");
+            var binary = MessageScriptBinary.FromFile("TestResources\\Version1.bmd");
             var script = MessageScript.FromBinary(binary);
         }
 
         [TestMethod()]
-        public void FromBinaryTest_V1_BE()
+        public void FromBinary_ShouldNotThrow_Version1BigEndian()
         {
-            var binary = MessageScriptBinary.FromFile("TestResources\\V1_BE.bmd");
+            var binary = MessageScriptBinary.FromFile("TestResources\\Version1BigEndian.bmd");
             var script = MessageScript.FromBinary(binary);
         }
 
         [TestMethod()]
-        public void FromFileTest_V1()
+        public void FromFile_ShouldNotThrow_Version1()
         {
-            var script = MessageScript.FromFile("TestResources\\V1.bmd");
+            var script = MessageScript.FromFile("TestResources\\Version1.bmd");
         }
 
         [TestMethod()]
-        public void FromFileTest_V1_BE()
+        public void FromFile_ShouldNotThrow_Version1BigEndian()
         {
-            var script = MessageScript.FromFile("TestResources\\V1_BE.bmd");
+            var script = MessageScript.FromFile("TestResources\\Version1BigEndian.bmd");
         }
 
         [TestMethod()]
-        public void FromStreamTest_V1()
+        public void FromStream_ShouldNotThrow_Version1()
         {
-            using (var fileStream = File.OpenRead("TestResources\\V1.bmd"))
+            using (var fileStream = File.OpenRead("TestResources\\Version1.bmd"))
             {
                 var script = MessageScript.FromStream(fileStream);
             }
         }
 
         [TestMethod()]
-        public void FromStreamTest_V1_BE()
+        public void FromStream_ShouldNotThrow_Version1BigEndian()
         {
-            using (var fileStream = File.OpenRead("TestResources\\V1_BE.bmd"))
+            using (var fileStream = File.OpenRead("TestResources\\Version1BigEndian.bmd"))
             {
                 var script = MessageScript.FromStream(fileStream);
             }
         }
 
         [TestMethod()]
-        public void MessageScriptTest1()
+        public void Constructor_ShouldNotFailDefaultValueCheck()
         {
             var script = new MessageScript();
 

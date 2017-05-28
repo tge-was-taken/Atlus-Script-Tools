@@ -14,7 +14,7 @@ namespace AtlusScriptLib
         public FlowScriptBinaryWriter(Stream stream, FlowScriptBinaryFormatVersion version)
         {
             mPositionBase = stream.Position;
-            mWriter = new EndianBinaryWriter(stream, version.HasFlag(FlowScriptBinaryFormatVersion.BE) ? Endianness.BigEndian : Endianness.LittleEndian);
+            mWriter = new EndianBinaryWriter(stream, version.HasFlag(FlowScriptBinaryFormatVersion.BigEndian) ? Endianness.BigEndian : Endianness.LittleEndian);
             mVersion = version;
         }
 
