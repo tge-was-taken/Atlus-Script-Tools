@@ -70,22 +70,32 @@ namespace AtlusScriptLib
 
     public class MessageScriptDialogueMessageNamedSpeaker : IMessageScriptDialogueMessageSpeaker
     {
-        public string Name { get; }
+        public MessageScriptLine Name { get; }    
 
-        MessageScriptDialogueMessageSpeakerType IMessageScriptDialogueMessageSpeaker.Type => MessageScriptDialogueMessageSpeakerType.Named;
-
-        public MessageScriptDialogueMessageNamedSpeaker(string name)
+        public MessageScriptDialogueMessageNamedSpeaker(MessageScriptLine name)
         {
             Name = name;
         }
 
         public override string ToString()
         {
-            return Name;
+            string str = string.Empty;
+
+            if (Name != null && Name.Tokens.Count > 0)
+            {
+                foreach (var token in Name.Tokens)
+                {
+                    str += token.ToString() + " ";
+                }
+            }
+
+            return str;
         }
+
+        MessageScriptDialogueMessageSpeakerType IMessageScriptDialogueMessageSpeaker.Type => MessageScriptDialogueMessageSpeakerType.Named;
     }
 
-    public class MessageScriptDialogueMessageVariableNamedSpeaker : IMessageScriptDialogueMessageSpeaker
+    public class MessageScriptDialogueMessageVariablyNamedSpeaker : IMessageScriptDialogueMessageSpeaker
     {
         MessageScriptDialogueMessageSpeakerType IMessageScriptDialogueMessageSpeaker.Type => MessageScriptDialogueMessageSpeakerType.VariablyNamed;
 

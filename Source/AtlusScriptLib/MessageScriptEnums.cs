@@ -10,5 +10,6 @@
     {
         Text,
         Function,
+        CharacterCode
     }
 }

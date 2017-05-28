@@ -15,10 +15,7 @@ namespace AtlusScriptLib.Tests
         [TestMethod()]
         public void FromBinaryTest()
         {
-            var script = MessageScript.FromBinary(MessageScriptBinary.FromFile("TestResources\\V1.bmd"));
-
-            var decompiler = new MessageScriptDecompiler(script);
-            decompiler.Decompile("TestResources\\V1.md");
+            var script = MessageScript.FromBinary(MessageScriptBinary.FromFile("TestResources\\V1_BE.bmd"));
         }
 
         [TestMethod()]

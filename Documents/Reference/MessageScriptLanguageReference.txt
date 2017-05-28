@@ -46,6 +46,15 @@ Defines the sound cue to play.
 Example:
 If you wanted to play sound cue 1 from sound/facility/e080_001.acb, you could do so by using [v 8 0 1] in your script.
 
+// [f 0 5 254] = does nothing, possibly left over for debugging purposes?
+// [f 2 1] = at the start of every line ?
+// [f 0 1 arg] = set text color
+// [f 2 4 arg] = get variable
+// [f 4 10 -1 0 0] = bustup animation parameters
+// speakerId = 0xFFFF = use no speaker name?
+// speakerId = 0x8000 = use variable speaker name?
+// speakerName is actually a line itself-- functions can be used as a name
+
 // ---------------
 // syntax 
 // ---------------

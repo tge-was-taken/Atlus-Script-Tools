@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -148,21 +149,29 @@ namespace AtlusScriptLib
             return header;
         }
 
-        public AddressValuePair<string>[] ReadSpeakerNames(int address, int count)
+        public AddressValuePair<List<byte>>[] ReadSpeakerNames(int address, int count)
         {
             mReader.SeekBegin(mPositionBase + MessageScriptBinaryHeader.SIZE + address);
 
             var speakerNameAddresses = mReader.ReadInt32s(count);
-            var speakerNames = new AddressValuePair<string>[count];
+            var speakerNames = new AddressValuePair<List<byte>>[count];
 
             for (int i = 0; i < speakerNameAddresses.Length; i++)
             {
                 ref int speakerNameAddress = ref speakerNameAddresses[i];
 
                 mReader.SeekBegin(mPositionBase + MessageScriptBinaryHeader.SIZE + speakerNameAddress);
-                string name = mReader.ReadString(StringBinaryFormat.NullTerminated);
+                var bytes = new List<byte>();
+                while (true)
+                {
+                    byte b = mReader.ReadByte();
+                    if (b == 0)
+                        break;
 
-                speakerNames[i] = new AddressValuePair<string>(speakerNameAddress, name);
+                    bytes.Add(b);
+                }
+
+                speakerNames[i] = new AddressValuePair<List<byte>>(speakerNameAddress, bytes);
             }
 
             return speakerNames;

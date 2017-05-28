@@ -33,7 +33,7 @@ namespace AtlusScriptLib
 
         public static FlowScript FromBinary(FlowScriptBinary binary)
         {
-            FlowScript instance = new FlowScript()
+            var instance = new FlowScript()
             {
                 mUserId = binary.Header.UserId
             };
@@ -249,17 +249,16 @@ namespace AtlusScriptLib
                     var binaryInstruction = new FlowScriptBinaryInstruction() { Opcode = instruction.Opcode };
                     var binaryInstruction2 = new FlowScriptBinaryInstruction();
 
-                    if (instruction.Operand.Type == FlowScriptInstruction.OperandValue.ValueType.Int32)
+                    switch (instruction.Operand.Type)
                     {
-                        binaryInstruction2.OperandInt = instruction.Operand.GetInt32Value();
-                    }
-                    else if (instruction.Operand.Type == FlowScriptInstruction.OperandValue.ValueType.Single)
-                    {
-                        binaryInstruction2.OperandFloat = instruction.Operand.GetSingleValue();
-                    }
-                    else
-                    {
-                        throw new InvalidOperationException();
+                        case FlowScriptInstruction.OperandValue.ValueType.Int32:
+                            binaryInstruction2.OperandInt = instruction.Operand.GetInt32Value();
+                            break;
+                        case FlowScriptInstruction.OperandValue.ValueType.Single:
+                            binaryInstruction2.OperandFloat = instruction.Operand.GetSingleValue();
+                            break;
+                        default:
+                            throw new InvalidOperationException();
                     }
 
                     builder.AddInstruction(binaryInstruction);
@@ -271,12 +270,12 @@ namespace AtlusScriptLib
             // Convert labels after the instructions to remap the instruction indices
             foreach (var label in mProcedureLabels)
             {
-                builder.AddProcedureLabel(new FlowScriptBinaryLabel() { InstructionIndex = instructionListIndexToBinaryIndexMap[label.InstructionIndex], Name = label.Name, Reserved = 0 });
+                builder.AddProcedureLabel(new FlowScriptBinaryLabel { InstructionIndex = instructionListIndexToBinaryIndexMap[label.InstructionIndex], Name = label.Name, Reserved = 0 });
             }
 
             foreach (var label in mJumpLabels)
             {
-                builder.AddJumpLabel(new FlowScriptBinaryLabel() { InstructionIndex = instructionListIndexToBinaryIndexMap[label.InstructionIndex], Name = label.Name, Reserved = 0 });
+                builder.AddJumpLabel(new FlowScriptBinaryLabel { InstructionIndex = instructionListIndexToBinaryIndexMap[label.InstructionIndex], Name = label.Name, Reserved = 0 });
             }
 
             // Convert message script

@@ -2,12 +2,12 @@
 
 namespace AtlusScriptLib.Decompilers
 {
-    public class FlowScriptBinaryDecompiler : IDisposable
+    public class FlowScriptDecompiler : IDisposable
     {
         private bool mDisposed = false;
         private string output;
 
-        public FlowScriptBinaryDecompiler(string output)
+        public FlowScriptDecompiler(string output)
         {
             this.output = output;
         }

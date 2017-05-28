@@ -7,6 +7,7 @@ using System.Threading;
 using AtlusScriptLib.Common;
 using AtlusScriptLib.Disassemblers;
 using AtlusScriptLib;
+using AtlusScriptLib.Common.Text;
 using AtlusScriptLib.Decompilers;
 
 namespace AtlusScriptCompiler
@@ -27,7 +28,7 @@ namespace AtlusScriptCompiler
         private static void Main(string[] args)
         {
 #if DEBUG
-            args = new[] { "-i", @"d:\users\smart\documents\visual studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptLibTests\TestResources\V3_BE.bf", "-o", @"d:\users\smart\documents\visual studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptLibTests\TestResources\V3_BE.asm", "-dis" };
+            //args = new[] { "-i", @"d:\users\smart\documents\visual studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptLibTests\TestResources\V3_BE.bf", "-o", @"d:\users\smart\documents\visual studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptLibTests\TestResources\V3_BE.asm", "-dis" };
 #endif
             if (!InitArguments(args))
             {
@@ -152,37 +153,45 @@ namespace AtlusScriptCompiler
 
         private static void PerformDecompilation()
         {
-            if (Path.GetExtension(Input).Equals(".bf", StringComparison.InvariantCultureIgnoreCase))
+            if (Path.HasExtension(Input))
             {
-                if (Output == null)
-                    Output = Path.ChangeExtension(Input, "flow");
-
-                Console.WriteLine($"Decompiling {Input} to {Output}");
-
-                CreateWorkerThreadAndWait((state) =>
+                if (Path.GetExtension(Input).Equals(".bf", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    using (var decompiler = new FlowScriptBinaryDecompiler(Output))
+                    if (Output == null)
+                        Output = Path.ChangeExtension(Input, "flow");
+
+                    Console.WriteLine($"Decompiling {Input} to {Output}");
+
+                    CreateWorkerThreadAndWait((state) =>
                     {
-                        decompiler.Decompile(FlowScriptBinary.FromFile(Input));
-                    }
+                        using (var decompiler = new FlowScriptDecompiler(Output))
+                        {
+                            decompiler.Decompile(FlowScriptBinary.FromFile(Input));
+                        }
 
-                    IsWorkerThreadDone = true;
-                });
-            }
-            else if (Path.GetExtension(Input).Equals(".bmd", StringComparison.InvariantCultureIgnoreCase))
-            {
-                if (Output == null)
-                    Output = Path.ChangeExtension(Input, "msg");
-
-                Console.WriteLine($"Decompiling {Input} to {Output}");
-
-                CreateWorkerThreadAndWait((state) =>
+                        IsWorkerThreadDone = true;
+                    });
+                }
+                else if (Path.GetExtension(Input).Equals(".bmd", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    var decompiler = new MessageScriptDecompiler(MessageScript.FromBinary(MessageScriptBinary.FromFile(Input)));
-                    decompiler.Decompile(Output);
+                    if (Output == null)
+                        Output = Path.ChangeExtension(Input, "msg");
 
-                    IsWorkerThreadDone = true;
-                });
+                    Console.WriteLine($"Decompiling {Input} to {Output}");
+
+                    CreateWorkerThreadAndWait((state) =>
+                    {
+                        var script = MessageScript.FromFile(Input);
+
+                        using (var decompiler = new MessageScriptDecompiler())
+                        {
+                            decompiler.TextOutputProvider = new FileTextOutputProvider(Output);
+                            decompiler.Decompile(script);
+                        }
+
+                        IsWorkerThreadDone = true;
+                    });
+                }
             }
             else
             {

@@ -1,4 +1,5 @@
-﻿using AtlusScriptLib.Common.IO;
+﻿using System.Collections.Generic;
+using AtlusScriptLib.Common.IO;
 using System.Runtime.InteropServices;
 
 namespace AtlusScriptLib
@@ -60,7 +61,7 @@ namespace AtlusScriptLib
         public const int SIZE = 10;
 
         // 00
-        public AddressValuePair<AddressValuePair<string>[]> SpeakerNameArray;
+        public AddressValuePair<AddressValuePair<List<byte>>[]> SpeakerNameArray;
 
         // 04
         public int SpeakerCount;

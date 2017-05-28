@@ -53,6 +53,11 @@
     <Compile Include="Common\IO\Bitwise.cs" />
     <Compile Include="Common\IO\IOConstants.cs" />
     <Compile Include="Common\IO\Unsafe.cs" />
+    <Compile Include="Common\Text\ITextOutputProvider.cs" />
+    <Compile Include="Common\Text\FileTextOutputProvider.cs" />
+    <Compile Include="Common\Text\StreamTextOutputProvider.cs" />
+    <Compile Include="Common\Text\StreamWriterTextOutputProvider.cs" />
+    <Compile Include="Common\Text\StringBuilderTextOutputProvider.cs" />
     <Compile Include="Decompilers\MessageScriptDecompiler.cs" />
     <Compile Include="FlowScriptBinary.cs" />
     <Compile Include="FlowScriptBinaryBuilder.cs" />
@@ -66,13 +71,14 @@
     <Compile Include="FunctionTables\FunctionTableParser.cs" />
     <Compile Include="FunctionTables\IFunctionTable.cs" />
     <Compile Include="FunctionTables\P5FunctionTable.cs" />
-    <Compile Include="Decompilers\FlowScriptBinaryDecompiler.cs" />
+    <Compile Include="Decompilers\FlowScriptDecompiler.cs" />
     <Compile Include="FlowScript.cs" />
     <Compile Include="IMessageScriptLineToken.cs" />
     <Compile Include="MessageScript.cs" />
     <Compile Include="MessageScriptBinaryReader.cs" />
     <Compile Include="MessageScriptBinaryWriter.cs" />
     <Compile Include="IMessageScriptMessage.cs" />
+    <Compile Include="MessageScriptCharacterCodeToken.cs" />
     <Compile Include="MessageScriptDialogueMessage.cs" />
     <Compile Include="MessageScriptFunctionToken.cs" />
     <Compile Include="MessageScriptLine.cs" />

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,11 +47,14 @@ namespace AtlusScriptLib
                             }
                             else if (((ushort)binaryMessage.SpeakerId & 0x8000) == 0x8000)
                             {
-                                message = new MessageScriptDialogueMessage(binaryMessage.Identifier, new MessageScriptDialogueMessageVariableNamedSpeaker());
+                                Trace.WriteLine(binaryMessage.SpeakerId.ToString("X4"));
+                                message = new MessageScriptDialogueMessage(binaryMessage.Identifier, new MessageScriptDialogueMessageVariablyNamedSpeaker());
                             }
                             else
                             {
-                                message = new MessageScriptDialogueMessage(binaryMessage.Identifier, new MessageScriptDialogueMessageNamedSpeaker(binary.SpeakerTableHeader.SpeakerNameArray.Value[binaryMessage.SpeakerId].Value));
+                                var speakerName = ParseSpeakerLine(binary.SpeakerTableHeader.SpeakerNameArray
+                                    .Value[binaryMessage.SpeakerId].Value);
+                                message = new MessageScriptDialogueMessage(binaryMessage.Identifier, new MessageScriptDialogueMessageNamedSpeaker(speakerName));
                             }
                         }
                         break;
@@ -79,6 +83,26 @@ namespace AtlusScriptLib
             return instance;
         }
 
+        /// <summary>
+        /// Deserializes and creates a <see cref="MessageScript"/> from a file.
+        /// </summary>
+        public static MessageScript FromFile(string path)
+        {
+            var binary = MessageScriptBinary.FromFile(path);
+
+            return FromBinary(binary);
+        }
+
+        /// <summary>
+        /// Deserializes and creates a <see cref="MessageScript"/> from a stream.
+        /// </summary>
+        public static MessageScript FromStream(Stream stream)
+        {
+            var binary = MessageScriptBinary.FromStream(stream);
+
+            return FromBinary(binary);
+        }
+
         private static void ParseLines(IMessageScriptMessage message, int[] lineStartAddresses, byte[] buffer)
         {
             if (lineStartAddresses.Length == 0 || buffer.Length == 0)
@@ -102,20 +126,10 @@ namespace AtlusScriptLib
                 int lineEndIndex = (lineIndex + 1) != lineStartAddresses.Length ? lineStartAddresses[lineIndex + 1] : buffer.Length;
 
                 // Loop over the buffer until we find a 0 byte or have reached the end index
-                byte b;
-                while ( bufferIndex < lineEndIndex && (b = buffer[bufferIndex++]) != 0 )
+                while ( bufferIndex < lineEndIndex)
                 {
-                    IMessageScriptLineToken token;
-
-                    // Check if the current byte signifies a function
-                    if ((b & 0xF0) == 0xF0)
-                    {
-                        token = ParseFunctionToken(b, buffer, ref bufferIndex);
-                    }
-                    else 
-                    {
-                        token = ParseTextToken(b, buffer, ref bufferIndex);
-                    }
+                    if (!ParseToken(buffer, ref bufferIndex, out IMessageScriptLineToken token))
+                        break;
 
                     line.Tokens.Add(token);
                 }
@@ -125,7 +139,54 @@ namespace AtlusScriptLib
             }
         }
 
-        private static MessageScriptFunctionToken ParseFunctionToken(byte b, byte[] buffer, ref int bufferIndex)
+        private static MessageScriptLine ParseSpeakerLine(IList<byte> bytes)
+        {
+            var line = new MessageScriptLine();
+
+            for (int i = 0; i < bytes.Count; i++)
+            {
+                if (!ParseToken(bytes, ref i, out IMessageScriptLineToken token))
+                    break;
+
+                line.Tokens.Add(token);
+            }
+
+            return line;
+        }
+
+        private static bool ParseToken(IList<byte> buffer, ref int bufferIndex, out IMessageScriptLineToken token)
+        {
+            byte b = buffer[bufferIndex++];
+
+            // Check if the current byte signifies a function
+            if (b == 0)
+            {
+                token = null;
+                return false;
+            }
+            else if ((b & 0xF0) == 0xF0)
+            {
+                token = ParseFunctionToken(b, buffer, ref bufferIndex);
+            }
+            else if ((b & 0x80) >= 0x80)
+            {
+                token = ParseCharacterCodeToken(b, buffer, ref bufferIndex);
+            }
+            else
+            {
+                token = ParseTextToken(b, buffer, ref bufferIndex);
+            }
+
+            return true;
+        }
+
+        private static MessageScriptCharacterCodeToken ParseCharacterCodeToken(byte b, IList<byte> buffer, ref int bufferIndex)
+        {
+            ushort value = (ushort)(b << 8 | buffer[bufferIndex++] );
+            return new MessageScriptCharacterCodeToken(value);
+        }
+
+        private static MessageScriptFunctionToken ParseFunctionToken(byte b, IList<byte> buffer, ref int bufferIndex)
         {
             int functionId = (b << 8) | buffer[bufferIndex++];
             int functionTableIndex = (functionId & 0xE0) >> 5;
@@ -150,31 +211,21 @@ namespace AtlusScriptLib
             return new MessageScriptFunctionToken(functionTableIndex, functionIndex, functionArguments);
         }
 
-        private static MessageScriptTextToken ParseTextToken(byte b, byte[] buffer, ref int bufferIndex)
+        private static MessageScriptTextToken ParseTextToken(byte b, IList<byte> buffer, ref int bufferIndex)
         {
             var accumulatedText = new List<byte>();
 
             while (true)
             {
-                if ((b & 0x80) >= 0x80)
-                {
-                    accumulatedText.Add(b);
-                    accumulatedText.Add(buffer[bufferIndex++]);
-                }
-                else
-                {
-                    accumulatedText.Add(b);
-                }
+                accumulatedText.Add(b);
 
                 // Check for any condition that would end the sequence of text characters
-                if ( bufferIndex == buffer.Length || buffer[bufferIndex] == 0 || (buffer[bufferIndex] & 0xF0) == 0xF0)
+                if ( bufferIndex == buffer.Count || buffer[bufferIndex] == 0 || (buffer[bufferIndex] & 0x80) >= 0x80 || (buffer[bufferIndex] & 0xF0) == 0xF0)
                 {
                     return new MessageScriptTextToken(Encoding.ASCII.GetString(accumulatedText.ToArray()));
                 }
-                else
-                {
-                    b = buffer[bufferIndex++];
-                }
+
+                b = buffer[bufferIndex++];
             }
         }
 
