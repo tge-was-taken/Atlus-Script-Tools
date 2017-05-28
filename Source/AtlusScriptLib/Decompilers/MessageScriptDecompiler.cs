@@ -38,6 +38,12 @@ namespace AtlusScriptLib.Decompilers
             Decompile(line, false);
         }
 
+        private void WriteTagArgumentTag(string tag, params string[] arguments)
+        {
+            mOutput.Write(" ");
+            WriteTag(tag, arguments);
+        }
+
         private void WriteCloseTag()
         {
             mOutput.Write("]");
@@ -88,19 +94,20 @@ namespace AtlusScriptLib.Decompilers
                 {
                     case MessageScriptDialogueMessageSpeakerType.Named:
                         {
-                            //WriteTag("dlg", message.Identifier, $"\"{message.Speaker}\"");
-
-                            var speaker = (MessageScriptDialogueMessageNamedSpeaker) message.Speaker;
-
                             WriteOpenTag("dlg");
                             WriteTagArgument(message.Identifier);
-                            WriteTagArgument(speaker.Name);
+                            WriteTagArgument(((MessageScriptDialogueMessageNamedSpeaker)message.Speaker).Name);
                             WriteCloseTag();
                         }
                         break;
 
                     case MessageScriptDialogueMessageSpeakerType.VariablyNamed:
-                        WriteTag("dlg", message.Identifier, "var");
+                        {
+                            WriteOpenTag("dlg");
+                            WriteTagArgument(message.Identifier);
+                            WriteTagArgumentTag("svar");
+                            WriteCloseTag();
+                        }
                         break;
                 }
             }
