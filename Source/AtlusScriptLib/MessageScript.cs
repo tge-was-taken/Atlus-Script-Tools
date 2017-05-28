@@ -19,6 +19,12 @@ namespace AtlusScriptLib
         /// </summary>
         public static MessageScript FromBinary(MessageScriptBinary binary)
         {
+            if (binary == null)
+                throw new ArgumentNullException(nameof(binary));
+
+            if (binary.MessageHeaders == null)
+                throw new ArgumentNullException(nameof(binary));
+
             // Create new script instance & set user id, format version
             var instance = new MessageScript()
             {
@@ -52,6 +58,9 @@ namespace AtlusScriptLib
                             }
                             else
                             {
+                                if (binary.SpeakerTableHeader.SpeakerNameArray.Value == null)
+                                    throw new InvalidDataException("Speaker name array is null while being referenced");
+
                                 var speakerName = ParseSpeakerLine(binary.SpeakerTableHeader.SpeakerNameArray
                                     .Value[binaryMessage.SpeakerId].Value);
                                 message = new MessageScriptDialogueMessage(binaryMessage.Identifier, new MessageScriptDialogueMessageNamedSpeaker(speakerName));
@@ -70,7 +79,7 @@ namespace AtlusScriptLib
                         break;
 
                     default:
-                        throw new ArgumentException("Unknown message type", nameof(binary));
+                        throw new InvalidDataException("Unknown message type");
                 }
 
                 // Parse the line data
@@ -88,6 +97,9 @@ namespace AtlusScriptLib
         /// </summary>
         public static MessageScript FromFile(string path)
         {
+            if (path == null)
+                throw new ArgumentNullException(nameof(path));
+
             var binary = MessageScriptBinary.FromFile(path);
 
             return FromBinary(binary);
@@ -98,6 +110,9 @@ namespace AtlusScriptLib
         /// </summary>
         public static MessageScript FromStream(Stream stream)
         {
+            if (stream == null)
+                throw new ArgumentNullException(nameof(stream));
+
             var binary = MessageScriptBinary.FromStream(stream);
 
             return FromBinary(binary);

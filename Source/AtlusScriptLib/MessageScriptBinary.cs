@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 
 namespace AtlusScriptLib
@@ -7,22 +9,48 @@ namespace AtlusScriptLib
     {
         public static MessageScriptBinary FromFile(string path)
         {
+            if (path == null)
+                throw new ArgumentNullException(nameof(path));
+
+            if (string.IsNullOrEmpty(path))
+                throw new ArgumentException("Value cannot be null or empty.", nameof(path));
+
             return FromFile(path, MessageScriptBinaryFormatVersion.Unknown);
         }
 
         public static MessageScriptBinary FromFile(string path, MessageScriptBinaryFormatVersion version)
         {
+            if (path == null)
+                throw new ArgumentNullException(nameof(path));
+
+            if (string.IsNullOrEmpty(path))
+                throw new ArgumentException("Value cannot be null or empty.", nameof(path));
+
+            if (!Enum.IsDefined(typeof(MessageScriptBinaryFormatVersion), version))
+                throw new InvalidEnumArgumentException(nameof(version), (int) version,
+                    typeof(MessageScriptBinaryFormatVersion));
+
             using (var fileStream = File.OpenRead(path))
                 return FromStream(fileStream, version);
         }
 
         public static MessageScriptBinary FromStream(Stream stream)
         {
+            if (stream == null)
+                throw new ArgumentNullException(nameof(stream));
+
             return FromStream(stream, MessageScriptBinaryFormatVersion.Unknown);
         }
 
         public static MessageScriptBinary FromStream(Stream stream, MessageScriptBinaryFormatVersion version)
         {
+            if (stream == null)
+                throw new ArgumentNullException(nameof(stream));
+
+            if (!Enum.IsDefined(typeof(MessageScriptBinaryFormatVersion), version))
+                throw new InvalidEnumArgumentException(nameof(version), (int) version,
+                    typeof(MessageScriptBinaryFormatVersion));
+
             using (var reader = new MessageScriptBinaryReader(stream, version))
             {
                 return reader.ReadBinary();
@@ -35,25 +63,14 @@ namespace AtlusScriptLib
         internal MessageScriptBinarySpeakerTableHeader mSpeakerTableHeader;
         internal MessageScriptBinaryFormatVersion mFormatVersion;
 
-        public MessageScriptBinaryHeader Header
-        {
-            get { return mHeader; }
-        }
+        public MessageScriptBinaryHeader Header => mHeader;
 
-        public ReadOnlyCollection<MessageScriptBinaryMessageHeader> MessageHeaders
-        {
-            get { return new ReadOnlyCollection<MessageScriptBinaryMessageHeader>(mMessageHeaders); }
-        }
+        public ReadOnlyCollection<MessageScriptBinaryMessageHeader> MessageHeaders 
+            => new ReadOnlyCollection<MessageScriptBinaryMessageHeader>(mMessageHeaders);
 
-        public MessageScriptBinarySpeakerTableHeader SpeakerTableHeader
-        {
-            get { return mSpeakerTableHeader; }
-        }
+        public MessageScriptBinarySpeakerTableHeader SpeakerTableHeader => mSpeakerTableHeader;
 
-        public MessageScriptBinaryFormatVersion FormatVersion
-        {
-            get { return mFormatVersion; }
-        }
+        public MessageScriptBinaryFormatVersion FormatVersion => mFormatVersion;
 
         // this constructor is internal because it is used by the builder, reader & writer
         internal MessageScriptBinary()
@@ -62,7 +79,14 @@ namespace AtlusScriptLib
 
         public void ToFile(string path)
         {
-            ToStream(File.Create(path));
+            if (path == null)
+                throw new ArgumentNullException(nameof(path));
+
+            if (string.IsNullOrEmpty(path))
+                throw new ArgumentException("Value cannot be null or empty.", nameof(path));
+
+            using (var stream = File.Create(path))
+                ToStream(stream);
         }
 
         public Stream ToStream()
