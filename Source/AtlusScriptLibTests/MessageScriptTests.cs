@@ -1,11 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using AtlusScriptLib;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AtlusScriptLib.Decompilers;
+using System.IO;
 
 namespace AtlusScriptLib.Tests
 {
@@ -13,15 +7,57 @@ namespace AtlusScriptLib.Tests
     public class MessageScriptTests
     {
         [TestMethod()]
-        public void FromBinaryTest()
+        public void FromBinaryTest_V1()
         {
-            var script = MessageScript.FromBinary(MessageScriptBinary.FromFile("TestResources\\V1_BE.bmd"));
+            var binary = MessageScriptBinary.FromFile("TestResources\\V1.bmd");
+            var script = MessageScript.FromBinary(binary);
         }
 
         [TestMethod()]
-        public void MessageScriptTest()
+        public void FromBinaryTest_V1_BE()
         {
-            Assert.Inconclusive();
+            var binary = MessageScriptBinary.FromFile("TestResources\\V1_BE.bmd");
+            var script = MessageScript.FromBinary(binary);
+        }
+
+        [TestMethod()]
+        public void FromFileTest_V1()
+        {
+            var script = MessageScript.FromFile("TestResources\\V1.bmd");
+        }
+
+        [TestMethod()]
+        public void FromFileTest_V1_BE()
+        {
+            var script = MessageScript.FromFile("TestResources\\V1_BE.bmd");
+        }
+
+        [TestMethod()]
+        public void FromStreamTest_V1()
+        {
+            using (var fileStream = File.OpenRead("TestResources\\V1.bmd"))
+            {
+                var script = MessageScript.FromStream(fileStream);
+            }
+        }
+
+        [TestMethod()]
+        public void FromStreamTest_V1_BE()
+        {
+            using (var fileStream = File.OpenRead("TestResources\\V1_BE.bmd"))
+            {
+                var script = MessageScript.FromStream(fileStream);
+            }
+        }
+
+        [TestMethod()]
+        public void MessageScriptTest1()
+        {
+            var script = new MessageScript();
+
+            Assert.AreEqual(0, script.UserId);
+            Assert.AreEqual(MessageScriptBinaryFormatVersion.Unknown, script.FormatVersion);
+            Assert.AreEqual(0, script.Messages.Count);
         }
     }
 }

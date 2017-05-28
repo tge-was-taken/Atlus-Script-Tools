@@ -1,19 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using AtlusScriptLib;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
+using System.Linq;
 
 namespace AtlusScriptLib.Tests
 {
     [TestClass()]
     public class MessageScriptBinaryTests
     {
-        public TestContext TestContext { get; set; }
-
         [TestMethod()]
         public void FromFileTest_V1()
         {
@@ -52,7 +46,7 @@ namespace AtlusScriptLib.Tests
         [TestMethod()]
         public void FromFileTest_V1_BE_WrongVersion()
         {
-            var script = MessageScriptBinary.FromFile("TestResources\\V1_BE.bmd", MessageScriptBinaryFormatVersion.V1_BE);
+            var script = MessageScriptBinary.FromFile("TestResources\\V1_BE.bmd", MessageScriptBinaryFormatVersion.V1);
             DoScriptChecks_V1_BE(script);
         }
 
@@ -64,11 +58,13 @@ namespace AtlusScriptLib.Tests
             {
                 var script = MessageScriptBinary.FromFile(path);
 
+                CheckForUnusualSpeakerIds(script);
+
                 if (script.SpeakerTableHeader.Field08 != 0)
-                    TestContext.WriteLine($"{nameof(MessageScriptBinary)}.{nameof(script.SpeakerTableHeader)}.{nameof(script.SpeakerTableHeader.Field08)} = {script.SpeakerTableHeader.Field08}");
+                    Trace.WriteLine($"{nameof(MessageScriptBinary)}.{nameof(script.SpeakerTableHeader)}.{nameof(script.SpeakerTableHeader.Field08)} = {script.SpeakerTableHeader.Field08}");
 
                 if (script.SpeakerTableHeader.Field0C != 0)
-                    TestContext.WriteLine($"{nameof(MessageScriptBinary)}.{nameof(script.SpeakerTableHeader)}.{nameof(script.SpeakerTableHeader.Field0C)} = {script.SpeakerTableHeader.Field0C}");
+                    Trace.WriteLine($"{nameof(MessageScriptBinary)}.{nameof(script.SpeakerTableHeader)}.{nameof(script.SpeakerTableHeader.Field0C)} = {script.SpeakerTableHeader.Field0C}");
             }
         }
 
@@ -132,8 +128,26 @@ namespace AtlusScriptLib.Tests
             Assert.AreEqual(script.Header.FileSize, stream.Length);
         }
 
+        private void CheckForUnusualSpeakerIds(MessageScriptBinary script)
+        {
+            foreach (var messageHeader in script.MessageHeaders)
+            {
+                if (messageHeader.MessageType != MessageScriptBinaryMessageType.Dialogue)
+                    continue;
+
+                var message = (MessageScriptBinaryDialogueMessage)messageHeader.Message.Value;
+
+                if ((ushort)message.SpeakerId > (script.SpeakerTableHeader.SpeakerCount - 1))
+                {
+                    Trace.WriteLine($"SpeakerId: {message.SpeakerId:X4}");
+                }
+            }
+        }
+
         private void DoScriptChecks_V1(MessageScriptBinary script)
         {
+            CheckForUnusualSpeakerIds(script);
+
             // header checks
             Assert.AreEqual(7, script.Header.FileType);
             Assert.AreEqual(false, script.Header.IsCompressed);
@@ -180,6 +194,8 @@ namespace AtlusScriptLib.Tests
 
         private void DoScriptChecks_V1_BE(MessageScriptBinary script)
         {
+            CheckForUnusualSpeakerIds(script);
+
             // header checks
             Assert.AreEqual(7, script.Header.FileType);
             Assert.AreEqual(false, script.Header.IsCompressed);
