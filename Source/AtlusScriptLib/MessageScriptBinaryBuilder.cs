@@ -13,7 +13,7 @@ namespace AtlusScriptLib
 
         // optional
         private short mUserId;
-        private readonly List<Tuple<MessageScriptBinaryMessageType, object>> mMessages;
+        private List<Tuple<MessageScriptBinaryMessageType, object>> mMessages;
 
         // temporary storage
         private readonly List<int> mAddressLocations;   // for generating the relocation table
@@ -23,7 +23,6 @@ namespace AtlusScriptLib
         public MessageScriptBinaryBuilder(MessageScriptBinaryFormatVersion version)
         {
             mFormatVersion = version;
-            mMessages = new List<Tuple<MessageScriptBinaryMessageType, object>>();
             mAddressLocations = new List<int>();
             mSpeakerNames = new List<byte[]>();
             mPosition = MessageScriptBinaryHeader.SIZE;
@@ -36,6 +35,9 @@ namespace AtlusScriptLib
 
         public void AddMessage(MessageScriptDialogueMessage message)
         {
+            if (mMessages == null)
+                mMessages = new List<Tuple<MessageScriptBinaryMessageType, object>>();
+
             MessageScriptBinaryDialogueMessage binary;
 
             binary.Identifier = message.Identifier;
@@ -57,7 +59,7 @@ namespace AtlusScriptLib
 
                     case MessageScriptDialogueMessageSpeakerType.VariablyNamed:
                         {
-                            binary.SpeakerId = 0x8000;
+                            binary.SpeakerId = (ushort)(0x8000u | ((MessageScriptDialogueMessageVariablyNamedSpeaker)message.Speaker).Index);
                         }
                         break;
 
@@ -97,6 +99,9 @@ namespace AtlusScriptLib
 
         public void AddMessage(MessageScriptSelectionMessage message)
         {
+            if (mMessages == null)
+                mMessages = new List<Tuple<MessageScriptBinaryMessageType, object>>();
+
             MessageScriptBinarySelectionMessage binary;
 
             binary.Identifier = message.Identifier;
@@ -138,15 +143,18 @@ namespace AtlusScriptLib
             // note: DONT CHANGE THE ORDER
             BuildHeaderFirstPass(ref binary.mHeader);
 
-            BuildMessageHeadersFirstPass(ref binary.mMessageHeaders);
+            if (mMessages != null)
+            {
+                BuildMessageHeadersFirstPass(ref binary.mMessageHeaders);
 
-            BuildSpeakerTableHeaderFirstPass(ref binary.mSpeakerTableHeader);
+                BuildSpeakerTableHeaderFirstPass(ref binary.mSpeakerTableHeader);
 
-            BuildMessageHeadersFinalPass(ref binary.mMessageHeaders);
+                BuildMessageHeadersFinalPass(ref binary.mMessageHeaders);
 
-            BuildSpeakerTableHeaderSecondPass(ref binary.mSpeakerTableHeader);
+                BuildSpeakerTableHeaderSecondPass(ref binary.mSpeakerTableHeader);
 
-            BuildSpeakerTableHeaderFinalPass(ref binary.mSpeakerTableHeader);
+                BuildSpeakerTableHeaderFinalPass(ref binary.mSpeakerTableHeader);
+            }
 
             BuildHeaderFinalPass(ref binary.mHeader);
 
@@ -233,7 +241,7 @@ namespace AtlusScriptLib
                 ? MessageScriptBinaryHeader.MAGIC_V1_BE
                 : MessageScriptBinaryHeader.MAGIC_V1;
             header.Field0C = 0;
-            header.MessageCount = mMessages.Count;
+            header.MessageCount = mMessages?.Count ?? 0;
             header.IsRelocated = false;
             header.Field1E = 2;
         }

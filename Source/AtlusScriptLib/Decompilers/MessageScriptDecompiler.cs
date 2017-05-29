@@ -105,7 +105,7 @@ namespace AtlusScriptLib.Decompilers
                         {
                             WriteOpenTag("dlg");
                             WriteTagArgument(message.Identifier);
-                            WriteTagArgumentTag("svar");
+                            WriteTagArgumentTag("svar", ((MessageScriptDialogueMessageVariablyNamedSpeaker)message.Speaker).Index.ToString());
                             WriteCloseTag();
                         }
                         break;

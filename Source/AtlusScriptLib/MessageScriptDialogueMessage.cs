@@ -97,12 +97,19 @@ namespace AtlusScriptLib
 
     public class MessageScriptDialogueMessageVariablyNamedSpeaker : IMessageScriptDialogueMessageSpeaker
     {
-        MessageScriptDialogueMessageSpeakerType IMessageScriptDialogueMessageSpeaker.Type => MessageScriptDialogueMessageSpeakerType.VariablyNamed;
+        public int Index { get; }
+
+        public MessageScriptDialogueMessageVariablyNamedSpeaker(int index = 0)
+        {
+            Index = index;
+        }
 
         public override string ToString()
         {
-            return "<variable name>";
+            return $"<variable name {Index}>";
         }
+
+        MessageScriptDialogueMessageSpeakerType IMessageScriptDialogueMessageSpeaker.Type => MessageScriptDialogueMessageSpeakerType.VariablyNamed;
     }
 
     public enum MessageScriptDialogueMessageSpeakerType

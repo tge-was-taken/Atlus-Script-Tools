@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -36,8 +37,8 @@ namespace AtlusScriptLib
             foreach (var messageHeader in binary.MessageHeaders)
             {
                 IMessageScriptMessage message;
-                int[] lineStartAddresses;
-                byte[] buffer;
+                IReadOnlyList<int> lineStartAddresses;
+                IReadOnlyList<byte> buffer;
 
                 switch (messageHeader.MessageType)
                 {
@@ -47,14 +48,15 @@ namespace AtlusScriptLib
                             lineStartAddresses = binaryMessage.LineStartAddresses;
                             buffer = binaryMessage.TextBuffer;
 
-                            if ((ushort)binaryMessage.SpeakerId == 0xFFFF)
+                            if (binaryMessage.SpeakerId == 0xFFFF)
                             {
                                 message = new MessageScriptDialogueMessage(binaryMessage.Identifier);
                             }
-                            else if (((ushort)binaryMessage.SpeakerId & 0x8000) == 0x8000)
+                            else if ((binaryMessage.SpeakerId & 0x8000) == 0x8000)
                             {
                                 Trace.WriteLine(binaryMessage.SpeakerId.ToString("X4"));
-                                message = new MessageScriptDialogueMessage(binaryMessage.Identifier, new MessageScriptDialogueMessageVariablyNamedSpeaker());
+
+                                message = new MessageScriptDialogueMessage(binaryMessage.Identifier, new MessageScriptDialogueMessageVariablyNamedSpeaker(binaryMessage.SpeakerId & 0x0FFF));
                             }
                             else
                             {
@@ -74,7 +76,7 @@ namespace AtlusScriptLib
                             lineStartAddresses = binaryMessage.OptionStartAddresses;
                             buffer = binaryMessage.TextBuffer;
 
-                            message = new MessageScriptSelectionMessage(binaryMessage.Identifier);
+                            message = new MessageScriptSelectionMessage((string)binaryMessage.Identifier.Clone());
                         }
                         break;
 
@@ -118,27 +120,29 @@ namespace AtlusScriptLib
             return FromBinary(binary);
         }
 
-        private static void ParseLines(IMessageScriptMessage message, int[] lineStartAddresses, byte[] buffer)
+        private static void ParseLines(IMessageScriptMessage message, IReadOnlyList<int> lineStartAddresses, IReadOnlyList<byte> buffer)
         {
-            if (lineStartAddresses.Length == 0 || buffer.Length == 0)
+            if (lineStartAddresses.Count == 0 || buffer.Count == 0)
                 return;
 
             // The addresses are not relative to the start of the buffer
             // so we rebase the addresses first
-            int firstLineAddress = lineStartAddresses[0];
-            for (int i = 0; i < lineStartAddresses.Length; i++)
-                lineStartAddresses[i] -= firstLineAddress;
+            int lineStartAddressBase = lineStartAddresses[0];
+            int[] rebasedLineStartAddresses = new int[lineStartAddresses.Count];
+
+            for (int i = 0; i < lineStartAddresses.Count; i++)
+                rebasedLineStartAddresses[i] = lineStartAddresses[i] - lineStartAddressBase;
         
-            for (int lineIndex = 0; lineIndex < lineStartAddresses.Length; lineIndex++)
+            for (int lineIndex = 0; lineIndex < rebasedLineStartAddresses.Length; lineIndex++)
             {
                 // Initialize a new line
                 var line = new MessageScriptLine();
 
                 // Now that the line start addresses have been rebased, we can use them as indices into the buffer
-                int bufferIndex = lineStartAddresses[lineIndex];
+                int bufferIndex = rebasedLineStartAddresses[lineIndex];
 
                 // Calculate the line end index
-                int lineEndIndex = (lineIndex + 1) != lineStartAddresses.Length ? lineStartAddresses[lineIndex + 1] : buffer.Length;
+                int lineEndIndex = (lineIndex + 1) != rebasedLineStartAddresses.Length ? rebasedLineStartAddresses[lineIndex + 1] : buffer.Count;
 
                 // Loop over the buffer until we find a 0 byte or have reached the end index
                 while ( bufferIndex < lineEndIndex)
@@ -154,7 +158,7 @@ namespace AtlusScriptLib
             }
         }
 
-        private static MessageScriptLine ParseSpeakerLine(IList<byte> bytes)
+        private static MessageScriptLine ParseSpeakerLine(IReadOnlyList<byte> bytes)
         {
             var line = new MessageScriptLine();
 
@@ -169,7 +173,7 @@ namespace AtlusScriptLib
             return line;
         }
 
-        private static bool ParseToken(IList<byte> buffer, ref int bufferIndex, out IMessageScriptLineToken token)
+        private static bool ParseToken(IReadOnlyList<byte> buffer, ref int bufferIndex, out IMessageScriptLineToken token)
         {
             byte b = buffer[bufferIndex++];
 
@@ -195,13 +199,13 @@ namespace AtlusScriptLib
             return true;
         }
 
-        private static MessageScriptCharacterCodeToken ParseCharacterCodeToken(byte b, IList<byte> buffer, ref int bufferIndex)
+        private static MessageScriptCharacterCodeToken ParseCharacterCodeToken(byte b, IReadOnlyList<byte> buffer, ref int bufferIndex)
         {
             ushort value = (ushort)(b << 8 | buffer[bufferIndex++] );
             return new MessageScriptCharacterCodeToken(value);
         }
 
-        private static MessageScriptFunctionToken ParseFunctionToken(byte b, IList<byte> buffer, ref int bufferIndex)
+        private static MessageScriptFunctionToken ParseFunctionToken(byte b, IReadOnlyList<byte> buffer, ref int bufferIndex)
         {
             int functionId = (b << 8) | buffer[bufferIndex++];
             int functionTableIndex = (functionId & 0xE0) >> 5;
@@ -215,7 +219,7 @@ namespace AtlusScriptLib
                 byte secondByte = 0;
                 byte secondByteAux = buffer[bufferIndex++];
 
-                if (secondByteAux != 0xFF)
+                //if (secondByteAux != 0xFF)
                 {
                     secondByte = (byte)(secondByteAux - 1);
                 }
@@ -226,7 +230,7 @@ namespace AtlusScriptLib
             return new MessageScriptFunctionToken(functionTableIndex, functionIndex, functionArguments);
         }
 
-        private static MessageScriptTextToken ParseTextToken(byte b, IList<byte> buffer, ref int bufferIndex)
+        private static MessageScriptTextToken ParseTextToken(byte b, IReadOnlyList<byte> buffer, ref int bufferIndex)
         {
             var accumulatedText = new List<byte>();
 
