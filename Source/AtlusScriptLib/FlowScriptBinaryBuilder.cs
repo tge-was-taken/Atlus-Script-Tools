@@ -8,7 +8,7 @@ namespace AtlusScriptLib
     public sealed class FlowScriptBinaryBuilder
     {
         // required
-        private FlowScriptBinaryFormatVersion mFormatVersion;
+        private readonly FlowScriptBinaryFormatVersion mFormatVersion;
 
         // optional
         private short mUserId;
@@ -20,6 +20,10 @@ namespace AtlusScriptLib
         
         public FlowScriptBinaryBuilder(FlowScriptBinaryFormatVersion version)
         {
+            if (!Enum.IsDefined(typeof(FlowScriptBinaryFormatVersion), version))
+                throw new ArgumentOutOfRangeException(nameof(version),
+                    $"Value should be defined in the {nameof(FlowScriptBinaryFormatVersion)} enum.");
+
             mFormatVersion = version;
         }
 
@@ -30,7 +34,7 @@ namespace AtlusScriptLib
 
         public void SetProcedureLabelSection(IList<FlowScriptBinaryLabel> procedureLabelSection)
         {
-            mProcedureLabelSection = procedureLabelSection;
+            mProcedureLabelSection = procedureLabelSection ?? throw new ArgumentNullException(nameof(procedureLabelSection));
         }
 
         public void AddProcedureLabel(FlowScriptBinaryLabel label)
@@ -43,7 +47,7 @@ namespace AtlusScriptLib
 
         public void SetJumpLabelSection(IList<FlowScriptBinaryLabel> jumpLabelSection)
         {
-            mJumpLabelSection = jumpLabelSection;
+            mJumpLabelSection = jumpLabelSection ?? throw new ArgumentNullException(nameof(jumpLabelSection));
         }
 
         public void AddJumpLabel(FlowScriptBinaryLabel label)
@@ -56,7 +60,7 @@ namespace AtlusScriptLib
 
         public void SetTextSection(IList<FlowScriptBinaryInstruction> textSection)
         {
-            mTextSection = textSection;
+            mTextSection = textSection ?? throw new ArgumentNullException(nameof(textSection));
         }
 
         public void AddInstruction(FlowScriptBinaryInstruction instruction)
@@ -69,16 +73,19 @@ namespace AtlusScriptLib
 
         public void SetMessageScriptSection(IList<byte> messageScriptSection)
         {
-            mMessageScriptSection = messageScriptSection;
+            mMessageScriptSection = messageScriptSection ?? throw new ArgumentNullException(nameof(messageScriptSection));
         }
 
         public void SetStringSection(IList<byte> stringSection)
         {
-            mStringSection = stringSection;
+            mStringSection = stringSection ?? throw new ArgumentNullException(nameof(stringSection));
         }
 
         public void AddString(string value, out int index)
         {
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
+
             if (mStringSection == null)
                 mStringSection = new List<byte>();
 
@@ -86,8 +93,8 @@ namespace AtlusScriptLib
 
             var bytes = Encoding.GetEncoding(932).GetBytes(value);
 
-            for (int i = 0; i < bytes.Length; i++)
-                mStringSection.Add(bytes[i]);
+            foreach (byte b in bytes)
+                mStringSection.Add(b);
 
             mStringSection.Add(0);
         }
