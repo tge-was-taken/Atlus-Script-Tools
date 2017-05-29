@@ -43,8 +43,8 @@ namespace AtlusScriptLib
 
                         for (int j = 0; j < numLoop; j++)
                         {
-                            addressLocs.Add(addressBaseOffset + prevRelocSum + 4);
-                            prevRelocSum += 4;
+                            addressLocs.Add(addressBaseOffset + prevRelocSum + ADDRESS_SIZE);
+                            prevRelocSum += ADDRESS_SIZE;
                         }
 
                         // Continue the loop early so we skip adding the reloc value to the list later on
@@ -75,7 +75,7 @@ namespace AtlusScriptLib
         public static byte[] Encode(IList<int> addressLocations, int addressBaseOffset)
         {
             int prevRelocSum = 0;
-            List<byte> addressRelocBytes = new List<byte>();
+            List<byte> relocationTable = new List<byte>();
 
             // Detect address sequence runs
             List<AddressSequence> sequences = DetectAddressSequenceRuns(addressLocations);
@@ -89,7 +89,7 @@ namespace AtlusScriptLib
                 if (seqIdx == -1)
                 {
                     // Encode address and add it to the list of bytes
-                    EncodeAddress(reloc, addressRelocBytes, ref prevRelocSum);
+                    EncodeAddress(reloc, relocationTable, ref prevRelocSum);
                 }
                 else
                 {
@@ -97,7 +97,7 @@ namespace AtlusScriptLib
                     // Use the first entry to position to the start of the sequence
 
                     // Encode the first entries' address and add it to the list of bytes
-                    EncodeAddress(reloc, addressRelocBytes, ref prevRelocSum);
+                    EncodeAddress(reloc, relocationTable, ref prevRelocSum);
 
                     // Subtract one because the first entry is used to locate to the start of the sequence
                     int numberOfAddressesInSequence = sequences[seqIdx].SequenceAddressCount - 1;
@@ -113,14 +113,14 @@ namespace AtlusScriptLib
                         reloc |= SEQ_FLAG_ODD;
                     }
 
-                    addressRelocBytes.Add((byte) reloc);
+                    relocationTable.Add((byte) reloc);
 
                     addressLocationIndex += numberOfAddressesInSequence;
                     prevRelocSum += numberOfAddressesInSequence * ADDRESS_SIZE;
                 }
             }
 
-            return addressRelocBytes.ToArray();
+            return relocationTable.ToArray();
         }
 
         private static void EncodeAddress(int reloc, List<byte> relocationTable, ref int sumOfPreviousRelocations)
