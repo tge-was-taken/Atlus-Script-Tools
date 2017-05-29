@@ -76,6 +76,7 @@
     <Compile Include="FlowScript.cs" />
     <Compile Include="IMessageScriptLineToken.cs" />
     <Compile Include="MessageScript.cs" />
+    <Compile Include="MessageScriptBinaryBuilder.cs" />
     <Compile Include="MessageScriptBinaryReader.cs" />
     <Compile Include="MessageScriptBinaryWriter.cs" />
     <Compile Include="IMessageScriptMessage.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="Common\Syntax\VariableDeclarations.cs" />
     <Compile Include="Common\Tokenizing\Tokenizer.cs" />
     <Compile Include="Common\Utilities\DebugUtils.cs" />
+    <Compile Include="RelocationTableEncoding.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

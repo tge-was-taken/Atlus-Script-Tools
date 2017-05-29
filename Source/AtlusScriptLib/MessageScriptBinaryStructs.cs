@@ -8,8 +8,8 @@ namespace AtlusScriptLib
     {
         public const int SIZE = 32;
         public const byte FILE_TYPE = 7;
-        public static byte[] MAGIC_V1 = new byte[] { (byte)'M', (byte)'S', (byte)'G', (byte)'1' };
-        public static byte[] MAGIC_V1_BE = new byte[] { (byte)'1', (byte)'G', (byte)'S', (byte)'M' };
+        public static byte[] MAGIC_V1 = { (byte)'M', (byte)'S', (byte)'G', (byte)'1' };
+        public static byte[] MAGIC_V1_BE = { (byte)'1', (byte)'G', (byte)'S', (byte)'M' };
 
         // 00
         public byte FileType;
@@ -85,7 +85,7 @@ namespace AtlusScriptLib
         public short LineCount;
 
         // 0x1A
-        public short SpeakerId;
+        public ushort SpeakerId;
 
         // 0x1C
         public int[] LineStartAddresses;

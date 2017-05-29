@@ -208,7 +208,7 @@ namespace AtlusScriptLib
 
             message.Identifier          = mReader.ReadString(StringBinaryFormat.FixedLength, MessageScriptBinaryDialogueMessage.IDENTIFIER_LENGTH);
             message.LineCount           = mReader.ReadInt16();
-            message.SpeakerId           = mReader.ReadInt16();
+            message.SpeakerId           = mReader.ReadUInt16();
             message.LineStartAddresses  = mReader.ReadInt32s(message.LineCount);
             message.TextBufferSize      = mReader.ReadInt32();
             message.TextBuffer          = mReader.ReadBytes(message.TextBufferSize);
