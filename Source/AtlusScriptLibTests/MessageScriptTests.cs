@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using AtlusScriptLib;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 
 namespace AtlusScriptLib.Tests
@@ -58,6 +59,15 @@ namespace AtlusScriptLib.Tests
             Assert.AreEqual(0, script.UserId);
             Assert.AreEqual(MessageScriptBinaryFormatVersion.Unknown, script.FormatVersion);
             Assert.AreEqual(0, script.Messages.Count);
+        }
+
+        [TestMethod()]
+        public void ToBinaryTest()
+        {
+            var binary = MessageScriptBinary.FromFile("TestResources\\Version1.bmd");
+            var script = MessageScript.FromBinary(binary);
+            var newBinary = script.ToBinary();
+            newBinary.ToFile("TestResources\\Version1_ToFile.bmd");
         }
     }
 }

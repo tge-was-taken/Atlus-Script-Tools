@@ -268,5 +268,27 @@ namespace AtlusScriptLib
             FormatVersion = MessageScriptBinaryFormatVersion.Unknown;
             Messages = new List<IMessageScriptMessage>();
         }
+
+        public MessageScriptBinary ToBinary()
+        {
+            var builder = new MessageScriptBinaryBuilder(FormatVersion);
+
+            builder.SetUserId(UserId);
+
+            foreach (var message in Messages)
+            {
+                switch (message.Type)
+                {
+                    case MessageScriptMessageType.Dialogue:
+                        builder.AddMessage((MessageScriptDialogueMessage)message);
+                        break;
+                    case MessageScriptMessageType.Selection:
+                        builder.AddMessage((MessageScriptSelectionMessage)message);
+                        break;
+                }
+            }
+
+            return builder.Build();
+        }
     }
 }
