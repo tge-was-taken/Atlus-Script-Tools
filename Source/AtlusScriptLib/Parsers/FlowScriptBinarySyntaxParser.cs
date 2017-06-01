@@ -4,9 +4,9 @@ using System.Linq;
 using System.Diagnostics;
 
 using AtlusScriptLib.Common.Syntax;
-using AtlusScriptLib.Common.Utilities;
 using AtlusScriptLib.Common.Collections;
 using AtlusScriptLib.FunctionTables;
+using static TGELib.Debugging.Debug;
 
 namespace AtlusScriptLib.Parsers
 {
@@ -64,7 +64,7 @@ namespace AtlusScriptLib.Parsers
 
             // No new procedure found- this is the last procedure left
             if (mScript.TextSection[endIndex - 1].Opcode != FlowScriptOpcode.END)
-                DebugUtils.TraceError("Expected END opcode at end of procedure");
+                TraceError("Expected END opcode at end of procedure");
 
             return (endIndex - mInstructionIndex) - 1;
         }

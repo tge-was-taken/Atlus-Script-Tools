@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
+using TGELib.Text.Tokenizing;
 
 namespace AtlusScriptLib.Common.Tokenizing.Tests
 {
@@ -127,7 +128,7 @@ namespace AtlusScriptLib.Common.Tokenizing.Tests
         {
             var tokenizer = new Tokenizer(" @  !    abc", null)
             {
-                KeepWhitespace = true
+                FilterWhitespace = true
             };
 
             int index = 0;

@@ -4,8 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Globalization;
-
-using AtlusScriptLib.Common.Utilities;
+using TGELib.Debugging;
 
 namespace AtlusScriptLib.Disassemblers
 {
@@ -204,7 +203,7 @@ namespace AtlusScriptLib.Disassemblers
                     break;
 
                 default:
-                    DebugUtils.FatalException($"Unknown opcode {CurrentInstruction.Opcode}");
+                    Debug.FatalException($"Unknown opcode {CurrentInstruction.Opcode}");
                     break;
             }
         }
@@ -222,7 +221,7 @@ namespace AtlusScriptLib.Disassemblers
         {
             if (instruction.OperandShort != 0)
             {
-                DebugUtils.TraceError($"{instruction.Opcode} should not have any operands");
+                Debug.TraceError($"{instruction.Opcode} should not have any operands");
             }
 
             return $"{instruction.Opcode}";
@@ -261,7 +260,7 @@ namespace AtlusScriptLib.Disassemblers
         {
             if (instruction.OperandShort >= labels.Count)
             {
-                DebugUtils.FatalException($"No label for label reference id {instruction.OperandShort} present in {nameof(labels)}");
+                Debug.FatalException($"No label for label reference id {instruction.OperandShort} present in {nameof(labels)}");
             }
 
             return $"{instruction.Opcode} {labels[instruction.OperandShort].Name}";

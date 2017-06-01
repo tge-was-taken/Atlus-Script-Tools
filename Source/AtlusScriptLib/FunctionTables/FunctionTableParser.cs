@@ -1,11 +1,11 @@
-﻿
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 
+using TGELib.Text.Tokenizing;
+
 using AtlusScriptLib.Common.Syntax;
-using AtlusScriptLib.Common.Tokenizing;
-using System;
 
 namespace AtlusScriptLib.FunctionTables
 {

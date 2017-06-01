@@ -1,14 +1,12 @@
 ﻿using System.IO;
 using System.Diagnostics;
 using System;
-using System.Collections.Generic;
 using System.Threading;
-
-using AtlusScriptLib.Common;
 using AtlusScriptLib.Disassemblers;
 using AtlusScriptLib;
-using AtlusScriptLib.Common.Text;
 using AtlusScriptLib.Decompilers;
+using TGELib.CLI;
+using TGELib.Text;
 
 namespace AtlusScriptCompiler
 {

@@ -1,4 +1,6 @@
-﻿namespace AtlusScriptLib.Common.Syntax
+﻿using TGELib.Text.Tokenizing;
+
+namespace AtlusScriptLib.Common.Syntax
 {
     public abstract class SyntaxNode
     {

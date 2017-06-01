@@ -1,7 +1,7 @@
-﻿using AtlusScriptLib.Common.IO;
-using System;
+﻿using System;
 using System.IO;
 using System.Text;
+using TGELib.IO;
 
 namespace AtlusScriptLib
 {

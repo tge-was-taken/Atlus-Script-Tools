@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-
-using AtlusScriptLib.Common.IO;
+using TGELib.IO;
 
 namespace AtlusScriptLib
 {

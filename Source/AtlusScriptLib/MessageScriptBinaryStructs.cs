@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using AtlusScriptLib.Common.IO;
-using System.Runtime.InteropServices;
+using TGELib.IO;
 
 namespace AtlusScriptLib
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using AtlusScriptLib.Common.Text;
+using TGELib.Text;
 
 namespace AtlusScriptLib.Decompilers
 {

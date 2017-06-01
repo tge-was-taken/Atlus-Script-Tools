@@ -45,20 +45,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\CommandLineArgument.cs" />
-    <Compile Include="Common\CommandLineArgumentParser.cs" />
-    <Compile Include="Common\CommandLineArgumentValueTarget.cs" />
-    <Compile Include="Common\ICommandLineArgument.cs" />
-    <Compile Include="Common\IO\AddressValuePair.cs" />
-    <Compile Include="Common\IO\Bitwise.cs" />
-    <Compile Include="Common\IO\IOConstants.cs" />
-    <Compile Include="Common\IO\Unsafe.cs" />
-    <Compile Include="Common\Text\ITextOutputProvider.cs" />
-    <Compile Include="Common\Text\FileTextOutputProvider.cs" />
-    <Compile Include="Common\Text\StreamTextOutputProvider.cs" />
-    <Compile Include="Common\Text\StreamWriterTextOutputProvider.cs" />
-    <Compile Include="Common\Text\StringBuilderTextOutputProvider.cs" />
-    <Compile Include="Common\Text\StringTextOutputProvider.cs" />
     <Compile Include="Decompilers\MessageScriptDecompiler.cs" />
     <Compile Include="FlowScriptBinary.cs" />
     <Compile Include="FlowScriptBinaryBuilder.cs" />
@@ -97,12 +83,7 @@
     <Compile Include="MessageScriptBinary.cs" />
     <Compile Include="MessageScriptBinaryEnums.cs" />
     <Compile Include="MessageScriptBinaryStructs.cs" />
-    <Compile Include="Common\Collections\IListExtensions.cs" />
-    <Compile Include="Common\IO\EndianBinaryReader.cs" />
-    <Compile Include="Common\IO\EndianBinaryWriter.cs" />
-    <Compile Include="Common\IO\Endianness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Common\IO\StringBinaryFormat.cs" />
     <Compile Include="Common\Syntax\BinaryExpressions.cs" />
     <Compile Include="Common\Syntax\ConstantExpressions.cs" />
     <Compile Include="Common\Syntax\DeclarationStatements.cs" />
@@ -111,14 +92,11 @@
     <Compile Include="Common\Syntax\FunctionDeclarations.cs" />
     <Compile Include="Common\Syntax\IOperator.cs" />
     <Compile Include="Common\Syntax\JumpStatements.cs" />
-    <Compile Include="Common\SourceInfo.cs" />
     <Compile Include="Common\Syntax\Statements.cs" />
     <Compile Include="Common\Syntax\SyntaxNode.cs" />
     <Compile Include="Common\Syntax\SyntaxTree.cs" />
     <Compile Include="Common\Syntax\UnaryExpressions.cs" />
     <Compile Include="Common\Syntax\VariableDeclarations.cs" />
-    <Compile Include="Common\Tokenizing\Tokenizer.cs" />
-    <Compile Include="Common\Utilities\DebugUtils.cs" />
     <Compile Include="RelocationTableEncoding.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -129,6 +107,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\TGELib\TGELib\TGELib.csproj">
+      <Project>{2C083582-B39E-45CA-BF8F-3D361CDEA80A}</Project>
+      <Name>TGELib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

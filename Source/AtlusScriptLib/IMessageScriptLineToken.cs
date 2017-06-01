@@ -1,8 +1,4 @@
-﻿using System;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AtlusScriptLib
+﻿namespace AtlusScriptLib
 {
     public interface IMessageScriptLineToken
     {
