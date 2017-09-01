@@ -1,4 +1,5 @@
-﻿using TGELib.Text.Tokenizing;
+﻿
+using AtlusScriptLib.Text.Tokenizing;
 
 namespace AtlusScriptLib.Common.Syntax
 {

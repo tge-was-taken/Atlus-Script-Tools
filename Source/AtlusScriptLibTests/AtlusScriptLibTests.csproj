@@ -91,10 +91,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\TGELib\TGELib\TGELib.csproj">
-      <Project>{2C083582-B39E-45CA-BF8F-3D361CDEA80A}</Project>
-      <Name>TGELib</Name>
-    </ProjectReference>
     <ProjectReference Include="..\AtlusScriptLib\AtlusScriptLib.csproj">
       <Project>{62EE486F-AE33-4DBB-AC4C-409A22CB04AD}</Project>
       <Name>AtlusScriptLib</Name>

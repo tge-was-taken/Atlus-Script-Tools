@@ -45,11 +45,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\CLI\CommandLineArgument.cs" />
+    <Compile Include="Common\CLI\CommandLineArgumentParser.cs" />
+    <Compile Include="Common\CLI\CommandLineArgumentValueTarget.cs" />
+    <Compile Include="Common\CLI\ICommandLineArgument.cs" />
+    <Compile Include="Common\Collections\DictionaryExtensions.cs" />
+    <Compile Include="Common\Collections\ICollectionExtensions.cs" />
+    <Compile Include="Common\Collections\IListExtensions.cs" />
+    <Compile Include="Common\Reflection\MemberInfoExtensions.cs" />
+    <Compile Include="Common\Reflection\TypeExtensions.cs" />
     <Compile Include="Decompilers\MessageScriptDecompiler.cs" />
-    <Compile Include="FlowScriptBinary.cs" />
-    <Compile Include="FlowScriptBinaryBuilder.cs" />
-    <Compile Include="FlowScriptBinaryReader.cs" />
-    <Compile Include="FlowScriptBinaryWriter.cs" />
+    <Compile Include="Common\Text\OutputProviders\FileTextOutputProvider.cs" />
+    <Compile Include="Common\Text\OutputProviders\ITextOutputProvider.cs" />
+    <Compile Include="Common\Text\OutputProviders\StreamTextOutputProvider.cs" />
+    <Compile Include="Common\Text\OutputProviders\StreamWriterTextOutputProvider.cs" />
+    <Compile Include="Common\Text\OutputProviders\StringBuilderTextOutputProvider.cs" />
+    <Compile Include="Common\Text\OutputProviders\StringTextOutputProvider.cs" />
+    <Compile Include="Common\Text\OutputProviders\TextWriterTextOutputProvider.cs" />
+    <Compile Include="Common\Text\Encodings\PersonaEncoding.cs" />
+    <Compile Include="BinaryModel\FlowScriptBinary.cs" />
+    <Compile Include="BinaryModel\FlowScriptBinaryBuilder.cs" />
+    <Compile Include="BinaryModel\IO\FlowScriptBinaryReader.cs" />
+    <Compile Include="BinaryModel\IO\FlowScriptBinaryWriter.cs" />
     <Compile Include="FlowScriptInstruction.cs" />
     <Compile Include="FlowScriptLabel.cs" />
     <Compile Include="FlowScriptEnums.cs" />
@@ -61,10 +78,16 @@
     <Compile Include="Decompilers\FlowScriptDecompiler.cs" />
     <Compile Include="FlowScript.cs" />
     <Compile Include="IMessageScriptLineToken.cs" />
+    <Compile Include="Common\IO\EndianBinaryReader.cs" />
+    <Compile Include="Common\IO\EndianBinaryWriter.cs" />
+    <Compile Include="Common\IO\Endianness.cs" />
+    <Compile Include="BinaryModel\OffsetTo.cs" />
+    <Compile Include="Common\IO\StringBinaryFormat.cs" />
+    <Compile Include="Common\IO\Unsafe.cs" />
     <Compile Include="MessageScript.cs" />
-    <Compile Include="MessageScriptBinaryBuilder.cs" />
-    <Compile Include="MessageScriptBinaryReader.cs" />
-    <Compile Include="MessageScriptBinaryWriter.cs" />
+    <Compile Include="BinaryModel\MessageScriptBinaryBuilder.cs" />
+    <Compile Include="BinaryModel\IO\MessageScriptBinaryReader.cs" />
+    <Compile Include="BinaryModel\IO\MessageScriptBinaryWriter.cs" />
     <Compile Include="IMessageScriptMessage.cs" />
     <Compile Include="MessageScriptCodePointToken.cs" />
     <Compile Include="MessageScriptDialogueMessage.cs" />
@@ -76,11 +99,11 @@
     <Compile Include="MessageScriptTextToken.cs" />
     <Compile Include="Parsers\FlowScriptBinarySyntaxParser.cs" />
     <Compile Include="Disassemblers\FlowScriptBinaryDisassembler.cs" />
-    <Compile Include="FlowScriptBinaryEnums.cs" />
-    <Compile Include="FlowScriptBinaryStructs.cs" />
-    <Compile Include="MessageScriptBinary.cs" />
-    <Compile Include="MessageScriptBinaryEnums.cs" />
-    <Compile Include="MessageScriptBinaryStructs.cs" />
+    <Compile Include="BinaryModel\FlowScriptBinaryEnums.cs" />
+    <Compile Include="BinaryModel\FlowScriptBinaryStructs.cs" />
+    <Compile Include="BinaryModel\MessageScriptBinary.cs" />
+    <Compile Include="BinaryModel\MessageScriptBinaryEnums.cs" />
+    <Compile Include="BinaryModel\MessageScriptBinaryStructs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\Syntax\BinaryExpressions.cs" />
     <Compile Include="Common\Syntax\ConstantExpressions.cs" />
@@ -95,7 +118,9 @@
     <Compile Include="Common\Syntax\SyntaxTree.cs" />
     <Compile Include="Common\Syntax\UnaryExpressions.cs" />
     <Compile Include="Common\Syntax\VariableDeclarations.cs" />
-    <Compile Include="RelocationTableEncoding.cs" />
+    <Compile Include="BinaryModel\IO\RelocationTableEncoding.cs" />
+    <Compile Include="Common\Text\Tokenizing\SourceInfo.cs" />
+    <Compile Include="Common\Text\Tokenizing\Tokenizer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -105,11 +130,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\TGELib\TGELib\TGELib.csproj">
-      <Project>{2C083582-B39E-45CA-BF8F-3D361CDEA80A}</Project>
-      <Name>TGELib</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

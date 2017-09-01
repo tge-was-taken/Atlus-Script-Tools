@@ -49,10 +49,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\TGELib\TGELib\TGELib.csproj">
-      <Project>{2C083582-B39E-45CA-BF8F-3D361CDEA80A}</Project>
-      <Name>TGELib</Name>
-    </ProjectReference>
     <ProjectReference Include="..\AtlusScriptLib\AtlusScriptLib.csproj">
       <Project>{62ee486f-ae33-4dbb-ac4c-409a22cb04ad}</Project>
       <Name>AtlusScriptLib</Name>

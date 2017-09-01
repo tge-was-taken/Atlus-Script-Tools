@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtlusScriptLibTests", "Atlu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtlusScriptCompiler", "AtlusScriptCompiler\AtlusScriptCompiler.csproj", "{58E13E8A-EA32-4627-A798-58E4648D812E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TGELib", "..\..\TGELib\TGELib\TGELib.csproj", "{2C083582-B39E-45CA-BF8F-3D361CDEA80A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,10 +29,6 @@ Global
 		{58E13E8A-EA32-4627-A798-58E4648D812E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58E13E8A-EA32-4627-A798-58E4648D812E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58E13E8A-EA32-4627-A798-58E4648D812E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2C083582-B39E-45CA-BF8F-3D361CDEA80A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2C083582-B39E-45CA-BF8F-3D361CDEA80A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2C083582-B39E-45CA-BF8F-3D361CDEA80A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2C083582-B39E-45CA-BF8F-3D361CDEA80A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
