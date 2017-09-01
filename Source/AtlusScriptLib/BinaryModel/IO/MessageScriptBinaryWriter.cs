@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using TGELib.IO;
+using AtlusScriptLib.IO;
 
-namespace AtlusScriptLib
+namespace AtlusScriptLib.BinaryModel.IO
 {
     public sealed class MessageScriptBinaryWriter : IDisposable
     {
@@ -46,7 +46,7 @@ namespace AtlusScriptLib
             mWriter.Write(header.FileSize);
             mWriter.Write(header.Magic);
             mWriter.Write(header.Field0C);
-            mWriter.Write(header.RelocationTable.Address);
+            mWriter.Write(header.RelocationTable.Offset);
             mWriter.Write(header.RelocationTableSize);
             mWriter.Write(header.MessageCount);
             mWriter.Write(header.IsRelocated ? (short)1 : (short)0);
@@ -58,13 +58,13 @@ namespace AtlusScriptLib
             foreach (var messageHeader in messageHeaders)
             {
                 mWriter.Write((int)messageHeader.MessageType);
-                mWriter.Write(messageHeader.Message.Address);
+                mWriter.Write(messageHeader.Message.Offset);
             }
         }
 
         private void WriteSpeakerHeader(ref MessageScriptBinarySpeakerTableHeader header)
         {
-            mWriter.Write(header.SpeakerNameArray.Address);
+            mWriter.Write(header.SpeakerNameArray.Offset);
             mWriter.Write(header.SpeakerCount);
             mWriter.Write(header.Field08);
             mWriter.Write(header.Field0C);
@@ -74,7 +74,7 @@ namespace AtlusScriptLib
         {
             foreach (var messageHeader in messageHeaders)
             {
-                mWriter.SeekBegin(mPositionBase + MessageScriptBinaryHeader.SIZE + messageHeader.Message.Address);
+                mWriter.SeekBegin(mPositionBase + MessageScriptBinaryHeader.SIZE + messageHeader.Message.Offset);
 
                 switch (messageHeader.MessageType)
                 {
@@ -120,24 +120,24 @@ namespace AtlusScriptLib
 
         private void WriteSpeakerNameOffsets(ref MessageScriptBinarySpeakerTableHeader header)
         {
-            mWriter.SeekBegin(mPositionBase + MessageScriptBinaryHeader.SIZE + header.SpeakerNameArray.Address);
+            mWriter.SeekBegin(mPositionBase + MessageScriptBinaryHeader.SIZE + header.SpeakerNameArray.Offset);
             foreach (var speakerName in header.SpeakerNameArray.Value)
-                mWriter.Write(speakerName.Address);
+                mWriter.Write(speakerName.Offset);
         }
 
         private void WriteSpeakerNames(ref MessageScriptBinarySpeakerTableHeader header)
         {
             foreach (var speakerName in header.SpeakerNameArray.Value)
             {
-                mWriter.SeekBegin(mPositionBase + MessageScriptBinaryHeader.SIZE + speakerName.Address);
+                mWriter.SeekBegin(mPositionBase + MessageScriptBinaryHeader.SIZE + speakerName.Offset);
                 mWriter.Write(speakerName.Value.ToArray());
                 mWriter.Write((byte)0);
             }
         }
 
-        private void WriteRelocationTable(ref AddressValuePair<byte[]> relocationTable)
+        private void WriteRelocationTable(ref OffsetTo<byte[]> relocationTable)
         {
-            mWriter.SeekBegin(mPositionBase + relocationTable.Address);
+            mWriter.SeekBegin(mPositionBase + relocationTable.Offset);
             mWriter.Write(relocationTable.Value);
         }
     }

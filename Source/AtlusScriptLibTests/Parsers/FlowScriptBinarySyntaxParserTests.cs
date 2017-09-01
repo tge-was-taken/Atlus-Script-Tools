@@ -1,4 +1,5 @@
-﻿using AtlusScriptLib.FunctionTables;
+﻿using AtlusScriptLib.BinaryModel;
+using AtlusScriptLib.FunctionTables;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AtlusScriptLib.Parsers.Tests

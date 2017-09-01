@@ -1,5 +1,8 @@
 ﻿namespace AtlusScriptLib
 {
+    /// <summary>
+    /// Represents the opcodes in a flow script.
+    /// </summary>
     public enum FlowScriptOpcode : ushort
     {
         PUSHI,

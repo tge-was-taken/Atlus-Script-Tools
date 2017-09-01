@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
+using AtlusScriptLib.BinaryModel;
 
 namespace AtlusScriptLib.Tests
 {

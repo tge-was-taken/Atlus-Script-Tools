@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System;
+using AtlusScriptLib.BinaryModel;
 
 namespace AtlusScriptLib.Tests
 {
@@ -91,7 +92,7 @@ namespace AtlusScriptLib.Tests
             Assert.AreEqual(binary.Header.FileSize, newBinary.Header.FileSize);
             CollectionAssert.AreEqual(binary.Header.Magic, newBinary.Header.Magic);
             Assert.AreEqual(binary.Header.Field0C, newBinary.Header.Field0C);
-            Assert.AreEqual(binary.Header.RelocationTable.Address, newBinary.Header.RelocationTable.Address);
+            Assert.AreEqual(binary.Header.RelocationTable.Offset, newBinary.Header.RelocationTable.Offset);
             CollectionAssert.AreEqual(binary.Header.RelocationTable.Value, newBinary.Header.RelocationTable.Value);
             Assert.AreEqual(binary.Header.RelocationTableSize, newBinary.Header.RelocationTableSize);
             Assert.AreEqual(binary.Header.MessageCount, newBinary.Header.MessageCount);
@@ -105,7 +106,7 @@ namespace AtlusScriptLib.Tests
 
                 // compare message headers
                 Assert.AreEqual(header.MessageType, newHeader.MessageType);
-                Assert.AreEqual(header.Message.Address, newHeader.Message.Address);
+                Assert.AreEqual(header.Message.Offset, newHeader.Message.Offset);
 
                 // compare message data
                 switch (header.MessageType)
@@ -146,7 +147,7 @@ namespace AtlusScriptLib.Tests
             }
 
             // compare speaker table header
-            Assert.AreEqual(binary.SpeakerTableHeader.SpeakerNameArray.Address, newBinary.SpeakerTableHeader.SpeakerNameArray.Address);
+            Assert.AreEqual(binary.SpeakerTableHeader.SpeakerNameArray.Offset, newBinary.SpeakerTableHeader.SpeakerNameArray.Offset);
             Assert.AreEqual(binary.SpeakerTableHeader.SpeakerCount, newBinary.SpeakerTableHeader.SpeakerCount);
             Assert.AreEqual(binary.SpeakerTableHeader.Field08, newBinary.SpeakerTableHeader.Field08);
             Assert.AreEqual(binary.SpeakerTableHeader.Field0C, newBinary.SpeakerTableHeader.Field0C);
@@ -156,7 +157,7 @@ namespace AtlusScriptLib.Tests
                 var speakername = binary.SpeakerTableHeader.SpeakerNameArray.Value[i];
                 var newSpeakername = newBinary.SpeakerTableHeader.SpeakerNameArray.Value[i];
 
-                Assert.AreEqual(speakername.Address, newSpeakername.Address);
+                Assert.AreEqual(speakername.Offset, newSpeakername.Offset);
                 CollectionAssert.AreEqual(speakername.Value, newSpeakername.Value);
             }
         }

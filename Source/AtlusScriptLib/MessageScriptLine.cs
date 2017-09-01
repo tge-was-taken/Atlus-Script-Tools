@@ -4,20 +4,37 @@ using System.Linq;
 
 namespace AtlusScriptLib
 {
+    /// <summary>
+    /// Represents a single line of message script tokens.
+    /// </summary>
     public class MessageScriptLine
     {
+        /// <summary>
+        /// Gets the list of message script line tokens.
+        /// </summary>
         public List<IMessageScriptLineToken> Tokens { get; }
 
+        /// <summary>
+        /// Construct a new empty message script line.
+        /// </summary>
         public MessageScriptLine()
         {
             Tokens = new List<IMessageScriptLineToken>();
         }
 
+        /// <summary>
+        /// Constructs a new message script line with a list of tokens.
+        /// </summary>
+        /// <param name="tokens">The list of message script tokens.</param>
         public MessageScriptLine(List<IMessageScriptLineToken> tokens)
         {
             Tokens = tokens ?? throw new ArgumentNullException(nameof(tokens));
         }
 
+        /// <summary>
+        /// Constructs a new message script line with a list of tokens.
+        /// </summary>
+        /// <param name="tokens">The list of message script tokens.</param>
         public MessageScriptLine(params IMessageScriptLineToken[] tokens)
         {
             Tokens = tokens.ToList();

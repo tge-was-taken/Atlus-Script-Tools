@@ -1,4 +1,4 @@
-﻿namespace AtlusScriptLib
+﻿namespace AtlusScriptLib.BinaryModel
 {
     public enum MessageScriptBinaryMessageType : int
     {

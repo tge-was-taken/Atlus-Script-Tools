@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
-using TGELib.IO;
+using AtlusScriptLib.IO;
 
-namespace AtlusScriptLib
+namespace AtlusScriptLib.BinaryModel.IO
 {
     public sealed class FlowScriptBinaryWriter : IDisposable
     {

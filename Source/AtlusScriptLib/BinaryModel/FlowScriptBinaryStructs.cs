@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace AtlusScriptLib
+namespace AtlusScriptLib.BinaryModel
 {
     [StructLayout(LayoutKind.Sequential, Pack = 1, Size = SIZE)]
     public struct FlowScriptBinaryHeader

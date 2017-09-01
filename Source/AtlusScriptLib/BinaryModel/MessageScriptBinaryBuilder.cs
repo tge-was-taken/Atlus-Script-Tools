@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using TGELib.IO;
+using AtlusScriptLib.IO;
 
-namespace AtlusScriptLib
+namespace AtlusScriptLib.BinaryModel
 {
     public class MessageScriptBinaryBuilder
     {
@@ -285,14 +285,14 @@ namespace AtlusScriptLib
         {
             for (int i = 0; i < messageHeaders.Length; i++)
             {
-                messageHeaders[i].Message.Address = GetAlignedAddress();
+                messageHeaders[i].Message.Offset = GetAlignedAddress();
                 messageHeaders[i].Message.Value = UpdateMessageAddressBase(mMessages[i].Item2);
             }
         }
 
         private void BuildSpeakerTableHeaderSecondPass(ref MessageScriptBinarySpeakerTableHeader speakerTableHeader)
         {
-            speakerTableHeader.SpeakerNameArray.Address = GetAlignedAddress();
+            speakerTableHeader.SpeakerNameArray.Offset = GetAlignedAddress();
             for (int i = 0; i < speakerTableHeader.SpeakerCount; i++)
             {
                 AddAddressLocation();
@@ -302,10 +302,10 @@ namespace AtlusScriptLib
 
         private void BuildSpeakerTableHeaderFinalPass(ref MessageScriptBinarySpeakerTableHeader speakerTableHeader)
         {
-            speakerTableHeader.SpeakerNameArray.Value = new AddressValuePair<List<byte>>[speakerTableHeader.SpeakerCount];
+            speakerTableHeader.SpeakerNameArray.Value = new OffsetTo<List<byte>>[speakerTableHeader.SpeakerCount];
             for (int i = 0; i < speakerTableHeader.SpeakerNameArray.Value.Length; i++)
             {
-                speakerTableHeader.SpeakerNameArray.Value[i].Address = GetAddress();
+                speakerTableHeader.SpeakerNameArray.Value[i].Offset = GetAddress();
                 speakerTableHeader.SpeakerNameArray.Value[i].Value = mSpeakerNames[i].ToList();
 
                 // todo: maybe the speakername should include the trailing 0
@@ -315,7 +315,7 @@ namespace AtlusScriptLib
 
         private void BuildHeaderFinalPass(ref MessageScriptBinaryHeader header)
         {
-            header.RelocationTable.Address = GetAlignedAddress() + MessageScriptBinaryHeader.SIZE;
+            header.RelocationTable.Offset = GetAlignedAddress() + MessageScriptBinaryHeader.SIZE;
             header.RelocationTable.Value =
                 RelocationTableEncoding.Encode(mAddressLocations, MessageScriptBinaryHeader.SIZE);
             header.RelocationTableSize = header.RelocationTable.Value.Length;

@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using AtlusScriptLib.Disassemblers;
 using System;
+using AtlusScriptLib.BinaryModel;
 
 namespace AtlusScriptLib.Disassembler.Tests
 {

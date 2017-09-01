@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using TGELib.IO;
+using AtlusScriptLib.IO;
 
-namespace AtlusScriptLib
+namespace AtlusScriptLib.BinaryModel.IO
 {
     public sealed class MessageScriptBinaryReader : IDisposable
     {
@@ -53,7 +53,7 @@ namespace AtlusScriptLib
                 header.FileSize                 = mReader.ReadInt32();
                 header.Magic                    = mReader.ReadBytes(4);
                 header.Field0C                  = mReader.ReadInt32();
-                header.RelocationTable.Address  = mReader.ReadInt32();
+                header.RelocationTable.Offset  = mReader.ReadInt32();
                 header.RelocationTableSize      = mReader.ReadInt32();
                 header.MessageCount             = mReader.ReadInt32();
                 header.IsRelocated              = mReader.ReadInt16() != 0;
@@ -85,9 +85,9 @@ namespace AtlusScriptLib
                     throw new InvalidDataException("Header magic value does not match");
                 }
 
-                if (header.RelocationTable.Address != 0)
+                if (header.RelocationTable.Offset != 0)
                 {
-                    mReader.EnqueuePositionAndSeekBegin(mPositionBase + header.RelocationTable.Address);
+                    mReader.EnqueuePositionAndSeekBegin(mPositionBase + header.RelocationTable.Offset);
                     header.RelocationTable.Value = mReader.ReadBytes(header.RelocationTableSize);
                     mReader.SeekBeginToDequedPosition();
                 }
@@ -101,7 +101,7 @@ namespace AtlusScriptLib
             EndiannessHelper.Swap(ref header.UserId);
             EndiannessHelper.Swap(ref header.FileSize);
             EndiannessHelper.Swap(ref header.Field0C);
-            EndiannessHelper.Swap(ref header.RelocationTable.Address);
+            EndiannessHelper.Swap(ref header.RelocationTable.Offset);
             EndiannessHelper.Swap(ref header.RelocationTableSize);
             EndiannessHelper.Swap(ref header.MessageCount);
             EndiannessHelper.Swap(ref header.Field1E);
@@ -115,10 +115,10 @@ namespace AtlusScriptLib
             {
                 ref var messageHeader = ref messageHeaders[i];
                 messageHeader.MessageType = (MessageScriptBinaryMessageType)mReader.ReadInt32();
-                messageHeader.Message.Address = mReader.ReadInt32();
+                messageHeader.Message.Offset = mReader.ReadInt32();
 
-                if (messageHeader.Message.Address != 0)
-                    messageHeader.Message.Value = ReadMessage(messageHeader.MessageType, messageHeader.Message.Address);
+                if (messageHeader.Message.Offset != 0)
+                    messageHeader.Message.Value = ReadMessage(messageHeader.MessageType, messageHeader.Message.Offset);
             }
 
             return messageHeaders;
@@ -128,13 +128,13 @@ namespace AtlusScriptLib
         {
             MessageScriptBinarySpeakerTableHeader header;
 
-            header.SpeakerNameArray.Address = mReader.ReadInt32();
+            header.SpeakerNameArray.Offset = mReader.ReadInt32();
             header.SpeakerCount = mReader.ReadInt32();
             header.Field08 = mReader.ReadInt32();
             header.Field0C = mReader.ReadInt32();
 
-            if (header.SpeakerNameArray.Address != 0)
-                header.SpeakerNameArray.Value = ReadSpeakerNames(header.SpeakerNameArray.Address, header.SpeakerCount);
+            if (header.SpeakerNameArray.Offset != 0)
+                header.SpeakerNameArray.Value = ReadSpeakerNames(header.SpeakerNameArray.Offset, header.SpeakerCount);
             else
                 header.SpeakerNameArray.Value = null;
 
@@ -147,12 +147,12 @@ namespace AtlusScriptLib
             return header;
         }
 
-        public AddressValuePair<List<byte>>[] ReadSpeakerNames(int address, int count)
+        public OffsetTo<List<byte>>[] ReadSpeakerNames(int address, int count)
         {
             mReader.SeekBegin(mPositionBase + MessageScriptBinaryHeader.SIZE + address);
 
             var speakerNameAddresses = mReader.ReadInt32s(count);
-            var speakerNames = new AddressValuePair<List<byte>>[count];
+            var speakerNames = new OffsetTo<List<byte>>[count];
 
             for (int i = 0; i < speakerNameAddresses.Length; i++)
             {
@@ -169,7 +169,7 @@ namespace AtlusScriptLib
                     bytes.Add(b);
                 }
 
-                speakerNames[i] = new AddressValuePair<List<byte>>(speakerNameAddress, bytes);
+                speakerNames[i] = new OffsetTo<List<byte>>(speakerNameAddress, bytes);
             }
 
             return speakerNames;

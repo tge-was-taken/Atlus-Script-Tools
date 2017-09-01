@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 
-using TGELib.Text.Tokenizing;
-
 using AtlusScriptLib.Common.Syntax;
+using AtlusScriptLib.Text.Tokenizing;
 
 namespace AtlusScriptLib.FunctionTables
 {

@@ -1,7 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.IO;
+using AtlusScriptLib.BinaryModel.IO;
 
-namespace AtlusScriptLib
+namespace AtlusScriptLib.BinaryModel
 {
     // Todo: ensure immutability
     public sealed class FlowScriptBinary

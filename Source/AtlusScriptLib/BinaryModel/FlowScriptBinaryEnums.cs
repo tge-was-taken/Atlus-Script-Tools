@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AtlusScriptLib
+namespace AtlusScriptLib.BinaryModel
 {
     public enum FlowScriptBinarySectionType : uint
     {

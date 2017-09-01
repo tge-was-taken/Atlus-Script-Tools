@@ -1,18 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AtlusScriptLib.Encodings
 {
     public class PersonaEncoding : Encoding
     {
-        private static char[] sCharTable = new[]
-        {
-
-        };
-
         public override int GetByteCount( char[] chars, int index, int count )
         {
             throw new NotImplementedException();

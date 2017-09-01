@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using TGELib.IO;
+using AtlusScriptLib.IO;
 
-namespace AtlusScriptLib
+namespace AtlusScriptLib.BinaryModel
 {
     public struct MessageScriptBinaryHeader
     {
@@ -30,7 +30,7 @@ namespace AtlusScriptLib
         public int Field0C;
 
         // 10
-        public AddressValuePair<byte[]> RelocationTable;
+        public OffsetTo<byte[]> RelocationTable;
 
         // 14
         public int RelocationTableSize;
@@ -53,7 +53,7 @@ namespace AtlusScriptLib
         public MessageScriptBinaryMessageType MessageType;
 
         // 04
-        public AddressValuePair<object> Message;
+        public OffsetTo<object> Message;
     }
 
     public struct MessageScriptBinarySpeakerTableHeader
@@ -61,7 +61,7 @@ namespace AtlusScriptLib
         public const int SIZE = 10;
 
         // 00
-        public AddressValuePair<AddressValuePair<List<byte>>[]> SpeakerNameArray;
+        public OffsetTo<OffsetTo<List<byte>>[]> SpeakerNameArray;
 
         // 04
         public int SpeakerCount;

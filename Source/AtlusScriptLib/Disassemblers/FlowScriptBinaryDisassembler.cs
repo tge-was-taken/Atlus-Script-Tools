@@ -5,8 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Globalization;
 using AtlusScriptLib.Decompilers;
-using TGELib.Debugging;
-using TGELib.Text;
+using AtlusScriptLib.Text.OutputProviders;
+using System.Diagnostics;
+using AtlusScriptLib.BinaryModel;
 
 namespace AtlusScriptLib.Disassemblers
 {
@@ -29,7 +30,7 @@ namespace AtlusScriptLib.Disassemblers
             get
             {
                 if (mScript == null || mScript.TextSection == null || mScript.TextSection.Count == 0)
-                    throw new InvalidDataException("Invalid state");
+                    throw new InvalidOperationException("Invalid state");
 
                 return mScript.TextSection[mInstructionIndex];
             }
@@ -210,8 +211,7 @@ namespace AtlusScriptLib.Disassemblers
                     break;
 
                 default:
-                    Debug.FatalException($"Unknown opcode {CurrentInstruction.Opcode}");
-                    break;
+                    throw new InvalidOperationException( $"Unknown opcode {CurrentInstruction.Opcode}" );
             }
         }
 
@@ -230,7 +230,7 @@ namespace AtlusScriptLib.Disassemblers
         {
             if (instruction.OperandShort != 0)
             {
-                Debug.TraceError($"{instruction.Opcode} should not have any operands");
+                throw new ArgumentOutOfRangeException( nameof(instruction.OperandShort), $"{instruction.Opcode} should not have any operands" );
             }
 
             return $"{instruction.Opcode}";
@@ -269,7 +269,7 @@ namespace AtlusScriptLib.Disassemblers
         {
             if (instruction.OperandShort >= labels.Count)
             {
-                Debug.FatalException($"No label for label reference id {instruction.OperandShort} present in {nameof(labels)}");
+                throw new ArgumentOutOfRangeException( nameof( instruction.OperandShort ), $"No label for label reference id {instruction.OperandShort} present in {nameof( labels )}" );
             }
 
             return $"{instruction.Opcode} {labels[instruction.OperandShort].Name}";

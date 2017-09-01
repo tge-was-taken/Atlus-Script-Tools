@@ -5,8 +5,9 @@ using System.Threading;
 using AtlusScriptLib.Disassemblers;
 using AtlusScriptLib;
 using AtlusScriptLib.Decompilers;
-using TGELib.CLI;
-using TGELib.Text;
+using AtlusScriptLib.Text.OutputProviders;
+using AtlusScriptLib.CLI;
+using AtlusScriptLib.BinaryModel;
 
 namespace AtlusScriptCompiler
 {

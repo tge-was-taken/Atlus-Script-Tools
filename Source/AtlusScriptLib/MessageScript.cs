@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using AtlusScriptLib.BinaryModel;
 
 namespace AtlusScriptLib
 {
@@ -292,6 +293,10 @@ namespace AtlusScriptLib
             Messages = new List<IMessageScriptMessage>();
         }
 
+        /// <summary>
+        /// Converts this <see cref="MessageScript"/> instance to a <see cref="MessageScriptBinary"/> instance.
+        /// </summary>
+        /// <returns></returns>
         public MessageScriptBinary ToBinary()
         {
             var builder = new MessageScriptBinaryBuilder(FormatVersion);
@@ -317,6 +322,10 @@ namespace AtlusScriptLib
             return builder.Build();
         }
 
+        /// <summary>
+        /// Serializes and writes this <see cref="MessageScript"/> instance to the specified file.
+        /// </summary>
+        /// <param name="path"></param>
         public void ToFile(string path)
         {
             if (path == null)
@@ -329,6 +338,10 @@ namespace AtlusScriptLib
                 ToStream(stream);
         }
 
+        /// <summary>
+        /// Serializes and writes this <see cref="MessageScript"/> instance to a stream.
+        /// </summary>
+        /// <returns></returns>
         public Stream ToStream()
         {
             var stream = new MemoryStream();
@@ -336,6 +349,11 @@ namespace AtlusScriptLib
             return stream;
         }
 
+        /// <summary>
+        /// Serializes and writes this <see cref="MessageScript"/> instance to the specified stream.
+        /// </summary>
+        /// <param name="stream">The stream to write to.</param>
+        /// <param name="leaveOpen">Whether to stream should be left open or not.</param>
         public void ToStream(Stream stream, bool leaveOpen = false)
         {
             var binary = ToBinary();

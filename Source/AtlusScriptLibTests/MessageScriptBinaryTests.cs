@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Linq;
 
-namespace AtlusScriptLib.Tests
+namespace AtlusScriptLib.BinaryModel.Tests
 {
     [TestClass()]
     public class MessageScriptBinaryTests
@@ -180,7 +180,7 @@ namespace AtlusScriptLib.Tests
             Assert.AreEqual(0x987A, script.Header.FileSize);
             Assert.IsTrue(script.Header.Magic.SequenceEqual(MessageScriptBinaryHeader.MAGIC_V1));
             Assert.AreEqual(0, script.Header.Field0C);
-            Assert.AreEqual(0x96EC, script.Header.RelocationTable.Address);
+            Assert.AreEqual(0x96EC, script.Header.RelocationTable.Offset);
             Assert.AreEqual(0x018E, script.Header.RelocationTable.Value.Length);
             Assert.AreEqual(0x018E, script.Header.RelocationTableSize);
             Assert.AreEqual(0x9B, script.Header.MessageCount);
@@ -190,10 +190,10 @@ namespace AtlusScriptLib.Tests
 
             // check some message headers
             Assert.AreEqual(MessageScriptBinaryMessageType.Selection, script.MessageHeaders[0].MessageType);
-            Assert.AreEqual(0x04E8, script.MessageHeaders[0].Message.Address);
+            Assert.AreEqual(0x04E8, script.MessageHeaders[0].Message.Offset);
 
             Assert.AreEqual(MessageScriptBinaryMessageType.Dialogue, script.MessageHeaders[26].MessageType);
-            Assert.AreEqual(0x1B68, script.MessageHeaders[26].Message.Address);
+            Assert.AreEqual(0x1B68, script.MessageHeaders[26].Message.Offset);
 
             // check some messages
             Assert.AreEqual("combine_sel", ((MessageScriptBinarySelectionMessage)script.MessageHeaders[0].Message.Value).Identifier);
@@ -228,7 +228,7 @@ namespace AtlusScriptLib.Tests
             Assert.AreEqual(0x6F89, script.Header.FileSize);
             Assert.IsTrue(script.Header.Magic.SequenceEqual(MessageScriptBinaryHeader.MAGIC_V1_BE));
             Assert.AreEqual(0, script.Header.Field0C);
-            Assert.AreEqual(0x6E50, script.Header.RelocationTable.Address);
+            Assert.AreEqual(0x6E50, script.Header.RelocationTable.Offset);
             Assert.AreEqual(0x0139, script.Header.RelocationTableSize);
             Assert.AreEqual(script.Header.RelocationTableSize, script.Header.RelocationTable.Value.Length);
             Assert.AreEqual(0x76, script.Header.MessageCount);
@@ -238,10 +238,10 @@ namespace AtlusScriptLib.Tests
 
             // check some message headers
             Assert.AreEqual(MessageScriptBinaryMessageType.Selection, script.MessageHeaders[0].MessageType);
-            Assert.AreEqual(0x03C0, script.MessageHeaders[0].Message.Address);
+            Assert.AreEqual(0x03C0, script.MessageHeaders[0].Message.Offset);
 
             Assert.AreEqual(MessageScriptBinaryMessageType.Dialogue, script.MessageHeaders[26].MessageType);
-            Assert.AreEqual(0x0F24, script.MessageHeaders[26].Message.Address);
+            Assert.AreEqual(0x0F24, script.MessageHeaders[26].Message.Offset);
 
             // check some messages
             Assert.AreEqual("FCL_MSG_COMBINE_SELECT", ((MessageScriptBinarySelectionMessage)script.MessageHeaders[0].Message.Value).Identifier);

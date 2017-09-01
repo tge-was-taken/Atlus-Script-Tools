@@ -2,9 +2,9 @@
 using System.IO;
 using System.Linq;
 using System.Text;
-using TGELib.IO;
+using AtlusScriptLib.IO;
 
-namespace AtlusScriptLib
+namespace AtlusScriptLib.BinaryModel.IO
 {
     public sealed class FlowScriptBinaryReader : IDisposable
     {
@@ -256,7 +256,7 @@ namespace AtlusScriptLib
 
         private void EnsureSectionHeaderInitialValidState(ref FlowScriptBinarySectionHeader sectionHeader)
         {
-            if (sectionHeader.FirstElementAddress == IOConstants.NullPointer)
+            if (sectionHeader.FirstElementAddress == 0)
             {
                 throw new InvalidOperationException("Section start offset is a null pointer");
             }

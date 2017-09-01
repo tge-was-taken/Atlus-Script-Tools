@@ -2,8 +2,9 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using AtlusScriptLib.BinaryModel.IO;
 
-namespace AtlusScriptLib
+namespace AtlusScriptLib.BinaryModel
 {
     public class MessageScriptBinary
     {
