@@ -17,12 +17,12 @@ namespace AtlusScriptLib
                 return FromStream(fileStream, version);
         }
 
-        public static FlowScriptBinary FromStream(Stream stream)
+        public static FlowScriptBinary FromStream(Stream stream, bool leaveOpen = false)
         {
             return FromStream(stream, FlowScriptBinaryFormatVersion.Unknown);
         }
 
-        public static FlowScriptBinary FromStream(Stream stream, FlowScriptBinaryFormatVersion version)
+        public static FlowScriptBinary FromStream(Stream stream, FlowScriptBinaryFormatVersion version, bool leaveOpen = false)
         {
             using (var reader = new FlowScriptBinaryReader(stream, version))
             {
@@ -36,7 +36,7 @@ namespace AtlusScriptLib
         internal FlowScriptBinaryLabel[] mProcedureLabelSection;
         internal FlowScriptBinaryLabel[] mJumpLabelSection;
         internal FlowScriptBinaryInstruction[] mTextSection;
-        internal byte[] mMessageScriptSection;
+        internal MessageScriptBinary mMessageScriptSection;
         internal byte[] mStringSection;
         internal FlowScriptBinaryFormatVersion mFormatVersion;
 
@@ -89,15 +89,9 @@ namespace AtlusScriptLib
             }
         }
 
-        public ReadOnlyCollection<byte> MessageScriptSection
+        public MessageScriptBinary MessageScriptSection
         {
-            get
-            {
-                if (mMessageScriptSection == null)
-                    return null;
-                else
-                    return new ReadOnlyCollection<byte>(mMessageScriptSection);
-            }
+            get { return mMessageScriptSection; }
         }
 
         public ReadOnlyCollection<byte> StringSection
@@ -133,7 +127,7 @@ namespace AtlusScriptLib
             return stream;
         }
 
-        public void ToStream(Stream stream)
+        public void ToStream(Stream stream, bool leaveOpen = false)
         {
             using (var writer = new FlowScriptBinaryWriter(stream, mFormatVersion))
             {

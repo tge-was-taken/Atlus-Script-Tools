@@ -67,7 +67,18 @@ namespace AtlusScriptLib
         public void WriteLabelSection(ref FlowScriptBinarySectionHeader sectionHeader, FlowScriptBinaryLabel[] labels)
         {
             mWriter.SeekBegin(mPositionBase + sectionHeader.FirstElementAddress);
-            mWriter.Write(labels);
+
+            foreach (var label in labels)
+            {
+                mWriter.Write(label.Name, StringBinaryFormat.FixedLength, 
+                    (mVersion.HasFlag(FlowScriptBinaryFormatVersion.Version1) ? FlowScriptBinaryLabel.SIZE_V1 :
+                    mVersion.HasFlag(FlowScriptBinaryFormatVersion.Version2) ? FlowScriptBinaryLabel.SIZE_V2 :
+                    mVersion.HasFlag(FlowScriptBinaryFormatVersion.Version3) ? FlowScriptBinaryLabel.SIZE_V3 :
+                    throw new Exception("Invalid format version")) - (sizeof(int) * 2));
+
+                mWriter.Write(label.InstructionIndex);
+                mWriter.Write(label.Reserved);
+            }
         }
 
         public void WriteTextSection(ref FlowScriptBinarySectionHeader sectionHeader, FlowScriptBinaryInstruction[] instructions)
@@ -78,22 +89,31 @@ namespace AtlusScriptLib
             {
                 ref var instruction = ref instructions[i];
 
-                if ( i != 0 && (instructions[i - 1].Opcode == FlowScriptOpcode.PUSHI || instructions[i - 1].Opcode == FlowScriptOpcode.PUSHF))
+                if ( i != 0 )
                 {
-                    mWriter.Write(instruction.OperandInt);
+                    ref var prevInstruction = ref instructions[i - 1];
+
+                    if (prevInstruction.Opcode == FlowScriptOpcode.PUSHI && (prevInstruction.OperandInt == 0 && instruction.OperandInt > 0))
+                    {
+                        mWriter.Write(instruction.OperandInt);
+                        continue;
+                    }
+                    else if (prevInstruction.Opcode == FlowScriptOpcode.PUSHF && (prevInstruction.OperandFloat == 0 && instruction.OperandFloat > 0))
+                    {
+                        mWriter.Write(instruction.OperandFloat);
+                        continue;
+                    }
                 }
-                else
-                {
-                    mWriter.Write((short)instruction.Opcode);
-                    mWriter.Write(instruction.OperandShort);
-                }
+
+                mWriter.Write((short)instruction.Opcode);
+                mWriter.Write(instruction.OperandShort);
             }
         }
 
-        public void WriteMessageScriptSection(ref FlowScriptBinarySectionHeader sectionHeader, byte[] messageScript)
+        public void WriteMessageScriptSection(ref FlowScriptBinarySectionHeader sectionHeader, MessageScriptBinary messageScript)
         {
             mWriter.SeekBegin(mPositionBase + sectionHeader.FirstElementAddress);
-            mWriter.Write(messageScript);
+            messageScript.ToStream(mWriter.BaseStream, true);
         }
 
         public void WriteStringSection(ref FlowScriptBinarySectionHeader sectionHeader, byte[] stringSection)

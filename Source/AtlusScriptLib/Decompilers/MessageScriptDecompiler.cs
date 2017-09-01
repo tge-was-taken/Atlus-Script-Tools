@@ -21,91 +21,94 @@ namespace AtlusScriptLib.Decompilers
             set => mResolver = value;
         }
 
-        private void WriteOpenTag(string tag)
+        private void WriteOpenTag( string tag )
         {
-            mOutput.Write($"[{tag}");
+            mOutput.Write( $"[{tag}" );
         }
 
-        private void WriteTagArgument(string argument)
+        private void WriteTagArgument( string argument )
         {
-            mOutput.Write(" ");
-            mOutput.Write(argument);
+            mOutput.Write( " " );
+            mOutput.Write( argument );
         }
 
-        private void WriteTagArgument(MessageScriptLine line)
+        private void WriteTagArgument( MessageScriptLine line )
         {
-            mOutput.Write(" ");
-            Decompile(line, false);
+            mOutput.Write( " " );
+            Decompile( line, false );
         }
 
-        private void WriteTagArgumentTag(string tag, params string[] arguments)
+        private void WriteTagArgumentTag( string tag, params string[] arguments )
         {
-            mOutput.Write(" ");
-            WriteTag(tag, arguments);
+            mOutput.Write( " " );
+            WriteTag( tag, arguments );
         }
 
         private void WriteCloseTag()
         {
-            mOutput.Write("]");
+            mOutput.Write( "]" );
         }
 
-        private void WriteTag(string tag, params string[] arguments)
+        private void WriteTag( string tag, params string[] arguments )
         {
-            WriteOpenTag(tag);
+            WriteOpenTag( tag );
 
-            if (arguments.Length != 0)
+            if ( arguments.Length != 0 )
             {
-                foreach (var argument in arguments)
+                foreach ( var argument in arguments )
                 {
-                    WriteTagArgument(argument);
+                    WriteTagArgument( argument );
                 }
             }
 
             WriteCloseTag();
         }
 
-        public void Decompile(MessageScript script)
+        public void Decompile( MessageScript script )
         {
-            foreach (var message in script.Messages)
+            foreach ( var message in script.Messages )
             {
-                Decompile(message);
+                Decompile( message );
                 mOutput.WriteLine();
             }
         }
 
-        public void Decompile(IMessageScriptMessage message)
+        public void Decompile( IMessageScriptMessage message )
         {
-            switch (message.Type)
+            switch ( message.Type )
             {
                 case MessageScriptMessageType.Dialogue:
-                    Decompile((MessageScriptDialogueMessage)message);
+                    Decompile( ( MessageScriptDialogueMessage )message );
                     break;
                 case MessageScriptMessageType.Selection:
-                    Decompile((MessageScriptSelectionMessage)message);
+                    Decompile( ( MessageScriptSelectionMessage )message );
                     break;
+
+                default:
+                    throw new NotImplementedException( message.Type.ToString() );
             }
         }
 
-        public void Decompile(MessageScriptDialogueMessage message)
+        public void Decompile( MessageScriptDialogueMessage message )
         {
-            if (message.Speaker != null)
+            if ( message.Speaker != null )
             {
-                switch (message.Speaker.Type)
+                switch ( message.Speaker.Type )
                 {
                     case MessageScriptDialogueMessageSpeakerType.Named:
                         {
-                            WriteOpenTag("dlg");
-                            WriteTagArgument(message.Identifier);
-                            WriteTagArgument(((MessageScriptDialogueMessageNamedSpeaker)message.Speaker).Name);
+                            WriteOpenTag( "dlg" );
+                            WriteTagArgument( message.Identifier );
+                            WriteTagArgument( ( ( MessageScriptDialogueMessageNamedSpeaker )message.Speaker ).Name );
                             WriteCloseTag();
                         }
                         break;
 
                     case MessageScriptDialogueMessageSpeakerType.VariablyNamed:
                         {
-                            WriteOpenTag("dlg");
-                            WriteTagArgument(message.Identifier);
-                            WriteTagArgumentTag("svar", ((MessageScriptDialogueMessageVariablyNamedSpeaker)message.Speaker).Index.ToString());
+                            WriteOpenTag( "dlg" );
+                            WriteTagArgument( message.Identifier );
+                            WriteTagArgumentTag( "svar", ( ( MessageScriptDialogueMessageVariablyNamedSpeaker )message.Speaker ).Index.ToString() );
                             WriteCloseTag();
                         }
                         break;
@@ -113,107 +116,115 @@ namespace AtlusScriptLib.Decompilers
             }
             else
             {
-                WriteTag("dlg", message.Identifier);
+                WriteTag( "dlg", message.Identifier );
             }
 
             mOutput.WriteLine();
 
-            foreach (var line in message.Lines)
+            foreach ( var line in message.Lines )
             {
-                Decompile(line);
+                Decompile( line );
                 mOutput.WriteLine();
             }
         }
 
-        public void Decompile(MessageScriptSelectionMessage message)
+        public void Decompile( MessageScriptSelectionMessage message )
         {
-            WriteTag("sel", message.Identifier);
+            WriteTag( "sel", message.Identifier );
             mOutput.WriteLine();
 
-            foreach (var line in message.Lines)
+            foreach ( var line in message.Lines )
             {
-                Decompile(line);
+                Decompile( line );
                 mOutput.WriteLine();
             }
         }
 
-        public void Decompile(MessageScriptLine line, bool emitLineEndTag = true)
+        public void Decompile( MessageScriptLine line, bool emitLineEndTag = true )
         {
-            foreach (var token in line.Tokens)
+            foreach ( var token in line.Tokens )
             {
-                Decompile(token);
+                Decompile( token );
             }
 
-            if (emitLineEndTag)
-                WriteTag("e");
+            if ( emitLineEndTag )
+                WriteTag( "e" );
         }
 
-        public void Decompile(IMessageScriptLineToken token)
+        public void Decompile( IMessageScriptLineToken token )
         {
-            switch (token.Type)
+            switch ( token.Type )
             {
                 case MessageScriptTokenType.Text:
-                    Decompile((MessageScriptTextToken)token);
+                    Decompile( ( MessageScriptTextToken )token );
                     break;
                 case MessageScriptTokenType.Function:
-                    Decompile((MessageScriptFunctionToken)token);
+                    Decompile( ( MessageScriptFunctionToken )token );
                     break;
-                case MessageScriptTokenType.CharacterCode:
-                    Decompile((MessageScriptCharacterCodeToken)token);
+                case MessageScriptTokenType.CodePoint:
+                    Decompile( ( MessageScriptCodePointToken )token );
                     break;
+                case MessageScriptTokenType.NewLine:
+                    Decompile( ( MessageScriptNewLineToken )token );
+                    break;
+
+                default:
+                    throw new NotImplementedException( token.Type.ToString() );
             }
         }
 
-        public void Decompile(MessageScriptFunctionToken token)
+        public void Decompile( MessageScriptFunctionToken token )
         {
-            if (mResolver != null && 
-                mResolver.TryResolveFunction(token.FunctionTableIndex, token.FunctionIndex, out MessageScriptFunctionDefinition definition))
+            if ( mResolver != null &&
+                mResolver.TryResolveFunction( token.FunctionTableIndex, token.FunctionIndex, out MessageScriptFunctionDefinition definition ) )
             {
-                WriteOpenTag(definition.Tag);
+                WriteOpenTag( definition.Tag );
 
-                foreach (var argument in definition.Arguments)
+                foreach ( var argument in definition.Arguments )
                 {
-                    WriteTagArgument(token.Arguments[argument.OriginalArgumentIndex].ToString());
+                    WriteTagArgument( token.Arguments[argument.OriginalArgumentIndex].ToString() );
                 }
 
                 WriteCloseTag();
             }
             else
             {
-                if (token.Arguments.Count == 0)
+                if ( token.Arguments.Count == 0 )
                 {
-                    WriteTag("f", token.FunctionTableIndex.ToString(), token.FunctionIndex.ToString());
+                    WriteTag( "f", token.FunctionTableIndex.ToString(), token.FunctionIndex.ToString() );
                 }
                 else
                 {
-                    WriteOpenTag("f");
-                    WriteTagArgument(token.FunctionTableIndex.ToString());
-                    WriteTagArgument(token.FunctionIndex.ToString());
-                    
-                    foreach (var tokenArgument in token.Arguments)
+                    WriteOpenTag( "f" );
+                    WriteTagArgument( token.FunctionTableIndex.ToString() );
+                    WriteTagArgument( token.FunctionIndex.ToString() );
+
+                    foreach ( var tokenArgument in token.Arguments )
                     {
-                        WriteTagArgument(tokenArgument.ToString());
+                        WriteTagArgument( tokenArgument.ToString() );
                     }
-                    
+
                     WriteCloseTag();
                 }
-            }     
-        }
-
-        public void Decompile(MessageScriptTextToken token)
-        {
-            foreach (var c in token.Text)
-            {
-                if (c == 0x0A)
-                    WriteTag("n");
-                else
-                    mOutput.Write(c);
             }
         }
 
-        public void Decompile(MessageScriptCharacterCodeToken token)
+        public void Decompile( MessageScriptTextToken token )
         {
-            WriteTag("x", token.Value.ToString("X4"));
+            foreach ( var c in token.Text )
+            {
+                mOutput.Write( c );
+            }
+        }
+
+        public void Decompile( MessageScriptCodePointToken token )
+        {
+            WriteTag( $"x{token.HighSurrogate:X2}{token.LowSurrogate:X2}" );
+        }
+
+        public void Decompile( MessageScriptNewLineToken token )
+        {
+            WriteTag( "n" );
         }
 
         public void Dispose()
@@ -228,15 +239,15 @@ namespace AtlusScriptLib.Decompilers
 
         public List<MessageScriptFunctionArgument> Arguments { get; }
 
-        public MessageScriptFunctionDefinition(string tag)
+        public MessageScriptFunctionDefinition( string tag )
         {
-            Tag = tag ?? throw new ArgumentNullException(nameof(tag));
+            Tag = tag ?? throw new ArgumentNullException( nameof( tag ) );
             Arguments = new List<MessageScriptFunctionArgument>();
         }
 
-        public MessageScriptFunctionDefinition(string tag, List<MessageScriptFunctionArgument> arguments)
+        public MessageScriptFunctionDefinition( string tag, List<MessageScriptFunctionArgument> arguments )
         {
-            Tag = tag ?? throw new ArgumentNullException(nameof(tag));
+            Tag = tag ?? throw new ArgumentNullException( nameof( tag ) );
             Arguments = arguments;
         }
     }
@@ -245,7 +256,7 @@ namespace AtlusScriptLib.Decompilers
     {
         public int OriginalArgumentIndex { get; }
 
-        public MessageScriptFunctionArgument(int originalArgumentIndex)
+        public MessageScriptFunctionArgument( int originalArgumentIndex )
         {
             OriginalArgumentIndex = originalArgumentIndex;
         }
@@ -253,6 +264,6 @@ namespace AtlusScriptLib.Decompilers
 
     public interface IMessageScriptFunctionResolver
     {
-        bool TryResolveFunction(int tokenFunctionTableIndex, int tokenFunctionIndex, out MessageScriptFunctionDefinition messageScriptFunctionDefinition);
+        bool TryResolveFunction( int tokenFunctionTableIndex, int tokenFunctionIndex, out MessageScriptFunctionDefinition messageScriptFunctionDefinition );
     }
 }

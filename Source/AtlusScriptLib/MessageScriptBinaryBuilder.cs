@@ -185,9 +185,16 @@ namespace AtlusScriptLib
                     ProcessFunctionToken((MessageScriptFunctionToken)token, bytes);
                     break;
 
-                case MessageScriptTokenType.CharacterCode:
-                    ProcessCharacterCode((MessageScriptCharacterCodeToken)token, bytes);
+                case MessageScriptTokenType.CodePoint:
+                    ProcessCharacterCode((MessageScriptCodePointToken)token, bytes);
                     break;
+
+                case MessageScriptTokenType.NewLine:
+                    bytes.Add( MessageScriptNewLineToken.Value );
+                    break;
+
+                default:
+                    throw new NotImplementedException( token.Type.ToString() );
             }
         }
 
@@ -226,10 +233,10 @@ namespace AtlusScriptLib
             bytes.AddRange(argumentBytes);
         }
 
-        private void ProcessCharacterCode(MessageScriptCharacterCodeToken token, List<byte> bytes)
+        private void ProcessCharacterCode(MessageScriptCodePointToken token, List<byte> bytes)
         {
-            bytes.Add((byte)((token.Value & 0xFF00) >> 8));
-            bytes.Add((byte)(token.Value & 0xFF));
+            bytes.Add( token.HighSurrogate );
+            bytes.Add( token.LowSurrogate );
         }
 
         private void BuildHeaderFirstPass(ref MessageScriptBinaryHeader header)
@@ -352,6 +359,9 @@ namespace AtlusScriptLib
                     mPosition += 4 + selection.TextBufferSize;
                 }
                     break;
+
+                default:
+                    throw new NotImplementedException( message.GetType().ToString() );
             }
 
             return message;

@@ -10,6 +10,7 @@
     {
         Text,
         Function,
-        CharacterCode
+        CodePoint,
+        NewLine,
     }
 }

@@ -19,14 +19,14 @@ namespace AtlusScriptLib
                 return FromStream(stream, version);
         }
 
-        public static FlowScript FromStream(Stream stream)
+        public static FlowScript FromStream(Stream stream, bool leaveOpen = false)
         {
             return FromStream(stream, FlowScriptBinaryFormatVersion.Unknown);
         }
 
-        public static FlowScript FromStream(Stream stream, FlowScriptBinaryFormatVersion version)
+        public static FlowScript FromStream(Stream stream, FlowScriptBinaryFormatVersion version, bool leaveOpen = false)
         {
-            FlowScriptBinary binary = FlowScriptBinary.FromStream(stream, version);
+            FlowScriptBinary binary = FlowScriptBinary.FromStream(stream, version, leaveOpen);
 
             return FromBinary(binary);
         }
@@ -91,6 +91,14 @@ namespace AtlusScriptLib
                         // Update the string offset to reference the strings inside of the string list
                         instruction = FlowScriptInstruction.PUSHSTR(stringBinaryIndexToListIndexMap[binaryInstruction.OperandShort]);
                     }
+                    else if (binaryInstruction.Opcode == FlowScriptOpcode.PUSHI)
+                    {
+                        instruction = FlowScriptInstruction.PUSHI(binary.TextSection[instructionBinaryIndex + 1].OperandInt);
+                    }
+                    else if (binaryInstruction.Opcode == FlowScriptOpcode.PUSHF)
+                    {
+                        instruction = FlowScriptInstruction.PUSHF(binary.TextSection[instructionBinaryIndex + 1].OperandFloat);
+                    }
                     else
                     {
                         instruction = FlowScriptInstruction.FromBinaryInstruction(binaryInstruction);
@@ -114,15 +122,19 @@ namespace AtlusScriptLib
                 instance.mProcedureLabels.Add(new FlowScriptLabel(label.Name, instructionBinaryIndexToListIndexMap[label.InstructionIndex]));
             }
 
-            foreach (var label in binary.JumpLabelSection)
+            if (binary.JumpLabelSection != null)
             {
-                instance.mJumpLabels.Add(new FlowScriptLabel(label.Name, instructionBinaryIndexToListIndexMap[label.InstructionIndex]));
+                foreach (var label in binary.JumpLabelSection)
+                {
+                    instance.mJumpLabels.Add(new FlowScriptLabel(label.Name,
+                        instructionBinaryIndexToListIndexMap[label.InstructionIndex]));
+                }
             }
 
             // assign message script
             if (binary.MessageScriptSection != null)
             {
-                instance.mMessageScript = binary.MessageScriptSection.ToArray();
+                instance.mMessageScript = MessageScript.FromBinary(binary.MessageScriptSection);
             }
 
             // strings have already been assigned previously, 
@@ -137,7 +149,7 @@ namespace AtlusScriptLib
         private short mUserId;
         private List<FlowScriptLabel> mProcedureLabels, mJumpLabels;
         private List<FlowScriptInstruction> mInstructions;
-        private byte[] mMessageScript;
+        private MessageScript mMessageScript;
         private List<string> mStrings;
         private FlowScriptBinaryFormatVersion mFormatVersion;
 
@@ -162,7 +174,7 @@ namespace AtlusScriptLib
             get { return mInstructions; }
         }
 
-        public byte[] MessageScript
+        public MessageScript MessageScript
         {
             get { return mMessageScript; }
             set { mMessageScript = value; }
@@ -283,6 +295,31 @@ namespace AtlusScriptLib
                 builder.SetMessageScriptSection(mMessageScript);
 
             return builder.Build();
+        }
+
+        public void ToFile(string path)
+        {
+            if (path == null)
+                throw new ArgumentNullException(nameof(path));
+
+            if (string.IsNullOrEmpty(path))
+                throw new ArgumentException("Value cannot be null or empty.", nameof(path));
+
+            using (var stream = File.Create(path))
+                ToStream(stream);
+        }
+
+        public Stream ToStream()
+        {
+            var stream = new MemoryStream();
+            ToStream(stream, true);
+            return stream;
+        }
+
+        public void ToStream(Stream stream, bool leaveOpen = false)
+        {
+            var binary = ToBinary();
+            binary.ToStream(stream, leaveOpen);
         }
     }
 }

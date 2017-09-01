@@ -34,15 +34,15 @@ namespace AtlusScriptLib
                 return FromStream(fileStream, version);
         }
 
-        public static MessageScriptBinary FromStream(Stream stream)
+        public static MessageScriptBinary FromStream(Stream stream, bool leaveOpen = false)
         {
             if (stream == null)
                 throw new ArgumentNullException(nameof(stream));
 
-            return FromStream(stream, MessageScriptBinaryFormatVersion.Unknown);
+            return FromStream(stream, MessageScriptBinaryFormatVersion.Unknown, leaveOpen);
         }
 
-        public static MessageScriptBinary FromStream(Stream stream, MessageScriptBinaryFormatVersion version)
+        public static MessageScriptBinary FromStream(Stream stream, MessageScriptBinaryFormatVersion version, bool leaveOpen = false)
         {
             if (stream == null)
                 throw new ArgumentNullException(nameof(stream));
@@ -51,7 +51,7 @@ namespace AtlusScriptLib
                 throw new InvalidEnumArgumentException(nameof(version), (int) version,
                     typeof(MessageScriptBinaryFormatVersion));
 
-            using (var reader = new MessageScriptBinaryReader(stream, version))
+            using (var reader = new MessageScriptBinaryReader(stream, version, leaveOpen))
             {
                 return reader.ReadBinary();
             }

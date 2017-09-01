@@ -128,7 +128,7 @@ namespace AtlusScriptLib.Common.Tokenizing.Tests
         {
             var tokenizer = new Tokenizer(" @  !    abc", null)
             {
-                FilterWhitespace = true
+                FilterWhitespace = false
             };
 
             int index = 0;

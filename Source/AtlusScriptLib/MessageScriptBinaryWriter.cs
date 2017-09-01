@@ -85,6 +85,9 @@ namespace AtlusScriptLib
                     case MessageScriptBinaryMessageType.Selection:
                         WriteSelectionMessage((MessageScriptBinarySelectionMessage) messageHeader.Message.Value);
                         break;
+
+                    default:
+                        throw new NotImplementedException( messageHeader.MessageType.ToString() );
                 }
             }
         }
@@ -94,9 +97,13 @@ namespace AtlusScriptLib
             mWriter.Write(dialogue.Identifier, StringBinaryFormat.FixedLength, MessageScriptBinaryDialogueMessage.IDENTIFIER_LENGTH);
             mWriter.Write(dialogue.LineCount);
             mWriter.Write(dialogue.SpeakerId);
-            mWriter.Write(dialogue.LineStartAddresses);
-            mWriter.Write(dialogue.TextBufferSize);
-            mWriter.Write(dialogue.TextBuffer);
+
+            if (dialogue.LineCount > 0)
+            {
+                mWriter.Write(dialogue.LineStartAddresses);
+                mWriter.Write(dialogue.TextBufferSize);
+                mWriter.Write(dialogue.TextBuffer);
+            }
         }
 
         private void WriteSelectionMessage(MessageScriptBinarySelectionMessage selection)

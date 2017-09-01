@@ -35,6 +35,7 @@ namespace AtlusScriptLib
                 IMessageScriptMessage message;
                 IReadOnlyList<int> lineStartAddresses;
                 IReadOnlyList<byte> buffer;
+                int lineCount;
 
                 switch (messageHeader.MessageType)
                 {
@@ -43,6 +44,7 @@ namespace AtlusScriptLib
                             var binaryMessage = (MessageScriptBinaryDialogueMessage)messageHeader.Message.Value;
                             lineStartAddresses = binaryMessage.LineStartAddresses;
                             buffer = binaryMessage.TextBuffer;
+                            lineCount = binaryMessage.LineCount;
 
                             if (binaryMessage.SpeakerId == 0xFFFF)
                             {
@@ -59,8 +61,13 @@ namespace AtlusScriptLib
                                 if (binary.SpeakerTableHeader.SpeakerNameArray.Value == null)
                                     throw new InvalidDataException("Speaker name array is null while being referenced");
 
-                                var speakerName = ParseSpeakerLine(binary.SpeakerTableHeader.SpeakerNameArray
-                                    .Value[binaryMessage.SpeakerId].Value);
+                                MessageScriptLine speakerName = null;
+                                if (binaryMessage.SpeakerId < binary.SpeakerTableHeader.SpeakerCount)
+                                {
+                                    speakerName = ParseSpeakerLine(binary.SpeakerTableHeader.SpeakerNameArray
+                                        .Value[binaryMessage.SpeakerId].Value);
+                                }
+
                                 message = new MessageScriptDialogueMessage(binaryMessage.Identifier, new MessageScriptDialogueMessageNamedSpeaker(speakerName));
                             }
                         }
@@ -71,6 +78,7 @@ namespace AtlusScriptLib
                             var binaryMessage = (MessageScriptBinarySelectionMessage)messageHeader.Message.Value;
                             lineStartAddresses = binaryMessage.OptionStartAddresses;
                             buffer = binaryMessage.TextBuffer;
+                            lineCount = binaryMessage.OptionCount;
 
                             message = new MessageScriptSelectionMessage((string)binaryMessage.Identifier.Clone());
                         }
@@ -80,8 +88,11 @@ namespace AtlusScriptLib
                         throw new InvalidDataException("Unknown message type");
                 }
 
-                // Parse the line data
-                ParseLines(message, lineStartAddresses, buffer);
+                if (lineCount != 0)
+                {
+                    // Parse the line data
+                    ParseLines(message, lineStartAddresses, buffer);
+                }
 
                 // Add it to the message list
                 instance.Messages.Add(message);
@@ -106,12 +117,12 @@ namespace AtlusScriptLib
         /// <summary>
         /// Deserializes and creates a <see cref="MessageScript"/> from a stream.
         /// </summary>
-        public static MessageScript FromStream(Stream stream)
+        public static MessageScript FromStream(Stream stream, bool leaveOpen = false)
         {
             if (stream == null)
                 throw new ArgumentNullException(nameof(stream));
 
-            var binary = MessageScriptBinary.FromStream(stream);
+            var binary = MessageScriptBinary.FromStream(stream, leaveOpen);
 
             return FromBinary(binary);
         }
@@ -158,9 +169,11 @@ namespace AtlusScriptLib
         {
             var line = new MessageScriptLine();
 
-            for (int i = 0; i < bytes.Count; i++)
+            int bufferIndex = 0;
+
+            while (bufferIndex < bytes.Count)
             {
-                if (!ParseToken(bytes, ref i, out IMessageScriptLineToken token))
+                if (!ParseToken(bytes, ref bufferIndex, out IMessageScriptLineToken token))
                     break;
 
                 line.Tokens.Add(token);
@@ -179,6 +192,10 @@ namespace AtlusScriptLib
                 token = null;
                 return false;
             }
+            else if ( b == MessageScriptNewLineToken.Value )
+            {
+                token = new MessageScriptNewLineToken();
+            }
             else if ((b & 0xF0) == 0xF0)
             {
                 token = ParseFunctionToken(b, buffer, ref bufferIndex);
@@ -195,10 +212,9 @@ namespace AtlusScriptLib
             return true;
         }
 
-        private static MessageScriptCharacterCodeToken ParseCharacterCodeToken(byte b, IReadOnlyList<byte> buffer, ref int bufferIndex)
+        private static MessageScriptCodePointToken ParseCharacterCodeToken(byte b, IReadOnlyList<byte> buffer, ref int bufferIndex)
         {
-            ushort value = (ushort)(b << 8 | buffer[bufferIndex++] );
-            return new MessageScriptCharacterCodeToken(value);
+            return new MessageScriptCodePointToken( b, buffer[bufferIndex++] );
         }
 
         private static MessageScriptFunctionToken ParseFunctionToken(byte b, IReadOnlyList<byte> buffer, ref int bufferIndex)
@@ -235,13 +251,20 @@ namespace AtlusScriptLib
                 accumulatedText.Add(b);
 
                 // Check for any condition that would end the sequence of text characters
-                if ( bufferIndex == buffer.Count || buffer[bufferIndex] == 0 || (buffer[bufferIndex] & 0x80) >= 0x80 || (buffer[bufferIndex] & 0xF0) == 0xF0)
+                if ( bufferIndex == buffer.Count )
+                    break;
+
+                b = buffer[bufferIndex];
+
+                if ( b == 0 || b == MessageScriptNewLineToken.Value || (b & 0x80) >= 0x80 || (b & 0xF0) == 0xF0)
                 {
                     return new MessageScriptTextToken(Encoding.ASCII.GetString(accumulatedText.ToArray()));
                 }
 
-                b = buffer[bufferIndex++];
+                bufferIndex++;
             }
+
+            return new MessageScriptTextToken( Encoding.ASCII.GetString( accumulatedText.ToArray() ) );
         }
 
         /// <summary>
@@ -285,10 +308,38 @@ namespace AtlusScriptLib
                     case MessageScriptMessageType.Selection:
                         builder.AddMessage((MessageScriptSelectionMessage)message);
                         break;
+
+                    default:
+                        throw new NotImplementedException( message.Type.ToString() );
                 }
             }
 
             return builder.Build();
+        }
+
+        public void ToFile(string path)
+        {
+            if (path == null)
+                throw new ArgumentNullException(nameof(path));
+
+            if (string.IsNullOrEmpty(path))
+                throw new ArgumentException("Value cannot be null or empty.", nameof(path));
+
+            using (var stream = File.Create(path))
+                ToStream(stream);
+        }
+
+        public Stream ToStream()
+        {
+            var stream = new MemoryStream();
+            ToStream(stream, true);
+            return stream;
+        }
+
+        public void ToStream(Stream stream, bool leaveOpen = false)
+        {
+            var binary = ToBinary();
+            binary.ToStream(stream, leaveOpen);
         }
     }
 }

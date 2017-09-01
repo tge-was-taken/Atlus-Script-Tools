@@ -7,6 +7,7 @@ namespace AtlusScriptLib
     {
         public const int SIZE = 32;
         public const byte FILE_TYPE = 7;
+        public static byte[] MAGIC_V0 = { (byte)'M', (byte)'S', (byte)'G', (byte)'0' };
         public static byte[] MAGIC_V1 = { (byte)'M', (byte)'S', (byte)'G', (byte)'1' };
         public static byte[] MAGIC_V1_BE = { (byte)'1', (byte)'G', (byte)'S', (byte)'M' };
 

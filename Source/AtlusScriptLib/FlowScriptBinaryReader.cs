@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Text;
 using TGELib.IO;
 
 namespace AtlusScriptLib
@@ -12,10 +13,10 @@ namespace AtlusScriptLib
         private EndianBinaryReader mReader;     
         private FlowScriptBinaryFormatVersion mVersion;
 
-        public FlowScriptBinaryReader(Stream stream, FlowScriptBinaryFormatVersion version)
+        public FlowScriptBinaryReader(Stream stream, FlowScriptBinaryFormatVersion version, bool leaveOpen = false)
         {
             mPositionBase = stream.Position;
-            mReader = new EndianBinaryReader(stream, version.HasFlag(FlowScriptBinaryFormatVersion.BigEndian) ? Endianness.BigEndian : Endianness.LittleEndian);
+            mReader = new EndianBinaryReader(stream, Encoding.Default, leaveOpen, version.HasFlag(FlowScriptBinaryFormatVersion.BigEndian) ? Endianness.BigEndian : Endianness.LittleEndian);
             mVersion = version;
         }
 
@@ -167,7 +168,7 @@ namespace AtlusScriptLib
             return instructions;
         }
 
-        public byte[] ReadMessageScriptSection(ref FlowScriptBinarySectionHeader sectionHeader)
+        public MessageScriptBinary ReadMessageScriptSection(ref FlowScriptBinarySectionHeader sectionHeader)
         {
             EnsureSectionHeaderInitialValidState(ref sectionHeader);
 
@@ -176,7 +177,18 @@ namespace AtlusScriptLib
                 throw new InvalidDataException($"{FlowScriptBinarySectionType.MessageScriptSection} unit size must be 1");
             }
 
-            return mReader.ReadBytes(sectionHeader.ElementCount);
+            if (sectionHeader.ElementCount != 0)
+            {
+                var bytes = mReader.ReadBytes(sectionHeader.ElementCount);
+                using (var memoryStream = new MemoryStream(bytes))
+                {
+                    return MessageScriptBinary.FromStream(memoryStream);
+                }
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public byte[] ReadStringSection(ref FlowScriptBinarySectionHeader sectionHeader)

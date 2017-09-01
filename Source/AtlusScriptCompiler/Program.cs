@@ -26,6 +26,8 @@ namespace AtlusScriptCompiler
         private static void Main(string[] args)
         {
 #if DEBUG
+            //args = new [] { "-i", @"D:\Modding\Persona 3 & 4\Persona3\CVM_BTL\BATTLE\MSG\BattleDialogue.bmd.randomized", "-dec"};
+            args = new[] { "-i", @"", "-dec" };
             //args = new[] { "-i", @"d:\users\smart\documents\visual studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptLibTests\TestResources\Version3BigEndian.bf", "-o", @"d:\users\smart\documents\visual studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptLibTests\TestResources\Version3BigEndian.asm", "-dis" };
 #endif
             if (!InitArguments(args))
@@ -151,45 +153,49 @@ namespace AtlusScriptCompiler
 
         private static void PerformDecompilation()
         {
-            if (Path.HasExtension(Input))
+            string fileName = Path.GetFileName(Input);
+            if (fileName == null)
             {
-                if (Path.GetExtension(Input).Equals(".bf", StringComparison.InvariantCultureIgnoreCase))
+                Console.WriteLine("Missing filename");
+                return;
+            }
+
+            if ( fileName.Contains( ".bf" ) || fileName.Contains( ".BF" ) )
+            {
+                if (Output == null)
+                    Output = Path.ChangeExtension(Input, "flow");
+
+                Console.WriteLine($"Decompiling {Input} to {Output}");
+
+                CreateWorkerThreadAndWait((state) =>
                 {
-                    if (Output == null)
-                        Output = Path.ChangeExtension(Input, "flow");
-
-                    Console.WriteLine($"Decompiling {Input} to {Output}");
-
-                    CreateWorkerThreadAndWait((state) =>
+                    using (var decompiler = new FlowScriptDecompiler(Output))
                     {
-                        using (var decompiler = new FlowScriptDecompiler(Output))
-                        {
-                            decompiler.Decompile(FlowScriptBinary.FromFile(Input));
-                        }
+                        decompiler.Decompile(FlowScriptBinary.FromFile(Input));
+                    }
 
-                        IsWorkerThreadDone = true;
-                    });
-                }
-                else if (Path.GetExtension(Input).Equals(".bmd", StringComparison.InvariantCultureIgnoreCase))
+                    IsWorkerThreadDone = true;
+                });
+            }
+            else if ( fileName.Contains( ".bmd" ) || fileName.Contains( ".BMD" ) )
+            {
+                if (Output == null)
+                    Output = Path.ChangeExtension(Input, "msg");
+
+                Console.WriteLine($"Decompiling {Input} to {Output}");
+
+                CreateWorkerThreadAndWait((state) =>
                 {
-                    if (Output == null)
-                        Output = Path.ChangeExtension(Input, "msg");
+                    var script = MessageScript.FromFile(Input);
 
-                    Console.WriteLine($"Decompiling {Input} to {Output}");
-
-                    CreateWorkerThreadAndWait((state) =>
+                    using (var decompiler = new MessageScriptDecompiler())
                     {
-                        var script = MessageScript.FromFile(Input);
+                        decompiler.TextOutputProvider = new FileTextOutputProvider(Output);
+                        decompiler.Decompile(script);
+                    }
 
-                        using (var decompiler = new MessageScriptDecompiler())
-                        {
-                            decompiler.TextOutputProvider = new FileTextOutputProvider(Output);
-                            decompiler.Decompile(script);
-                        }
-
-                        IsWorkerThreadDone = true;
-                    });
-                }
+                    IsWorkerThreadDone = true;
+                });
             }
             else
             {

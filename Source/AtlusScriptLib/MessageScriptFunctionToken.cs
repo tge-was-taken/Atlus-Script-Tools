@@ -34,22 +34,14 @@ namespace AtlusScriptLib
 
         public override string ToString()
         {
-            string str = $"function {FunctionTableIndex} {FunctionIndex} ";
-            if (Arguments.Count == 0)
+            string str = $"function_{FunctionTableIndex}_{FunctionIndex}(";
+            for ( int i = 0; i < Arguments.Count; i++ )
             {
-                str += "(no arguments)";
+                str += Arguments[i];
+                if ( i + 1 != Arguments.Count )
+                    str += ",";
             }
-            else
-            {
-                str += "(";
-                for (int i = 0; i < Arguments.Count; i++)
-                {
-                    str += Arguments[i];
-                    if (i + 1 != Arguments.Count)
-                        str += ",";
-                }
-                str += ")";
-            }
+            str += ")";
 
             return str;
         }

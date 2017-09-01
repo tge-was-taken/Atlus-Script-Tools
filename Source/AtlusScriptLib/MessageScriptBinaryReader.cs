@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using TGELib.IO;
 
 namespace AtlusScriptLib
@@ -14,16 +15,16 @@ namespace AtlusScriptLib
         private EndianBinaryReader mReader;
         private MessageScriptBinaryFormatVersion mVersion;
 
-        public MessageScriptBinaryReader(Stream stream, MessageScriptBinaryFormatVersion version)
+        public MessageScriptBinaryReader(Stream stream, MessageScriptBinaryFormatVersion version, bool leaveOpen = false)
         {
             mPositionBase = stream.Position;
-            mReader = new EndianBinaryReader(stream, version.HasFlag(MessageScriptBinaryFormatVersion.BigEndian) ? Endianness.BigEndian : Endianness.LittleEndian);
+            mReader = new EndianBinaryReader(stream, Encoding.Default, leaveOpen, version.HasFlag(MessageScriptBinaryFormatVersion.BigEndian) ? Endianness.BigEndian : Endianness.LittleEndian);
             mVersion = version;
         }
 
         public MessageScriptBinary ReadBinary()
         {
-            var binary = new MessageScriptBinary()
+            var binary = new MessageScriptBinary
             {
                 mHeader = ReadHeader()
             };
@@ -59,7 +60,7 @@ namespace AtlusScriptLib
                 header.Field1E                  = mReader.ReadInt16();
 
                 // swap endianness
-                if (header.Magic.SequenceEqual(MessageScriptBinaryHeader.MAGIC_V1))
+                if (header.Magic.SequenceEqual(MessageScriptBinaryHeader.MAGIC_V1) || header.Magic.SequenceEqual(MessageScriptBinaryHeader.MAGIC_V0))
                 {
                     if (mVersion.HasFlag(MessageScriptBinaryFormatVersion.BigEndian))
                     {
@@ -70,9 +71,7 @@ namespace AtlusScriptLib
                     mVersion = MessageScriptBinaryFormatVersion.Version1;
                 }
                 else if (header.Magic.SequenceEqual(MessageScriptBinaryHeader.MAGIC_V1_BE))
-                {
-                   
-
+                {                 
                     if (!mVersion.HasFlag(MessageScriptBinaryFormatVersion.BigEndian))
                     {
                         SwapHeader(ref header);                      
@@ -88,9 +87,9 @@ namespace AtlusScriptLib
 
                 if (header.RelocationTable.Address != 0)
                 {
-                    mReader.PushPositionSeekBegin(mPositionBase + header.RelocationTable.Address);
+                    mReader.EnqueuePositionAndSeekBegin(mPositionBase + header.RelocationTable.Address);
                     header.RelocationTable.Value = mReader.ReadBytes(header.RelocationTableSize);
-                    mReader.PopPosition();
+                    mReader.SeekBeginToDequedPosition();
                 }
             }
 
@@ -180,7 +179,7 @@ namespace AtlusScriptLib
         {
             object message;
 
-            mReader.PushPositionSeekBegin(mPositionBase + MessageScriptBinaryHeader.SIZE + address);
+            mReader.EnqueuePositionAndSeekBegin(mPositionBase + MessageScriptBinaryHeader.SIZE + address);
 
             switch (type)
             {
@@ -196,7 +195,7 @@ namespace AtlusScriptLib
                     throw new InvalidDataException($"Unknown message type: {type}");
             }
 
-            mReader.PopPosition();
+            mReader.SeekBeginToDequedPosition();
 
             return message;
         }
@@ -208,9 +207,19 @@ namespace AtlusScriptLib
             message.Identifier          = mReader.ReadString(StringBinaryFormat.FixedLength, MessageScriptBinaryDialogueMessage.IDENTIFIER_LENGTH);
             message.LineCount           = mReader.ReadInt16();
             message.SpeakerId           = mReader.ReadUInt16();
-            message.LineStartAddresses  = mReader.ReadInt32s(message.LineCount);
-            message.TextBufferSize      = mReader.ReadInt32();
-            message.TextBuffer          = mReader.ReadBytes(message.TextBufferSize);
+
+            if (message.LineCount > 0)
+            {
+                message.LineStartAddresses = mReader.ReadInt32s(message.LineCount);
+                message.TextBufferSize = mReader.ReadInt32();
+                message.TextBuffer = mReader.ReadBytes(message.TextBufferSize);
+            }
+            else
+            {
+                message.LineStartAddresses = null;
+                message.TextBufferSize = 0;
+                message.TextBuffer = null;
+            }
 
             return message;
         }

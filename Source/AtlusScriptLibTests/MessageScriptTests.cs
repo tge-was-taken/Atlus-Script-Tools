@@ -1,6 +1,7 @@
 ﻿using AtlusScriptLib;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
+using System;
 
 namespace AtlusScriptLib.Tests
 {
@@ -138,6 +139,9 @@ namespace AtlusScriptLib.Tests
                             CollectionAssert.AreEqual(selection.TextBuffer, newSelection.TextBuffer);
                         }
                         break;
+
+                    default:
+                        throw new NotImplementedException( header.MessageType.ToString() );
                 }
             }
 

@@ -50,12 +50,6 @@ namespace AtlusScriptLib
         {
             switch (binary.Opcode)
             {
-                case FlowScriptOpcode.PUSHI:
-                    return PUSHI(binary.OperandInt);
-
-                case FlowScriptOpcode.PUSHF:
-                    return PUSHF(binary.OperandFloat);
-
                 case FlowScriptOpcode.PUSHIX:
                     return PUSHIX(binary.OperandShort);
 
@@ -156,7 +150,7 @@ namespace AtlusScriptLib
                     return PUSHSTR(binary.OperandShort);
 
                 default:
-                    throw new Exception("Invalid opcode");
+                    throw new Exception("Opcode not supported");
             }
         }
 

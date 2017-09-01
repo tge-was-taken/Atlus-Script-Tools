@@ -15,7 +15,7 @@ namespace AtlusScriptLib
         private IList<FlowScriptBinaryLabel> mProcedureLabelSection;
         private IList<FlowScriptBinaryLabel> mJumpLabelSection;
         private IList<FlowScriptBinaryInstruction> mTextSection;
-        private IList<byte> mMessageScriptSection;
+        private MessageScriptBinary mMessageScriptSection;
         private IList<byte> mStringSection;
         
         public FlowScriptBinaryBuilder(FlowScriptBinaryFormatVersion version)
@@ -71,9 +71,14 @@ namespace AtlusScriptLib
             mTextSection.Add(instruction);
         }
 
-        public void SetMessageScriptSection(IList<byte> messageScriptSection)
+        public void SetMessageScriptSection(MessageScriptBinary messageScriptSection)
         {
             mMessageScriptSection = messageScriptSection ?? throw new ArgumentNullException(nameof(messageScriptSection));
+        }
+
+        public void SetMessageScriptSection(MessageScript messageScriptSection)
+        {
+            mMessageScriptSection = messageScriptSection.ToBinary() ?? throw new ArgumentNullException(nameof(messageScriptSection));
         }
 
         public void SetStringSection(IList<byte> stringSection)
@@ -119,7 +124,7 @@ namespace AtlusScriptLib
                 binary.mTextSection = mTextSection.ToArray();
 
             if (mMessageScriptSection != null)
-                binary.mMessageScriptSection = mMessageScriptSection.ToArray();
+                binary.mMessageScriptSection = mMessageScriptSection;
 
             if (mStringSection != null)
                 binary.mStringSection = mStringSection.ToArray();
@@ -177,7 +182,7 @@ namespace AtlusScriptLib
 
             if (mMessageScriptSection != null)
             {
-                sectionHeader = BuildSectionHeader(FlowScriptBinarySectionType.MessageScriptSection, sizeof(byte), mMessageScriptSection.Count, nextFirstElementAddress);
+                sectionHeader = BuildSectionHeader(FlowScriptBinarySectionType.MessageScriptSection, sizeof(byte), mMessageScriptSection.Header.FileSize, nextFirstElementAddress);
                 sectionHeaders[currentSectionHeaderIndex++] = sectionHeader;
                 nextFirstElementAddress += (sectionHeader.ElementCount * sectionHeader.ElementSize);
             }
@@ -225,7 +230,7 @@ namespace AtlusScriptLib
                 size += (FlowScriptBinarySectionHeader.SIZE + (mTextSection.Count * FlowScriptBinaryInstruction.SIZE));
 
             if (mMessageScriptSection != null)
-                size += (FlowScriptBinarySectionHeader.SIZE + (mMessageScriptSection.Count * sizeof(byte)));
+                size += (FlowScriptBinarySectionHeader.SIZE + (mMessageScriptSection.Header.FileSize * sizeof(byte)));
 
             if (mStringSection != null)
                 size += (FlowScriptBinarySectionHeader.SIZE + (mStringSection.Count * sizeof(byte)));
