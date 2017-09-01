@@ -54,6 +54,7 @@
     <Compile Include="Common\Collections\IListExtensions.cs" />
     <Compile Include="Common\Reflection\MemberInfoExtensions.cs" />
     <Compile Include="Common\Reflection\TypeExtensions.cs" />
+    <Compile Include="Common\Text\Encodings\CodePoint.cs" />
     <Compile Include="Decompilers\MessageScriptDecompiler.cs" />
     <Compile Include="Common\Text\OutputProviders\FileTextOutputProvider.cs" />
     <Compile Include="Common\Text\OutputProviders\ITextOutputProvider.cs" />
@@ -62,7 +63,7 @@
     <Compile Include="Common\Text\OutputProviders\StringBuilderTextOutputProvider.cs" />
     <Compile Include="Common\Text\OutputProviders\StringTextOutputProvider.cs" />
     <Compile Include="Common\Text\OutputProviders\TextWriterTextOutputProvider.cs" />
-    <Compile Include="Common\Text\Encodings\PersonaEncoding.cs" />
+    <Compile Include="Common\Text\Encodings\Persona5Encoding.cs" />
     <Compile Include="BinaryModel\FlowScriptBinary.cs" />
     <Compile Include="BinaryModel\FlowScriptBinaryBuilder.cs" />
     <Compile Include="BinaryModel\IO\FlowScriptBinaryReader.cs" />
