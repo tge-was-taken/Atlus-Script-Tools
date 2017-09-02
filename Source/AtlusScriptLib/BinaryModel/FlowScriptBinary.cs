@@ -7,25 +7,25 @@ namespace AtlusScriptLib.BinaryModel
     // Todo: ensure immutability
     public sealed class FlowScriptBinary
     {
-        public static FlowScriptBinary FromFile(string path)
+        public static FlowScriptBinary FromFile( string path )
         {
-            return FromFile(path, FlowScriptBinaryFormatVersion.Unknown);
+            return FromFile( path, FlowScriptBinaryFormatVersion.Unknown );
         }
 
-        public static FlowScriptBinary FromFile(string path, FlowScriptBinaryFormatVersion version)
+        public static FlowScriptBinary FromFile( string path, FlowScriptBinaryFormatVersion version )
         {
-            using (var fileStream = File.OpenRead(path))
-                return FromStream(fileStream, version);
+            using ( var fileStream = File.OpenRead( path ) )
+                return FromStream( fileStream, version );
         }
 
-        public static FlowScriptBinary FromStream(Stream stream, bool leaveOpen = false)
+        public static FlowScriptBinary FromStream( Stream stream, bool leaveOpen = false )
         {
-            return FromStream(stream, FlowScriptBinaryFormatVersion.Unknown);
+            return FromStream( stream, FlowScriptBinaryFormatVersion.Unknown );
         }
 
-        public static FlowScriptBinary FromStream(Stream stream, FlowScriptBinaryFormatVersion version, bool leaveOpen = false)
+        public static FlowScriptBinary FromStream( Stream stream, FlowScriptBinaryFormatVersion version, bool leaveOpen = false )
         {
-            using (var reader = new FlowScriptBinaryReader(stream, version))
+            using ( var reader = new FlowScriptBinaryReader( stream, version ) )
             {
                 return reader.ReadBinary();
             }
@@ -50,10 +50,10 @@ namespace AtlusScriptLib.BinaryModel
         {
             get
             {
-                if (mSectionHeaders == null)
+                if ( mSectionHeaders == null )
                     return null;
                 else
-                    return new ReadOnlyCollection<FlowScriptBinarySectionHeader>(mSectionHeaders);
+                    return new ReadOnlyCollection<FlowScriptBinarySectionHeader>( mSectionHeaders );
             }
         }
 
@@ -61,10 +61,10 @@ namespace AtlusScriptLib.BinaryModel
         {
             get
             {
-                if (mProcedureLabelSection == null)
+                if ( mProcedureLabelSection == null )
                     return null;
                 else
-                    return new ReadOnlyCollection<FlowScriptBinaryLabel>(mProcedureLabelSection);
+                    return new ReadOnlyCollection<FlowScriptBinaryLabel>( mProcedureLabelSection );
             }
         }
 
@@ -72,10 +72,10 @@ namespace AtlusScriptLib.BinaryModel
         {
             get
             {
-                if (mJumpLabelSection == null)
+                if ( mJumpLabelSection == null )
                     return null;
                 else
-                    return new ReadOnlyCollection<FlowScriptBinaryLabel>(mJumpLabelSection);
+                    return new ReadOnlyCollection<FlowScriptBinaryLabel>( mJumpLabelSection );
             }
         }
 
@@ -83,10 +83,10 @@ namespace AtlusScriptLib.BinaryModel
         {
             get
             {
-                if (mTextSection == null)
+                if ( mTextSection == null )
                     return null;
                 else
-                    return new ReadOnlyCollection<FlowScriptBinaryInstruction>(mTextSection);
+                    return new ReadOnlyCollection<FlowScriptBinaryInstruction>( mTextSection );
             }
         }
 
@@ -99,10 +99,10 @@ namespace AtlusScriptLib.BinaryModel
         {
             get
             {
-                if (mStringSection == null)
+                if ( mStringSection == null )
                     return null;
                 else
-                    return new ReadOnlyCollection<byte>(mStringSection);
+                    return new ReadOnlyCollection<byte>( mStringSection );
             }
         }
 
@@ -113,26 +113,26 @@ namespace AtlusScriptLib.BinaryModel
 
         // this constructor is internal because it is used by the builder
         internal FlowScriptBinary()
-        {          
+        {
         }
 
-        public void ToFile(string path)
+        public void ToFile( string path )
         {
-            ToStream(File.Create(path));
+            ToStream( File.Create( path ) );
         }
 
         public Stream ToStream()
         {
             var stream = new MemoryStream();
-            ToStream(stream);
+            ToStream( stream );
             return stream;
         }
 
-        public void ToStream(Stream stream, bool leaveOpen = false)
+        public void ToStream( Stream stream, bool leaveOpen = false )
         {
-            using (var writer = new FlowScriptBinaryWriter(stream, mFormatVersion))
+            using ( var writer = new FlowScriptBinaryWriter( stream, mFormatVersion ) )
             {
-                writer.WriteBinary(this);
+                writer.WriteBinary( this );
             }
         }
     }

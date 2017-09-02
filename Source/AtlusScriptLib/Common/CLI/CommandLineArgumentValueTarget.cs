@@ -11,34 +11,34 @@ namespace AtlusScriptLib.CLI
 
         public MemberInfo TargetMember { get; }
 
-        public CommandLineArgumentValueTarget(object instance, string memberName)
+        public CommandLineArgumentValueTarget( object instance, string memberName )
         {
             TargetType = instance.GetType();
             TargetInstance = instance;
-            TargetMember = GetMemberInfo(memberName);
+            TargetMember = GetMemberInfo( memberName );
         }
 
-        public CommandLineArgumentValueTarget(Type type, string memberName)
+        public CommandLineArgumentValueTarget( Type type, string memberName )
         {
             TargetType = type;
-            TargetMember = GetMemberInfo(memberName);
+            TargetMember = GetMemberInfo( memberName );
         }
 
-        private MemberInfo GetMemberInfo(string memberName)
+        private MemberInfo GetMemberInfo( string memberName )
         {
-            var members = TargetType.GetMember(memberName, BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);
+            var members = TargetType.GetMember( memberName, BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static );
 
-            if (members.Length == 0)
+            if ( members.Length == 0 )
             {
-                throw new Exception($"No member with name {memberName} found for type {TargetType.FullName}");
+                throw new Exception( $"No member with name {memberName} found for type {TargetType.FullName}" );
             }
-            else if (members.Length == 1)
+            else if ( members.Length == 1 )
             {
                 return members[0];
             }
             else
             {
-                throw new Exception($"More than one member with name {memberName} found for type {TargetType.FullName}");
+                throw new Exception( $"More than one member with name {memberName} found for type {TargetType.FullName}" );
             }
         }
     }

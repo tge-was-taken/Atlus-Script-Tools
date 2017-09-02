@@ -12,9 +12,9 @@ namespace AtlusScriptLib.Text.OutputProviders
             StringBuilder = new StringBuilder();
         }
 
-        public StringBuilderTextOutputProvider(StringBuilder stringBuilder)
+        public StringBuilderTextOutputProvider( StringBuilder stringBuilder )
         {
-            StringBuilder = stringBuilder ?? throw new ArgumentNullException(nameof(stringBuilder));
+            StringBuilder = stringBuilder ?? throw new ArgumentNullException( nameof( stringBuilder ) );
         }
 
         public void WriteLine()
@@ -22,29 +22,29 @@ namespace AtlusScriptLib.Text.OutputProviders
             StringBuilder.AppendLine();
         }
 
-        public void WriteLine(string value)
+        public void WriteLine( string value )
         {
-            StringBuilder.AppendLine(value);
+            StringBuilder.AppendLine( value );
         }
 
-        public void WriteLine(object value)
+        public void WriteLine( object value )
         {
-            StringBuilder.AppendLine(value.ToString());
+            StringBuilder.AppendLine( value.ToString() );
         }
 
-        public void Write(char value)
+        public void Write( char value )
         {
-            StringBuilder.Append(value);
+            StringBuilder.Append( value );
         }
 
-        public void Write(string value)
+        public void Write( string value )
         {
-            StringBuilder.Append(value);
+            StringBuilder.Append( value );
         }
 
-        public void Write(object value)
+        public void Write( object value )
         {
-            StringBuilder.Append(value);
+            StringBuilder.Append( value );
         }
 
         void IDisposable.Dispose()

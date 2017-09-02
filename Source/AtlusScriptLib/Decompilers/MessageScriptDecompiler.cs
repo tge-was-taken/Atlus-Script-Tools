@@ -104,7 +104,7 @@ namespace AtlusScriptLib.Decompilers
                         }
                         break;
 
-                    case MessageScriptSpeakerType.VariablyNamed:
+                    case MessageScriptSpeakerType.Variable:
                         {
                             WriteOpenTag( "dlg" );
                             WriteTagArgument( message.Identifier );

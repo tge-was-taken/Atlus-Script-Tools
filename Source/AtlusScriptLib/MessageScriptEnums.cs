@@ -28,6 +28,6 @@ namespace AtlusScriptLib
     public enum MessageScriptSpeakerType
     {
         Named,
-        VariablyNamed,
+        Variable,
     }
 }

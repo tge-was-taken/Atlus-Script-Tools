@@ -163,31 +163,30 @@ namespace AtlusScriptLib
         {
             List<AddressSequence> sequences = new List<AddressSequence>();
 
-            for ( int i = 0; i < addressLocations.Count; i++ )
+            for ( int addressIndex = 0; addressIndex < addressLocations.Count; addressIndex++ )
             {
                 // There can't be any more sequences if we're on the last iteration
-                if ( i + 1 == addressLocations.Count )
+                if ( addressIndex + 1 == addressLocations.Count )
                 {
                     break;
                 }
 
-                if ( addressLocations[i + 1] - addressLocations[i] == ADDRESS_SIZE )
+                if ( addressLocations[addressIndex + 1] - addressLocations[addressIndex] == ADDRESS_SIZE )
                 {
                     // We have found a sequence of at least 2 addresses
                     AddressSequence seq = new AddressSequence
                     {
-                        AddressLocationListStartIndex = i,
+                        AddressLocationListStartIndex = addressIndex++,
                         SequenceAddressCount = 2
                     };
-                    i++;
 
-                    while ( i + 1 < addressLocations.Count )
+                    while ( addressIndex + 1 < addressLocations.Count )
                     {
-                        if ( addressLocations[i + 1] - addressLocations[i] == ADDRESS_SIZE )
+                        if ( addressLocations[addressIndex + 1] - addressLocations[addressIndex] == ADDRESS_SIZE )
                         {
                             // We have found another sequence to add.
                             seq.SequenceAddressCount++;
-                            i++;
+                            addressIndex++;
                         }
                         else
                         {

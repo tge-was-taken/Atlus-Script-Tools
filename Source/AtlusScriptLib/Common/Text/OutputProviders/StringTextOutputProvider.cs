@@ -15,7 +15,7 @@ namespace AtlusScriptLib.Text.OutputProviders
 
         public void Dispose()
         {
-            ((IDisposable)mOutput).Dispose();
+            ( ( IDisposable )mOutput ).Dispose();
         }
 
         public void WriteLine()
@@ -23,29 +23,29 @@ namespace AtlusScriptLib.Text.OutputProviders
             mOutput.WriteLine();
         }
 
-        public void WriteLine(string value)
+        public void WriteLine( string value )
         {
-            mOutput.WriteLine(value);
+            mOutput.WriteLine( value );
         }
 
-        public void WriteLine(object value)
+        public void WriteLine( object value )
         {
-            mOutput.WriteLine(value);
+            mOutput.WriteLine( value );
         }
 
-        public void Write(char value)
+        public void Write( char value )
         {
-            mOutput.Write(value);
+            mOutput.Write( value );
         }
 
-        public void Write(string value)
+        public void Write( string value )
         {
-            mOutput.Write(value);
+            mOutput.Write( value );
         }
 
-        public void Write(object value)
+        public void Write( object value )
         {
-            mOutput.Write(value);
+            mOutput.Write( value );
         }
     }
 }

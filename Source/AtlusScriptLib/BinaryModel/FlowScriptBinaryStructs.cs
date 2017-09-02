@@ -2,18 +2,18 @@
 
 namespace AtlusScriptLib.BinaryModel
 {
-    [StructLayout(LayoutKind.Sequential, Pack = 1, Size = SIZE)]
+    [StructLayout( LayoutKind.Sequential, Pack = 1, Size = SIZE )]
     public struct FlowScriptBinaryHeader
     {
         public const int SIZE = 32;
         public const int FILE_TYPE = 0;
-        public static byte[] MAGIC = { (byte)'F', (byte)'L', (byte)'W', (byte)'0' };
+        public static byte[] MAGIC = { ( byte )'F', ( byte )'L', ( byte )'W', ( byte )'0' };
 
         // 0x00
         public byte FileType;
 
         // 0x01
-        [MarshalAs(UnmanagedType.I1)]
+        [MarshalAs( UnmanagedType.I1 )]
         public bool Compressed;
 
         // 0x02
@@ -23,7 +23,7 @@ namespace AtlusScriptLib.BinaryModel
         public int FileSize;
 
         // 0x08
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
+        [MarshalAs( UnmanagedType.ByValArray, SizeConst = 4 )]
         public byte[] Magic;
 
         // 0x0C
@@ -48,13 +48,13 @@ namespace AtlusScriptLib.BinaryModel
         public int Padding;
     }
 
-    [StructLayout(LayoutKind.Sequential, Pack = 1, Size = SIZE)]
+    [StructLayout( LayoutKind.Sequential, Pack = 1, Size = SIZE )]
     public struct FlowScriptBinarySectionHeader
     {
         public const int SIZE = 16;
 
         // 0x00
-        [MarshalAs(UnmanagedType.U4)]
+        [MarshalAs( UnmanagedType.U4 )]
         public FlowScriptBinarySectionType SectionType;
 
         // 0x04
@@ -67,7 +67,7 @@ namespace AtlusScriptLib.BinaryModel
         public int FirstElementAddress;
     }
 
-    [StructLayout(LayoutKind.Sequential)]
+    [StructLayout( LayoutKind.Sequential )]
     public struct FlowScriptBinaryLabel
     {
         public const int SIZE_V1 = 32;
@@ -80,21 +80,21 @@ namespace AtlusScriptLib.BinaryModel
     }
 
     // union
-    [StructLayout(LayoutKind.Sequential)]
+    [StructLayout( LayoutKind.Sequential )]
     public struct FlowScriptBinaryInstruction
     {
         public const int SIZE = 4;
 
-    // union 
-    // {
+        // union 
+        // {
         public FlowScriptOpcode Opcode;
         public short OperandShort;
-    // }
+        // }
 
-    // union 
-    // {
+        // union 
+        // {
         public int OperandInt;
         public float OperandFloat;
-    // }
+        // }
     }
 }

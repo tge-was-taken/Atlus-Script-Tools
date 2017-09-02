@@ -7,24 +7,24 @@ namespace AtlusScriptLib.Text.OutputProviders
     {
         public StreamWriter Writer { get; }
 
-        public StreamWriterTextOutputProvider(StreamWriter writer)
+        public StreamWriterTextOutputProvider( StreamWriter writer )
         {
-            Writer = writer ?? throw new ArgumentNullException(nameof(writer));
+            Writer = writer ?? throw new ArgumentNullException( nameof( writer ) );
         }
 
-        public void Write(char value)
+        public void Write( char value )
         {
-            Writer.Write(value);
+            Writer.Write( value );
         }
 
-        public void Write(string value)
+        public void Write( string value )
         {
-            Writer.Write(value);
+            Writer.Write( value );
         }
 
-        public void Write(object value)
+        public void Write( object value )
         {
-            Writer.Write(value);
+            Writer.Write( value );
         }
 
         public void WriteLine()
@@ -32,14 +32,14 @@ namespace AtlusScriptLib.Text.OutputProviders
             Writer.WriteLine();
         }
 
-        public void WriteLine(string value)
+        public void WriteLine( string value )
         {
-            Writer.WriteLine(value);
+            Writer.WriteLine( value );
         }
 
-        public void WriteLine(object value)
+        public void WriteLine( object value )
         {
-            Writer.WriteLine(value);
+            Writer.WriteLine( value );
         }
 
         public void Dispose()

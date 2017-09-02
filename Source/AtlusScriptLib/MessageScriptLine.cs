@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,7 +8,7 @@ namespace AtlusScriptLib
     /// <summary>
     /// Represents a single line of text.
     /// </summary>
-    public class MessageScriptLine
+    public class MessageScriptLine : IEnumerable<IMessageScriptLineToken>
     {
         /// <summary>
         /// Gets the list of tokens contained in this line of text.
@@ -38,6 +39,24 @@ namespace AtlusScriptLib
         public MessageScriptLine( params IMessageScriptLineToken[] tokens )
         {
             Tokens = tokens.ToList();
+        }
+
+        /// <summary>
+        /// Returns an enumerator that iterates through the tokens in the line.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator<IMessageScriptLineToken> GetEnumerator()
+        {
+            return ( ( IEnumerable<IMessageScriptLineToken> )Tokens ).GetEnumerator();
+        }
+
+        /// <summary>
+        /// Returns an enumerator that iterates through the tokens in the line.
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return ( ( IEnumerable<IMessageScriptLineToken> )Tokens ).GetEnumerator();
         }
     }
 }

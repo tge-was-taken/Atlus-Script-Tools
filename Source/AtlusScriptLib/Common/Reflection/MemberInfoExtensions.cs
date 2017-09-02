@@ -5,70 +5,70 @@ namespace AtlusScriptLib.Common.Reflection
 {
     public static class MemberInfoExtensions
     {
-        public static Type GetMemberType(this MemberInfo memberInfo)
+        public static Type GetMemberType( this MemberInfo memberInfo )
         {
-            switch (memberInfo.MemberType)
+            switch ( memberInfo.MemberType )
             {
                 case MemberTypes.Field:
-                    return ((FieldInfo)memberInfo).FieldType;
+                    return ( ( FieldInfo )memberInfo ).FieldType;
                 case MemberTypes.Property:
-                    return ((PropertyInfo)memberInfo).PropertyType;
+                    return ( ( PropertyInfo )memberInfo ).PropertyType;
                 default:
-                    throw new ArgumentException("Member must be a field or a property", nameof(memberInfo));
+                    throw new ArgumentException( "Member must be a field or a property", nameof( memberInfo ) );
             }
         }
 
-        public static Type GetElementType(this MemberInfo memberInfo)
+        public static Type GetElementType( this MemberInfo memberInfo )
         {
-            switch (memberInfo.MemberType)
+            switch ( memberInfo.MemberType )
             {
                 case MemberTypes.Field:
-                    return ((FieldInfo)memberInfo).GetElementType();
+                    return ( ( FieldInfo )memberInfo ).GetElementType();
                 case MemberTypes.Property:
-                    return ((PropertyInfo)memberInfo).GetElementType();
+                    return ( ( PropertyInfo )memberInfo ).GetElementType();
                 default:
-                    throw new ArgumentException("Member must be a field or a property", nameof(memberInfo));
+                    throw new ArgumentException( "Member must be a field or a property", nameof( memberInfo ) );
             }
         }
 
-        public static T GetValue<T>(this MemberInfo memberInfo, object instance)
+        public static T GetValue<T>( this MemberInfo memberInfo, object instance )
         {
-            switch (memberInfo.MemberType)
+            switch ( memberInfo.MemberType )
             {
                 case MemberTypes.Field:
-                    return (T)((FieldInfo)memberInfo).GetValue(instance);
+                    return ( T )( ( FieldInfo )memberInfo ).GetValue( instance );
                 case MemberTypes.Property:
-                    return (T)((PropertyInfo)memberInfo).GetValue(instance);
+                    return ( T )( ( PropertyInfo )memberInfo ).GetValue( instance );
                 default:
-                    throw new ArgumentException("Member must be a field or a property", nameof(memberInfo));
+                    throw new ArgumentException( "Member must be a field or a property", nameof( memberInfo ) );
             }
         }
 
-        public static object GetValue(this MemberInfo memberInfo, object instance)
+        public static object GetValue( this MemberInfo memberInfo, object instance )
         {
-            switch (memberInfo.MemberType)
+            switch ( memberInfo.MemberType )
             {
                 case MemberTypes.Field:
-                    return ((FieldInfo)memberInfo).GetValue(instance);
+                    return ( ( FieldInfo )memberInfo ).GetValue( instance );
                 case MemberTypes.Property:
-                    return ((PropertyInfo)memberInfo).GetValue(instance);
+                    return ( ( PropertyInfo )memberInfo ).GetValue( instance );
                 default:
-                    throw new ArgumentException("Member must be a field or a property", nameof(memberInfo));
+                    throw new ArgumentException( "Member must be a field or a property", nameof( memberInfo ) );
             }
         }
 
-        public static void SetValue(this MemberInfo memberInfo, object instance, object value)
+        public static void SetValue( this MemberInfo memberInfo, object instance, object value )
         {
-            switch (memberInfo.MemberType)
+            switch ( memberInfo.MemberType )
             {
                 case MemberTypes.Field:
-                    ((FieldInfo)memberInfo).SetValue(instance, value);
+                    ( ( FieldInfo )memberInfo ).SetValue( instance, value );
                     break;
                 case MemberTypes.Property:
-                    ((PropertyInfo)memberInfo).SetValue(instance, value);
+                    ( ( PropertyInfo )memberInfo ).SetValue( instance, value );
                     break;
                 default:
-                    throw new ArgumentException("Member must be a field or a property", nameof(memberInfo));
+                    throw new ArgumentException( "Member must be a field or a property", nameof( memberInfo ) );
             }
         }
     }

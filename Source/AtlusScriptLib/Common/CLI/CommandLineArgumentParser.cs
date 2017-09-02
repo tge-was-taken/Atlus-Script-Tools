@@ -22,7 +22,7 @@ namespace AtlusScriptLib.CLI
 
         public IReadOnlyDictionary<string, ICommandLineArgument> ArgumentsByKey
         {
-            get { return new ReadOnlyDictionary<string, ICommandLineArgument>(mArgsByKey); }
+            get { return new ReadOnlyDictionary<string, ICommandLineArgument>( mArgsByKey ); }
         }
 
         public CommandLineArgumentParser()
@@ -31,21 +31,21 @@ namespace AtlusScriptLib.CLI
             mArgsByKey = new Dictionary<string, ICommandLineArgument>();
         }
 
-        public void AddArgument(ICommandLineArgument argument)
+        public void AddArgument( ICommandLineArgument argument )
         {
-            mArgs.Add(argument);
+            mArgs.Add( argument );
             mArgsByKey[argument.Key] = argument;
         }
 
-        public void AddArguments(params ICommandLineArgument[] arguments)
+        public void AddArguments( params ICommandLineArgument[] arguments )
         {
-            foreach (var arg in arguments)
+            foreach ( var arg in arguments )
             {
-                AddArgument(arg);
+                AddArgument( arg );
             }
         }
 
-        public void Parse(string[] args)
+        public void Parse( string[] args )
         {
             mStrArgs = args;
             ParseInternal();
@@ -64,24 +64,24 @@ namespace AtlusScriptLib.CLI
             .AppendLine(Description)
             */
             .AppendLine()
-            .AppendLine("Possible arguments:")
+            .AppendLine( "Possible arguments:" )
             .AppendLine()
 
             // argument info header row
-            .Append("key".PadRight(columnWidth))
-            .Append("required".PadRight(columnWidth))
-            .Append("default".PadRight(columnWidth))
-            .Append("description".PadRight(columnWidth))
+            .Append( "key".PadRight( columnWidth ) )
+            .Append( "required".PadRight( columnWidth ) )
+            .Append( "default".PadRight( columnWidth ) )
+            .Append( "description".PadRight( columnWidth ) )
             .AppendLine();
 
-            foreach (var arg in mArgs)
+            foreach ( var arg in mArgs )
             {
                 // argument info row
                 stringBuilder
-                    .Append(arg.Key.PadRight(columnWidth))
-                    .Append((arg.Required ? "yes" : "no").PadRight(columnWidth))
-                    .Append(((arg.DefaultValue ?? "none").ToString()).ToLower().PadRight(columnWidth))
-                    .Append((arg.Description ?? "no description").PadRight(columnWidth))
+                    .Append( arg.Key.PadRight( columnWidth ) )
+                    .Append( ( arg.Required ? "yes" : "no" ).PadRight( columnWidth ) )
+                    .Append( ( ( arg.DefaultValue ?? "none" ).ToString() ).ToLower().PadRight( columnWidth ) )
+                    .Append( ( arg.Description ?? "no description" ).PadRight( columnWidth ) )
                     .AppendLine();
             }
 
@@ -90,17 +90,17 @@ namespace AtlusScriptLib.CLI
 
         private void ParseInternal()
         {
-            while (FindArgumentKey(out string key))
+            while ( FindArgumentKey( out string key ) )
             {
                 var arg = mArgsByKey[key];
                 var argValues = FindArgumentValues();
 
                 arg.IsValueProvided = true;
 
-                if (arg.TakesParameters)
+                if ( arg.TakesParameters )
                 {
-                    if (argValues.Count == 0)
-                        throw new Exception($"Missing parameter for argument {arg.Key}");
+                    if ( argValues.Count == 0 )
+                        throw new Exception( $"Missing parameter for argument {arg.Key}" );
 
                     arg.Value = argValues[0];
                 }
@@ -115,23 +115,23 @@ namespace AtlusScriptLib.CLI
 
         private void VerifyParsedArguments()
         {
-            foreach (var arg in Arguments)
+            foreach ( var arg in Arguments )
             {
-                if (arg.Required && !arg.IsValueProvided)
-                    throw new Exception($"Missing required argument {arg.Key}");
+                if ( arg.Required && !arg.IsValueProvided )
+                    throw new Exception( $"Missing required argument {arg.Key}" );
 
-                if (arg.IsValueProvided && arg.PossibleValues != null && !arg.PossibleValues.Any(x => x == arg.Value))
-                    throw new Exception($"Argument {arg.Key} has an invalid value");
+                if ( arg.IsValueProvided && arg.PossibleValues != null && !arg.PossibleValues.Any( x => x == arg.Value ) )
+                    throw new Exception( $"Argument {arg.Key} has an invalid value" );
             }
         }
 
-        private bool FindArgumentKey(out string key)
+        private bool FindArgumentKey( out string key )
         {
-            while (mStrArgIndex < mStrArgs.Length)
+            while ( mStrArgIndex < mStrArgs.Length )
             {
                 key = mStrArgs[mStrArgIndex++];
 
-                if (key.StartsWith("-"))
+                if ( key.StartsWith( "-" ) )
                 {
                     return true;
                 }
@@ -145,18 +145,18 @@ namespace AtlusScriptLib.CLI
         {
             var values = new List<string>();
 
-            while (mStrArgIndex < mStrArgs.Length)
+            while ( mStrArgIndex < mStrArgs.Length )
             {
                 string value = mStrArgs[mStrArgIndex++];
 
-                if (value.StartsWith("-"))
+                if ( value.StartsWith( "-" ) )
                 {
                     mStrArgIndex--;
                     break;
                 }
                 else
                 {
-                    values.Add(value);
+                    values.Add( value );
                 }
             }
 

@@ -19,7 +19,7 @@ namespace AtlusScriptLib.BinaryModel
         private int mPosition;                          // used to calculate addresses
         private readonly List<byte[]> mSpeakerNames;    // for storing the speaker names of dialogue messages
 
-        public MessageScriptBinaryBuilder(MessageScriptBinaryFormatVersion version)
+        public MessageScriptBinaryBuilder( MessageScriptBinaryFormatVersion version )
         {
             mFormatVersion = version;
             mAddressLocations = new List<int>();
@@ -27,43 +27,43 @@ namespace AtlusScriptLib.BinaryModel
             mPosition = MessageScriptBinaryHeader.SIZE;
         }
 
-        public void SetUserId(short value)
+        public void SetUserId( short value )
         {
             mUserId = value;
         }
 
-        public void AddMessage(MessageScriptDialogWindow message)
+        public void AddMessage( MessageScriptDialogWindow message )
         {
-            if (mMessages == null)
+            if ( mMessages == null )
                 mMessages = new List<Tuple<MessageScriptBinaryMessageType, object>>();
 
             MessageScriptBinaryDialogueMessage binary;
 
             binary.Identifier = message.Identifier;
-            binary.LineCount = (short)message.Lines.Count;
+            binary.LineCount = ( short )message.Lines.Count;
 
-            if (message.Speaker != null)
+            if ( message.Speaker != null )
             {
-                switch (message.Speaker.Type)
+                switch ( message.Speaker.Type )
                 {
                     case MessageScriptSpeakerType.Named:
                         {
-                            var speakerName = ProcessMessageLine(((MessageScriptNamedSpeaker) message.Speaker).Name);
-                            if (!mSpeakerNames.Any(x => x.SequenceEqual(speakerName)))
-                                mSpeakerNames.Add(speakerName.ToArray());
+                            var speakerName = ProcessMessageLine( ( ( MessageScriptNamedSpeaker )message.Speaker ).Name );
+                            if ( !mSpeakerNames.Any( x => x.SequenceEqual( speakerName ) ) )
+                                mSpeakerNames.Add( speakerName.ToArray() );
 
-                            binary.SpeakerId = (ushort) mSpeakerNames.FindIndex(x => x.SequenceEqual(speakerName));
+                            binary.SpeakerId = ( ushort )mSpeakerNames.FindIndex( x => x.SequenceEqual( speakerName ) );
                         }
                         break;
 
-                    case MessageScriptSpeakerType.VariablyNamed:
+                    case MessageScriptSpeakerType.Variable:
                         {
-                            binary.SpeakerId = (ushort)(0x8000u | ((MessageScriptVariableSpeaker)message.Speaker).Index);
+                            binary.SpeakerId = ( ushort )( 0x8000u | ( ( MessageScriptVariableSpeaker )message.Speaker ).Index );
                         }
                         break;
 
                     default:
-                        throw new ArgumentException(nameof(message));
+                        throw new ArgumentException( nameof( message ) );
                 }
             }
             else
@@ -75,61 +75,61 @@ namespace AtlusScriptLib.BinaryModel
 
             var textBuffer = new List<byte>();
             {
-                int lineStartAddress = 0x1C + (binary.LineCount * 4) + 4;
+                int lineStartAddress = 0x1C + ( binary.LineCount * 4 ) + 4;
 
-                for (int i = 0; i < message.Lines.Count; i++)
+                for ( int i = 0; i < message.Lines.Count; i++ )
                 {
                     binary.LineStartAddresses[i] = lineStartAddress;
 
-                    var lineBytes = ProcessMessageLine(message.Lines[i]);
-                    textBuffer.AddRange(lineBytes);
+                    var lineBytes = ProcessMessageLine( message.Lines[i] );
+                    textBuffer.AddRange( lineBytes );
 
                     lineStartAddress += lineBytes.Count;
                 }
 
-                textBuffer.Add(0);
+                textBuffer.Add( 0 );
             }
 
             binary.TextBuffer = textBuffer.ToArray();
             binary.TextBufferSize = binary.TextBuffer.Length;
 
-            mMessages.Add(new Tuple<MessageScriptBinaryMessageType, object>(MessageScriptBinaryMessageType.Dialogue, binary));
+            mMessages.Add( new Tuple<MessageScriptBinaryMessageType, object>( MessageScriptBinaryMessageType.Dialogue, binary ) );
         }
 
-        public void AddMessage(MessageScriptSelectionWindow message)
+        public void AddMessage( MessageScriptSelectionWindow message )
         {
-            if (mMessages == null)
+            if ( mMessages == null )
                 mMessages = new List<Tuple<MessageScriptBinaryMessageType, object>>();
 
             MessageScriptBinarySelectionMessage binary;
 
             binary.Identifier = message.Identifier;
             binary.Field18 = binary.Field1C = binary.Field1E = 0;
-            binary.OptionCount = (short)message.Lines.Count;
+            binary.OptionCount = ( short )message.Lines.Count;
             binary.OptionStartAddresses = new int[message.Lines.Count];
 
             var textBuffer = new List<byte>();
             {
-                int lineStartAddress = 0x20 + (binary.OptionCount * 4) + 4;
-                for (int i = 0; i < message.Lines.Count; i++)
+                int lineStartAddress = 0x20 + ( binary.OptionCount * 4 ) + 4;
+                for ( int i = 0; i < message.Lines.Count; i++ )
                 {
                     binary.OptionStartAddresses[i] = lineStartAddress;
 
-                    var lineBytes = ProcessMessageLine(message.Lines[i]);
-                    lineBytes.Add(0); // intentional
+                    var lineBytes = ProcessMessageLine( message.Lines[i] );
+                    lineBytes.Add( 0 ); // intentional
 
-                    textBuffer.AddRange(lineBytes);
+                    textBuffer.AddRange( lineBytes );
 
                     lineStartAddress += lineBytes.Count;
                 }
 
-                textBuffer.Add(0); // intentional
+                textBuffer.Add( 0 ); // intentional
             }
 
             binary.TextBuffer = textBuffer.ToArray();
             binary.TextBufferSize = binary.TextBuffer.Length;
 
-            mMessages.Add(new Tuple<MessageScriptBinaryMessageType, object>(MessageScriptBinaryMessageType.Selection, binary));
+            mMessages.Add( new Tuple<MessageScriptBinaryMessageType, object>( MessageScriptBinaryMessageType.Selection, binary ) );
         }
 
         public MessageScriptBinary Build()
@@ -140,52 +140,52 @@ namespace AtlusScriptLib.BinaryModel
             };
 
             // note: DONT CHANGE THE ORDER
-            BuildHeaderFirstPass(ref binary.mHeader);
+            BuildHeaderFirstPass( ref binary.mHeader );
 
-            if (mMessages != null)
+            if ( mMessages != null )
             {
-                BuildMessageHeadersFirstPass(ref binary.mMessageHeaders);
+                BuildMessageHeadersFirstPass( ref binary.mMessageHeaders );
 
-                BuildSpeakerTableHeaderFirstPass(ref binary.mSpeakerTableHeader);
+                BuildSpeakerTableHeaderFirstPass( ref binary.mSpeakerTableHeader );
 
-                BuildMessageHeadersFinalPass(ref binary.mMessageHeaders);
+                BuildMessageHeadersFinalPass( ref binary.mMessageHeaders );
 
-                BuildSpeakerTableHeaderSecondPass(ref binary.mSpeakerTableHeader);
+                BuildSpeakerTableHeaderSecondPass( ref binary.mSpeakerTableHeader );
 
-                BuildSpeakerTableHeaderFinalPass(ref binary.mSpeakerTableHeader);
+                BuildSpeakerTableHeaderFinalPass( ref binary.mSpeakerTableHeader );
             }
 
-            BuildHeaderFinalPass(ref binary.mHeader);
+            BuildHeaderFinalPass( ref binary.mHeader );
 
             return binary;
         }
 
-        private List<byte> ProcessMessageLine(MessageScriptLine line)
+        private List<byte> ProcessMessageLine( MessageScriptLine line )
         {
             List<byte> bytes = new List<byte>();
 
-            foreach (var token in line.Tokens)
+            foreach ( var token in line.Tokens )
             {
-                ProcessToken(token, bytes);
+                ProcessToken( token, bytes );
             }
 
             return bytes;
         }
 
-        private void ProcessToken(IMessageScriptLineToken token, List<byte> bytes)
+        private void ProcessToken( IMessageScriptLineToken token, List<byte> bytes )
         {
-            switch (token.Type)
+            switch ( token.Type )
             {
                 case MessageScriptTokenType.Text:
-                    ProcessTextToken((MessageScriptTextToken)token, bytes);
+                    ProcessTextToken( ( MessageScriptTextToken )token, bytes );
                     break;
 
                 case MessageScriptTokenType.Function:
-                    ProcessFunctionToken((MessageScriptFunctionToken)token, bytes);
+                    ProcessFunctionToken( ( MessageScriptFunctionToken )token, bytes );
                     break;
 
                 case MessageScriptTokenType.CodePoint:
-                    ProcessCharacterCode((MessageScriptCodePointToken)token, bytes);
+                    ProcessCodePoint( ( MessageScriptCodePointToken )token, bytes );
                     break;
 
                 case MessageScriptTokenType.NewLine:
@@ -197,53 +197,53 @@ namespace AtlusScriptLib.BinaryModel
             }
         }
 
-        private void ProcessTextToken(MessageScriptTextToken token, List<byte> bytes)
+        private void ProcessTextToken( MessageScriptTextToken token, List<byte> bytes )
         {
             // a text token is a simple 7 bit ascii character
-            var textBytes = Encoding.ASCII.GetBytes(token.Text);
+            var textBytes = Encoding.ASCII.GetBytes( token.Text );
 
             // simple add to the list of bytes
-            bytes.AddRange(textBytes);
+            bytes.AddRange( textBytes );
         }
 
-        private void ProcessFunctionToken(MessageScriptFunctionToken token, List<byte> bytes)
+        private void ProcessFunctionToken( MessageScriptFunctionToken token, List<byte> bytes )
         {
             // AAAA BBBB where A is a signifier value for a function and B is the encoded argument byte size
-            byte functionSignifier = (byte)(0xF0 | (((token.Arguments.Count * sizeof(short)) / 2) + 1) & 0x0F);
+            byte functionSignifier = ( byte )( 0xF0 | ( ( ( token.Arguments.Count * sizeof( short ) ) / 2 ) + 1 ) & 0x0F );
 
             // AAAB BBBB where A is the table index and B is the function index
-            byte functionId = (byte)(((token.FunctionTableIndex & 0x07) << 5) | token.FunctionIndex & 0x1F);
+            byte functionId = ( byte )( ( ( token.FunctionTableIndex & 0x07 ) << 5 ) | token.FunctionIndex & 0x1F );
 
             byte[] argumentBytes = new byte[token.Arguments.Count * 2];
 
-            for (int i = 0; i < token.Arguments.Count; i++)
+            for ( int i = 0; i < token.Arguments.Count; i++ )
             {
                 // arguments are stored in little endian regardless of the rest of the format
-                byte firstByte = (byte)((token.Arguments[i] & 0xFF) + 1);
-                byte secondByte = (byte)(((token.Arguments[i] & 0xFF00) >> 8) + 1);
+                byte firstByte = ( byte )( ( token.Arguments[i] & 0xFF ) + 1 );
+                byte secondByte = ( byte )( ( ( token.Arguments[i] & 0xFF00 ) >> 8 ) + 1 );
 
-                int byteIndex = i * sizeof(short);
+                int byteIndex = i * sizeof( short );
                 argumentBytes[byteIndex] = firstByte;
                 argumentBytes[byteIndex + 1] = secondByte;
             }
 
-            bytes.Add(functionSignifier);
-            bytes.Add(functionId);
-            bytes.AddRange(argumentBytes);
+            bytes.Add( functionSignifier );
+            bytes.Add( functionId );
+            bytes.AddRange( argumentBytes );
         }
 
-        private void ProcessCharacterCode(MessageScriptCodePointToken token, List<byte> bytes)
+        private void ProcessCodePoint( MessageScriptCodePointToken token, List<byte> bytes )
         {
             bytes.Add( token.HighSurrogate );
             bytes.Add( token.LowSurrogate );
         }
 
-        private void BuildHeaderFirstPass(ref MessageScriptBinaryHeader header)
+        private void BuildHeaderFirstPass( ref MessageScriptBinaryHeader header )
         {
             header.FileType = MessageScriptBinaryHeader.FILE_TYPE;
             header.IsCompressed = false;
             header.UserId = mUserId;
-            header.Magic = mFormatVersion.HasFlag(MessageScriptBinaryFormatVersion.BigEndian)
+            header.Magic = mFormatVersion.HasFlag( MessageScriptBinaryFormatVersion.BigEndian )
                 ? MessageScriptBinaryHeader.MAGIC_V1_BE
                 : MessageScriptBinaryHeader.MAGIC_V1;
             header.Field0C = 0;
@@ -252,10 +252,10 @@ namespace AtlusScriptLib.BinaryModel
             header.Field1E = 2;
         }
 
-        private void BuildMessageHeadersFirstPass(ref MessageScriptBinaryMessageHeader[] messageHeaders)
+        private void BuildMessageHeadersFirstPass( ref MessageScriptBinaryMessageHeader[] messageHeaders )
         {
             messageHeaders = new MessageScriptBinaryMessageHeader[mMessages.Count];
-            for (int i = 0; i < messageHeaders.Length; i++)
+            for ( int i = 0; i < messageHeaders.Length; i++ )
             {
                 messageHeaders[i].MessageType = mMessages[i].Item1;
                 MoveToNextIntPosition();
@@ -265,7 +265,7 @@ namespace AtlusScriptLib.BinaryModel
             }
         }
 
-        private void BuildSpeakerTableHeaderFirstPass(ref MessageScriptBinarySpeakerTableHeader speakerHeader)
+        private void BuildSpeakerTableHeaderFirstPass( ref MessageScriptBinarySpeakerTableHeader speakerHeader )
         {
             AddAddressLocation();
             MoveToNextIntPosition();
@@ -280,83 +280,83 @@ namespace AtlusScriptLib.BinaryModel
             MoveToNextIntPosition();
         }
 
-        private void BuildMessageHeadersFinalPass(ref MessageScriptBinaryMessageHeader[] messageHeaders)
+        private void BuildMessageHeadersFinalPass( ref MessageScriptBinaryMessageHeader[] messageHeaders )
         {
-            for (int i = 0; i < messageHeaders.Length; i++)
+            for ( int i = 0; i < messageHeaders.Length; i++ )
             {
                 messageHeaders[i].Message.Offset = GetAlignedAddress();
-                messageHeaders[i].Message.Value = UpdateMessageAddressBase(mMessages[i].Item2);
+                messageHeaders[i].Message.Value = UpdateMessageAddressBase( mMessages[i].Item2 );
             }
         }
 
-        private void BuildSpeakerTableHeaderSecondPass(ref MessageScriptBinarySpeakerTableHeader speakerTableHeader)
+        private void BuildSpeakerTableHeaderSecondPass( ref MessageScriptBinarySpeakerTableHeader speakerTableHeader )
         {
             speakerTableHeader.SpeakerNameArray.Offset = GetAlignedAddress();
-            for (int i = 0; i < speakerTableHeader.SpeakerCount; i++)
+            for ( int i = 0; i < speakerTableHeader.SpeakerCount; i++ )
             {
                 AddAddressLocation();
                 MoveToNextIntPosition();
             }
         }
 
-        private void BuildSpeakerTableHeaderFinalPass(ref MessageScriptBinarySpeakerTableHeader speakerTableHeader)
+        private void BuildSpeakerTableHeaderFinalPass( ref MessageScriptBinarySpeakerTableHeader speakerTableHeader )
         {
             speakerTableHeader.SpeakerNameArray.Value = new OffsetTo<List<byte>>[speakerTableHeader.SpeakerCount];
-            for (int i = 0; i < speakerTableHeader.SpeakerNameArray.Value.Length; i++)
+            for ( int i = 0; i < speakerTableHeader.SpeakerNameArray.Value.Length; i++ )
             {
                 speakerTableHeader.SpeakerNameArray.Value[i].Offset = GetAddress();
                 speakerTableHeader.SpeakerNameArray.Value[i].Value = mSpeakerNames[i].ToList();
 
                 // todo: maybe the speakername should include the trailing 0
-                MoveToNextPositionByOffset(mSpeakerNames[i].Length + 1);
+                MoveToNextPositionByOffset( mSpeakerNames[i].Length + 1 );
             }
         }
 
-        private void BuildHeaderFinalPass(ref MessageScriptBinaryHeader header)
+        private void BuildHeaderFinalPass( ref MessageScriptBinaryHeader header )
         {
             header.RelocationTable.Offset = GetAlignedAddress() + MessageScriptBinaryHeader.SIZE;
             header.RelocationTable.Value =
-                RelocationTableEncoding.Encode(mAddressLocations, MessageScriptBinaryHeader.SIZE);
+                RelocationTableEncoding.Encode( mAddressLocations, MessageScriptBinaryHeader.SIZE );
             header.RelocationTableSize = header.RelocationTable.Value.Length;
             mPosition += header.RelocationTableSize;
 
             header.FileSize = mPosition;
         }
 
-        private object UpdateMessageAddressBase(object message)
+        private object UpdateMessageAddressBase( object message )
         {
             int messageAddress = GetAddress();
 
-            switch (message)
+            switch ( message )
             {
                 case MessageScriptBinaryDialogueMessage dialogue:
-                {
-                    mPosition += 0x1C;
-
-                    for (int i = 0; i < dialogue.LineStartAddresses.Length; i++)
                     {
-                        AddAddressLocation();
-                        dialogue.LineStartAddresses[i] += messageAddress;
-                        mPosition += 4;
-                    }
+                        mPosition += 0x1C;
 
-                    mPosition += 4 + dialogue.TextBufferSize;
-                }
+                        for ( int i = 0; i < dialogue.LineStartAddresses.Length; i++ )
+                        {
+                            AddAddressLocation();
+                            dialogue.LineStartAddresses[i] += messageAddress;
+                            mPosition += 4;
+                        }
+
+                        mPosition += 4 + dialogue.TextBufferSize;
+                    }
                     break;
 
                 case MessageScriptBinarySelectionMessage selection:
-                {
-                    mPosition += 0x20;
-
-                    for (int i = 0; i < selection.OptionStartAddresses.Length; i++)
                     {
-                        AddAddressLocation();
-                        selection.OptionStartAddresses[i] += messageAddress;
-                        mPosition += 4;
-                    }
+                        mPosition += 0x20;
 
-                    mPosition += 4 + selection.TextBufferSize;
-                }
+                        for ( int i = 0; i < selection.OptionStartAddresses.Length; i++ )
+                        {
+                            AddAddressLocation();
+                            selection.OptionStartAddresses[i] += messageAddress;
+                            mPosition += 4;
+                        }
+
+                        mPosition += 4 + selection.TextBufferSize;
+                    }
                     break;
 
                 default:
@@ -368,22 +368,22 @@ namespace AtlusScriptLib.BinaryModel
 
         private void MoveToNextIntPosition()
         {
-            mPosition += sizeof(int);
+            mPosition += sizeof( int );
         }
 
-        private void MoveToNextPositionByOffset(int offset)
+        private void MoveToNextPositionByOffset( int offset )
         {
             mPosition += offset;
         }
 
         private void AddAddressLocation()
         {
-            mAddressLocations.Add(mPosition);
+            mAddressLocations.Add( mPosition );
         }
 
         private void AlignPosition()
         {
-            mPosition = (mPosition + 3) & ~3;
+            mPosition = ( mPosition + 3 ) & ~3;
         }
 
         private int GetAddress()

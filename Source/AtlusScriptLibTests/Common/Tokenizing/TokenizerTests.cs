@@ -10,62 +10,62 @@ namespace AtlusScriptLib.Common.Tokenizing.Tests
         [TestMethod()]
         public void TokenizerTest_String()
         {
-            var tokenizer = new Tokenizer("test", null);
+            var tokenizer = new Tokenizer( "test", null );
         }
 
         [TestMethod()]
         public void TokenizerTest_Stream()
         {
-            var tokenizer = new Tokenizer(new MemoryStream(), null);
+            var tokenizer = new Tokenizer( new MemoryStream(), null );
         }
 
         [TestMethod()]
         public void DisposeTest()
         {
-            var tokenizer = new Tokenizer("", null);
+            var tokenizer = new Tokenizer( "", null );
             tokenizer.Dispose();
         }
 
         [TestMethod()]
         public void GetTokenTest()
         {
-            var tokenizer = new Tokenizer(" Abc,@!\\123!0x123       ", null);
+            var tokenizer = new Tokenizer( " Abc,@!\\123!0x123       ", null );
 
             int index = 0;
-            while (tokenizer.TryGetToken(out Token token))
+            while ( tokenizer.TryGetToken( out Token token ) )
             {
-                switch (index)
+                switch ( index )
                 {
                     case 0:
-                        Assert.AreEqual("Abc", token.Text);
+                        Assert.AreEqual( "Abc", token.Text );
                         break;
 
                     case 1:
-                        Assert.AreEqual(",", token.Text);
+                        Assert.AreEqual( ",", token.Text );
                         break;
 
                     case 2:
-                        Assert.AreEqual("@", token.Text);
+                        Assert.AreEqual( "@", token.Text );
                         break;
 
                     case 3:
-                        Assert.AreEqual("!", token.Text);
+                        Assert.AreEqual( "!", token.Text );
                         break;
 
                     case 4:
-                        Assert.AreEqual("\\", token.Text);
+                        Assert.AreEqual( "\\", token.Text );
                         break;
 
                     case 5:
-                        Assert.AreEqual("123", token.Text);
+                        Assert.AreEqual( "123", token.Text );
                         break;
 
                     case 6:
-                        Assert.AreEqual("!", token.Text);
+                        Assert.AreEqual( "!", token.Text );
                         break;
 
                     case 7:
-                        Assert.AreEqual("0x123", token.Text);
+                        Assert.AreEqual( "0x123", token.Text );
                         break;
                 }
 
@@ -76,45 +76,45 @@ namespace AtlusScriptLib.Common.Tokenizing.Tests
         [TestMethod()]
         public void GetTokenTest_CommTableDeclaration()
         {
-            var tokenizer = new Tokenizer("0005 void MSG(int arg0, unk arg1);", null);
+            var tokenizer = new Tokenizer( "0005 void MSG(int arg0, unk arg1);", null );
 
             int index = 0;
-            while (tokenizer.TryGetToken(out Token token))
+            while ( tokenizer.TryGetToken( out Token token ) )
             {
-                switch (index)
+                switch ( index )
                 {
                     case 0:
-                        Assert.AreEqual("0005", token.Text);
+                        Assert.AreEqual( "0005", token.Text );
                         break;
                     case 1:
-                        Assert.AreEqual("void", token.Text);
+                        Assert.AreEqual( "void", token.Text );
                         break;
                     case 2:
-                        Assert.AreEqual("MSG", token.Text);
+                        Assert.AreEqual( "MSG", token.Text );
                         break;
                     case 3:
-                        Assert.AreEqual("(", token.Text);
+                        Assert.AreEqual( "(", token.Text );
                         break;
                     case 4:
-                        Assert.AreEqual("int", token.Text);
+                        Assert.AreEqual( "int", token.Text );
                         break;
                     case 5:
-                        Assert.AreEqual("arg0", token.Text);
+                        Assert.AreEqual( "arg0", token.Text );
                         break;
                     case 6:
-                        Assert.AreEqual(",", token.Text);
+                        Assert.AreEqual( ",", token.Text );
                         break;
                     case 7:
-                        Assert.AreEqual("unk", token.Text);
+                        Assert.AreEqual( "unk", token.Text );
                         break;
                     case 8:
-                        Assert.AreEqual("arg1", token.Text);
+                        Assert.AreEqual( "arg1", token.Text );
                         break;
                     case 9:
-                        Assert.AreEqual(")", token.Text);
+                        Assert.AreEqual( ")", token.Text );
                         break;
                     case 10:
-                        Assert.AreEqual(";", token.Text);
+                        Assert.AreEqual( ";", token.Text );
                         break;
                 }
 
@@ -125,38 +125,38 @@ namespace AtlusScriptLib.Common.Tokenizing.Tests
         [TestMethod()]
         public void GetTokenTest_Whitespace()
         {
-            var tokenizer = new Tokenizer(" @  !    abc", null)
+            var tokenizer = new Tokenizer( " @  !    abc", null )
             {
                 FilterWhitespace = false
             };
 
             int index = 0;
-            while (tokenizer.TryGetToken(out Token token))
+            while ( tokenizer.TryGetToken( out Token token ) )
             {
-                switch (index)
+                switch ( index )
                 {
                     case 0:
-                        Assert.AreEqual(" ", token.Text);
+                        Assert.AreEqual( " ", token.Text );
                         break;
 
                     case 1:
-                        Assert.AreEqual("@", token.Text);
+                        Assert.AreEqual( "@", token.Text );
                         break;
 
                     case 2:
-                        Assert.AreEqual("  ", token.Text);
+                        Assert.AreEqual( "  ", token.Text );
                         break;
 
                     case 3:
-                        Assert.AreEqual("!", token.Text);
+                        Assert.AreEqual( "!", token.Text );
                         break;
 
                     case 4:
-                        Assert.AreEqual("    ", token.Text);
+                        Assert.AreEqual( "    ", token.Text );
                         break;
 
                     case 5:
-                        Assert.AreEqual("abc", token.Text);
+                        Assert.AreEqual( "abc", token.Text );
                         break;
                 }
 

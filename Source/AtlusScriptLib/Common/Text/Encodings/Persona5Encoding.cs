@@ -5,6 +5,8 @@ namespace AtlusScriptLib.Common.Text.Encodings
 {
     public class Persona5Encoding : Encoding
     {
+        public static Persona5Encoding Instance { get; }
+
         public override int GetByteCount( char[] chars, int index, int count )
         {
             int byteCount = 0;
@@ -134,6 +136,8 @@ namespace AtlusScriptLib.Common.Text.Encodings
 
                 sCodePointToChar[new CodePoint( ( byte )( GLYPH_TABLE_INDEX_MARKER | tableIndex ), ( byte )( tableRelativeIndex ) )] = sCharTable[charIndex];
             }
+
+            Instance = new Persona5Encoding();
         }
 
         /// <summary>

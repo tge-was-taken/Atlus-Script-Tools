@@ -8,51 +8,51 @@ namespace AtlusScriptLib.BinaryModel
 {
     public class MessageScriptBinary
     {
-        public static MessageScriptBinary FromFile(string path)
+        public static MessageScriptBinary FromFile( string path )
         {
-            if (path == null)
-                throw new ArgumentNullException(nameof(path));
+            if ( path == null )
+                throw new ArgumentNullException( nameof( path ) );
 
-            if (string.IsNullOrEmpty(path))
-                throw new ArgumentException("Value cannot be null or empty.", nameof(path));
+            if ( string.IsNullOrEmpty( path ) )
+                throw new ArgumentException( "Value cannot be null or empty.", nameof( path ) );
 
-            return FromFile(path, MessageScriptBinaryFormatVersion.Unknown);
+            return FromFile( path, MessageScriptBinaryFormatVersion.Unknown );
         }
 
-        public static MessageScriptBinary FromFile(string path, MessageScriptBinaryFormatVersion version)
+        public static MessageScriptBinary FromFile( string path, MessageScriptBinaryFormatVersion version )
         {
-            if (path == null)
-                throw new ArgumentNullException(nameof(path));
+            if ( path == null )
+                throw new ArgumentNullException( nameof( path ) );
 
-            if (string.IsNullOrEmpty(path))
-                throw new ArgumentException("Value cannot be null or empty.", nameof(path));
+            if ( string.IsNullOrEmpty( path ) )
+                throw new ArgumentException( "Value cannot be null or empty.", nameof( path ) );
 
-            if (!Enum.IsDefined(typeof(MessageScriptBinaryFormatVersion), version))
-                throw new InvalidEnumArgumentException(nameof(version), (int) version,
-                    typeof(MessageScriptBinaryFormatVersion));
+            if ( !Enum.IsDefined( typeof( MessageScriptBinaryFormatVersion ), version ) )
+                throw new InvalidEnumArgumentException( nameof( version ), ( int )version,
+                    typeof( MessageScriptBinaryFormatVersion ) );
 
-            using (var fileStream = File.OpenRead(path))
-                return FromStream(fileStream, version);
+            using ( var fileStream = File.OpenRead( path ) )
+                return FromStream( fileStream, version );
         }
 
-        public static MessageScriptBinary FromStream(Stream stream, bool leaveOpen = false)
+        public static MessageScriptBinary FromStream( Stream stream, bool leaveOpen = false )
         {
-            if (stream == null)
-                throw new ArgumentNullException(nameof(stream));
+            if ( stream == null )
+                throw new ArgumentNullException( nameof( stream ) );
 
-            return FromStream(stream, MessageScriptBinaryFormatVersion.Unknown, leaveOpen);
+            return FromStream( stream, MessageScriptBinaryFormatVersion.Unknown, leaveOpen );
         }
 
-        public static MessageScriptBinary FromStream(Stream stream, MessageScriptBinaryFormatVersion version, bool leaveOpen = false)
+        public static MessageScriptBinary FromStream( Stream stream, MessageScriptBinaryFormatVersion version, bool leaveOpen = false )
         {
-            if (stream == null)
-                throw new ArgumentNullException(nameof(stream));
+            if ( stream == null )
+                throw new ArgumentNullException( nameof( stream ) );
 
-            if (!Enum.IsDefined(typeof(MessageScriptBinaryFormatVersion), version))
-                throw new InvalidEnumArgumentException(nameof(version), (int) version,
-                    typeof(MessageScriptBinaryFormatVersion));
+            if ( !Enum.IsDefined( typeof( MessageScriptBinaryFormatVersion ), version ) )
+                throw new InvalidEnumArgumentException( nameof( version ), ( int )version,
+                    typeof( MessageScriptBinaryFormatVersion ) );
 
-            using (var reader = new MessageScriptBinaryReader(stream, version, leaveOpen))
+            using ( var reader = new MessageScriptBinaryReader( stream, version, leaveOpen ) )
             {
                 return reader.ReadBinary();
             }
@@ -66,8 +66,8 @@ namespace AtlusScriptLib.BinaryModel
 
         public MessageScriptBinaryHeader Header => mHeader;
 
-        public ReadOnlyCollection<MessageScriptBinaryMessageHeader> MessageHeaders 
-            => new ReadOnlyCollection<MessageScriptBinaryMessageHeader>(mMessageHeaders);
+        public ReadOnlyCollection<MessageScriptBinaryMessageHeader> MessageHeaders
+            => new ReadOnlyCollection<MessageScriptBinaryMessageHeader>( mMessageHeaders );
 
         public MessageScriptBinarySpeakerTableHeader SpeakerTableHeader => mSpeakerTableHeader;
 
@@ -78,30 +78,30 @@ namespace AtlusScriptLib.BinaryModel
         {
         }
 
-        public void ToFile(string path)
+        public void ToFile( string path )
         {
-            if (path == null)
-                throw new ArgumentNullException(nameof(path));
+            if ( path == null )
+                throw new ArgumentNullException( nameof( path ) );
 
-            if (string.IsNullOrEmpty(path))
-                throw new ArgumentException("Value cannot be null or empty.", nameof(path));
+            if ( string.IsNullOrEmpty( path ) )
+                throw new ArgumentException( "Value cannot be null or empty.", nameof( path ) );
 
-            using (var stream = File.Create(path))
-                ToStream(stream);
+            using ( var stream = File.Create( path ) )
+                ToStream( stream );
         }
 
         public Stream ToStream()
         {
             var stream = new MemoryStream();
-            ToStream(stream, true);
+            ToStream( stream, true );
             return stream;
         }
 
-        public void ToStream(Stream stream, bool leaveOpen = false)
+        public void ToStream( Stream stream, bool leaveOpen = false )
         {
-            using (var writer = new MessageScriptBinaryWriter(stream, mFormatVersion, leaveOpen))
+            using ( var writer = new MessageScriptBinaryWriter( stream, mFormatVersion, leaveOpen ) )
             {
-                writer.WriteBinary(this);
+                writer.WriteBinary( this );
             }
         }
     }

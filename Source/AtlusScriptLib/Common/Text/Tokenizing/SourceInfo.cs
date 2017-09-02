@@ -8,7 +8,7 @@
 
         public int CharacterNumber { get; }
 
-        public SourceFileInfo(string fileName, int lineNumber, int characterNumber)
+        public SourceFileInfo( string fileName, int lineNumber, int characterNumber )
         {
             FileName = fileName;
             LineNumber = lineNumber;

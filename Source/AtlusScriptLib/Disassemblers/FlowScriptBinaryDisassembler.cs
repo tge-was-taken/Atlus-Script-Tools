@@ -18,12 +18,6 @@ namespace AtlusScriptLib.Disassemblers
         private ITextOutputProvider mOutput;
         private int mInstructionIndex;
 
-        public string HeaderString
-        {
-            get { return mHeaderString; }
-            set { mHeaderString = value; }
-        }
-
         private FlowScriptBinaryInstruction CurrentInstruction
         {
             get
@@ -85,8 +79,8 @@ namespace AtlusScriptLib.Disassemblers
         private void WriteDisassembly()
         {
             WriteHeader();
-            PutTextDisassembly();
-            PutMessageScriptDisassembly();
+            WriteTextDisassembly();
+            WriteMessageScriptDisassembly();
         }
 
         private void WriteHeader()
@@ -95,7 +89,7 @@ namespace AtlusScriptLib.Disassemblers
             mOutput.WriteLine();
         }
 
-        private void PutTextDisassembly()
+        private void WriteTextDisassembly()
         {
             mOutput.WriteLine( ".text" );
 
@@ -107,7 +101,7 @@ namespace AtlusScriptLib.Disassemblers
                     mOutput.WriteLine( $"{jump.Name}:" );
                 }
 
-                PutInstructionDisassembly();
+                WriteInstructionDisassembly();
 
                 if ( OpcodeUsesExtendedOperand( CurrentInstruction.Opcode ) )
                 {
@@ -130,7 +124,7 @@ namespace AtlusScriptLib.Disassemblers
             return false;
         }
 
-        private void PutInstructionDisassembly()
+        private void WriteInstructionDisassembly()
         {
             switch ( CurrentInstruction.Opcode )
             {
@@ -214,7 +208,7 @@ namespace AtlusScriptLib.Disassemblers
             }
         }
 
-        private void PutMessageScriptDisassembly()
+        private void WriteMessageScriptDisassembly()
         {
             mOutput.WriteLine( ".msg" );
 

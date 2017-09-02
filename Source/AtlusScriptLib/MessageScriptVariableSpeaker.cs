@@ -28,6 +28,6 @@
         /// <summary>
         /// Gets the speaker type.
         /// </summary>
-        MessageScriptSpeakerType IMessageScriptSpeaker.Type => MessageScriptSpeakerType.VariablyNamed;
+        MessageScriptSpeakerType IMessageScriptSpeaker.Type => MessageScriptSpeakerType.Variable;
     }
 }

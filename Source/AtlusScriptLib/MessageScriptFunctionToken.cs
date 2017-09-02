@@ -67,7 +67,7 @@ namespace AtlusScriptLib
         /// <returns></returns>
         public override string ToString()
         {
-            string str = $"function_{FunctionTableIndex}_{FunctionIndex}(";
+            string str = $"func_{FunctionTableIndex}_{FunctionIndex}(";
             for ( int i = 0; i < Arguments.Count; i++ )
             {
                 str += Arguments[i];

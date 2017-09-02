@@ -7,9 +7,9 @@ namespace AtlusScriptLib.Text.OutputProviders
     {
         private readonly TextWriter mTextWriter;
 
-        public TextWriterTextOutputProvider(TextWriter writer)
+        public TextWriterTextOutputProvider( TextWriter writer )
         {
-            mTextWriter = writer ?? throw new ArgumentNullException(nameof(writer));
+            mTextWriter = writer ?? throw new ArgumentNullException( nameof( writer ) );
         }
 
         public void WriteLine()
@@ -17,29 +17,29 @@ namespace AtlusScriptLib.Text.OutputProviders
             mTextWriter.WriteLine();
         }
 
-        public void WriteLine(string value)
+        public void WriteLine( string value )
         {
-            mTextWriter.WriteLine(value);
+            mTextWriter.WriteLine( value );
         }
 
-        public void WriteLine(object value)
+        public void WriteLine( object value )
         {
-            mTextWriter.WriteLine(value);
+            mTextWriter.WriteLine( value );
         }
 
-        public void Write(char value)
+        public void Write( char value )
         {
-            mTextWriter.Write(value);
+            mTextWriter.Write( value );
         }
 
-        public void Write(string value)
+        public void Write( string value )
         {
-            mTextWriter.Write(value);
+            mTextWriter.Write( value );
         }
 
-        public void Write(object value)
+        public void Write( object value )
         {
-            mTextWriter.Write(value);
+            mTextWriter.Write( value );
         }
 
         public void Dispose()
