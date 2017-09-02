@@ -2,7 +2,7 @@
 using System.IO;
 using AtlusScriptLib.BinaryModel;
 
-namespace AtlusScriptLib.Tests
+namespace AtlusScriptLib.BinaryModel.Tests
 {
     [TestClass()]
     public class FlowScriptBinaryTests

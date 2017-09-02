@@ -73,15 +73,15 @@ namespace AtlusScriptLib.Decompilers
             }
         }
 
-        public void Decompile( IMessageScriptMessage message )
+        public void Decompile( IMessageScriptWindow message )
         {
             switch ( message.Type )
             {
-                case MessageScriptMessageType.Dialogue:
-                    Decompile( ( MessageScriptDialogueMessage )message );
+                case MessageScriptWindowType.Dialogue:
+                    Decompile( ( MessageScriptDialogWindow )message );
                     break;
-                case MessageScriptMessageType.Selection:
-                    Decompile( ( MessageScriptSelectionMessage )message );
+                case MessageScriptWindowType.Selection:
+                    Decompile( ( MessageScriptSelectionWindow )message );
                     break;
 
                 default:
@@ -89,26 +89,26 @@ namespace AtlusScriptLib.Decompilers
             }
         }
 
-        public void Decompile( MessageScriptDialogueMessage message )
+        public void Decompile( MessageScriptDialogWindow message )
         {
             if ( message.Speaker != null )
             {
                 switch ( message.Speaker.Type )
                 {
-                    case MessageScriptDialogueMessageSpeakerType.Named:
+                    case MessageScriptSpeakerType.Named:
                         {
                             WriteOpenTag( "dlg" );
                             WriteTagArgument( message.Identifier );
-                            WriteTagArgument( ( ( MessageScriptDialogueMessageNamedSpeaker )message.Speaker ).Name );
+                            WriteTagArgument( ( ( MessageScriptNamedSpeaker )message.Speaker ).Name );
                             WriteCloseTag();
                         }
                         break;
 
-                    case MessageScriptDialogueMessageSpeakerType.VariablyNamed:
+                    case MessageScriptSpeakerType.VariablyNamed:
                         {
                             WriteOpenTag( "dlg" );
                             WriteTagArgument( message.Identifier );
-                            WriteTagArgumentTag( "svar", ( ( MessageScriptDialogueMessageVariablyNamedSpeaker )message.Speaker ).Index.ToString() );
+                            WriteTagArgumentTag( "svar", ( ( MessageScriptVariableSpeaker )message.Speaker ).Index.ToString() );
                             WriteCloseTag();
                         }
                         break;
@@ -128,7 +128,7 @@ namespace AtlusScriptLib.Decompilers
             }
         }
 
-        public void Decompile( MessageScriptSelectionMessage message )
+        public void Decompile( MessageScriptSelectionWindow message )
         {
             WriteTag( "sel", message.Identifier );
             mOutput.WriteLine();

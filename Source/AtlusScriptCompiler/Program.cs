@@ -24,33 +24,33 @@ namespace AtlusScriptCompiler
 
         public static bool IsWorkerThreadDone { get; set; }
 
-        private static void Main(string[] args)
+        private static void Main( string[] args )
         {
 #if DEBUG
             //args = new [] { "-i", @"D:\Modding\Persona 3 & 4\Persona3\CVM_BTL\BATTLE\MSG\BattleDialogue.bmd.randomized", "-dec"};
             args = new[] { "-i", @"", "-dec" };
             //args = new[] { "-i", @"d:\users\smart\documents\visual studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptLibTests\TestResources\Version3BigEndian.bf", "-o", @"d:\users\smart\documents\visual studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptLibTests\TestResources\Version3BigEndian.asm", "-dis" };
 #endif
-            if (!InitArguments(args))
+            if ( !InitArguments( args ) )
             {
                 return;
             }
 
-            if (Disassemble)
+            if ( Disassemble )
             {
                 PerformDisassembly();
             }
-            else if (Decompile)
+            else if ( Decompile )
             {
                 PerformDecompilation();
             }
 
             Console.WriteLine();
-            Console.WriteLine("Done.");
+            Console.WriteLine( "Done." );
             Console.ReadKey();
         }
 
-        private static bool InitArguments(string[] args)
+        private static bool InitArguments( string[] args )
         {
             var parser = new CommandLineArgumentParser()
             {
@@ -58,38 +58,38 @@ namespace AtlusScriptCompiler
             };
 
             parser.AddArguments(
-                new CommandLineArgument<string>("-i")
+                new CommandLineArgument<string>( "-i" )
                 {
                     Description = "Specifies the file <input>. Takes 1 parameter; a file path",
                     Required = true,
-                    Target = new CommandLineArgumentValueTarget(typeof(Program), nameof(Input))
+                    Target = new CommandLineArgumentValueTarget( typeof( Program ), nameof( Input ) )
                 },
-                new CommandLineArgument<string>("-o")
+                new CommandLineArgument<string>( "-o" )
                 {
                     Description = "Specifies the file <output>. Takes 1 parameter; a file path",
-                    Target = new CommandLineArgumentValueTarget(typeof(Program), nameof(Output))
+                    Target = new CommandLineArgumentValueTarget( typeof( Program ), nameof( Output ) )
                 },
-                new CommandLineArgument<bool>("-dis")
+                new CommandLineArgument<bool>( "-dis" )
                 {
                     Description = "Instructs the compiler to disassemble a script <input> and write the output to <output>",
                     TakesParameters = false,
-                    Target = new CommandLineArgumentValueTarget(typeof(Program), nameof(Disassemble)),
+                    Target = new CommandLineArgumentValueTarget( typeof( Program ), nameof( Disassemble ) ),
                 },
-                new CommandLineArgument<bool>("-dec")
+                new CommandLineArgument<bool>( "-dec" )
                 {
                     Description = "Instructs the compiler to decompile a script <input> and write the output to <output>",
                     TakesParameters = false,
-                    Target = new CommandLineArgumentValueTarget(typeof(Program), nameof(Decompile)),
+                    Target = new CommandLineArgumentValueTarget( typeof( Program ), nameof( Decompile ) ),
                 }
             );
 
-            Console.WriteLine(parser.Description);
+            Console.WriteLine( parser.Description );
 
 #if !DEBUG
             try
             {
 #endif
-                parser.Parse(args);
+            parser.Parse( args );
 #if !DEBUG
             }
             catch (Exception e)
@@ -102,25 +102,25 @@ namespace AtlusScriptCompiler
             }
 #endif
 
-                return true;
+            return true;
         }
 
-        private static void CreateWorkerThreadAndWait(WaitCallback callback)
+        private static void CreateWorkerThreadAndWait( WaitCallback callback )
         {
-            ThreadPool.QueueUserWorkItem(callback);
+            ThreadPool.QueueUserWorkItem( callback );
 
-            Console.Write("Progress: ");
+            Console.Write( "Progress: " );
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
             var lastElapsed = stopwatch.Elapsed;
-            while (!IsWorkerThreadDone)
+            while ( !IsWorkerThreadDone )
             {
                 var elapsed = stopwatch.Elapsed;
 
-                if (elapsed.Seconds - lastElapsed.Seconds >= 1)
-                    Console.Write('|');
+                if ( elapsed.Seconds - lastElapsed.Seconds >= 1 )
+                    Console.Write( '|' );
 
                 lastElapsed = elapsed;
             }
@@ -130,77 +130,77 @@ namespace AtlusScriptCompiler
 
         private static void PerformDisassembly()
         {
-            if (Path.GetExtension(Input) != "bf")
+            if ( Path.GetExtension( Input ) != "bf" )
             {
-                Console.WriteLine("Invalid file input. Only FlowScript binaries (.bf) are supported.");
+                Console.WriteLine( "Invalid file input. Only FlowScript binaries (.bf) are supported." );
                 return;
             }
 
-            if (Output == null)
-                Output = Path.ChangeExtension(Input, "asm");
+            if ( Output == null )
+                Output = Path.ChangeExtension( Input, "asm" );
 
-            Console.WriteLine($"Disassembling {Input} to {Output}");
+            Console.WriteLine( $"Disassembling {Input} to {Output}" );
 
-            CreateWorkerThreadAndWait((state) =>
-            {
-                using (var disassembler = new FlowScriptBinaryDisassembler(Output))
-                {
-                    disassembler.Disassemble(FlowScriptBinary.FromFile(Input));
-                }
+            CreateWorkerThreadAndWait( ( state ) =>
+             {
+                 using ( var disassembler = new FlowScriptBinaryDisassembler( Output ) )
+                 {
+                     disassembler.Disassemble( FlowScriptBinary.FromFile( Input ) );
+                 }
 
-                IsWorkerThreadDone = true;
-            });
+                 IsWorkerThreadDone = true;
+             } );
         }
 
         private static void PerformDecompilation()
         {
-            string fileName = Path.GetFileName(Input);
-            if (fileName == null)
+            string fileName = Path.GetFileName( Input );
+            if ( fileName == null )
             {
-                Console.WriteLine("Missing filename");
+                Console.WriteLine( "Missing filename" );
                 return;
             }
 
             if ( fileName.Contains( ".bf" ) || fileName.Contains( ".BF" ) )
             {
-                if (Output == null)
-                    Output = Path.ChangeExtension(Input, "flow");
+                if ( Output == null )
+                    Output = Path.ChangeExtension( Input, "flow" );
 
-                Console.WriteLine($"Decompiling {Input} to {Output}");
+                Console.WriteLine( $"Decompiling {Input} to {Output}" );
 
-                CreateWorkerThreadAndWait((state) =>
-                {
-                    using (var decompiler = new FlowScriptDecompiler(Output))
-                    {
-                        decompiler.Decompile(FlowScriptBinary.FromFile(Input));
-                    }
+                CreateWorkerThreadAndWait( ( state ) =>
+                 {
+                     using ( var decompiler = new FlowScriptDecompiler( Output ) )
+                     {
+                         decompiler.Decompile( FlowScriptBinary.FromFile( Input ) );
+                     }
 
-                    IsWorkerThreadDone = true;
-                });
+                     IsWorkerThreadDone = true;
+                 } );
             }
             else if ( fileName.Contains( ".bmd" ) || fileName.Contains( ".BMD" ) )
             {
-                if (Output == null)
-                    Output = Path.ChangeExtension(Input, "msg");
+                if ( Output == null )
+                    Output = Path.ChangeExtension( Input, "msg" );
 
-                Console.WriteLine($"Decompiling {Input} to {Output}");
+                Console.WriteLine( $"Decompiling {Input} to {Output}" );
 
-                CreateWorkerThreadAndWait((state) =>
-                {
-                    var script = MessageScript.FromFile(Input);
+                CreateWorkerThreadAndWait( ( state ) =>
+                 {
+                     var script = MessageScript.FromFile( Input );
 
-                    using (var decompiler = new MessageScriptDecompiler())
-                    {
-                        decompiler.TextOutputProvider = new FileTextOutputProvider(Output);
-                        decompiler.Decompile(script);
-                    }
+                     using ( var decompiler = new MessageScriptDecompiler() )
+                     {
+                         decompiler.TextOutputProvider = new FileTextOutputProvider( Output );
+                         decompiler.Decompile( script );
+                     }
 
-                    IsWorkerThreadDone = true;
-                });
+                     IsWorkerThreadDone = true;
+                 } );
             }
             else
             {
-                Console.WriteLine("Unknown input file type");
+                Console.WriteLine( "Unknown input file type" );
             }
         }
     }

@@ -10,7 +10,7 @@ namespace AtlusScriptLib.FunctionTables
 
         public bool IsUnused { get; }
 
-        public FunctionTableEntry(int id, FunctionDeclaration declaration, bool unused)
+        public FunctionTableEntry( int id, FunctionDeclaration declaration, bool unused )
         {
             Id = id;
             Declaration = declaration;

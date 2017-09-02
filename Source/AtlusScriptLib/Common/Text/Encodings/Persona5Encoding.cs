@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 
 namespace AtlusScriptLib.Common.Text.Encodings
@@ -66,7 +65,7 @@ namespace AtlusScriptLib.Common.Text.Encodings
             for ( ; byteIndex < byteCount; byteIndex++ )
             {
                 CodePoint cp;
-                if ( (bytes[byteIndex] & GLYPH_TABLE_INDEX_MARKER ) == GLYPH_TABLE_INDEX_MARKER )
+                if ( ( bytes[byteIndex] & GLYPH_TABLE_INDEX_MARKER ) == GLYPH_TABLE_INDEX_MARKER )
                 {
                     cp.HighSurrogate = bytes[byteIndex++];
                 }
@@ -161,14 +160,17 @@ namespace AtlusScriptLib.Common.Text.Encodings
 
         private static Dictionary<CodePoint, char> sCodePointToChar;
 
+        /// <summary>
+        /// All credit goes to Senketsu (鮮尻) and tomas_xc for mapping out this table.
+        /// </summary>
         private static char[] sCharTable = new char[]
         {
             (char)00, (char)01, (char)02, (char)03, (char)04, (char)05, (char)06, (char)07, (char)08, (char)09, (char)10, (char)11, (char)12, (char)13, (char)14, (char)15,
             (char)16, (char)17, (char)18, (char)19, (char)20, (char)21, (char)22, (char)23, (char)24, (char)25, (char)26, (char)27, (char)28, (char)29, (char)30, (char)31,
-            ' ', '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/', 
+            ' ', '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=', '>', '?',
             '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
-            'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[', '\\', ']', '^', '_', 
+            'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[', '\\', ']', '^', '_',
             '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
             'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', 'ぁ',
             'あ', 'ぃ', 'い', 'ぅ', 'う', 'ぇ', 'え', 'ぉ', 'お', 'か', 'が', 'き', 'ぎ', 'く', 'ぐ', 'け',

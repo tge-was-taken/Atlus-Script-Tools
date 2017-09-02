@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using AtlusScriptLib.Common.Syntax;
-using System;
 
 namespace AtlusScriptLib.FunctionTables.Tests
 {

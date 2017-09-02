@@ -28,7 +28,7 @@ namespace AtlusScriptLib
         /// </summary>
         /// <param name="functionTableIndex">The function table index.</param>
         /// <param name="functionIndex">The function index within the table.</param>
-        public MessageScriptFunctionToken(int functionTableIndex, int functionIndex)
+        public MessageScriptFunctionToken( int functionTableIndex, int functionIndex )
         {
             FunctionTableIndex = functionTableIndex;
             FunctionIndex = functionIndex;
@@ -41,7 +41,7 @@ namespace AtlusScriptLib
         /// <param name="functionTableIndex">The function table index.</param>
         /// <param name="functionIndex">The function index within the table.</param>
         /// <param name="arguments">The function arguments.</param>
-        public MessageScriptFunctionToken(int functionTableIndex, int functionIndex, List<short> arguments)
+        public MessageScriptFunctionToken( int functionTableIndex, int functionIndex, List<short> arguments )
         {
             FunctionTableIndex = functionTableIndex;
             FunctionIndex = functionIndex;
@@ -54,7 +54,7 @@ namespace AtlusScriptLib
         /// <param name="functionTableIndex">The function table index.</param>
         /// <param name="functionIndex">The function index within the table.</param>
         /// <param name="arguments">The function arguments.</param>
-        public MessageScriptFunctionToken(int functionTableIndex, int functionIndex, params short[] arguments)
+        public MessageScriptFunctionToken( int functionTableIndex, int functionIndex, params short[] arguments )
         {
             FunctionTableIndex = functionTableIndex;
             FunctionIndex = functionIndex;

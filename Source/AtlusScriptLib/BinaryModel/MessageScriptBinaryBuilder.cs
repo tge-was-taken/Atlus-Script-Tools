@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using AtlusScriptLib.IO;
 
 namespace AtlusScriptLib.BinaryModel
 {
@@ -33,7 +32,7 @@ namespace AtlusScriptLib.BinaryModel
             mUserId = value;
         }
 
-        public void AddMessage(MessageScriptDialogueMessage message)
+        public void AddMessage(MessageScriptDialogWindow message)
         {
             if (mMessages == null)
                 mMessages = new List<Tuple<MessageScriptBinaryMessageType, object>>();
@@ -47,9 +46,9 @@ namespace AtlusScriptLib.BinaryModel
             {
                 switch (message.Speaker.Type)
                 {
-                    case MessageScriptDialogueMessageSpeakerType.Named:
+                    case MessageScriptSpeakerType.Named:
                         {
-                            var speakerName = ProcessMessageLine(((MessageScriptDialogueMessageNamedSpeaker) message.Speaker).Name);
+                            var speakerName = ProcessMessageLine(((MessageScriptNamedSpeaker) message.Speaker).Name);
                             if (!mSpeakerNames.Any(x => x.SequenceEqual(speakerName)))
                                 mSpeakerNames.Add(speakerName.ToArray());
 
@@ -57,9 +56,9 @@ namespace AtlusScriptLib.BinaryModel
                         }
                         break;
 
-                    case MessageScriptDialogueMessageSpeakerType.VariablyNamed:
+                    case MessageScriptSpeakerType.VariablyNamed:
                         {
-                            binary.SpeakerId = (ushort)(0x8000u | ((MessageScriptDialogueMessageVariablyNamedSpeaker)message.Speaker).Index);
+                            binary.SpeakerId = (ushort)(0x8000u | ((MessageScriptVariableSpeaker)message.Speaker).Index);
                         }
                         break;
 
@@ -97,7 +96,7 @@ namespace AtlusScriptLib.BinaryModel
             mMessages.Add(new Tuple<MessageScriptBinaryMessageType, object>(MessageScriptBinaryMessageType.Dialogue, binary));
         }
 
-        public void AddMessage(MessageScriptSelectionMessage message)
+        public void AddMessage(MessageScriptSelectionWindow message)
         {
             if (mMessages == null)
                 mMessages = new List<Tuple<MessageScriptBinaryMessageType, object>>();

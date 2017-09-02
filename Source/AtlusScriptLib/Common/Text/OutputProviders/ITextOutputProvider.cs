@@ -6,14 +6,14 @@ namespace AtlusScriptLib.Text.OutputProviders
     {
         void WriteLine();
 
-        void WriteLine(string value);
+        void WriteLine( string value );
 
-        void WriteLine(object value);
+        void WriteLine( object value );
 
-        void Write(char value);
+        void Write( char value );
 
-        void Write(string value);
+        void Write( string value );
 
-        void Write(object value);
+        void Write( object value );
     }
 }

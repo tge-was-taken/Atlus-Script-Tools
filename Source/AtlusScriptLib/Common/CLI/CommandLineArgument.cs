@@ -16,7 +16,7 @@ namespace AtlusScriptLib.CLI
 
         public bool TakesParameters { get; set; }
 
-        public bool IsValueProvided { get; set; } 
+        public bool IsValueProvided { get; set; }
 
         private TValue mValue;
 
@@ -40,7 +40,7 @@ namespace AtlusScriptLib.CLI
                 mDefaultValue = value;
 
                 // Only set the value if the value hasn't already been assigned by the parser
-                if (!IsValueProvided)
+                if ( !IsValueProvided )
                     Value = mDefaultValue;
             }
         }
@@ -52,13 +52,13 @@ namespace AtlusScriptLib.CLI
         IConvertible ICommandLineArgument.Value
         {
             get { return Value; }
-            set { Value = (TValue)Convert.ChangeType(value, typeof(TValue)); }
+            set { Value = ( TValue )Convert.ChangeType( value, typeof( TValue ) ); }
         }
 
         IConvertible ICommandLineArgument.DefaultValue
         {
             get { return DefaultValue; }
-            set { DefaultValue = (TValue)value; }
+            set { DefaultValue = ( TValue )value; }
         }
 
         List<IConvertible> ICommandLineArgument.PossibleValues
@@ -69,13 +69,13 @@ namespace AtlusScriptLib.CLI
             }
             set
             {
-                PossibleValues = value.Select(x => (TValue)Convert.ChangeType(x, typeof(TValue))).ToList();
+                PossibleValues = value.Select( x => ( TValue )Convert.ChangeType( x, typeof( TValue ) ) ).ToList();
             }
         }
 
-        public CommandLineArgument(string key)
+        public CommandLineArgument( string key )
         {
-            if (!key.StartsWith("-"))
+            if ( !key.StartsWith( "-" ) )
                 key = "-" + key;
 
             Key = key;
@@ -83,10 +83,10 @@ namespace AtlusScriptLib.CLI
             TakesParameters = true;
             IsValueProvided = false;
         }
-        
+
         private void AssignValueToTarget()
         {
-            Target?.TargetMember.SetValue(Target.TargetInstance, Value);
+            Target?.TargetMember.SetValue( Target.TargetInstance, Value );
         }
     }
 }

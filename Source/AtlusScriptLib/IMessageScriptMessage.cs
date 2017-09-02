@@ -3,22 +3,22 @@
 namespace AtlusScriptLib
 {
     /// <summary>
-    /// Common interface for message script messages.
+    /// Common interface for message script windows.
     /// </summary>
-    public interface IMessageScriptMessage
+    public interface IMessageScriptWindow
     {
         /// <summary>
-        /// Gets the message type.
+        /// Gets the window type of this window.
         /// </summary>
-        MessageScriptMessageType Type { get; }
+        MessageScriptWindowType Type { get; }
 
         /// <summary>
-        /// Gets the text identifier of this message.
+        /// Gets the text identifier of this window.
         /// </summary>
         string Identifier { get; }
 
         /// <summary>
-        /// Gets the list of lines in this message.
+        /// Gets the list of lines contained in this window.
         /// </summary>
         List<MessageScriptLine> Lines { get; }
     }

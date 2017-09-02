@@ -1,5 +1,4 @@
-﻿using AtlusScriptLib;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
 using System.Linq;
@@ -9,13 +8,13 @@ namespace AtlusScriptLib.Tests
 {
     [TestClass()]
     public class FlowScriptTests
-    { 
-        private FlowScript FromFile_ResultNotNullAndFormatIsEqualToParameter(FlowScriptBinaryFormatVersion version, FlowScriptBinaryFormatVersion actualVersion)
+    {
+        private FlowScript FromFile_ResultNotNullAndFormatIsEqualToParameter( FlowScriptBinaryFormatVersion version, FlowScriptBinaryFormatVersion actualVersion )
         {
-            var script = FlowScript.FromFile($"TestResources\\{actualVersion}.bf", version);
+            var script = FlowScript.FromFile( $"TestResources\\{actualVersion}.bf", version );
 
-            Assert.IsNotNull(script, "Script object should not be null");
-            Assert.AreEqual(actualVersion, script.FormatVersion);
+            Assert.IsNotNull( script, "Script object should not be null" );
+            Assert.AreEqual( actualVersion, script.FormatVersion );
 
             return script;
         }
@@ -23,130 +22,130 @@ namespace AtlusScriptLib.Tests
         [TestMethod()]
         public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version1WithSameVersionParameter()
         {
-            FromFile_ResultNotNullAndFormatIsEqualToParameter(FlowScriptBinaryFormatVersion.Version1, FlowScriptBinaryFormatVersion.Version1);
+            FromFile_ResultNotNullAndFormatIsEqualToParameter( FlowScriptBinaryFormatVersion.Version1, FlowScriptBinaryFormatVersion.Version1 );
         }
 
         [TestMethod()]
         public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version1WithUnknownVersionParameter()
         {
-            FromFile_ResultNotNullAndFormatIsEqualToParameter(FlowScriptBinaryFormatVersion.Unknown, FlowScriptBinaryFormatVersion.Version1);
+            FromFile_ResultNotNullAndFormatIsEqualToParameter( FlowScriptBinaryFormatVersion.Unknown, FlowScriptBinaryFormatVersion.Version1 );
         }
 
         [TestMethod()]
         public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version1WithWrongVersionParameter()
         {
-            FromFile_ResultNotNullAndFormatIsEqualToParameter(FlowScriptBinaryFormatVersion.Version3BigEndian, FlowScriptBinaryFormatVersion.Version1);
+            FromFile_ResultNotNullAndFormatIsEqualToParameter( FlowScriptBinaryFormatVersion.Version3BigEndian, FlowScriptBinaryFormatVersion.Version1 );
         }
 
         [TestMethod()]
         public void FromFile_ShouldNotFailIntegrityCheck_Version1()
         {
-            var script = FromFile_ResultNotNullAndFormatIsEqualToParameter(FlowScriptBinaryFormatVersion.Version1, FlowScriptBinaryFormatVersion.Version1);
+            var script = FromFile_ResultNotNullAndFormatIsEqualToParameter( FlowScriptBinaryFormatVersion.Version1, FlowScriptBinaryFormatVersion.Version1 );
 
-            Assert.AreEqual(10061, script.Instructions.Count);
-            Assert.AreEqual(742, script.JumpLabels.Count);
+            Assert.AreEqual( 10061, script.Instructions.Count );
+            Assert.AreEqual( 742, script.JumpLabels.Count );
             //Assert.AreEqual(77521, script.MessageScript);
-            Assert.AreEqual(96, script.ProcedureLabels.Count);
-            Assert.AreEqual(240, script.Strings.Count);
-            Assert.AreEqual(FlowScriptOpcode.COMM, script.Instructions[2].Opcode);
-            Assert.AreEqual(102, script.Instructions[2].Operand.GetInt16Value());
-            Assert.ThrowsException<InvalidOperationException>(() => script.Instructions[2].Operand.GetInt32Value());
+            Assert.AreEqual( 96, script.ProcedureLabels.Count );
+            Assert.AreEqual( 240, script.Strings.Count );
+            Assert.AreEqual( FlowScriptOpcode.COMM, script.Instructions[2].Opcode );
+            Assert.AreEqual( 102, script.Instructions[2].Operand.GetInt16Value() );
+            Assert.ThrowsException<InvalidOperationException>( () => script.Instructions[2].Operand.GetInt32Value() );
         }
 
         [TestMethod()]
         public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version2WithSameVersionParameter()
         {
-            FromFile_ResultNotNullAndFormatIsEqualToParameter(FlowScriptBinaryFormatVersion.Version2, FlowScriptBinaryFormatVersion.Version2);
+            FromFile_ResultNotNullAndFormatIsEqualToParameter( FlowScriptBinaryFormatVersion.Version2, FlowScriptBinaryFormatVersion.Version2 );
         }
 
         [TestMethod()]
         public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version2WithUnknownVersionParameter()
         {
-            FromFile_ResultNotNullAndFormatIsEqualToParameter(FlowScriptBinaryFormatVersion.Unknown, FlowScriptBinaryFormatVersion.Version2);
+            FromFile_ResultNotNullAndFormatIsEqualToParameter( FlowScriptBinaryFormatVersion.Unknown, FlowScriptBinaryFormatVersion.Version2 );
         }
 
         [TestMethod()]
         public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version2WithWrongVersionParameter()
         {
-            FromFile_ResultNotNullAndFormatIsEqualToParameter(FlowScriptBinaryFormatVersion.Version3BigEndian, FlowScriptBinaryFormatVersion.Version2);
+            FromFile_ResultNotNullAndFormatIsEqualToParameter( FlowScriptBinaryFormatVersion.Version3BigEndian, FlowScriptBinaryFormatVersion.Version2 );
         }
 
         [TestMethod()]
         public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version3WithSameVersionParameter()
         {
-            FromFile_ResultNotNullAndFormatIsEqualToParameter(FlowScriptBinaryFormatVersion.Version3BigEndian, FlowScriptBinaryFormatVersion.Version3BigEndian);
+            FromFile_ResultNotNullAndFormatIsEqualToParameter( FlowScriptBinaryFormatVersion.Version3BigEndian, FlowScriptBinaryFormatVersion.Version3BigEndian );
         }
 
         [TestMethod()]
         public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version3WithUnknownVersionParameter()
         {
-            FromFile_ResultNotNullAndFormatIsEqualToParameter(FlowScriptBinaryFormatVersion.Unknown, FlowScriptBinaryFormatVersion.Version3BigEndian);
+            FromFile_ResultNotNullAndFormatIsEqualToParameter( FlowScriptBinaryFormatVersion.Unknown, FlowScriptBinaryFormatVersion.Version3BigEndian );
         }
 
         [TestMethod()]
         public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version3WithWrongVersionParameter()
         {
-            FromFile_ResultNotNullAndFormatIsEqualToParameter(FlowScriptBinaryFormatVersion.Version1, FlowScriptBinaryFormatVersion.Version3BigEndian);
+            FromFile_ResultNotNullAndFormatIsEqualToParameter( FlowScriptBinaryFormatVersion.Version1, FlowScriptBinaryFormatVersion.Version3BigEndian );
         }
 
         [TestMethod()]
         public void FromFile_ShouldThrowInvalidDataException_InvalidFileFormatSmall()
         {
-            Assert.ThrowsException<InvalidDataException>(() => FlowScript.FromFile("TestResources\\dummy_small.bin", FlowScriptBinaryFormatVersion.Unknown));
+            Assert.ThrowsException<InvalidDataException>( () => FlowScript.FromFile( "TestResources\\dummy_small.bin", FlowScriptBinaryFormatVersion.Unknown ) );
         }
 
         [TestMethod()]
         public void FromFile_ShouldThrowInvalidDataException_InvalidFileFormatBig()
         {
-            Assert.ThrowsException<InvalidDataException>(() => FlowScript.FromFile("TestResources\\dummy_big.bin", FlowScriptBinaryFormatVersion.Unknown));
+            Assert.ThrowsException<InvalidDataException>( () => FlowScript.FromFile( "TestResources\\dummy_big.bin", FlowScriptBinaryFormatVersion.Unknown ) );
         }
 
         [TestMethod()]
         public void FromFile_ShouldNotThrow_Batch()
         {
-            foreach (var path in Directory.EnumerateFiles("TestResources\\Batch\\", "*.bf"))
+            foreach ( var path in Directory.EnumerateFiles( "TestResources\\Batch\\", "*.bf" ) )
             {
-                var script = FlowScript.FromFile(path);
+                var script = FlowScript.FromFile( path );
             }
         }
 
         [TestMethod()]
         public void FromStream_ShouldNotBeNullAndIsSameVersion_Version3BigEndian()
         {
-            using (var fileStream = File.OpenRead("TestResources\\Version3BigEndian.bf"))
+            using ( var fileStream = File.OpenRead( "TestResources\\Version3BigEndian.bf" ) )
             {
-                var script = FlowScript.FromStream(fileStream, FlowScriptBinaryFormatVersion.Version3BigEndian);
+                var script = FlowScript.FromStream( fileStream, FlowScriptBinaryFormatVersion.Version3BigEndian );
 
-                Assert.IsNotNull(script);
-                Assert.AreEqual(FlowScriptBinaryFormatVersion.Version3BigEndian, script.FormatVersion);
+                Assert.IsNotNull( script );
+                Assert.AreEqual( FlowScriptBinaryFormatVersion.Version3BigEndian, script.FormatVersion );
             }
         }
 
         [TestMethod()]
         public void FromBinary_ContentsShouldMatchThatOfBinary_Version3BigEndian()
         {
-            var binary = FlowScriptBinary.FromFile("TestResources\\Version3BigEndian.bf", FlowScriptBinaryFormatVersion.Version3BigEndian);
-            var script = FlowScript.FromBinary(binary);
+            var binary = FlowScriptBinary.FromFile( "TestResources\\Version3BigEndian.bf", FlowScriptBinaryFormatVersion.Version3BigEndian );
+            var script = FlowScript.FromBinary( binary );
 
-            Assert.AreEqual(script.UserId, binary.Header.UserId);
+            Assert.AreEqual( script.UserId, binary.Header.UserId );
 
             // Compare label names
-            for (int i = 0; i < script.ProcedureLabels.Count; i++)
+            for ( int i = 0; i < script.ProcedureLabels.Count; i++ )
             {
-                Assert.AreEqual(binary.ProcedureLabelSection[i].Name, script.ProcedureLabels[i].Name);
+                Assert.AreEqual( binary.ProcedureLabelSection[i].Name, script.ProcedureLabels[i].Name );
             }
 
-            for (int i = 0; i < script.JumpLabels.Count; i++)
+            for ( int i = 0; i < script.JumpLabels.Count; i++ )
             {
-                Assert.AreEqual(binary.JumpLabelSection[i].Name, script.JumpLabels[i].Name);
+                Assert.AreEqual( binary.JumpLabelSection[i].Name, script.JumpLabels[i].Name );
             }
 
             // Compare instructions
             int binaryOffset = 0;
-            for (int i = 0; i < script.Instructions.Count; i++)
+            for ( int i = 0; i < script.Instructions.Count; i++ )
             {
-                Assert.AreEqual(binary.TextSection[i + binaryOffset].Opcode, script.Instructions[i].Opcode);
-                if (script.Instructions[i].UsesTwoBinaryInstructions)
+                Assert.AreEqual( binary.TextSection[i + binaryOffset].Opcode, script.Instructions[i].Opcode );
+                if ( script.Instructions[i].UsesTwoBinaryInstructions )
                     binaryOffset += 1;
             }
         }
@@ -154,59 +153,59 @@ namespace AtlusScriptLib.Tests
         [TestMethod()]
         public void ToBinary_ContentsShouldMatchThatOfSourceBinary_Version3BigEndian()
         {
-            var binaryIn = FlowScriptBinary.FromFile("TestResources\\Version3BigEndian.bf");
-            var script = FlowScript.FromBinary(binaryIn);
+            var binaryIn = FlowScriptBinary.FromFile( "TestResources\\Version3BigEndian.bf" );
+            var script = FlowScript.FromBinary( binaryIn );
             var binaryOut = script.ToBinary();
 
             // Compare headers
-            Assert.AreEqual(binaryIn.Header.FileType, binaryOut.Header.FileType);
-            Assert.AreEqual(binaryIn.Header.Compressed, binaryOut.Header.Compressed);
-            Assert.AreEqual(binaryIn.Header.UserId, binaryOut.Header.UserId);
-            Assert.AreEqual(binaryIn.Header.FileSize, binaryOut.Header.FileSize);
-            Assert.IsTrue(binaryIn.Header.Magic.SequenceEqual(binaryOut.Header.Magic));
-            Assert.AreEqual(binaryIn.Header.Field0C, binaryOut.Header.Field0C);
-            Assert.AreEqual(binaryIn.Header.SectionCount, binaryOut.Header.SectionCount);
-            Assert.AreEqual(binaryIn.Header.LocalIntVariableCount, binaryOut.Header.LocalIntVariableCount);
-            Assert.AreEqual(binaryIn.Header.LocalFloatVariableCount, binaryOut.Header.LocalFloatVariableCount);
-            Assert.AreEqual(binaryIn.Header.Endianness, binaryOut.Header.Endianness);
-            Assert.AreEqual(binaryIn.Header.Field1A, binaryOut.Header.Field1A);
-            Assert.AreEqual(binaryIn.Header.Padding, binaryOut.Header.Padding);
+            Assert.AreEqual( binaryIn.Header.FileType, binaryOut.Header.FileType );
+            Assert.AreEqual( binaryIn.Header.Compressed, binaryOut.Header.Compressed );
+            Assert.AreEqual( binaryIn.Header.UserId, binaryOut.Header.UserId );
+            Assert.AreEqual( binaryIn.Header.FileSize, binaryOut.Header.FileSize );
+            Assert.IsTrue( binaryIn.Header.Magic.SequenceEqual( binaryOut.Header.Magic ) );
+            Assert.AreEqual( binaryIn.Header.Field0C, binaryOut.Header.Field0C );
+            Assert.AreEqual( binaryIn.Header.SectionCount, binaryOut.Header.SectionCount );
+            Assert.AreEqual( binaryIn.Header.LocalIntVariableCount, binaryOut.Header.LocalIntVariableCount );
+            Assert.AreEqual( binaryIn.Header.LocalFloatVariableCount, binaryOut.Header.LocalFloatVariableCount );
+            Assert.AreEqual( binaryIn.Header.Endianness, binaryOut.Header.Endianness );
+            Assert.AreEqual( binaryIn.Header.Field1A, binaryOut.Header.Field1A );
+            Assert.AreEqual( binaryIn.Header.Padding, binaryOut.Header.Padding );
 
             // Compare section headers
-            for (int i = 0; i < binaryIn.SectionHeaders.Count; i++)
+            for ( int i = 0; i < binaryIn.SectionHeaders.Count; i++ )
             {
-                Assert.AreEqual(binaryIn.SectionHeaders[i].SectionType, binaryOut.SectionHeaders[i].SectionType);
-                Assert.AreEqual(binaryIn.SectionHeaders[i].ElementSize, binaryOut.SectionHeaders[i].ElementSize);
-                Assert.AreEqual(binaryIn.SectionHeaders[i].ElementCount, binaryOut.SectionHeaders[i].ElementCount);
-                Assert.AreEqual(binaryIn.SectionHeaders[i].FirstElementAddress, binaryOut.SectionHeaders[i].FirstElementAddress);
+                Assert.AreEqual( binaryIn.SectionHeaders[i].SectionType, binaryOut.SectionHeaders[i].SectionType );
+                Assert.AreEqual( binaryIn.SectionHeaders[i].ElementSize, binaryOut.SectionHeaders[i].ElementSize );
+                Assert.AreEqual( binaryIn.SectionHeaders[i].ElementCount, binaryOut.SectionHeaders[i].ElementCount );
+                Assert.AreEqual( binaryIn.SectionHeaders[i].FirstElementAddress, binaryOut.SectionHeaders[i].FirstElementAddress );
             }
 
             // Compare labels
-            for (int i = 0; i < binaryIn.ProcedureLabelSection.Count; i++)
+            for ( int i = 0; i < binaryIn.ProcedureLabelSection.Count; i++ )
             {
-                Assert.AreEqual(binaryIn.ProcedureLabelSection[i].Name, binaryOut.ProcedureLabelSection[i].Name);
-                Assert.AreEqual(binaryIn.ProcedureLabelSection[i].InstructionIndex, binaryOut.ProcedureLabelSection[i].InstructionIndex);
-                Assert.AreEqual(binaryIn.ProcedureLabelSection[i].Reserved, binaryOut.ProcedureLabelSection[i].Reserved);
+                Assert.AreEqual( binaryIn.ProcedureLabelSection[i].Name, binaryOut.ProcedureLabelSection[i].Name );
+                Assert.AreEqual( binaryIn.ProcedureLabelSection[i].InstructionIndex, binaryOut.ProcedureLabelSection[i].InstructionIndex );
+                Assert.AreEqual( binaryIn.ProcedureLabelSection[i].Reserved, binaryOut.ProcedureLabelSection[i].Reserved );
             }
 
-            for (int i = 0; i < binaryIn.JumpLabelSection.Count; i++)
+            for ( int i = 0; i < binaryIn.JumpLabelSection.Count; i++ )
             {
-                Assert.AreEqual(binaryIn.JumpLabelSection[i].Name, binaryOut.JumpLabelSection[i].Name);
-                Assert.AreEqual(binaryIn.JumpLabelSection[i].InstructionIndex, binaryOut.JumpLabelSection[i].InstructionIndex);
-                Assert.AreEqual(binaryIn.JumpLabelSection[i].Reserved, binaryOut.JumpLabelSection[i].Reserved);
+                Assert.AreEqual( binaryIn.JumpLabelSection[i].Name, binaryOut.JumpLabelSection[i].Name );
+                Assert.AreEqual( binaryIn.JumpLabelSection[i].InstructionIndex, binaryOut.JumpLabelSection[i].InstructionIndex );
+                Assert.AreEqual( binaryIn.JumpLabelSection[i].Reserved, binaryOut.JumpLabelSection[i].Reserved );
             }
 
             // Compare instructions
-            for (int i = 0; i < binaryIn.TextSection.Count; i++)
+            for ( int i = 0; i < binaryIn.TextSection.Count; i++ )
             {
-                Assert.AreEqual(binaryIn.TextSection[i].Opcode, binaryIn.TextSection[i].Opcode);
+                Assert.AreEqual( binaryIn.TextSection[i].Opcode, binaryIn.TextSection[i].Opcode );
             }
 
             // Compare message script
             //Assert.IsTrue(binaryIn.MessageScriptSection.SequenceEqual(binaryOut.MessageScriptSection));
 
             // Compare strings
-            Assert.IsTrue(binaryIn.StringSection.SequenceEqual(binaryOut.StringSection));
+            Assert.IsTrue( binaryIn.StringSection.SequenceEqual( binaryOut.StringSection ) );
         }
     }
 }

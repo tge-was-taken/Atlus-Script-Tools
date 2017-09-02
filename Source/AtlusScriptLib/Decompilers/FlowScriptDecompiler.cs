@@ -8,24 +8,24 @@ namespace AtlusScriptLib.Decompilers
         private bool mDisposed = false;
         private string output;
 
-        public FlowScriptDecompiler(string output)
+        public FlowScriptDecompiler( string output )
         {
             this.output = output;
         }
 
-        public void Decompile(FlowScriptBinary script)
+        public void Decompile( FlowScriptBinary script )
         {
 
         }
 
         public void Dispose()
         {
-            Dispose(true);
+            Dispose( true );
         }
 
-        protected virtual void Dispose(bool disposing)
+        protected virtual void Dispose( bool disposing )
         {
-            if (mDisposed)
+            if ( mDisposed )
                 return;
 
             mDisposed = true;

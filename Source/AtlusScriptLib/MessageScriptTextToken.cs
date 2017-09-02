@@ -14,7 +14,7 @@
         /// Constructs a new message script text token with a text value.
         /// </summary>
         /// <param name="text">The text value of the text token/</param>
-        public MessageScriptTextToken(string text)
+        public MessageScriptTextToken( string text )
         {
             Text = text;
         }

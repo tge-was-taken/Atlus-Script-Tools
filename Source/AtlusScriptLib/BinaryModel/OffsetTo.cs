@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AtlusScriptLib.BinaryModel
+﻿namespace AtlusScriptLib.BinaryModel
 {
     // Nice little mutable struct for holding an address & its object to which the address points
     public struct OffsetTo<TValue>

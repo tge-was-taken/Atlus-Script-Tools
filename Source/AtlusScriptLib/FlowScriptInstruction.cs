@@ -39,7 +39,7 @@ namespace AtlusScriptLib
         /// Constructs a new instruction with a specified opcode with no operand.
         /// </summary>
         /// <param name="opcode">The opcode of the instruction.</param>
-        private FlowScriptInstruction(FlowScriptOpcode opcode)
+        private FlowScriptInstruction( FlowScriptOpcode opcode )
         {
             mOpcode = opcode;
             mOperand = null;
@@ -50,10 +50,10 @@ namespace AtlusScriptLib
         /// </summary>
         /// <param name="opcode">The opcode of the instruction.</param>
         /// <param name="value">The operand value.</param>
-        private FlowScriptInstruction(FlowScriptOpcode opcode, short value)
+        private FlowScriptInstruction( FlowScriptOpcode opcode, short value )
         {
             mOpcode = opcode;
-            mOperand = new OperandValue(value);
+            mOperand = new OperandValue( value );
         }
 
         /// <summary>
@@ -61,10 +61,10 @@ namespace AtlusScriptLib
         /// </summary>
         /// <param name="opcode">The opcode of the instruction.</param>
         /// <param name="value">The operand value.</param>
-        private FlowScriptInstruction(FlowScriptOpcode opcode, int value)
+        private FlowScriptInstruction( FlowScriptOpcode opcode, int value )
         {
             mOpcode = opcode;
-            mOperand = new OperandValue(value);
+            mOperand = new OperandValue( value );
         }
 
         /// <summary>
@@ -72,10 +72,10 @@ namespace AtlusScriptLib
         /// </summary>
         /// <param name="opcode">The opcode of the instruction.</param>
         /// <param name="value">The operand value.</param>
-        private FlowScriptInstruction(FlowScriptOpcode opcode, float value)
+        private FlowScriptInstruction( FlowScriptOpcode opcode, float value )
         {
             mOpcode = opcode;
-            mOperand = new OperandValue(value);
+            mOperand = new OperandValue( value );
         }
 
         /// <summary>
@@ -84,45 +84,45 @@ namespace AtlusScriptLib
         /// </summary>
         /// <param name="binary">The binary instruction.</param>
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
-        public static FlowScriptInstruction FromBinaryInstruction(FlowScriptBinaryInstruction binary)
+        public static FlowScriptInstruction FromBinaryInstruction( FlowScriptBinaryInstruction binary )
         {
-            switch (binary.Opcode)
+            switch ( binary.Opcode )
             {
                 case FlowScriptOpcode.PUSHIX:
-                    return PUSHIX(binary.OperandShort);
+                    return PUSHIX( binary.OperandShort );
 
                 case FlowScriptOpcode.PUSHIF:
-                    return PUSHIF(binary.OperandShort);
+                    return PUSHIF( binary.OperandShort );
 
                 case FlowScriptOpcode.PUSHREG:
                     return PUSHREG();
 
                 case FlowScriptOpcode.POPIX:
-                    return POPIX(binary.OperandShort);
+                    return POPIX( binary.OperandShort );
 
                 case FlowScriptOpcode.POPFX:
-                    return POPFX(binary.OperandShort);
+                    return POPFX( binary.OperandShort );
 
                 case FlowScriptOpcode.PROC:
-                    return PROC(binary.OperandShort);
+                    return PROC( binary.OperandShort );
 
                 case FlowScriptOpcode.COMM:
-                    return COMM(binary.OperandShort);
+                    return COMM( binary.OperandShort );
 
                 case FlowScriptOpcode.END:
                     return END();
 
                 case FlowScriptOpcode.JUMP:
-                    return JUMP(binary.OperandShort);
+                    return JUMP( binary.OperandShort );
 
                 case FlowScriptOpcode.CALL:
-                    return CALL(binary.OperandShort);
+                    return CALL( binary.OperandShort );
 
                 case FlowScriptOpcode.RUN:
                     return RUN();
 
                 case FlowScriptOpcode.GOTO:
-                    return GOTO(binary.OperandShort);
+                    return GOTO( binary.OperandShort );
 
                 case FlowScriptOpcode.ADD:
                     return ADD();
@@ -167,28 +167,28 @@ namespace AtlusScriptLib
                     return LE();
 
                 case FlowScriptOpcode.IF:
-                    return IF(binary.OperandShort);
+                    return IF( binary.OperandShort );
 
                 case FlowScriptOpcode.PUSHIS:
-                    return PUSHIS(binary.OperandShort);
+                    return PUSHIS( binary.OperandShort );
 
                 case FlowScriptOpcode.PUSHLIX:
-                    return PUSHLIX(binary.OperandShort);
+                    return PUSHLIX( binary.OperandShort );
 
                 case FlowScriptOpcode.PUSHLFX:
-                    return PUSHLFX(binary.OperandShort);
+                    return PUSHLFX( binary.OperandShort );
 
                 case FlowScriptOpcode.POPLIX:
-                    return POPLIX(binary.OperandShort);
+                    return POPLIX( binary.OperandShort );
 
                 case FlowScriptOpcode.POPLFX:
-                    return POPLFX(binary.OperandShort);
+                    return POPLFX( binary.OperandShort );
 
                 case FlowScriptOpcode.PUSHSTR:
-                    return PUSHSTR(binary.OperandShort);
+                    return PUSHSTR( binary.OperandShort );
 
                 default:
-                    throw new Exception("Opcode not supported");
+                    throw new Exception( "Opcode not supported" );
             }
         }
 
@@ -197,9 +197,9 @@ namespace AtlusScriptLib
         /// </summary>
         /// <param name="value">The operand value.</param>
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
-        public static FlowScriptInstruction PUSHI(int value)
+        public static FlowScriptInstruction PUSHI( int value )
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.PUSHI, value);
+            return new FlowScriptInstruction( FlowScriptOpcode.PUSHI, value );
         }
 
         /// <summary>
@@ -207,9 +207,9 @@ namespace AtlusScriptLib
         /// </summary>
         /// <param name="value">The operand value.</param>
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
-        public static FlowScriptInstruction PUSHF(float value)
+        public static FlowScriptInstruction PUSHF( float value )
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.PUSHF, value);
+            return new FlowScriptInstruction( FlowScriptOpcode.PUSHF, value );
         }
 
         /// <summary>
@@ -217,9 +217,9 @@ namespace AtlusScriptLib
         /// </summary>
         /// <param name="value">The operand value.</param>
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
-        public static FlowScriptInstruction PUSHIX(short globalIntVariableIndex)
+        public static FlowScriptInstruction PUSHIX( short globalIntVariableIndex )
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.PUSHIX, globalIntVariableIndex);
+            return new FlowScriptInstruction( FlowScriptOpcode.PUSHIX, globalIntVariableIndex );
         }
 
         /// <summary>
@@ -227,9 +227,9 @@ namespace AtlusScriptLib
         /// </summary>
         /// <param name="value">The operand value.</param>
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
-        public static FlowScriptInstruction PUSHIF(short globalFloatVariableIndex)
+        public static FlowScriptInstruction PUSHIF( short globalFloatVariableIndex )
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.PUSHIF, globalFloatVariableIndex);
+            return new FlowScriptInstruction( FlowScriptOpcode.PUSHIF, globalFloatVariableIndex );
         }
 
         /// <summary>
@@ -238,7 +238,7 @@ namespace AtlusScriptLib
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
         public static FlowScriptInstruction PUSHREG()
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.PUSHREG);
+            return new FlowScriptInstruction( FlowScriptOpcode.PUSHREG );
         }
 
         /// <summary>
@@ -246,9 +246,9 @@ namespace AtlusScriptLib
         /// </summary>
         /// <param name="value">The operand value.</param>
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
-        public static FlowScriptInstruction POPIX(short globalIntVariableIndex)
+        public static FlowScriptInstruction POPIX( short globalIntVariableIndex )
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.POPIX, globalIntVariableIndex);
+            return new FlowScriptInstruction( FlowScriptOpcode.POPIX, globalIntVariableIndex );
         }
 
         /// <summary>
@@ -256,9 +256,9 @@ namespace AtlusScriptLib
         /// </summary>
         /// <param name="value">The operand value.</param>
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
-        public static FlowScriptInstruction POPFX(short globalFloatVariableIndex)
+        public static FlowScriptInstruction POPFX( short globalFloatVariableIndex )
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.POPFX, globalFloatVariableIndex);
+            return new FlowScriptInstruction( FlowScriptOpcode.POPFX, globalFloatVariableIndex );
         }
 
         /// <summary>
@@ -266,9 +266,9 @@ namespace AtlusScriptLib
         /// </summary>
         /// <param name="value">The operand value.</param>
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
-        public static FlowScriptInstruction PROC(short procedureIndex)
+        public static FlowScriptInstruction PROC( short procedureIndex )
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.PROC, procedureIndex);
+            return new FlowScriptInstruction( FlowScriptOpcode.PROC, procedureIndex );
         }
 
         /// <summary>
@@ -276,9 +276,9 @@ namespace AtlusScriptLib
         /// </summary>
         /// <param name="value">The operand value.</param>
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
-        public static FlowScriptInstruction COMM(short functionId)
+        public static FlowScriptInstruction COMM( short functionId )
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.COMM, functionId);
+            return new FlowScriptInstruction( FlowScriptOpcode.COMM, functionId );
         }
 
         /// <summary>
@@ -288,7 +288,7 @@ namespace AtlusScriptLib
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
         public static FlowScriptInstruction END()
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.END);
+            return new FlowScriptInstruction( FlowScriptOpcode.END );
         }
 
         /// <summary>
@@ -296,9 +296,9 @@ namespace AtlusScriptLib
         /// </summary>
         /// <param name="value">The operand value.</param>
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
-        public static FlowScriptInstruction JUMP(short procedureLabelIndex)
+        public static FlowScriptInstruction JUMP( short procedureLabelIndex )
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.JUMP, procedureLabelIndex);
+            return new FlowScriptInstruction( FlowScriptOpcode.JUMP, procedureLabelIndex );
         }
 
         /// <summary>
@@ -306,9 +306,9 @@ namespace AtlusScriptLib
         /// </summary>
         /// <param name="value">The operand value.</param>
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
-        public static FlowScriptInstruction CALL(short procedureLabelIndex)
+        public static FlowScriptInstruction CALL( short procedureLabelIndex )
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.CALL, procedureLabelIndex);
+            return new FlowScriptInstruction( FlowScriptOpcode.CALL, procedureLabelIndex );
         }
 
         /// <summary>
@@ -318,7 +318,7 @@ namespace AtlusScriptLib
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
         public static FlowScriptInstruction RUN()
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.RUN);
+            return new FlowScriptInstruction( FlowScriptOpcode.RUN );
         }
 
         /// <summary>
@@ -326,9 +326,9 @@ namespace AtlusScriptLib
         /// </summary>
         /// <param name="value">The operand value.</param>
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
-        public static FlowScriptInstruction GOTO(short jumpLabelIndex)
+        public static FlowScriptInstruction GOTO( short jumpLabelIndex )
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.GOTO, jumpLabelIndex);
+            return new FlowScriptInstruction( FlowScriptOpcode.GOTO, jumpLabelIndex );
         }
 
         /// <summary>
@@ -338,7 +338,7 @@ namespace AtlusScriptLib
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
         public static FlowScriptInstruction ADD()
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.ADD);
+            return new FlowScriptInstruction( FlowScriptOpcode.ADD );
         }
 
         /// <summary>
@@ -348,7 +348,7 @@ namespace AtlusScriptLib
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
         public static FlowScriptInstruction SUB()
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.SUB);
+            return new FlowScriptInstruction( FlowScriptOpcode.SUB );
         }
 
         /// <summary>
@@ -358,7 +358,7 @@ namespace AtlusScriptLib
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
         public static FlowScriptInstruction MUL()
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.MUL);
+            return new FlowScriptInstruction( FlowScriptOpcode.MUL );
         }
 
         /// <summary>
@@ -368,7 +368,7 @@ namespace AtlusScriptLib
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
         public static FlowScriptInstruction DIV()
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.DIV);
+            return new FlowScriptInstruction( FlowScriptOpcode.DIV );
         }
 
         /// <summary>
@@ -378,7 +378,7 @@ namespace AtlusScriptLib
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
         public static FlowScriptInstruction MINUS()
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.MINUS);
+            return new FlowScriptInstruction( FlowScriptOpcode.MINUS );
         }
 
         /// <summary>
@@ -388,7 +388,7 @@ namespace AtlusScriptLib
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
         public static FlowScriptInstruction NOT()
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.NOT);
+            return new FlowScriptInstruction( FlowScriptOpcode.NOT );
         }
 
         /// <summary>
@@ -398,7 +398,7 @@ namespace AtlusScriptLib
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
         public static FlowScriptInstruction OR()
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.OR);
+            return new FlowScriptInstruction( FlowScriptOpcode.OR );
         }
 
         /// <summary>
@@ -408,7 +408,7 @@ namespace AtlusScriptLib
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
         public static FlowScriptInstruction AND()
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.AND);
+            return new FlowScriptInstruction( FlowScriptOpcode.AND );
         }
 
         /// <summary>
@@ -418,7 +418,7 @@ namespace AtlusScriptLib
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
         public static FlowScriptInstruction EQ()
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.EQ);
+            return new FlowScriptInstruction( FlowScriptOpcode.EQ );
         }
 
         /// <summary>
@@ -428,7 +428,7 @@ namespace AtlusScriptLib
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
         public static FlowScriptInstruction NEQ()
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.NEQ);
+            return new FlowScriptInstruction( FlowScriptOpcode.NEQ );
         }
 
         /// <summary>
@@ -438,7 +438,7 @@ namespace AtlusScriptLib
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
         public static FlowScriptInstruction S()
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.S);
+            return new FlowScriptInstruction( FlowScriptOpcode.S );
         }
 
         /// <summary>
@@ -448,7 +448,7 @@ namespace AtlusScriptLib
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
         public static FlowScriptInstruction L()
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.L);
+            return new FlowScriptInstruction( FlowScriptOpcode.L );
         }
 
         /// <summary>
@@ -458,7 +458,7 @@ namespace AtlusScriptLib
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
         public static FlowScriptInstruction SE()
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.SE);
+            return new FlowScriptInstruction( FlowScriptOpcode.SE );
         }
 
         /// <summary>
@@ -468,7 +468,7 @@ namespace AtlusScriptLib
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
         public static FlowScriptInstruction LE()
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.LE);
+            return new FlowScriptInstruction( FlowScriptOpcode.LE );
         }
 
         /// <summary>
@@ -476,9 +476,9 @@ namespace AtlusScriptLib
         /// </summary>
         /// <param name="value">The operand value.</param>
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
-        public static FlowScriptInstruction IF(short jumpLabelIndexIfFalse)
+        public static FlowScriptInstruction IF( short jumpLabelIndexIfFalse )
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.IF, jumpLabelIndexIfFalse);
+            return new FlowScriptInstruction( FlowScriptOpcode.IF, jumpLabelIndexIfFalse );
         }
 
         /// <summary>
@@ -486,9 +486,9 @@ namespace AtlusScriptLib
         /// </summary>
         /// <param name="value">The operand value.</param>
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
-        public static FlowScriptInstruction PUSHIS(short value)
+        public static FlowScriptInstruction PUSHIS( short value )
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.PUSHIS, value);
+            return new FlowScriptInstruction( FlowScriptOpcode.PUSHIS, value );
         }
 
         /// <summary>
@@ -496,9 +496,9 @@ namespace AtlusScriptLib
         /// </summary>
         /// <param name="value">The operand value.</param>
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
-        public static FlowScriptInstruction PUSHLIX(short localIntVariableIndex)
+        public static FlowScriptInstruction PUSHLIX( short localIntVariableIndex )
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.PUSHLIX, localIntVariableIndex);
+            return new FlowScriptInstruction( FlowScriptOpcode.PUSHLIX, localIntVariableIndex );
         }
 
         /// <summary>
@@ -506,9 +506,9 @@ namespace AtlusScriptLib
         /// </summary>
         /// <param name="value">The operand value.</param>
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
-        public static FlowScriptInstruction PUSHLFX(short localFloatVariableIndex)
+        public static FlowScriptInstruction PUSHLFX( short localFloatVariableIndex )
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.PUSHLFX, localFloatVariableIndex);
+            return new FlowScriptInstruction( FlowScriptOpcode.PUSHLFX, localFloatVariableIndex );
         }
 
         /// <summary>
@@ -516,9 +516,9 @@ namespace AtlusScriptLib
         /// </summary>
         /// <param name="value">The operand value.</param>
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
-        public static FlowScriptInstruction POPLIX(short localIntVariableIndex)
+        public static FlowScriptInstruction POPLIX( short localIntVariableIndex )
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.POPLIX, localIntVariableIndex);
+            return new FlowScriptInstruction( FlowScriptOpcode.POPLIX, localIntVariableIndex );
         }
 
         /// <summary>
@@ -526,9 +526,9 @@ namespace AtlusScriptLib
         /// </summary>
         /// <param name="value">The operand value.</param>
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
-        public static FlowScriptInstruction POPLFX(short localFloatVariableIndex)
+        public static FlowScriptInstruction POPLFX( short localFloatVariableIndex )
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.POPLFX, localFloatVariableIndex);
+            return new FlowScriptInstruction( FlowScriptOpcode.POPLFX, localFloatVariableIndex );
         }
 
         /// <summary>
@@ -536,9 +536,9 @@ namespace AtlusScriptLib
         /// </summary>
         /// <param name="value">The operand value.</param>
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
-        public static FlowScriptInstruction PUSHSTR(short stringIndex)
+        public static FlowScriptInstruction PUSHSTR( short stringIndex )
         {
-            return new FlowScriptInstruction(FlowScriptOpcode.PUSHSTR, stringIndex);
+            return new FlowScriptInstruction( FlowScriptOpcode.PUSHSTR, stringIndex );
         }
 
         /// <summary>
@@ -563,7 +563,7 @@ namespace AtlusScriptLib
             /// Constructs a new operand value.
             /// </summary>
             /// <param name="value">The operand value.</param>
-            public OperandValue(short value)
+            public OperandValue( short value )
             {
                 mType = ValueType.Int16;
                 mShortValue = value;
@@ -573,7 +573,7 @@ namespace AtlusScriptLib
             /// Constructs a new operand value.
             /// </summary>
             /// <param name="value">The operand value.</param>
-            public OperandValue(int value)
+            public OperandValue( int value )
             {
                 mType = ValueType.Int32;
                 mIntValue = value;
@@ -583,7 +583,7 @@ namespace AtlusScriptLib
             /// Constructs a new operand value.
             /// </summary>
             /// <param name="value">The operand value.</param>
-            public OperandValue(float value)
+            public OperandValue( float value )
             {
                 mType = ValueType.Single;
                 mFloatValue = value;
@@ -595,10 +595,10 @@ namespace AtlusScriptLib
             /// <returns>The operand value.</returns>
             public object GetValue()
             {
-                switch (mType)
+                switch ( mType )
                 {
                     case ValueType.None:
-                        throw new InvalidOperationException("This operand has no value");
+                        throw new InvalidOperationException( "This operand has no value" );
 
                     case ValueType.Int16:
                         return mShortValue;
@@ -610,7 +610,7 @@ namespace AtlusScriptLib
                         return mFloatValue;
 
                     default:
-                        throw new Exception("Invalid value type");
+                        throw new Exception( "Invalid value type" );
                 }
             }
 
@@ -620,8 +620,8 @@ namespace AtlusScriptLib
             /// <returns>The <see cref="Int16"/> operand value.</returns>
             public Int16 GetInt16Value()
             {
-                if (mType != ValueType.Int16)
-                    throw new InvalidOperationException($"This operand does not have a value of type {ValueType.Int16}");
+                if ( mType != ValueType.Int16 )
+                    throw new InvalidOperationException( $"This operand does not have a value of type {ValueType.Int16}" );
 
                 return mShortValue;
             }
@@ -632,8 +632,8 @@ namespace AtlusScriptLib
             /// <returns>The <see cref="Int32"/> operand value.</returns>
             public Int32 GetInt32Value()
             {
-                if (mType != ValueType.Int32)
-                    throw new InvalidOperationException($"This operand does not have a value of type {ValueType.Int32}");
+                if ( mType != ValueType.Int32 )
+                    throw new InvalidOperationException( $"This operand does not have a value of type {ValueType.Int32}" );
 
                 return mIntValue;
             }
@@ -644,8 +644,8 @@ namespace AtlusScriptLib
             /// <returns>The <see cref="Single"/> operand value.</returns>
             public Single GetSingleValue()
             {
-                if (mType != ValueType.Single)
-                    throw new InvalidOperationException($"This operand does not have a value of type {ValueType.Single}");
+                if ( mType != ValueType.Single )
+                    throw new InvalidOperationException( $"This operand does not have a value of type {ValueType.Single}" );
 
                 return mFloatValue;
             }

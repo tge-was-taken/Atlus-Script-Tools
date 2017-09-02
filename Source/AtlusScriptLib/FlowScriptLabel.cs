@@ -20,7 +20,7 @@
         /// </summary>
         /// <param name="name">The name of the label.</param>
         /// <param name="instructionIndex">The instruction index at which this label is located.</param>
-        public FlowScriptLabel(string name, int instructionIndex)
+        public FlowScriptLabel( string name, int instructionIndex )
         {
             Name = name;
             InstructionIndex = instructionIndex;

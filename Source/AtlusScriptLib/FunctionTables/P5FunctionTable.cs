@@ -6,7 +6,7 @@
 
         static P5FunctionTable()
         {
-            Instance = new FunctionTable("FunctionTables\\p5table.txt");
+            Instance = new FunctionTable( "FunctionTables\\p5table.txt" );
         }
 
         private P5FunctionTable()

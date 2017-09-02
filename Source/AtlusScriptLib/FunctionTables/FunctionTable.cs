@@ -16,9 +16,9 @@ namespace AtlusScriptLib.FunctionTables
         {
         }
 
-        public FunctionTable(string path)
+        public FunctionTable( string path )
         {
-            Entries = FunctionTableParser.Parse(path);
+            Entries = FunctionTableParser.Parse( path );
         }
     }
 }
