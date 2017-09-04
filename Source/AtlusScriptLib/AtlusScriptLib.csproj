@@ -52,9 +52,14 @@
     <Compile Include="Common\Collections\DictionaryExtensions.cs" />
     <Compile Include="Common\Collections\ICollectionExtensions.cs" />
     <Compile Include="Common\Collections\IListExtensions.cs" />
+    <Compile Include="Common\IO\AlignmentHelper.cs" />
+    <Compile Include="Common\IO\StreamView.cs" />
     <Compile Include="Common\Reflection\MemberInfoExtensions.cs" />
     <Compile Include="Common\Reflection\TypeExtensions.cs" />
+    <Compile Include="Common\Text\Encodings\AtlusEncoding.cs" />
     <Compile Include="Common\Text\Encodings\CodePoint.cs" />
+    <Compile Include="Common\Text\Encodings\Persona3Encoding.cs" />
+    <Compile Include="Common\Text\Encodings\Persona4Encoding.cs" />
     <Compile Include="Decompilers\MessageScriptDecompiler.cs" />
     <Compile Include="Common\Text\OutputProviders\FileTextOutputProvider.cs" />
     <Compile Include="Common\Text\OutputProviders\ITextOutputProvider.cs" />

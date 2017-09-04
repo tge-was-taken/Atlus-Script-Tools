@@ -21,29 +21,29 @@ namespace AtlusScriptLib
             if ( binary == null )
                 throw new ArgumentNullException( nameof( binary ) );
 
-            if ( binary.MessageHeaders == null )
+            if ( binary.WindowHeaders == null )
                 throw new ArgumentNullException( nameof( binary ) );
 
             // Create new script instance & set user id, format version
             var instance = new MessageScript()
             {
-                UserId = binary.Header.UserId,
+                Id = binary.Header.UserId,
                 FormatVersion = binary.FormatVersion
             };
 
             // Convert the binary messages to their counterpart
-            foreach ( var messageHeader in binary.MessageHeaders )
+            foreach ( var messageHeader in binary.WindowHeaders )
             {
                 IMessageScriptWindow message;
                 IReadOnlyList<int> lineStartAddresses;
                 IReadOnlyList<byte> buffer;
                 int lineCount;
 
-                switch ( messageHeader.MessageType )
+                switch ( messageHeader.WindowType )
                 {
-                    case MessageScriptBinaryMessageType.Dialogue:
+                    case MessageScriptBinaryWindowType.Dialogue:
                         {
-                            var binaryMessage = ( MessageScriptBinaryDialogueMessage )messageHeader.Message.Value;
+                            var binaryMessage = ( MessageScriptBinaryDialogueWindow )messageHeader.Window.Value;
                             lineStartAddresses = binaryMessage.LineStartAddresses;
                             buffer = binaryMessage.TextBuffer;
                             lineCount = binaryMessage.LineCount;
@@ -75,9 +75,9 @@ namespace AtlusScriptLib
                         }
                         break;
 
-                    case MessageScriptBinaryMessageType.Selection:
+                    case MessageScriptBinaryWindowType.Selection:
                         {
-                            var binaryMessage = ( MessageScriptBinarySelectionMessage )messageHeader.Message.Value;
+                            var binaryMessage = ( MessageScriptBinarySelectionWindow )messageHeader.Window.Value;
                             lineStartAddresses = binaryMessage.OptionStartAddresses;
                             buffer = binaryMessage.TextBuffer;
                             lineCount = binaryMessage.OptionCount;
@@ -97,7 +97,7 @@ namespace AtlusScriptLib
                 }
 
                 // Add it to the message list
-                instance.Messages.Add( message );
+                instance.Windows.Add( message );
             }
 
             return instance;
@@ -272,7 +272,7 @@ namespace AtlusScriptLib
         /// <summary>
         /// Gets or sets the user id. Serves as metadata.
         /// </summary>
-        public short UserId { get; set; }
+        public short Id { get; set; }
 
         /// <summary>
         /// Gets or sets the format version this script will use in its binary form.
@@ -282,16 +282,16 @@ namespace AtlusScriptLib
         /// <summary>
         /// Gets the list of <see cref="IMessageScriptWindow"/> in this script.
         /// </summary>
-        public List<IMessageScriptWindow> Messages { get; }
+        public List<IMessageScriptWindow> Windows { get; }
 
         /// <summary>
         /// Creates a new instance of <see cref="MessageScript"/> initialized with default values.
         /// </summary>
         public MessageScript()
         {
-            UserId = 0;
+            Id = 0;
             FormatVersion = MessageScriptBinaryFormatVersion.Unknown;
-            Messages = new List<IMessageScriptWindow>();
+            Windows = new List<IMessageScriptWindow>();
         }
 
         /// <summary>
@@ -302,17 +302,17 @@ namespace AtlusScriptLib
         {
             var builder = new MessageScriptBinaryBuilder( FormatVersion );
 
-            builder.SetUserId( UserId );
+            builder.SetUserId( Id );
 
-            foreach ( var message in Messages )
+            foreach ( var message in Windows )
             {
                 switch ( message.Type )
                 {
                     case MessageScriptWindowType.Dialogue:
-                        builder.AddMessage( ( MessageScriptDialogWindow )message );
+                        builder.AddWindow( ( MessageScriptDialogWindow )message );
                         break;
                     case MessageScriptWindowType.Selection:
-                        builder.AddMessage( ( MessageScriptSelectionWindow )message );
+                        builder.AddWindow( ( MessageScriptSelectionWindow )message );
                         break;
 
                     default:

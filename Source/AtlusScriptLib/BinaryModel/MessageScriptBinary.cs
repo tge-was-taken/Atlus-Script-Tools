@@ -60,14 +60,14 @@ namespace AtlusScriptLib.BinaryModel
 
         // these fields are internal because they are used by the builder, reader & writer
         internal MessageScriptBinaryHeader mHeader;
-        internal MessageScriptBinaryMessageHeader[] mMessageHeaders;
+        internal MessageScriptBinaryWindowHeader[] mWindowHeaders;
         internal MessageScriptBinarySpeakerTableHeader mSpeakerTableHeader;
         internal MessageScriptBinaryFormatVersion mFormatVersion;
 
         public MessageScriptBinaryHeader Header => mHeader;
 
-        public ReadOnlyCollection<MessageScriptBinaryMessageHeader> MessageHeaders
-            => new ReadOnlyCollection<MessageScriptBinaryMessageHeader>( mMessageHeaders );
+        public ReadOnlyCollection<MessageScriptBinaryWindowHeader> WindowHeaders
+            => new ReadOnlyCollection<MessageScriptBinaryWindowHeader>( mWindowHeaders );
 
         public MessageScriptBinarySpeakerTableHeader SpeakerTableHeader => mSpeakerTableHeader;
 

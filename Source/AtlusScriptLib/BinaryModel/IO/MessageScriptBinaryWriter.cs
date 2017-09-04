@@ -30,9 +30,9 @@ namespace AtlusScriptLib.BinaryModel.IO
         public void WriteBinary( MessageScriptBinary binary )
         {
             WriteHeader( ref binary.mHeader );
-            WriteMessageHeaders( binary.mMessageHeaders );
+            WriteMessageHeaders( binary.mWindowHeaders );
             WriteSpeakerHeader( ref binary.mSpeakerTableHeader );
-            WriteMessages( binary.mMessageHeaders );
+            WriteMessages( binary.mWindowHeaders );
             WriteSpeakerNameOffsets( ref binary.mSpeakerTableHeader );
             WriteSpeakerNames( ref binary.mSpeakerTableHeader );
             WriteRelocationTable( ref binary.mHeader.RelocationTable );
@@ -48,17 +48,17 @@ namespace AtlusScriptLib.BinaryModel.IO
             mWriter.Write( header.Field0C );
             mWriter.Write( header.RelocationTable.Offset );
             mWriter.Write( header.RelocationTableSize );
-            mWriter.Write( header.MessageCount );
+            mWriter.Write( header.WindowCount );
             mWriter.Write( header.IsRelocated ? ( short )1 : ( short )0 );
             mWriter.Write( header.Field1E );
         }
 
-        private void WriteMessageHeaders( MessageScriptBinaryMessageHeader[] messageHeaders )
+        private void WriteMessageHeaders( MessageScriptBinaryWindowHeader[] messageHeaders )
         {
             foreach ( var messageHeader in messageHeaders )
             {
-                mWriter.Write( ( int )messageHeader.MessageType );
-                mWriter.Write( messageHeader.Message.Offset );
+                mWriter.Write( ( int )messageHeader.WindowType );
+                mWriter.Write( messageHeader.Window.Offset );
             }
         }
 
@@ -70,31 +70,31 @@ namespace AtlusScriptLib.BinaryModel.IO
             mWriter.Write( header.Field0C );
         }
 
-        private void WriteMessages( MessageScriptBinaryMessageHeader[] messageHeaders )
+        private void WriteMessages( MessageScriptBinaryWindowHeader[] messageHeaders )
         {
             foreach ( var messageHeader in messageHeaders )
             {
-                mWriter.SeekBegin( mPositionBase + MessageScriptBinaryHeader.SIZE + messageHeader.Message.Offset );
+                mWriter.SeekBegin( mPositionBase + MessageScriptBinaryHeader.SIZE + messageHeader.Window.Offset );
 
-                switch ( messageHeader.MessageType )
+                switch ( messageHeader.WindowType )
                 {
-                    case MessageScriptBinaryMessageType.Dialogue:
-                        WriteDialogueMessage( ( MessageScriptBinaryDialogueMessage )messageHeader.Message.Value );
+                    case MessageScriptBinaryWindowType.Dialogue:
+                        WriteDialogueMessage( ( MessageScriptBinaryDialogueWindow )messageHeader.Window.Value );
                         break;
 
-                    case MessageScriptBinaryMessageType.Selection:
-                        WriteSelectionMessage( ( MessageScriptBinarySelectionMessage )messageHeader.Message.Value );
+                    case MessageScriptBinaryWindowType.Selection:
+                        WriteSelectionMessage( ( MessageScriptBinarySelectionWindow )messageHeader.Window.Value );
                         break;
 
                     default:
-                        throw new NotImplementedException( messageHeader.MessageType.ToString() );
+                        throw new NotImplementedException( messageHeader.WindowType.ToString() );
                 }
             }
         }
 
-        private void WriteDialogueMessage( MessageScriptBinaryDialogueMessage dialogue )
+        private void WriteDialogueMessage( MessageScriptBinaryDialogueWindow dialogue )
         {
-            mWriter.Write( dialogue.Identifier, StringBinaryFormat.FixedLength, MessageScriptBinaryDialogueMessage.IDENTIFIER_LENGTH );
+            mWriter.Write( dialogue.Identifier, StringBinaryFormat.FixedLength, MessageScriptBinaryDialogueWindow.IDENTIFIER_LENGTH );
             mWriter.Write( dialogue.LineCount );
             mWriter.Write( dialogue.SpeakerId );
 
@@ -106,9 +106,9 @@ namespace AtlusScriptLib.BinaryModel.IO
             }
         }
 
-        private void WriteSelectionMessage( MessageScriptBinarySelectionMessage selection )
+        private void WriteSelectionMessage( MessageScriptBinarySelectionWindow selection )
         {
-            mWriter.Write( selection.Identifier, StringBinaryFormat.FixedLength, MessageScriptBinarySelectionMessage.IDENTIFIER_LENGTH );
+            mWriter.Write( selection.Identifier, StringBinaryFormat.FixedLength, MessageScriptBinarySelectionWindow.IDENTIFIER_LENGTH );
             mWriter.Write( selection.Field18 );
             mWriter.Write( selection.OptionCount );
             mWriter.Write( selection.Field1C );

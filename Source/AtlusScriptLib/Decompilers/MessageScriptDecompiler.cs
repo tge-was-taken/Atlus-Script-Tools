@@ -66,7 +66,7 @@ namespace AtlusScriptLib.Decompilers
 
         public void Decompile( MessageScript script )
         {
-            foreach ( var message in script.Messages )
+            foreach ( var message in script.Windows )
             {
                 Decompile( message );
                 mOutput.WriteLine();

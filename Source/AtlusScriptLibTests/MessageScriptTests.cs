@@ -57,9 +57,9 @@ namespace AtlusScriptLib.Tests
         {
             var script = new MessageScript();
 
-            Assert.AreEqual( 0, script.UserId );
+            Assert.AreEqual( 0, script.Id );
             Assert.AreEqual( MessageScriptBinaryFormatVersion.Unknown, script.FormatVersion );
-            Assert.AreEqual( 0, script.Messages.Count );
+            Assert.AreEqual( 0, script.Windows.Count );
         }
 
         [TestMethod()]
@@ -94,26 +94,26 @@ namespace AtlusScriptLib.Tests
             Assert.AreEqual( binary.Header.RelocationTable.Offset, newBinary.Header.RelocationTable.Offset );
             CollectionAssert.AreEqual( binary.Header.RelocationTable.Value, newBinary.Header.RelocationTable.Value );
             Assert.AreEqual( binary.Header.RelocationTableSize, newBinary.Header.RelocationTableSize );
-            Assert.AreEqual( binary.Header.MessageCount, newBinary.Header.MessageCount );
+            Assert.AreEqual( binary.Header.WindowCount, newBinary.Header.WindowCount );
             Assert.AreEqual( binary.Header.IsRelocated, newBinary.Header.IsRelocated );
             Assert.AreEqual( binary.Header.Field1E, newBinary.Header.Field1E );
 
-            for ( var index = 0; index < binary.MessageHeaders.Count; index++ )
+            for ( var index = 0; index < binary.WindowHeaders.Count; index++ )
             {
-                var header = binary.MessageHeaders[index];
-                var newHeader = newBinary.MessageHeaders[index];
+                var header = binary.WindowHeaders[index];
+                var newHeader = newBinary.WindowHeaders[index];
 
                 // compare message headers
-                Assert.AreEqual( header.MessageType, newHeader.MessageType );
-                Assert.AreEqual( header.Message.Offset, newHeader.Message.Offset );
+                Assert.AreEqual( header.WindowType, newHeader.WindowType );
+                Assert.AreEqual( header.Window.Offset, newHeader.Window.Offset );
 
                 // compare message data
-                switch ( header.MessageType )
+                switch ( header.WindowType )
                 {
-                    case MessageScriptBinaryMessageType.Dialogue:
+                    case MessageScriptBinaryWindowType.Dialogue:
                         {
-                            var dialogue = ( MessageScriptBinaryDialogueMessage )header.Message.Value;
-                            var newDialogue = ( MessageScriptBinaryDialogueMessage )newHeader.Message.Value;
+                            var dialogue = ( MessageScriptBinaryDialogueWindow )header.Window.Value;
+                            var newDialogue = ( MessageScriptBinaryDialogueWindow )newHeader.Window.Value;
 
                             Assert.AreEqual( dialogue.Identifier, newDialogue.Identifier );
                             Assert.AreEqual( dialogue.LineCount, newDialogue.LineCount );
@@ -124,10 +124,10 @@ namespace AtlusScriptLib.Tests
                         }
                         break;
 
-                    case MessageScriptBinaryMessageType.Selection:
+                    case MessageScriptBinaryWindowType.Selection:
                         {
-                            var selection = ( MessageScriptBinarySelectionMessage )header.Message.Value;
-                            var newSelection = ( MessageScriptBinarySelectionMessage )newHeader.Message.Value;
+                            var selection = ( MessageScriptBinarySelectionWindow )header.Window.Value;
+                            var newSelection = ( MessageScriptBinarySelectionWindow )newHeader.Window.Value;
 
                             Assert.AreEqual( selection.Identifier, newSelection.Identifier );
                             Assert.AreEqual( selection.Field18, newSelection.Field18 );
@@ -141,7 +141,7 @@ namespace AtlusScriptLib.Tests
                         break;
 
                     default:
-                        throw new NotImplementedException( header.MessageType.ToString() );
+                        throw new NotImplementedException( header.WindowType.ToString() );
                 }
             }
 

@@ -155,12 +155,12 @@ namespace AtlusScriptLib.BinaryModel.Tests
 
         private void PrintSpeakerIdsIfHigherThanTotalSpeakers( MessageScriptBinary script )
         {
-            foreach ( var messageHeader in script.MessageHeaders )
+            foreach ( var messageHeader in script.WindowHeaders )
             {
-                if ( messageHeader.MessageType != MessageScriptBinaryMessageType.Dialogue )
+                if ( messageHeader.WindowType != MessageScriptBinaryWindowType.Dialogue )
                     continue;
 
-                var message = ( MessageScriptBinaryDialogueMessage )messageHeader.Message.Value;
+                var message = ( MessageScriptBinaryDialogueWindow )messageHeader.Window.Value;
 
                 if ( ( ushort )message.SpeakerId > ( script.SpeakerTableHeader.SpeakerCount - 1 ) )
                 {
@@ -183,38 +183,38 @@ namespace AtlusScriptLib.BinaryModel.Tests
             Assert.AreEqual( 0x96EC, script.Header.RelocationTable.Offset );
             Assert.AreEqual( 0x018E, script.Header.RelocationTable.Value.Length );
             Assert.AreEqual( 0x018E, script.Header.RelocationTableSize );
-            Assert.AreEqual( 0x9B, script.Header.MessageCount );
-            Assert.AreEqual( 0x9B, script.MessageHeaders.Count );
+            Assert.AreEqual( 0x9B, script.Header.WindowCount );
+            Assert.AreEqual( 0x9B, script.WindowHeaders.Count );
             Assert.AreEqual( false, script.Header.IsRelocated );
             Assert.AreEqual( 2, script.Header.Field1E );
 
             // check some message headers
-            Assert.AreEqual( MessageScriptBinaryMessageType.Selection, script.MessageHeaders[0].MessageType );
-            Assert.AreEqual( 0x04E8, script.MessageHeaders[0].Message.Offset );
+            Assert.AreEqual( MessageScriptBinaryWindowType.Selection, script.WindowHeaders[0].WindowType );
+            Assert.AreEqual( 0x04E8, script.WindowHeaders[0].Window.Offset );
 
-            Assert.AreEqual( MessageScriptBinaryMessageType.Dialogue, script.MessageHeaders[26].MessageType );
-            Assert.AreEqual( 0x1B68, script.MessageHeaders[26].Message.Offset );
+            Assert.AreEqual( MessageScriptBinaryWindowType.Dialogue, script.WindowHeaders[26].WindowType );
+            Assert.AreEqual( 0x1B68, script.WindowHeaders[26].Window.Offset );
 
             // check some messages
-            Assert.AreEqual( "combine_sel", ( ( MessageScriptBinarySelectionMessage )script.MessageHeaders[0].Message.Value ).Identifier );
-            Assert.AreEqual( 0, ( ( MessageScriptBinarySelectionMessage )script.MessageHeaders[0].Message.Value ).Field18 );
-            Assert.AreEqual( 2, ( ( MessageScriptBinarySelectionMessage )script.MessageHeaders[0].Message.Value ).OptionCount );
-            Assert.AreEqual( 0, ( ( MessageScriptBinarySelectionMessage )script.MessageHeaders[0].Message.Value ).Field1C );
-            Assert.AreEqual( 0, ( ( MessageScriptBinarySelectionMessage )script.MessageHeaders[0].Message.Value ).Field1E );
-            Assert.AreEqual( 2, ( ( MessageScriptBinarySelectionMessage )script.MessageHeaders[0].Message.Value ).OptionStartAddresses.Length );
-            Assert.AreEqual( 0x0514, ( ( MessageScriptBinarySelectionMessage )script.MessageHeaders[0].Message.Value ).OptionStartAddresses[0] );
-            Assert.AreEqual( 0x051E, ( ( MessageScriptBinarySelectionMessage )script.MessageHeaders[0].Message.Value ).OptionStartAddresses[1] );
-            Assert.AreEqual( 0x14, ( ( MessageScriptBinarySelectionMessage )script.MessageHeaders[0].Message.Value ).TextBufferSize );
-            Assert.AreEqual( 0x14, ( ( MessageScriptBinarySelectionMessage )script.MessageHeaders[0].Message.Value ).TextBuffer.Length );
+            Assert.AreEqual( "combine_sel", ( ( MessageScriptBinarySelectionWindow )script.WindowHeaders[0].Window.Value ).Identifier );
+            Assert.AreEqual( 0, ( ( MessageScriptBinarySelectionWindow )script.WindowHeaders[0].Window.Value ).Field18 );
+            Assert.AreEqual( 2, ( ( MessageScriptBinarySelectionWindow )script.WindowHeaders[0].Window.Value ).OptionCount );
+            Assert.AreEqual( 0, ( ( MessageScriptBinarySelectionWindow )script.WindowHeaders[0].Window.Value ).Field1C );
+            Assert.AreEqual( 0, ( ( MessageScriptBinarySelectionWindow )script.WindowHeaders[0].Window.Value ).Field1E );
+            Assert.AreEqual( 2, ( ( MessageScriptBinarySelectionWindow )script.WindowHeaders[0].Window.Value ).OptionStartAddresses.Length );
+            Assert.AreEqual( 0x0514, ( ( MessageScriptBinarySelectionWindow )script.WindowHeaders[0].Window.Value ).OptionStartAddresses[0] );
+            Assert.AreEqual( 0x051E, ( ( MessageScriptBinarySelectionWindow )script.WindowHeaders[0].Window.Value ).OptionStartAddresses[1] );
+            Assert.AreEqual( 0x14, ( ( MessageScriptBinarySelectionWindow )script.WindowHeaders[0].Window.Value ).TextBufferSize );
+            Assert.AreEqual( 0x14, ( ( MessageScriptBinarySelectionWindow )script.WindowHeaders[0].Window.Value ).TextBuffer.Length );
 
-            Assert.AreEqual( "book_bonus004", ( ( MessageScriptBinaryDialogueMessage )script.MessageHeaders[26].Message.Value ).Identifier );
-            Assert.AreEqual( 0x0A, ( ( MessageScriptBinaryDialogueMessage )script.MessageHeaders[26].Message.Value ).LineCount );
-            Assert.AreEqual( 0x01, ( ( MessageScriptBinaryDialogueMessage )script.MessageHeaders[26].Message.Value ).SpeakerId );
-            Assert.AreEqual( 0x0A, ( ( MessageScriptBinaryDialogueMessage )script.MessageHeaders[26].Message.Value ).LineStartAddresses.Length );
-            Assert.AreEqual( 0x1BB0, ( ( MessageScriptBinaryDialogueMessage )script.MessageHeaders[26].Message.Value ).LineStartAddresses[0] );
-            Assert.AreEqual( 0x1C1C, ( ( MessageScriptBinaryDialogueMessage )script.MessageHeaders[26].Message.Value ).LineStartAddresses[1] );
-            Assert.AreEqual( 0x02CE, ( ( MessageScriptBinaryDialogueMessage )script.MessageHeaders[26].Message.Value ).TextBufferSize );
-            Assert.AreEqual( 0x02CE, ( ( MessageScriptBinaryDialogueMessage )script.MessageHeaders[26].Message.Value ).TextBuffer.Length );
+            Assert.AreEqual( "book_bonus004", ( ( MessageScriptBinaryDialogueWindow )script.WindowHeaders[26].Window.Value ).Identifier );
+            Assert.AreEqual( 0x0A, ( ( MessageScriptBinaryDialogueWindow )script.WindowHeaders[26].Window.Value ).LineCount );
+            Assert.AreEqual( 0x01, ( ( MessageScriptBinaryDialogueWindow )script.WindowHeaders[26].Window.Value ).SpeakerId );
+            Assert.AreEqual( 0x0A, ( ( MessageScriptBinaryDialogueWindow )script.WindowHeaders[26].Window.Value ).LineStartAddresses.Length );
+            Assert.AreEqual( 0x1BB0, ( ( MessageScriptBinaryDialogueWindow )script.WindowHeaders[26].Window.Value ).LineStartAddresses[0] );
+            Assert.AreEqual( 0x1C1C, ( ( MessageScriptBinaryDialogueWindow )script.WindowHeaders[26].Window.Value ).LineStartAddresses[1] );
+            Assert.AreEqual( 0x02CE, ( ( MessageScriptBinaryDialogueWindow )script.WindowHeaders[26].Window.Value ).TextBufferSize );
+            Assert.AreEqual( 0x02CE, ( ( MessageScriptBinaryDialogueWindow )script.WindowHeaders[26].Window.Value ).TextBuffer.Length );
         }
 
         private void PerformIntegrityCheckForVersion1BigEndian( MessageScriptBinary script )
@@ -231,37 +231,37 @@ namespace AtlusScriptLib.BinaryModel.Tests
             Assert.AreEqual( 0x6E50, script.Header.RelocationTable.Offset );
             Assert.AreEqual( 0x0139, script.Header.RelocationTableSize );
             Assert.AreEqual( script.Header.RelocationTableSize, script.Header.RelocationTable.Value.Length );
-            Assert.AreEqual( 0x76, script.Header.MessageCount );
-            Assert.AreEqual( script.Header.MessageCount, script.MessageHeaders.Count );
+            Assert.AreEqual( 0x76, script.Header.WindowCount );
+            Assert.AreEqual( script.Header.WindowCount, script.WindowHeaders.Count );
             Assert.AreEqual( false, script.Header.IsRelocated );
             Assert.AreEqual( 2, script.Header.Field1E );
 
             // check some message headers
-            Assert.AreEqual( MessageScriptBinaryMessageType.Selection, script.MessageHeaders[0].MessageType );
-            Assert.AreEqual( 0x03C0, script.MessageHeaders[0].Message.Offset );
+            Assert.AreEqual( MessageScriptBinaryWindowType.Selection, script.WindowHeaders[0].WindowType );
+            Assert.AreEqual( 0x03C0, script.WindowHeaders[0].Window.Offset );
 
-            Assert.AreEqual( MessageScriptBinaryMessageType.Dialogue, script.MessageHeaders[26].MessageType );
-            Assert.AreEqual( 0x0F24, script.MessageHeaders[26].Message.Offset );
+            Assert.AreEqual( MessageScriptBinaryWindowType.Dialogue, script.WindowHeaders[26].WindowType );
+            Assert.AreEqual( 0x0F24, script.WindowHeaders[26].Window.Offset );
 
             // check some messages
-            Assert.AreEqual( "FCL_MSG_COMBINE_SELECT", ( ( MessageScriptBinarySelectionMessage )script.MessageHeaders[0].Message.Value ).Identifier );
-            Assert.AreEqual( 0, ( ( MessageScriptBinarySelectionMessage )script.MessageHeaders[0].Message.Value ).Field18 );
-            Assert.AreEqual( 2, ( ( MessageScriptBinarySelectionMessage )script.MessageHeaders[0].Message.Value ).OptionCount );
-            Assert.AreEqual( 0, ( ( MessageScriptBinarySelectionMessage )script.MessageHeaders[0].Message.Value ).Field1C );
-            Assert.AreEqual( 0, ( ( MessageScriptBinarySelectionMessage )script.MessageHeaders[0].Message.Value ).Field1E );
-            Assert.AreEqual( 2, ( ( MessageScriptBinarySelectionMessage )script.MessageHeaders[0].Message.Value ).OptionStartAddresses.Length );
-            Assert.AreEqual( 0x03EC, ( ( MessageScriptBinarySelectionMessage )script.MessageHeaders[0].Message.Value ).OptionStartAddresses[0] );
-            Assert.AreEqual( 0x03FC, ( ( MessageScriptBinarySelectionMessage )script.MessageHeaders[0].Message.Value ).OptionStartAddresses[1] );
-            Assert.AreEqual( 0x23, ( ( MessageScriptBinarySelectionMessage )script.MessageHeaders[0].Message.Value ).TextBufferSize );
-            Assert.AreEqual( 0x23, ( ( MessageScriptBinarySelectionMessage )script.MessageHeaders[0].Message.Value ).TextBuffer.Length );
+            Assert.AreEqual( "FCL_MSG_COMBINE_SELECT", ( ( MessageScriptBinarySelectionWindow )script.WindowHeaders[0].Window.Value ).Identifier );
+            Assert.AreEqual( 0, ( ( MessageScriptBinarySelectionWindow )script.WindowHeaders[0].Window.Value ).Field18 );
+            Assert.AreEqual( 2, ( ( MessageScriptBinarySelectionWindow )script.WindowHeaders[0].Window.Value ).OptionCount );
+            Assert.AreEqual( 0, ( ( MessageScriptBinarySelectionWindow )script.WindowHeaders[0].Window.Value ).Field1C );
+            Assert.AreEqual( 0, ( ( MessageScriptBinarySelectionWindow )script.WindowHeaders[0].Window.Value ).Field1E );
+            Assert.AreEqual( 2, ( ( MessageScriptBinarySelectionWindow )script.WindowHeaders[0].Window.Value ).OptionStartAddresses.Length );
+            Assert.AreEqual( 0x03EC, ( ( MessageScriptBinarySelectionWindow )script.WindowHeaders[0].Window.Value ).OptionStartAddresses[0] );
+            Assert.AreEqual( 0x03FC, ( ( MessageScriptBinarySelectionWindow )script.WindowHeaders[0].Window.Value ).OptionStartAddresses[1] );
+            Assert.AreEqual( 0x23, ( ( MessageScriptBinarySelectionWindow )script.WindowHeaders[0].Window.Value ).TextBufferSize );
+            Assert.AreEqual( 0x23, ( ( MessageScriptBinarySelectionWindow )script.WindowHeaders[0].Window.Value ).TextBuffer.Length );
 
-            Assert.AreEqual( "FCL_MSG_COMBINE_CELL_HOU", ( ( MessageScriptBinaryDialogueMessage )script.MessageHeaders[26].Message.Value ).Identifier );
-            Assert.AreEqual( 0x01, ( ( MessageScriptBinaryDialogueMessage )script.MessageHeaders[26].Message.Value ).LineCount );
-            Assert.AreEqual( 0x01, ( ( MessageScriptBinaryDialogueMessage )script.MessageHeaders[26].Message.Value ).SpeakerId );
-            Assert.AreEqual( 0x01, ( ( MessageScriptBinaryDialogueMessage )script.MessageHeaders[26].Message.Value ).LineStartAddresses.Length );
-            Assert.AreEqual( 0x0F48, ( ( MessageScriptBinaryDialogueMessage )script.MessageHeaders[26].Message.Value ).LineStartAddresses[0] );
-            Assert.AreEqual( 0x40, ( ( MessageScriptBinaryDialogueMessage )script.MessageHeaders[26].Message.Value ).TextBufferSize );
-            Assert.AreEqual( 0x40, ( ( MessageScriptBinaryDialogueMessage )script.MessageHeaders[26].Message.Value ).TextBuffer.Length );
+            Assert.AreEqual( "FCL_MSG_COMBINE_CELL_HOU", ( ( MessageScriptBinaryDialogueWindow )script.WindowHeaders[26].Window.Value ).Identifier );
+            Assert.AreEqual( 0x01, ( ( MessageScriptBinaryDialogueWindow )script.WindowHeaders[26].Window.Value ).LineCount );
+            Assert.AreEqual( 0x01, ( ( MessageScriptBinaryDialogueWindow )script.WindowHeaders[26].Window.Value ).SpeakerId );
+            Assert.AreEqual( 0x01, ( ( MessageScriptBinaryDialogueWindow )script.WindowHeaders[26].Window.Value ).LineStartAddresses.Length );
+            Assert.AreEqual( 0x0F48, ( ( MessageScriptBinaryDialogueWindow )script.WindowHeaders[26].Window.Value ).LineStartAddresses[0] );
+            Assert.AreEqual( 0x40, ( ( MessageScriptBinaryDialogueWindow )script.WindowHeaders[26].Window.Value ).TextBufferSize );
+            Assert.AreEqual( 0x40, ( ( MessageScriptBinaryDialogueWindow )script.WindowHeaders[26].Window.Value ).TextBuffer.Length );
         }
     }
 }

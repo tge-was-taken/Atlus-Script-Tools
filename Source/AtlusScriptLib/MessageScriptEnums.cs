@@ -7,8 +7,8 @@ namespace AtlusScriptLib
     /// </summary>
     public enum MessageScriptWindowType
     {
-        Dialogue = MessageScriptBinaryMessageType.Dialogue,
-        Selection = MessageScriptBinaryMessageType.Selection
+        Dialogue = MessageScriptBinaryWindowType.Dialogue,
+        Selection = MessageScriptBinaryWindowType.Selection
     }
 
     /// <summary>

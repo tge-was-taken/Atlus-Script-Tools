@@ -20,12 +20,12 @@ namespace AtlusScriptLib.BinaryModel
 
         public static FlowScriptBinary FromStream( Stream stream, bool leaveOpen = false )
         {
-            return FromStream( stream, FlowScriptBinaryFormatVersion.Unknown );
+            return FromStream( stream, FlowScriptBinaryFormatVersion.Unknown, leaveOpen );
         }
 
         public static FlowScriptBinary FromStream( Stream stream, FlowScriptBinaryFormatVersion version, bool leaveOpen = false )
         {
-            using ( var reader = new FlowScriptBinaryReader( stream, version ) )
+            using ( var reader = new FlowScriptBinaryReader( stream, version, leaveOpen ) )
             {
                 return reader.ReadBinary();
             }

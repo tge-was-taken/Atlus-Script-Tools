@@ -12,7 +12,7 @@ namespace AtlusScriptLib.BinaryModel
 
         // optional
         private short mUserId;
-        private List<Tuple<MessageScriptBinaryMessageType, object>> mMessages;
+        private List<Tuple<MessageScriptBinaryWindowType, object>> mWindows;
 
         // temporary storage
         private readonly List<int> mAddressLocations;   // for generating the relocation table
@@ -32,12 +32,12 @@ namespace AtlusScriptLib.BinaryModel
             mUserId = value;
         }
 
-        public void AddMessage( MessageScriptDialogWindow message )
+        public void AddWindow( MessageScriptDialogWindow message )
         {
-            if ( mMessages == null )
-                mMessages = new List<Tuple<MessageScriptBinaryMessageType, object>>();
+            if ( mWindows == null )
+                mWindows = new List<Tuple<MessageScriptBinaryWindowType, object>>();
 
-            MessageScriptBinaryDialogueMessage binary;
+            MessageScriptBinaryDialogueWindow binary;
 
             binary.Identifier = message.Identifier;
             binary.LineCount = ( short )message.Lines.Count;
@@ -48,7 +48,7 @@ namespace AtlusScriptLib.BinaryModel
                 {
                     case MessageScriptSpeakerType.Named:
                         {
-                            var speakerName = ProcessMessageLine( ( ( MessageScriptNamedSpeaker )message.Speaker ).Name );
+                            var speakerName = ProcessLine( ( ( MessageScriptNamedSpeaker )message.Speaker ).Name );
                             if ( !mSpeakerNames.Any( x => x.SequenceEqual( speakerName ) ) )
                                 mSpeakerNames.Add( speakerName.ToArray() );
 
@@ -81,7 +81,7 @@ namespace AtlusScriptLib.BinaryModel
                 {
                     binary.LineStartAddresses[i] = lineStartAddress;
 
-                    var lineBytes = ProcessMessageLine( message.Lines[i] );
+                    var lineBytes = ProcessLine( message.Lines[i] );
                     textBuffer.AddRange( lineBytes );
 
                     lineStartAddress += lineBytes.Count;
@@ -93,15 +93,15 @@ namespace AtlusScriptLib.BinaryModel
             binary.TextBuffer = textBuffer.ToArray();
             binary.TextBufferSize = binary.TextBuffer.Length;
 
-            mMessages.Add( new Tuple<MessageScriptBinaryMessageType, object>( MessageScriptBinaryMessageType.Dialogue, binary ) );
+            mWindows.Add( new Tuple<MessageScriptBinaryWindowType, object>( MessageScriptBinaryWindowType.Dialogue, binary ) );
         }
 
-        public void AddMessage( MessageScriptSelectionWindow message )
+        public void AddWindow( MessageScriptSelectionWindow message )
         {
-            if ( mMessages == null )
-                mMessages = new List<Tuple<MessageScriptBinaryMessageType, object>>();
+            if ( mWindows == null )
+                mWindows = new List<Tuple<MessageScriptBinaryWindowType, object>>();
 
-            MessageScriptBinarySelectionMessage binary;
+            MessageScriptBinarySelectionWindow binary;
 
             binary.Identifier = message.Identifier;
             binary.Field18 = binary.Field1C = binary.Field1E = 0;
@@ -115,7 +115,7 @@ namespace AtlusScriptLib.BinaryModel
                 {
                     binary.OptionStartAddresses[i] = lineStartAddress;
 
-                    var lineBytes = ProcessMessageLine( message.Lines[i] );
+                    var lineBytes = ProcessLine( message.Lines[i] );
                     lineBytes.Add( 0 ); // intentional
 
                     textBuffer.AddRange( lineBytes );
@@ -129,7 +129,7 @@ namespace AtlusScriptLib.BinaryModel
             binary.TextBuffer = textBuffer.ToArray();
             binary.TextBufferSize = binary.TextBuffer.Length;
 
-            mMessages.Add( new Tuple<MessageScriptBinaryMessageType, object>( MessageScriptBinaryMessageType.Selection, binary ) );
+            mWindows.Add( new Tuple<MessageScriptBinaryWindowType, object>( MessageScriptBinaryWindowType.Selection, binary ) );
         }
 
         public MessageScriptBinary Build()
@@ -142,13 +142,13 @@ namespace AtlusScriptLib.BinaryModel
             // note: DONT CHANGE THE ORDER
             BuildHeaderFirstPass( ref binary.mHeader );
 
-            if ( mMessages != null )
+            if ( mWindows != null )
             {
-                BuildMessageHeadersFirstPass( ref binary.mMessageHeaders );
+                BuildWindowHeadersFirstPass( ref binary.mWindowHeaders );
 
                 BuildSpeakerTableHeaderFirstPass( ref binary.mSpeakerTableHeader );
 
-                BuildMessageHeadersFinalPass( ref binary.mMessageHeaders );
+                BuildWindowHeadersFinalPass( ref binary.mWindowHeaders );
 
                 BuildSpeakerTableHeaderSecondPass( ref binary.mSpeakerTableHeader );
 
@@ -160,7 +160,7 @@ namespace AtlusScriptLib.BinaryModel
             return binary;
         }
 
-        private List<byte> ProcessMessageLine( MessageScriptLine line )
+        private List<byte> ProcessLine( MessageScriptLine line )
         {
             List<byte> bytes = new List<byte>();
 
@@ -247,17 +247,17 @@ namespace AtlusScriptLib.BinaryModel
                 ? MessageScriptBinaryHeader.MAGIC_V1_BE
                 : MessageScriptBinaryHeader.MAGIC_V1;
             header.Field0C = 0;
-            header.MessageCount = mMessages?.Count ?? 0;
+            header.WindowCount = mWindows?.Count ?? 0;
             header.IsRelocated = false;
             header.Field1E = 2;
         }
 
-        private void BuildMessageHeadersFirstPass( ref MessageScriptBinaryMessageHeader[] messageHeaders )
+        private void BuildWindowHeadersFirstPass( ref MessageScriptBinaryWindowHeader[] messageHeaders )
         {
-            messageHeaders = new MessageScriptBinaryMessageHeader[mMessages.Count];
+            messageHeaders = new MessageScriptBinaryWindowHeader[mWindows.Count];
             for ( int i = 0; i < messageHeaders.Length; i++ )
             {
-                messageHeaders[i].MessageType = mMessages[i].Item1;
+                messageHeaders[i].WindowType = mWindows[i].Item1;
                 MoveToNextIntPosition();
 
                 AddAddressLocation();
@@ -280,12 +280,12 @@ namespace AtlusScriptLib.BinaryModel
             MoveToNextIntPosition();
         }
 
-        private void BuildMessageHeadersFinalPass( ref MessageScriptBinaryMessageHeader[] messageHeaders )
+        private void BuildWindowHeadersFinalPass( ref MessageScriptBinaryWindowHeader[] messageHeaders )
         {
             for ( int i = 0; i < messageHeaders.Length; i++ )
             {
-                messageHeaders[i].Message.Offset = GetAlignedAddress();
-                messageHeaders[i].Message.Value = UpdateMessageAddressBase( mMessages[i].Item2 );
+                messageHeaders[i].Window.Offset = GetAlignedAddress();
+                messageHeaders[i].Window.Value = UpdateWindowAddressBase( mWindows[i].Item2 );
             }
         }
 
@@ -323,13 +323,13 @@ namespace AtlusScriptLib.BinaryModel
             header.FileSize = mPosition;
         }
 
-        private object UpdateMessageAddressBase( object message )
+        private object UpdateWindowAddressBase( object message )
         {
             int messageAddress = GetAddress();
 
             switch ( message )
             {
-                case MessageScriptBinaryDialogueMessage dialogue:
+                case MessageScriptBinaryDialogueWindow dialogue:
                     {
                         mPosition += 0x1C;
 
@@ -344,7 +344,7 @@ namespace AtlusScriptLib.BinaryModel
                     }
                     break;
 
-                case MessageScriptBinarySelectionMessage selection:
+                case MessageScriptBinarySelectionWindow selection:
                     {
                         mPosition += 0x20;
 

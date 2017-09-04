@@ -29,7 +29,7 @@ namespace AtlusScriptLib.BinaryModel.IO
                 mHeader = ReadHeader()
             };
 
-            binary.mMessageHeaders = ReadMessageHeaders( binary.mHeader.MessageCount );
+            binary.mWindowHeaders = ReadMessageHeaders( binary.mHeader.WindowCount );
             binary.mSpeakerTableHeader = ReadSpeakerTableHeader();
             binary.mFormatVersion = mVersion;
 
@@ -55,7 +55,7 @@ namespace AtlusScriptLib.BinaryModel.IO
                 header.Field0C = mReader.ReadInt32();
                 header.RelocationTable.Offset = mReader.ReadInt32();
                 header.RelocationTableSize = mReader.ReadInt32();
-                header.MessageCount = mReader.ReadInt32();
+                header.WindowCount = mReader.ReadInt32();
                 header.IsRelocated = mReader.ReadInt16() != 0;
                 header.Field1E = mReader.ReadInt16();
 
@@ -103,22 +103,22 @@ namespace AtlusScriptLib.BinaryModel.IO
             EndiannessHelper.Swap( ref header.Field0C );
             EndiannessHelper.Swap( ref header.RelocationTable.Offset );
             EndiannessHelper.Swap( ref header.RelocationTableSize );
-            EndiannessHelper.Swap( ref header.MessageCount );
+            EndiannessHelper.Swap( ref header.WindowCount );
             EndiannessHelper.Swap( ref header.Field1E );
         }
 
-        public MessageScriptBinaryMessageHeader[] ReadMessageHeaders( int count )
+        public MessageScriptBinaryWindowHeader[] ReadMessageHeaders( int count )
         {
-            MessageScriptBinaryMessageHeader[] messageHeaders = new MessageScriptBinaryMessageHeader[count];
+            MessageScriptBinaryWindowHeader[] messageHeaders = new MessageScriptBinaryWindowHeader[count];
 
             for ( int i = 0; i < messageHeaders.Length; i++ )
             {
                 ref var messageHeader = ref messageHeaders[i];
-                messageHeader.MessageType = ( MessageScriptBinaryMessageType )mReader.ReadInt32();
-                messageHeader.Message.Offset = mReader.ReadInt32();
+                messageHeader.WindowType = ( MessageScriptBinaryWindowType )mReader.ReadInt32();
+                messageHeader.Window.Offset = mReader.ReadInt32();
 
-                if ( messageHeader.Message.Offset != 0 )
-                    messageHeader.Message.Value = ReadMessage( messageHeader.MessageType, messageHeader.Message.Offset );
+                if ( messageHeader.Window.Offset != 0 )
+                    messageHeader.Window.Value = ReadMessage( messageHeader.WindowType, messageHeader.Window.Offset );
             }
 
             return messageHeaders;
@@ -175,7 +175,7 @@ namespace AtlusScriptLib.BinaryModel.IO
             return speakerNames;
         }
 
-        private object ReadMessage( MessageScriptBinaryMessageType type, int address )
+        private object ReadMessage( MessageScriptBinaryWindowType type, int address )
         {
             object message;
 
@@ -183,11 +183,11 @@ namespace AtlusScriptLib.BinaryModel.IO
 
             switch ( type )
             {
-                case MessageScriptBinaryMessageType.Dialogue:
+                case MessageScriptBinaryWindowType.Dialogue:
                     message = ReadDialogueMessage();
                     break;
 
-                case MessageScriptBinaryMessageType.Selection:
+                case MessageScriptBinaryWindowType.Selection:
                     message = ReadSelectionMessage();
                     break;
 
@@ -200,11 +200,11 @@ namespace AtlusScriptLib.BinaryModel.IO
             return message;
         }
 
-        public MessageScriptBinaryDialogueMessage ReadDialogueMessage()
+        public MessageScriptBinaryDialogueWindow ReadDialogueMessage()
         {
-            MessageScriptBinaryDialogueMessage message;
+            MessageScriptBinaryDialogueWindow message;
 
-            message.Identifier = mReader.ReadString( StringBinaryFormat.FixedLength, MessageScriptBinaryDialogueMessage.IDENTIFIER_LENGTH );
+            message.Identifier = mReader.ReadString( StringBinaryFormat.FixedLength, MessageScriptBinaryDialogueWindow.IDENTIFIER_LENGTH );
             message.LineCount = mReader.ReadInt16();
             message.SpeakerId = mReader.ReadUInt16();
 
@@ -224,11 +224,11 @@ namespace AtlusScriptLib.BinaryModel.IO
             return message;
         }
 
-        public MessageScriptBinarySelectionMessage ReadSelectionMessage()
+        public MessageScriptBinarySelectionWindow ReadSelectionMessage()
         {
-            MessageScriptBinarySelectionMessage message;
+            MessageScriptBinarySelectionWindow message;
 
-            message.Identifier = mReader.ReadString( StringBinaryFormat.FixedLength, MessageScriptBinaryDialogueMessage.IDENTIFIER_LENGTH );
+            message.Identifier = mReader.ReadString( StringBinaryFormat.FixedLength, MessageScriptBinaryDialogueWindow.IDENTIFIER_LENGTH );
             message.Field18 = mReader.ReadInt16();
             message.OptionCount = mReader.ReadInt16();
             message.Field1C = mReader.ReadInt16();
@@ -238,13 +238,13 @@ namespace AtlusScriptLib.BinaryModel.IO
             message.TextBuffer = mReader.ReadBytes( message.TextBufferSize );
 
             if ( message.Field18 != 0 )
-                Debug.WriteLine( $"{nameof( MessageScriptBinarySelectionMessage )}.{nameof( message.Field18 )} = {message.Field18}" );
+                Debug.WriteLine( $"{nameof( MessageScriptBinarySelectionWindow )}.{nameof( message.Field18 )} = {message.Field18}" );
 
             if ( message.Field1C != 0 )
-                Debug.WriteLine( $"{nameof( MessageScriptBinarySelectionMessage )}.{nameof( message.Field1C )} = {message.Field1C}" );
+                Debug.WriteLine( $"{nameof( MessageScriptBinarySelectionWindow )}.{nameof( message.Field1C )} = {message.Field1C}" );
 
             if ( message.Field1E != 0 )
-                Debug.WriteLine( $"{nameof( MessageScriptBinarySelectionMessage )}.{nameof( message.Field1E )} = {message.Field1E}" );
+                Debug.WriteLine( $"{nameof( MessageScriptBinarySelectionWindow )}.{nameof( message.Field1E )} = {message.Field1E}" );
 
             return message;
         }
