@@ -79,6 +79,17 @@ namespace AtlusScriptLib
         }
 
         /// <summary>
+        /// Constructs a new instruction with a specified opcode with a string operand.
+        /// </summary>
+        /// <param name="opcode">The opcode of the instruction.</param>
+        /// <param name="value">The operand value.</param>
+        private FlowScriptInstruction( FlowScriptOpcode opcode, string value )
+        {
+            mOpcode = opcode;
+            mOperand = new OperandValue( value );
+        }
+
+        /// <summary>
         /// Converts a binary instruction to its simplified representation. 
         /// This method is only valid for instructions that don't take up 2 instructions.
         /// </summary>
@@ -183,9 +194,6 @@ namespace AtlusScriptLib
 
                 case FlowScriptOpcode.POPLFX:
                     return POPLFX( binary.OperandShort );
-
-                case FlowScriptOpcode.PUSHSTR:
-                    return PUSHSTR( binary.OperandShort );
 
                 default:
                     throw new Exception( "Opcode not supported" );
@@ -536,9 +544,9 @@ namespace AtlusScriptLib
         /// </summary>
         /// <param name="value">The operand value.</param>
         /// <returns>A <see cref="FlowScriptInstruction"/> instance.</returns>
-        public static FlowScriptInstruction PUSHSTR( short stringIndex )
+        public static FlowScriptInstruction PUSHSTR( string value )
         {
-            return new FlowScriptInstruction( FlowScriptOpcode.PUSHSTR, stringIndex );
+            return new FlowScriptInstruction( FlowScriptOpcode.PUSHSTR, value );
         }
 
         /// <summary>
@@ -550,6 +558,7 @@ namespace AtlusScriptLib
             private short mShortValue;
             private int mIntValue;
             private float mFloatValue;
+            private string mStringValue;
 
             /// <summary>
             /// Gets the value type of the operand.
@@ -590,6 +599,16 @@ namespace AtlusScriptLib
             }
 
             /// <summary>
+            /// Constructs a new operand value.
+            /// </summary>
+            /// <param name="value">The operand value.</param>
+            public OperandValue( string value )
+            {
+                mType = ValueType.String;
+                mStringValue = value;
+            }
+
+            /// <summary>
             /// Gets the operand value.
             /// </summary>
             /// <returns>The operand value.</returns>
@@ -608,6 +627,9 @@ namespace AtlusScriptLib
 
                     case ValueType.Single:
                         return mFloatValue;
+
+                    case ValueType.String:
+                        return mStringValue;
 
                     default:
                         throw new Exception( "Invalid value type" );
@@ -651,6 +673,18 @@ namespace AtlusScriptLib
             }
 
             /// <summary>
+            /// Gets the <see cref="String"/> operand value.
+            /// </summary>
+            /// <returns>The <see cref="String"/> operand value.</returns>
+            public String GetStringValue()
+            {
+                if ( mType != ValueType.String )
+                    throw new InvalidOperationException( $"This operand does not have a value of type {ValueType.String}" );
+
+                return mStringValue;
+            }
+
+            /// <summary>
             /// Represents the value types an operand can contain.
             /// </summary>
             public enum ValueType
@@ -659,7 +693,18 @@ namespace AtlusScriptLib
                 Int16,
                 Int32,
                 Single,
+                String,
             }
+
+            public override string ToString()
+            {
+                return GetValue().ToString();
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"{Opcode} {Operand}";
         }
     }
 }

@@ -106,6 +106,13 @@ namespace AtlusScriptLib.BinaryModel
 
         public FlowScriptBinary Build()
         {
+            // Pad out this section first before building the string section header
+            if ( mStringSection != null )
+            {
+                while ( ( mStringSection.Count % 16 ) != 0 )
+                    mStringSection.Add( 0 );
+            }
+
             var binary = new FlowScriptBinary()
             {
                 mHeader = BuildHeader(),
@@ -127,7 +134,9 @@ namespace AtlusScriptLib.BinaryModel
                 binary.mMessageScriptSection = mMessageScriptSection;
 
             if ( mStringSection != null )
-                binary.mStringSection = mStringSection.ToArray();
+            {
+                binary.mStringSection = mStringSection.ToArray();             
+            }
 
             return binary;
         }

@@ -45,8 +45,7 @@ namespace AtlusScriptLib.Tests
             Assert.AreEqual( 10061, script.Instructions.Count );
             Assert.AreEqual( 742, script.JumpLabels.Count );
             //Assert.AreEqual(77521, script.MessageScript);
-            Assert.AreEqual( 96, script.ProcedureLabels.Count );
-            Assert.AreEqual( 240, script.Strings.Count );
+            Assert.AreEqual( 96, script.Procedures.Count );
             Assert.AreEqual( FlowScriptOpcode.COMM, script.Instructions[2].Opcode );
             Assert.AreEqual( 102, script.Instructions[2].Operand.GetInt16Value() );
             Assert.ThrowsException<InvalidOperationException>( () => script.Instructions[2].Operand.GetInt32Value() );
@@ -130,9 +129,9 @@ namespace AtlusScriptLib.Tests
             Assert.AreEqual( script.UserId, binary.Header.UserId );
 
             // Compare label names
-            for ( int i = 0; i < script.ProcedureLabels.Count; i++ )
+            for ( int i = 0; i < script.Procedures.Count; i++ )
             {
-                Assert.AreEqual( binary.ProcedureLabelSection[i].Name, script.ProcedureLabels[i].Name );
+                Assert.AreEqual( binary.ProcedureLabelSection[i].Name, script.Procedures[i].Name );
             }
 
             for ( int i = 0; i < script.JumpLabels.Count; i++ )

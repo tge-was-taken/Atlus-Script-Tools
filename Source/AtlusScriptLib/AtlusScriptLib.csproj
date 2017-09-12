@@ -76,6 +76,7 @@
     <Compile Include="FlowScriptInstruction.cs" />
     <Compile Include="FlowScriptLabel.cs" />
     <Compile Include="FlowScriptEnums.cs" />
+    <Compile Include="FlowScriptProcedure.cs" />
     <Compile Include="FunctionTables\FunctionTable.cs" />
     <Compile Include="FunctionTables\FunctionTableEntry.cs" />
     <Compile Include="FunctionTables\FunctionTableParser.cs" />

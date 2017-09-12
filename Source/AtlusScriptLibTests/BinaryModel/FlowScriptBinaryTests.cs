@@ -81,7 +81,7 @@ namespace AtlusScriptLib.BinaryModel.Tests
         }
 
         [TestMethod()]
-        //[Ignore]
+        [Ignore]
         public void FromFileTest_Batch()
         {
             foreach ( var path in Directory.EnumerateFiles( "TestResources\\Batch\\", "*.bf" ) )

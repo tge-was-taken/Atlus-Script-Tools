@@ -25,5 +25,10 @@
             Name = name;
             InstructionIndex = instructionIndex;
         }
+
+        public override string ToString()
+        {
+            return $"{Name} at {InstructionIndex}";
+        }
     }
 }
