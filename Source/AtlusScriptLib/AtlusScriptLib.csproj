@@ -74,7 +74,7 @@
     <Compile Include="BinaryModel\IO\FlowScriptBinaryReader.cs" />
     <Compile Include="BinaryModel\IO\FlowScriptBinaryWriter.cs" />
     <Compile Include="FlowScriptInstruction.cs" />
-    <Compile Include="FlowScriptLabel.cs" />
+    <Compile Include="FlowScriptJumpLabel.cs" />
     <Compile Include="FlowScriptEnums.cs" />
     <Compile Include="FlowScriptProcedure.cs" />
     <Compile Include="FunctionTables\FunctionTable.cs" />

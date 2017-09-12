@@ -402,7 +402,7 @@ static ScriptInterpreter* ScriptInterpreter::Create(ScriptHeader_t* pScriptHeade
 	pScriptInterpreter->mNumStackValues = 0;
 	pScriptInterpreter->mInstructionIndex = pProcedureLabels[procedureIndex].instructionIndex;
 
-	for (size_t i = 0; i < 0x30; ctr++)
+	for (size_t i = 0; i < 0x30; i++)
 	{
 		*stackValueTypes = 0;
 		*stackValues = 0;

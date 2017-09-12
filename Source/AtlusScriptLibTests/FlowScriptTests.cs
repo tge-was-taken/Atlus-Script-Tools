@@ -42,13 +42,14 @@ namespace AtlusScriptLib.Tests
         {
             var script = FromFile_ResultNotNullAndFormatIsEqualToParameter( FlowScriptBinaryFormatVersion.Version1, FlowScriptBinaryFormatVersion.Version1 );
 
-            Assert.AreEqual( 10061, script.Instructions.Count );
+            var instructions = script.EnumerateInstructions().ToList();
+            Assert.AreEqual( 10061, instructions.Count );
             Assert.AreEqual( 742, script.JumpLabels.Count );
             //Assert.AreEqual(77521, script.MessageScript);
             Assert.AreEqual( 96, script.Procedures.Count );
-            Assert.AreEqual( FlowScriptOpcode.COMM, script.Instructions[2].Opcode );
-            Assert.AreEqual( 102, script.Instructions[2].Operand.GetInt16Value() );
-            Assert.ThrowsException<InvalidOperationException>( () => script.Instructions[2].Operand.GetInt32Value() );
+            Assert.AreEqual( FlowScriptOpcode.COMM, instructions[2].Opcode );
+            Assert.AreEqual( 102, instructions[2].Operand.GetInt16Value() );
+            Assert.ThrowsException<InvalidOperationException>( () => instructions[2].Operand.GetInt32Value() );
         }
 
         [TestMethod()]
@@ -140,12 +141,12 @@ namespace AtlusScriptLib.Tests
             }
 
             // Compare instructions
-            int binaryOffset = 0;
-            for ( int i = 0; i < script.Instructions.Count; i++ )
+            int binaryIndex = 0;
+            foreach ( var instruction in script.EnumerateInstructions() )
             {
-                Assert.AreEqual( binary.TextSection[i + binaryOffset].Opcode, script.Instructions[i].Opcode );
-                if ( script.Instructions[i].UsesTwoBinaryInstructions )
-                    binaryOffset += 1;
+                Assert.AreEqual( binary.TextSection[binaryIndex++].Opcode, instruction.Opcode );
+                if ( instruction.UsesTwoBinaryInstructions )
+                    ++binaryIndex;
             }
         }
 

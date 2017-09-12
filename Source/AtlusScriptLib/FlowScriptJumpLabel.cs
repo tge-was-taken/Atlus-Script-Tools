@@ -1,9 +1,9 @@
 ﻿namespace AtlusScriptLib
 {
     /// <summary>
-    /// Represents a single named code label in a flow script.
+    /// Represents a single named jump label in a flow script.
     /// </summary>
-    public class FlowScriptLabel
+    public class FlowScriptJumpLabel
     {
         /// <summary>
         /// Gets the name of the label.
@@ -20,7 +20,7 @@
         /// </summary>
         /// <param name="name">The name of the label.</param>
         /// <param name="instructionIndex">The instruction index at which this label is located.</param>
-        public FlowScriptLabel( string name, int instructionIndex )
+        public FlowScriptJumpLabel( string name, int instructionIndex )
         {
             Name = name;
             InstructionIndex = instructionIndex;

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using AtlusScriptLib.BinaryModel;
@@ -105,8 +107,10 @@ namespace AtlusScriptLib
             }
 
             var instructionBinaryIndexToListIndexMap = new Dictionary<int, int>();
+            var instructions = new List<FlowScriptInstruction>();
 
             // assign instructions
+            // TODO: optimize this away later as i don't feel like it right now
             if ( binary.TextSection != null )
             {
                 int instructionIndex = 0;
@@ -141,7 +145,7 @@ namespace AtlusScriptLib
                     }
 
                     // Add to list
-                    instance.mInstructions.Add( instruction );
+                    instructions.Add( instruction );
                     instructionIndex++;
 
                     // Increment the instruction binary index by 2 if the current instruction takes up 2 instructions
@@ -166,7 +170,7 @@ namespace AtlusScriptLib
                 bool isLast = nextLabelIndex == binary.ProcedureLabelSection.Count;
                 if ( isLast )
                 {
-                    count = ( instance.mInstructions.Count - startIndex );
+                    count = ( instructions.Count - startIndex );
                 }
                 else
                 {
@@ -174,11 +178,11 @@ namespace AtlusScriptLib
                     count = ( instructionBinaryIndexToListIndexMap[nextLabel.InstructionIndex] - startIndex );
                 }
 
-                var instructions = new List<FlowScriptInstruction>( count );
+                var procedureInstructions = new List<FlowScriptInstruction>( count );
                 for ( int j = 0; j < count; j++ )
-                    instructions.Add( instance.mInstructions[ startIndex + j ] );
+                    procedureInstructions.Add( instructions[ startIndex + j ] );
 
-                var procedure = new FlowScriptProcedure( label.Name, instructions );
+                var procedure = new FlowScriptProcedure( label.Name, procedureInstructions );
 
                 instance.mProcedures.Add( procedure );
             }
@@ -187,7 +191,7 @@ namespace AtlusScriptLib
             {
                 foreach ( var label in binary.JumpLabelSection )
                 {
-                    instance.mJumpLabels.Add( new FlowScriptLabel( label.Name,
+                    instance.mJumpLabels.Add( new FlowScriptJumpLabel( label.Name,
                         instructionBinaryIndexToListIndexMap[label.InstructionIndex] ) );
                 }
             }
@@ -212,8 +216,7 @@ namespace AtlusScriptLib
 
         private short mUserId;
         private List<FlowScriptProcedure> mProcedures;
-        private List<FlowScriptLabel> mJumpLabels;
-        private List<FlowScriptInstruction> mInstructions;
+        private List<FlowScriptJumpLabel> mJumpLabels;
         private MessageScript mMessageScript;
         private FlowScriptBinaryFormatVersion mFormatVersion;
 
@@ -237,17 +240,9 @@ namespace AtlusScriptLib
         /// <summary>
         /// Gets the jump label list.
         /// </summary>
-        public List<FlowScriptLabel> JumpLabels
+        public List<FlowScriptJumpLabel> JumpLabels
         {
             get { return mJumpLabels; }
-        }
-
-        /// <summary>
-        /// Gets the instruction list.
-        /// </summary>
-        public List<FlowScriptInstruction> Instructions
-        {
-            get { return mInstructions; }
         }
 
         /// <summary>
@@ -274,10 +269,17 @@ namespace AtlusScriptLib
         {
             mUserId = 0;
             mProcedures = new List<FlowScriptProcedure>();
-            mJumpLabels = new List<FlowScriptLabel>();
-            mInstructions = new List<FlowScriptInstruction>();
+            mJumpLabels = new List<FlowScriptJumpLabel>();
             mMessageScript = null;
             mFormatVersion = FlowScriptBinaryFormatVersion.Unknown;
+        }
+
+        /// <summary>
+        /// Initializes an empty flow script.
+        /// </summary>
+        public FlowScript( FlowScriptBinaryFormatVersion version ) : this()
+        {
+            mFormatVersion = version;
         }
 
         /// <summary>
@@ -294,14 +296,16 @@ namespace AtlusScriptLib
 
             // Convert string table before the instructions so we can fix up string instructions later
             // by building an index remap table
+            // TODO: optimize instructions usage
+            var instructions = EnumerateInstructions().ToList();
             var stringIndexToBinaryStringIndexMap = new Dictionary<short, short>();
-            var strings = mInstructions
+            var strings = instructions
                 .Where( x => x.Opcode == FlowScriptOpcode.PUSHSTR )
                 .Select( x => x.Operand.GetStringValue() )
                 .Distinct()
                 .ToList();
 
-            if ( mInstructions.Count > 0 )
+            if ( instructions.Count > 0 )
             {
                 for ( short stringIndex = 0; stringIndex < strings.Count; stringIndex++ )
                 {
@@ -432,5 +436,11 @@ namespace AtlusScriptLib
             var binary = ToBinary();
             binary.ToStream( stream, leaveOpen );
         }
+
+        /// <summary>
+        /// Enumerates over all of the instructions in the script.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<FlowScriptInstruction> EnumerateInstructions() => Procedures.SelectMany( x => x.Instructions );
     }
 }
