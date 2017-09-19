@@ -1,4 +1,4 @@
-﻿namespace AtlusScriptLib.Text.Tokenizing
+﻿namespace AtlusScriptLib.Common.Text.Tokenizing
 {
     public class SourceFileInfo
     {

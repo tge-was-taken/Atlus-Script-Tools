@@ -4,7 +4,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace AtlusScriptLib.IO
+namespace AtlusScriptLib.Common.IO
 {
     public class EndianBinaryWriter : BinaryWriter
     {

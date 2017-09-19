@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace AtlusScriptLib.IO
+namespace AtlusScriptLib.Common.IO
 {
     public enum Endianness
     {

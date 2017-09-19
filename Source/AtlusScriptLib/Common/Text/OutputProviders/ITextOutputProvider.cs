@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AtlusScriptLib.Text.OutputProviders
+namespace AtlusScriptLib.Common.Text.OutputProviders
 {
     public interface ITextOutputProvider : IDisposable
     {

@@ -2,7 +2,8 @@
 using System;
 using System.IO;
 using System.Linq;
-using AtlusScriptLib.BinaryModel;
+using AtlusScriptLib.FlowScriptLanguage.BinaryModel;
+using AtlusScriptLib.FlowScriptLanguage;
 
 namespace AtlusScriptLib.Tests
 {

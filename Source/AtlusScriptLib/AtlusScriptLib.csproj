@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Antlr4.CodeGenerator.4.6.4\build\Antlr4.CodeGenerator.props" Condition="Exists('..\packages\Antlr4.CodeGenerator.4.6.4\build\Antlr4.CodeGenerator.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -11,6 +12,8 @@
     <AssemblyName>AtlusScriptLib</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,6 +35,9 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Antlr4.Runtime, Version=4.6.0.0, Culture=neutral, PublicKeyToken=09abb75b9ed49849, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr4.Runtime.4.6.4\lib\net45\Antlr4.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="MoreLinq, Version=2.0.20029.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
       <HintPath>..\packages\morelinq.2.3.0\lib\net35\MoreLinq.dll</HintPath>
     </Reference>
@@ -60,7 +66,7 @@
     <Compile Include="Common\Text\Encodings\CodePoint.cs" />
     <Compile Include="Common\Text\Encodings\Persona3Encoding.cs" />
     <Compile Include="Common\Text\Encodings\Persona4Encoding.cs" />
-    <Compile Include="Decompilers\MessageScriptDecompiler.cs" />
+    <Compile Include="MessageScriptLanguage\Decompiler\MessageScriptDecompiler.cs" />
     <Compile Include="Common\Text\OutputProviders\FileTextOutputProvider.cs" />
     <Compile Include="Common\Text\OutputProviders\ITextOutputProvider.cs" />
     <Compile Include="Common\Text\OutputProviders\StreamTextOutputProvider.cs" />
@@ -69,52 +75,53 @@
     <Compile Include="Common\Text\OutputProviders\StringTextOutputProvider.cs" />
     <Compile Include="Common\Text\OutputProviders\TextWriterTextOutputProvider.cs" />
     <Compile Include="Common\Text\Encodings\Persona5Encoding.cs" />
-    <Compile Include="BinaryModel\FlowScriptBinary.cs" />
-    <Compile Include="BinaryModel\FlowScriptBinaryBuilder.cs" />
-    <Compile Include="BinaryModel\IO\FlowScriptBinaryReader.cs" />
-    <Compile Include="BinaryModel\IO\FlowScriptBinaryWriter.cs" />
-    <Compile Include="FlowScriptInstruction.cs" />
-    <Compile Include="FlowScriptJumpLabel.cs" />
-    <Compile Include="FlowScriptEnums.cs" />
-    <Compile Include="FlowScriptProcedure.cs" />
-    <Compile Include="FunctionTables\FunctionTable.cs" />
-    <Compile Include="FunctionTables\FunctionTableEntry.cs" />
-    <Compile Include="FunctionTables\FunctionTableParser.cs" />
-    <Compile Include="FunctionTables\IFunctionTable.cs" />
-    <Compile Include="FunctionTables\P5FunctionTable.cs" />
-    <Compile Include="Decompilers\FlowScriptDecompiler.cs" />
-    <Compile Include="FlowScript.cs" />
-    <Compile Include="IMessageScriptLineToken.cs" />
+    <Compile Include="FlowScriptLanguage\BinaryModel\FlowScriptBinary.cs" />
+    <Compile Include="FlowScriptLanguage\BinaryModel\FlowScriptBinaryBuilder.cs" />
+    <Compile Include="FlowScriptLanguage\BinaryModel\IO\FlowScriptBinaryReader.cs" />
+    <Compile Include="FlowScriptLanguage\BinaryModel\IO\FlowScriptBinaryWriter.cs" />
+    <Compile Include="FlowScriptLanguage\FlowScriptBuilder.cs" />
+    <Compile Include="FlowScriptLanguage\FlowScriptInstruction.cs" />
+    <Compile Include="FlowScriptLanguage\FlowScriptLabel.cs" />
+    <Compile Include="FlowScriptLanguage\FlowScriptEnums.cs" />
+    <Compile Include="FlowScriptLanguage\FlowScriptProcedure.cs" />
+    <Compile Include="FlowScriptLanguage\FunctionTables\FunctionTable.cs" />
+    <Compile Include="FlowScriptLanguage\FunctionTables\FunctionTableEntry.cs" />
+    <Compile Include="FlowScriptLanguage\FunctionTables\FunctionTableParser.cs" />
+    <Compile Include="FlowScriptLanguage\FunctionTables\IFunctionTable.cs" />
+    <Compile Include="FlowScriptLanguage\FunctionTables\P5FunctionTable.cs" />
+    <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptDecompiler.cs" />
+    <Compile Include="FlowScriptLanguage\FlowScript.cs" />
+    <Compile Include="MessageScriptLanguage\IMessageScriptLineToken.cs" />
     <Compile Include="Common\IO\EndianBinaryReader.cs" />
     <Compile Include="Common\IO\EndianBinaryWriter.cs" />
     <Compile Include="Common\IO\Endianness.cs" />
-    <Compile Include="BinaryModel\OffsetTo.cs" />
+    <Compile Include="Common\IO\OffsetTo.cs" />
     <Compile Include="Common\IO\StringBinaryFormat.cs" />
     <Compile Include="Common\IO\Unsafe.cs" />
-    <Compile Include="IMessageScriptSpeaker.cs" />
-    <Compile Include="MessageScript.cs" />
-    <Compile Include="BinaryModel\MessageScriptBinaryBuilder.cs" />
-    <Compile Include="BinaryModel\IO\MessageScriptBinaryReader.cs" />
-    <Compile Include="BinaryModel\IO\MessageScriptBinaryWriter.cs" />
-    <Compile Include="IMessageScriptMessage.cs" />
-    <Compile Include="MessageScriptCodePointToken.cs" />
-    <Compile Include="MessageScriptDialogueWindow.cs" />
-    <Compile Include="MessageScriptFunctionToken.cs" />
-    <Compile Include="MessageScriptLine.cs" />
-    <Compile Include="MessageScriptEnums.cs" />
-    <Compile Include="MessageScriptLineBuilder.cs" />
-    <Compile Include="MessageScriptNamedSpeaker.cs" />
-    <Compile Include="MessageScriptNewLineToken.cs" />
-    <Compile Include="MessageScriptSelectionWindow.cs" />
-    <Compile Include="MessageScriptTextToken.cs" />
-    <Compile Include="MessageScriptVariableSpeaker.cs" />
-    <Compile Include="Parsers\FlowScriptBinarySyntaxParser.cs" />
-    <Compile Include="Disassemblers\FlowScriptBinaryDisassembler.cs" />
-    <Compile Include="BinaryModel\FlowScriptBinaryEnums.cs" />
-    <Compile Include="BinaryModel\FlowScriptBinaryStructs.cs" />
-    <Compile Include="BinaryModel\MessageScriptBinary.cs" />
-    <Compile Include="BinaryModel\MessageScriptBinaryEnums.cs" />
-    <Compile Include="BinaryModel\MessageScriptBinaryStructs.cs" />
+    <Compile Include="MessageScriptLanguage\IMessageScriptSpeaker.cs" />
+    <Compile Include="MessageScriptLanguage\MessageScript.cs" />
+    <Compile Include="MessageScriptLanguage\BinaryModel\MessageScriptBinaryBuilder.cs" />
+    <Compile Include="MessageScriptLanguage\BinaryModel\IO\MessageScriptBinaryReader.cs" />
+    <Compile Include="MessageScriptLanguage\BinaryModel\IO\MessageScriptBinaryWriter.cs" />
+    <Compile Include="MessageScriptLanguage\IMessageScriptMessage.cs" />
+    <Compile Include="MessageScriptLanguage\MessageScriptCodePointToken.cs" />
+    <Compile Include="MessageScriptLanguage\MessageScriptDialogWindow.cs" />
+    <Compile Include="MessageScriptLanguage\MessageScriptFunctionToken.cs" />
+    <Compile Include="MessageScriptLanguage\MessageScriptLine.cs" />
+    <Compile Include="MessageScriptLanguage\MessageScriptEnums.cs" />
+    <Compile Include="MessageScriptLanguage\MessageScriptLineBuilder.cs" />
+    <Compile Include="MessageScriptLanguage\MessageScriptNamedSpeaker.cs" />
+    <Compile Include="MessageScriptLanguage\MessageScriptNewLineToken.cs" />
+    <Compile Include="MessageScriptLanguage\MessageScriptSelectionWindow.cs" />
+    <Compile Include="MessageScriptLanguage\MessageScriptTextToken.cs" />
+    <Compile Include="MessageScriptLanguage\MessageScriptVariableSpeaker.cs" />
+    <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptBinarySyntaxParser.cs" />
+    <Compile Include="FlowScriptLanguage\Disassembler\FlowScriptBinaryDisassembler.cs" />
+    <Compile Include="FlowScriptLanguage\BinaryModel\FlowScriptBinaryEnums.cs" />
+    <Compile Include="FlowScriptLanguage\BinaryModel\FlowScriptBinaryStructs.cs" />
+    <Compile Include="MessageScriptLanguage\BinaryModel\MessageScriptBinary.cs" />
+    <Compile Include="MessageScriptLanguage\BinaryModel\MessageScriptBinaryEnums.cs" />
+    <Compile Include="MessageScriptLanguage\BinaryModel\MessageScriptBinaryStructs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\Syntax\BinaryExpressions.cs" />
     <Compile Include="Common\Syntax\ConstantExpressions.cs" />
@@ -129,7 +136,7 @@
     <Compile Include="Common\Syntax\SyntaxTree.cs" />
     <Compile Include="Common\Syntax\UnaryExpressions.cs" />
     <Compile Include="Common\Syntax\VariableDeclarations.cs" />
-    <Compile Include="BinaryModel\IO\RelocationTableEncoding.cs" />
+    <Compile Include="MessageScriptLanguage\BinaryModel\IO\RelocationTableEncoding.cs" />
     <Compile Include="Common\Text\Tokenizing\SourceInfo.cs" />
     <Compile Include="Common\Text\Tokenizing\Tokenizer.cs" />
   </ItemGroup>
@@ -137,10 +144,20 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FunctionTables\p5table.txt">
+    <Content Include="FlowScriptLanguage\FunctionTables\p5table.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="FlowScriptLanguage\Compiler\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Antlr4.CodeGenerator.4.6.4\build\Antlr4.CodeGenerator.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Antlr4.CodeGenerator.4.6.4\build\Antlr4.CodeGenerator.props'))" />
+    <Error Condition="!Exists('..\packages\Antlr4.CodeGenerator.4.6.4\build\Antlr4.CodeGenerator.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Antlr4.CodeGenerator.4.6.4\build\Antlr4.CodeGenerator.targets'))" />
+  </Target>
+  <Import Project="..\packages\Antlr4.CodeGenerator.4.6.4\build\Antlr4.CodeGenerator.targets" Condition="Exists('..\packages\Antlr4.CodeGenerator.4.6.4\build\Antlr4.CodeGenerator.targets')" />
 </Project>

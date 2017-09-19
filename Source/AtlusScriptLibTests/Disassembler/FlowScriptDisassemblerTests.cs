@@ -3,8 +3,9 @@ using System.IO;
 using System.Text;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using AtlusScriptLib.Disassemblers;
-using AtlusScriptLib.BinaryModel;
+using AtlusScriptLib.FlowScriptLanguage.BinaryModel;
+using AtlusScriptLib.FlowScriptLanguage.Disassembler;
+using AtlusScriptLib.FlowScriptLanguage;
 
 namespace AtlusScriptLib.Disassembler.Tests
 {

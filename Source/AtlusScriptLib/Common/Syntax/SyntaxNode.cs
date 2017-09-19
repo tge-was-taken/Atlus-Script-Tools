@@ -1,5 +1,5 @@
 ﻿
-using AtlusScriptLib.Text.Tokenizing;
+using AtlusScriptLib.Common.Text.Tokenizing;
 
 namespace AtlusScriptLib.Common.Syntax
 {

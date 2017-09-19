@@ -7,9 +7,10 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using AtlusScriptLib;
-using AtlusScriptLib.BinaryModel;
 using AtlusScriptLib.Common.IO;
+using AtlusScriptLib.FlowScriptLanguage.BinaryModel;
+using AtlusScriptLib.MessageScriptLanguage;
+using AtlusScriptLib.MessageScriptLanguage.BinaryModel;
 
 namespace AtlusMessageScriptExtractor
 {

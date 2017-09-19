@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AtlusScriptLib.IO
+namespace AtlusScriptLib.Common.IO
 {
     public static unsafe class Unsafe
     {

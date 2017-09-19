@@ -2,6 +2,8 @@
 using System.IO;
 using System;
 using AtlusScriptLib.BinaryModel;
+using AtlusScriptLib.MessageScriptLanguage.BinaryModel;
+using AtlusScriptLib.MessageScriptLanguage;
 
 namespace AtlusScriptLib.Tests
 {

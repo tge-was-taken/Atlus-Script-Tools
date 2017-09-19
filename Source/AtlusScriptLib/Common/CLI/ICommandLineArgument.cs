@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AtlusScriptLib.CLI
+namespace AtlusScriptLib.Common.CLI
 {
     public interface ICommandLineArgument
     {

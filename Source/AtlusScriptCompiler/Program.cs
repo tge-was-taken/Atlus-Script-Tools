@@ -2,12 +2,13 @@
 using System.Diagnostics;
 using System;
 using System.Threading;
-using AtlusScriptLib.Disassemblers;
-using AtlusScriptLib;
-using AtlusScriptLib.Decompilers;
-using AtlusScriptLib.Text.OutputProviders;
-using AtlusScriptLib.CLI;
-using AtlusScriptLib.BinaryModel;
+using AtlusScriptLib.Common.Text.OutputProviders;
+using AtlusScriptLib.Common.CLI;
+using AtlusScriptLib.MessageScriptLanguage.Decompiler;
+using AtlusScriptLib.FlowScriptLanguage.Decompiler;
+using AtlusScriptLib.FlowScriptLanguage.BinaryModel;
+using AtlusScriptLib.FlowScriptLanguage.Disassembler;
+using AtlusScriptLib.MessageScriptLanguage;
 
 namespace AtlusScriptCompiler
 {

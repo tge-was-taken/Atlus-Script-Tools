@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AtlusScriptLib.Common.Reflection;
 
-namespace AtlusScriptLib.CLI
+namespace AtlusScriptLib.Common.CLI
 {
     public class CommandLineArgument<TValue> : ICommandLineArgument
         where TValue : IConvertible

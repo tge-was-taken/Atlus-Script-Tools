@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace AtlusScriptLib.Text.OutputProviders
+namespace AtlusScriptLib.Common.Text.OutputProviders
 {
     public class StringBuilderTextOutputProvider : ITextOutputProvider
     {

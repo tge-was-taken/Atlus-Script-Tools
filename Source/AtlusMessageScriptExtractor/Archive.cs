@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using AtlusScriptLib.Common.IO;
-using AtlusScriptLib.IO;
 
 namespace AtlusMessageScriptExtractor
 {

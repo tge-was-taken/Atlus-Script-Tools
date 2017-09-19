@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 
-namespace AtlusScriptLib.CLI
+namespace AtlusScriptLib.Common.CLI
 {
     public sealed class CommandLineArgumentParser
     {

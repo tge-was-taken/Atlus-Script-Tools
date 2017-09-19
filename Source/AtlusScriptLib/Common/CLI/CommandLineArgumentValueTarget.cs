@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace AtlusScriptLib.CLI
+namespace AtlusScriptLib.Common.CLI
 {
     public class CommandLineArgumentValueTarget
     {

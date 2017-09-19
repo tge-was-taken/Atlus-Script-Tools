@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
-using AtlusScriptLib.Text.Tokenizing;
+using AtlusScriptLib.Common.Text.Tokenizing;
 
 namespace AtlusScriptLib.Common.Tokenizing.Tests
 {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace AtlusScriptLib.Text.Tokenizing
+namespace AtlusScriptLib.Common.Text.Tokenizing
 {
     public struct Token
     {

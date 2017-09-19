@@ -1,4 +1,7 @@
 ﻿using AtlusScriptLib.BinaryModel;
+using AtlusScriptLib.FlowScriptLanguage.BinaryModel;
+using AtlusScriptLib.FlowScriptLanguage.Decompiler;
+using AtlusScriptLib.FlowScriptLanguage.FunctionTables;
 using AtlusScriptLib.FunctionTables;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

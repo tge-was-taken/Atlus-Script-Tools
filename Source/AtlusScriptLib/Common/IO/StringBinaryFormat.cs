@@ -1,4 +1,4 @@
-﻿namespace AtlusScriptLib.IO
+﻿namespace AtlusScriptLib.Common.IO
 {
     public enum StringBinaryFormat
     {
