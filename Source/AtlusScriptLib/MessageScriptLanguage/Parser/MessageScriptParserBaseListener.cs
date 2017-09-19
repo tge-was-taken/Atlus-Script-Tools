@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from D:\Users\smart\Documents\visual studio 2017\Projects\AntlrTest\AntlrTest\MessageScriptParser.g4 by ANTLR 4.6.4
+// Generated from D:\Users\smart\Documents\Visual Studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptLib\MessageScriptLanguage\Parser\MessageScriptParser.g4 by ANTLR 4.6.4
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -19,6 +19,7 @@
 // Ambiguous reference in cref attribute
 #pragma warning disable 419
 
+namespace AtlusScriptLib.MessageScriptLanguage.Parser {
 
 using Antlr4.Runtime.Misc;
 using IErrorNode = Antlr4.Runtime.Tree.IErrorNode;
@@ -74,6 +75,19 @@ public partial class MessageScriptParserBaseListener : IMessageScriptParserListe
 	public virtual void ExitDialogWindow([NotNull] MessageScriptParser.DialogWindowContext context) { }
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="MessageScriptParser.dialogWindowSpeakerName"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDialogWindowSpeakerName([NotNull] MessageScriptParser.DialogWindowSpeakerNameContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MessageScriptParser.dialogWindowSpeakerName"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDialogWindowSpeakerName([NotNull] MessageScriptParser.DialogWindowSpeakerNameContext context) { }
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="MessageScriptParser.selectionWindow"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -87,17 +101,17 @@ public partial class MessageScriptParserBaseListener : IMessageScriptParserListe
 	public virtual void ExitSelectionWindow([NotNull] MessageScriptParser.SelectionWindowContext context) { }
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="MessageScriptParser.content"/>.
+	/// Enter a parse tree produced by <see cref="MessageScriptParser.tagText"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterContent([NotNull] MessageScriptParser.ContentContext context) { }
+	public virtual void EnterTagText([NotNull] MessageScriptParser.TagTextContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="MessageScriptParser.content"/>.
+	/// Exit a parse tree produced by <see cref="MessageScriptParser.tagText"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitContent([NotNull] MessageScriptParser.ContentContext context) { }
+	public virtual void ExitTagText([NotNull] MessageScriptParser.TagTextContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="MessageScriptParser.tag"/>.
@@ -125,3 +139,4 @@ public partial class MessageScriptParserBaseListener : IMessageScriptParserListe
 	/// <remarks>The default implementation does nothing.</remarks>
 	public virtual void VisitErrorNode([NotNull] IErrorNode node) { }
 }
+} // namespace AtlusScriptLib.MessageScriptLanguage.Parser

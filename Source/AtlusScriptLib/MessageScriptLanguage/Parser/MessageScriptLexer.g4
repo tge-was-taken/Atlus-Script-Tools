@@ -37,11 +37,14 @@ OpenText
 	: '[' -> popMode;  // open tag is used for inline text
 
 // Literals
-TagId
-	: Letter+;
 
-TagIntArgument
+// This must come before identifier, otherwise some integers 
+// will get mistaken for an identifier
+IntLiteral
 	: ( DecIntLiteral | HexIntLiteral );
+
+Identifier
+	: ( Letter | Digit | '_' )+;
 
 fragment
 DecIntLiteral

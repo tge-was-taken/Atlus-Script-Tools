@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from D:\Users\smart\Documents\visual studio 2017\Projects\AntlrTest\AntlrTest\MessageScriptParser.g4 by ANTLR 4.6.4
+// Generated from D:\Users\smart\Documents\Visual Studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptLib\MessageScriptLanguage\Parser\MessageScriptParser.g4 by ANTLR 4.6.4
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -19,6 +19,7 @@
 // Ambiguous reference in cref attribute
 #pragma warning disable 419
 
+namespace AtlusScriptLib.MessageScriptLanguage.Parser {
 using Antlr4.Runtime.Misc;
 using Antlr4.Runtime.Tree;
 using IToken = Antlr4.Runtime.IToken;
@@ -53,6 +54,13 @@ public interface IMessageScriptParserVisitor<Result> : IParseTreeVisitor<Result>
 	Result VisitDialogWindow([NotNull] MessageScriptParser.DialogWindowContext context);
 
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="MessageScriptParser.dialogWindowSpeakerName"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitDialogWindowSpeakerName([NotNull] MessageScriptParser.DialogWindowSpeakerNameContext context);
+
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="MessageScriptParser.selectionWindow"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -60,11 +68,11 @@ public interface IMessageScriptParserVisitor<Result> : IParseTreeVisitor<Result>
 	Result VisitSelectionWindow([NotNull] MessageScriptParser.SelectionWindowContext context);
 
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="MessageScriptParser.content"/>.
+	/// Visit a parse tree produced by <see cref="MessageScriptParser.tagText"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitContent([NotNull] MessageScriptParser.ContentContext context);
+	Result VisitTagText([NotNull] MessageScriptParser.TagTextContext context);
 
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="MessageScriptParser.tag"/>.
@@ -73,3 +81,4 @@ public interface IMessageScriptParserVisitor<Result> : IParseTreeVisitor<Result>
 	/// <return>The visitor result.</return>
 	Result VisitTag([NotNull] MessageScriptParser.TagContext context);
 }
+} // namespace AtlusScriptLib.MessageScriptLanguage.Parser

@@ -61,6 +61,7 @@
     <Compile Include="FlowScriptTests.cs" />
     <Compile Include="FunctionTables\FunctionTableParserTests.cs" />
     <Compile Include="BinaryModel\MessageScriptBinaryTests.cs" />
+    <Compile Include="MessageScriptLanguage\Compiler\MessageScriptCompilerTests.cs" />
     <Compile Include="MessageScriptTests.cs" />
     <Compile Include="Parsers\FlowScriptBinarySyntaxParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

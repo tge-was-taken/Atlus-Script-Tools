@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from D:\Users\smart\Documents\visual studio 2017\Projects\AntlrTest\AntlrTest\MessageScriptParser.g4 by ANTLR 4.6.4
+// Generated from D:\Users\smart\Documents\Visual Studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptLib\MessageScriptLanguage\Parser\MessageScriptParser.g4 by ANTLR 4.6.4
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -19,6 +19,7 @@
 // Ambiguous reference in cref attribute
 #pragma warning disable 419
 
+namespace AtlusScriptLib.MessageScriptLanguage.Parser {
 using Antlr4.Runtime.Misc;
 using Antlr4.Runtime.Tree;
 using IToken = Antlr4.Runtime.IToken;
@@ -67,6 +68,17 @@ public partial class MessageScriptParserBaseVisitor<Result> : AbstractParseTreeV
 	public virtual Result VisitDialogWindow([NotNull] MessageScriptParser.DialogWindowContext context) { return VisitChildren(context); }
 
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="MessageScriptParser.dialogWindowSpeakerName"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitDialogWindowSpeakerName([NotNull] MessageScriptParser.DialogWindowSpeakerNameContext context) { return VisitChildren(context); }
+
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="MessageScriptParser.selectionWindow"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
@@ -78,7 +90,7 @@ public partial class MessageScriptParserBaseVisitor<Result> : AbstractParseTreeV
 	public virtual Result VisitSelectionWindow([NotNull] MessageScriptParser.SelectionWindowContext context) { return VisitChildren(context); }
 
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="MessageScriptParser.content"/>.
+	/// Visit a parse tree produced by <see cref="MessageScriptParser.tagText"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -86,7 +98,7 @@ public partial class MessageScriptParserBaseVisitor<Result> : AbstractParseTreeV
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitContent([NotNull] MessageScriptParser.ContentContext context) { return VisitChildren(context); }
+	public virtual Result VisitTagText([NotNull] MessageScriptParser.TagTextContext context) { return VisitChildren(context); }
 
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="MessageScriptParser.tag"/>.
@@ -99,3 +111,4 @@ public partial class MessageScriptParserBaseVisitor<Result> : AbstractParseTreeV
 	/// <return>The visitor result.</return>
 	public virtual Result VisitTag([NotNull] MessageScriptParser.TagContext context) { return VisitChildren(context); }
 }
+} // namespace AtlusScriptLib.MessageScriptLanguage.Parser

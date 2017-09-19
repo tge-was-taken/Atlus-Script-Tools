@@ -19,18 +19,24 @@ messageWindow
 	: dialogWindow | selectionWindow
 	;
 
+	// [ dlg DialogName [SpeakerName] ] text...
 dialogWindow
-	: OpenCode MessageDialogTagId OpenText content CloseText ( OpenText content CloseText )? CloseCode content
+	: OpenCode MessageDialogTagId Identifier dialogWindowSpeakerName? CloseCode tagText
 	;
 
+dialogWindowSpeakerName
+	: OpenText tagText CloseText
+	;
+
+	// [ sel SelectionName ] text...
 selectionWindow
-	: OpenCode SelectionDialogTagId OpenText content CloseText CloseCode content
+	: OpenCode SelectionDialogTagId Identifier CloseCode tagText
 	;
 
-content
+tagText
 	: ( tag | Text )*
 	;
 
 tag
-	: OpenCode TagId TagIntArgument* CloseCode
+	: OpenCode Identifier IntLiteral* CloseCode
 	;

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from D:\Users\smart\Documents\visual studio 2017\Projects\AntlrTest\AntlrTest\MessageScriptParser.g4 by ANTLR 4.6.4
+// Generated from D:\Users\smart\Documents\Visual Studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptLib\MessageScriptLanguage\Parser\MessageScriptParser.g4 by ANTLR 4.6.4
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -19,6 +19,7 @@
 // Ambiguous reference in cref attribute
 #pragma warning disable 419
 
+namespace AtlusScriptLib.MessageScriptLanguage.Parser {
 using Antlr4.Runtime.Misc;
 using IParseTreeListener = Antlr4.Runtime.Tree.IParseTreeListener;
 using IToken = Antlr4.Runtime.IToken;
@@ -64,6 +65,17 @@ public interface IMessageScriptParserListener : IParseTreeListener {
 	void ExitDialogWindow([NotNull] MessageScriptParser.DialogWindowContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="MessageScriptParser.dialogWindowSpeakerName"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterDialogWindowSpeakerName([NotNull] MessageScriptParser.DialogWindowSpeakerNameContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MessageScriptParser.dialogWindowSpeakerName"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitDialogWindowSpeakerName([NotNull] MessageScriptParser.DialogWindowSpeakerNameContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="MessageScriptParser.selectionWindow"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -75,15 +87,15 @@ public interface IMessageScriptParserListener : IParseTreeListener {
 	void ExitSelectionWindow([NotNull] MessageScriptParser.SelectionWindowContext context);
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="MessageScriptParser.content"/>.
+	/// Enter a parse tree produced by <see cref="MessageScriptParser.tagText"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterContent([NotNull] MessageScriptParser.ContentContext context);
+	void EnterTagText([NotNull] MessageScriptParser.TagTextContext context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="MessageScriptParser.content"/>.
+	/// Exit a parse tree produced by <see cref="MessageScriptParser.tagText"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitContent([NotNull] MessageScriptParser.ContentContext context);
+	void ExitTagText([NotNull] MessageScriptParser.TagTextContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="MessageScriptParser.tag"/>.
@@ -96,3 +108,4 @@ public interface IMessageScriptParserListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitTag([NotNull] MessageScriptParser.TagContext context);
 }
+} // namespace AtlusScriptLib.MessageScriptLanguage.Parser
