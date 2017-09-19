@@ -1,0 +1,12 @@
+OpenCode=1
+CloseText=2
+Text=3
+MessageDialogTagId=4
+SelectionDialogTagId=5
+CloseCode=6
+OpenText=7
+TagId=8
+TagIntArgument=9
+Whitespace=10
+'dlg'=4
+'sel'=5
