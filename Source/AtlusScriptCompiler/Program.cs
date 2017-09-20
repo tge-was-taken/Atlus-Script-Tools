@@ -45,7 +45,7 @@ namespace AtlusScriptCompiler
         {
             Console.WriteLine( $"AtlusScriptCompiler {Version.Major}.{Version.Minor} by TGE (2017)" );
             Console.WriteLine( "" );
-            Console.WriteLine( "Argument info:" );
+            Console.WriteLine( "Argument overview:" );
             Console.WriteLine( "    -i <path to file>       Provides an input file source to the compiler. If no input source is explicitly specified, the first argument will be assumed to be one." );
             Console.WriteLine( "    -o <path to file>       Provides an output file path to the compiler. If no output source is explicitly specified, the file will be output in the same folder as the source file under a different extension." );
             Console.WriteLine( "    -com                    Instructs the compiler to compile the provided input file source." );
@@ -55,7 +55,7 @@ namespace AtlusScriptCompiler
             Console.WriteLine( "    -outfmt <format string> Specifies the output file format. See below for further info." );
             Console.WriteLine( "    -outenc <format string> Specifies the output text encoding. See below for further info." );
             Console.WriteLine( "" );
-            Console.WriteLine( "Parameter detailed info:" );
+            Console.WriteLine( "Argument detailed info:" );
             Console.WriteLine( "    -outfmt" );
             Console.WriteLine( "" );
             Console.WriteLine( "        MessageScript formats:" );
