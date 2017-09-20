@@ -14,6 +14,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel
 
         // optional
         private short mUserId;
+        private Encoding mEncoding;
         private List<Tuple<MessageScriptBinaryWindowType, object>> mWindows;
 
         // temporary storage
@@ -32,6 +33,11 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel
         public void SetUserId( short value )
         {
             mUserId = value;
+        }
+
+        internal void SetEncoding( Encoding encoding )
+        {
+            mEncoding = encoding;
         }
 
         public void AddWindow( MessageScriptDialogWindow message )
@@ -201,8 +207,11 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel
 
         private void ProcessTextToken( MessageScriptTextToken token, List<byte> bytes )
         {
-            // a text token is a simple 7 bit ascii character
-            var textBytes = Encoding.ASCII.GetBytes( token.Text );
+            byte[] textBytes;
+            if ( mEncoding != null )
+                textBytes = mEncoding.GetBytes( token.Text );
+            else
+                textBytes = Encoding.ASCII.GetBytes( token.Text );
 
             // simple add to the list of bytes
             bytes.AddRange( textBytes );

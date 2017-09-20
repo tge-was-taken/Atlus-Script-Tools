@@ -57,8 +57,9 @@ namespace AtlusScriptLib.MessageScriptLanguage.Decompiler
                             WriteOpenTag( "dlg" );
                             WriteTagArgument( message.Identifier );
                             {
+                                mOutput.Write( " " );
                                 WriteOpenTag();
-                                WriteTagArgument( ( ( MessageScriptNamedSpeaker )message.Speaker ).Name );
+                                Decompile( ( ( MessageScriptNamedSpeaker )message.Speaker ).Name, false );
                                 WriteCloseTag();
                             }
                             WriteCloseTag();
@@ -70,8 +71,9 @@ namespace AtlusScriptLib.MessageScriptLanguage.Decompiler
                             WriteOpenTag( "dlg" );
                             WriteTagArgument( message.Identifier );
                             {
+                                mOutput.Write( " " );
                                 WriteOpenTag();
-                                WriteTagArgument( ( ( MessageScriptVariableSpeaker )message.Speaker ).Index.ToString() );
+                                mOutput.Write( ( ( MessageScriptVariableSpeaker )message.Speaker ).Index.ToString() );
                                 WriteCloseTag();
                             }
                             WriteCloseTag();

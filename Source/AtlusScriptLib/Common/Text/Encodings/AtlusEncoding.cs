@@ -86,7 +86,13 @@ namespace AtlusScriptLib.Common.Text.Encodings
 
         public override int GetChars( byte[] bytes, int byteIndex, int byteCount, char[] chars, int charIndex )
         {
+            return GetCharsImpl( bytes, byteIndex, byteCount, chars, charIndex, out _ );
+        }
+
+        private int GetCharsImpl( byte[] bytes, int byteIndex, int byteCount, char[] chars, int charIndex, out bool hasUndefinedChars )
+        {
             int charCount = 0;
+            hasUndefinedChars = false;
 
             for ( ; byteIndex < byteCount; byteIndex++ )
             {
@@ -102,7 +108,11 @@ namespace AtlusScriptLib.Common.Text.Encodings
 
                 cp.LowSurrogate = bytes[byteIndex];
 
-                chars[charIndex++] = sCodePointToChar[cp];
+                var c = sCodePointToChar[cp];
+                if ( c == '\0' )
+                    hasUndefinedChars = true;
+
+                chars[charIndex++] = c;
                 charCount++;
             }
 
@@ -117,6 +127,21 @@ namespace AtlusScriptLib.Common.Text.Encodings
         public override int GetMaxCharCount( int byteCount )
         {
             return byteCount;
+        }
+
+        public bool TryGetString( byte[] bytes, out string value )
+        {
+            var chars = new char[GetMaxCharCount( bytes.Length )];
+            GetCharsImpl( bytes, 0, bytes.Length, chars, 0, out bool hasUndefinedChars );
+
+            if ( hasUndefinedChars )
+            {
+                value = null;
+                return false;
+            }
+
+            value = new string( chars );
+            return true;
         }
 
         protected abstract char[] CharTable { get; }

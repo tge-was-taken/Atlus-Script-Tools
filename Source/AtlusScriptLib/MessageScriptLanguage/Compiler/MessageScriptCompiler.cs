@@ -4,11 +4,11 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
-
 using AtlusScriptLib.Common.Logging;
 using AtlusScriptLib.MessageScriptLanguage.Parser;
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
+using System.Text;
 
 namespace AtlusScriptLib.MessageScriptLanguage.Compiler
 {
@@ -22,16 +22,18 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
     {
         private Logger mLogger;
         private MessageScriptFormatVersion mVersion;
-
+        private Encoding mEncoding;
 
 
         /// <summary>
         /// Constructs a new instance of <see cref="MessageScriptCompiler"/> which will compile to the specified format.
         /// </summary>
         /// <param name="version">The version of the format to compile the output to.</param>
-        public MessageScriptCompiler( MessageScriptFormatVersion version )
+        /// <param name="encoding">The encoding to use for non-ASCII characters. If not specified, non-ASCII characters will be ignored unless they are stored as [x XX YY] tags.</param>
+        public MessageScriptCompiler( MessageScriptFormatVersion version, Encoding encoding = null )
         {
             mVersion = version;
+            mEncoding = encoding;
             mLogger = new Logger( nameof( MessageScriptCompiler ) );
             LoggerManager.RegisterLogger( mLogger );
         }
@@ -143,7 +145,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
                 return false;
             }
 
-            script = new MessageScript( mVersion );
+            script = new MessageScript( mVersion, mEncoding );
 
             foreach ( var messageWindowContext in messageWindowContexts )
             {

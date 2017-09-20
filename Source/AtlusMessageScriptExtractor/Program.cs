@@ -247,7 +247,7 @@ namespace AtlusMessageScriptExtractor
             // Check if it is a plain message script file
             if ( fileExtension.Equals( ".bmd", StringComparison.InvariantCultureIgnoreCase ) )
             {
-                script = MessageScript.FromStream( stream, true );
+                script = MessageScript.FromStream( stream, null, true );
             }
             // Check if it is a flow script file that can maybe contain a message script
             else if ( fileExtension.Equals( ".bf", StringComparison.InvariantCultureIgnoreCase ) )

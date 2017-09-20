@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using AtlusScriptLib.Common.Logging;
+using AtlusScriptLib.Common.Text.Encodings;
 using AtlusScriptLib.Common.Text.OutputProviders;
 using AtlusScriptLib.FlowScriptLanguage.BinaryModel;
 using AtlusScriptLib.FlowScriptLanguage.Disassembler;
@@ -37,6 +39,8 @@ namespace AtlusScriptCompiler
 
         public static OutputFileFormat OutputFileFormat;
 
+        public static OutputTextEncoding OutputTextEncoding;
+
         private static void DisplayUsage()
         {
             Console.WriteLine( $"AtlusScriptCompiler {Version.Major}.{Version.Minor} by TGE (2017)" );
@@ -49,6 +53,7 @@ namespace AtlusScriptCompiler
             Console.WriteLine( "    -dis                    Instructs the compiler to disassemble the provided input file source." );
             Console.WriteLine( "    -infmt <format string>  Specifies the input file source format. By default this is guessed by the file extension." );
             Console.WriteLine( "    -outfmt <format string> Specifies the output file format. See below for further info." );
+            Console.WriteLine( "    -outenc <format string> Specifies the output text encoding. See below for further info." );
             Console.WriteLine( "" );
             Console.WriteLine( "Parameter detailed info:" );
             Console.WriteLine( "    -outfmt" );
@@ -64,6 +69,15 @@ namespace AtlusScriptCompiler
             Console.WriteLine( "            v2be            " );
             Console.WriteLine( "            v3              Used by Persona 5 PS4" );
             Console.WriteLine( "            v3be            Used by Persona 5 PS3" );
+            Console.WriteLine();
+            Console.WriteLine( "    -outenc" );
+            Console.WriteLine( "        Below is a list of different available encodings.");
+            Console.WriteLine( "        Note that ASCII characters don't really differ from the standard, so this mostly applies to special characters and japanese characters.");
+            Console.WriteLine();
+            Console.WriteLine( "        sj                  Shift-Jis encoding (CP932). Used by Persona Q" );
+            Console.WriteLine( "        p3                  Persona 3's custom encoding" );
+            Console.WriteLine( "        p4                  Persona 4's custom encoding" );
+            Console.WriteLine( "        p5                  Persona 5's custom encoding" );
             Console.ReadKey();
         }
 
@@ -213,6 +227,23 @@ namespace AtlusScriptCompiler
                         }
 
                         break;
+
+                    case "-outenc":
+                        if ( i + 1 == args.Length )
+                        {
+                            Logger.Error( "Missing argument for -outenc parameter" );
+                            return false;
+                        }
+
+                        if ( !Enum.TryParse( args[++i], true, out OutputTextEncoding ) )
+                        {
+                            Logger.Error( "Invalid output file encoding specified" );
+                            return false;
+                        }
+
+                        Logger.Info( $"Using {OutputTextEncoding} encoding" );
+
+                        break;
                 }
             }
 
@@ -351,7 +382,8 @@ namespace AtlusScriptCompiler
                 return false;
             }
 
-            var compiler = new MessageScriptCompiler( version );
+            var encoding = GetEncoding();
+            var compiler = new MessageScriptCompiler( version, encoding );
             compiler.AddListener( Listener );
             if ( !compiler.TryCompile( File.OpenText( InputFilePath ), out var script ) )
             {
@@ -400,8 +432,9 @@ namespace AtlusScriptCompiler
             // load binary file
             Logger.Info( "Loading binary MessageScript file..." );
             MessageScript script = null;
+            var encoding = GetEncoding();
 
-            if ( !TryPerformAction( "Failed to load message script from file.", () => script = MessageScript.FromFile( InputFilePath ) ) )
+            if ( !TryPerformAction( "Failed to load message script from file.", () => script = MessageScript.FromFile( InputFilePath, encoding ) ) )
                 return false;
 
             Logger.Info( "Decompiling MessageScript..." );
@@ -494,7 +527,31 @@ namespace AtlusScriptCompiler
                 return false;
             }
 
-            return false;
+            return true;
+        }
+
+        private static Encoding GetEncoding( )
+        {
+            Encoding encoding = null;
+
+            if ( OutputTextEncoding == OutputTextEncoding.SJ )
+            {
+                encoding = Encoding.GetEncoding( 932 );
+            }
+            else if ( OutputTextEncoding == OutputTextEncoding.P3 )
+            {
+                encoding = new Persona3Encoding();
+            }
+            else if ( OutputTextEncoding == OutputTextEncoding.P4 )
+            {
+                encoding = new Persona4Encoding();
+            }
+            else if ( OutputTextEncoding == OutputTextEncoding.P5 )
+            {
+                encoding = new Persona5Encoding();
+            }
+
+            return encoding;
         }
 
         private static void LogException( string message, Exception e )
@@ -526,6 +583,15 @@ namespace AtlusScriptCompiler
         V2BE,
         V3,
         V3BE
+    }
+
+    public enum OutputTextEncoding
+    {
+        None,
+        SJ,
+        P3,
+        P4,
+        P5
     }
 
     public class Argument
