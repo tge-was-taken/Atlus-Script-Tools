@@ -1,208 +1,510 @@
-﻿using System.IO;
-using System.Diagnostics;
-using System;
-using System.Threading;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
+using AtlusScriptLib.Common.Logging;
 using AtlusScriptLib.Common.Text.OutputProviders;
-using AtlusScriptLib.Common.CLI;
-using AtlusScriptLib.MessageScriptLanguage.Decompiler;
-using AtlusScriptLib.FlowScriptLanguage.Decompiler;
 using AtlusScriptLib.FlowScriptLanguage.BinaryModel;
 using AtlusScriptLib.FlowScriptLanguage.Disassembler;
 using AtlusScriptLib.MessageScriptLanguage;
+using AtlusScriptLib.MessageScriptLanguage.BinaryModel;
+using AtlusScriptLib.MessageScriptLanguage.Compiler;
+using AtlusScriptLib.MessageScriptLanguage.Decompiler;
 
 namespace AtlusScriptCompiler
 {
-
-    internal class Program
+    public class Program
     {
-        public static string Input { get; set; }
+        private static Version Version = Assembly.GetExecutingAssembly().GetName().Version;
 
-        public static string Output { get; set; }
+        private static string InputFilePath;
 
-        public static bool Disassemble { get; set; }
+        private static string OutputFilePath;
 
-        public static bool Decompile { get; set; }
+        private static bool IsActionAssigned;
 
-        public static bool IsWorkerThreadDone { get; set; }
+        private static bool DoCompile;
 
-        private static void Main( string[] args )
+        private static bool DoDecompile;
+
+        private static bool DoDisassemble;
+
+        private static InputFileFormat InputFileFormat;
+
+        private static OutputFileFormat OutputFileFormat;
+
+        private static void DisplayUsage()
         {
-#if DEBUG
-            //args = new [] { "-i", @"D:\Modding\Persona 3 & 4\Persona3\CVM_BTL\BATTLE\MSG\BattleDialogue.bmd.randomized", "-dec"};
-            args = new[] { "-i", @"", "-dec" };
-            //args = new[] { "-i", @"d:\users\smart\documents\visual studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptLibTests\TestResources\Version3BigEndian.bf", "-o", @"d:\users\smart\documents\visual studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptLibTests\TestResources\Version3BigEndian.asm", "-dis" };
-#endif
-            if ( !InitArguments( args ) )
-            {
-                return;
-            }
-
-            if ( Disassemble )
-            {
-                PerformDisassembly();
-            }
-            else if ( Decompile )
-            {
-                PerformDecompilation();
-            }
-
+            Console.WriteLine( $"AtlusScriptCompiler {Version.Major}.{Version.Minor} by TGE (2017)" );
             Console.WriteLine();
-            Console.WriteLine( "Done." );
+            Console.WriteLine( "Parameter info:" );
+            Console.WriteLine( "    -i <path to file>       Provides an input file source to the compiler. If no input source is explicitly specified, the first argument will be assumed to be one." );
+            Console.WriteLine( "    -o <path to file>       Provides an output file path to the compiler. If no output source is explicitly specified, the file will be output in the same folder as the source file under a different extension." );
+            Console.WriteLine( "    -com                    Instructs the compiler to compile the provided input file source." );
+            Console.WriteLine( "    -dec                    Instructs the compiler to decompile the provided input file source." );
+            Console.WriteLine( "    -dis                    Instructs the compiler to disassemble the provided input file source." );
+            Console.WriteLine( "    -infmt <format string>  Specifies the input file source format. By default this is guessed by the file extension." );
+            Console.WriteLine( "    -outfmt <format string> Specifies the output file format. See below for further info." );
+            Console.WriteLine();
+            Console.WriteLine( "Parameter detailed info:" );
+            Console.WriteLine( "    -outfmt" );
+            Console.WriteLine();
+            Console.WriteLine( "        MessageScript formats:" );
+            Console.WriteLine( "            v1              Used by Persona 3, 4, 5 PS4" );
+            Console.WriteLine( "            v1be            Used by Persona 5 PS3" );
+            Console.WriteLine();
+            Console.WriteLine( "         FlowScript formats:" );
+            Console.WriteLine( "            v1             Used by Persona 3 and 4" );
+            Console.WriteLine( "            v1be           " );
+            Console.WriteLine( "            v2             Used by Persona 4 Dancing All Night" );
+            Console.WriteLine( "            v2be           " );
+            Console.WriteLine( "            v3             Used by Persona 5 PS4" );
+            Console.WriteLine( "            v3be           Used by Persona 5 PS3" );
             Console.ReadKey();
         }
 
-        private static bool InitArguments( string[] args )
+        public static void Main( string[] args )
         {
-            var parser = new CommandLineArgumentParser()
+            if ( args.Length == 0 )
             {
-                Description = "--- AtlusScriptCompiler ---"
-            };
+                Console.WriteLine( "Error: No arguments specified!" );
+                DisplayUsage();
+                return;
+            }
 
-            parser.AddArguments(
-                new CommandLineArgument<string>( "-i" )
+            if ( !TryParseArguments( args ) )
+            {
+                Console.WriteLine( "Error: Failed to parse arguments!" );
+                DisplayUsage();
+                return;
+            }
+
+            bool success;
+
+            if ( DoCompile )
+            {
+                success = TryDoCompilation();
+            }
+            else if ( DoDecompile )
+            {
+                success = TryDoDecompilation();
+            }
+            else if ( DoDisassemble )
+            {
+                success = TryDoDisassembling();
+            }
+            else
+            {
+                Console.WriteLine( "Error: No compilation, decompilation or disassemble instruction given!" );
+                DisplayUsage();
+                return;
+            }
+
+            if ( success )
+                Console.WriteLine( "Task completed successfully!" );
+            else
+                Console.WriteLine( "One or more errors occured while executing task!" );
+
+            Console.WriteLine( "Press any key to continue" );
+            Console.ReadKey();
+        }
+
+        private static bool TryParseArguments( string[] args )
+        {
+            for ( int i = 0; i < args.Length; i++ )
+            {
+                switch ( args[i] )
                 {
-                    Description = "Specifies the file <input>. Takes 1 parameter; a file path",
-                    Required = true,
-                    Target = new CommandLineArgumentValueTarget( typeof( Program ), nameof( Input ) )
-                },
-                new CommandLineArgument<string>( "-o" )
-                {
-                    Description = "Specifies the file <output>. Takes 1 parameter; a file path",
-                    Target = new CommandLineArgumentValueTarget( typeof( Program ), nameof( Output ) )
-                },
-                new CommandLineArgument<bool>( "-dis" )
-                {
-                    Description = "Instructs the compiler to disassemble a script <input> and write the output to <output>",
-                    TakesParameters = false,
-                    Target = new CommandLineArgumentValueTarget( typeof( Program ), nameof( Disassemble ) ),
-                },
-                new CommandLineArgument<bool>( "-dec" )
-                {
-                    Description = "Instructs the compiler to decompile a script <input> and write the output to <output>",
-                    TakesParameters = false,
-                    Target = new CommandLineArgumentValueTarget( typeof( Program ), nameof( Decompile ) ),
+                    case "-i":
+                        if ( i + 1 == args.Length )
+                        {
+                            Console.WriteLine( "Error: Missing argument for -i parameter" );
+                            return false;
+                        }
+
+                        InputFilePath = args[++i];
+                        break;
+
+                    case "-o":
+                        if ( i + 1 == args.Length )
+                        {
+                            Console.WriteLine( "Error: Missing argument for -o parameter" );
+                            return false;
+                        }
+
+                        OutputFilePath = args[++i];
+                        break;
+
+                    case "-com":
+                        if ( !IsActionAssigned )
+                        {
+                            IsActionAssigned = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine( "Error: Attempted to assign compilation action while another action is already assigned." );
+                            return false;
+                        }
+
+                        DoCompile = true;
+                        break;
+
+                    case "-dec":
+                        if ( !IsActionAssigned )
+                        {
+                            IsActionAssigned = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine( "Error: Attempted to assign decompilation action while another action is already assigned." );
+                            return false;
+                        }
+
+                        DoDecompile = true;
+                        break;
+
+                    case "-dis":
+                        if ( !IsActionAssigned )
+                        {
+                            IsActionAssigned = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine( "Error: Attempted to assign disassembly action while another action is already assigned." );
+                            return false;
+                        }
+
+                        DoDisassemble = true;
+                        break;
+
+                    case "-infmt":
+                        if ( i + 1 == args.Length )
+                        {
+                            Console.WriteLine( "Error: Missing argument for -infmt parameter" );
+                            return false;
+                        }
+
+                        if ( !Enum.TryParse( args[++i], true, out InputFileFormat ) )
+                        {
+                            Console.WriteLine( "Error: Invalid input file format specified" );
+                            return false;
+                        }
+
+                        break;
+
+                    case "-outfmt":
+                        if ( i + 1 == args.Length )
+                        {
+                            Console.WriteLine( "Error: Missing argument for -outfmt parameter" );
+                            return false;
+                        }
+
+                        if ( !Enum.TryParse( args[++i], true, out OutputFileFormat ) )
+                        {
+                            Console.WriteLine( "Error: Invalid output file format specified" );
+                            return false;
+                        }
+
+                        break;
                 }
-            );
-
-            Console.WriteLine( parser.Description );
-
-#if !DEBUG
-            try
-            {
-#endif
-            parser.Parse( args );
-#if !DEBUG
             }
-            catch (Exception e)
+
+            if ( InputFilePath == null )
             {
-                Console.WriteLine($"Error occured: {e.Message}");
-                Console.WriteLine();
-                Console.WriteLine(parser.GetArgumentInfoString());
-                Console.ReadKey();
-                return false;
+                InputFilePath = args[0];
             }
-#endif
+
+            if ( InputFileFormat == InputFileFormat.None )
+            {
+                var extension = Path.GetExtension( InputFilePath );
+
+                switch ( extension.ToLowerInvariant() )
+                {
+                    case ".bf":
+                        InputFileFormat = InputFileFormat.FlowScriptBinary;
+                        break;
+
+                    case ".flow":
+                        InputFileFormat = InputFileFormat.FlowScriptTextSource;
+                        break;
+
+                    case ".flowasm":
+                        InputFileFormat = InputFileFormat.FlowScriptAssemblerSource;
+                        break;
+
+                    case ".bmd":
+                        InputFileFormat = InputFileFormat.MessageScriptBinary;
+                        break;
+
+                    case ".msg":
+                        InputFileFormat = InputFileFormat.MessageScriptTextSource;
+                        break;
+
+                    default:
+                        Console.WriteLine( "Error: Unable to detect input file format" );
+                        return false;
+                }
+            }
+
+            if ( OutputFilePath == null )
+            {
+                if ( DoCompile )
+                {
+                    switch ( InputFileFormat )
+                    {
+                        case InputFileFormat.FlowScriptTextSource:
+                        case InputFileFormat.FlowScriptAssemblerSource:
+                            OutputFilePath = InputFilePath + ".bf";
+                            break;
+                        case InputFileFormat.MessageScriptTextSource:
+                            OutputFilePath = InputFilePath + ".bmd";
+                            break;
+                    }
+                }
+                else if ( DoDecompile )
+                {
+                    switch ( InputFileFormat )
+                    {
+                        case InputFileFormat.FlowScriptBinary:
+                            OutputFilePath = InputFilePath + ".flow";
+                            break;
+                        case InputFileFormat.MessageScriptBinary:
+                            OutputFilePath = InputFilePath + ".msg";
+                            break;
+                    }
+                }
+                else if ( DoDisassemble )
+                {
+                    switch ( InputFileFormat )
+                    {
+                        case InputFileFormat.FlowScriptBinary:
+                            OutputFilePath = InputFilePath + ".flowasm";
+                            break;
+                    }
+                }
+            }
 
             return true;
         }
 
-        private static void CreateWorkerThreadAndWait( WaitCallback callback )
+        private static bool TryDoCompilation()
         {
-            ThreadPool.QueueUserWorkItem( callback );
-
-            Console.Write( "Progress: " );
-
-            var stopwatch = new Stopwatch();
-            stopwatch.Start();
-
-            var lastElapsed = stopwatch.Elapsed;
-            while ( !IsWorkerThreadDone )
+            switch ( InputFileFormat )
             {
-                var elapsed = stopwatch.Elapsed;
+                case InputFileFormat.FlowScriptTextSource:
+                case InputFileFormat.FlowScriptAssemblerSource:
+                    return TryDoFlowScriptCompilation();
 
-                if ( elapsed.Seconds - lastElapsed.Seconds >= 1 )
-                    Console.Write( '|' );
+                case InputFileFormat.MessageScriptTextSource:
+                    return TryDoMessageScriptCompilation();
 
-                lastElapsed = elapsed;
+                case InputFileFormat.FlowScriptBinary:
+                case InputFileFormat.MessageScriptBinary:
+                    Console.WriteLine( "Error: Binary files can't be compiled again!" );
+                    return false;
+
+                default:
+                    Console.WriteLine( "Error: Invalid input file format!" );
+                    return false;
             }
-
-            stopwatch.Stop();
         }
 
-        private static void PerformDisassembly()
+        private static bool TryDoFlowScriptCompilation()
         {
-            if ( Path.GetExtension( Input ) != "bf" )
-            {
-                Console.WriteLine( "Invalid file input. Only FlowScript binaries (.bf) are supported." );
-                return;
-            }
-
-            if ( Output == null )
-                Output = Path.ChangeExtension( Input, "asm" );
-
-            Console.WriteLine( $"Disassembling {Input} to {Output}" );
-
-            CreateWorkerThreadAndWait( ( state ) =>
-             {
-                 using ( var disassembler = new FlowScriptBinaryDisassembler( Output ) )
-                 {
-                     disassembler.Disassemble( FlowScriptBinary.FromFile( Input ) );
-                 }
-
-                 IsWorkerThreadDone = true;
-             } );
+            Console.WriteLine( "Error: Compiling flow scripts is not implemented yet!" );
+            return false;
         }
 
-        private static void PerformDecompilation()
+        private static bool TryDoMessageScriptCompilation()
         {
-            string fileName = Path.GetFileName( Input );
-            if ( fileName == null )
+            MessageScriptBinaryFormatVersion version;
+
+            if ( OutputFileFormat == OutputFileFormat.V1 )
             {
-                Console.WriteLine( "Missing filename" );
-                return;
+                version = MessageScriptBinaryFormatVersion.Version1;
             }
-
-            if ( fileName.Contains( ".bf" ) || fileName.Contains( ".BF" ) )
+            else if ( OutputFileFormat == OutputFileFormat.V1BE )
             {
-                if ( Output == null )
-                    Output = Path.ChangeExtension( Input, "flow" );
-
-                Console.WriteLine( $"Decompiling {Input} to {Output}" );
-
-                CreateWorkerThreadAndWait( ( state ) =>
-                 {
-                     using ( var decompiler = new FlowScriptDecompiler( Output ) )
-                     {
-                         decompiler.Decompile( FlowScriptBinary.FromFile( Input ) );
-                     }
-
-                     IsWorkerThreadDone = true;
-                 } );
-            }
-            else if ( fileName.Contains( ".bmd" ) || fileName.Contains( ".BMD" ) )
-            {
-                if ( Output == null )
-                    Output = Path.ChangeExtension( Input, "msg" );
-
-                Console.WriteLine( $"Decompiling {Input} to {Output}" );
-
-                CreateWorkerThreadAndWait( ( state ) =>
-                 {
-                     var script = MessageScript.FromFile( Input );
-
-                     using ( var decompiler = new MessageScriptDecompiler() )
-                     {
-                         decompiler.TextOutputProvider = new FileTextOutputProvider( Output );
-                         decompiler.Decompile( script );
-                     }
-
-                     IsWorkerThreadDone = true;
-                 } );
+                version = MessageScriptBinaryFormatVersion.Version1BigEndian;
             }
             else
             {
-                Console.WriteLine( "Unknown input file type" );
+                Console.WriteLine( "Error: Invalid MessageScript file format" );
+                return false;
+            }
+
+            // Compile source
+            var compiler = new MessageScriptCompiler( version );
+            compiler.AddListener( new ConsoleLogListener( true ) );
+            if ( !compiler.TryCompile( File.OpenText( InputFilePath ), out var script ) )
+            {
+                Console.WriteLine( "Error: One or more errors occured during compilation!" );
+                return false;
+            }
+
+            // Write binary
+            try
+            {
+                script.ToFile( OutputFilePath );
+            }
+            catch ( Exception e )
+            {
+                Console.WriteLine( "Error: An error occured while saving the file. Info:" );
+                Console.WriteLine( $"{e.Message}" );
+                Console.WriteLine( "Stacktrace:" );
+                Console.WriteLine( $"{e.StackTrace}" );
+                return false;
+            }
+
+            return true;
+        }
+
+        private static bool TryDoDecompilation()
+        {
+            switch ( InputFileFormat )
+            {
+                case InputFileFormat.FlowScriptTextSource:
+                case InputFileFormat.FlowScriptAssemblerSource:
+                case InputFileFormat.MessageScriptTextSource:
+                    Console.WriteLine( "Error: Can't decompile a text source!" );
+                    return false;
+
+                case InputFileFormat.FlowScriptBinary:
+                    return TryDoFlowScriptDecompilation();
+
+                case InputFileFormat.MessageScriptBinary:
+                    return TryDoMessageScriptDecompilation();
+
+                default:
+                    Console.WriteLine( "Error: Invalid input file format!" );
+                    return false;
             }
         }
+
+        private static bool TryDoFlowScriptDecompilation()
+        {
+            Console.WriteLine( "Error: Decompiling flow scripts is not implemented yet!" );
+            return false;
+        }
+
+        private static bool TryDoMessageScriptDecompilation()
+        {
+            // load binary file
+            MessageScript script;
+
+            try
+            {
+                script = MessageScript.FromFile( InputFilePath );
+            }
+            catch ( Exception e )
+            {
+                Console.WriteLine( "Error: Failed to load message script from file. Info:" );
+                Console.WriteLine( $"{e.Message}" );
+                Console.WriteLine( "Stacktrace:" );
+                Console.WriteLine( $"{e.StackTrace}" );
+                return false;
+            }
+
+            try
+            {
+                using ( var decompiler = new MessageScriptDecompiler() )
+                {
+                    decompiler.TextOutputProvider = new FileTextOutputProvider( OutputFilePath );
+                    decompiler.Decompile( script );
+                }
+            }
+            catch ( Exception e )
+            {
+                Console.WriteLine( "Error: Failed to decompile message script to file. Info:" );
+                Console.WriteLine( $"{e.Message}" );
+                Console.WriteLine( "Stacktrace:" );
+                Console.WriteLine( $"{e.StackTrace}" );
+                return false;
+            }
+
+            return true;
+        }
+
+        private static bool TryDoDisassembling()
+        {
+            switch ( InputFileFormat )
+            {
+                case InputFileFormat.FlowScriptTextSource:
+                case InputFileFormat.FlowScriptAssemblerSource:
+                case InputFileFormat.MessageScriptTextSource:
+                    Console.WriteLine( "Error: Can't disassemble a text source!" );
+                    return false;
+
+                case InputFileFormat.FlowScriptBinary:
+                    return TryDoFlowScriptDisassembly();
+
+                case InputFileFormat.MessageScriptBinary:
+                    Console.WriteLine( "Error. Disassembling message scripts is not supported." );
+                    return false;
+
+                default:
+                    Console.WriteLine( "Error: Invalid input file format!" );
+                    return false;
+            }
+        }
+
+        private static bool TryDoFlowScriptDisassembly()
+        {
+            // load binary file
+            FlowScriptBinary script;
+
+            try
+            {
+                script = FlowScriptBinary.FromFile( InputFilePath );
+            }
+            catch ( Exception e )
+            {
+                Console.WriteLine( "Error: Failed to load flow script from file. Info:" );
+                Console.WriteLine( $"{e.Message}" );
+                Console.WriteLine( "Stacktrace:" );
+                Console.WriteLine( $"{e.StackTrace}" );
+                return false;
+            }
+
+            try
+            {
+                var disassembler = new FlowScriptBinaryDisassembler( OutputFilePath );
+                disassembler.Disassemble( script );
+            }
+            catch ( Exception e )
+            {
+                Console.WriteLine( "Error: Failed to disassemble flow script to file. Info:" );
+                Console.WriteLine( $"{e.Message}" );
+                Console.WriteLine( "Stacktrace:" );
+                Console.WriteLine( $"{e.StackTrace}" );
+                return false;
+            }
+
+            return true;
+        }
+    }
+
+    public enum InputFileFormat
+    {
+        None,
+        FlowScriptBinary,
+        FlowScriptTextSource,
+        FlowScriptAssemblerSource,
+        MessageScriptBinary,
+        MessageScriptTextSource,
+    }
+
+    public enum OutputFileFormat
+    {
+        None,
+        V1,
+        V1BE,
+        V2,
+        V2BE,
+        V3,
+        V3BE
     }
 }

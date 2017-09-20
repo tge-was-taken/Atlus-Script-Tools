@@ -7,19 +7,54 @@ using System.Text.RegularExpressions;
 
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
+using AtlusScriptLib.Common.Logging;
+using AtlusScriptLib.MessageScriptLanguage.BinaryModel;
 using AtlusScriptLib.MessageScriptLanguage.Parser;
 
 namespace AtlusScriptLib.MessageScriptLanguage.Compiler
 {
     public class MessageScriptCompiler
     {
-        public MessageScriptCompiler()
+        private Logger mLogger;
+        private MessageScriptBinaryFormatVersion mVersion;
+
+        public MessageScriptCompiler( MessageScriptBinaryFormatVersion version )
         {
+            mVersion = version;
+            mLogger = new Logger( nameof( MessageScriptCompiler ) );
+            LoggerManager.RegisterLogger( mLogger );
         }
 
-        // Todo: add attaching log listeners
+        public void AddListener( LogListener listener )
+        {
+            listener.Subscribe( mLogger );
+        }
+
         // Todo: improve error logging in general
         // Todo: add exception settings?
+        public MessageScript Compile( string input )
+        {
+            if ( !TryCompile(input, out var script))
+                throw new MessageScriptCompilationFailureException();
+
+            return script;
+        }
+
+        public MessageScript Compile( TextReader input )
+        {
+            if ( !TryCompile( input, out var script ) )
+                throw new MessageScriptCompilationFailureException();
+
+            return script;
+        }
+
+        public MessageScript Compile( Stream input )
+        {
+            if ( !TryCompile( input, out var script ) )
+                throw new MessageScriptCompilationFailureException();
+
+            return script;
+        }
 
         public bool TryCompile( string input, out MessageScript script )
         {
@@ -52,6 +87,8 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
 
         private bool TryCompileImpl( MessageScriptParser.CompilationUnitContext context, out MessageScript script )
         {
+            LogContextInfo( context );
+
             script = null;
 
             if ( !TryGetFatal( context, () => context.messageWindow(), "Expected message dialog window", out var messageWindowContexts))
@@ -60,6 +97,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
             }
 
             script = new MessageScript();
+            script.FormatVersion = mVersion;
 
             foreach ( var messageWindowContext in messageWindowContexts )
             {
@@ -123,7 +161,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
                 if ( !TryGetFatal( speakerNameContentContext, () => speakerNameContentContext.tagText(), "Expected dialog window speaker name text", out var speakerNameTagTextContext ) )
                     return false;
 
-                if ( !TryParseLines( speakerNameTagTextContext, out var speakerNameLines ) )
+                if ( !TryCompileLines( speakerNameTagTextContext, out var speakerNameLines ) )
                 {
                     LogError( speakerNameContentContext, "Failed to parse dialog window speaker name" );
                     return false;
@@ -146,7 +184,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
                 if ( !TryGetFatal( context, () => context.tagText(), "Expected dialog window text", out var tagTextContext ) )
                     return false;
 
-                if ( !TryParseLines( tagTextContext, out lines ) )
+                if ( !TryCompileLines( tagTextContext, out lines ) )
                 {
                     LogError( tagTextContext, "Failed to parse dialog window text" );
                     return false;
@@ -186,7 +224,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
                 if ( !TryGetFatal( context, () => context.tagText(), "Expected selection window text", out var tagTextContext ) )
                     return false;
 
-                if ( !TryParseLines( tagTextContext, out lines ) )
+                if ( !TryCompileLines( tagTextContext, out lines ) )
                 {
                     LogError( tagTextContext, "Failed to parse selection window text" );
                     return false;
@@ -201,8 +239,10 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryParseLines( MessageScriptParser.TagTextContext context, out List<MessageScriptLine> lines )
+        private bool TryCompileLines( MessageScriptParser.TagTextContext context, out List<MessageScriptLine> lines )
         {
+            LogContextInfo( context );
+
             lines = new List<MessageScriptLine>();
             MessageScriptLineBuilder lineBuilder = null;
 
@@ -220,40 +260,12 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
                     switch ( tagId.ToLowerInvariant() )
                     {
                         case "f":
-                            {
-                                if ( !TryGetFatal( tagContext, () => tagContext.IntLiteral(), "Expected arguments", out var argumentNodes ) )
-                                    return false;
-
-                                if ( !TryParseIntLiteral( tagContext, "Expected function table index", () => argumentNodes[0], out var functionTableIndex ) )
-                                    return false;
-
-                                if ( !TryParseIntLiteral( tagContext, "Expected function index", () => argumentNodes[1], out var functionIndex ) )
-                                    return false;
-
-                                if ( argumentNodes.Length > 2 )
-                                {
-                                    List<short> arguments = new List<short>( argumentNodes.Length - 2 );
-                                    for ( int i = 2; i < argumentNodes.Length; i++ )
-                                    {
-                                        if ( !TryParseIntLiteral( tagContext, "Expected function argument", () => argumentNodes[i], out var argument ) )
-                                            return false;
-
-                                        arguments.Add( argument );
-                                    }
-
-                                    lineToken = new MessageScriptFunctionToken( functionTableIndex, functionIndex, arguments );
-                                }
-                                else
-                                {
-                                    lineToken = new MessageScriptFunctionToken( functionTableIndex, functionIndex );
-                                }
-                            }
+                            TryCompile( tagContext, out var functionToken );
+                            lineToken = functionToken;
                             break;
 
                         case "n":
-                            {
-                                lineToken = new MessageScriptNewLineToken();
-                            }
+                            lineToken = new MessageScriptNewLineToken();
                             break;
 
                         case "e":
@@ -271,7 +283,6 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
 
                                 continue;
                             }
-                            break;
 
                         default:
                             {
@@ -327,12 +338,48 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
             return true;
         }
 
+        private bool TryCompile( MessageScriptParser.TagContext context,  out MessageScriptFunctionToken functionToken )
+        {
+            LogContextInfo( context );
+
+            functionToken = new MessageScriptFunctionToken();
+
+            if ( !TryGetFatal( context, () => context.IntLiteral(), "Expected arguments", out var argumentNodes ) )
+                return false;
+
+            if ( !TryParseIntLiteral( context, "Expected function table index", () => argumentNodes[0], out var functionTableIndex ) )
+                return false;
+
+            if ( !TryParseIntLiteral( context, "Expected function index", () => argumentNodes[1], out var functionIndex ) )
+                return false;
+
+            if ( argumentNodes.Length > 2 )
+            {
+                List<short> arguments = new List<short>( argumentNodes.Length - 2 );
+                for ( int i = 2; i < argumentNodes.Length; i++ )
+                {
+                    if ( !TryParseIntLiteral( context, "Expected function argument", () => argumentNodes[i], out var argument ) )
+                        return false;
+
+                    arguments.Add( argument );
+                }
+
+                functionToken = new MessageScriptFunctionToken( functionTableIndex, functionIndex, arguments );
+            }
+            else
+            {
+                functionToken = new MessageScriptFunctionToken( functionTableIndex, functionIndex );
+            }
+
+            return true;
+        }
+
         private bool TryGetFatal<T>( ParserRuleContext context, Func<T> getFunc, string failureText, out T value )
         {
             bool success = TryGet( context, getFunc, out value );
 
             if ( !success )
-                Trace.TraceError( $"Error: {failureText} at line {context.Start.Line} {context.Start.Column}" );
+                LogError( context, failureText );
 
             return success;
         }
@@ -390,14 +437,16 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
 
             if ( !succeeded )
             {
-                Trace.TraceError( $"Error: Invalid integer format at line {node.Symbol.Line} {node.Symbol.Column}" );
+                LogError( node.Symbol, "Invalid integer format" );
             }
 
+            /*
             if ( intValue < ushort.MinValue || intValue > ushort.MaxValue )
             {
-                Trace.TraceError( $"Error: Integer outside of signed short range." );
+                LogError( node.Symbol, "Integer outside of signed short range" );
                 succeeded = false;
             }
+            */
 
             value = ( short )intValue;
             return succeeded;
@@ -405,17 +454,22 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
 
         private void LogContextInfo( ParserRuleContext context )
         {
-            Trace.TraceInformation( $"Parsing {MessageScriptParser.ruleNames[context.RuleIndex]} ({context.Start.Line}:{context.Start.Column})" );
+            mLogger.Info( $"Compiling {MessageScriptParser.ruleNames[context.RuleIndex]} ({context.Start.Line}:{context.Start.Column})" );
         }
 
         private void LogError( ParserRuleContext context, string str )
         {
-            Trace.TraceError( $"Error: {str} at line {context.Start.Line} {context.Start.Column}" );
+            mLogger.Error( $"{str} ({context.Start.Line}:{context.Start.Column})" );
+        }
+
+        private void LogError( IToken token, string str )
+        {
+            mLogger.Error( $"{str} ({token.Line}:{token.Column})" );
         }
 
         private void LogWarning( ParserRuleContext context, string str )
         {
-            Trace.TraceError( $"Warning: {str} at line {context.Start.Line} {context.Start.Column}" );
+            mLogger.Warning( $"{str} ({context.Start.Line}:{context.Start.Column})" );
         }
     }
 

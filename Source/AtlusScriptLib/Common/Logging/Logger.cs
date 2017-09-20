@@ -7,7 +7,7 @@ namespace AtlusScriptLib.Common.Logging
 {
     public class Logger
     {
-        public event LogEventHandler Log;
+        public event LogEventHandler LogEvent;
 
         public string Name { get; }
 
@@ -16,29 +16,34 @@ namespace AtlusScriptLib.Common.Logging
             Name = name;
         }
 
+        public void Log( LogLevel level, string message )
+        {
+            LogEvent( this, new LogEventArgs( Name, level, message ) );
+        }
+
         public void Debug( string message )
         {
-            Log( this, new LogEventArgs( LogLevel.Debug, message ) );
+            Log( LogLevel.Debug, message );
         }
 
         public void Info( string message )
         {
-            Log( this, new LogEventArgs( LogLevel.Info, message ) );
+            Log( LogLevel.Info, message );
         }
 
         public void Warning( string message )
         {
-            Log( this, new LogEventArgs( LogLevel.Warning, message ) );
+            Log( LogLevel.Warning, message );
         }
 
         public void Error( string message )
         {
-            Log( this, new LogEventArgs( LogLevel.Error, message ) );
+            Log( LogLevel.Error, message );
         }
 
         public void Fatal( string message )
         {
-            Log( this, new LogEventArgs( LogLevel.Fatal, message ) );
+            Log( LogLevel.Fatal, message );
         }
     }
 

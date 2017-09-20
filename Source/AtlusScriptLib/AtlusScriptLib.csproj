@@ -60,6 +60,10 @@
     <Compile Include="Common\Collections\IListExtensions.cs" />
     <Compile Include="Common\IO\AlignmentHelper.cs" />
     <Compile Include="Common\IO\StreamView.cs" />
+    <Compile Include="Common\Logging\LogEventArgs.cs" />
+    <Compile Include="Common\Logging\Logger.cs" />
+    <Compile Include="Common\Logging\LoggerManager.cs" />
+    <Compile Include="Common\Logging\LogListener.cs" />
     <Compile Include="Common\Reflection\MemberInfoExtensions.cs" />
     <Compile Include="Common\Reflection\TypeExtensions.cs" />
     <Compile Include="Common\Text\Encodings\AtlusEncoding.cs" />

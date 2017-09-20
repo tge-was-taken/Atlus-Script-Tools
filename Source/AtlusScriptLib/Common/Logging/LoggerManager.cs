@@ -20,7 +20,7 @@ namespace AtlusScriptLib.Common.Logging
 
         public static void RegisterListener( LogListener listener )
         {
-            foreach ( var item in sLoggers.Where( x => x.Name == listener.Name ) )
+            foreach ( var item in sLoggers.Where( x => x.Name == listener.ChannelName ) )
             {
                 listener.Subscribe( item );
             }
@@ -30,7 +30,7 @@ namespace AtlusScriptLib.Common.Logging
 
         public static void UnregisterListener( LogListener listener )
         {
-            foreach ( var item in sLoggers.Where( x => x.Name == listener.Name ) )
+            foreach ( var item in sLoggers.Where( x => x.Name == listener.ChannelName ) )
             {
                 listener.Unsubscribe( item );
             }

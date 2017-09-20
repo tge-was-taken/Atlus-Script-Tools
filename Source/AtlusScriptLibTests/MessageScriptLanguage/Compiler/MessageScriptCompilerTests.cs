@@ -31,7 +31,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler.Tests
                 "[f 0 5 0xffff][f 2 1]Go ahead.[e]\n" +
                 "[f 0 5 0xffff][f 2 1]Never mind.[e]\n";
 
-            var compiler = new MessageScriptCompiler();
+            var compiler = new MessageScriptCompiler( BinaryModel.MessageScriptBinaryFormatVersion.Version1BigEndian );
             compiler.TryCompile( input, out var script );
         }
     }

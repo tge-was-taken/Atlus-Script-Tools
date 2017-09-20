@@ -15,53 +15,10 @@ namespace AtlusScriptLib.MessageScriptLanguage.Decompiler
             set => mOutput = value;
         }
 
-        public IMessageScriptFunctionResolver Resolver
+        public IMessageScriptFunctionResolver FunctionResolver
         {
             get => mResolver;
             set => mResolver = value;
-        }
-
-        private void WriteOpenTag( string tag )
-        {
-            mOutput.Write( $"[{tag}" );
-        }
-
-        private void WriteTagArgument( string argument )
-        {
-            mOutput.Write( " " );
-            mOutput.Write( argument );
-        }
-
-        private void WriteTagArgument( MessageScriptLine line )
-        {
-            mOutput.Write( " " );
-            Decompile( line, false );
-        }
-
-        private void WriteTagArgumentTag( string tag, params string[] arguments )
-        {
-            mOutput.Write( " " );
-            WriteTag( tag, arguments );
-        }
-
-        private void WriteCloseTag()
-        {
-            mOutput.Write( "]" );
-        }
-
-        private void WriteTag( string tag, params string[] arguments )
-        {
-            WriteOpenTag( tag );
-
-            if ( arguments.Length != 0 )
-            {
-                foreach ( var argument in arguments )
-                {
-                    WriteTagArgument( argument );
-                }
-            }
-
-            WriteCloseTag();
         }
 
         public void Decompile( MessageScript script )
@@ -99,7 +56,11 @@ namespace AtlusScriptLib.MessageScriptLanguage.Decompiler
                         {
                             WriteOpenTag( "dlg" );
                             WriteTagArgument( message.Identifier );
-                            WriteTagArgument( ( ( MessageScriptNamedSpeaker )message.Speaker ).Name );
+                            {
+                                WriteOpenTag();
+                                WriteTagArgument( ( ( MessageScriptNamedSpeaker )message.Speaker ).Name );
+                                WriteCloseTag();
+                            }
                             WriteCloseTag();
                         }
                         break;
@@ -108,7 +69,11 @@ namespace AtlusScriptLib.MessageScriptLanguage.Decompiler
                         {
                             WriteOpenTag( "dlg" );
                             WriteTagArgument( message.Identifier );
-                            WriteTagArgumentTag( "svar", ( ( MessageScriptVariableSpeaker )message.Speaker ).Index.ToString() );
+                            {
+                                WriteOpenTag();
+                                WriteTagArgument( ( ( MessageScriptVariableSpeaker )message.Speaker ).Index.ToString() );
+                                WriteCloseTag();
+                            }
                             WriteCloseTag();
                         }
                         break;
@@ -211,10 +176,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Decompiler
 
         public void Decompile( MessageScriptTextToken token )
         {
-            foreach ( var c in token.Text )
-            {
-                mOutput.Write( c );
-            }
+            mOutput.Write( token.Text );
         }
 
         public void Decompile( MessageScriptCodePointToken token )
@@ -230,6 +192,54 @@ namespace AtlusScriptLib.MessageScriptLanguage.Decompiler
         public void Dispose()
         {
             mOutput.Dispose();
+        }
+
+        private void WriteOpenTag()
+        {
+            mOutput.Write( "[" );
+        }
+
+        private void WriteOpenTag( string tag )
+        {
+            mOutput.Write( $"[{tag}" );
+        }
+
+        private void WriteTagArgument( string argument )
+        {
+            mOutput.Write( " " );
+            mOutput.Write( argument );
+        }
+
+        private void WriteTagArgument( MessageScriptLine line )
+        {
+            mOutput.Write( " " );
+            Decompile( line, false );
+        }
+
+        private void WriteTagArgumentTag( string tag, params string[] arguments )
+        {
+            mOutput.Write( " " );
+            WriteTag( tag, arguments );
+        }
+
+        private void WriteCloseTag()
+        {
+            mOutput.Write( "]" );
+        }
+
+        private void WriteTag( string tag, params string[] arguments )
+        {
+            WriteOpenTag( tag );
+
+            if ( arguments.Length != 0 )
+            {
+                foreach ( var argument in arguments )
+                {
+                    WriteTagArgument( argument );
+                }
+            }
+
+            WriteCloseTag();
         }
     }
 

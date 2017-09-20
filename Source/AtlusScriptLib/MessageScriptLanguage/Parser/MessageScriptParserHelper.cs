@@ -32,8 +32,11 @@ namespace AtlusScriptLib.MessageScriptLanguage.Parser
         {
             var lexer = new MessageScriptLexer( inputStream );
             var tokenStream = new CommonTokenStream( lexer );
+
             var parser = new MessageScriptParser( tokenStream );
             parser.BuildParseTree = true;
+            parser.ErrorHandler = new BailErrorStrategy();
+
             var cst = parser.compilationUnit();
 
             return cst;
