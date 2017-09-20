@@ -30,4 +30,10 @@ namespace AtlusScriptLib.MessageScriptLanguage
         Named,
         Variable,
     }
+
+    public enum MessageScriptFormatVersion : uint
+    {
+        Version1 = MessageScriptBinaryFormatVersion.Version1,
+        Version1BigEndian = MessageScriptBinaryFormatVersion.Version1BigEndian,
+    }
 }

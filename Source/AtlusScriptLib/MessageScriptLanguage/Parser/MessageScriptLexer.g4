@@ -13,7 +13,7 @@ OpenCode
 	: '[' -> pushMode( MessageScriptCode );
 
 CloseText
-	: ']' -> pushMode( MessageScriptCode );
+	: ']' -> pushMode( MessageScriptCode );  // close tag is used for closing inline text inside tag
 
 Text
 	: ~( '[' | ']' )+;
@@ -34,7 +34,7 @@ CloseCode
 	: ']' -> popMode;
 
 OpenText
-	: '[' -> popMode;  // open tag is used for inline text
+	: '[' -> popMode;  // open tag is used for opening inline text inside tag
 
 // Literals
 

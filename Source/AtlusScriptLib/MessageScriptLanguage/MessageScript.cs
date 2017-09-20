@@ -28,7 +28,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
             var instance = new MessageScript()
             {
                 Id = binary.Header.UserId,
-                FormatVersion = binary.FormatVersion
+                FormatVersion = (MessageScriptFormatVersion)binary.FormatVersion
             };
 
             // Convert the binary messages to their counterpart
@@ -277,7 +277,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
         /// <summary>
         /// Gets or sets the format version this script will use in its binary form.
         /// </summary>
-        public MessageScriptBinaryFormatVersion FormatVersion { get; set; }
+        public MessageScriptFormatVersion FormatVersion { get; set; }
 
         /// <summary>
         /// Gets the list of <see cref="IMessageScriptWindow"/> in this script.
@@ -287,10 +287,20 @@ namespace AtlusScriptLib.MessageScriptLanguage
         /// <summary>
         /// Creates a new instance of <see cref="MessageScript"/> initialized with default values.
         /// </summary>
-        public MessageScript()
+        private MessageScript()
         {
             Id = 0;
-            FormatVersion = MessageScriptBinaryFormatVersion.Unknown;
+            FormatVersion = MessageScriptFormatVersion.Version1;
+            Windows = new List<IMessageScriptWindow>();
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MessageScript"/> initialized with default values.
+        /// </summary>
+        public MessageScript( MessageScriptFormatVersion version )
+        {
+            Id = 0;
+            FormatVersion = version;
             Windows = new List<IMessageScriptWindow>();
         }
 
@@ -300,7 +310,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
         /// <returns></returns>
         public MessageScriptBinary ToBinary()
         {
-            var builder = new MessageScriptBinaryBuilder( FormatVersion );
+            var builder = new MessageScriptBinaryBuilder( ( MessageScriptBinaryFormatVersion )FormatVersion );
 
             builder.SetUserId( Id );
 

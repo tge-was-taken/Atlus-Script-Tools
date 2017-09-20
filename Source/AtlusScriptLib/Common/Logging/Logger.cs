@@ -18,7 +18,7 @@ namespace AtlusScriptLib.Common.Logging
 
         public void Log( LogLevel level, string message )
         {
-            LogEvent( this, new LogEventArgs( Name, level, message ) );
+            LogEvent?.Invoke( this, new LogEventArgs( Name, level, message ) );
         }
 
         public void Debug( string message )

@@ -181,7 +181,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Decompiler
 
         public void Decompile( MessageScriptCodePointToken token )
         {
-            WriteTag( $"x{token.HighSurrogate:X2}{token.LowSurrogate:X2}" );
+            WriteTag( $"x 0x{token.HighSurrogate:X2} 0x{token.LowSurrogate:X2}" );
         }
 
         public void Decompile( MessageScriptNewLineToken token )

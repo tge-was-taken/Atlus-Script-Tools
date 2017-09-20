@@ -11,28 +11,42 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler.Tests
     [TestClass()]
     public class MessageScriptCompilerTests
     {
-        /*
-         * Uncomment when ctor isnt just a stub
         [TestMethod()]
-        public void MessageScriptCompilerTest()
-        {
-            throw new NotImplementedException();
-        }
-        */
-
-        [TestMethod()]
-        public void TryCompileTest()
+        public void TryCompile_DialogWindow_ShouldReturnTrue()
         {
             string input =
-                "[dlg fev0410_02_mes01 [Sakura]]\n" +
-                "[f 0 5 0xffff][f 2 1][f 4 6 0 103 600 0 0]Sheesh, that was annoying...[n]I didn't think the traffic[n]jam would get that bad.[n][f 2 0][e]\n" +
-                "[f 0 5 0xffff][f 2 1]I wonder what I should[n]do about the shop today.[n][f 1 1][e]\n" +
-                "[sel FCL_MSG_COMBINE_SELECT]\n" +
-                "[f 0 5 0xffff][f 2 1]Go ahead.[e]\n" +
-                "[f 0 5 0xffff][f 2 1]Never mind.[e]\n";
+                $"[dlg {GenerateTestIdentifier()} {GenerateTestIdentifier()}][f 0 5 0xFFFF][f 3 77 0xffff][f 222 222 -1][x 8223 39755]jasdhjdhquyqwy2893y38973290188290804759856273y3dhjakbdnbx zx dkjaughwuidhkadjiyquwd9u892y3gahsdkjqbwhgua../,/.,.,/..,/.,';;';';';';!!!!!=-=-=-=\\\\  \n\\!@##@#$%^&***()_+:[e][e]-80253895639258310-11239057825257389";
 
-            var compiler = new MessageScriptCompiler( BinaryModel.MessageScriptBinaryFormatVersion.Version1BigEndian );
-            compiler.TryCompile( input, out var script );
+            var compiler = new MessageScriptCompiler( MessageScriptFormatVersion.Version1BigEndian );
+            Assert.IsTrue( compiler.TryCompile( input, out var script ) );
+        }
+
+        [TestMethod()]
+        public void TryCompile_SelectionWindow_ShouldReturnTrue()
+        {
+            string input =
+                $"[sel {GenerateTestIdentifier()}][f 0 5 0xFFFF][f 3 77 0xffff][f 222 222 -1][x 8223 39755]jasdhjdhquyqwy2893y38973290188290804759856273y3dhjakbdnbx zx dkjaughwuidhkadjiyquwd9u892y3gahsdkjqbwhgua../,/.,.,/..,/.,';;';';';';!!!!!=-=-=-=\\\\  \n\\!@##@#$%^&***()_+:[e][e]-80253895639258310-11239057825257389";
+
+            var compiler = new MessageScriptCompiler( MessageScriptFormatVersion.Version1BigEndian );
+            Assert.IsTrue( compiler.TryCompile( input, out var script ) );
+        }
+
+        private string GenerateTestIdentifier()
+        {
+            string identifier = string.Empty;
+
+            for ( char c = 'a'; c < ( 'z' + 1 ); c++ )
+                identifier += c;
+
+            for ( char c = 'A'; c < ( 'Z' + 1 ); c++ )
+                identifier += c;
+
+            for ( char c = '0'; c < ( '9' + 1 ); c++ )
+                identifier += c;
+
+            identifier += '_';
+
+            return identifier;
         }
     }
 }
