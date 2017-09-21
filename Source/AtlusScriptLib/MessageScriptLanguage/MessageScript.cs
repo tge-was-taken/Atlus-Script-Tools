@@ -250,10 +250,22 @@ namespace AtlusScriptLib.MessageScriptLanguage
             var charBytes = new byte[2];
             var atlusEncoding = encoding as AtlusEncoding;
             var tokens = new List<IMessageScriptLineToken>();
+            byte b2;
 
             while ( true )
             {
-                accumulatedText.Add( b );
+                // Read 2 bytes
+                if ( ( b & 0x80 ) == 0x80 )
+                {
+                    b2 = buffer[bufferIndex++];
+                    accumulatedText.Add( b );
+                    accumulatedText.Add( b2 );
+                }
+                else
+                {
+                    // Read one
+                    accumulatedText.Add( b );
+                }
 
                 // Check for any condition that would end the sequence of text characters
                 if ( bufferIndex == buffer.Count )
@@ -275,11 +287,11 @@ namespace AtlusScriptLib.MessageScriptLanguage
             for ( int i = 0; i < accumulatedTextBuffer.Length; i++ )
             {
                 byte high = accumulatedTextBuffer[i];
-                if ( ( high & 0x80 ) >= 0x80 )
+                if ( ( high & 0x80 ) == 0x80 )
                 {
                     byte low = accumulatedTextBuffer[++i];
 
-                    if ( encoding != null )
+                    if ( encoding != null && !encoding.IsSingleByte )
                     {
                         // Get decoded characters
                         charBytes[0] = high;

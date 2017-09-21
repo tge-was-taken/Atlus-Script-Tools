@@ -60,24 +60,70 @@ class MessageScriptInterpreter
 	// Static fields
 	static uint32_t sDword1;
 	static uint32_t sDword2;
+    static uint32_t* spBitBaseIndices;
 
 	// Static functions
 	static uint32_t ExecuteFunction(uint8_t functionSignifier, MessageScriptInterpreter* pInterpreter);
 
+    //
+    // Function table 0
+    //
+
 	// 0 1
-	static uint32_t SetTextColor(uint32_t functionid, MessageScriptInterpreter* pInterpreter);
+	static uint32_t SetTextColor( uint32_t functionid, MessageScriptInterpreter* pInterpreter );
+
+    // 0 2
+    static uint32_t FunctionTable0_Function2( uint32_t functionid, MessageScriptInterpreter* pInterpreter );
+
+    // 0 3
+    static uint32_t FunctionTable0_Function3( uint32_t functionid, MessageScriptInterpreter* pInterpreter );
+
+    // 0 4
+    static uint32_t FunctionTable0_Function4( uint32_t functionid, MessageScriptInterpreter* pInterpreter );
+
+    // 0 5
+    static uint32_t FunctionTable0_Function5( uint32_t functionid, MessageScriptInterpreter* pInterpreter );
+
+    // 0 6
+    static uint32_t FunctionTable0_Function6( uint32_t functionid, MessageScriptInterpreter* pInterpreter );
 	
-	// 0 5
-	static uint32_t FunctionTable0_Function5(uint32_t functionId, MessageScriptInterpreter* pInterpreter);
+	// 0 7
+	static uint32_t FunctionTable0_Function7( uint32_t functionid, MessageScriptInterpreter* pInterpreter );
 	
+    //
+    // Function table 2
+    //
+
 	// 2 1
-	static uint32_t FunctionTable2_Function1(uint32_t functionId, MessageScriptInterpreter* pInterpreter);
+	static uint32_t FunctionTable2_Function1( uint32_t functionid, MessageScriptInterpreter* pInterpreter );
+
+    // 2 2
+    static uint32_t SetGameStateBit( uint32_t functionid, MessageScriptInterpreter* pInterpreter );
+
+    // 2 3
+    static uint32_t ClearGameStateBit( uint32_t functionid, MessageScriptInterpreter* pInterpreter );
+
+    // 2 4
+    static uint32_t FunctionTable2_Function4( uint32_t functionid, MessageScriptInterpreter* pInterpreter );
+
+    // 2 5
+    static uint32_t FunctionTable2_Function5( uint32_t functionid, MessageScriptInterpreter* pInterpreter );
+
+    // 2 6
+    static uint32_t FunctionTable2_Function6( uint32_t functionid, MessageScriptInterpreter* pInterpreter );
+
+    // 2 7
+    static uint32_t FunctionTable2_Function7( uint32_t functionid, MessageScriptInterpreter* pInterpreter );
 	
+    //
+    // Function table 4
+    //
+
 	// 4 6
-	static uint32_t SetBustup(uint32_t functionid, MessageScriptInterpreter* pInterpreter);
+	static uint32_t SetBustup( uint32_t functionid, MessageScriptInterpreter* pInterpreter );
 	
 	// 4 10
-	static uint32_t FunctionTable4_Function10(uint32_t functionid, MessageScriptInterpreter* pInterpreter);
+	static uint32_t FunctionTable4_Function10( uint32_t functionid, MessageScriptInterpreter* pInterpreter );
 
 	// Instance fields
 	/* 0x000d */ uint8_t field0d; // referenced by SetTextColor
@@ -158,6 +204,13 @@ static uint32_t MessageScriptInterpreter::SetTextColor(uint32_t functionId, Mess
 	return 0;
 };
 
+// 0 2
+static uint32_t MessageScriptInterpreter::FunctionTable0_Function5( uint32_t functionId, MessageScriptInterpreter* pInterpreter )
+{
+    // does nothing
+    return 0;
+}
+
 // 0 5
 static uint32_t MessageScriptInterpreter::FunctionTable0_Function5(uint32_t functionId, MessageScriptInterpreter* pInterpreter)
 {
@@ -178,11 +231,68 @@ static uint32_t MessageScriptInterpreter::FunctionTable2_Function1(uint32_t func
 	return 0;
 };
 
+// 2 2
+static uint32_t MessageScriptInterpreter::SetGameStateBit( uint32_t functionId, MessageScriptInterpreter* pInterpreter )
+{
+    if ( MessageScriptInterpreter::sDword1 != 0 )
+        return 0;
+
+    uint16_t bitIndex = pInterpreter->GetArgumentValue( 1 );  
+    uint32_t bitBaseIndex = spBitBaseIndices[ pInterpreter->GetArgumentValue( 0 ) ];
+    GameState::SetBit( bitBaseIndex + bitIndex, 1 );
+
+    return 0;
+};
+
+// 2 3
+static uint32_t MessageScriptInterpreter::ClearGameStateBit( uint32_t functionId, MessageScriptInterpreter* pInterpreter )
+{
+    if ( MessageScriptInterpreter::sDword1 != 0 )
+        return 0;
+
+    uint16_t bitIndex = pInterpreter->GetArgumentValue( 1 );
+    uint32_t bitBase = spBitBaseIndices[ pInterpreter->GetArgumentValue( 0 ) ];
+    GameState::SetBit( bitBase + bitIndex, 0 );
+
+    return 0;
+};
+
+// 2 6
+static uint32_t MessageScriptInterpreter::FunctionTable2_Function6( uint32_t functionId, MessageScriptInterpreter* pInterpreter )
+{
+    pInterpreter->GetArgumentValue( 0 );
+    pInterpreter->GetArgumentValue( 1 );
+};
+
 // 2 7
 static uint32_t MessageScriptInterpreter::FunctionTable2_Function7(uint32_t functionId, MessageScriptInterpreter* pInterpreter)
 {
-	// 0x570B0C
-	// calls GameState::SetBit
+    if ( MessageScriptInterpreter::sDword1 != 4 )
+    {
+        return 0;
+    }
+
+    uint16_t arg0 = pInterpreter->GetArgumentValue( 0 );
+    uint16_t bitBaseIndex = pInterpreter->GetArgumentValue( 1 );
+    uint16_t bitIndex = pInterpreter->GetArgumentValue( 2 );
+    uint16_t bitValue = pInterpreter->GetArgumentValue( 3 );
+
+    if ( arg0 == 0 )
+    {
+        GameState::SetBit( MessageScriptInterpreter::spBitBaseIndices[ bitBaseIndex ] + bitIndex, bitValue );
+    }
+    else if ( arg0 == 4 )
+    {
+        sub_5876C8( bitBaseIndex );
+    }
+
+    return 0;
+};
+
+static void sub_5876C8( uint16_t bitBaseIndex )
+{
+    // 110FC38
+    task_CalcMsgMng_dword1->Field82C = bitBaseIndex;
 };
 
 //  4 6 (F6 86)

@@ -8,9 +8,11 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AtlusScriptLib.Common.IO;
+using AtlusScriptLib.Common.Text.OutputProviders;
 using AtlusScriptLib.FlowScriptLanguage.BinaryModel;
 using AtlusScriptLib.MessageScriptLanguage;
 using AtlusScriptLib.MessageScriptLanguage.BinaryModel;
+using AtlusScriptLib.MessageScriptLanguage.Decompiler;
 
 namespace AtlusMessageScriptExtractor
 {
@@ -34,10 +36,14 @@ namespace AtlusMessageScriptExtractor
 
         public static List<string> BruteforceInclusionList;
 
+        public static bool UseDecompiler;
+
         // other
         public static IndentedTextWriter Writer;
 
         public static Encoding Encoding;
+
+        public static MessageScriptDecompiler Decompiler;
 
         static void DisplayUsage()
         {
@@ -45,7 +51,7 @@ namespace AtlusMessageScriptExtractor
             Console.WriteLine();
             Console.WriteLine( "Usage info:" );
             Console.WriteLine( "Press S during brute force scanning to cancel. This will also allow you to add the file extension to the exclusion list." );
-
+            Console.WriteLine();
             Console.WriteLine( "Argument info:");
             Console.WriteLine( "-path <path to directory>   If no path directive is provided, first parameter will be considered the directory path" );
             Console.WriteLine( "-enc <encoder string>       Determines which text encoding is used. If no enc directive is provided, non-ASCII code points will be output as hex values" );
@@ -54,6 +60,7 @@ namespace AtlusMessageScriptExtractor
             Console.WriteLine( "-noalign                    Disables 4 byte alignment for scanning. Not recommend unless you're sure the file contains text that doesn't get detected (ULTRA SLOW)" );
             Console.WriteLine( "-exclude [ext ext2..]       Excludes specified file extensions from brute force scanning.");
             Console.WriteLine( "-include [ext ext2..]       Includes specified file extensions from brute force scanning." );
+            Console.WriteLine( "-dec                        Uses decompiler output instead of the regular output." );
             Console.WriteLine( "-usage                      Displays this message" );
             Console.WriteLine();
             Console.WriteLine( "Valid encodings:");
@@ -182,6 +189,10 @@ namespace AtlusMessageScriptExtractor
                             BruteforceInclusionList.Add( ext );
                         }
                         break;
+
+                    case "-dec":
+                        UseDecompiler = true;
+                        break;
                 }
             }
 
@@ -203,6 +214,12 @@ namespace AtlusMessageScriptExtractor
         {
             using ( Writer = new IndentedTextWriter( File.CreateText( $".\\MessageScriptDump.txt" ) ) )
             {
+                if ( UseDecompiler )
+                {
+                    Decompiler = new MessageScriptDecompiler();
+                    Decompiler.TextOutputProvider = new TextWriterTextOutputProvider( Writer );
+                }
+
                 foreach ( var file in Directory.EnumerateFiles( DirectoryPath, "*.*", SearchOption.AllDirectories ) )
                 {
 #if !DEBUG
@@ -247,7 +264,7 @@ namespace AtlusMessageScriptExtractor
             // Check if it is a plain message script file
             if ( fileExtension.Equals( ".bmd", StringComparison.InvariantCultureIgnoreCase ) )
             {
-                script = MessageScript.FromStream( stream, null, true );
+                script = MessageScript.FromStream( stream, Encoding, true );
             }
             // Check if it is a flow script file that can maybe contain a message script
             else if ( fileExtension.Equals( ".bf", StringComparison.InvariantCultureIgnoreCase ) )
@@ -255,7 +272,7 @@ namespace AtlusMessageScriptExtractor
                 var flowScriptBinary = FlowScriptBinary.FromStream( stream, true );
                 if ( flowScriptBinary.MessageScriptSection != null )
                 {
-                    script = MessageScript.FromBinary( flowScriptBinary.MessageScriptSection );
+                    script = MessageScript.FromBinary( flowScriptBinary.MessageScriptSection, Encoding );
                 }
                 else
                 {
@@ -267,7 +284,10 @@ namespace AtlusMessageScriptExtractor
             {
                 // We have found a script, yay!
                 Console.WriteLine("Writing message script to file...");
-                WriteMessageScript( prettyFileName, script );
+                if ( UseDecompiler )
+                    WriteMessageScriptWithDecompiler( prettyFileName, script );
+                else
+                    WriteMessageScript( prettyFileName, script );
             }
             else
             {
@@ -291,9 +311,9 @@ namespace AtlusMessageScriptExtractor
                             // Don't want to block, so wait for key to be available
                             if ( Console.KeyAvailable )
                             {
-                                var key = Console.ReadKey( true );
-
                                 // Blocking is fine after this point
+                                var key = Console.ReadKey( true );
+                                
                                 if ( key.Key == ConsoleKey.S )
                                 {
                                     Console.WriteLine( "Do you want to skip scanning this file? Y/N" );
@@ -381,6 +401,16 @@ namespace AtlusMessageScriptExtractor
             }
 
             Writer.WriteLine();
+        }
+
+        static void WriteMessageScriptWithDecompiler( string name, MessageScript script )
+        {
+            Writer.WriteLine( name );
+
+            Decompiler.Decompile( script );
+
+            Writer.WriteLine();
+            Writer.Flush();
         }
 
         static void WriteWindow( IMessageScriptWindow window )
