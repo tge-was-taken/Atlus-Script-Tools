@@ -303,65 +303,9 @@ namespace AtlusMessageScriptExtractor
 
         public IEnumerable<ArchiveEntry> ReadEntries( bool skipData )
         {
-            if ( Version == ArchiveVersion.Version1 )
+            while ( true )
             {
-                long entryStartPosition = Reader.Position;
-                if ( entryStartPosition == Reader.BaseStreamLength )
-                {
-                    yield break;
-                }
-
-                // read entry name
-                while ( true )
-                {
-                    byte b = Reader.ReadByte();
-                    if ( b == 0 )
-                        break;
-
-                    StringBuilder.Append( ( char )b );
-
-                    // just to be safe
-                    if ( StringBuilder.Length == 252 )
-                        break;
-                }
-
-                string fileName = StringBuilder.ToString();
-
-                // set position to length field
-                Reader.Position = entryStartPosition + 252;
-
-                // read entry length
-                int length = Reader.ReadInt32();
-
-                if ( fileName.Length == 0 || length <= 0 || length > 1024 * 1024 * 100 )
-                {
-                    yield break;
-                }
-
-                // make an entry
-                ArchiveEntry entry;
-                entry.FileName = fileName;
-                entry.Length = length;
-                entry.DataPosition = Reader.Position;
-
-                // clear string builder for next iteration
-                StringBuilder.Clear();
-
-                if ( skipData )
-                {
-                    Reader.Position = AlignmentHelper.Align( Reader.Position + entry.Length, 64 );
-                }
-
-                yield return entry;
-            }
-            else if ( Version == ArchiveVersion.Version2 || Version == ArchiveVersion.Version3 )
-            {
-                int entryCount = Reader.ReadInt32();
-                int nameLength = 32;
-                if ( Version == ArchiveVersion.Version3 )
-                    nameLength = 24;
-
-                for ( int i = 0; i < entryCount; i++ )
+                if ( Version == ArchiveVersion.Version1 )
                 {
                     long entryStartPosition = Reader.Position;
                     if ( entryStartPosition == Reader.BaseStreamLength )
@@ -370,15 +314,23 @@ namespace AtlusMessageScriptExtractor
                     }
 
                     // read entry name
-                    for ( int j = 0; j < nameLength; j++ )
+                    while ( true )
                     {
                         byte b = Reader.ReadByte();
+                        if ( b == 0 )
+                            break;
 
-                        if ( b != 0 )
-                            StringBuilder.Append( ( char )b );
+                        StringBuilder.Append( ( char )b );
+
+                        // just to be safe
+                        if ( StringBuilder.Length == 252 )
+                            break;
                     }
 
                     string fileName = StringBuilder.ToString();
+
+                    // set position to length field
+                    Reader.Position = entryStartPosition + 252;
 
                     // read entry length
                     int length = Reader.ReadInt32();
@@ -399,10 +351,61 @@ namespace AtlusMessageScriptExtractor
 
                     if ( skipData )
                     {
-                        Reader.Position += entry.Length;
+                        Reader.Position = AlignmentHelper.Align( Reader.Position + entry.Length, 64 );
                     }
 
                     yield return entry;
+                }
+                else if ( Version == ArchiveVersion.Version2 || Version == ArchiveVersion.Version3 )
+                {
+                    int entryCount = Reader.ReadInt32();
+                    int nameLength = 32;
+                    if ( Version == ArchiveVersion.Version3 )
+                        nameLength = 24;
+
+                    for ( int i = 0; i < entryCount; i++ )
+                    {
+                        long entryStartPosition = Reader.Position;
+                        if ( entryStartPosition == Reader.BaseStreamLength )
+                        {
+                            yield break;
+                        }
+
+                        // read entry name
+                        for ( int j = 0; j < nameLength; j++ )
+                        {
+                            byte b = Reader.ReadByte();
+
+                            if ( b != 0 )
+                                StringBuilder.Append( ( char )b );
+                        }
+
+                        string fileName = StringBuilder.ToString();
+
+                        // read entry length
+                        int length = Reader.ReadInt32();
+
+                        if ( fileName.Length == 0 || length <= 0 || length > 1024 * 1024 * 100 )
+                        {
+                            yield break;
+                        }
+
+                        // make an entry
+                        ArchiveEntry entry;
+                        entry.FileName = fileName;
+                        entry.Length = length;
+                        entry.DataPosition = Reader.Position;
+
+                        // clear string builder for next iteration
+                        StringBuilder.Clear();
+
+                        if ( skipData )
+                        {
+                            Reader.Position += entry.Length;
+                        }
+
+                        yield return entry;
+                    }
                 }
             }
         }

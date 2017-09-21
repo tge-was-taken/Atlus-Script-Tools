@@ -6,6 +6,7 @@ using AtlusScriptLib.MessageScriptLanguage;
 
 namespace AtlusScriptLib.FlowScriptLanguage
 {
+    /*
     /// <summary>
     /// Provides utilities to easily build a flow script, supporting higher level constructs than are normally available.
     /// </summary>
@@ -386,4 +387,5 @@ namespace AtlusScriptLib.FlowScriptLanguage
             Index = index;
         }
     }
+    */
 }

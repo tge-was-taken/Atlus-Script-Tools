@@ -142,17 +142,31 @@ class MessageScriptInterpreter
 
 int16_t MessageScriptInterpreter::GetArgumentValue(uint32_t index)
 {
-	uint8_t secondByte = 0;
-	uint8_t secondByteAux = this->mpMessageData[this->mMessageDataIndex + (index * 2) + 1]; // byte
+	uint8_t argumentValueHigh = 0;
+	uint8_t argumentValueHighAux = this->mpMessageData[this->mMessageDataIndex + (index * 2) + 1]; // byte
 
-	if (secondByteAux != 0xFF)
-	{
-		secondByte = (secondByteAux - 1) & 0xFF;
-	}
+	if (argumentValueHighAux != 0xFF)
+		argumentValueHigh = (argumentValueHighAux - 1) & 0xFF;
 
-	uint8_t firstByte = this->mpMessageData[this->mMessageDataIndex + (index * 2)] - 1;
+	uint8_t argumentValueLow = this->mpMessageData[this->mMessageDataIndex + (index * 2)] - 1;
 
-	return (int16_t)((firstByte & ~0xFF00) | ((secondByte << 8) & 0xFF00));
+	return (int16_t)((argumentValueLow & ~0xFF00) | ((argumentValueHigh << 8) & 0xFF00));
+}
+
+int16_t MessageScriptInterpreter::GetArgumentValueAlt( uint16_t functionId, MessageScriptInterpreter* pInterpreter, uint16_t index )
+{
+    uint16_t lastArgumentIndex = ( ( functionId >> 8 ) & 0xF ) - 1;
+
+    if ( index < 0 || index > lastArgumentIndex )
+        return 0;
+
+    uint8_t argumentValueHigh = ( pInterpreter->mpMessageData[ pInterpreter->mMessageDataIndex + index * 2 ] - 1 ) & 0xFF;
+    uint8_t argumentValueLow = ( ( pInterpreter->mpMessageData[ pInterpreter->mMessageDataIndex + ( index * 2 ) + 1 ] ) - 1 ) & 0xFF;
+
+    if ( argumentValueHigh != 0xFF || argumentValueLow != 0xFF )
+        return -1;
+
+    return (int16_t)(( argumentValueHigh & ~0xFF00 ) | ( ( argumentValueLow << 8 ) & 0xFF00 ))
 }
 
 static MessageScriptInterpreter::ExecuteFunction(uint8_t functionSignifier, MessageScriptInterpreter* pInterpreter)
