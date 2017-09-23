@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace AtlusScriptLib.FlowScriptLanguage.Ast
 {
     [Serializable]
-    internal class FlowScriptAstParserFailureException : Exception
+    public class FlowScriptAstParserFailureException : Exception
     {
         public FlowScriptAstParserFailureException()
         {

@@ -15,12 +15,29 @@ namespace AtlusScriptLib.FlowScriptLanguage.Ast.Tests
         [TestMethod]
         public void TryParseTest()
         {
+            //// Procedure declaration - works
+            //string input =
+            //    "string MyBeautifulProcedureDeclarationStatement( int arg0, int arg1, string arg2, float arg3 );";
+
+            // Variable declaration
+
             string input =
-                "string MyBeautifulProcedureDeclarationStatement( int arg0, int arg1, string arg2, float arg3 );";
+                "int func( 0x0011 ) RND( int max );\n" +
+                "void func( 0x005c ) BGM( int bgmId );\n" +
+                "\n" +
+                "void f000_002_init()\n" +
+                "{\n" +
+                "   int bgmId = RND( 300 );\n" +
+                "   BGM( bgmId );\n" +
+                "}\n";
 
             var parser = new FlowScriptAstParser();
             parser.AddListener( new TraceLogListener() );
-            parser.TryParse( input, out var ast );
+            Assert.IsTrue( parser.TryParse( input, out var compilationUnit ) );
+
+            var resolver = new FlowScriptAstTypeResolver();
+            resolver.AddListener( new TraceLogListener() );
+            Assert.IsTrue( resolver.TryResolveTypes( compilationUnit ) );
         }
     }
 }

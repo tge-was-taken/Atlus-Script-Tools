@@ -10,5 +10,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Ast.Nodes
     public abstract class FlowScriptAstNode
     {
         public FlowScriptAstSourceInfo SourceInfo { get; internal set; }
+
+        public override string ToString()
+        {
+            return SourceInfo.ToString();
+        }
     }
 }

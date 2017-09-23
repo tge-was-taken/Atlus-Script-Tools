@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
-
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
-
 using AtlusScriptLib.Common.Logging;
-using AtlusScriptLib.FlowScriptLanguage.Parser;
 using AtlusScriptLib.FlowScriptLanguage.Ast.Nodes;
+using AtlusScriptLib.FlowScriptLanguage.Parser;
 
 namespace AtlusScriptLib.FlowScriptLanguage.Ast
 {
@@ -107,6 +106,9 @@ namespace AtlusScriptLib.FlowScriptLanguage.Ast
             return TryParseCompilationUnit( cst, out ast );
         }
 
+        //
+        // Parsing
+        //
         private bool TryParseCompilationUnit( FlowScriptParser.CompilationUnitContext context, out FlowScriptCompilationUnit compilationUnit )
         {
             LogContextInfo( context );
@@ -139,9 +141,9 @@ namespace AtlusScriptLib.FlowScriptLanguage.Ast
         //
         // Imports
         //
-        private bool TryParseImports( FlowScriptParser.ImportStatementContext[] contexts, out List<FlowScriptImport> imports )
+        private bool TryParseImports( FlowScriptParser.ImportStatementContext[] contexts, out System.Collections.Generic.List<FlowScriptImport> imports )
         {
-            imports = new List<FlowScriptImport>();
+            imports = new System.Collections.Generic.List<FlowScriptImport>();
 
             foreach ( var importContext in contexts )
             {
@@ -174,9 +176,9 @@ namespace AtlusScriptLib.FlowScriptLanguage.Ast
         }
 
         //
-        // Statemetns
+        // Statements
         //
-        private bool TryParseStatements( FlowScriptParser.StatementContext[] contexts, out List<FlowScriptStatement> statements )
+        private bool TryParseStatements( FlowScriptParser.StatementContext[] contexts, out System.Collections.Generic.List<FlowScriptStatement> statements )
         {
             statements = new List<FlowScriptStatement>();
 
@@ -207,6 +209,36 @@ namespace AtlusScriptLib.FlowScriptLanguage.Ast
 
                 statement = declaration;
             }
+            else if ( TryGet( context, () => context.expression(), out var expressionContext ))
+            {
+                FlowScriptExpression expression = null;
+                if ( !TryFunc( expressionContext, "Failed to parse expression", () => TryParseExpression( expressionContext, out expression ) ) )
+                    return false;
+
+                statement = expression;
+            }
+            else
+            {
+                LogError( context, "Expected statement" );
+            }
+
+            return true;
+        }
+
+        private bool TryParseCompoundStatement( FlowScriptParser.CompoundStatementContext context, out FlowScriptCompoundStatement body )
+        {
+            LogContextInfo( context );
+
+            body = CreateAstNode<FlowScriptCompoundStatement>( context );
+
+            if ( !TryGet( context, "Expected statement(s)", () => context.statement(), out var statementContexts ) )
+                return false;
+
+            List<FlowScriptStatement> statements = null;
+            if ( !TryFunc( context, "Failed to parse statement(s)", () => TryParseStatements( statementContexts, out statements ) ) )
+                return false;
+
+            body.Statements.AddRange( statements );
 
             return true;
         }
@@ -223,7 +255,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.Ast
             // Parse function declaration statement
             if ( TryGet( context, () => context.functionDeclarationStatement(), out var functionDeclarationContext))
             {
+                FlowScriptFunctionDeclaration functionDeclaration = null;
+                if ( !TryFunc( functionDeclarationContext, "Failed to parse function declaration", () => TryParseFunctionDeclaration( functionDeclarationContext, out functionDeclaration ) ) )
+                    return false;
 
+                declaration = functionDeclaration;
             }
             else if ( TryGet( context, () => context.procedureDeclarationStatement(), out var procedureDeclarationContext))
             {
@@ -232,6 +268,78 @@ namespace AtlusScriptLib.FlowScriptLanguage.Ast
                     return false;
 
                 declaration = procedureDeclaration;
+            }
+            else if ( TryGet( context, () => context.variableDeclarationStatement(), out var variableDeclarationContext))
+            {
+                FlowScriptVariableDeclaration variableDeclaration = null;
+                if ( !TryFunc( variableDeclarationContext, "Failed to parse variable declaration", () => TryParseVariableDeclaration( variableDeclarationContext, out variableDeclaration ) ) )
+                    return false;
+
+                declaration = variableDeclaration;
+            }
+            else
+            {
+                LogError( context, "Expected function, procedure or variable declaration" );
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool TryParseFunctionDeclaration( FlowScriptParser.FunctionDeclarationStatementContext context, out FlowScriptFunctionDeclaration functionDeclaration )
+        {
+            LogContextInfo( context );
+
+            functionDeclaration = CreateAstNode<FlowScriptFunctionDeclaration>( context );
+
+            // Parse return type
+            {
+                if ( !TryGet( context, "Expected function return type", () => context.TypeIdentifier(), out var typeIdentifierNode ) )
+                    return false;
+
+                FlowScriptTypeIdentifier typeIdentifier = null;
+                if ( !TryFunc( typeIdentifierNode, "Failed to parse function return type identifier", () => TryParseTypeIdentifier( typeIdentifierNode, out typeIdentifier ) ) )
+                    return false;
+
+                functionDeclaration.ReturnType = typeIdentifier;
+            }
+
+            // Parse index
+            {
+                if ( !TryGet( context, "Expected function index", () => context.IntLiteral(), out var indexNode ) )
+                    return false;
+
+                FlowScriptIntLiteral indexIntLiteral = null;
+                if ( !TryFunc( indexNode, "Failed to parse function index", () => TryParseIntLiteral( indexNode, out indexIntLiteral ) ) )
+                    return false;
+
+                functionDeclaration.Index = indexIntLiteral;
+            }
+
+            // Parse identifier
+            {
+                if ( !TryGet( context, "Expected function identifier", () => context.Identifier(), out var identifierNode ) )
+                    return false;
+
+                FlowScriptIdentifier identifier = null;
+                if ( !TryFunc( identifierNode, "Failed to parse function identifier", () => TryParseIdentifier( identifierNode, out identifier ) ) )
+                    return false;
+
+                identifier.ExpressionValueType = FlowScriptValueType.Function;
+
+                functionDeclaration.Identifier = identifier;
+            }
+
+            // Parse parameter list
+            {
+                if ( !TryGet( context, "Expected function parameter list", () => context.parameterList(), out var parameterListContext ) )
+                    return false;
+
+                List<FlowScriptParameter> parameters = null;
+                if ( !TryFunc( parameterListContext, "Failed to parse function parameter list", () => TryParseParameterList( parameterListContext, out parameters ) ) )
+                    return false;
+
+                functionDeclaration.Parameters = parameters;
             }
 
             return true;
@@ -261,6 +369,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Ast
             if ( !TryFunc( identifierNode, "Failed to parse procedure identifier", () => TryParseIdentifier( identifierNode, out identifier ) ) )
                 return false;
 
+            identifier.ExpressionValueType = FlowScriptValueType.Procedure;
+
             procedureDeclaration.Identifier = identifier;
 
             // Parse parameter list
@@ -273,6 +383,379 @@ namespace AtlusScriptLib.FlowScriptLanguage.Ast
 
             procedureDeclaration.Parameters = parameters;
 
+            // Parse body
+            if ( TryGet( context, () => context.compoundStatement(), out var compoundStatementContext))
+            {
+                FlowScriptCompoundStatement body = null;
+                if ( !TryFunc( compoundStatementContext, "Failed to parse procedure body", () => TryParseCompoundStatement( compoundStatementContext, out body ) ) )
+                    return false;
+
+                procedureDeclaration.Body = body;
+            }
+
+            return true;
+        }
+
+        private bool TryParseVariableDeclaration( FlowScriptParser.VariableDeclarationStatementContext context, out FlowScriptVariableDeclaration variableDeclaration )
+        {
+            LogContextInfo( context );
+
+            variableDeclaration = CreateAstNode<FlowScriptVariableDeclaration>( context );
+
+            // Parse modifier(s)
+            if ( TryGet( context, () => context.Global(), out var globalNode))
+            {           
+                var modifier = CreateAstNode<FlowScriptVariableModifier>( globalNode );
+                modifier.ModifierType = FlowScriptModifierType.Global;
+
+                variableDeclaration.Modifiers.Add( modifier );
+            }
+
+            // Parse type identifier
+            if ( !TryGet( context, "Expected variable type", () => context.TypeIdentifier(), out var typeIdentifierNode ) )
+                return false;
+
+            FlowScriptTypeIdentifier typeIdentifier = null;
+            if ( !TryFunc( typeIdentifierNode, "Failed to parse variable type identifier", () => TryParseTypeIdentifier( typeIdentifierNode, out typeIdentifier ) ) )
+                return false;
+
+            variableDeclaration.Type = typeIdentifier;
+
+            // Parse identifier
+            if ( !TryGet( context, "Expected variable identifier", () => context.Identifier(), out var identifierNode ) )
+                return false;
+
+            FlowScriptIdentifier identifier = null;
+            if ( !TryFunc( identifierNode, "Failed to parse variable identifier", () => TryParseIdentifier( identifierNode, out identifier ) ) )
+                return false;
+
+            // Resolve the identifier value type as it's known
+            identifier.ExpressionValueType = variableDeclaration.Type.ValueType;
+
+            variableDeclaration.Identifier = identifier;
+
+            // Parse expression
+            if ( TryGet( context, () => context.expression(), out var expressionContext))
+            {
+                FlowScriptExpression initializer = null;
+                if ( !TryFunc( expressionContext, "Failed to parse variable initializer", () => TryParseExpression( expressionContext, out initializer ) ) )
+                    return false;
+
+                variableDeclaration.Initializer = initializer;
+            }
+
+            return true;
+        }
+
+        //
+        // Expressions
+        //
+        private bool TryParseExpression( FlowScriptParser.ExpressionContext context, out FlowScriptExpression expression )
+        {
+            LogContextInfo( context );
+
+            expression = null;
+
+            // Parse null expression
+            if ( TryCast<FlowScriptParser.NullExpressionContext>( context, out var nullExpressionContext ) )
+            {
+                mLogger.Info( "Null expression" );
+                expression = null;
+            }
+            else if ( TryCast<FlowScriptParser.CompoundExpressionContext>( context, out var compoundExpressionContext ) )
+            {
+                mLogger.Info( "Todo: compound expression" );
+                return false;
+            }
+            else if ( TryCast<FlowScriptParser.CastExpressionContext>( context, out var castExpressionContext))
+            {
+                mLogger.Info( "Todo: cast" );
+                return false;
+            }
+            else if ( TryCast<FlowScriptParser.CallExpressionContext>( context, out var callExpressionContext ) )
+            {
+                FlowScriptCallExpression callExpression = null;
+                if ( !TryFunc( callExpressionContext, "Failed to parse call expression", () => TryParseCallExpression( callExpressionContext, out callExpression ) ) )
+                    return false;
+
+                expression = callExpression;
+            }
+            else if ( TryCast<FlowScriptParser.UnaryPostfixExpressionContext>( context, out var unaryPostfixExpressionContext ) )
+            {
+                mLogger.Info( "Todo: unary postfix expression" );
+                return false;
+            }
+            else if ( TryCast<FlowScriptParser.UnaryPrefixExpressionContext>( context, out var unaryPrefixExpressionContext ) )
+            {
+                mLogger.Info( "Todo: unary prefix expression" );
+                return false;
+            }
+            else if ( TryCast<FlowScriptParser.MultiplicationExpressionContext>( context, out var multiplicationExpressionContext ) )
+            {
+                mLogger.Info( "Todo: multiplication expression" );
+                return false;
+            }
+            else if ( TryCast<FlowScriptParser.AdditionExpressionContext>( context, out var additionExpressionContext ) )
+            {
+                mLogger.Info( "Todo: addition expression" );
+                return false;
+            }
+            else if ( TryCast<FlowScriptParser.RelationalExpressionContext>( context, out var relationalExpressionContext ) )
+            {
+                mLogger.Info( "Todo: relational expression" );
+                return false;
+            }
+            else if ( TryCast<FlowScriptParser.EqualityExpressionContext>( context, out var equalityExpressionContext ) )
+            {
+                mLogger.Info( "Todo: equality expression" );
+                return false;
+            }
+            else if ( TryCast<FlowScriptParser.LogicalAndExpressionContext>( context, out var logicalAndExpressionContext ) )
+            {
+                mLogger.Info( "Todo: logical and expression" );
+                return false;
+            }
+            else if ( TryCast<FlowScriptParser.LogicalOrExpressionContext>( context, out var logicalOrExpressionContext ) )
+            {
+                mLogger.Info( "Todo: logical or expression" );
+                return false;
+            }
+            else if ( TryCast<FlowScriptParser.AssignmentExpressionContext>( context, out var assignmentExpressionContext ) )
+            {
+                mLogger.Info( "Todo: assignment expression" );
+                return false;
+            }
+            else if ( TryCast<FlowScriptParser.PrimaryExpressionContext>( context, out var primaryExpressionContext ) )
+            {
+                FlowScriptExpression primaryExpression = null;
+                if ( !TryFunc( primaryExpressionContext, "Failed to parse primary expression", () => TryParsePrimaryExpression( primaryExpressionContext, out primaryExpression ) ) )
+                    return false;
+
+                expression = primaryExpression;
+            }
+            else
+            {
+                LogError( context, "Unknown expression" );
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool TryParseCallExpression( FlowScriptParser.CallExpressionContext context, out FlowScriptCallExpression callExpression )
+        {
+            LogContextInfo( context );
+
+            callExpression = CreateAstNode<FlowScriptCallExpression>( context );
+
+            if ( !TryGet( context, "Expected function or procedure identifier", () => context.Identifier(), out var identifierNode ) )
+                return false;
+
+            FlowScriptIdentifier identifier = null;
+            if ( !TryFunc( identifierNode, "Failed to parse function or procedure identifier", () => TryParseIdentifier( identifierNode, out identifier ) ) )
+                return false;
+
+            callExpression.Identifier = identifier;
+
+            if ( TryGet(context, () => context.expressionList(), out var expressionListContext))
+            {
+                if ( !TryGet( expressionListContext, "Expected expression(s)", () => expressionListContext.expression(), out var expressionContexts ) )
+                    return false;
+
+                foreach ( var expressionContext in expressionContexts )
+                {
+                    FlowScriptExpression expression = null;
+                    if ( !TryFunc( expressionContext, "Failed to parse expression", () => TryParseExpression( expressionContext, out expression ) ) )
+                        return false;
+
+                    callExpression.Arguments.Add( expression );
+                }
+            }
+
+            return true;
+        }
+
+        private bool TryParsePrimaryExpression( FlowScriptParser.PrimaryExpressionContext context, out FlowScriptExpression expression )
+        {
+            LogContextInfo( context );
+
+            expression = null;
+            if ( !TryGet( context, "Expected primary expression", () => context.primary(), out var primaryContext ) )
+                return false;
+
+            if ( TryCast<FlowScriptParser.ConstantExpressionContext>( primaryContext, out var constantExpressionContext ))
+            {
+                FlowScriptExpression constantExpression = null;
+                if ( !TryFunc( constantExpressionContext, "Failed to parse constant expression", () => TryParseConstantExpression( constantExpressionContext, out constantExpression ) ) )
+                    return false;
+
+                expression = constantExpression;
+            }
+            else if ( TryCast<FlowScriptParser.IdentifierExpressionContext>( primaryContext, out var identifierExpressionContext ))
+            {
+                FlowScriptIdentifier identifier = null;
+                if ( !TryFunc( identifierExpressionContext, "Failed to parse identifier expression", () => TryParseIdentifierExpression( identifierExpressionContext, out identifier ) ) )
+                    return false;
+
+                expression = identifier;
+            }
+            else
+            {
+                LogError( primaryContext, "Expected constant or identifier expression" );
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool TryParseConstantExpression( FlowScriptParser.ConstantExpressionContext context, out FlowScriptExpression expression )
+        {
+            LogContextInfo( context );
+
+            expression = null;
+            if ( !TryGet( context, "Expected constant", () => context.constant(), out var constantContext ) )
+                return false;
+
+            FlowScriptExpression constantExpression = null;
+            if ( !TryFunc( constantContext, "Failed to parse literal", () => TryParseLiteral( constantContext, out constantExpression ) ) )
+                return false;
+
+            expression = constantExpression;
+
+            return true;
+        }
+
+        private bool TryParseIdentifierExpression( FlowScriptParser.IdentifierExpressionContext context, out FlowScriptIdentifier identifier )
+        {
+            LogContextInfo( context );
+
+            identifier = null;
+
+            if ( !TryGet( context, "Expected identifier", () => context.Identifier(), out var identifierNode ) )
+                return false;
+
+            FlowScriptIdentifier parsedIdentifier = null;
+            if ( !TryFunc( identifierNode, "Failed to parse identifier", () => TryParseIdentifier( identifierNode, out parsedIdentifier ) ) )
+                return false;
+
+            identifier = parsedIdentifier;
+
+            return true;
+        }
+
+        //
+        // Literals
+        //
+        private bool TryParseLiteral( FlowScriptParser.ConstantContext context, out FlowScriptExpression expression )
+        {
+            LogContextInfo( context );
+
+            expression = null;
+            if ( TryGet(context, () => context.BoolLiteral(), out var boolLiteralContext))
+            {
+                if ( !TryParseBoolLiteral( boolLiteralContext, out var boolLiteral ) )
+                    return false;
+
+                expression = boolLiteral;
+            }
+            else if ( TryGet( context, () => context.IntLiteral(), out var intLiteralContext ) )
+            {
+                if ( !TryParseIntLiteral( intLiteralContext, out var intLiteral ) )
+                    return false;
+
+                expression = intLiteral;
+            }
+            else if ( TryGet( context, () => context.FloatLiteral(), out var floatLiteralContext ) )
+            {
+                if ( !TryParseFloatLiteral( floatLiteralContext, out var floatLiteral ) )
+                    return false;
+
+                expression = floatLiteral;
+            }
+            else if ( TryGet( context, () => context.StringLiteral(), out var stringLiteralContext ) )
+            {
+                if ( !TryParseStringLiteral( stringLiteralContext, out var stringLiteral ) )
+                    return false;
+
+                expression = stringLiteral;
+            }
+            else
+            {
+                LogError( context, "Expected literal" );
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool TryParseBoolLiteral( ITerminalNode node, out FlowScriptBoolLiteral literal )
+        {
+            literal = CreateAstNode<FlowScriptBoolLiteral>( node );
+
+            bool value;
+            if ( !bool.TryParse(node.Symbol.Text, out value) )
+            {
+                LogError( node.Symbol, "Invalid boolean value" );
+                return false;
+            }
+
+            literal.Value = value;
+
+            return true;
+        }
+
+        private bool TryParseIntLiteral( ITerminalNode node, out FlowScriptIntLiteral literal )
+        {
+            literal = CreateAstNode<FlowScriptIntLiteral>( node );
+
+            int value = 0;
+            string intString = node.Symbol.Text;
+
+            if ( intString.StartsWith("0x", StringComparison.InvariantCultureIgnoreCase) )
+            {
+                // hex number
+                if ( !int.TryParse( intString.Substring(2), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out value ) )
+                {
+                    LogError( node.Symbol, "Invalid hexidecimal integer value" );
+                    return false;
+                }
+            }
+            else
+            {
+                // assume decimal
+                if ( !int.TryParse( intString, out value ) )
+                {
+                    LogError( node.Symbol, "Invalid decimal integer value" );
+                    return false;
+                }
+            }
+
+            literal.Value = value;
+
+            return true;
+        }
+
+        private bool TryParseFloatLiteral( ITerminalNode node, out FlowScriptFloatLiteral literal )
+        {
+            literal = CreateAstNode<FlowScriptFloatLiteral>( node );
+
+            float value;
+            if ( !float.TryParse( node.Symbol.Text, out value ) )
+            {
+                LogError( node.Symbol, "Invalid float value" );
+                return false;
+            }
+
+            literal.Value = value;
+
+            return true;
+        }
+
+        private bool TryParseStringLiteral( ITerminalNode node, out FlowScriptStringLiteral literal )
+        {
+            literal = CreateAstNode<FlowScriptStringLiteral>( node );
+            literal.Value = node.Symbol.Text.Trim('\"');
+
             return true;
         }
 
@@ -283,7 +766,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Ast
         {
             LogContextInfo( context );
 
-            parameters = new List<FlowScriptParameter>();
+            parameters = new System.Collections.Generic.List<FlowScriptParameter>();
 
             // Parse parameter list
             if ( !TryGet( context, "Expected parameter list", () => context.parameter(), out var parameterContexts ) )
@@ -325,6 +808,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Ast
             if ( !TryFunc( identifierNode, "Failed to parse parameter identifier", () => TryParseIdentifier( identifierNode, out identifier ) ) )
                 return false;
 
+            identifier.ExpressionValueType = parameter.TypeIdentifier.ValueType;
+
             parameter.Identifier = identifier;
 
 
@@ -337,26 +822,30 @@ namespace AtlusScriptLib.FlowScriptLanguage.Ast
         private bool TryParseTypeIdentifier( ITerminalNode node, out FlowScriptTypeIdentifier identifier )
         {
             identifier = CreateAstNode<FlowScriptTypeIdentifier>( node );
+            identifier.Text = node.Symbol.Text;
 
-            if ( !Enum.TryParse<FlowScriptPrimitiveType>( node.Symbol.Text, true, out var primitiveType ) )
+            if ( !Enum.TryParse<FlowScriptValueType>( identifier.Text, true, out var primitiveType ) )
             {
-                LogError( node.Symbol, $"Unknown primitive type: {node.Symbol.Text}" );
+                LogError( node.Symbol, $"Unknown value type: {identifier.Text }" );
                 return false;
             }
 
-            identifier.PrimitiveType = primitiveType;
+            identifier.ValueType = primitiveType;
 
             return true;
         }
 
-        private bool TryParseIdentifier( ITerminalNode identifierNode, out FlowScriptIdentifier identifier )
+        private bool TryParseIdentifier(ITerminalNode node, out FlowScriptIdentifier identifier)
         {
-            identifier = CreateAstNode<FlowScriptIdentifier>( identifierNode );
-            identifier.Text = identifierNode.Symbol.Text;
+            identifier = CreateAstNode<FlowScriptIdentifier>( node );
+            identifier.Text = node.Symbol.Text;
 
             return true;
         }
 
+        //
+        // Parse helpers
+        //
         private T CreateAstNode<T>( ParserRuleContext context ) where T : FlowScriptAstNode, new()
         {
             T instance = new T();
@@ -397,28 +886,6 @@ namespace AtlusScriptLib.FlowScriptLanguage.Ast
             if ( !func() )
             {
                 LogError( node.Symbol, errorText );
-                return false;
-            }
-
-            return true;
-        }
-
-        private bool TryAction( ITerminalNode node, string errorText, Action action )
-        {
-            if ( !TryAction( action ) )
-            {
-                LogError( node.Symbol, errorText );
-                return false;
-            }
-
-            return true;
-        }
-
-        private bool TryAction( ParserRuleContext context, string errorText, Action action )
-        {
-            if ( !TryAction(action))
-            {
-                LogError( context, errorText );
                 return false;
             }
 

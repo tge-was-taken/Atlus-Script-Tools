@@ -48,7 +48,7 @@ procedureDeclarationStatement
 	;
 
 variableDeclarationStatement
-	: Local? TypeIdentifier Identifier ('=' expression)? ';'
+	: Global? TypeIdentifier Identifier ('=' expression)? ';'
 	;
 
 parameterList
@@ -126,7 +126,7 @@ returnStatement
 
 // Keywords
 Func:		'func';
-Local:		'local';
+Global:		'global';
 If:			'if';
 Else:		'else';
 For:		'for';

@@ -34,7 +34,7 @@ public partial class FlowScriptParser : Parser {
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
 		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, T__15=16, T__16=17, 
 		T__17=18, T__18=19, T__19=20, T__20=21, T__21=22, T__22=23, T__23=24, 
-		Func=25, Local=26, If=27, Else=28, For=29, While=30, Break=31, Continue=32, 
+		Func=25, Global=26, If=27, Else=28, For=29, While=30, Break=31, Continue=32, 
 		Return=33, TypeIdentifier=34, BoolLiteral=35, IntLiteral=36, FloatLiteral=37, 
 		StringLiteral=38, Identifier=39, Whitespace=40, Newline=41, BlockComment=42, 
 		LineComment=43;
@@ -57,13 +57,13 @@ public partial class FlowScriptParser : Parser {
 	private static readonly string[] _LiteralNames = {
 		null, "'import'", "';'", "'{'", "'}'", "'('", "')'", "'='", "','", "'--'", 
 		"'++'", "'~'", "'!'", "'-'", "'*'", "'/'", "'+'", "'<'", "'>'", "'=<'", 
-		"'>='", "'=='", "'!='", "'&&'", "'||'", "'func'", "'local'", "'if'", "'else'", 
-		"'for'", "'while'", "'break'", "'continue'", "'return'"
+		"'>='", "'=='", "'!='", "'&&'", "'||'", "'func'", "'global'", "'if'", 
+		"'else'", "'for'", "'while'", "'break'", "'continue'", "'return'"
 	};
 	private static readonly string[] _SymbolicNames = {
 		null, null, null, null, null, null, null, null, null, null, null, null, 
 		null, null, null, null, null, null, null, null, null, null, null, null, 
-		null, "Func", "Local", "If", "Else", "For", "While", "Break", "Continue", 
+		null, "Func", "Global", "If", "Else", "For", "While", "Break", "Continue", 
 		"Return", "TypeIdentifier", "BoolLiteral", "IntLiteral", "FloatLiteral", 
 		"StringLiteral", "Identifier", "Whitespace", "Newline", "BlockComment", 
 		"LineComment"
@@ -176,7 +176,7 @@ public partial class FlowScriptParser : Parser {
 			State = 49;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__1) | (1L << T__4) | (1L << T__8) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << Local) | (1L << If) | (1L << For) | (1L << While) | (1L << Break) | (1L << Continue) | (1L << Return) | (1L << TypeIdentifier) | (1L << BoolLiteral) | (1L << IntLiteral) | (1L << FloatLiteral) | (1L << StringLiteral) | (1L << Identifier))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__1) | (1L << T__4) | (1L << T__8) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << Global) | (1L << If) | (1L << For) | (1L << While) | (1L << Break) | (1L << Continue) | (1L << Return) | (1L << TypeIdentifier) | (1L << BoolLiteral) | (1L << IntLiteral) | (1L << FloatLiteral) | (1L << StringLiteral) | (1L << Identifier))) != 0)) {
 				{
 				{
 				State = 46; statement();
@@ -288,7 +288,7 @@ public partial class FlowScriptParser : Parser {
 				State = 62;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
-				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__1) | (1L << T__4) | (1L << T__8) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << Local) | (1L << If) | (1L << For) | (1L << While) | (1L << Break) | (1L << Continue) | (1L << Return) | (1L << TypeIdentifier) | (1L << BoolLiteral) | (1L << IntLiteral) | (1L << FloatLiteral) | (1L << StringLiteral) | (1L << Identifier))) != 0)) {
+				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__1) | (1L << T__4) | (1L << T__8) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << Global) | (1L << If) | (1L << For) | (1L << While) | (1L << Break) | (1L << Continue) | (1L << Return) | (1L << TypeIdentifier) | (1L << BoolLiteral) | (1L << IntLiteral) | (1L << FloatLiteral) | (1L << StringLiteral) | (1L << Identifier))) != 0)) {
 					{
 					{
 					State = 59; statement();
@@ -308,7 +308,7 @@ public partial class FlowScriptParser : Parser {
 			case T__10:
 			case T__11:
 			case T__12:
-			case Local:
+			case Global:
 			case If:
 			case For:
 			case While:
@@ -675,7 +675,7 @@ public partial class FlowScriptParser : Parser {
 	public partial class VariableDeclarationStatementContext : ParserRuleContext {
 		public ITerminalNode TypeIdentifier() { return GetToken(FlowScriptParser.TypeIdentifier, 0); }
 		public ITerminalNode Identifier() { return GetToken(FlowScriptParser.Identifier, 0); }
-		public ITerminalNode Local() { return GetToken(FlowScriptParser.Local, 0); }
+		public ITerminalNode Global() { return GetToken(FlowScriptParser.Global, 0); }
 		public ExpressionContext expression() {
 			return GetRuleContext<ExpressionContext>(0);
 		}
@@ -710,9 +710,9 @@ public partial class FlowScriptParser : Parser {
 			State = 106;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
-			if (_la==Local) {
+			if (_la==Global) {
 				{
-				State = 105; Match(Local);
+				State = 105; Match(Global);
 				}
 			}
 
