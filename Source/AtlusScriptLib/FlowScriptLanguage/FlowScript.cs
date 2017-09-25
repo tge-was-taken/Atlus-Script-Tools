@@ -203,7 +203,7 @@ namespace AtlusScriptLib.FlowScriptLanguage
 
             // strings have already been assigned previously, 
             // so last up is the version
-            instance.mFormatVersion = binary.FormatVersion;
+            instance.mFormatVersion = (FlowScriptFormatVersion)binary.FormatVersion;
 
             // everything is assigned, return the constructed instance
             return instance;
@@ -217,7 +217,7 @@ namespace AtlusScriptLib.FlowScriptLanguage
         private List<FlowScriptProcedure> mProcedures;
         private List<FlowScriptLabel> mJumpLabels;
         private MessageScript mMessageScript;
-        private FlowScriptBinaryFormatVersion mFormatVersion;
+        private FlowScriptFormatVersion mFormatVersion;
 
         /// <summary>
         /// Gets or sets the id metadata field.
@@ -256,7 +256,7 @@ namespace AtlusScriptLib.FlowScriptLanguage
         /// <summary>
         /// Gets the binary format version.
         /// </summary>
-        public FlowScriptBinaryFormatVersion FormatVersion
+        public FlowScriptFormatVersion FormatVersion
         {
             get { return mFormatVersion; }
         }
@@ -270,13 +270,12 @@ namespace AtlusScriptLib.FlowScriptLanguage
             mProcedures = new List<FlowScriptProcedure>();
             mJumpLabels = new List<FlowScriptLabel>();
             mMessageScript = null;
-            mFormatVersion = FlowScriptBinaryFormatVersion.Unknown;
         }
 
         /// <summary>
         /// Initializes an empty flow script.
         /// </summary>
-        public FlowScript( FlowScriptBinaryFormatVersion version ) : this()
+        public FlowScript( FlowScriptFormatVersion version ) : this()
         {
             mFormatVersion = version;
         }
@@ -287,7 +286,7 @@ namespace AtlusScriptLib.FlowScriptLanguage
         /// <returns>A <see cref="FlowScriptBinary"/> instance.</returns>
         public FlowScriptBinary ToBinary()
         {
-            var builder = new FlowScriptBinaryBuilder( mFormatVersion );
+            var builder = new FlowScriptBinaryBuilder( (FlowScriptBinaryFormatVersion)mFormatVersion );
             builder.SetUserId( mUserId );
 
             // Skip the labels until after the instructions have been converted, as we need to fix up

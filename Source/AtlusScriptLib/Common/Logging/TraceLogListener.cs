@@ -10,4 +10,12 @@ namespace AtlusScriptLib.Common.Logging
             Trace.WriteLine( $"{DateTime.Now} {e.ChannelName} {e.Level}: {e.Message}" );
         }
     }
+
+    public class DebugLogListener : LogListener
+    {
+        protected override void OnLog( object sender, LogEventArgs e )
+        {
+            Debug.WriteLine( $"{DateTime.Now} {e.ChannelName} {e.Level}: {e.Message}" );
+        }
+    }
 }

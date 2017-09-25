@@ -72,32 +72,34 @@
     <Compile Include="Common\Text\Encodings\CodePoint.cs" />
     <Compile Include="Common\Text\Encodings\Persona3Encoding.cs" />
     <Compile Include="Common\Text\Encodings\Persona4Encoding.cs" />
-    <Compile Include="FlowScriptLanguage\Ast\FlowScriptAstParser.cs" />
-    <Compile Include="FlowScriptLanguage\Ast\FlowScriptAstParserFailureException.cs" />
-    <Compile Include="FlowScriptLanguage\Ast\FlowScriptAstTypeResolver.cs" />
-    <Compile Include="FlowScriptLanguage\Ast\Nodes\FlowScriptAstNode.cs" />
-    <Compile Include="FlowScriptLanguage\Ast\Nodes\FlowScriptAstSourceInfo.cs" />
-    <Compile Include="FlowScriptLanguage\Ast\Nodes\Statements\Expressions\Identifiers\FlowScriptTypeIdentifier.cs" />
-    <Compile Include="FlowScriptLanguage\Ast\Nodes\Statements\FlowScriptDeclarationType.cs" />
-    <Compile Include="FlowScriptLanguage\Ast\Nodes\Statements\Expressions\FlowScriptCallExpression.cs" />
-    <Compile Include="FlowScriptLanguage\Ast\Nodes\Statements\Expressions\Literals\FlowScriptBoolLiteral.cs" />
-    <Compile Include="FlowScriptLanguage\Ast\Nodes\FlowScriptCompilationUnit.cs" />
-    <Compile Include="FlowScriptLanguage\Ast\Nodes\Statements\FlowScriptCompoundStatement.cs" />
-    <Compile Include="FlowScriptLanguage\Ast\Nodes\Statements\FlowScriptDeclaration.cs" />
-    <Compile Include="FlowScriptLanguage\Ast\Nodes\Statements\FlowScriptExpression.cs" />
-    <Compile Include="FlowScriptLanguage\Ast\Nodes\Statements\Expressions\Literals\FlowScriptFloatLiteral.cs" />
-    <Compile Include="FlowScriptLanguage\Ast\Nodes\Statements\Declarations\FlowScriptFunctionDeclaration.cs" />
-    <Compile Include="FlowScriptLanguage\Ast\Nodes\Statements\Expressions\FlowScriptIdentifier.cs" />
-    <Compile Include="FlowScriptLanguage\Ast\Nodes\FlowScriptImport.cs" />
-    <Compile Include="FlowScriptLanguage\Ast\Nodes\Statements\Expressions\Literals\FlowScriptIntLiteral.cs" />
-    <Compile Include="FlowScriptLanguage\Ast\Nodes\Statements\Expressions\FlowScriptLiteral.cs" />
-    <Compile Include="FlowScriptLanguage\Ast\Nodes\FlowScriptParameter.cs" />
-    <Compile Include="FlowScriptLanguage\Ast\Nodes\FlowScriptValueType.cs" />
-    <Compile Include="FlowScriptLanguage\Ast\Nodes\Statements\Declarations\FlowScriptProcedureDeclaration.cs" />
-    <Compile Include="FlowScriptLanguage\Ast\Nodes\FlowScriptStatement.cs" />
-    <Compile Include="FlowScriptLanguage\Ast\Nodes\Statements\Expressions\Literals\FlowScriptStringLiteral.cs" />
-    <Compile Include="FlowScriptLanguage\Ast\Nodes\Statements\Declarations\FlowScriptVariableDeclaration.cs" />
-    <Compile Include="FlowScriptLanguage\Ast\Nodes\FlowScriptVariableModifier.cs" />
+    <Compile Include="FlowScriptLanguage\Compiler\FlowScriptCompiler.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\FlowScriptDeclarationScanner.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\FlowScriptSyntaxParser.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\FlowScriptSyntaxParserFailureException.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\FlowScriptTypeResolver.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Nodes\FlowScriptSyntaxNode.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Nodes\FlowScriptSourceInfo.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Nodes\Statements\Expressions\Identifiers\FlowScriptTypeIdentifier.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Nodes\Statements\FlowScriptDeclarationType.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Nodes\Statements\Expressions\FlowScriptCallExpression.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Nodes\Statements\Expressions\Literals\FlowScriptBoolLiteral.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Nodes\FlowScriptCompilationUnit.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Nodes\Statements\FlowScriptCompoundStatement.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Nodes\Statements\FlowScriptDeclaration.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Nodes\Statements\FlowScriptExpression.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Nodes\Statements\Expressions\Literals\FlowScriptFloatLiteral.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Nodes\Statements\Declarations\FlowScriptFunctionDeclaration.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Nodes\Statements\Expressions\FlowScriptIdentifier.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Nodes\FlowScriptImport.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Nodes\Statements\Expressions\Literals\FlowScriptIntLiteral.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Nodes\Statements\Expressions\FlowScriptLiteral.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Nodes\FlowScriptParameter.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Nodes\FlowScriptValueType.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Nodes\Statements\Declarations\FlowScriptProcedureDeclaration.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Nodes\FlowScriptStatement.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Nodes\Statements\Expressions\Literals\FlowScriptStringLiteral.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Nodes\Statements\Declarations\FlowScriptVariableDeclaration.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Nodes\FlowScriptVariableModifier.cs" />
     <Compile Include="FlowScriptLanguage\Parser\FlowScriptBaseListener.cs" />
     <Compile Include="FlowScriptLanguage\Parser\FlowScriptBaseVisitor.cs" />
     <Compile Include="FlowScriptLanguage\Parser\FlowScriptLexer.cs" />
@@ -202,9 +204,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="FlowScriptLanguage\Compiler\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

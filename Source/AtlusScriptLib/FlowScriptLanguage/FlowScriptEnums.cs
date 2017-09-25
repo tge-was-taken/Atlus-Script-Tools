@@ -1,4 +1,6 @@
-﻿namespace AtlusScriptLib.FlowScriptLanguage
+﻿using AtlusScriptLib.FlowScriptLanguage.BinaryModel;
+
+namespace AtlusScriptLib.FlowScriptLanguage
 {
     /// <summary>
     /// Represents the opcodes in a flow script.
@@ -181,12 +183,13 @@
         PUSHSTR
     }
 
-    /// <summary>
-    /// Represents the different types variables can have.
-    /// </summary>
-    public enum FlowScriptVariableType
+    public enum FlowScriptFormatVersion : uint
     {
-        Int32,
-        Float,
+        Version1 = FlowScriptBinaryFormatVersion.Version1,
+        Version1BigEndian = FlowScriptBinaryFormatVersion.Version1BigEndian,
+        Version2 = FlowScriptBinaryFormatVersion.Version2,
+        Version2BigEndian = FlowScriptBinaryFormatVersion.Version2BigEndian,
+        Version3 = FlowScriptBinaryFormatVersion.Version3,
+        Version3BigEndian = FlowScriptBinaryFormatVersion.Version3BigEndian,
     }
 }

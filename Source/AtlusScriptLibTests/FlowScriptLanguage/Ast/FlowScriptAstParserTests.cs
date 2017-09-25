@@ -1,16 +1,16 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using AtlusScriptLib.FlowScriptLanguage.Ast;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AtlusScriptLib.Common.Logging;
+using AtlusScriptLib.FlowScriptLanguage.Compiler;
 
-namespace AtlusScriptLib.FlowScriptLanguage.Ast.Tests
+namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
 {
     [TestClass()]
-    public class FlowScriptAstParserTests
+    public class FlowScriptSyntaxParserTests
     {
         [TestMethod]
         public void TryParseTest()
@@ -31,13 +31,19 @@ namespace AtlusScriptLib.FlowScriptLanguage.Ast.Tests
                 "   BGM( bgmId );\n" +
                 "}\n";
 
-            var parser = new FlowScriptAstParser();
-            parser.AddListener( new TraceLogListener() );
+            var listener = new DebugLogListener();
+
+            var parser = new FlowScriptSyntaxParser();
+            parser.AddListener( listener );
             Assert.IsTrue( parser.TryParse( input, out var compilationUnit ) );
 
-            var resolver = new FlowScriptAstTypeResolver();
-            resolver.AddListener( new TraceLogListener() );
+            var resolver = new FlowScriptTypeResolver();
+            resolver.AddListener( listener );
             Assert.IsTrue( resolver.TryResolveTypes( compilationUnit ) );
+
+            var compiler = new FlowScriptCompiler( FlowScriptFormatVersion.Version3BigEndian );
+            compiler.AddListener( listener );
+            Assert.IsTrue( compiler.TryCompile( compilationUnit, out var flowScript ) );
         }
     }
 }
