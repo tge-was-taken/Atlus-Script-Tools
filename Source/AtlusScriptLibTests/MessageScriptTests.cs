@@ -60,7 +60,7 @@ namespace AtlusScriptLib.Tests
             var script = new MessageScript( MessageScriptFormatVersion.Version1 );
 
             Assert.AreEqual( 0, script.Id );
-            Assert.AreEqual( MessageScriptBinaryFormatVersion.Version1, script.FormatVersion );
+            Assert.AreEqual( MessageScriptFormatVersion.Version1, script.FormatVersion );
             Assert.AreEqual( 0, script.Windows.Count );
         }
 

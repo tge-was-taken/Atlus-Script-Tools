@@ -103,17 +103,17 @@ namespace AtlusScriptLib.FlowScriptLanguage
         MINUS,
 
         /// <summary>
-        /// Bitwise NOT one value by popping it off the stack and pushing the return value to the stack.
+        /// Logical NOT one value by popping it off the stack and pushing the return value to the stack.
         /// </summary>
         NOT,
 
         /// <summary>
-        /// Bitwise OR 2 values by popping them off the stack and pushing the return value to the stack.
+        /// Logical OR 2 values by popping them off the stack and pushing the return value to the stack.
         /// </summary>
         OR,
 
         /// <summary>
-        /// Bitwise AND 2 values by popping them off the stack and pushing the return value to the stack.
+        /// Logical AND 2 values by popping them off the stack and pushing the return value to the stack.
         /// </summary>
         AND,
 

@@ -2,47 +2,48 @@ from idaapi import *
 import idautils
 import idc
 
-cMaxRecursionDepth = 4
-cGetFunctionIntArgumentFuncAddr 		= 0x1F266C
-cGetFunctionFloatArgumentFuncAddr 		= 0x1F2768
-cGetFunctionStringArgumentFuncAddr 		= 0x1F2868
-cGetFunctionMessageHandleArgument		= 0x1F2954
-cSetFunctionIntReturnValueFuncAddr		= 0x1F28D8
-cSetFunctionFloatReturnValueFuncAddr 	= 0x1F28F0
+MAX_RECURSION_DEPTH = 8
 
-def GetIsPPCBranch(address):
+FUNCTIONPTR_GET_INT_ARG 			= 0x1F266C
+FUNCTIONPTR_GET_FLOAT_ARG 			= 0x1F2768
+FUNCTIONPTR_GET_STRING_ARG 			= 0x1F2868
+FUNCTIONPTR_GET_MSG_HANDLE_ARG		= 0x1F2954
+FUNCTIONPTR_SET_INT_RETURN_VALUE	= 0x1F28D8
+FUNCTIONPTR_SET_FLOAT_RETURN_VALUE	= 0x1F28F0
+
+def IsBranch(address):
 	if (GetMnem(address) != "b"):
 		return False
 	
 	return True
 		
-def GetPPCBranchAddress(address):
+def GetBranchAddress(address):
 	return GetOperandValue(address, 0)
 
-def GetIsPPCBranchLinkToFuncAddress(address, funcAddress):
+def IsBranchToFunctionAddress(address, funcAddress):
 	return GetOperandValue(address, 0) == funcAddress
 
-def GetIsPPCBranchLinkReturn(address):
+def IsReturn(address):
 	return get_32bit(address) == 0x4E800020
 
-def GetPPCRegLastKnownValue(address, regIndex):
+def GetLastImmediateRegisterValue(address, regIndex):
 	while True:
 
 		if (GetOperandValue(address, 0) == regIndex):
 			mnem = GetMnem(address)
-			#print mnem
+
 			if (mnem == "li"):
 				return GetOperandValue(address, 1)
 			elif (mnem == "mr"):
 				regIndex = GetOperandValue(address, 1)
-				return GetPPCRegLastKnownValue(address - 4, regIndex)
+				return GetLastImmediateRegisterValue(address - 4, regIndex)
 			else:
 				raise Exception(mnem)
 
 		address -= 4
 	
-def GetPPCFuncArgument(funcAddress, index):
-	return GetPPCRegLastKnownValue(funcAddress - 4, index + 3)
+def GetFunctionArgument(funcAddress, index):
+	return GetLastImmediateRegisterValue(funcAddress - 4, index + 3)
 
 
 def ParseFunctionTable(address, count, index):
@@ -52,7 +53,7 @@ def ParseFunctionTable(address, count, index):
 		functionOPDAddress = get_32bit(address)
 		address += 4
 		
-		functionArgumentCount = get_32bit(address)
+		functionParameterCount = get_32bit(address)
 		address += 4
 		
 		functionNameAddress = get_32bit(address)
@@ -69,11 +70,11 @@ def ParseFunctionTable(address, count, index):
 		# set up default values for types
 		argTypes = []
 		argNames = []
-		retType = "null"
+		retType = "unk"
 		
-		for j in range(0, functionArgumentCount):
+		for j in range(0, functionParameterCount):
 			argTypes.append("unk")
-			argNames.append("arg" + str(j))
+			argNames.append("param" + str(j))
 		
 		if (functionOPDAddress):
 				
@@ -97,11 +98,11 @@ def ParseFunctionTable(address, count, index):
 			while not isDone:
 				instruction = get_32bit(functionAddress)
 				
-				if (not GetIsPPCBranch(functionAddress)):
+				if (not IsBranch(functionAddress)):
 					functionAddress += 4
 					continue
 				
-				if (GetIsPPCBranchLinkReturn(functionAddress)):
+				if (IsReturn(functionAddress)):
 					#print "exit branch at %04x" % functionAddress
 					if (branchDepth > -1):				
 						functionAddress = returnAddressStack.pop()
@@ -112,42 +113,51 @@ def ParseFunctionTable(address, count, index):
 					else:
 						isDone = True
 					
-				branchAddress = GetPPCBranchAddress(functionAddress)
+				branchAddress = GetBranchAddress(functionAddress)
 					
-				if (branchAddress == cGetFunctionIntArgumentFuncAddr):
-					argIndex = GetPPCFuncArgument(functionAddress, 0)
+				if (branchAddress == FUNCTIONPTR_GET_INT_ARG):
+					argIndex = GetFunctionArgument(functionAddress, 0)
 					if (not argIndex < len(argTypes)):
 						argTypes.append("int")
-						argNames.append("arg" + str(argIndex))
-						functionArgumentCount += 1
+						argNames.append("param" + str(argIndex))
+						functionParameterCount += 1
 					else:
 						argTypes[argIndex] = "int"
 					
-				elif (branchAddress == cGetFunctionFloatArgumentFuncAddr):
-					argIndex = GetPPCFuncArgument(functionAddress, 0)
+				elif (branchAddress == FUNCTIONPTR_GET_FLOAT_ARG):
+					argIndex = GetFunctionArgument(functionAddress, 0)
 					if (not argIndex < len(argTypes)):
 						argTypes.append("float")
-						argNames.append("arg" + str(argIndex))
-						functionArgumentCount += 1
+						argNames.append("param" + str(argIndex))
+						functionParameterCount += 1
 					else:
 						argTypes[argIndex] = "float"
 					
-				elif (branchAddress == cGetFunctionStringArgumentFuncAddr):
-					argIndex = GetPPCFuncArgument(functionAddress, 0)
+				elif (branchAddress == FUNCTIONPTR_GET_STRING_ARG):
+					argIndex = GetFunctionArgument(functionAddress, 0)
 					if (not argIndex < len(argTypes)):
 						argTypes.append("string")
-						argNames.append("arg" + str(argIndex))
-						functionArgumentCount += 1
+						argNames.append("param" + str(argIndex))
+						functionParameterCount += 1
 					else:
 						argTypes[argIndex] = "string"
+			
+				#elif (branchAddress == FUNCTIONPTR_GET_MSG_HANDLE_ARG):
+				#	argIndex = GetFunctionArgument(functionAddress, 0)
+				#	if (not argIndex < len(argTypes)):
+				#		argTypes.append("msg")
+				#		argNames.append("param" + str(argIndex))
+				#		functionParameterCount += 1
+				#	else:
+				#		argTypes[argIndex] = "msg"
 					
-				elif (branchAddress == cSetFunctionIntReturnValueFuncAddr):
+				elif (branchAddress == FUNCTIONPTR_SET_INT_RETURN_VALUE):
 					retType = "int"
 					
-				elif (branchAddress == cSetFunctionFloatReturnValueFuncAddr):
+				elif (branchAddress == FUNCTIONPTR_SET_FLOAT_RETURN_VALUE):
 					retType = "float"
 					
-				elif ((instruction != 0x4E800421) and (instruction != 0x4E800420) and (branchAddress < functionStartAddress or branchAddress >= functionEndAddress) and (branchDepth < cMaxRecursionDepth - 1) and (branchAddress not in startAddressStack)):
+				elif ((instruction != 0x4E800421) and (instruction != 0x4E800420) and (branchAddress < functionStartAddress or branchAddress >= functionEndAddress) and (branchDepth < MAX_RECURSION_DEPTH - 1) and (branchAddress not in startAddressStack)):
 					#print "enter branch at %04x" % functionAddress
 					returnAddressStack.append(functionAddress + 4)
 					startAddressStack.append(functionStartAddress)
@@ -176,15 +186,14 @@ def ParseFunctionTable(address, count, index):
 			
 		# create formatted string for function definition
 		functionArgsString = ""
-		for j in range(0, functionArgumentCount):
+		for j in range(0, functionParameterCount):
 		
 			functionArgsString += argTypes[j] + " " + argNames[j]
 				
-			if (j != functionArgumentCount - 1):
+			if (j != functionParameterCount - 1):
 				functionArgsString += ", "
 
-		print "%04x %s %s(%s);" % (functionID, retType, functionName, functionArgsString)
-		#print "%d %s %s(%s)" % (functionID, retType, functionName, functionArgsString)
+		print "function(0x%04x) %s %s(%s);" % (functionID, retType, functionName, functionArgsString)
 	
 	return
 	

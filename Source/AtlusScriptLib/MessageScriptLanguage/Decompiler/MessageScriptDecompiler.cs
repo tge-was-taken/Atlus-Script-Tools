@@ -58,9 +58,14 @@ namespace AtlusScriptLib.MessageScriptLanguage.Decompiler
                             WriteTagArgument( message.Identifier );
                             {
                                 mOutput.Write( " " );
-                                WriteOpenTag();
-                                Decompile( ( ( MessageScriptNamedSpeaker )message.Speaker ).Name, false );
-                                WriteCloseTag();
+
+                                var speaker = ( MessageScriptNamedSpeaker )message.Speaker;
+                                if ( speaker.Name != null )
+                                {
+                                    WriteOpenTag();
+                                    Decompile( speaker.Name, false );
+                                    WriteCloseTag();
+                                }
                             }
                             WriteCloseTag();
                         }

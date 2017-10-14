@@ -116,9 +116,7 @@ namespace AtlusScriptLib.FlowScriptLanguage
                 int instructionBinaryIndex = 0;
 
                 while ( instructionBinaryIndex < binary.TextSection.Count )
-                {
-                    instructionBinaryIndexToListIndexMap[instructionBinaryIndex] = instructionIndex;
-
+                {               
                     // Convert each instruction
                     var binaryInstruction = binary.TextSection[instructionBinaryIndex];
 
@@ -145,6 +143,7 @@ namespace AtlusScriptLib.FlowScriptLanguage
 
                     // Add to list
                     instructions.Add( instruction );
+                    instructionBinaryIndexToListIndexMap[instructionBinaryIndex] = instructionIndex;
                     instructionIndex++;
 
                     // Increment the instruction binary index by 2 if the current instruction takes up 2 instructions
@@ -181,18 +180,23 @@ namespace AtlusScriptLib.FlowScriptLanguage
                 for ( int j = 0; j < count; j++ )
                     procedureInstructions.Add( instructions[ startIndex + j ] );
 
-                var procedure = new FlowScriptProcedure( label.Name, procedureInstructions );
+                FlowScriptProcedure procedure;
+
+                if ( binary.JumpLabelSection != null )
+                {
+                    var procedureLabels = binary.JumpLabelSection
+                        .Where( x => x.InstructionIndex >= label.InstructionIndex && x.InstructionIndex <= label.InstructionIndex + count )
+                        .Select( x => new FlowScriptLabel( x.Name, instructionBinaryIndexToListIndexMap[x.InstructionIndex] ) )
+                        .ToList();
+
+                    procedure = new FlowScriptProcedure( label.Name, procedureInstructions, procedureLabels );
+                }
+                else
+                {
+                    procedure = new FlowScriptProcedure( label.Name, procedureInstructions );
+                }
 
                 instance.mProcedures.Add( procedure );
-            }
-
-            if ( binary.JumpLabelSection != null )
-            {
-                foreach ( var label in binary.JumpLabelSection )
-                {
-                    instance.mJumpLabels.Add( new FlowScriptLabel( label.Name,
-                        instructionBinaryIndexToListIndexMap[label.InstructionIndex] ) );
-                }
             }
 
             // assign message script
@@ -215,7 +219,6 @@ namespace AtlusScriptLib.FlowScriptLanguage
 
         private short mUserId;
         private List<FlowScriptProcedure> mProcedures;
-        private List<FlowScriptLabel> mJumpLabels;
         private MessageScript mMessageScript;
         private FlowScriptFormatVersion mFormatVersion;
 
@@ -234,14 +237,6 @@ namespace AtlusScriptLib.FlowScriptLanguage
         public List<FlowScriptProcedure> Procedures
         {
             get { return mProcedures; }
-        }
-
-        /// <summary>
-        /// Gets the jump label list.
-        /// </summary>
-        public List<FlowScriptLabel> JumpLabels
-        {
-            get { return mJumpLabels; }
         }
 
         /// <summary>
@@ -268,7 +263,6 @@ namespace AtlusScriptLib.FlowScriptLanguage
         {
             mUserId = 0;
             mProcedures = new List<FlowScriptProcedure>();
-            mJumpLabels = new List<FlowScriptLabel>();
             mMessageScript = null;
         }
 
@@ -383,13 +377,13 @@ namespace AtlusScriptLib.FlowScriptLanguage
             foreach ( var procedure in mProcedures )
             {
                 builder.AddProcedureLabel( new FlowScriptBinaryLabel { InstructionIndex = procedureToBinaryIndexMap[procedure.Name], Name = procedure.Name, Reserved = 0 } );
-            }
 
-            foreach ( var label in mJumpLabels )
-            {
-                builder.AddJumpLabel( new FlowScriptBinaryLabel { InstructionIndex = instructionListIndexToBinaryIndexMap[label.InstructionIndex], Name = label.Name, Reserved = 0 } );
+                foreach ( var label in procedure.Labels )
+                {
+                    builder.AddJumpLabel( new FlowScriptBinaryLabel { InstructionIndex = instructionListIndexToBinaryIndexMap[label.InstructionIndex], Name = label.Name, Reserved = 0 } );
+                }
             }
-
+         
             // Convert message script
             if ( mMessageScript != null )
                 builder.SetMessageScriptSection( mMessageScript );

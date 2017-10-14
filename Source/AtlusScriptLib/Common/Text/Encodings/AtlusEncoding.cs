@@ -108,8 +108,7 @@ namespace AtlusScriptLib.Common.Text.Encodings
 
                 cp.LowSurrogate = bytes[byteIndex];
 
-                var c = sCodePointToChar[cp];
-                if ( c == '\0' )
+                if ( !sCodePointToChar.TryGetValue( cp, out var c ) || c == '\0' )
                     hasUndefinedChars = true;
 
                 chars[charIndex++] = c;

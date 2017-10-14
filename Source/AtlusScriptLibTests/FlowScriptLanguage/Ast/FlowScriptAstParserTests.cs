@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using AtlusScriptLib.Common.Logging;
 using AtlusScriptLib.FlowScriptLanguage.Compiler;
+using AtlusScriptLib.FlowScriptLanguage.Compiler.Parser;
+using AtlusScriptLib.FlowScriptLanguage.Compiler.Processing;
 
 namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
 {
@@ -15,25 +17,34 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
         [TestMethod]
         public void TryParseTest()
         {
-            //// Procedure declaration - works
-            //string input =
-            //    "string MyBeautifulProcedureDeclarationStatement( int arg0, int arg1, string arg2, float arg3 );";
-
-            // Variable declaration
-
             string input =
-                "int func( 0x0011 ) RND( int max );\n" +
-                "void func( 0x005c ) BGM( int bgmId );\n" +
-                "\n" +
-                "void f000_002_init()\n" +
-                "{\n" +
-                "   int bgmId = RND( 300 );\n" +
-                "   BGM( bgmId );\n" +
-                "}\n";
+                "int proc()" +
+                "{" +
+                "   int a = 0;" +
+                "   a = a + 1;" +
+                "   a = a - 1;" +
+                "   a = a * 1;" +
+                "   a = a / 1;" +
+                "   a = -a;" +
+                "   /*a = ~a;*/" +
+                "   bool b = a == 0 || ( a == 1 && a == 1 );" +
+                "   b = b == false;" +
+                "   b = b != true;" +
+                "   bool c = a > 0;" +
+                "   bool d = a >= 0;" +
+                "   bool e = a < 0;" +
+                "   bool f = a <= 0;" +
+                "   goto label;" +
+                "label:" +
+                "   return a;" +
+                "}";
+
+            /*
+            */
 
             var listener = new DebugLogListener();
 
-            var parser = new FlowScriptSyntaxParser();
+            var parser = new FlowScriptCompilationUnitParser();
             parser.AddListener( listener );
             Assert.IsTrue( parser.TryParse( input, out var compilationUnit ) );
 
