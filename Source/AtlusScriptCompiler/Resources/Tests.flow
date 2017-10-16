@@ -1,0 +1,492 @@
+
+//
+// Function parameter type test
+//
+function(0x0003) void PUTS( string param0 );
+function(0x000c) bool BIT_CHK( int param0 );
+function(0x00eb) float GET_MAX( float param0, float param1 );
+
+//
+// Test main
+//
+
+void Main()
+{
+	PUTS( "------------------------" );
+	PUTS( "TestScript::Main() start" );
+	PUTS( "------------------------" );
+
+	if ( !ReturnValueTest() )
+	{
+		PUTS( "TestScript::Main: ReturnValueTest() failed" );
+	}
+	else
+	{
+		PUTS( "TestScript::Main: ReturnValueTest() passed" );
+	}
+	
+	if ( !ParameterTest( true, 1, 1.5f ) )
+	{
+		PUTS( "TestScript: ParameterTest failed" );
+	}
+	else
+	{
+		PUTS( "TestScript: ParameterTest passed" );
+	}
+	
+	//
+	// Control flow tests
+	//
+	if ( !IfTest() )
+	{
+		PUTS( "TestScript::Main: IfTest failed" );
+	}
+	else
+	{
+		PUTS( "TestScript::Main: IfTest passed" );
+	}
+	
+	if ( !IfBreakTest() )
+	{
+		PUTS( "TestScript::Main: IfBreakTest failed" );
+	}
+	else
+	{
+		PUTS( "TestScript::Main: IfBreakTest passed" );
+	}
+	
+	if ( !GotoTest() )
+	{
+		PUTS( "TestScript::Main: GotoTest failed" );
+	}
+	else
+	{
+		PUTS( "TestScript::Main: GotoTest passed" );
+	}
+	
+	//
+	// Arithimic tests
+	//
+	if ( !AdditionTest() )
+	{
+		PUTS( "TestScript::Main: AdditionTest failed" );
+	}
+	else
+	{
+		PUTS( "TestScript::Main: AdditionTest passed" );
+	}
+	
+	if ( !SubtractionTest() )
+	{
+		PUTS( "TestScript::Main: SubtractionTest failed" );
+	}
+	else
+	{
+		PUTS( "TestScript::Main: SubtractionTest passed" );
+	}
+	
+	if ( !MultiplicationTest() )
+	{
+		PUTS( "TestScript::Main: MultiplicationTest failed" );
+	}
+	else
+	{
+		PUTS( "TestScript::Main: MultiplicationTest passed" );
+	}
+	
+	if ( !DivisionTest() )
+	{
+		PUTS( "TestScript::Main: DivisionTest failed" );
+	}
+	else
+	{
+		PUTS( "TestScript::Main: DivisionTest passed" );
+	}
+	
+	if ( !NegationTest() )
+	{
+		PUTS( "TestScript::Main: NegationTest failed" );
+	}
+	else
+	{
+		PUTS( "TestScript::Main: NegationTest passed" );
+	}
+	
+	if ( !LogicalOrTest() )
+	{
+		PUTS( "TestScript::Main: LogicalOrTest failed" );
+	}
+	else
+	{
+		PUTS( "TestScript::Main: LogicalOrTest passed" );
+	}
+	
+	if ( !LogicalAndTest() )
+	{
+		PUTS( "TestScript::Main: LogicalAndTest failed" );
+	}
+	else
+	{
+		PUTS( "TestScript::Main: LogicalAndTest passed" );
+	}
+	
+	if ( !EqualsTest() )
+	{
+		PUTS( "TestScript::Main: EqualsTest failed" );
+	}
+	else
+	{
+		PUTS( "TestScript::Main: EqualsTest passed" );
+	}
+	
+	if ( !NotEqualsTest() )
+	{
+		PUTS( "TestScript::Main: NotEqualsTest failed" );
+	}
+	else
+	{
+		PUTS( "TestScript::Main: NotEqualsTest passed" );
+	}
+	
+	if ( !LessThanTest() )
+	{
+		PUTS( "TestScript::Main: LessThanTest failed" );
+	}
+	else
+	{
+		PUTS( "TestScript::Main: LessThanTest passed" );
+	}
+	
+	if ( !MoreThanTest() )
+	{
+		PUTS( "TestScript::Main: MoreThanTest failed" );
+	}
+	else
+	{
+		PUTS( "TestScript::Main: MoreThanTest passed" );
+	}
+	
+	if ( !LessThanOrEqualTest() )
+	{
+		PUTS( "TestScript::Main: LessThanOrEqualTest failed" );
+	}
+	else
+	{
+		PUTS( "TestScript::Main: LessThanOrEqualTest passed" );
+	}
+	
+	if ( !MoreThanOrEqualTest() )
+	{
+		PUTS( "TestScript::Main: MoreThanOrEqualTest failed" );
+	}
+	else
+	{
+		PUTS( "TestScript::Main: MoreThanOrEqualTest passed" );
+	}
+	
+	if ( !AssignmentBoolTest() )
+	{
+		PUTS( "TestScript::Main: AssignmentBoolTest failed" );
+	}
+	else
+	{
+		PUTS( "TestScript::Main: AssignmentBoolTest passed" );
+	}
+	
+	if ( !AssignmentIntTest() )
+	{
+		PUTS( "TestScript::Main: AssignmentIntTest failed" );
+	}
+	else
+	{
+		PUTS( "TestScript::Main: AssignmentIntTest passed" );
+	}
+	
+	if ( !AssignmentFloatTest() )
+	{
+		PUTS( "TestScript::Main: AssignmentFloatTest failed" );
+	}
+	else
+	{
+		PUTS( "TestScript::Main: AssignmentFloatTest passed" );
+	}
+}
+
+//
+// Procedure return value test
+//
+void ReturnVoid()
+{
+	return;
+}
+
+bool ReturnBool()
+{
+	return true;
+}
+
+int ReturnInt()
+{
+	return 1;
+}
+
+float ReturnFloat()
+{
+	return 1.5f;
+}
+
+bool ReturnValueTest()
+{
+	PUTS( "TestScript::ReturnValueTest() start" );
+	
+	bool passed = true;
+	
+	PUTS( "TestScript::ReturnValueTest: Start ReturnVoid test" );
+	ReturnVoid();
+	PUTS( "TestScript::ReturnValueTest: ReturnVoid passed" );
+	
+	PUTS( "TestScript::ReturnValueTest: Start ReturnBool test" );
+	if ( ReturnBool() != true )
+	{
+		PUTS( "TestScript::ReturnValueTest: ReturnBool test failed" );
+		passed = false;
+	}
+	else
+	{
+		PUTS( "TestScript::ReturnValueTest: ReturnBool test passed" );
+	}
+	
+	PUTS( "TestScript::ReturnValueTest: Start ReturnInt test" );
+	if ( ReturnInt() != 1 )
+	{
+		PUTS( "TestScript::ReturnValueTest: ReturnInt test failed" );
+		passed = false;
+	}
+	else
+	{
+		PUTS( "TestScript::ReturnValueTest: ReturnInt test passed" );
+	}
+	
+	PUTS( "TestScript::ReturnValueTest: Start ReturnFloat test" );
+	if ( ReturnFloat() != 1.5f )
+	{
+		PUTS( "TestScript::ReturnValueTest: ReturnFloat test failed" );
+		passed = false;
+	}
+	else
+	{
+		PUTS( "TestScript::ReturnValueTest: ReturnFloat test passed" );
+	}
+	
+	return passed;
+}
+
+//
+// Procedure parameter type test
+//
+bool ParameterTest( bool boolParam, int intParam, float floatParam )
+{
+	PUTS( "TestScript::ParameterTest() start" );
+	
+	bool passed = true;
+	
+	if ( boolParam != true )
+	{
+		PUTS( "TestScript::ParameterTest: boolParam != true" );
+		passed = false;
+	}
+	
+	if ( BIT_CHK( intParam ) )
+	{
+		PUTS( "TestScript::ParameterTest: BIT_CHK( intParam ) != false" );
+		passed = false;
+	}
+	
+	if ( GET_MAX( floatParam, floatParam ) != floatParam )
+	{
+		PUTS( "TestScript::ParameterTest: GET_MAX( floatParam, floatParam ) != floatParam" );
+		passed = false;
+	}
+	
+	return passed;
+}
+
+//
+// Control flow test
+//
+bool IfTest()
+{
+	PUTS( "TestScript::IfTest() start" );
+	
+	bool passed = false;
+	
+	if ( true )
+		passed = true;
+	
+	return passed;
+}
+
+bool IfBreakTest()
+{
+	PUTS( "TestScript::IfBreakTest() start" );
+	
+	bool failed = false;
+	
+	if ( true )
+	{
+		break;
+		
+		failed = true;
+	}
+	
+	return !failed;
+}
+
+bool GotoTest()
+{
+	PUTS( "TestScript::GotoTest() start" );
+	
+	bool passed = true;
+	
+	goto jump;
+	passed = false;
+	
+jump:
+	return passed;
+}
+
+//
+// Arithmic test
+//
+bool AdditionTest()
+{
+	PUTS( "TestScript::AdditionTest() start" );
+	
+	int a = 1;
+	a = a + 1;
+	return a == 2;
+}
+
+bool SubtractionTest()
+{
+	PUTS( "TestScript::SubtractionTest() start" );
+	
+	int a = 1;
+	a = a - 1;
+	return a == 0;
+}
+
+bool MultiplicationTest()
+{
+	PUTS( "TestScript::MultiplicationTest() start" );
+	
+	int a = 1;
+	a = a * 2;
+	return a == 2;
+}
+
+bool DivisionTest()
+{
+	PUTS( "TestScript::DivisionTest() start" );
+	
+	int a = 2;
+	a = a / 2;
+	return a == 1;
+}
+
+bool NegationTest()
+{
+	PUTS( "TestScript::NegationTest() start" );
+	
+	int a = 1;
+	a = -a;
+	return a == -1;
+}
+
+bool LogicalOrTest()
+{
+	PUTS( "TestScript::LogicalOrTest() start" );
+	
+	int a = 0;
+	int b = 1;
+	return a == 1 || b == 1;
+}
+
+bool LogicalAndTest()
+{
+	PUTS( "TestScript::LogicalAndTest() start" );
+	
+	int a = 0;
+	int b = 1;
+	return a == 0 && b == 1;
+}
+
+bool EqualsTest()
+{
+	PUTS( "TestScript::EqualsTest() start" );
+	
+	return 0 == 0;
+}
+
+bool NotEqualsTest()
+{
+	PUTS( "TestScript::NotEqualsTest() start" );
+	
+	return 0 != 1;
+}
+
+bool LessThanTest()
+{
+	PUTS( "TestScript::LessThanTest() start" );
+	
+	return 0 < 1;
+}
+
+bool MoreThanTest()
+{
+	PUTS( "TestScript::MoreThanTest() start" );
+	
+	return 1 > 0;
+}
+
+bool LessThanOrEqualTest()
+{
+	PUTS( "TestScript::LessThanOrEqualTest() start" );
+	
+	return 1 <= 1;
+}
+
+bool MoreThanOrEqualTest()
+{
+	PUTS( "TestScript::MoreThanOrEqualTest() start" );
+	
+	return 1 >= 1;
+}
+
+bool AssignmentBoolTest()
+{
+	PUTS( "TestScript::AssignmentBoolTest() start" );
+	
+	bool a = false;
+	a = true;
+	return a;
+}
+
+bool AssignmentIntTest()
+{
+	PUTS( "TestScript::AssignmentIntTest() start" );
+	
+	int a = 0;
+	a = 1;
+	return a == 1;
+}
+
+bool AssignmentFloatTest()
+{
+	PUTS( "TestScript::AssignmentFloatTest() start" );
+	
+	float a = 1.0f;
+	a = 2.0f;
+	return a == 2.0f;
+}
+

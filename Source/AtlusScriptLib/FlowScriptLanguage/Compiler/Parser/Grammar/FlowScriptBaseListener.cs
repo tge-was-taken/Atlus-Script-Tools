@@ -302,19 +302,6 @@ public partial class FlowScriptBaseListener : IFlowScriptListener {
 	public virtual void ExitImportStatement([NotNull] FlowScriptParser.ImportStatementContext context) { }
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="FlowScriptParser.compoundStatement"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterCompoundStatement([NotNull] FlowScriptParser.CompoundStatementContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="FlowScriptParser.compoundStatement"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitCompoundStatement([NotNull] FlowScriptParser.CompoundStatementContext context) { }
-
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="FlowScriptParser.statement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -326,6 +313,19 @@ public partial class FlowScriptBaseListener : IFlowScriptListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitStatement([NotNull] FlowScriptParser.StatementContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="FlowScriptParser.compoundStatement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCompoundStatement([NotNull] FlowScriptParser.CompoundStatementContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="FlowScriptParser.compoundStatement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCompoundStatement([NotNull] FlowScriptParser.CompoundStatementContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="FlowScriptParser.declarationStatement"/>.

@@ -12,24 +12,19 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
 
         public FlowScriptCompoundStatement Body { get; set; }
 
-        public List<FlowScriptStatement> ElseStatements { get; set; }
+        public FlowScriptCompoundStatement ElseBody { get; set; }
 
         public FlowScriptIfStatement()
         {
-            ElseStatements = new List<FlowScriptStatement>();
         }
 
         public override string ToString()
         {
             var builder = new StringBuilder();
             builder.Append( $"if ( {Condition} ) {Body}" );
-            if ( ElseStatements.Count > 0 )
+            if ( ElseBody != null )
             {
-                builder.Append( " else " );
-                foreach ( var item in ElseStatements )
-                {
-                    builder.Append( item.ToString() );
-                }
+                builder.Append( $" else {ElseBody}" );
             }
 
             return builder.ToString();

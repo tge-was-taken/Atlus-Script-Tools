@@ -15,7 +15,7 @@
 
         public override string ToString()
         {
-            return $"goto {LabelIdentifier};";
+            return $"goto {LabelIdentifier}";
         }
     }
 }

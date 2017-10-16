@@ -147,9 +147,27 @@ namespace AtlusScriptLib.Tests
             int binaryIndex = 0;
             foreach ( var instruction in script.EnumerateInstructions() )
             {
-                Assert.AreEqual( binary.TextSection[binaryIndex++].Opcode, instruction.Opcode );
-                if ( instruction.UsesTwoBinaryInstructions )
-                    ++binaryIndex;
+                var binaryInstruction = binary.TextSection[binaryIndex++];
+                Assert.AreEqual( binaryInstruction.Opcode, instruction.Opcode );
+
+                if ( instruction.Operand != null )
+                {
+                    switch ( instruction.Operand.Type )
+                    {
+                        case FlowScriptInstruction.OperandValue.ValueType.Int16:
+                            if ( instruction.Opcode != FlowScriptOpcode.IF && instruction.Opcode != FlowScriptOpcode.GOTO )
+                                Assert.AreEqual( binaryInstruction.OperandShort, instruction.Operand.GetInt16Value() );
+                            break;
+                        case FlowScriptInstruction.OperandValue.ValueType.Int32:
+                            Assert.AreEqual( binary.TextSection[binaryIndex++].OperandInt, instruction.Operand.GetInt32Value() );
+                            break;
+                        case FlowScriptInstruction.OperandValue.ValueType.Single:
+                            Assert.AreEqual( binary.TextSection[binaryIndex++].OperandFloat, instruction.Operand.GetSingleValue() );
+                            break;
+                        case FlowScriptInstruction.OperandValue.ValueType.String:
+                            break;
+                    }
+                }
             }
         }
 
@@ -201,7 +219,25 @@ namespace AtlusScriptLib.Tests
             // Compare instructions
             for ( int i = 0; i < binaryIn.TextSection.Count; i++ )
             {
-                Assert.AreEqual( binaryIn.TextSection[i].Opcode, binaryIn.TextSection[i].Opcode );
+                var inInstruction = binaryIn.TextSection[i];
+                var outInstruction = binaryOut.TextSection[i];
+
+                Assert.AreEqual( inInstruction.Opcode, outInstruction.Opcode );
+
+                if ( inInstruction.Opcode == FlowScriptOpcode.PUSHI || inInstruction.Opcode == FlowScriptOpcode.PUSHF )
+                {
+                    ++i;
+                    continue;
+                }
+
+                if ( inInstruction.Opcode == FlowScriptOpcode.IF || inInstruction.Opcode == FlowScriptOpcode.GOTO )
+                {
+                    Assert.AreEqual( binaryIn.JumpLabelSection[inInstruction.OperandShort].Name, binaryOut.JumpLabelSection[outInstruction.OperandShort].Name );
+                }
+                else
+                {
+                    Assert.AreEqual( inInstruction.OperandShort, outInstruction.OperandShort );
+                }         
             }
 
             // Compare message script

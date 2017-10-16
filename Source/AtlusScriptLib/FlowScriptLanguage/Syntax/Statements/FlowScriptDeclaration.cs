@@ -10,5 +10,11 @@
         {
             DeclarationType = type;
         }
+
+        protected FlowScriptDeclaration( FlowScriptDeclarationType type, FlowScriptIdentifier identifier )
+        {
+            DeclarationType = type;
+            Identifier = identifier;
+        }
     }
 }

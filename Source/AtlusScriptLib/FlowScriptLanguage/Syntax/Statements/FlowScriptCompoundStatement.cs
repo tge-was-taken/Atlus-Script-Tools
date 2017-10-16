@@ -21,5 +21,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
         {
             return ( ( IEnumerable<FlowScriptStatement> )Statements ).GetEnumerator();
         }
+
+        public override string ToString()
+        {
+            return $"{{ {base.ToString()} }}";
+        }
     }
 }

@@ -20,16 +20,16 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
         {
             var builder = new StringBuilder();
 
-            builder.Append( $"func( {Index} ) {ReturnType} {Identifier}( " );
+            builder.Append( $"function( {Index} ) {ReturnType} {Identifier}(" );
             if ( Parameters.Count > 0 )
                 builder.Append( Parameters[0].ToString() );
 
             for ( int i = 1; i < Parameters.Count; i++ )
             {
-                builder.Append( $" {Parameters[i]}" );
+                builder.Append( $", {Parameters[i]}" );
             }
 
-            builder.Append( " );" );
+            builder.Append( ")" );
 
             return builder.ToString();
         }

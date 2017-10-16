@@ -16,6 +16,14 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
             Modifiers = new List<FlowScriptVariableModifier>();
         }
 
+        public FlowScriptVariableDeclaration( List<FlowScriptVariableModifier> modifiers, FlowScriptTypeIdentifier type, FlowScriptIdentifier identifier, FlowScriptExpression initializer ) 
+            : base(FlowScriptDeclarationType.Variable, identifier)
+        {
+            Modifiers = modifiers;
+            Type = type;
+            Initializer = initializer;
+        }
+
         public override string ToString()
         {
             var builder = new StringBuilder();
@@ -28,7 +36,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
             builder.Append( $"{Type.ToString()} {Identifier.ToString()}" );
             if ( Initializer != null )
             {
-                builder.Append( $" = {Initializer.ToString()};" );
+                builder.Append( $" = {Initializer.ToString()}" );
             }
 
             return builder.ToString();

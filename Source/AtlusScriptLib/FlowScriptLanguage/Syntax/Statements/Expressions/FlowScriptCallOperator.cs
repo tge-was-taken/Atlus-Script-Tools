@@ -20,7 +20,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
         {
             StringBuilder builder = new StringBuilder();
             builder.Append( Identifier.ToString() );
-            builder.Append( "( " );
+            builder.Append( "(" );
 
             if ( Arguments.Count > 0 )
                 builder.Append( Arguments[0].ToString() );
@@ -30,7 +30,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
                 builder.Append( $", {Arguments[i].ToString()}" );
             }
 
-            builder.Append( " )" );
+            builder.Append( ")" );
 
             return builder.ToString();
         }

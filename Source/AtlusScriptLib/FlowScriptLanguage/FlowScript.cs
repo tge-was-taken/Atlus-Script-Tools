@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using AtlusScriptLib.FlowScriptLanguage.BinaryModel;
@@ -143,8 +144,7 @@ namespace AtlusScriptLib.FlowScriptLanguage
 
                     // Add to list
                     instructions.Add( instruction );
-                    instructionBinaryIndexToListIndexMap[instructionBinaryIndex] = instructionIndex;
-                    instructionIndex++;
+                    instructionBinaryIndexToListIndexMap[instructionBinaryIndex] = instructionIndex++;
 
                     // Increment the instruction binary index by 2 if the current instruction takes up 2 instructions
                     if ( instruction.UsesTwoBinaryInstructions )
@@ -159,41 +159,83 @@ namespace AtlusScriptLib.FlowScriptLanguage
 
             for ( int i = 0; i < binary.ProcedureLabelSection.Count; i++ )
             {
-                var label = binary.ProcedureLabelSection[i];
-                int startIndex = instructionBinaryIndexToListIndexMap[label.InstructionIndex];
+                var procedureLabel = binary.ProcedureLabelSection[ i ];
+                int procedureStartIndex = instructionBinaryIndexToListIndexMap[ procedureLabel.InstructionIndex ];
+                int nextProcedureLabelIndex = sortedProcedureLabels.FindIndex( x => x.InstructionIndex == procedureLabel.InstructionIndex ) + 1;
+                int procedureInstructionCount;
 
-                int nextLabelIndex = sortedProcedureLabels.FindIndex( x => x.InstructionIndex == label.InstructionIndex ) + 1;
-                int count;
-
-                bool isLast = nextLabelIndex == binary.ProcedureLabelSection.Count;
-                if ( isLast )
+                // Calculate the number of instructions in the procedure
+                bool isLastProcedure = nextProcedureLabelIndex == binary.ProcedureLabelSection.Count;
+                if ( isLastProcedure )
                 {
-                    count = ( instructions.Count - startIndex );
+                    procedureInstructionCount = ( instructions.Count - procedureStartIndex );
                 }
                 else
                 {
-                    var nextLabel = binary.ProcedureLabelSection[nextLabelIndex];
-                    count = ( instructionBinaryIndexToListIndexMap[nextLabel.InstructionIndex] - startIndex );
+                    var nextProcedureLabel = binary.ProcedureLabelSection[nextProcedureLabelIndex];
+                    procedureInstructionCount = ( instructionBinaryIndexToListIndexMap[nextProcedureLabel.InstructionIndex] - procedureStartIndex );
                 }
 
-                var procedureInstructions = new List<FlowScriptInstruction>( count );
-                for ( int j = 0; j < count; j++ )
-                    procedureInstructions.Add( instructions[ startIndex + j ] );
+                // Copy the instruction range
+                var procedureInstructions = new List<FlowScriptInstruction>( procedureInstructionCount );
+                for ( int j = 0; j < procedureInstructionCount; j++ )
+                    procedureInstructions.Add( instructions[ procedureStartIndex + j ] );
 
+                // Create the new procedure representation
                 FlowScriptProcedure procedure;
 
                 if ( binary.JumpLabelSection != null )
                 {
-                    var procedureLabels = binary.JumpLabelSection
-                        .Where( x => x.InstructionIndex >= label.InstructionIndex && x.InstructionIndex <= label.InstructionIndex + count )
-                        .Select( x => new FlowScriptLabel( x.Name, instructionBinaryIndexToListIndexMap[x.InstructionIndex] ) )
+                    // Find jump labels within instruction range of procedure
+                    var procedureBinaryJumpLabels = binary.JumpLabelSection
+                        .Where( x => x.InstructionIndex >= procedureLabel.InstructionIndex && x.InstructionIndex <= procedureLabel.InstructionIndex + procedureInstructionCount )
                         .ToList();
 
-                    procedure = new FlowScriptProcedure( label.Name, procedureInstructions, procedureLabels );
+                    if ( procedureBinaryJumpLabels.Count > 0 )
+                    {
+                        // Generate mapping between label name and the procedure-local index of the label
+                        var procedureJumpLabelNameToLocalIndexMap = new Dictionary<string, int>( procedureBinaryJumpLabels.Count );
+
+                        for ( int k = 0; k < procedureBinaryJumpLabels.Count; k++ )
+                            procedureJumpLabelNameToLocalIndexMap[procedureBinaryJumpLabels[k].Name] = k;
+
+                        // Convert the labels to the new representation
+                        var procedureJumpLabels = new List<FlowScriptLabel>( procedureBinaryJumpLabels.Count );
+                        foreach ( var procedureBinaryJumpLabel in procedureBinaryJumpLabels )
+                        {
+                            int globalInstructionListIndex = instructionBinaryIndexToListIndexMap[procedureBinaryJumpLabel.InstructionIndex];
+                            int localInstructionListIndex = globalInstructionListIndex - procedureStartIndex;
+                            procedureJumpLabels.Add( new FlowScriptLabel( procedureBinaryJumpLabel.Name, localInstructionListIndex ) );
+                        }
+
+                        // Create the procedure
+                        procedure = new FlowScriptProcedure( procedureLabel.Name, procedureInstructions, procedureJumpLabels );
+
+                        // Loop over the instructions and update the instructions that reference labels
+                        // so that they refer to the proper procedure-local label index
+                        foreach ( var instruction in procedure.Instructions )
+                        {
+                            if ( instruction.Opcode == FlowScriptOpcode.GOTO || instruction.Opcode == FlowScriptOpcode.IF )
+                            {
+                                short globalIndex = instruction.Operand.GetInt16Value();
+                                var binaryLabel = binary.JumpLabelSection[globalIndex];
+                                short localIndex = ( short )procedureJumpLabelNameToLocalIndexMap[binaryLabel.Name];
+                                instruction.Operand.SetInt16Value( localIndex );
+
+                                Debug.Assert( procedure.Labels[localIndex].Name == binaryLabel.Name );
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // Create the procedure
+                        procedure = new FlowScriptProcedure( procedureLabel.Name, procedureInstructions );
+                    }
                 }
                 else
                 {
-                    procedure = new FlowScriptProcedure( label.Name, procedureInstructions );
+                    // Create the procedure
+                    procedure = new FlowScriptProcedure( procedureLabel.Name, procedureInstructions );
                 }
 
                 instance.mProcedures.Add( procedure );
@@ -289,36 +331,38 @@ namespace AtlusScriptLib.FlowScriptLanguage
             // Convert string table before the instructions so we can fix up string instructions later
             // by building an index remap table
             // TODO: optimize instructions usage
-            var instructions = EnumerateInstructions().ToList();
             var stringIndexToBinaryStringIndexMap = new Dictionary<short, short>();
-            var strings = instructions
+            var strings = EnumerateInstructions()
                 .Where( x => x.Opcode == FlowScriptOpcode.PUSHSTR )
                 .Select( x => x.Operand.GetStringValue() )
                 .Distinct()
                 .ToList();
 
-            if ( instructions.Count > 0 )
+            for ( short stringIndex = 0; stringIndex < strings.Count; stringIndex++ )
             {
-                for ( short stringIndex = 0; stringIndex < strings.Count; stringIndex++ )
-                {
-                    builder.AddString( strings[stringIndex], out int binaryIndex );
-                    stringIndexToBinaryStringIndexMap[stringIndex] = ( short )binaryIndex;
-                }
+                builder.AddString( strings[stringIndex], out int binaryIndex );
+                stringIndexToBinaryStringIndexMap[stringIndex] = ( short )binaryIndex;
             }
 
-            // Convert instructions, build an instruction index remap table & remap string indices where necessary
-            int instructionListIndex = 0;
-            int instructionBinaryIndex = 0;
-            var instructionListIndexToBinaryIndexMap = new Dictionary<int, int>();
-            var procedureToBinaryIndexMap = new Dictionary<string, int>();
+            // Build label remap table
+            var allLabels = mProcedures.SelectMany( x => x.Labels ).ToList();
+            var labelRemap = new Dictionary<string, int>();
+            int nextBinaryLabelIndex = 0;
+            foreach ( var label in allLabels )
+                labelRemap[label.Name] = nextBinaryLabelIndex++;
+
+            // Convert procedures
+            int instructionBinaryIndex = 0;       
 
             foreach ( var procedure in mProcedures )
             {
-                procedureToBinaryIndexMap[procedure.Name] = instructionBinaryIndex;
+                int procedureInstructionStartBinaryIndex = instructionBinaryIndex;
+                var procedureInstructionListIndexToBinaryIndexMap = new Dictionary<int, int>();
 
+                // Convert instructions in procedure
                 for ( int instructionIndex = 0; instructionIndex < procedure.Instructions.Count; instructionIndex++ )
                 {
-                    instructionListIndexToBinaryIndexMap[instructionListIndex++] = instructionBinaryIndex;
+                    procedureInstructionListIndexToBinaryIndexMap[instructionIndex] = instructionBinaryIndex;
 
                     var instruction = procedure.Instructions[instructionIndex];
 
@@ -329,14 +373,22 @@ namespace AtlusScriptLib.FlowScriptLanguage
                             Opcode = instruction.Opcode
                         };
 
-                        // Handle PUSHSTR seperately due to difference in string index usage
                         if ( instruction.Opcode == FlowScriptOpcode.PUSHSTR )
                         {
+                            // Handle PUSHSTR seperately due to difference in string index usage
                             short stringIndex = ( short )strings.IndexOf( instruction.Operand.GetStringValue() );
                             if ( stringIndex == -1 )
                                 throw new InvalidDataException( "String could not be found??" );
 
                             binaryInstruction.OperandShort = stringIndexToBinaryStringIndexMap[stringIndex];
+                        }
+                        else if ( instruction.Opcode == FlowScriptOpcode.GOTO || instruction.Opcode == FlowScriptOpcode.IF )
+                        {
+                            // Convert procedure-local label index to global label index
+                            int oldIndex = instruction.Operand.GetInt16Value();
+                            binaryInstruction.OperandShort = (short)labelRemap[procedure.Labels[oldIndex].Name];
+
+                            Debug.Assert( procedure.Labels[oldIndex].Name == allLabels[binaryInstruction.OperandShort].Name );
                         }
                         else
                         {
@@ -371,19 +423,17 @@ namespace AtlusScriptLib.FlowScriptLanguage
                         instructionBinaryIndex += 2;
                     }
                 }
-            }
 
-            // Convert labels after the instructions to remap the instruction indices
-            foreach ( var procedure in mProcedures )
-            {
-                builder.AddProcedureLabel( new FlowScriptBinaryLabel { InstructionIndex = procedureToBinaryIndexMap[procedure.Name], Name = procedure.Name, Reserved = 0 } );
-
+                // Convert labels in procedure after the instructions to remap the instruction indices
                 foreach ( var label in procedure.Labels )
                 {
-                    builder.AddJumpLabel( new FlowScriptBinaryLabel { InstructionIndex = instructionListIndexToBinaryIndexMap[label.InstructionIndex], Name = label.Name, Reserved = 0 } );
+                    builder.AddJumpLabel( new FlowScriptBinaryLabel { InstructionIndex = procedureInstructionListIndexToBinaryIndexMap[label.InstructionIndex], Name = label.Name, Reserved = 0 } );
                 }
+
+                // Add procedure to builder
+                builder.AddProcedureLabel( new FlowScriptBinaryLabel { InstructionIndex = procedureInstructionStartBinaryIndex, Name = procedure.Name, Reserved = 0 } );
             }
-         
+
             // Convert message script
             if ( mMessageScript != null )
                 builder.SetMessageScriptSection( mMessageScript );

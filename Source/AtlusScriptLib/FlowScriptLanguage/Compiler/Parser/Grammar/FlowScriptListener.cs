@@ -262,17 +262,6 @@ public interface IFlowScriptListener : IParseTreeListener {
 	void ExitImportStatement([NotNull] FlowScriptParser.ImportStatementContext context);
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="FlowScriptParser.compoundStatement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterCompoundStatement([NotNull] FlowScriptParser.CompoundStatementContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="FlowScriptParser.compoundStatement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitCompoundStatement([NotNull] FlowScriptParser.CompoundStatementContext context);
-
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="FlowScriptParser.statement"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -282,6 +271,17 @@ public interface IFlowScriptListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitStatement([NotNull] FlowScriptParser.StatementContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="FlowScriptParser.compoundStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterCompoundStatement([NotNull] FlowScriptParser.CompoundStatementContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="FlowScriptParser.compoundStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitCompoundStatement([NotNull] FlowScriptParser.CompoundStatementContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="FlowScriptParser.declarationStatement"/>.

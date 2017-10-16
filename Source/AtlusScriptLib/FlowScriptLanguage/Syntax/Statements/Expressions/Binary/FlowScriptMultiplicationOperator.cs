@@ -10,7 +10,7 @@
 
         public override string ToString()
         {
-            return $"{Left} * {Right}";
+            return $"({Left}) * ({Right})";
         }
     }
 }

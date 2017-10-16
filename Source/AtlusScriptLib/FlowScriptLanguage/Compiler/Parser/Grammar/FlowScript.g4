@@ -15,13 +15,9 @@ importStatement
 	: 'import' StringLiteral ';'
 	;
 
-compoundStatement
-	: '{' statement* '}'
-	| statement
-	;
-
 statement
 	: ';' // empty statement
+	| compoundStatement
 	| declarationStatement
 	| expression ';'
 	| ifStatement
@@ -31,6 +27,11 @@ statement
 	| continueStatement
 	| returnStatement
 	| gotoStatement
+	;
+
+compoundStatement
+	: '{' statement* '}'
+	//| statement
 	;
 
 //
@@ -48,7 +49,7 @@ functionDeclarationStatement
 	;
 
 procedureDeclarationStatement
-	: TypeIdentifier Identifier parameterList ( compoundStatement? | ';' )
+	: TypeIdentifier Identifier parameterList compoundStatement
 	;
 
 variableDeclarationStatement
@@ -110,16 +111,16 @@ constant
 // Flow control statements
 //
 ifStatement
-	: If '(' expression ')' compoundStatement (Else statement)*
+	: If '(' expression ')' statement (Else statement)*
 	;
 
 // not perfect
 forStatement
-	: For '(' statement expression ';' expression ')' compoundStatement
+	: For '(' statement expression ';' expression ')' statement
 	;
 
 whileStatement
-	: While expression compoundStatement
+	: While expression statement
 	;
 
 breakStatement

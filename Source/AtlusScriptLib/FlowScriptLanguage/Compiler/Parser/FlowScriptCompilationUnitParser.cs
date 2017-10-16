@@ -203,7 +203,15 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
             statement = null;
 
             // Parse declaration statement
-            if ( TryGet( context, () => context.declarationStatement(), out var declarationContext ) )
+            if ( TryGet( context, () => context.compoundStatement(), out var compoundStatementContext ) )
+            {
+                FlowScriptCompoundStatement compoundStatement = null;
+                if ( !TryFunc( compoundStatementContext, "Failed to parse compound statement", () => TryParseCompoundStatement( compoundStatementContext, out compoundStatement ) ) )
+                    return false;
+
+                statement = compoundStatement;
+            }
+            else if ( TryGet( context, () => context.declarationStatement(), out var declarationContext ) )
             {
                 FlowScriptDeclaration declaration = null;
                 if ( !TryFunc( declarationContext, "Failed to parse declaration", () => TryParseDeclaration( declarationContext, out declaration ) ) )
@@ -1095,8 +1103,14 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
         {
             literal = CreateAstNode<FlowScriptFloatLiteral>( node );
 
+            string floatString = node.Symbol.Text;
+            if ( floatString.EndsWith("f", StringComparison.InvariantCultureIgnoreCase))
+            {
+                floatString = floatString.Substring( 0, floatString.Length - 1 );
+            }
+
             float value;
-            if ( !float.TryParse( node.Symbol.Text, out value ) )
+            if ( !float.TryParse( floatString, out value ) )
             {
                 LogError( node.Symbol, "Invalid float value" );
                 return false;
@@ -1223,23 +1237,41 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
             // Body
             {
-                if ( !TryGet( context, "Expected if body", () => context.compoundStatement(), out var compoundStatementNode ) )
+                if ( !TryGet( context, "Expected if body", () => context.statement(0), out var bodyContext ) )
                     return false;
 
-                FlowScriptCompoundStatement body = null;
-                if ( !TryFunc( compoundStatementNode, "Failed to parse if body", () => TryParseCompoundStatement( compoundStatementNode, out body ) ) )
+                FlowScriptStatement body = null;
+                if ( !TryFunc( bodyContext, "Failed to parse if body", () => TryParseStatement( bodyContext, out body ) ) )
                     return false;
 
-                ifStatement.Body = body;
+                if ( body is FlowScriptCompoundStatement )
+                {
+                    ifStatement.Body = ( FlowScriptCompoundStatement )body;
+                }
+                else
+                {
+                    ifStatement.Body = CreateAstNode<FlowScriptCompoundStatement>( bodyContext );
+                    ifStatement.Body.Statements.Add( body );
+                }
             }
 
-            // Else statements
+            // Else statement
             {
-                if ( !TryGet( context, () => context.statement(), out var elseStatements ) && elseStatements.Length > 0 )
+                if ( TryGet( context, () => context.statement(1), out var elseBodyContext ) )
                 {
-                    List<FlowScriptStatement> statements = null;
-                    if ( !TryFunc( context, "Failed to parse else statement(s)", () => TryParseStatements( elseStatements, out statements ) ) )
+                    FlowScriptStatement body = null;
+                    if ( !TryFunc( elseBodyContext, "Failed to parse else body", () => TryParseStatement( elseBodyContext, out body ) ) )
                         return false;
+
+                    if ( body is FlowScriptCompoundStatement )
+                    {
+                        ifStatement.ElseBody = ( FlowScriptCompoundStatement )body;
+                    }
+                    else
+                    {
+                        ifStatement.ElseBody = CreateAstNode<FlowScriptCompoundStatement>( elseBodyContext );
+                        ifStatement.ElseBody.Statements.Add( body );
+                    }
                 }
             }
 

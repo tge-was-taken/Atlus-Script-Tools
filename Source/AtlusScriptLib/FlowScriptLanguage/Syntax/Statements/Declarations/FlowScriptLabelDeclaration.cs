@@ -5,5 +5,10 @@
         public FlowScriptLabelDeclaration() : base( FlowScriptDeclarationType.Label )
         {
         }
+
+        public override string ToString()
+        {
+            return $"{Identifier}:";
+        }
     }
 }

@@ -4,7 +4,7 @@
     {
         public override string ToString()
         {
-            return "break;";
+            return "break";
         }
     }
 }

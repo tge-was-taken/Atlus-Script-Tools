@@ -16,7 +16,7 @@
 
         public override string ToString()
         {
-            return $"return {Value};";
+            return $"return {Value}";
         }
     }
 }

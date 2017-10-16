@@ -21,6 +21,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         private int mNextLabelIndex;
         private Stack<Scope> mScopeStack;
         private Scope mRootScope;
+        private short mNextIntVariableIndex;
+        private short mNextFloatVariableIndex;
 
         // procedure-level state
         private List<FlowScriptInstruction> mInstructions;
@@ -70,11 +72,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         private void PushScope()
         {
             mScopeStack.Push( new Scope( mScopeStack.Peek() ) );
+            mLogger.Info( "Entered scope" );
         }
 
         private void PopScope()
         {
             mScopeStack.Pop();
+            mLogger.Info( "Exited scope" );
         }
 
         private bool TryCompileCompilationUnit( FlowScriptCompilationUnit compilationUnit )
@@ -141,8 +145,9 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             mInstructions = new List<FlowScriptInstruction>();
             mLabels = new Dictionary<string, Label>();
 
-            // Emit procedure start
+            // Emit procedure start         
             Emit( FlowScriptInstruction.PROC( mRootScope.Procedures[procedureDeclaration.Identifier.Text].Index ) );
+            PushScope();
 
             // To mimick the official compiler
             mNextLabelIndex++;
@@ -155,6 +160,35 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 return false;
             }
 
+            // Emit procedure parameters
+            foreach ( var parameter in procedureDeclaration.Parameters )
+            {
+                LogInfo( parameter, $"Compiling parameter: {parameter}" );
+
+                var parameterDeclaration = new FlowScriptVariableDeclaration(
+                            new List<FlowScriptVariableModifier>() { new FlowScriptVariableModifier() },
+                            parameter.TypeIdentifier,
+                            parameter.Identifier,
+                            null );
+
+                if ( !TryCompileVariableDeclaration( parameterDeclaration ) )
+                {
+                    procedure = null;
+                    return false;
+                }
+
+                if ( !CurrentScope.TryGetVariable( parameter.Identifier.Text, out var parameterVariable ) )
+                {
+                    procedure = null;
+                    return false;
+                }
+
+                if ( parameter.TypeIdentifier.ValueType != FlowScriptValueType.Float )
+                    Emit( FlowScriptInstruction.POPLIX( parameterVariable.Index ) );
+                else
+                    Emit( FlowScriptInstruction.POPLFX( parameterVariable.Index ) );
+            }
+
             // Emit procedure body
             LogInfo( procedureDeclaration.Body, "Compiling procedure body" );
             if ( !TryCompileCompoundStatement( procedureDeclaration.Body ) )
@@ -165,7 +199,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             }
 
             // Emit procedure end
-            Emit( FlowScriptInstruction.END() );
+            if ( !(procedureDeclaration.Body.Last() is FlowScriptReturnStatement ) )
+                Emit( FlowScriptInstruction.END() );
+
+            PopScope();
 
             // Create labels
             mLogger.Info( "Resolving labels" );
@@ -192,10 +229,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private bool TryRegisterLabels( FlowScriptCompoundStatement body )
         {
-            var scanner = new FlowScriptDeclarationScanner();
-            var declarations = scanner.Scan( body );
-
-            foreach ( var declaration in declarations )
+            foreach ( var declaration in body.Select( x => x as FlowScriptDeclaration ).Where( x => x != null ) )
             {
                 if ( declaration.DeclarationType == FlowScriptDeclarationType.Label )
                 {
@@ -219,14 +253,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private bool TryCompileCompoundStatement( FlowScriptCompoundStatement compoundStatement )
         {
-            PushScope();
-            mLogger.Info( "Entered scope" );
-
             if ( !TryCompileStatements( compoundStatement ) )
                 return false;
-
-            PopScope();
-            mLogger.Info( "Exited scope" );
 
             return true;
         }
@@ -268,7 +296,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             }
             else if ( statement is FlowScriptBreakStatement breakStatement )
             {
-                Emit( FlowScriptInstruction.END() );
+                if ( !TryCompileBreakStatement( breakStatement ) )
+                    return false;
             }
             else if ( statement is FlowScriptReturnStatement returnStatement )
             {
@@ -295,21 +324,45 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             return true;
         }
 
+        private bool TryCompileBreakStatement( FlowScriptBreakStatement breakStatement )
+        {
+            if ( CurrentScope.BreakLabel == null )
+            {
+                LogError( breakStatement, "Break statement is invalid in this context" );
+                return false;
+            }
+
+            Emit( FlowScriptInstruction.GOTO( CurrentScope.BreakLabel.Index ) );
+
+            return true;
+        }
+
         private bool TryCompileVariableDeclaration( FlowScriptVariableDeclaration declaration )
         {
             LogInfo( declaration, $"Compiling variable declaration: {declaration}" );
 
             // register variable
-            if ( !CurrentScope.TryDeclareVariable( declaration ) )
+            short variableIndex;
+            if ( declaration.Type.ValueType == FlowScriptValueType.Float )
+            {
+                variableIndex = mNextFloatVariableIndex++;
+            }
+            else
+            {
+                variableIndex = mNextIntVariableIndex++;
+            }
+
+            if ( !CurrentScope.TryDeclareVariable( declaration, variableIndex ) )
             {
                 LogError( declaration, $"Variable '{declaration}' has already been declared" );
                 return false;
             }
 
-            // compile the initializer if it has one
-            LogInfo( declaration.Initializer, "Compiling variable initializer" );
+            // compile the initializer if it has one         
             if ( declaration.Initializer != null )
             {
+                LogInfo( declaration.Initializer, "Compiling variable initializer" );
+
                 if ( !TryCompileVariableAssignment(declaration.Identifier, declaration.Initializer) )
                 {
                     return false;
@@ -433,7 +486,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             else if ( mRootScope.TryGetProcedure( callExpression.Identifier.Text, out var procedure ) )
             {
                 // call procedure
-                Emit( FlowScriptInstruction.CALL( function.Index ) );
+                Emit( FlowScriptInstruction.CALL( procedure.Index ) );
 
                 // value will already be on the script stack so no need to push anything
             }
@@ -456,18 +509,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 return false;
             }
 
-            if ( variable.Declaration.Type.ValueType == FlowScriptValueType.Bool || variable.Declaration.Type.ValueType == FlowScriptValueType.Int )
+            if ( variable.Declaration.Type.ValueType != FlowScriptValueType.Float )
             {
                 Emit( FlowScriptInstruction.PUSHLIX( variable.Index ) );
             }
-            else if ( variable.Declaration.Type.ValueType == FlowScriptValueType.Float )
-            {
-                Emit( FlowScriptInstruction.PUSHLFX( variable.Index ) );
-            }
             else
             {
-                LogError( identifier, $"Referenced variable {identifier} with invalid type {variable.Declaration.Type.ValueType}" );
-                return false;
+                Emit( FlowScriptInstruction.PUSHLFX( variable.Index ) );
             }
 
             return true;
@@ -629,12 +677,25 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             }
 
             // generate label for jump if condition is false
-            var falseLabel = DeclareLabel();
+            var afterIfStatementLabel = DeclareLabel();
+            Label elseLabel = null;
 
-            // emit if instruction that jumps to the label if the condition is false
-            Emit( FlowScriptInstruction.IF( falseLabel.Index ) );
+            if ( ifStatement.ElseBody == null )
+            {
+                // emit if instruction that jumps to the label if the condition is false
+                Emit( FlowScriptInstruction.IF( afterIfStatementLabel.Index ) );
+            }
+            else
+            {
+                elseLabel = DeclareLabel();
+                Emit( FlowScriptInstruction.IF( elseLabel.Index ) );
+            }
 
             // compile body
+            PushScope();
+
+            CurrentScope.BreakLabel = afterIfStatementLabel;
+
             LogInfo( ifStatement.Body, "Compiling if statement body" );
             if ( !TryCompileCompoundStatement( ifStatement.Body ) )
             {
@@ -643,16 +704,31 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             }
 
             // ensure that we end up at the right position after the body
-            Emit( FlowScriptInstruction.GOTO( falseLabel.Index ) );
+            Emit( FlowScriptInstruction.GOTO( afterIfStatementLabel.Index ) );
+            PopScope();
 
-            if ( ifStatement.ElseStatements.Count > 0 )
+            if ( ifStatement.ElseBody != null )
             {
-                // compile nested else if statements
-                LogError( ifStatement, "Compiling nested if statements is not yet implemented" );
-                return false;
+                ResolveLabel( elseLabel );
+
+                // compile body
+                PushScope();
+
+                CurrentScope.BreakLabel = afterIfStatementLabel;
+
+                LogInfo( ifStatement.Body, "Compiling else statement body" );
+                if ( !TryCompileCompoundStatement( ifStatement.ElseBody ) )
+                {
+                    LogError( ifStatement.ElseBody, "Failed to compile else statement body" );
+                    return false;
+                }
+
+                // ensure that we end up at the right position after the body
+                Emit( FlowScriptInstruction.GOTO( afterIfStatementLabel.Index ) );
+                PopScope();
             }
 
-            ResolveLabel( falseLabel );
+            ResolveLabel( afterIfStatementLabel );
 
             return true;
         }
@@ -666,12 +742,19 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
             if ( returnStatement.Value != null )
             {
-                // emit return value
+                // Save return address in a temporary variable
+                var returnAddressSave = CurrentScope.GenerateVariable( FlowScriptValueType.Int, mNextIntVariableIndex++ );
+                Emit( FlowScriptInstruction.POPLIX( returnAddressSave.Index ) );
+
+                // Emit return value
                 if ( !TryCompileExpression( returnStatement.Value ) )
                 {
                     LogError( returnStatement.Value, $"Failed to compile return value: {returnStatement.Value}" );
                     return false;
                 }
+
+                // Pop saved return address back on the stack
+                Emit( FlowScriptInstruction.PUSHLIX( returnAddressSave.Index ) );
             }
 
             // emit end
@@ -705,8 +788,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         private Label DeclareLabel( string name = null )
         {
             var label = new Label();
-            label.Index = (short)mNextLabelIndex++;
-            label.Name = name == null ? $"_{label.Index}" : name;
+            label.Index = (short)mLabels.Count;
+            label.Name = name == null ? $"_{mNextLabelIndex++}" : name;
 
             mLabels.Add( label.Name, label );
 
@@ -725,12 +808,18 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private void LogInfo( FlowScriptSyntaxNode node, string message )
         {
-            mLogger.Info( $"{message} ({node.SourceInfo.Line}:{node.SourceInfo.Column})" );
+            if ( node.SourceInfo != null )
+                mLogger.Info( $"{message} ({node.SourceInfo.Line}:{node.SourceInfo.Column})" );
+            else
+                mLogger.Info( message );
         }
 
         private void LogError( FlowScriptSyntaxNode node, string message )
         {
-            mLogger.Error( $"{message} ({node.SourceInfo.Line}:{node.SourceInfo.Column})" );
+            if ( node.SourceInfo != null )
+                mLogger.Error( $"{message} ({node.SourceInfo.Line}:{node.SourceInfo.Column})" );
+            else
+                mLogger.Error( message );
 
             if ( Debugger.IsAttached )
                 Debugger.Break();
@@ -777,6 +866,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             public Dictionary<string, Procedure> Procedures { get; set; }
 
             public Dictionary<string, Variable> Variables { get; set; }
+
+            public Label BreakLabel { get; set; }
+
+            public Label ContinueLabel { get; set; }
 
             public Scope( Scope parent )
             {
@@ -856,40 +949,32 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 return true;
             }
 
-            public bool TryDeclareVariable( FlowScriptVariableDeclaration declaration )
+            public bool TryDeclareVariable( FlowScriptVariableDeclaration declaration, short index )
             {
                 if ( TryGetVariable( declaration.Identifier.Text, out _ ) )
                     return false;
 
                 var variable = new Variable();
                 variable.Declaration = declaration;
-                variable.Index = GetNextVariableIndex( declaration.Type.ValueType );
+                variable.Index = index;
 
                 Variables[declaration.Identifier.Text] = variable;
 
                 return true;
             }
 
-            private short GetNextVariableIndex( FlowScriptValueType type )
+            public Variable GenerateVariable( FlowScriptValueType type, short index )
             {
-                short index = 0;
-                if ( Variables.Count == 0 )
-                {
-                    if ( Parent != null )
-                        index = Parent.GetNextVariableIndex( type );
-                }
-                else
-                {
-                    var variablesOfSameType = Variables.Values.Where( x => x.Declaration.Type.ValueType == type );
-                    if ( variablesOfSameType.Any() )
-                    {
-                        index = ( short )( variablesOfSameType
-                            .Select( x => x.Index )
-                            .Max() + 1 );
-                    }
-                }
+                var declaration = new FlowScriptVariableDeclaration(
+                    new List<FlowScriptVariableModifier>() { new FlowScriptVariableModifier() },
+                    new FlowScriptTypeIdentifier( type ),
+                    new FlowScriptIdentifier(type, $"<>__generatedVariable{index}"),
+                    null );
 
-                return index;
+                Debug.Assert( TryDeclareVariable( declaration, index ) );
+                Debug.Assert( TryGetVariable( declaration.Identifier.Text, out var variable ) );
+
+                return variable;
             }
         }
     }

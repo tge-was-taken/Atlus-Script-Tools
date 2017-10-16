@@ -6,7 +6,12 @@
 
         public override string ToString()
         {
-            return SourceInfo.ToString();
+            if ( SourceInfo != null )
+            {
+                return SourceInfo.ToString();
+            }
+
+            return string.Empty;    
         }
     }
 }

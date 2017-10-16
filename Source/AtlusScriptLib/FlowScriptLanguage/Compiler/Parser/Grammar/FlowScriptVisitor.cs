@@ -175,18 +175,18 @@ public interface IFlowScriptVisitor<Result> : IParseTreeVisitor<Result> {
 	Result VisitImportStatement([NotNull] FlowScriptParser.ImportStatementContext context);
 
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="FlowScriptParser.compoundStatement"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitCompoundStatement([NotNull] FlowScriptParser.CompoundStatementContext context);
-
-	/// <summary>
 	/// Visit a parse tree produced by <see cref="FlowScriptParser.statement"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitStatement([NotNull] FlowScriptParser.StatementContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="FlowScriptParser.compoundStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitCompoundStatement([NotNull] FlowScriptParser.CompoundStatementContext context);
 
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="FlowScriptParser.declarationStatement"/>.

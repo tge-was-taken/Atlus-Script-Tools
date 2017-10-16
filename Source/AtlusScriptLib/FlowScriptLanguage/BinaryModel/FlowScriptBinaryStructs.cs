@@ -65,6 +65,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.BinaryModel
 
         // 0x0C
         public int FirstElementAddress;
+
+        public override string ToString()
+        {
+            return $"{SectionType} {ElementSize} {ElementCount} {FirstElementAddress}";
+        }
     }
 
     [StructLayout( LayoutKind.Sequential )]
@@ -77,6 +82,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.BinaryModel
         public string Name;
         public int InstructionIndex;
         public int Reserved;
+
+        public override string ToString()
+        {
+            return $"{Name} at {InstructionIndex}";
+        }
     }
 
     // union
@@ -96,5 +106,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.BinaryModel
         public int OperandInt;
         public float OperandFloat;
         // }
+
+        public override string ToString()
+        {
+            return $"{Opcode} short: {OperandShort} int: {OperandInt} float: {OperandFloat}";
+        }
     }
 }
