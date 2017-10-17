@@ -113,6 +113,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
         //
         private bool TryParseCompilationUnit( FlowScriptParser.CompilationUnitContext context, out FlowScriptCompilationUnit compilationUnit )
         {
+            LogInfo( "Start parsing compilation unit" );
+
             LogContextInfo( context );
 
             compilationUnit = CreateAstNode<FlowScriptCompilationUnit>( context );
@@ -136,6 +138,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                 return false;
 
             compilationUnit.Statements = statements;
+
+            LogInfo( "Done parsing compilation unit" );
 
             return true;
         }
@@ -1541,20 +1545,20 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
         //
         private void LogContextInfo( ParserRuleContext context )
         {
-            mLogger.Info( $"Parsing {context.GetType().Name} ({context.Start.Line}:{context.Start.Column})" );
+            mLogger.Info( $"({context.Start.Line:D4}:{context.Start.Column:D4}) Entered parsing context {context.GetType().Name} rule: {FlowScriptParser.ruleNames[context.RuleIndex]}" );
         }
 
         private void LogError( ParserRuleContext context, string str )
         {
-            mLogger.Error( $"{str} ({context.Start.Line}:{context.Start.Column})" );
+            mLogger.Error( $"({context.Start.Line:D4}:{context.Start.Column:D4}) {str}" );
 
             if ( Debugger.IsAttached )
                 Debugger.Break();
         }
 
-        private void LogError( IToken token, string str )
+        private void LogError( IToken token, string message )
         {
-            mLogger.Error( $"{str} ({token.Line}:{token.Column})" );
+            mLogger.Error( $"({token.Line:D4}:{token.Column:D4}) {message}" );
 
             if ( Debugger.IsAttached )
                 Debugger.Break();
@@ -1562,7 +1566,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
         private void LogWarning( ParserRuleContext context, string str )
         {
-            mLogger.Warning( $"{str} ({context.Start.Line}:{context.Start.Column})" );
+            mLogger.Warning( $"({context.Start.Line:D4}:{context.Start.Column:D4}) {str}" );
+        }
+
+        private void LogInfo( string message )
+        {
+            mLogger.Info( $"            {message}" );
         }
 
         /// <summary>

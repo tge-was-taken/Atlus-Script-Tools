@@ -11,9 +11,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
     {
         private Logger mLogger;
         private Stack<FlowScriptDeclarationScope> mScopes;
+        private FlowScriptDeclarationScope mRootScope;
 
         private FlowScriptDeclarationScope Scope => mScopes.Peek();
 
+        /// <summary>
+        /// Initializes a FlowScript type resolver with a default configuration.
+        /// </summary>
         public FlowScriptTypeResolver()
         {
             mLogger = new Logger( nameof( FlowScriptTypeResolver ) );
@@ -29,18 +33,30 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
             listener.Subscribe( mLogger );
         }
 
+        /// <summary>
+        /// Try to resolve expression types in the given compilation unit.
+        /// </summary>
+        /// <param name="compilationUnit"></param>
+        /// <returns></returns>
         public bool TryResolveTypes( FlowScriptCompilationUnit compilationUnit )
         {
+            LogInfo( compilationUnit, "Start resolving types in compilation unit" );
+
             if ( !TryResolveTypesInCompilationUnit( compilationUnit ) )
                 return false;
+
+            LogInfo( compilationUnit, "Done resolving types in compilation unit" );
 
             return true;
         }
 
-        // top level declarations are handled seperately to make them accessible throughout the entire file
-        // regardless of scope
+        //
+        // Registering declarations
+        //
         private bool TryRegisterTopLevelDeclarations( FlowScriptCompilationUnit compilationUnit )
         {
+            LogInfo( compilationUnit, "Registering/forward-declaring top level declarations" );
+
             if ( !TryRegisterDeclarations( compilationUnit.Statements ) )
                 return false;
 
@@ -73,24 +89,16 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
             return true;
         }
 
-        private void PushScope()
-        {
-            if ( mScopes.Count != 0 )
-                mScopes.Push( new FlowScriptDeclarationScope( Scope ) );
-            else
-                mScopes.Push( new FlowScriptDeclarationScope( null ) );
-        }
-
-        private void PopScope()
-        {
-            mScopes.Pop();
-        }
-
-        // Resolving types
+        //
+        // Type resolving
+        //
         private bool TryResolveTypesInCompilationUnit( FlowScriptCompilationUnit compilationUnit )
         {
+            // Enter compilation unit scope
             PushScope();
 
+            // Top level declarations are handled seperately to make them accessible throughout the entire file
+            // regardless of scope
             if ( !TryRegisterTopLevelDeclarations( compilationUnit ) )
                 return false;
 
@@ -100,11 +108,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
                     return false;
             }
 
+            // Exit compilation unit scope
             PopScope();
 
             return true;
         }
 
+        // Statements
         private bool TryResolveTypesInStatement( FlowScriptStatement statement )
         {
             if ( statement is FlowScriptCompoundStatement compoundStatement )
@@ -154,7 +164,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
             }
             else
             {
-                mLogger.Info( $"No types resolved in statement '{statement}'" );
+                LogInfo( $"No types resolved in statement '{statement}'" );
                 //return false;
             }
 
@@ -177,7 +187,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
             if ( declaration.DeclarationType != FlowScriptDeclarationType.Label )
             {
                 if ( !TryResolveTypesInIdentifier( declaration.Identifier ) )
+                {
+                    LogError( declaration.Identifier, $"Failed to resolve types in declaration identifier: {declaration.Identifier}" );
                     return false;
+                }
             }
             else
             {
@@ -186,37 +199,17 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
 
             if ( declaration is FlowScriptProcedureDeclaration procedureDeclaration )
             {
-                PushScope();
-
-                if ( procedureDeclaration.Body != null )
+                if ( !TryResolveTypesInProcedureDeclaration( procedureDeclaration ) )
                 {
-                    foreach ( var parameter in procedureDeclaration.Parameters )
-                    {
-                        var parameterDeclaration = new FlowScriptVariableDeclaration(
-                            new List<FlowScriptVariableModifier>() { new FlowScriptVariableModifier() },
-                            parameter.TypeIdentifier,
-                            parameter.Identifier,
-                            null );
-
-                        if ( !TryRegisterDeclaration(parameterDeclaration) )
-                        {
-                            LogError( parameter, "Failed to register declaration for procedure parameter" );
-                            return false;
-                        }
-                    }
-
-                    if ( !TryResolveTypesInCompoundStatement( procedureDeclaration.Body ) )
-                        return false;
+                    LogError( procedureDeclaration, $"Failed to resolve types in procedure declaration: {procedureDeclaration}" );
+                    return false;
                 }
-
-                PopScope();
             }
             else if ( declaration is FlowScriptVariableDeclaration variableDeclaration )
             {
-                if ( variableDeclaration.Initializer != null )
+               if ( !TryResolveTypesInVariableDeclaration( variableDeclaration ))
                 {
-                    if ( !TryResolveTypesInExpression( variableDeclaration.Initializer ) )
-                        return false;
+                    LogError( variableDeclaration, $"Failed to resolve types in variable declaration: {variableDeclaration}" );
                 }
             }
 
@@ -247,10 +240,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
                 if ( !TryResolveTypesInExpression( binaryExpression.Right ) )
                     return false;
 
-                if ( !(expression is FlowScriptEqualityOperator || expression is FlowScriptNonEqualityOperator ||
+                if ( !( expression is FlowScriptEqualityOperator || expression is FlowScriptNonEqualityOperator ||
                      expression is FlowScriptGreaterThanOperator || expression is FlowScriptGreaterThanOrEqualOperator ||
                      expression is FlowScriptLessThanOperator || expression is FlowScriptLessThanOrEqualOperator ||
-                     expression is FlowScriptLogicalAndOperator || expression is FlowScriptLogicalOrOperator) )
+                     expression is FlowScriptLogicalAndOperator || expression is FlowScriptLogicalOrOperator ) )
                 {
                     binaryExpression.ExpressionValueType = binaryExpression.Left.ExpressionValueType;
                 }
@@ -273,6 +266,132 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
 
             return true;
         }
+
+        private bool TryResolveTypesInIfStatement( FlowScriptIfStatement ifStatement )
+        {
+            if ( !TryResolveTypesInExpression( ifStatement.Condition ) )
+                return false;
+
+            // Enter if body scope
+            PushScope();
+
+            if ( !TryResolveTypesInCompoundStatement( ifStatement.Body ) )
+                return false;
+
+            // Exit if body scope
+            PopScope();
+
+            if ( ifStatement.ElseBody != null )
+            {
+                // Enter if else body scope
+                PushScope();
+
+                if ( !TryResolveTypesInCompoundStatement( ifStatement.ElseBody ) )
+                    return false;
+
+                // Exit if else body scope
+                PopScope();
+            }
+
+            return true;
+        }
+
+        private bool TryResolveTypesInForStatement( FlowScriptForStatement forStatement )
+        {
+            // Enter for scope
+            PushScope();
+
+            // For loop Initializer
+            if ( !TryResolveTypesInStatement( forStatement.Initializer ) )
+                return false;
+
+            // For loop Condition
+            if ( !TryResolveTypesInExpression( forStatement.Condition ) )
+                return false;
+
+            // For loop After loop expression
+            if ( !TryResolveTypesInExpression( forStatement.AfterLoop ) )
+                return false;
+
+            // For loop Body
+            if ( !TryResolveTypesInCompoundStatement( forStatement.Body ) )
+                return false;
+
+            // Exit for scope
+            PopScope();
+
+            return true;
+        }
+
+        private bool TryResolveTypesInWhileStatement( FlowScriptWhileStatement whileStatement )
+        {
+            // Resolve types in while statement condition
+            if ( !TryResolveTypesInExpression( whileStatement.Condition ) )
+                return false;
+
+            // Enter while body scope
+            PushScope();
+
+            // Resolve types in body
+            if ( !TryResolveTypesInCompoundStatement( whileStatement.Body ) )
+                return false;
+
+            // Exit while body scope
+            PopScope();
+
+            return true;
+        }
+
+        // Declarations
+        private bool TryResolveTypesInProcedureDeclaration( FlowScriptProcedureDeclaration declaration )
+        {
+            // Nothing to resolve if there's no body
+            if ( declaration.Body == null )
+                return true;
+
+            // Enter procedure body scope
+            PushScope();
+
+            foreach ( var parameter in declaration.Parameters )
+            {
+                var parameterDeclaration = new FlowScriptVariableDeclaration(
+                    new List<FlowScriptVariableModifier>() { new FlowScriptVariableModifier() },
+                    parameter.TypeIdentifier,
+                    parameter.Identifier,
+                    null );
+
+                if ( !TryRegisterDeclaration( parameterDeclaration ) )
+                {
+                    LogError( parameter, "Failed to register declaration for procedure parameter" );
+                    return false;
+                }
+            }
+
+            if ( !TryResolveTypesInCompoundStatement( declaration.Body ) )
+                return false;
+
+            // Exit procedure body scope
+            PopScope();
+
+            return true;
+        }
+
+        private bool TryResolveTypesInVariableDeclaration( FlowScriptVariableDeclaration declaration )
+        {
+            // Nothing to resolve if there's no initializer
+            if ( declaration.Initializer == null )
+                return true;
+
+            if ( !TryResolveTypesInExpression( declaration.Initializer ) )
+            {
+                LogError( declaration.Initializer, $"Failed to resolve types in variable initializer expression: {declaration.Initializer}" );
+                return false;
+            }
+
+            return true;
+        }
+
+        // Expressions
 
         private bool TryResolveTypesInCallExpression( FlowScriptCallOperator callExpression )
         {
@@ -339,74 +458,57 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
             return true;
         }
 
-        private bool TryResolveTypesInIfStatement( FlowScriptIfStatement ifStatement )
+        //
+        // Scope
+        //
+        private void PushScope()
         {
-            if ( !TryResolveTypesInExpression( ifStatement.Condition ) )
-                return false;
-
-            PushScope();
-            if ( !TryResolveTypesInCompoundStatement( ifStatement.Body ) )
-                return false;
-            PopScope();
-
-            if ( ifStatement.ElseBody != null )
+            if ( mScopes.Count != 0 )
             {
-                PushScope();
-                if ( !TryResolveTypesInCompoundStatement( ifStatement.ElseBody ) )
-                    return false;
-                PopScope();
+                mScopes.Push( new FlowScriptDeclarationScope( Scope ) );
             }
-
-            return true;
+            else
+            {
+                mRootScope = new FlowScriptDeclarationScope( null );
+                mScopes.Push( mRootScope );
+            }
         }
 
-        private bool TryResolveTypesInForStatement( FlowScriptForStatement forStatement )
+        private void PopScope()
         {
-            PushScope();
-
-            if ( !TryResolveTypesInStatement( forStatement.Initializer ) )
-                return false;
-
-            if ( !TryResolveTypesInExpression( forStatement.Condition ) )
-                return false;
-
-            if ( !TryResolveTypesInExpression( forStatement.AfterLoop ) )
-                return false;
-
-            if ( !TryResolveTypesInCompoundStatement( forStatement.Body ) )
-                return false;
-
-            PopScope();
-
-            return true;
+            mScopes.Pop();
         }
 
-        private bool TryResolveTypesInWhileStatement( FlowScriptWhileStatement whileStatement )
-        {
-            PushScope();
-
-            if ( !TryResolveTypesInExpression( whileStatement.Condition ) )
-                return false;
-
-            if ( !TryResolveTypesInCompoundStatement( whileStatement.Body ) )
-                return false;
-
-            PopScope();
-
-            return true;
-        }
-
+        //
         // Logging
+        //
         private void LogInfo( FlowScriptSyntaxNode node, string message )
         {
-            mLogger.Info( $"{message} ({node.SourceInfo.Line}:{node.SourceInfo.Column})" );
+            if ( node.SourceInfo != null )
+                mLogger.Info( $"({node.SourceInfo.Line:D4}:{node.SourceInfo.Column:D4}) {message}" );
+            else
+                LogInfo( message );
+        }
+
+        private void LogInfo( string message )
+        {
+            mLogger.Info( $"            {message}" );
         }
 
         private void LogError( FlowScriptSyntaxNode node, string message )
         {
-            mLogger.Error( $"{message} ({node.SourceInfo.Line}:{node.SourceInfo.Column})" );
+            if ( node.SourceInfo != null )
+                mLogger.Error( $"({node.SourceInfo.Line:D4}:{node.SourceInfo.Column:D4}) {message}" );
+            else
+                LogError( message );
+
             if ( Debugger.IsAttached )
                 Debugger.Break();
+        }
+
+        private void LogError( string message )
+        {
+            mLogger.Error( $"            {message}" );
         }
     }
 }
