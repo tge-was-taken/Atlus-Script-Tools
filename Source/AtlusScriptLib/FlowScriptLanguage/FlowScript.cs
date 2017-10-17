@@ -344,20 +344,15 @@ namespace AtlusScriptLib.FlowScriptLanguage
                 stringIndexToBinaryStringIndexMap[stringIndex] = ( short )binaryIndex;
             }
 
-            // Build label remap table
-            var allLabels = mProcedures.SelectMany( x => x.Labels ).ToList();
-            var labelRemap = new Dictionary<string, int>();
-            int nextBinaryLabelIndex = 0;
-            foreach ( var label in allLabels )
-                labelRemap[label.Name] = nextBinaryLabelIndex++;
-
             // Convert procedures
-            int instructionBinaryIndex = 0;       
+            int instructionBinaryIndex = 0;
+            int nextBinaryLabelIndex = 0;
 
             foreach ( var procedure in mProcedures )
             {
                 int procedureInstructionStartBinaryIndex = instructionBinaryIndex;
                 var procedureInstructionListIndexToBinaryIndexMap = new Dictionary<int, int>();
+                var procedureIndexRemap = new Dictionary<int, int>();
 
                 // Convert instructions in procedure
                 for ( int instructionIndex = 0; instructionIndex < procedure.Instructions.Count; instructionIndex++ )
@@ -386,9 +381,12 @@ namespace AtlusScriptLib.FlowScriptLanguage
                         {
                             // Convert procedure-local label index to global label index
                             int oldIndex = instruction.Operand.GetInt16Value();
-                            binaryInstruction.OperandShort = (short)labelRemap[procedure.Labels[oldIndex].Name];
+                            if ( !procedureIndexRemap.ContainsKey( oldIndex ))
+                            {
+                                procedureIndexRemap[oldIndex] = nextBinaryLabelIndex++;
+                            }
 
-                            Debug.Assert( procedure.Labels[oldIndex].Name == allLabels[binaryInstruction.OperandShort].Name );
+                            binaryInstruction.OperandShort = (short)procedureIndexRemap[oldIndex];
                         }
                         else
                         {
@@ -425,8 +423,9 @@ namespace AtlusScriptLib.FlowScriptLanguage
                 }
 
                 // Convert labels in procedure after the instructions to remap the instruction indices
-                foreach ( var label in procedure.Labels )
+                foreach ( var key in procedureIndexRemap.Keys )
                 {
+                    var label = procedure.Labels[key];
                     builder.AddJumpLabel( new FlowScriptBinaryLabel { InstructionIndex = procedureInstructionListIndexToBinaryIndexMap[label.InstructionIndex], Name = label.Name, Reserved = 0 } );
                 }
 

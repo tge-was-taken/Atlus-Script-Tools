@@ -182,6 +182,13 @@ public interface IFlowScriptVisitor<Result> : IParseTreeVisitor<Result> {
 	Result VisitStatement([NotNull] FlowScriptParser.StatementContext context);
 
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="FlowScriptParser.nullStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNullStatement([NotNull] FlowScriptParser.NullStatementContext context);
+
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="FlowScriptParser.compoundStatement"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

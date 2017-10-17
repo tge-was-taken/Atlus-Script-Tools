@@ -203,7 +203,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
             statement = null;
 
             // Parse declaration statement
-            if ( TryGet( context, () => context.compoundStatement(), out var compoundStatementContext ) )
+            if ( TryGet( context, () => context.nullStatement(), out var nullStatementContext))
+            {
+                statement = CreateAstNode<FlowScriptNullStatement>( nullStatementContext );
+            }
+            else if ( TryGet( context, () => context.compoundStatement(), out var compoundStatementContext ) )
             {
                 FlowScriptCompoundStatement compoundStatement = null;
                 if ( !TryFunc( compoundStatementContext, "Failed to parse compound statement", () => TryParseCompoundStatement( compoundStatementContext, out compoundStatement ) ) )
@@ -219,7 +223,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
                 statement = declaration;
             }
-            else if ( TryGet( context, () => context.expression(), out var expressionContext ))
+            else if ( TryGet( context, () => context.expression(), out var expressionContext ) )
             {
                 FlowScriptExpression expression = null;
                 if ( !TryFunc( expressionContext, "Failed to parse expression", () => TryParseExpression( expressionContext, out expression ) ) )
@@ -235,6 +239,22 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
                 statement = ifStatement;
             }
+            else if ( TryGet( context, () => context.forStatement(), out var forStatementContext ) )
+            {
+                FlowScriptForStatement forStatement = null;
+                if ( !TryFunc( forStatementContext, "Failed to parse for statement", () => TryParseForStatement( forStatementContext, out forStatement ) ) )
+                    return false;
+
+                statement = forStatement;
+            }
+            else if ( TryGet( context, () => context.whileStatement(), out var whileStatementContext ) )
+            {
+                FlowScriptWhileStatement whileStatement = null;
+                if ( !TryFunc( whileStatementContext, "Failed to parse while statement", () => TryParseWhileStatement( whileStatementContext, out whileStatement ) ) )
+                    return false;
+
+                statement = whileStatement;
+            }
             else if ( TryGet( context, () => context.gotoStatement(), out var gotoStatementContext ) )
             {
                 FlowScriptGotoStatement gotoStatement = null;
@@ -243,7 +263,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
                 statement = gotoStatement;
             }
-            else if ( TryGet( context, () => context.returnStatement(), out var returnStatementContext))
+            else if ( TryGet( context, () => context.returnStatement(), out var returnStatementContext ) )
             {
                 FlowScriptReturnStatement returnStatement = null;
                 if ( !TryFunc( ifStatementContext, "Failed to parse return statement", () => TryParseReturnStatement( returnStatementContext, out returnStatement ) ) )
@@ -254,6 +274,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
             else if ( TryGet( context, () => context.breakStatement(), out var breakStatement ) )
             {
                 statement = CreateAstNode<FlowScriptBreakStatement>( breakStatement );
+            }
+            else if ( TryGet( context, () => context.continueStatement(), out var continueStatement ) )
+            {
+                statement = CreateAstNode<FlowScriptContinueStatement>( continueStatement );
             }
             else
             {
@@ -291,7 +315,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
             declaration = null;
 
             // Parse function declaration statement
-            if ( TryGet( context, () => context.functionDeclarationStatement(), out var functionDeclarationContext))
+            if ( TryGet( context, () => context.functionDeclarationStatement(), out var functionDeclarationContext ) )
             {
                 FlowScriptFunctionDeclaration functionDeclaration = null;
                 if ( !TryFunc( functionDeclarationContext, "Failed to parse function declaration", () => TryParseFunctionDeclaration( functionDeclarationContext, out functionDeclaration ) ) )
@@ -299,7 +323,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
                 declaration = functionDeclaration;
             }
-            else if ( TryGet( context, () => context.procedureDeclarationStatement(), out var procedureDeclarationContext))
+            else if ( TryGet( context, () => context.procedureDeclarationStatement(), out var procedureDeclarationContext ) )
             {
                 FlowScriptProcedureDeclaration procedureDeclaration = null;
                 if ( !TryFunc( procedureDeclarationContext, "Failed to parse procedure declaration", () => TryParseProcedureDeclaration( procedureDeclarationContext, out procedureDeclaration ) ) )
@@ -307,7 +331,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
                 declaration = procedureDeclaration;
             }
-            else if ( TryGet( context, () => context.variableDeclarationStatement(), out var variableDeclarationContext))
+            else if ( TryGet( context, () => context.variableDeclarationStatement(), out var variableDeclarationContext ) )
             {
                 FlowScriptVariableDeclaration variableDeclaration = null;
                 if ( !TryFunc( variableDeclarationContext, "Failed to parse variable declaration", () => TryParseVariableDeclaration( variableDeclarationContext, out variableDeclaration ) ) )
@@ -430,7 +454,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
             procedureDeclaration.Parameters = parameters;
 
             // Parse body
-            if ( TryGet( context, () => context.compoundStatement(), out var compoundStatementContext))
+            if ( TryGet( context, () => context.compoundStatement(), out var compoundStatementContext ) )
             {
                 FlowScriptCompoundStatement body = null;
                 if ( !TryFunc( compoundStatementContext, "Failed to parse procedure body", () => TryParseCompoundStatement( compoundStatementContext, out body ) ) )
@@ -449,8 +473,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
             variableDeclaration = CreateAstNode<FlowScriptVariableDeclaration>( context );
 
             // Parse modifier(s)
-            if ( TryGet( context, () => context.Global(), out var globalNode))
-            {           
+            if ( TryGet( context, () => context.Global(), out var globalNode ) )
+            {
                 var modifier = CreateAstNode<FlowScriptVariableModifier>( globalNode );
                 modifier.ModifierType = FlowScriptModifierType.Global;
 
@@ -485,7 +509,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
             }
 
             // Parse expression
-            if ( TryGet( context, () => context.expression(), out var expressionContext))
+            if ( TryGet( context, () => context.expression(), out var expressionContext ) )
             {
                 FlowScriptExpression initializer = null;
                 if ( !TryFunc( expressionContext, "Failed to parse variable initializer", () => TryParseExpression( expressionContext, out initializer ) ) )
@@ -533,7 +557,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                 if ( !TryParseExpression( compoundExpressionContext.expression(), out expression ) )
                     return false;
             }
-            else if ( TryCast<FlowScriptParser.CastExpressionContext>( context, out var castExpressionContext))
+            else if ( TryCast<FlowScriptParser.CastExpressionContext>( context, out var castExpressionContext ) )
             {
                 mLogger.Error( "Todo: cast" );
                 return false;
@@ -647,7 +671,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
             callExpression.Identifier = identifier;
 
-            if ( TryGet(context, () => context.expressionList(), out var expressionListContext))
+            if ( TryGet( context, () => context.expressionList(), out var expressionListContext ) )
             {
                 if ( !TryGet( expressionListContext, "Expected expression(s)", () => expressionListContext.expression(), out var expressionContexts ) )
                     return false;
@@ -947,7 +971,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
             if ( !TryGet( context, "Expected primary expression", () => context.primary(), out var primaryContext ) )
                 return false;
 
-            if ( TryCast<FlowScriptParser.ConstantExpressionContext>( primaryContext, out var constantExpressionContext ))
+            if ( TryCast<FlowScriptParser.ConstantExpressionContext>( primaryContext, out var constantExpressionContext ) )
             {
                 FlowScriptExpression constantExpression = null;
                 if ( !TryFunc( constantExpressionContext, "Failed to parse constant expression", () => TryParseConstantExpression( constantExpressionContext, out constantExpression ) ) )
@@ -955,7 +979,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
                 expression = constantExpression;
             }
-            else if ( TryCast<FlowScriptParser.IdentifierExpressionContext>( primaryContext, out var identifierExpressionContext ))
+            else if ( TryCast<FlowScriptParser.IdentifierExpressionContext>( primaryContext, out var identifierExpressionContext ) )
             {
                 FlowScriptIdentifier identifier = null;
                 if ( !TryFunc( identifierExpressionContext, "Failed to parse identifier expression", () => TryParseIdentifierExpression( identifierExpressionContext, out identifier ) ) )
@@ -1015,7 +1039,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
             LogContextInfo( context );
 
             expression = null;
-            if ( TryGet(context, () => context.BoolLiteral(), out var boolLiteralContext))
+            if ( TryGet( context, () => context.BoolLiteral(), out var boolLiteralContext ) )
             {
                 if ( !TryParseBoolLiteral( boolLiteralContext, out var boolLiteral ) )
                     return false;
@@ -1057,7 +1081,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
             literal = CreateAstNode<FlowScriptBoolLiteral>( node );
 
             bool value;
-            if ( !bool.TryParse(node.Symbol.Text, out value) )
+            if ( !bool.TryParse( node.Symbol.Text, out value ) )
             {
                 LogError( node.Symbol, "Invalid boolean value" );
                 return false;
@@ -1075,10 +1099,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
             int value = 0;
             string intString = node.Symbol.Text;
 
-            if ( intString.StartsWith("0x", StringComparison.InvariantCultureIgnoreCase) )
+            if ( intString.StartsWith( "0x", StringComparison.InvariantCultureIgnoreCase ) )
             {
                 // hex number
-                if ( !int.TryParse( intString.Substring(2), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out value ) )
+                if ( !int.TryParse( intString.Substring( 2 ), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out value ) )
                 {
                     LogError( node.Symbol, "Invalid hexidecimal integer value" );
                     return false;
@@ -1104,7 +1128,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
             literal = CreateAstNode<FlowScriptFloatLiteral>( node );
 
             string floatString = node.Symbol.Text;
-            if ( floatString.EndsWith("f", StringComparison.InvariantCultureIgnoreCase))
+            if ( floatString.EndsWith( "f", StringComparison.InvariantCultureIgnoreCase ) )
             {
                 floatString = floatString.Substring( 0, floatString.Length - 1 );
             }
@@ -1124,7 +1148,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
         private bool TryParseStringLiteral( ITerminalNode node, out FlowScriptStringLiteral literal )
         {
             literal = CreateAstNode<FlowScriptStringLiteral>( node );
-            literal.Value = node.Symbol.Text.Trim('\"');
+            literal.Value = node.Symbol.Text.Trim( '\"' );
 
             return true;
         }
@@ -1205,7 +1229,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
             return true;
         }
 
-        private bool TryParseIdentifier(ITerminalNode node, out FlowScriptIdentifier identifier)
+        private bool TryParseIdentifier( ITerminalNode node, out FlowScriptIdentifier identifier )
         {
             identifier = CreateAstNode<FlowScriptIdentifier>( node );
             identifier.Text = node.Symbol.Text;
@@ -1237,7 +1261,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
             // Body
             {
-                if ( !TryGet( context, "Expected if body", () => context.statement(0), out var bodyContext ) )
+                if ( !TryGet( context, "Expected if body", () => context.statement( 0 ), out var bodyContext ) )
                     return false;
 
                 FlowScriptStatement body = null;
@@ -1257,7 +1281,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
             // Else statement
             {
-                if ( TryGet( context, () => context.statement(1), out var elseBodyContext ) )
+                if ( TryGet( context, () => context.statement( 1 ), out var elseBodyContext ) )
                 {
                     FlowScriptStatement body = null;
                     if ( !TryFunc( elseBodyContext, "Failed to parse else body", () => TryParseStatement( elseBodyContext, out body ) ) )
@@ -1279,6 +1303,94 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
         }
 
         //
+        // For statement
+        //
+        private bool TryParseForStatement( FlowScriptParser.ForStatementContext context, out FlowScriptForStatement forStatement )
+        {
+            LogContextInfo( context );
+
+            forStatement = CreateAstNode<FlowScriptForStatement>( context );
+
+            if ( !TryParseStatement( context.statement( 0 ), out var initializer ) )
+            {
+                LogError( context.statement( 0 ), "Failed to parse for statement initializer" );
+                return false;
+            }
+
+            forStatement.Initializer = initializer;
+
+            if ( !TryParseExpression( context.expression( 0 ), out var condition ) )
+            {
+                LogError( context.statement( 0 ), "Failed to parse for statement condition" );
+                return false;
+            }
+
+            forStatement.Condition = condition;
+
+            if ( !TryParseExpression( context.expression( 1 ), out var afterLoop ) )
+            {
+                LogError( context.statement( 0 ), "Failed to parse for statement after loop expression" );
+                return false;
+            }
+
+            forStatement.AfterLoop = afterLoop;
+
+            if ( !TryParseStatement( context.statement( 1 ), out var body ) )
+            {
+                LogError( context.statement( 0 ), "Failed to parse for statement body" );
+                return false;
+            }
+
+            if ( body is FlowScriptCompoundStatement )
+            {
+                forStatement.Body = ( FlowScriptCompoundStatement )body;
+            }
+            else
+            {
+                forStatement.Body = CreateAstNode<FlowScriptCompoundStatement>( context.statement( 1 ) );
+                forStatement.Body.Statements.Add( body );
+            }
+
+            return true;
+        }
+
+        //
+        // While statement
+        //
+        private bool TryParseWhileStatement( FlowScriptParser.WhileStatementContext context, out FlowScriptWhileStatement whileStatement )
+        {
+            LogContextInfo( context );
+
+            whileStatement = CreateAstNode<FlowScriptWhileStatement>( context );
+
+            if ( !TryParseExpression( context.expression(), out var condition ) )
+            {
+                LogError( context.expression(), "Failed to parse while statement condition" );
+                return false;
+            }
+
+            whileStatement.Condition = condition;
+
+            if ( !TryParseStatement( context.statement(), out var body ) )
+            {
+                LogError( context.statement(), "Failed to parse while statement body" );
+                return false;
+            }
+
+            if ( body is FlowScriptCompoundStatement )
+            {
+                whileStatement.Body = ( FlowScriptCompoundStatement )body;
+            }
+            else
+            {
+                whileStatement.Body = CreateAstNode<FlowScriptCompoundStatement>( context.statement() );
+                whileStatement.Body.Statements.Add( body );
+            }
+
+            return true;
+        }
+
+        //
         // Goto statement
         //
         private bool TryParseGotoStatement( FlowScriptParser.GotoStatementContext context, out FlowScriptGotoStatement gotoStatement )
@@ -1293,7 +1405,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                 return false;
             }
 
-            if ( !TryParseIdentifier( identifier, out var target ) ) 
+            if ( !TryParseIdentifier( identifier, out var target ) )
             {
                 LogError( context, "Failed to parse goto label identifier" );
                 return false;
@@ -1312,10 +1424,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
             LogContextInfo( context );
 
             returnStatement = CreateAstNode<FlowScriptReturnStatement>( context );
-            
-            if ( TryGet(context, () => context.expression(), out var expressionContext ))
+
+            if ( TryGet( context, () => context.expression(), out var expressionContext ) )
             {
-                if ( !TryParseExpression(expressionContext, out var expression))
+                if ( !TryParseExpression( expressionContext, out var expression ) )
                 {
                     LogError( expressionContext, "Failed to parse return statement expression" );
                     return false;
@@ -1354,7 +1466,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
         //
         // Predicates
         //
-        private bool TryFunc( ParserRuleContext context, string errorText, Func<bool> func ) 
+        private bool TryFunc( ParserRuleContext context, string errorText, Func<bool> func )
         {
             if ( !func() )
             {

@@ -1,0 +1,316 @@
+
+// Returns in which phase the field script was called
+// 0 - Before load
+// 1 - Unknown
+// 2 - Unknown
+// 3 - Unknown
+// 4 - After load
+function( 0x1001 ) int FLD_GET_SCRIPT_TIMING(); 
+
+function( 0x0000 ) void SYNC(); 
+
+// Stalls execution of the script for the specified amount of frames
+function( 0x0001 ) void WAIT( int frameCount ); 
+
+// Prints integer to TTY log
+function( 0x0002 ) void PUT( int value ); 
+
+// Prints string to TTY log
+function( 0x0003 ) void PUTS( string value ); 
+
+// Displays a specified dialog message to the opened dialog window
+function( 0x0005 ) void MSG( int messageId, int param1 ); 
+
+// Display dialog window
+function( 0x0022 ) void MSG_WND_DSP();  
+
+// Close dialog window
+function( 0x0023 ) void MSG_WND_CLS();
+
+// Initializes a dialog option selection sequence
+function( 0x0024 ) int SEL( int messageId ); 
+
+// Initiate field load
+function( 0x1000 ) void CALL_FIELD( int param0, int param1, int param2, int param3 ); 
+
+// Initialize a boss fight.
+// The id maps to a procedure in field/script/boss.bf
+function( 0x10d0 ) void FLD_START_BOSS( int bossId ); 
+
+// Returns if the specified bit id is set
+function( 0x000c ) bool BIT_CHK( int id );
+
+// Sets the specified bit to on
+function( 0x000d ) void BIT_ON( int id );
+
+// Sets the specified bit to off
+function( 0x000e ) void BIT_OFF( int id ); 
+
+// Get the resource handle of a player character
+function( 0x1003 ) int FLD_PC_GET_RESHND(int param0); 
+
+// Sets the translation of a model
+function( 0x108f ) void FLD_MODEL_SET_TRANSLATE( int modelHandle, float x, float y, float z, int param4 );
+
+// Sets the scale of a model
+function( 0x1301 ) void FLD_MODEL_SET_SCALE( int modelHandle, float scale );
+
+// Returns if the specified button is pressed
+// 00 - Select
+// 01 - Left analog stick press
+// 02 - Right analog stick press
+// 03 - Start
+// 04 - Dpad up
+// 05 - Dpad right
+// 06 - Dpad down
+// 07 - Dpad left
+// 08 - Left trigger
+// 09 - Right trigger
+// 10 - Left bumper
+// 11 - Right bumper
+// 12 - Triangle
+// 13 - Circle
+// 14 - X
+// 15 - Square
+// 16 - Any
+function( 0x007a ) bool PAD_CHK_PRESS( int buttonId );
+
+// Plays a specified bgm. Maps directly to the ids from the OST gamerip.
+function( 0x005c ) void BGM( int bgmId );
+
+void Main()
+{ 
+	if ( FLD_GET_SCRIPT_TIMING() != 4 || BIT_CHK( 0 ) )
+		return;
+
+	MSG_WND_DSP(); 
+	MSG( 0, 0 ); 
+	int selection = SEL( 1 ) 
+	MSG_WND_CLS(); 
+
+	if ( selection == 0 )
+	{
+		int playerResHandle = FLD_PC_GET_RESHND( 0 );
+		
+		FLD_MODEL_SET_SCALE( playerResHandle, 3f );
+	}
+	else if ( selection == 1 )
+	{
+		CALL_FIELD( 0, 2, 0, 0, 0 );
+	}
+	else if ( selection == 2 )
+	{
+		StartBossrushMode();
+	}
+	else if ( selection == 3 )
+	{
+		StartTeleportMode();
+	}
+	else if ( selection == 4 )
+	{
+		StartButtonTestMode();
+	}
+	else if ( selection == 5 )
+	{
+		StartSoundTestMode();
+	}
+
+	BIT_ON( 0 );
+}
+
+void StartBossrushMode()
+{
+	// Display the dialog window
+	MSG_WND_DSP(); 
+
+	// Display dialog
+	MSG( 5, 0 ); 
+    
+    // Select boss
+    int bossId = SelectBoss();
+    
+    // Start boss fight
+    FLD_START_BOSS( bossId );
+    
+    // Close the dialog window
+	MSG_WND_CLS(); 
+}
+
+int SelectBoss()
+{
+    for ( int i = 0; i < 22; i = i + 1 )
+	{
+		int selection = SEL( i + 6 );
+		
+		if ( selection == 4 )
+		{
+			i = i - 1;
+			continue;
+		}
+		else if ( selection == 5 )
+		{
+			continue;
+		}
+
+		return selection + ( i * 4 ); 
+	}
+}
+
+void StartTeleportMode()
+{
+	int playerResHandle = FLD_PC_GET_RESHND( 0 );
+
+	while ( !PAD_CHK_PRESS( 12 ) )
+	{
+		if ( PAD_CHK_PRESS( 16 ) )
+		{
+			float x = 0f;
+			float y = 0f;
+			float z = 0f;
+			float multiplier = 1f;
+			bool anyValueSet = false;
+
+			if ( PAD_CHK_PRESS( 14 ) )
+				multiplier = 2f;
+
+			if ( PAD_CHK_PRESS( 4 ) )
+			{
+				y = y + ( 2000f * multiplier );
+				anyValueSet = true;
+			}
+
+			if ( PAD_CHK_PRESS( 5 ) )
+			{
+				x = x + ( 2000f * multiplier );
+				anyValueSet = true;
+			}
+
+			if ( PAD_CHK_PRESS( 6 ) )
+			{
+				y = y - ( 2000f * multiplier );
+				anyValueSet = true;
+			}
+
+			if ( PAD_CHK_PRESS( 7 ) )
+			{
+				x = x - ( 2000f * multiplier );
+				anyValueSet = true;
+			}
+
+			if ( anyValueSet )
+				FLD_MODEL_SET_TRANSLATE( playerResHandle, x, y, z, playerResHandle );
+		}
+		
+		WAIT( 5 );
+	}
+}
+
+void StartButtonTestMode()
+{
+	while ( true )
+	{
+		if ( PAD_CHK_PRESS( 0 ) ) 
+			PUTS( "Button 0 is pressed" );
+
+		if ( PAD_CHK_PRESS( 1 ) ) 
+			PUTS( "Button 1 is pressed" );
+
+		if ( PAD_CHK_PRESS( 2 ) ) 
+			PUTS( "Button 2 is pressed" );
+
+		if ( PAD_CHK_PRESS( 3 ) ) 
+			PUTS( "Button 3 is pressed" );
+
+		if ( PAD_CHK_PRESS( 4 ) ) 
+			PUTS( "Button 4 is pressed" );
+
+		if ( PAD_CHK_PRESS( 5 ) ) 
+			PUTS( "Button 5 is pressed" );
+
+		if ( PAD_CHK_PRESS( 6 ) ) 
+			PUTS( "Button 6 is pressed" );
+
+		if ( PAD_CHK_PRESS( 7 ) ) 
+			PUTS( "Button 7 is pressed" );
+
+		if ( PAD_CHK_PRESS( 8 ) ) 
+			PUTS( "Button 8 is pressed" );
+
+		if ( PAD_CHK_PRESS( 9 ) ) 
+			PUTS( "Button 9 is pressed" );
+
+		if ( PAD_CHK_PRESS( 10 ) ) 
+			PUTS( "Button 10 is pressed" );
+
+		if ( PAD_CHK_PRESS( 11 ) ) 
+			PUTS( "Button 11 is pressed" );
+
+		if ( PAD_CHK_PRESS( 12 ) ) 
+			PUTS( "Button 12 is pressed" );
+
+		if ( PAD_CHK_PRESS( 13 ) ) 
+			PUTS( "Button 13 is pressed" );
+
+		if ( PAD_CHK_PRESS( 14 ) ) 
+			PUTS( "Button 14 is pressed" );
+
+		if ( PAD_CHK_PRESS( 15 ) ) 
+			PUTS( "Button 15 is pressed" );
+
+		if ( PAD_CHK_PRESS( 16 ) ) 
+			PUTS( "Button 16 is pressed" );
+
+		WAIT( 5 );
+	}
+}
+
+void StartSoundTestMode()
+{
+	// Display the dialog window
+	MSG_WND_DSP(); 
+
+	// Display dialog
+	MSG( 2, 0 ); 
+
+	// Have the user select 3 digits
+	int digit1 = SelectDigit();
+	int digit2 = SelectDigit();
+	int digit3 = SelectDigit();
+
+	// Debugging values
+	PUTS( "SelectBgm: digits: " );
+	PUT( digit1 );
+	PUT( digit2 );
+	PUT( digit3 );
+
+	int bgmId = ( digit1 * 100 ) + ( digit2 * 10 ) + digit3;
+
+	PUTS( "SelectBgm: bgmId: " );
+	PUT( bgmId );
+
+	// Play bgm
+	BGM( bgmId );
+
+	// Close the dialog window
+	MSG_WND_CLS(); 
+}
+
+int SelectDigit()
+{
+	while ( true )
+	{
+		int firstSelection = SEL( 3 );
+		if ( firstSelection == 5 ) // higher
+		{
+			int secondSelection = SEL( 4 );
+			if ( secondSelection == 5 ) // lower
+			  continue;
+
+			return secondSelection + 5;
+		}
+
+		return firstSelection;
+	}
+}
+
+

@@ -315,6 +315,19 @@ public partial class FlowScriptBaseListener : IFlowScriptListener {
 	public virtual void ExitStatement([NotNull] FlowScriptParser.StatementContext context) { }
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="FlowScriptParser.nullStatement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterNullStatement([NotNull] FlowScriptParser.NullStatementContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="FlowScriptParser.nullStatement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitNullStatement([NotNull] FlowScriptParser.NullStatementContext context) { }
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="FlowScriptParser.compoundStatement"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>

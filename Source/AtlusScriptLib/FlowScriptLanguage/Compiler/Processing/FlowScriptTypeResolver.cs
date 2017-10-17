@@ -130,6 +130,16 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
                 if ( !TryResolveTypesInIfStatement( ifStatement ) )
                     return false;
             }
+            else if ( statement is FlowScriptForStatement forStatement )
+            {
+                if ( !TryResolveTypesInForStatement( forStatement ) )
+                    return false;
+            }
+            else if ( statement is FlowScriptWhileStatement whileStatement )
+            {
+                if ( !TryResolveTypesInWhileStatement( whileStatement ) )
+                    return false;
+            }
             else if ( statement is FlowScriptReturnStatement returnStatement )
             {
                 if ( returnStatement.Value != null )
@@ -346,6 +356,42 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
                     return false;
                 PopScope();
             }
+
+            return true;
+        }
+
+        private bool TryResolveTypesInForStatement( FlowScriptForStatement forStatement )
+        {
+            PushScope();
+
+            if ( !TryResolveTypesInStatement( forStatement.Initializer ) )
+                return false;
+
+            if ( !TryResolveTypesInExpression( forStatement.Condition ) )
+                return false;
+
+            if ( !TryResolveTypesInExpression( forStatement.AfterLoop ) )
+                return false;
+
+            if ( !TryResolveTypesInCompoundStatement( forStatement.Body ) )
+                return false;
+
+            PopScope();
+
+            return true;
+        }
+
+        private bool TryResolveTypesInWhileStatement( FlowScriptWhileStatement whileStatement )
+        {
+            PushScope();
+
+            if ( !TryResolveTypesInExpression( whileStatement.Condition ) )
+                return false;
+
+            if ( !TryResolveTypesInCompoundStatement( whileStatement.Body ) )
+                return false;
+
+            PopScope();
 
             return true;
         }

@@ -99,10 +99,16 @@ namespace AtlusScriptLib.FlowScriptLanguage.Disassembler
             while ( mInstructionIndex < mScript.TextSection.Count )
             {
                 // Check if there is a possible jump label at the current index
-                foreach ( var jump in mScript.JumpLabelSection.Where( x => x.InstructionIndex == mInstructionIndex ) )
+                if ( mScript.JumpLabelSection != null )
                 {
-                    mOutput.WriteLine( $"{jump.Name}:" );
+                    foreach ( var jump in mScript.JumpLabelSection.Where( x => x.InstructionIndex == mInstructionIndex ) )
+                    {
+                        mOutput.WriteLine( $"{jump.Name}:" );
+                    }
                 }
+
+                if ( CurrentInstruction.Opcode == FlowScriptOpcode.PROC )
+                    mOutput.WriteLine();
 
                 WriteInstructionDisassembly();
 
@@ -121,24 +127,23 @@ namespace AtlusScriptLib.FlowScriptLanguage.Disassembler
 
         private bool OpcodeUsesExtendedOperand( FlowScriptOpcode opcode )
         {
-            if ( opcode == FlowScriptOpcode.PUSHI || opcode == FlowScriptOpcode.PUSHF )
-                return true;
-
-            return false;
+            return opcode == FlowScriptOpcode.PUSHI || opcode == FlowScriptOpcode.PUSHF;
         }
 
         private void WriteInstructionDisassembly()
         {
+            mOutput.Write( $"# {mInstructionIndex:D4}:{mInstructionIndex:X4} # " );
+
             switch ( CurrentInstruction.Opcode )
             {
                 // extended int operand
                 case FlowScriptOpcode.PUSHI:
-                    mOutput.WriteLine( DisassembleInstructionWithIntOperand( CurrentInstruction, NextInstruction.Value ) );
+                    mOutput.Write( DisassembleInstructionWithIntOperand( CurrentInstruction, NextInstruction.Value ) );
                     break;
 
                 // extended float operand
                 case FlowScriptOpcode.PUSHF:
-                    mOutput.WriteLine( DisassembleInstructionWithFloatOperand( CurrentInstruction, NextInstruction.Value ) );
+                    mOutput.Write( DisassembleInstructionWithFloatOperand( CurrentInstruction, NextInstruction.Value ) );
                     break;
 
                 // short operand
@@ -152,30 +157,33 @@ namespace AtlusScriptLib.FlowScriptLanguage.Disassembler
                 case FlowScriptOpcode.PUSHLFX:
                 case FlowScriptOpcode.POPLIX:
                 case FlowScriptOpcode.POPLFX:
-                    mOutput.WriteLine( DisassembleInstructionWithShortOperand( CurrentInstruction ) );
+                    mOutput.Write( DisassembleInstructionWithShortOperand( CurrentInstruction ) );
                     break;
 
                 // string opcodes
                 case FlowScriptOpcode.PUSHSTR:
-                    mOutput.WriteLine( DisassembleInstructionWithStringReferenceOperand( CurrentInstruction, mScript.StringSection ) );
+                    mOutput.Write( DisassembleInstructionWithStringReferenceOperand( CurrentInstruction, mScript.StringSection ) );
                     break;
 
                 // branch procedure opcodes
                 case FlowScriptOpcode.PROC:
+                    mOutput.Write( DisassembleInstructionWithLabelReferenceOperand( CurrentInstruction, mScript.ProcedureLabelSection ) );
+                    break;
+
                 case FlowScriptOpcode.JUMP:
                 case FlowScriptOpcode.CALL:
-                    mOutput.WriteLine( DisassembleInstructionWithLabelReferenceOperand( CurrentInstruction, mScript.ProcedureLabelSection ) );
+                    mOutput.Write( DisassembleInstructionWithLabelReferenceOperand( CurrentInstruction, mScript.ProcedureLabelSection ) );
                     break;
 
                 // branch jump opcodes                           
                 case FlowScriptOpcode.GOTO:
                 case FlowScriptOpcode.IF:
-                    mOutput.WriteLine( DisassembleInstructionWithLabelReferenceOperand( CurrentInstruction, mScript.JumpLabelSection ) );
+                    mOutput.Write( DisassembleInstructionWithLabelReferenceOperand( CurrentInstruction, mScript.JumpLabelSection ) );
                     break;
 
                 // branch communicate opcode
                 case FlowScriptOpcode.COMM:
-                    mOutput.WriteLine( DisassembleInstructionWithCommReferenceOperand( CurrentInstruction ) );
+                    mOutput.Write( DisassembleInstructionWithCommReferenceOperand( CurrentInstruction ) );
                     break;
 
                 // No operands
@@ -194,21 +202,18 @@ namespace AtlusScriptLib.FlowScriptLanguage.Disassembler
                 case FlowScriptOpcode.L:
                 case FlowScriptOpcode.SE:
                 case FlowScriptOpcode.LE:
-                    mOutput.WriteLine( DisassembleInstructionWithNoOperand( CurrentInstruction ) );
+                    mOutput.Write( DisassembleInstructionWithNoOperand( CurrentInstruction ) );
                     break;
 
                 case FlowScriptOpcode.END:
-                    mOutput.WriteLine( DisassembleInstructionWithNoOperand( CurrentInstruction ) );
-                    if ( NextInstruction.HasValue )
-                    {
-                        if ( NextInstruction.Value.Opcode != FlowScriptOpcode.END )
-                            mOutput.WriteLine();
-                    }
+                    mOutput.Write( DisassembleInstructionWithNoOperand( CurrentInstruction ) );
                     break;
 
                 default:
                     throw new InvalidOperationException( $"Unknown opcode {CurrentInstruction.Opcode}" );
             }
+
+            mOutput.WriteLine();
         }
 
         private void WriteMessageScriptDisassembly()
@@ -234,17 +239,17 @@ namespace AtlusScriptLib.FlowScriptLanguage.Disassembler
 
         public static string DisassembleInstructionWithIntOperand( FlowScriptBinaryInstruction instruction, FlowScriptBinaryInstruction operand )
         {
-            return $"{instruction.Opcode} {operand.OperandInt}";
+            return $"{instruction.Opcode}\t{operand.OperandInt:X8}";
         }
 
         public static string DisassembleInstructionWithFloatOperand( FlowScriptBinaryInstruction instruction, FlowScriptBinaryInstruction operand )
         {
-            return $"{instruction.Opcode} {operand.OperandFloat.ToString( "0.00#####", CultureInfo.InvariantCulture )}f";
+            return $"{instruction.Opcode}\t\t{operand.OperandFloat.ToString( "0.00#####", CultureInfo.InvariantCulture )}f";
         }
 
         public static string DisassembleInstructionWithShortOperand( FlowScriptBinaryInstruction instruction )
         {
-            return $"{instruction.Opcode} {instruction.OperandShort}";
+            return $"{instruction.Opcode}\t{instruction.OperandShort:X4}";
         }
 
         public static string DisassembleInstructionWithStringReferenceOperand( FlowScriptBinaryInstruction instruction, IList<byte> stringTable )
@@ -258,7 +263,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Disassembler
                 value += ( char )stringTable[i];
             }
 
-            return $"{instruction.Opcode} \"{value}\"";
+            return $"{instruction.Opcode}\t\"{value}\"";
         }
 
         public static string DisassembleInstructionWithLabelReferenceOperand( FlowScriptBinaryInstruction instruction, IList<FlowScriptBinaryLabel> labels )
@@ -268,12 +273,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Disassembler
                 throw new ArgumentOutOfRangeException( nameof( instruction.OperandShort ), $"No label for label reference id {instruction.OperandShort} present in {nameof( labels )}" );
             }
 
-            return $"{instruction.Opcode} {labels[instruction.OperandShort].Name}";
+            return $"{instruction.Opcode}\t\t{labels[instruction.OperandShort].Name}";
         }
 
         public static string DisassembleInstructionWithCommReferenceOperand( FlowScriptBinaryInstruction instruction )
         {
-            return $"{instruction.Opcode} {instruction.OperandShort}";
+            return $"{instruction.Opcode}\t\t{instruction.OperandShort:X4}";
         }
 
         public void Dispose()

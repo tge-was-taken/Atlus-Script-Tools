@@ -16,7 +16,7 @@ importStatement
 	;
 
 statement
-	: ';' // empty statement
+	: nullStatement
 	| compoundStatement
 	| declarationStatement
 	| expression ';'
@@ -27,6 +27,10 @@ statement
 	| continueStatement
 	| returnStatement
 	| gotoStatement
+	;
+
+nullStatement
+	: ';'
 	;
 
 compoundStatement
@@ -80,7 +84,7 @@ expressionList
 
 expression
 	: ';'													# nullExpression
-	| '(' expression ')'									# compoundExpression
+	: '(' expression ')'									# compoundExpression
 	| TypeIdentifier '(' expression ')'						# castExpression				// precedence 2
 	| Identifier expressionList								# callExpression				// precedence 2
 	| expression Op=( '--' | '++' )							# unaryPostfixExpression		// precedence 2

@@ -8,6 +8,11 @@
         {
         }
 
+        protected FlowScriptLiteral( FlowScriptValueType type, T value ) : base( type )
+        {
+            Value = value;
+        }
+
         public override string ToString()
         {
             return Value.ToString();

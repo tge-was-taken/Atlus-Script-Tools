@@ -1,10 +1,7 @@
 
-//
-// Function parameter type test
-//
-function(0x0003) void PUTS( string param0 );
-function(0x000c) bool BIT_CHK( int param0 );
-function(0x00eb) float GET_MAX( float param0, float param1 );
+function( 0x0003 ) void PUTS( string param0 );
+function( 0x000c ) bool BIT_CHK( int param0 );
+function( 0x00eb ) float GET_MAX( float param0, float param1 );
 
 //
 // Test main
@@ -16,6 +13,9 @@ void Main()
 	PUTS( "TestScript::Main() start" );
 	PUTS( "------------------------" );
 
+	PUTS( "------------------------" );
+	PUTS( "TestScript::Main return value & parameter tests start" );
+	PUTS( "------------------------" );
 	if ( !ReturnValueTest() )
 	{
 		PUTS( "TestScript::Main: ReturnValueTest() failed" );
@@ -25,6 +25,7 @@ void Main()
 		PUTS( "TestScript::Main: ReturnValueTest() passed" );
 	}
 	
+	/*
 	if ( !ParameterTest( true, 1, 1.5f ) )
 	{
 		PUTS( "TestScript: ParameterTest failed" );
@@ -33,10 +34,16 @@ void Main()
 	{
 		PUTS( "TestScript: ParameterTest passed" );
 	}
+	*/
 	
 	//
 	// Control flow tests
 	//
+	PUTS( "------------------------" );
+	PUTS( "TestScript::Main: Control flow tests start" );
+	PUTS( "------------------------" );	
+	
+
 	if ( !IfTest() )
 	{
 		PUTS( "TestScript::Main: IfTest failed" );
@@ -46,13 +53,58 @@ void Main()
 		PUTS( "TestScript::Main: IfTest passed" );
 	}
 	
-	if ( !IfBreakTest() )
+	if ( !ForTest() )
 	{
-		PUTS( "TestScript::Main: IfBreakTest failed" );
+		PUTS( "TestScript::Main: ForTest failed" );
 	}
 	else
 	{
-		PUTS( "TestScript::Main: IfBreakTest passed" );
+		PUTS( "TestScript::Main: ForTest passed" );
+	}
+	
+	if ( !WhileTest() )
+	{
+		PUTS( "TestScript::Main: WhileTest failed" );
+	}
+	else
+	{
+		PUTS( "TestScript::Main: WhileTest passed" );
+	}
+	
+	if ( !ForBreakTest() )
+	{
+		PUTS( "TestScript::Main: ForBreakTest failed" );
+	}
+	else
+	{
+		PUTS( "TestScript::Main: ForBreakTest passed" );
+	}
+	
+	if ( !WhileBreakTest() )
+	{
+		PUTS( "TestScript::Main: WhileBreakTest failed" );
+	}
+	else
+	{
+		PUTS( "TestScript::Main: WhileBreakTest passed" );
+	}
+	
+	if ( !ForContinueTest() )
+	{
+		PUTS( "TestScript::Main: ForContinueTest failed" );
+	}
+	else
+	{
+		PUTS( "TestScript::Main: ForContinueTest passed" );
+	}
+	
+	if ( !WhileContinueTest() )
+	{
+		PUTS( "TestScript::Main: WhileContinueTest failed" );
+	}
+	else
+	{
+		PUTS( "TestScript::Main: WhileContinueTest passed" );
 	}
 	
 	if ( !GotoTest() )
@@ -65,8 +117,11 @@ void Main()
 	}
 	
 	//
-	// Arithimic tests
+	// Arithmic tests
 	//
+	PUTS( "------------------------" );
+	PUTS( "TestScript::Main: Arithmic tests start" );
+	PUTS( "------------------------" );	
 	if ( !AdditionTest() )
 	{
 		PUTS( "TestScript::Main: AdditionTest failed" );
@@ -326,20 +381,85 @@ bool IfTest()
 	return passed;
 }
 
-bool IfBreakTest()
+bool ForTest()
 {
-	PUTS( "TestScript::IfBreakTest() start" );
+	PUTS( "TestScript::ForTest() start" );
 	
-	bool failed = false;
-	
-	if ( true )
+	int i;
+	for ( i = 0; i < 10; i = i + 1 )
 	{
-		break;
-		
-		failed = true;
 	}
 	
-	return !failed;
+	return i == 10;
+}
+
+bool WhileTest()
+{
+	PUTS( "TestScript::WhileTest() start" );
+	
+	int i = 0;
+	while ( i < 10 )
+	{
+		i = i + 1;
+	}
+	
+	return i == 10;
+}
+
+bool ForBreakTest()
+{
+	PUTS( "TestScript::ForBreakTest() start" );
+	
+	
+	for ( int i = 0; i < 10; i = i + 1 )
+	{
+		break;
+	}
+	
+	return true;
+}
+
+bool WhileBreakTest()
+{
+	PUTS( "TestScript::WhileBreakTest() start" );
+	
+	while ( true )
+	{
+		break;
+	}
+	
+	return true;
+}
+
+bool ForContinueTest()
+{
+	PUTS( "TestScript::ForContinueTest() start" );
+	
+	int i;
+	for ( i = 0; i < 10; i = i + 1 )
+	{
+		continue;
+		
+		i = 11;
+	}
+	
+	return i == 10; 
+}
+
+bool WhileContinueTest()
+{
+	PUTS( "TestScript::WhileContinueTest() start" );
+	
+	int i = 0;
+	while ( i < 10 )
+	{
+		i = i + 1;
+		continue;
+		
+		i = 11;
+	}
+	
+	return i == 10; 
 }
 
 bool GotoTest()

@@ -273,6 +273,17 @@ public interface IFlowScriptListener : IParseTreeListener {
 	void ExitStatement([NotNull] FlowScriptParser.StatementContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="FlowScriptParser.nullStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterNullStatement([NotNull] FlowScriptParser.NullStatementContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="FlowScriptParser.nullStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitNullStatement([NotNull] FlowScriptParser.NullStatementContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="FlowScriptParser.compoundStatement"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

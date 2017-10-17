@@ -5,5 +5,9 @@
         public FlowScriptBoolLiteral( ) : base( FlowScriptValueType.Bool )
         {
         }
+
+        public FlowScriptBoolLiteral( bool value ) : base( FlowScriptValueType.Bool, value )
+        {
+        }
     }
 }

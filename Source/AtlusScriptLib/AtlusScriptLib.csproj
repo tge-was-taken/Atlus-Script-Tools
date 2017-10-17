@@ -99,6 +99,7 @@
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\FlowScriptPrefixDecrementOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\FlowScriptPrefixIncrementOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptBreakStatement.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptContinueStatement.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptDeclarationType.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\FlowScriptCallOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Literals\FlowScriptBoolLiteral.cs" />
@@ -126,9 +127,12 @@
     <Compile Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScriptParser.cs" />
     <Compile Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScriptVisitor.cs" />
     <Compile Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScriptParserHelper.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptForStatement.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptGotoStatement.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptIfStatement.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptNullStatement.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptReturnStatement.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptWhileStatement.cs" />
     <Compile Include="MessageScriptLanguage\Compiler\MessageScriptCompiler.cs" />
     <Compile Include="MessageScriptLanguage\Decompiler\MessageScriptDecompiler.cs" />
     <Compile Include="Common\Text\OutputProviders\FileTextOutputProvider.cs" />

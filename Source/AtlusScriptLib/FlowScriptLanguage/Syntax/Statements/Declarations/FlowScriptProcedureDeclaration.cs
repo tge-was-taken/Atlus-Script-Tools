@@ -16,6 +16,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
             Parameters = new List<FlowScriptParameter>();
         }
 
+        public FlowScriptProcedureDeclaration( FlowScriptTypeIdentifier returnType, FlowScriptIdentifier identifier, List<FlowScriptParameter> parameters, FlowScriptCompoundStatement body ) : base( FlowScriptDeclarationType.Procedure, identifier )
+        {
+            ReturnType = returnType;
+            Parameters = parameters;
+            Body = body;
+        }
+
         public override string ToString()
         {
             var builder = new StringBuilder();

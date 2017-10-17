@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AtlusScriptLib.FlowScriptLanguage.Syntax
 {
@@ -10,6 +11,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
         public FlowScriptCompoundStatement()
         {
             Statements = new List<FlowScriptStatement>();
+        }
+
+        public FlowScriptCompoundStatement( params FlowScriptStatement[] statements )
+        {
+            Statements = statements.ToList();
         }
 
         public IEnumerator<FlowScriptStatement> GetEnumerator()
