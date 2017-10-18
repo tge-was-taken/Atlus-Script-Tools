@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using Antlr4.Runtime;
-using Antlr4.Runtime.Tree;
 
-namespace AtlusScriptLib.MessageScriptLanguage.Parser
+namespace AtlusScriptLib.MessageScriptLanguage.Compiler.Parser
 {
     public static class MessageScriptParserHelper
     {

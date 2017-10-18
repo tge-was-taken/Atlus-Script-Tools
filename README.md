@@ -27,6 +27,12 @@ All of the code is written in C# and licensed under the GNU GPL.
 	* Evaluating compiled or uncompiled flow scripts (.bf & .flow) and providing statistics
 	* Evaluating compiled or uncompiled message scripts (.bf & .flow) and providing statistics
 
+### Utilities ###
+* This is where utility programs using the library will be stored. Also serves as a reference for anyone wanting to use the library.
+
+#### AtlusMessageScriptExtractor ####
+* This application is can batch extract the text from message scripts from within various binary files. Use this is if you want a quick dump of the text from a game.
+
 #### packages ####
 * Nuget packages.
 
@@ -46,16 +52,10 @@ All of the code is written in C# and licensed under the GNU GPL.
 * Simplified representation of both flow & message script files.
 
 ### Somewhere inbetween ###
-* AtlusScriptCompiler can currently decompile message scripts, however it's still being worked on.
-* Progress has been made on decompiling the flow scripts, but it's still in a conceptual phase and needs polishing.
+* Decompilation and compilation of message scripts. They're both missing an implementation of function aliases, but besides that they work.
+* Compilation of flow scripts. The compiler is currently able to compile some decently complex scripts, but some things still need to be worked on.
 
 ### Unfinished ###
-* AtlusScriptCompiler
-	* Compiling & decompiling flow scripts from/to the uncompiled format (.flow) or from/to compiled format (.bf)
-	* Compiling & decompiling flow bytecode code from/to the uncompiled format (.asm) or from/to the compiled format (.bf)
-	* Compiling & decompiling message scripts from/to the uncompiled format (.msg) or from/to the compiled format (.bmd)
-	* Compiling & decompiling message bytecode from/to the uncompiled format (.asm) or from/to the compiled format (.bmd)
-
 * AtlusScriptEvaluator
-	* Evaluating compiled or uncompiled flow scripts (.bf & .flow) and providing statistics such as syntax errors or stack overflows.
+	* Evaluating compiled or uncompiled flow scripts (.bf & .flow) and providing statistics such as syntax errors or stack over or underflows.
 	* Evaluating compiled or uncompiled message scripts (.bmd & .msg) and providing statistics. Not sure what kind of statistics would really work here though. 

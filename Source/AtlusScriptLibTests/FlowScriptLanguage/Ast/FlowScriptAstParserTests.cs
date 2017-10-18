@@ -27,12 +27,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
             // FLD_GET_SCRIPT_TIMING returns a value ranging from 0 to 4 indicating the loading phase
             // without [f 2 1] the text doesn't scroll
             string flowScriptSource =
-                "void Main()" +
-                "{" +
-                "   test = 2;" +
-                "}" +
-                "" +
-                "int test = 1;";
+                "";
 
             var listener = new DebugLogListener();
 

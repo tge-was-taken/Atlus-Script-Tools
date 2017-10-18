@@ -16,7 +16,7 @@ struct bfHeader
 struct bfSectionHeader
 {
 	u32 id; // 0 = .label.proc	(procedure labels)
-			// 1 = .label.jmp	(jump labels)
+			// 1 = .label.jump	(jump labels)
 			// 2 = .text		(code)
 			// 3 = .data.msg	(message script data)
 			// 4 = .data.str	(string data)
