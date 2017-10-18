@@ -26,14 +26,21 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
         {
             // FLD_GET_SCRIPT_TIMING returns a value ranging from 0 to 4 indicating the loading phase
             // without [f 2 1] the text doesn't scroll
+            string flowScriptSource =
+                "void Main()" +
+                "{" +
+                "   test = 2;" +
+                "}" +
+                "" +
+                "int test = 1;";
 
             var listener = new DebugLogListener();
 
             var parser = new FlowScriptCompilationUnitParser();
             parser.AddListener( listener );
             //Assert.IsTrue( parser.TryParse( File.ReadAllText(@"D:\Users\smart\Documents\Visual Studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptCompiler\Resources\Tests.flow"), out var compilationUnit ) );
-            //Assert.IsTrue( parser.TryParse( flowScriptSource, out var compilationUnit ) );
-            Assert.IsTrue( parser.TryParse( File.ReadAllText( @"D:\Users\smart\Documents\Visual Studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptCompiler\Resources\TestScript2.flow" ), out var compilationUnit ) );
+            Assert.IsTrue( parser.TryParse( flowScriptSource, out var compilationUnit ) );
+            //Assert.IsTrue( parser.TryParse( File.ReadAllText( @"D:\Users\smart\Documents\Visual Studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptCompiler\Resources\TestScript2.flow" ), out var compilationUnit ) );
 
             var resolver = new FlowScriptTypeResolver();
             resolver.AddListener( listener );

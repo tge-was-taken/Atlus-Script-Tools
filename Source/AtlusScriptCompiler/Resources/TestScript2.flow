@@ -47,7 +47,7 @@ function( 0x000d ) void BIT_ON( int id );
 function( 0x000e ) void BIT_OFF( int id ); 
 
 // Get the resource handle of a player character
-function( 0x1003 ) int FLD_PC_GET_RESHND(int param0); 
+function( 0x1003 ) int FLD_PC_GET_RESHND( int param0 ); 
 
 // Sets the translation of a model
 function( 0x108f ) void FLD_MODEL_SET_TRANSLATE( int modelHandle, float x, float y, float z, int param4 );

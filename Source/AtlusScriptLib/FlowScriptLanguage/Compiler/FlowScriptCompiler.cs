@@ -70,7 +70,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             LogInfo( compilationUnit, $"Start compiling FlowScript with version {mFormatVersion}" );
 
             InitializeCompilationState();
-            if ( !TryRegisterFunctionsAndProcedures( compilationUnit ) )
+            if ( !TryRegisterDeclarationsAtRootScope( compilationUnit ) )
                 return false;
 
             foreach ( var statement in compilationUnit.Statements )
@@ -85,9 +85,17 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                         mScript.Procedures.Add( procedure );
                     }
                 }
+                else if ( statement is FlowScriptVariableDeclaration variableDeclaration )
+                {
+                    if ( variableDeclaration.Initializer != null )
+                    {
+                        LogError( variableDeclaration.Initializer, "Variables declared outside of a procedure can't be initialized with a value" );
+                        return false;
+                    }
+                }
                 else if ( !( statement is FlowScriptFunctionDeclaration ) )
                 {
-                    LogError( statement, "Unexpected top-level statement type" );
+                    LogError( statement, $"Unexpected top-level statement type: {statement}" );
                     return false;
                 }
             }
@@ -97,9 +105,9 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryRegisterFunctionsAndProcedures( FlowScriptCompilationUnit compilationUnit )
+        private bool TryRegisterDeclarationsAtRootScope( FlowScriptCompilationUnit compilationUnit )
         {
-            LogInfo( "Registering functions and procedures" );
+            LogInfo( "Registering/forward-declaring declarations at root scope." );
 
             // top-level only
             foreach ( var statement in compilationUnit.Statements )
@@ -118,6 +126,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     {
                         LogError( procedureDeclaration, $"Failed to register procedure: {procedureDeclaration}" );
                         return false;
+                    }
+                }
+                else if ( statement is FlowScriptVariableDeclaration variableDeclaration )
+                {
+                    if ( !CurrentScope.TryDeclareVariable( variableDeclaration, mNextIntVariableIndex++ ))
+                    {
+                        LogError( variableDeclaration, $"Failed to register variable: {variableDeclaration}" );
                     }
                 }
             }
