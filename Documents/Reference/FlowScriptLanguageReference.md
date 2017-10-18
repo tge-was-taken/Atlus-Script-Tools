@@ -3,18 +3,37 @@
 
 ## Intro ##
 This is the language reference for FlowScript, the language used for creating scripts that interface with the game.
+
 The name of the language was based off of the magic string used for FlowScript binaries (.bf files), "FLW0".
 
 The language was designed to be familiar to anyone who is already familiar with C-like languages, such as C, C++, C# and so on.
+
 To achieve this, the syntax of the language was modeled closely after that of C.
+
 So if you're already familiar with a C-like language, it should take almost no time to get used to FlowScript.
 
 ## Syntax ##
 The syntax is mostly the same as any C-like language, but with more restrictions.
 
+### Primitive types ###
+
+The valid primitive types are:
+```
+int
+float
+string
+```
+
+The ``string`` type can only be used as a parameter to a function.
+
+### Identifiers ###
+A valid identifier starts with a letter, and does not contain any symbols other than an underscore '_'. 
+
 ### Compilation unit ###
 A single script file is called a 'compilation unit'.
+
 A compilation unit consists out of:
+
 	- zero or more import statements
 	- zero or more statement
 
@@ -29,6 +48,7 @@ TODO
 
 ### Statement ###
 A statement can be any of:
+
 	- compound (block) statement
 	- declaration
 	- expression
@@ -95,6 +115,7 @@ void Main()
 ```
 
 Variables can be declared with or without a value.
+
 Note that you can only initialize a variable with a value of the variable isn't declared outside of a procedure.
 
 Example:
@@ -127,6 +148,7 @@ void Main()
 ```
 
 Only intended to be used in decompiled code.
+
 Used with the 'goto' statement.
 
 ### Expressions ###
@@ -256,7 +278,9 @@ for ( int i = 0; i < 10; i++ )
 ```
 
 In the context of a for loop, the ``break`` and ``continue`` statements are valid.
+
 The break statement breaks out of the loop, and continues flow of code execution after the end of the loop.
+
 The continue statement skips to the next iteration of the loop.
 
 Example:
@@ -292,7 +316,9 @@ while ( true )
 ```
 
 In the context of a while loop, the ``break`` and ``continue`` statements are valid.
+
 The break statement breaks out of the loop, and continues flow of code execution after the end of the loop.
+
 The continue statement skips to the next iteration of the loop.
 
 Example:
@@ -317,7 +343,9 @@ return <expression>;
 ```
 
 Used to return from procedures, with or without a return value.
+
 Procedures with a return type void do not have to have an explicit return statement, because the compiler
+
 will insert one for you.
 
 #### Goto statement ####
@@ -327,6 +355,7 @@ goto <identifier>;
 ```
 
 Intended for decompiled code only. Don't use this unless you really have to.
+
 Jumps to the label specified by identifier.
 
 ## Examples ##
