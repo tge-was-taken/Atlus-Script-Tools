@@ -176,7 +176,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                 return false;
 
             import = CreateAstNode<FlowScriptImport>( context );
-            import.CompilationUnitFileName = filePath;
+            import.CompilationUnitFileName = filePath.Trim('"');
 
             return true;
         }
@@ -477,12 +477,15 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
             variableDeclaration = CreateAstNode<FlowScriptVariableDeclaration>( context );
 
             // Parse modifier(s)
-            if ( TryGet( context, () => context.Global(), out var globalNode ) )
+            if ( TryGet( context, () => context.variableModifier(), out var variableModifierContext ) )
             {
-                var modifier = CreateAstNode<FlowScriptVariableModifier>( globalNode );
-                modifier.ModifierType = FlowScriptModifierType.Global;
+                if ( !TryParseVariableModifier( variableModifierContext, out var modifier ))
+                {
+                    LogError( variableModifierContext, "Failed to parse variable modifier" );
+                    return false;
+                }
 
-                variableDeclaration.Modifiers.Add( modifier );
+                variableDeclaration.Modifier = modifier;
             }
 
             // Parse type identifier
@@ -520,6 +523,28 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                     return false;
 
                 variableDeclaration.Initializer = initializer;
+            }
+
+            return true;
+        }
+
+        private bool TryParseVariableModifier( FlowScriptParser.VariableModifierContext context, out FlowScriptVariableModifier modifier )
+        {
+            if ( TryGet( context, () => context.Static(), out var staticNode ) )
+            {
+                modifier = CreateAstNode<FlowScriptVariableModifier>( staticNode );
+                modifier.ModifierType = FlowScriptModifierType.Static;
+            }
+            else if ( TryGet( context, () => context.Const(), out var constNode ) )
+            {
+                modifier = CreateAstNode<FlowScriptVariableModifier>( constNode );
+                modifier.ModifierType = FlowScriptModifierType.Const;
+            }
+            else
+            {
+                LogError( context, "Invalid variable modifier" );
+                modifier = null;
+                return false;
             }
 
             return true;
@@ -576,8 +601,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
             }
             else if ( TryCast<FlowScriptParser.UnaryPostfixExpressionContext>( context, out var unaryPostfixExpressionContext ) )
             {
-                mLogger.Error( "Todo: unary postfix expression" );
-                return false;
+                FlowScriptUnaryExpression unaryExpression = null;
+                if ( !TryFunc( unaryPostfixExpressionContext, "Failed to parse unary postfix expression", () => TryParseUnaryPostfixExpression( unaryPostfixExpressionContext, out unaryExpression ) ) )
+                    return false;
+
+                expression = unaryExpression;
             }
             else if ( TryCast<FlowScriptParser.UnaryPrefixExpressionContext>( context, out var unaryPrefixExpressionContext ) )
             {
@@ -693,35 +721,60 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
             return true;
         }
 
+        private bool TryParseUnaryPostfixExpression( FlowScriptParser.UnaryPostfixExpressionContext context, out FlowScriptUnaryExpression unaryExpression )
+        {
+            LogContextInfo( context );
+
+            switch ( context.Op.Text )
+            {
+                case "--":
+                    unaryExpression = CreateAstNode<FlowScriptPostfixDecrementOperator>( context );
+                    break;
+
+                case "++":
+                    unaryExpression = CreateAstNode<FlowScriptPostfixIncrementOperator>( context );
+                    break;
+
+                default:
+                    unaryExpression = null;
+                    LogError( context, $"Invalid op for unary postfix expression: ${context.Op}" );
+                    return false;
+            }
+
+            if ( !TryParseExpression( context.expression(), out var leftExpression ) )
+                return false;
+
+            unaryExpression.Operand = leftExpression;
+
+            return true;
+        }
+
         private bool TryParseUnaryPrefixExpression( FlowScriptParser.UnaryPrefixExpressionContext context, out FlowScriptUnaryExpression unaryExpression )
         {
             LogContextInfo( context );
 
-            if ( context.Op.Text == "~" )
+            switch ( context.Op.Text )
             {
-                unaryExpression = CreateAstNode<FlowScriptBitwiseNotOperator>( context );
-            }
-            else if ( context.Op.Text == "!" )
-            {
-                unaryExpression = CreateAstNode<FlowScriptLogicalNotOperator>( context );
-            }
-            else if ( context.Op.Text == "-" )
-            {
-                unaryExpression = CreateAstNode<FlowScriptNegationOperator>( context );
-            }
-            else if ( context.Op.Text == "--" )
-            {
-                unaryExpression = CreateAstNode<FlowScriptPrefixDecrementOperator>( context );
-            }
-            else if ( context.Op.Text == "++" )
-            {
-                unaryExpression = CreateAstNode<FlowScriptPrefixIncrementOperator>( context );
-            }
-            else
-            {
-                unaryExpression = null;
-                LogError( context, $"Invalid op for unary prefix expression: ${context.Op}" );
-                return false;
+                case "!":
+                    unaryExpression = CreateAstNode<FlowScriptLogicalNotOperator>( context );
+                    break;
+
+                case "-":
+                    unaryExpression = CreateAstNode<FlowScriptNegationOperator>( context );
+                    break;
+
+                case "--":
+                    unaryExpression = CreateAstNode<FlowScriptPrefixDecrementOperator>( context );
+                    break;
+
+                case "++":
+                    unaryExpression = CreateAstNode<FlowScriptPrefixIncrementOperator>( context );
+                    break;
+
+                default:
+                    unaryExpression = null;
+                    LogError( context, $"Invalid op for unary prefix expression: ${context.Op}" );
+                    return false;
             }
 
             if ( !TryParseExpression( context.expression(), out var leftExpression ) )
@@ -946,7 +999,33 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
         {
             LogContextInfo( context );
 
-            binaryExpression = CreateAstNode<FlowScriptAssignmentOperator>( context );
+            switch ( context.Op.Text )
+            {
+                case "=":
+                    binaryExpression = CreateAstNode<FlowScriptAssignmentOperator>( context );
+                    break;
+
+                case "+=":
+                    binaryExpression = CreateAstNode<FlowScriptAdditionAssignmentOperator>( context );
+                    break;
+
+                case "-=":
+                    binaryExpression = CreateAstNode<FlowScriptSubtractionAssignmentOperator>( context );
+                    break;
+
+                case "*=":
+                    binaryExpression = CreateAstNode<FlowScriptMultiplicationAssignmentOperator>( context );
+                    break;
+
+                case "/=":
+                    binaryExpression = CreateAstNode<FlowScriptDivisionAssignmentOperator>( context );
+                    break;
+
+                default:
+                    LogError( context, $"Unknown assignment operator: { context.Op.Text }" );
+                    binaryExpression = null;
+                    return false;
+            }
 
             // Left
             {

@@ -57,11 +57,16 @@ procedureDeclarationStatement
 	;
 
 variableDeclarationStatement
-	: Global? TypeIdentifier Identifier ('=' expression)? ';'
+	: variableModifier? TypeIdentifier Identifier ('=' expression)? ';'
 	;
 
 labelDeclarationStatement
 	: Identifier ':'
+	;
+
+variableModifier
+	: Static
+	| Const
 	;
 
 //
@@ -83,20 +88,20 @@ expressionList
 	;
 
 expression
-	: ';'													# nullExpression
-	: '(' expression ')'									# compoundExpression
-	| TypeIdentifier '(' expression ')'						# castExpression				// precedence 2
-	| Identifier expressionList								# callExpression				// precedence 2
-	| expression Op=( '--' | '++' )							# unaryPostfixExpression		// precedence 2
-	| Op=( '~' | '!' | '-' | '--' | '++' ) expression		# unaryPrefixExpression			// precedence 3
-	| expression Op=( '*' | '/' ) expression				# multiplicationExpression		// precedence 5
-	| expression Op=( '+' | '-' ) expression				# additionExpression			// precedence 6
-	| expression Op=( '<' | '>' | '<=' | '>=' ) expression	# relationalExpression			// precedence 8
-	| expression Op=( '==' | '!=' ) expression				# equalityExpression			// precedence 9	
-	| expression '&&' expression							# logicalAndExpression			// precedence 13
-	| expression '||' expression							# logicalOrExpression			// precedence 14
-	| Identifier '=' expression								# assignmentExpression			// precedence 15
-	| primary												# primaryExpression
+	: ';'															# nullExpression
+	| '(' expression ')'											# compoundExpression
+	| TypeIdentifier '(' expression ')'								# castExpression				// precedence 2
+	| Identifier expressionList										# callExpression				// precedence 2
+	| expression Op=( '--' | '++' )									# unaryPostfixExpression		// precedence 2
+	| Op=( '!' | '-' | '--' | '++' ) expression						# unaryPrefixExpression			// precedence 3
+	| expression Op=( '*' | '/' ) expression						# multiplicationExpression		// precedence 5
+	| expression Op=( '+' | '-' ) expression						# additionExpression			// precedence 6
+	| expression Op=( '<' | '>' | '<=' | '>=' ) expression			# relationalExpression			// precedence 8
+	| expression Op=( '==' | '!=' ) expression						# equalityExpression			// precedence 9	
+	| expression '&&' expression									# logicalAndExpression			// precedence 13
+	| expression '||' expression									# logicalOrExpression			// precedence 14
+	| Identifier Op=( '=' | '+=' | '-=' | '*=' | '/=' ) expression	# assignmentExpression			// precedence 15
+	| primary														# primaryExpression
 	;
 
 primary
@@ -151,7 +156,8 @@ gotoStatement
 
 // Keywords
 Function:	'function';
-Global:		'global';
+Static:		'static';
+Const:		'const';
 If:			'if';
 Else:		'else';
 For:		'for';

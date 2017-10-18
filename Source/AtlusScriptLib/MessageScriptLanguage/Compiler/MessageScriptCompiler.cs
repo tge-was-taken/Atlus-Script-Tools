@@ -5,7 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
 using AtlusScriptLib.Common.Logging;
-using AtlusScriptLib.MessageScriptLanguage.Parser;
+using AtlusScriptLib.MessageScriptLanguage.Compiler.Parser;
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 using System.Text;
@@ -542,22 +542,22 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
         // Logging
         private void LogContextInfo( ParserRuleContext context )
         {
-            mLogger.Info( $"Compiling {MessageScriptParser.ruleNames[context.RuleIndex]} ({context.Start.Line}:{context.Start.Column})" );
+            mLogger.Info( $"({context.Start.Line:D4}:{context.Start.Column:D4}) Compiling {MessageScriptParser.ruleNames[context.RuleIndex]}" );
         }
 
         private void LogError( ParserRuleContext context, string str )
         {
-            mLogger.Error( $"{str} ({context.Start.Line}:{context.Start.Column})" );
+            mLogger.Error( $"({context.Start.Line:D4}:{context.Start.Column:D4}) {str}" );
         }
 
         private void LogError( IToken token, string str )
         {
-            mLogger.Error( $"{str} ({token.Line}:{token.Column})" );
+            mLogger.Error( $"({token.Line:D4}:{token.Column:D4}) {str}" );
         }
 
         private void LogWarning( ParserRuleContext context, string str )
         {
-            mLogger.Warning( $"{str} ({context.Start.Line}:{context.Start.Column})" );
+            mLogger.Warning( $"({context.Start.Line:D4}:{context.Start.Column:D4}) {str}" );
         }
 
         /// <summary>

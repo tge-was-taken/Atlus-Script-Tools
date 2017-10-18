@@ -231,6 +231,13 @@ public interface IFlowScriptVisitor<Result> : IParseTreeVisitor<Result> {
 	Result VisitLabelDeclarationStatement([NotNull] FlowScriptParser.LabelDeclarationStatementContext context);
 
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="FlowScriptParser.variableModifier"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitVariableModifier([NotNull] FlowScriptParser.VariableModifierContext context);
+
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="FlowScriptParser.parameterList"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

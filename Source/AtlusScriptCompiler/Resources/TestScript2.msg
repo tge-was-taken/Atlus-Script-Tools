@@ -1,7 +1,7 @@
-[dlg DialogTest [TGE]]
+[dlg HelloDialog [TGE]]
 [f 2 1]Hello [f 0 1 9]B[f 0 1 0]ersona 5![f 1 1][e]
 
-[sel SelectionTest]
+[sel SelectionDialog]
 [f 2 1][f 0 1 9]B[f 0 1 0]ig [f 0 1 9]B[f 0 1 0]oy mode.[e]
 [f 2 1]Load title screen.[e]
 [f 2 1]Boss rush mode.[e]
@@ -12,7 +12,7 @@
 [dlg SelectBgmDialog [Ultimate DJ TGE]]
 [f 2 1]Select a bgm to play.[f 1 1][e]
 
-[sel Select0to4]
+[sel Select0to4Dialog]
 [f 2 1]0[e]
 [f 2 1]1[e]
 [f 2 1]2[e]
@@ -20,7 +20,7 @@
 [f 2 1]4[e]
 [f 2 1]Higher[e]
 
-[sel Select5to9]
+[sel Select5to9Dialog]
 [f 2 1]5[e]
 [f 2 1]6[e]
 [f 2 1]7[e]
@@ -181,7 +181,7 @@
 [sel SelectBoss21]
 [f 2 1]MVP_CHOICE[e]
 [f 2 1]D_ENCOUNT_NO_GET[e]
-[f 2 1][e]
-[f 2 1][e]
+[f 2 1]Dummy[e]
+[f 2 1]Dummy[e]
 [f 2 1]Previous[e]
 [f 2 1]Next[e]

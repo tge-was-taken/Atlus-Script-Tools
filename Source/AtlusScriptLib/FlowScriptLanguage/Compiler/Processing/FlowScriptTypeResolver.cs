@@ -207,7 +207,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
             }
             else if ( declaration is FlowScriptVariableDeclaration variableDeclaration )
             {
-               if ( !TryResolveTypesInVariableDeclaration( variableDeclaration ))
+                if ( !TryResolveTypesInVariableDeclaration( variableDeclaration ) )
                 {
                     LogError( variableDeclaration, $"Failed to resolve types in variable declaration: {variableDeclaration}" );
                 }
@@ -355,7 +355,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
             foreach ( var parameter in declaration.Parameters )
             {
                 var parameterDeclaration = new FlowScriptVariableDeclaration(
-                    new List<FlowScriptVariableModifier>() { new FlowScriptVariableModifier() },
+                    new FlowScriptVariableModifier( FlowScriptModifierType.Local ),
                     parameter.TypeIdentifier,
                     parameter.Identifier,
                     null );
@@ -429,8 +429,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
         {
             if ( !Scope.TryGetDeclaration( identifier, out var declaration ) )
             {
-                LogError( identifier, $"Identifiers references undeclared identifier '{identifier.Text}'" );
-                return false;
+                LogInfo( identifier, $"Identifiers references undeclared identifier '{identifier.Text}'" );
             }
 
             if ( declaration is FlowScriptFunctionDeclaration functionDeclaration )
@@ -451,8 +450,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
             }
             else
             {
-                LogError( identifier, "Invalid identifier. Expected function, procedure, variable or label identifier" );
-                return false;
+                LogInfo( identifier, "Expected function, procedure, variable or label identifier" );
             }
 
             return true;

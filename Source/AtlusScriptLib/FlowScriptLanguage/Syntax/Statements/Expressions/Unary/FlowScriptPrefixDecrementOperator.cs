@@ -1,13 +1,16 @@
 ﻿namespace AtlusScriptLib.FlowScriptLanguage.Syntax
 {
-    public class FlowScriptPrefixDecrementOperator : FlowScriptUnaryExpression, IFlowScriptOperator
+    public class FlowScriptPrefixOperator : FlowScriptUnaryExpression, IFlowScriptOperator
     {
         public int Precedence => 3;
 
-        public FlowScriptPrefixDecrementOperator() : base( FlowScriptValueType.Unresolved )
+        public FlowScriptPrefixOperator() : base( FlowScriptValueType.Unresolved )
         {
         }
+    }
 
+    public class FlowScriptPrefixDecrementOperator : FlowScriptPrefixOperator
+    {
         public override string ToString()
         {
             return $"--({Operand})";

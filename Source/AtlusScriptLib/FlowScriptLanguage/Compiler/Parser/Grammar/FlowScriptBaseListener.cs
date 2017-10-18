@@ -406,6 +406,19 @@ public partial class FlowScriptBaseListener : IFlowScriptListener {
 	public virtual void ExitLabelDeclarationStatement([NotNull] FlowScriptParser.LabelDeclarationStatementContext context) { }
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="FlowScriptParser.variableModifier"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterVariableModifier([NotNull] FlowScriptParser.VariableModifierContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="FlowScriptParser.variableModifier"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitVariableModifier([NotNull] FlowScriptParser.VariableModifierContext context) { }
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="FlowScriptParser.parameterList"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>

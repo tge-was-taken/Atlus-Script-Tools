@@ -3,12 +3,27 @@ function( 0x0003 ) void PUTS( string param0 );
 function( 0x000c ) bool BIT_CHK( int param0 );
 function( 0x00eb ) float GET_MAX( float param0, float param1 );
 
+// Constants can be defined with the const modifier
+/*
+const int FLD_SCRIPT_TIMING_BEFORE_LOAD	= 0;
+const int FLD_SCRIPT_TIMING_UNKNOWN_1 	= 1;
+const int FLD_SCRIPT_TIMING_UNKNOWN_2	= 2;
+const int FLD_SCRIPT_TIMING_UNKNOWN_3	= 3;
+const int FLD_SCRIPT_TIMING_AFTER_LOAD	= 4;
+*/
+
+// Returns in which phase the field script was called
+function( 0x1001 ) int FLD_GET_SCRIPT_TIMING(); 
+
 //
 // Test main
 //
 
 void Main()
 {
+	if ( FLD_GET_SCRIPT_TIMING() != 4 )
+		return;
+	
 	PUTS( "------------------------" );
 	PUTS( "TestScript::Main() start" );
 	PUTS( "------------------------" );

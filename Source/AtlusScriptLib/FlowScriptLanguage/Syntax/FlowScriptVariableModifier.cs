@@ -9,6 +9,11 @@
             ModifierType = FlowScriptModifierType.Local;
         }
 
+        public FlowScriptVariableModifier( FlowScriptModifierType modifierType )
+        {
+            ModifierType = modifierType;
+        }
+
         public override string ToString()
         {
             return ModifierType.ToString();
@@ -18,6 +23,7 @@
     public enum FlowScriptModifierType
     {
         Local,
-        Global,
+        Static,
+        Const,
     }
 }

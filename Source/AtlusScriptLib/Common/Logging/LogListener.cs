@@ -1,4 +1,6 @@
-﻿namespace AtlusScriptLib.Common.Logging
+﻿using System;
+
+namespace AtlusScriptLib.Common.Logging
 {
     public abstract class LogListener
     {

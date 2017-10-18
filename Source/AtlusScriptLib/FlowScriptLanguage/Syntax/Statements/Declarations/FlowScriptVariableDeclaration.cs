@@ -5,21 +5,21 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
 {
     public class FlowScriptVariableDeclaration : FlowScriptDeclaration
     {
-        public List<FlowScriptVariableModifier> Modifiers { get; set; }
+        public FlowScriptVariableModifier Modifier { get; set; }
 
         public FlowScriptTypeIdentifier Type { get; set; }
 
         public FlowScriptExpression Initializer { get; set; }
 
-        public FlowScriptVariableDeclaration() : base(FlowScriptDeclarationType.Variable)
+        public FlowScriptVariableDeclaration() : base( FlowScriptDeclarationType.Variable )
         {
-            Modifiers = new List<FlowScriptVariableModifier>();
+            Modifier = new FlowScriptVariableModifier();
         }
 
-        public FlowScriptVariableDeclaration( List<FlowScriptVariableModifier> modifiers, FlowScriptTypeIdentifier type, FlowScriptIdentifier identifier, FlowScriptExpression initializer ) 
-            : base(FlowScriptDeclarationType.Variable, identifier)
+        public FlowScriptVariableDeclaration( FlowScriptVariableModifier modifier, FlowScriptTypeIdentifier type, FlowScriptIdentifier identifier, FlowScriptExpression initializer )
+            : base( FlowScriptDeclarationType.Variable, identifier )
         {
-            Modifiers = modifiers;
+            Modifier = modifier;
             Type = type;
             Initializer = initializer;
         }
@@ -28,10 +28,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
         {
             var builder = new StringBuilder();
 
-            foreach ( var mod in Modifiers )
-            {
-                builder.Append( $"{mod.ToString()} " );
-            }
+            builder.Append( $"{Modifier.ToString()} " );
 
             builder.Append( $"{Type.ToString()} {Identifier.ToString()}" );
             if ( Initializer != null )

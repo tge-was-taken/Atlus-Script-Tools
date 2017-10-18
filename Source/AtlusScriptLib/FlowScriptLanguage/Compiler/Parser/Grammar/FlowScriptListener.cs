@@ -350,6 +350,17 @@ public interface IFlowScriptListener : IParseTreeListener {
 	void ExitLabelDeclarationStatement([NotNull] FlowScriptParser.LabelDeclarationStatementContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="FlowScriptParser.variableModifier"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterVariableModifier([NotNull] FlowScriptParser.VariableModifierContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="FlowScriptParser.variableModifier"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitVariableModifier([NotNull] FlowScriptParser.VariableModifierContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="FlowScriptParser.parameterList"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

@@ -1,10 +1,10 @@
 ﻿namespace AtlusScriptLib.FlowScriptLanguage.Syntax
 {
-    public class FlowScriptLogicalNotOperator : FlowScriptPrefixOperator
+    public class FlowScriptBitwiseNotOperator : FlowScriptPrefixOperator
     {
         public override string ToString()
         {
-            return $"!({Operand})";
+            return $"~({Operand})";
         }
     }
 }
