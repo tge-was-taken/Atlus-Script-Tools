@@ -1,7 +1,7 @@
 // Import the MessageScript into the script
 // The compiler will insert constant variables for each of the 
 // window identifiers.
-import "TestScript2.msg"; 
+import( "TestScript2.msg" );
 
 function( 0x0000 ) void SYNC(); 
 
@@ -91,7 +91,7 @@ function( 0x005c ) void BGM( int bgmId );
 // In this case we use it to prevent the script from running when the level is reloaded.
 static bool sHasRun;
 
-function(0x11e3) void FLD_WAIT(int param0);
+function( 0x11e3 ) void FLD_WAIT( int frameCount );
 
 void Main()
 { 
@@ -114,32 +114,36 @@ void Main()
 	MSG( HelloDialog, 0 ); 
 	int selection = SEL( 1 );
 	MSG_WND_CLS(); 
-
-	if ( selection == 0 )
+	
+	switch ( selection )
 	{
-		int playerResHandle = FLD_PC_GET_RESHND( 0 );
-		
-		FLD_MODEL_SET_SCALE( playerResHandle, 2f );
-	}
-	else if ( selection == 1 )
-	{
-		CALL_FIELD( 0, 2, 0, 0, 0 );
-	}
-	else if ( selection == 2 )
-	{
-		StartBossrushMode();
-	}
-	else if ( selection == 3 )
-	{
-		StartTeleportMode();
-	}
-	else if ( selection == 4 )
-	{
-		StartButtonTestMode();
-	}
-	else if ( selection == 5 )
-	{
-		StartSoundTestMode();
+		case 0:
+			int playerResHandle = FLD_PC_GET_RESHND( 0 );		
+			FLD_MODEL_SET_SCALE( playerResHandle, 2f );
+			break;
+			
+		case 1:
+			CALL_FIELD( 0, 2, 0, 0, 0 );
+			break;
+			
+		case 2:
+			StartBossrushMode();
+			break;
+			
+		case 3:
+			StartTeleportMode();
+			break;
+			
+		case 4:
+			StartButtonTestMode();
+			break;
+			
+		case 5:
+			StartSoundTestMode();
+			break;
+			
+		default:
+			break;
 	}
 
 	BIT_ON( 0 );
@@ -196,6 +200,8 @@ int SelectBoss()
 		
 		return selection + ( i * 4 ); 
 	}
+	
+	return 0;
 }
 
 void StartTeleportMode()
@@ -359,6 +365,8 @@ int SelectDigit()
 
 		return firstSelection;
 	}
+	
+	return 0;
 }
 
 

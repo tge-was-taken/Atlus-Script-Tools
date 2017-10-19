@@ -4,13 +4,11 @@ function( 0x000c ) bool BIT_CHK( int param0 );
 function( 0x00eb ) float GET_MAX( float param0, float param1 );
 
 // Constants can be defined with the const modifier
-/*
 const int FLD_SCRIPT_TIMING_BEFORE_LOAD	= 0;
 const int FLD_SCRIPT_TIMING_UNKNOWN_1 	= 1;
 const int FLD_SCRIPT_TIMING_UNKNOWN_2	= 2;
 const int FLD_SCRIPT_TIMING_UNKNOWN_3	= 3;
 const int FLD_SCRIPT_TIMING_AFTER_LOAD	= 4;
-*/
 
 // Returns in which phase the field script was called
 function( 0x1001 ) int FLD_GET_SCRIPT_TIMING(); 
@@ -21,264 +19,263 @@ function( 0x1001 ) int FLD_GET_SCRIPT_TIMING();
 
 void Main()
 {
-	if ( FLD_GET_SCRIPT_TIMING() != 4 )
+	if ( FLD_GET_SCRIPT_TIMING() != FLD_SCRIPT_TIMING_AFTER_LOAD )
 		return;
 	
-	PUTS( "------------------------" );
-	PUTS( "TestScript::Main() start" );
-	PUTS( "------------------------" );
+	//PUTS( "------------------------" );
+	//PUTS( "TestScript::Main() start" );
+	//PUTS( "------------------------" );
 
-	PUTS( "------------------------" );
-	PUTS( "TestScript::Main return value & parameter tests start" );
-	PUTS( "------------------------" );
+	//PUTS( "------------------------" );
+	//PUTS( "TestScript::Main return value & parameter tests start" );
+	//PUTS( "------------------------" );
 	if ( !ReturnValueTest() )
 	{
-		PUTS( "TestScript::Main: ReturnValueTest() failed" );
+		//PUTS( "TestScript::Main: ReturnValueTest() failed" );
 	}
 	else
 	{
-		PUTS( "TestScript::Main: ReturnValueTest() passed" );
+		//PUTS( "TestScript::Main: ReturnValueTest() passed" );
 	}
 	
-	/*
 	if ( !ParameterTest( true, 1, 1.5f ) )
 	{
-		PUTS( "TestScript: ParameterTest failed" );
+		//PUTS( "TestScript: ParameterTest failed" );
 	}
 	else
 	{
-		PUTS( "TestScript: ParameterTest passed" );
+		//PUTS( "TestScript: ParameterTest passed" );
 	}
-	*/
 	
 	//
 	// Control flow tests
 	//
-	PUTS( "------------------------" );
-	PUTS( "TestScript::Main: Control flow tests start" );
-	PUTS( "------------------------" );	
+	//PUTS( "------------------------" );
+	//PUTS( "TestScript::Main: Control flow tests start" );
+	//PUTS( "------------------------" );	
 	
 
 	if ( !IfTest() )
 	{
-		PUTS( "TestScript::Main: IfTest failed" );
+		//PUTS( "TestScript::Main: IfTest failed" );
 	}
 	else
 	{
-		PUTS( "TestScript::Main: IfTest passed" );
+		//PUTS( "TestScript::Main: IfTest passed" );
 	}
 	
 	if ( !ForTest() )
 	{
-		PUTS( "TestScript::Main: ForTest failed" );
+		//PUTS( "TestScript::Main: ForTest failed" );
 	}
 	else
 	{
-		PUTS( "TestScript::Main: ForTest passed" );
+		//PUTS( "TestScript::Main: ForTest passed" );
 	}
 	
 	if ( !WhileTest() )
 	{
-		PUTS( "TestScript::Main: WhileTest failed" );
+		//PUTS( "TestScript::Main: WhileTest failed" );
 	}
 	else
 	{
-		PUTS( "TestScript::Main: WhileTest passed" );
+		//PUTS( "TestScript::Main: WhileTest passed" );
 	}
 	
 	if ( !ForBreakTest() )
 	{
-		PUTS( "TestScript::Main: ForBreakTest failed" );
+		//PUTS( "TestScript::Main: ForBreakTest failed" );
 	}
 	else
 	{
-		PUTS( "TestScript::Main: ForBreakTest passed" );
+		//PUTS( "TestScript::Main: ForBreakTest passed" );
 	}
 	
 	if ( !WhileBreakTest() )
 	{
-		PUTS( "TestScript::Main: WhileBreakTest failed" );
+		//PUTS( "TestScript::Main: WhileBreakTest failed" );
 	}
 	else
 	{
-		PUTS( "TestScript::Main: WhileBreakTest passed" );
+		//PUTS( "TestScript::Main: WhileBreakTest passed" );
 	}
 	
 	if ( !ForContinueTest() )
 	{
-		PUTS( "TestScript::Main: ForContinueTest failed" );
+		//PUTS( "TestScript::Main: ForContinueTest failed" );
 	}
 	else
 	{
-		PUTS( "TestScript::Main: ForContinueTest passed" );
+		//PUTS( "TestScript::Main: ForContinueTest passed" );
 	}
 	
 	if ( !WhileContinueTest() )
 	{
-		PUTS( "TestScript::Main: WhileContinueTest failed" );
+		//PUTS( "TestScript::Main: WhileContinueTest failed" );
 	}
 	else
 	{
-		PUTS( "TestScript::Main: WhileContinueTest passed" );
+		//PUTS( "TestScript::Main: WhileContinueTest passed" );
 	}
 	
 	if ( !GotoTest() )
 	{
-		PUTS( "TestScript::Main: GotoTest failed" );
+		//PUTS( "TestScript::Main: GotoTest failed" );
 	}
 	else
 	{
-		PUTS( "TestScript::Main: GotoTest passed" );
+		//PUTS( "TestScript::Main: GotoTest passed" );
 	}
 	
 	//
 	// Arithmic tests
 	//
-	PUTS( "------------------------" );
-	PUTS( "TestScript::Main: Arithmic tests start" );
-	PUTS( "------------------------" );	
+	
+	//PUTS( "------------------------" );
+	//PUTS( "TestScript::Main: Arithmic tests start" );
+	//PUTS( "------------------------" );	
 	if ( !AdditionTest() )
 	{
-		PUTS( "TestScript::Main: AdditionTest failed" );
+		//PUTS( "TestScript::Main: AdditionTest failed" );
 	}
 	else
 	{
-		PUTS( "TestScript::Main: AdditionTest passed" );
+		//PUTS( "TestScript::Main: AdditionTest passed" );
 	}
 	
 	if ( !SubtractionTest() )
 	{
-		PUTS( "TestScript::Main: SubtractionTest failed" );
+		//PUTS( "TestScript::Main: SubtractionTest failed" );
 	}
 	else
 	{
-		PUTS( "TestScript::Main: SubtractionTest passed" );
+		//PUTS( "TestScript::Main: SubtractionTest passed" );
 	}
 	
 	if ( !MultiplicationTest() )
 	{
-		PUTS( "TestScript::Main: MultiplicationTest failed" );
+		//PUTS( "TestScript::Main: MultiplicationTest failed" );
 	}
 	else
 	{
-		PUTS( "TestScript::Main: MultiplicationTest passed" );
+		//PUTS( "TestScript::Main: MultiplicationTest passed" );
 	}
 	
 	if ( !DivisionTest() )
 	{
-		PUTS( "TestScript::Main: DivisionTest failed" );
+		//PUTS( "TestScript::Main: DivisionTest failed" );
 	}
 	else
 	{
-		PUTS( "TestScript::Main: DivisionTest passed" );
+		//PUTS( "TestScript::Main: DivisionTest passed" );
 	}
 	
 	if ( !NegationTest() )
 	{
-		PUTS( "TestScript::Main: NegationTest failed" );
+		//PUTS( "TestScript::Main: NegationTest failed" );
 	}
 	else
 	{
-		PUTS( "TestScript::Main: NegationTest passed" );
+		//PUTS( "TestScript::Main: NegationTest passed" );
 	}
 	
 	if ( !LogicalOrTest() )
 	{
-		PUTS( "TestScript::Main: LogicalOrTest failed" );
+		//PUTS( "TestScript::Main: LogicalOrTest failed" );
 	}
 	else
 	{
-		PUTS( "TestScript::Main: LogicalOrTest passed" );
+		//PUTS( "TestScript::Main: LogicalOrTest passed" );
 	}
 	
 	if ( !LogicalAndTest() )
 	{
-		PUTS( "TestScript::Main: LogicalAndTest failed" );
+		//PUTS( "TestScript::Main: LogicalAndTest failed" );
 	}
 	else
 	{
-		PUTS( "TestScript::Main: LogicalAndTest passed" );
+		//PUTS( "TestScript::Main: LogicalAndTest passed" );
 	}
 	
 	if ( !EqualsTest() )
 	{
-		PUTS( "TestScript::Main: EqualsTest failed" );
+		//PUTS( "TestScript::Main: EqualsTest failed" );
 	}
 	else
 	{
-		PUTS( "TestScript::Main: EqualsTest passed" );
+		//PUTS( "TestScript::Main: EqualsTest passed" );
 	}
 	
 	if ( !NotEqualsTest() )
 	{
-		PUTS( "TestScript::Main: NotEqualsTest failed" );
+		//PUTS( "TestScript::Main: NotEqualsTest failed" );
 	}
 	else
 	{
-		PUTS( "TestScript::Main: NotEqualsTest passed" );
+		//PUTS( "TestScript::Main: NotEqualsTest passed" );
 	}
 	
 	if ( !LessThanTest() )
 	{
-		PUTS( "TestScript::Main: LessThanTest failed" );
+		//PUTS( "TestScript::Main: LessThanTest failed" );
 	}
 	else
 	{
-		PUTS( "TestScript::Main: LessThanTest passed" );
+		//PUTS( "TestScript::Main: LessThanTest passed" );
 	}
 	
 	if ( !MoreThanTest() )
 	{
-		PUTS( "TestScript::Main: MoreThanTest failed" );
+		//PUTS( "TestScript::Main: MoreThanTest failed" );
 	}
 	else
 	{
-		PUTS( "TestScript::Main: MoreThanTest passed" );
+		//PUTS( "TestScript::Main: MoreThanTest passed" );
 	}
 	
 	if ( !LessThanOrEqualTest() )
 	{
-		PUTS( "TestScript::Main: LessThanOrEqualTest failed" );
+		//PUTS( "TestScript::Main: LessThanOrEqualTest failed" );
 	}
 	else
 	{
-		PUTS( "TestScript::Main: LessThanOrEqualTest passed" );
+		//PUTS( "TestScript::Main: LessThanOrEqualTest passed" );
 	}
 	
 	if ( !MoreThanOrEqualTest() )
 	{
-		PUTS( "TestScript::Main: MoreThanOrEqualTest failed" );
+		//PUTS( "TestScript::Main: MoreThanOrEqualTest failed" );
 	}
 	else
 	{
-		PUTS( "TestScript::Main: MoreThanOrEqualTest passed" );
+		//PUTS( "TestScript::Main: MoreThanOrEqualTest passed" );
 	}
 	
 	if ( !AssignmentBoolTest() )
 	{
-		PUTS( "TestScript::Main: AssignmentBoolTest failed" );
+		//PUTS( "TestScript::Main: AssignmentBoolTest failed" );
 	}
 	else
 	{
-		PUTS( "TestScript::Main: AssignmentBoolTest passed" );
+		//PUTS( "TestScript::Main: AssignmentBoolTest passed" );
 	}
 	
 	if ( !AssignmentIntTest() )
 	{
-		PUTS( "TestScript::Main: AssignmentIntTest failed" );
+		//PUTS( "TestScript::Main: AssignmentIntTest failed" );
 	}
 	else
 	{
-		PUTS( "TestScript::Main: AssignmentIntTest passed" );
+		//PUTS( "TestScript::Main: AssignmentIntTest passed" );
 	}
 	
 	if ( !AssignmentFloatTest() )
 	{
-		PUTS( "TestScript::Main: AssignmentFloatTest failed" );
+		//PUTS( "TestScript::Main: AssignmentFloatTest failed" );
 	}
 	else
 	{
-		PUTS( "TestScript::Main: AssignmentFloatTest passed" );
+		//PUTS( "TestScript::Main: AssignmentFloatTest passed" );
 	}
 }
 
@@ -307,45 +304,45 @@ float ReturnFloat()
 
 bool ReturnValueTest()
 {
-	PUTS( "TestScript::ReturnValueTest() start" );
+	//PUTS( "TestScript::ReturnValueTest() start" );
 	
 	bool passed = true;
 	
-	PUTS( "TestScript::ReturnValueTest: Start ReturnVoid test" );
+	//PUTS( "TestScript::ReturnValueTest: Start ReturnVoid test" );
 	ReturnVoid();
-	PUTS( "TestScript::ReturnValueTest: ReturnVoid passed" );
+	//PUTS( "TestScript::ReturnValueTest: ReturnVoid passed" );
 	
-	PUTS( "TestScript::ReturnValueTest: Start ReturnBool test" );
+	//PUTS( "TestScript::ReturnValueTest: Start ReturnBool test" );
 	if ( ReturnBool() != true )
 	{
-		PUTS( "TestScript::ReturnValueTest: ReturnBool test failed" );
+		//PUTS( "TestScript::ReturnValueTest: ReturnBool test failed" );
 		passed = false;
 	}
 	else
 	{
-		PUTS( "TestScript::ReturnValueTest: ReturnBool test passed" );
+		//PUTS( "TestScript::ReturnValueTest: ReturnBool test passed" );
 	}
 	
-	PUTS( "TestScript::ReturnValueTest: Start ReturnInt test" );
+	//PUTS( "TestScript::ReturnValueTest: Start ReturnInt test" );
 	if ( ReturnInt() != 1 )
 	{
-		PUTS( "TestScript::ReturnValueTest: ReturnInt test failed" );
+		//PUTS( "TestScript::ReturnValueTest: ReturnInt test failed" );
 		passed = false;
 	}
 	else
 	{
-		PUTS( "TestScript::ReturnValueTest: ReturnInt test passed" );
+		//PUTS( "TestScript::ReturnValueTest: ReturnInt test passed" );
 	}
 	
-	PUTS( "TestScript::ReturnValueTest: Start ReturnFloat test" );
+	//PUTS( "TestScript::ReturnValueTest: Start ReturnFloat test" );
 	if ( ReturnFloat() != 1.5f )
 	{
-		PUTS( "TestScript::ReturnValueTest: ReturnFloat test failed" );
+		//PUTS( "TestScript::ReturnValueTest: ReturnFloat test failed" );
 		passed = false;
 	}
 	else
 	{
-		PUTS( "TestScript::ReturnValueTest: ReturnFloat test passed" );
+		//PUTS( "TestScript::ReturnValueTest: ReturnFloat test passed" );
 	}
 	
 	return passed;
@@ -356,25 +353,25 @@ bool ReturnValueTest()
 //
 bool ParameterTest( bool boolParam, int intParam, float floatParam )
 {
-	PUTS( "TestScript::ParameterTest() start" );
+	//PUTS( "TestScript::ParameterTest() start" );
 	
 	bool passed = true;
 	
 	if ( boolParam != true )
 	{
-		PUTS( "TestScript::ParameterTest: boolParam != true" );
+		//PUTS( "TestScript::ParameterTest: boolParam != true" );
 		passed = false;
 	}
 	
 	if ( BIT_CHK( intParam ) )
 	{
-		PUTS( "TestScript::ParameterTest: BIT_CHK( intParam ) != false" );
+		//PUTS( "TestScript::ParameterTest: BIT_CHK( intParam ) != false" );
 		passed = false;
 	}
 	
 	if ( GET_MAX( floatParam, floatParam ) != floatParam )
 	{
-		PUTS( "TestScript::ParameterTest: GET_MAX( floatParam, floatParam ) != floatParam" );
+		//PUTS( "TestScript::ParameterTest: GET_MAX( floatParam, floatParam ) != floatParam" );
 		passed = false;
 	}
 	
@@ -386,7 +383,7 @@ bool ParameterTest( bool boolParam, int intParam, float floatParam )
 //
 bool IfTest()
 {
-	PUTS( "TestScript::IfTest() start" );
+	//PUTS( "TestScript::IfTest() start" );
 	
 	bool passed = false;
 	
@@ -398,7 +395,7 @@ bool IfTest()
 
 bool ForTest()
 {
-	PUTS( "TestScript::ForTest() start" );
+	//PUTS( "TestScript::ForTest() start" );
 	
 	int i;
 	for ( i = 0; i < 10; i = i + 1 )
@@ -410,7 +407,7 @@ bool ForTest()
 
 bool WhileTest()
 {
-	PUTS( "TestScript::WhileTest() start" );
+	//PUTS( "TestScript::WhileTest() start" );
 	
 	int i = 0;
 	while ( i < 10 )
@@ -423,7 +420,7 @@ bool WhileTest()
 
 bool ForBreakTest()
 {
-	PUTS( "TestScript::ForBreakTest() start" );
+	//PUTS( "TestScript::ForBreakTest() start" );
 	
 	
 	for ( int i = 0; i < 10; i = i + 1 )
@@ -436,7 +433,7 @@ bool ForBreakTest()
 
 bool WhileBreakTest()
 {
-	PUTS( "TestScript::WhileBreakTest() start" );
+	//PUTS( "TestScript::WhileBreakTest() start" );
 	
 	while ( true )
 	{
@@ -448,7 +445,7 @@ bool WhileBreakTest()
 
 bool ForContinueTest()
 {
-	PUTS( "TestScript::ForContinueTest() start" );
+	//PUTS( "TestScript::ForContinueTest() start" );
 	
 	int i;
 	for ( i = 0; i < 10; i = i + 1 )
@@ -463,7 +460,7 @@ bool ForContinueTest()
 
 bool WhileContinueTest()
 {
-	PUTS( "TestScript::WhileContinueTest() start" );
+	//PUTS( "TestScript::WhileContinueTest() start" );
 	
 	int i = 0;
 	while ( i < 10 )
@@ -479,7 +476,7 @@ bool WhileContinueTest()
 
 bool GotoTest()
 {
-	PUTS( "TestScript::GotoTest() start" );
+	//PUTS( "TestScript::GotoTest() start" );
 	
 	bool passed = true;
 	
@@ -495,43 +492,43 @@ jump:
 //
 bool AdditionTest()
 {
-	PUTS( "TestScript::AdditionTest() start" );
+	//PUTS( "TestScript::AdditionTest() start" );
 	
 	int a = 1;
-	a = a + 1;
+	++a;
 	return a == 2;
 }
 
 bool SubtractionTest()
 {
-	PUTS( "TestScript::SubtractionTest() start" );
+	//PUTS( "TestScript::SubtractionTest() start" );
 	
 	int a = 1;
-	a = a - 1;
+	--a;
 	return a == 0;
 }
 
 bool MultiplicationTest()
 {
-	PUTS( "TestScript::MultiplicationTest() start" );
+	//PUTS( "TestScript::MultiplicationTest() start" );
 	
 	int a = 1;
-	a = a * 2;
+	a *= 2;
 	return a == 2;
 }
 
 bool DivisionTest()
 {
-	PUTS( "TestScript::DivisionTest() start" );
+	//PUTS( "TestScript::DivisionTest() start" );
 	
 	int a = 2;
-	a = a / 2;
+	a /= 2;
 	return a == 1;
 }
 
 bool NegationTest()
 {
-	PUTS( "TestScript::NegationTest() start" );
+	//PUTS( "TestScript::NegationTest() start" );
 	
 	int a = 1;
 	a = -a;
@@ -540,7 +537,7 @@ bool NegationTest()
 
 bool LogicalOrTest()
 {
-	PUTS( "TestScript::LogicalOrTest() start" );
+	//PUTS( "TestScript::LogicalOrTest() start" );
 	
 	int a = 0;
 	int b = 1;
@@ -549,7 +546,7 @@ bool LogicalOrTest()
 
 bool LogicalAndTest()
 {
-	PUTS( "TestScript::LogicalAndTest() start" );
+	//PUTS( "TestScript::LogicalAndTest() start" );
 	
 	int a = 0;
 	int b = 1;
@@ -558,49 +555,49 @@ bool LogicalAndTest()
 
 bool EqualsTest()
 {
-	PUTS( "TestScript::EqualsTest() start" );
+	//PUTS( "TestScript::EqualsTest() start" );
 	
 	return 0 == 0;
 }
 
 bool NotEqualsTest()
 {
-	PUTS( "TestScript::NotEqualsTest() start" );
+	//PUTS( "TestScript::NotEqualsTest() start" );
 	
 	return 0 != 1;
 }
 
 bool LessThanTest()
 {
-	PUTS( "TestScript::LessThanTest() start" );
+	//PUTS( "TestScript::LessThanTest() start" );
 	
 	return 0 < 1;
 }
 
 bool MoreThanTest()
 {
-	PUTS( "TestScript::MoreThanTest() start" );
+	//PUTS( "TestScript::MoreThanTest() start" );
 	
 	return 1 > 0;
 }
 
 bool LessThanOrEqualTest()
 {
-	PUTS( "TestScript::LessThanOrEqualTest() start" );
+	//PUTS( "TestScript::LessThanOrEqualTest() start" );
 	
 	return 1 <= 1;
 }
 
 bool MoreThanOrEqualTest()
 {
-	PUTS( "TestScript::MoreThanOrEqualTest() start" );
+	//PUTS( "TestScript::MoreThanOrEqualTest() start" );
 	
 	return 1 >= 1;
 }
 
 bool AssignmentBoolTest()
 {
-	PUTS( "TestScript::AssignmentBoolTest() start" );
+	//PUTS( "TestScript::AssignmentBoolTest() start" );
 	
 	bool a = false;
 	a = true;
@@ -609,7 +606,7 @@ bool AssignmentBoolTest()
 
 bool AssignmentIntTest()
 {
-	PUTS( "TestScript::AssignmentIntTest() start" );
+	//PUTS( "TestScript::AssignmentIntTest() start" );
 	
 	int a = 0;
 	a = 1;
@@ -618,7 +615,7 @@ bool AssignmentIntTest()
 
 bool AssignmentFloatTest()
 {
-	PUTS( "TestScript::AssignmentFloatTest() start" );
+	//PUTS( "TestScript::AssignmentFloatTest() start" );
 	
 	float a = 1.0f;
 	a = 2.0f;

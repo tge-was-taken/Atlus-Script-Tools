@@ -502,5 +502,27 @@ public interface IFlowScriptListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitGotoStatement([NotNull] FlowScriptParser.GotoStatementContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="FlowScriptParser.switchStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSwitchStatement([NotNull] FlowScriptParser.SwitchStatementContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="FlowScriptParser.switchStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSwitchStatement([NotNull] FlowScriptParser.SwitchStatementContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="FlowScriptParser.switchLabel"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSwitchLabel([NotNull] FlowScriptParser.SwitchLabelContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="FlowScriptParser.switchLabel"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSwitchLabel([NotNull] FlowScriptParser.SwitchLabelContext context);
 }
 } // namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser.Grammar

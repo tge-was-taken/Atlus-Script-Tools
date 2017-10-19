@@ -327,5 +327,19 @@ public interface IFlowScriptVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitGotoStatement([NotNull] FlowScriptParser.GotoStatementContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="FlowScriptParser.switchStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitSwitchStatement([NotNull] FlowScriptParser.SwitchStatementContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="FlowScriptParser.switchLabel"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitSwitchLabel([NotNull] FlowScriptParser.SwitchLabelContext context);
 }
 } // namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser.Grammar

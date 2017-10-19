@@ -176,7 +176,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                 return false;
 
             import = CreateAstNode<FlowScriptImport>( context );
-            import.CompilationUnitFileName = filePath.Trim('"');
+            import.CompilationUnitFileName = filePath.Trim( '"' );
 
             return true;
         }
@@ -207,7 +207,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
             statement = null;
 
             // Parse declaration statement
-            if ( TryGet( context, () => context.nullStatement(), out var nullStatementContext))
+            if ( TryGet( context, () => context.nullStatement(), out var nullStatementContext ) )
             {
                 statement = CreateAstNode<FlowScriptNullStatement>( nullStatementContext );
             }
@@ -282,6 +282,16 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
             else if ( TryGet( context, () => context.continueStatement(), out var continueStatement ) )
             {
                 statement = CreateAstNode<FlowScriptContinueStatement>( continueStatement );
+            }
+            else if ( TryGet( context, () => context.switchStatement(), out var switchStatementContext ) )
+            {
+                if ( !TryParseSwitchStatement( switchStatementContext, out var switchStatement ) )
+                {
+                    LogError( switchStatementContext, "Failed to parse switch statement" );
+                    return false;
+                }
+
+                statement = switchStatement;
             }
             else
             {
@@ -479,7 +489,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
             // Parse modifier(s)
             if ( TryGet( context, () => context.variableModifier(), out var variableModifierContext ) )
             {
-                if ( !TryParseVariableModifier( variableModifierContext, out var modifier ))
+                if ( !TryParseVariableModifier( variableModifierContext, out var modifier ) )
                 {
                     LogError( variableModifierContext, "Failed to parse variable modifier" );
                     return false;
@@ -1517,6 +1527,59 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                 }
 
                 returnStatement.Value = expression;
+            }
+
+            return true;
+        }
+
+        private bool TryParseSwitchStatement( FlowScriptParser.SwitchStatementContext context, out FlowScriptSwitchStatement switchStatement )
+        {
+            LogContextInfo( context );
+
+            switchStatement = CreateAstNode<FlowScriptSwitchStatement>( context );
+
+            // Parse switch-on expression
+            if ( !TryParseExpression( context.expression(), out var switchOn ) )
+            {
+                LogError( context.expression(), "Failed to parse switch statement 'switch-on' expression" );
+                return false;
+            }
+
+            switchStatement.SwitchOn = switchOn;
+
+            // Parse switch labels
+            foreach ( var switchLabelContext in context.switchLabel() )
+            {
+                FlowScriptSwitchLabel label = null;
+
+                if ( switchLabelContext.Case() != null )
+                {
+                    // Parse expression
+                    if ( !TryParseExpression( switchLabelContext.expression(), out var condition ) )
+                    {
+                        LogError( context.expression(), "Failed to parse switch statement label expression" );
+                        return false;
+                    }
+
+                    var conditionLabel = CreateAstNode<FlowScriptConditionSwitchLabel>( switchLabelContext );
+                    conditionLabel.Condition = condition;
+
+                    label = conditionLabel;
+                }
+                else
+                {
+                    label = CreateAstNode<FlowScriptDefaultSwitchLabel>( switchLabelContext );
+                }
+
+                // Parse statements
+                if ( !TryParseStatements( switchLabelContext.statement(), out var body ))
+                {
+                    mLogger.Error( "Failed to parse switch statement label body" );
+                    return false;
+                }
+
+                label.Body = body;
+                switchStatement.Labels.Add( label );
             }
 
             return true;

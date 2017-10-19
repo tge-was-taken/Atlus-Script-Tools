@@ -80,7 +80,9 @@ namespace AtlusScriptLib.FlowScriptLanguage.Disassembler
         private void WriteDisassembly()
         {
             WriteHeader();
-            WriteTextDisassembly();
+
+            if ( mScript.TextSection != null )
+                WriteTextDisassembly();
 
             if ( mScript.MessageScriptSection != null )
                 WriteMessageScriptDisassembly();

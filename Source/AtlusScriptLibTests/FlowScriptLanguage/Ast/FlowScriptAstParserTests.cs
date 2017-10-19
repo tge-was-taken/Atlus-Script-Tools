@@ -32,16 +32,32 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
             string flowScriptSource =
                 "void Main()" +
                 "{" +
-                "   while ( !false )" +
+                "   int a = 1;" +
+                "   switch ( a )" +
                 "   {" +
-                "       " +
+                "       case 1:" +
+                "           a = 100;" +
+                "           break;" +
+                "       case 2:" +
+                "           a = 200" +
+                "           break;" +
+                "       default:" +
+                "           a = 300;" +
+                "           break;" +
                 "   }" +
                 "}";
+
             var flowScriptCompiler = new FlowScriptCompiler( FlowScriptFormatVersion.Version3BigEndian );
             flowScriptCompiler.AddListener( listener );
-            //Assert.IsTrue( flowScriptCompiler.TryCompile( File.Open( @"D:\Users\smart\Documents\Visual Studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptCompiler\Resources\TestScript2.flow", FileMode.Open ), out var flowScript ) );
+            flowScriptCompiler.EnableProcedureTracing = false;
+            flowScriptCompiler.EnableProcedureCallTracing = false;
+            flowScriptCompiler.EnableFunctionCallTracing = false;
+            flowScriptCompiler.EnableStackTracing = false;
+            flowScriptCompiler.EnableStackCookie = false;
+
+            Assert.IsTrue( flowScriptCompiler.TryCompile( File.Open( @"D:\Users\smart\Documents\Visual Studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptCompiler\Resources\TestScript2.flow", FileMode.Open ), out var flowScript ) );
             //Assert.IsTrue( flowScriptCompiler.TryCompile( flowScriptSource, out var flowScript ) );
-            Assert.IsTrue( flowScriptCompiler.TryCompile( File.Open( @"D:\Users\smart\Documents\Visual Studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptCompiler\Resources\Tests.flow", FileMode.Open ), out var flowScript ) );
+            //Assert.IsTrue( flowScriptCompiler.TryCompile( File.Open( @"D:\Users\smart\Documents\Visual Studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptCompiler\Resources\Tests.flow", FileMode.Open ), out var flowScript ) );
             
 
             int fieldMajorId = 000;

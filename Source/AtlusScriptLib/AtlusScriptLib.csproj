@@ -135,6 +135,7 @@
     <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptIfStatement.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptNullStatement.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptReturnStatement.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptSwitchStatement.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptWhileStatement.cs" />
     <Compile Include="MessageScriptLanguage\Compiler\MessageScriptCompiler.cs" />
     <Compile Include="MessageScriptLanguage\Compiler\Parser\MessageScriptLexer.cs" />

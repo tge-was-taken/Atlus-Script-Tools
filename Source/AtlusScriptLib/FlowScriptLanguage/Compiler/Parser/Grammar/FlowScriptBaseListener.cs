@@ -587,6 +587,32 @@ public partial class FlowScriptBaseListener : IFlowScriptListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitGotoStatement([NotNull] FlowScriptParser.GotoStatementContext context) { }
 
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="FlowScriptParser.switchStatement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSwitchStatement([NotNull] FlowScriptParser.SwitchStatementContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="FlowScriptParser.switchStatement"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSwitchStatement([NotNull] FlowScriptParser.SwitchStatementContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="FlowScriptParser.switchLabel"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSwitchLabel([NotNull] FlowScriptParser.SwitchLabelContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="FlowScriptParser.switchLabel"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSwitchLabel([NotNull] FlowScriptParser.SwitchLabelContext context) { }
+
 	/// <inheritdoc/>
 	/// <remarks>The default implementation does nothing.</remarks>
 	public virtual void EnterEveryRule([NotNull] ParserRuleContext context) { }

@@ -162,6 +162,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
             {
                 gotoStatement.LabelIdentifier.ExpressionValueType = FlowScriptValueType.Label;
             }
+            else if ( statement is FlowScriptSwitchStatement switchStatement )
+            {
+                if ( !TryResolveTypesInSwitchStatement( switchStatement ) )
+                    return false;
+            }
             else
             {
                 LogInfo( $"No types resolved in statement '{statement}'" );
@@ -173,11 +178,15 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
 
         private bool TryResolveTypesInCompoundStatement( FlowScriptCompoundStatement compoundStatement )
         {
+            PushScope();
+
             foreach ( var statement in compoundStatement )
             {
                 if ( !TryResolveTypesInStatement( statement ) )
                     return false;
             }
+
+            PopScope();
 
             return true;
         }
@@ -272,25 +281,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
             if ( !TryResolveTypesInExpression( ifStatement.Condition ) )
                 return false;
 
-            // Enter if body scope
-            PushScope();
-
             if ( !TryResolveTypesInCompoundStatement( ifStatement.Body ) )
                 return false;
 
-            // Exit if body scope
-            PopScope();
-
             if ( ifStatement.ElseBody != null )
             {
-                // Enter if else body scope
-                PushScope();
-
                 if ( !TryResolveTypesInCompoundStatement( ifStatement.ElseBody ) )
                     return false;
-
-                // Exit if else body scope
-                PopScope();
             }
 
             return true;
@@ -329,15 +326,32 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
             if ( !TryResolveTypesInExpression( whileStatement.Condition ) )
                 return false;
 
-            // Enter while body scope
-            PushScope();
-
             // Resolve types in body
             if ( !TryResolveTypesInCompoundStatement( whileStatement.Body ) )
                 return false;
 
-            // Exit while body scope
-            PopScope();
+            return true;
+        }
+
+        private bool TryResolveTypesInSwitchStatement( FlowScriptSwitchStatement switchStatement )
+        {
+            if ( !TryResolveTypesInExpression( switchStatement.SwitchOn ) )
+                return false;
+
+            foreach ( var label in switchStatement.Labels )
+            {
+                if ( label is FlowScriptConditionSwitchLabel conditionLabel )
+                {
+                    if ( !TryResolveTypesInExpression( conditionLabel.Condition ) )
+                        return false;
+                }
+
+                foreach ( var statement in label.Body )
+                {
+                    if ( !TryResolveTypesInStatement( statement ) )
+                        return false;
+                }
+            }
 
             return true;
         }

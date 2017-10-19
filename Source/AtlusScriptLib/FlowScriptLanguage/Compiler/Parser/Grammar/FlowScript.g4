@@ -12,7 +12,7 @@ compilationUnit
 	;
 
 importStatement
-	: 'import' StringLiteral ';'
+	: Import '(' StringLiteral ')' ';'
 	;
 
 statement
@@ -27,6 +27,7 @@ statement
 	| continueStatement
 	| returnStatement
 	| gotoStatement
+	| switchStatement
 	;
 
 nullStatement
@@ -148,6 +149,15 @@ gotoStatement
 	: Goto Identifier ';'
 	;
 
+switchStatement
+	: Switch '(' expression ')' '{' switchLabel+ '}'
+	;
+
+switchLabel
+	: Case expression ':' statement*
+	| Default ':' statement*
+	;
+
 ////////////////////
 //
 // Lexer rules
@@ -155,6 +165,7 @@ gotoStatement
 ////////////////////
 
 // Keywords
+Import:		'import';
 Function:	'function';
 Static:		'static';
 Const:		'const';
@@ -166,6 +177,9 @@ Break:		'break';
 Continue:	'continue';
 Return:		'return';
 Goto:		'goto';
+Switch:		'switch';
+Case:		'case';
+Default:	'default';
 
 TypeIdentifier
 	: 'bool'

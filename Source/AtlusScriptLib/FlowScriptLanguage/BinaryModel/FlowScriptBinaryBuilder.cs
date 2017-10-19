@@ -272,6 +272,9 @@ namespace AtlusScriptLib.FlowScriptLanguage.BinaryModel
 
         private short CalculateLocalIntVariableCount()
         {
+            if ( mTextSection == null )
+                return 0;
+
             int highestIndex = -1;
             for ( int i = 0; i < mTextSection.Count; i++ )
             {
@@ -295,6 +298,9 @@ namespace AtlusScriptLib.FlowScriptLanguage.BinaryModel
 
         private short CalculateLocalFloatVariableCount()
         {
+            if ( mTextSection == null )
+                return 0;
+
             int highestIndex = -1;
             for ( int i = 0; i < mTextSection.Count; i++ )
             {
