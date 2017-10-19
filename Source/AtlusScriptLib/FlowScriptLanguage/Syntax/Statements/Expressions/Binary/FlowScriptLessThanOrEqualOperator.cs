@@ -8,6 +8,13 @@
         {
         }
 
+        public FlowScriptLessThanOrEqualOperator( FlowScriptExpression left, FlowScriptExpression right )
+            : base( FlowScriptValueType.Bool, left, right )
+        {
+
+        }
+
+
         public override string ToString()
         {
             return $"({Left}) <= ({Right})";

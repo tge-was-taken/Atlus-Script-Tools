@@ -6,6 +6,11 @@
         {
         }
 
+        public FlowScriptLabelDeclaration( FlowScriptIdentifier identifier ) : base( FlowScriptDeclarationType.Label, identifier )
+        {
+
+        }
+
         public override string ToString()
         {
             return $"{Identifier}:";

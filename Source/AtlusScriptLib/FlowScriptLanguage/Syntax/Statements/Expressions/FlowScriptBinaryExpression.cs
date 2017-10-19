@@ -15,5 +15,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
         protected FlowScriptBinaryExpression( FlowScriptValueType type ) : base( type )
         {
         }
+
+        protected FlowScriptBinaryExpression( FlowScriptValueType type, FlowScriptExpression left, FlowScriptExpression right ) : this( type )
+        {
+            Left = left;
+            Right = right;
+        }
     }
 }

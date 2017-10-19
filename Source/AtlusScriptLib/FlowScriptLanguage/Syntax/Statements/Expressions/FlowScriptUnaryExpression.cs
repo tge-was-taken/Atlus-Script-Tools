@@ -13,5 +13,9 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
         protected FlowScriptUnaryExpression( FlowScriptValueType type ) : base( type )
         {
         }
+
+        protected FlowScriptUnaryExpression( FlowScriptValueType type, FlowScriptExpression operand ) : base( type )
+        {
+        }
     }
 }

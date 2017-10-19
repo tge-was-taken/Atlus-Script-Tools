@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace AtlusScriptLib.FlowScriptLanguage.Syntax
@@ -14,6 +15,14 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
         public FlowScriptFunctionDeclaration() : base(FlowScriptDeclarationType.Function)
         {
             Parameters = new List<FlowScriptParameter>();
+        }
+
+        public FlowScriptFunctionDeclaration( FlowScriptIntLiteral index, FlowScriptTypeIdentifier returnType, FlowScriptIdentifier identifier, params FlowScriptParameter[] parameters )
+            : base( FlowScriptDeclarationType.Function, identifier )
+        {
+            Index = index;
+            ReturnType = returnType;
+            Parameters = parameters.ToList();
         }
 
         public override string ToString()

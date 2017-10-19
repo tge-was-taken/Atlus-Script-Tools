@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace AtlusScriptLib.FlowScriptLanguage.Syntax
@@ -14,6 +15,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
         public FlowScriptCallOperator() : base( FlowScriptValueType.Unresolved )
         {
             Arguments = new List<FlowScriptExpression>();
+        }
+
+        public FlowScriptCallOperator( FlowScriptIdentifier identifier, params FlowScriptExpression[] arguments ) : base( FlowScriptValueType.Unresolved )
+        {
+            Identifier = identifier;
+            Arguments = arguments.ToList();
         }
 
         public override string ToString()

@@ -8,6 +8,12 @@
         {
         }
 
+        public FlowScriptAdditionOperator( FlowScriptExpression left, FlowScriptExpression right )
+            : base( FlowScriptValueType.Unresolved, left, right )
+        {
+
+        }
+
         public override string ToString()
         {
             return $"({Left}) + ({Right})";

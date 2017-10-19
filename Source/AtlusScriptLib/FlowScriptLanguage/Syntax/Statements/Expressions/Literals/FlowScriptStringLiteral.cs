@@ -6,6 +6,10 @@
         {
         }
 
+        public FlowScriptStringLiteral( string value ) : base( FlowScriptValueType.String, value )
+        {
+        }
+
         public override string ToString()
         {
             return $"\"{Value}\"";

@@ -5,5 +5,9 @@
         public FlowScriptFloatLiteral() : base( FlowScriptValueType.Float )
         {
         }
+
+        public FlowScriptFloatLiteral( float value ) : base( FlowScriptValueType.Float, value )
+        {
+        }
     }
 }
