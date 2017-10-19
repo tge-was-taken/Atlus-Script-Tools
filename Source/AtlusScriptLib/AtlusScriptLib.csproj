@@ -74,6 +74,7 @@
     <Compile Include="FlowScriptLanguage\Compiler\Parser\FlowScriptCompilationUnitParserFailureException.cs" />
     <Compile Include="FlowScriptLanguage\Compiler\Processing\FlowScriptDeclarationScope.cs" />
     <Compile Include="FlowScriptLanguage\Compiler\Processing\FlowScriptTypeResolver.cs" />
+    <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptDecompiler.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\FlowScriptSyntaxNode.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\FlowScriptSourceInfo.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Declarations\FlowScriptLabelDeclaration.cs" />
@@ -163,7 +164,6 @@
     <Compile Include="FlowScriptLanguage\FlowScriptLabel.cs" />
     <Compile Include="FlowScriptLanguage\FlowScriptEnums.cs" />
     <Compile Include="FlowScriptLanguage\FlowScriptProcedure.cs" />
-    <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptDecompiler.cs" />
     <Compile Include="FlowScriptLanguage\FlowScript.cs" />
     <Compile Include="MessageScriptLanguage\IMessageScriptLineToken.cs" />
     <Compile Include="Common\IO\EndianBinaryReader.cs" />

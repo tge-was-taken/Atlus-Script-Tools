@@ -18,6 +18,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
         {
         }
 
+        public FlowScriptIfStatement( FlowScriptExpression expression, FlowScriptCompoundStatement body, FlowScriptCompoundStatement elseBody )
+        {
+            Condition = expression;
+            Body = body;
+            ElseBody = elseBody;
+        }
+
         public override string ToString()
         {
             var builder = new StringBuilder();

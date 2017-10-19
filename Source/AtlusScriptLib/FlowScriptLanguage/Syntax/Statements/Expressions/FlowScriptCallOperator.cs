@@ -17,6 +17,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
             Arguments = new List<FlowScriptExpression>();
         }
 
+        public FlowScriptCallOperator( FlowScriptIdentifier identifier, List<FlowScriptExpression> arguments ) : base( FlowScriptValueType.Unresolved )
+        {
+            Identifier = identifier;
+            Arguments = arguments;
+        }
+
         public FlowScriptCallOperator( FlowScriptIdentifier identifier, params FlowScriptExpression[] arguments ) : base( FlowScriptValueType.Unresolved )
         {
             Identifier = identifier;

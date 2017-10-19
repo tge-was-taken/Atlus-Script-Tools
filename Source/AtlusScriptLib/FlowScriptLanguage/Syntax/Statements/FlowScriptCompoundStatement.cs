@@ -13,6 +13,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
             Statements = new List<FlowScriptStatement>();
         }
 
+        public FlowScriptCompoundStatement( List<FlowScriptStatement> statements )
+        {
+            Statements = statements;
+        }
+
         public FlowScriptCompoundStatement( params FlowScriptStatement[] statements )
         {
             Statements = statements.ToList();
