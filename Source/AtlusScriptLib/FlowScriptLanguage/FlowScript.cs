@@ -188,7 +188,7 @@ namespace AtlusScriptLib.FlowScriptLanguage
                 {
                     // Find jump labels within instruction range of procedure
                     var procedureBinaryJumpLabels = binary.JumpLabelSection
-                        .Where( x => x.InstructionIndex >= procedureLabel.InstructionIndex && x.InstructionIndex <= procedureLabel.InstructionIndex + procedureInstructionCount )
+                        .Where( x => x.InstructionIndex >= procedureLabel.InstructionIndex && x.InstructionIndex <= ( procedureLabel.InstructionIndex + procedureInstructionCount ) + 1 )
                         .ToList();
 
                     if ( procedureBinaryJumpLabels.Count > 0 )
@@ -213,17 +213,50 @@ namespace AtlusScriptLib.FlowScriptLanguage
 
                         // Loop over the instructions and update the instructions that reference labels
                         // so that they refer to the proper procedure-local label index
-                        foreach ( var instruction in procedure.Instructions )
+                        for ( int j = 0; j < procedure.Instructions.Count; j++ )
                         {
+                            var instruction = procedure.Instructions[j];
                             if ( instruction.Opcode == FlowScriptOpcode.GOTO || instruction.Opcode == FlowScriptOpcode.IF )
                             {
                                 short globalIndex = instruction.Operand.GetInt16Value();
                                 var binaryLabel = binary.JumpLabelSection[globalIndex];
+
                                 short localIndex = ( short )procedureJumpLabelNameToLocalIndexMap[binaryLabel.Name];
                                 instruction.Operand.SetInt16Value( localIndex );
 
                                 Debug.Assert( procedure.Labels[localIndex].Name == binaryLabel.Name );
+
+                                /*
+                                if ( binary.TextSection[binaryLabel.InstructionIndex].Opcode == FlowScriptOpcode.END )
+                                {
+                                    instruction = FlowScriptInstruction.END();
+                                }
+                                else if ( binary.TextSection[binaryLabel.InstructionIndex].Opcode == FlowScriptOpcode.GOTO )
+                                {
+                                    var gotoLabel = binary.JumpLabelSection[binary.TextSection[binaryLabel.InstructionIndex].OperandShort];
+                                    if ( binary.TextSection[gotoLabel.InstructionIndex].Opcode == FlowScriptOpcode.END )
+                                    {
+                                        instruction = FlowScriptInstruction.END();
+                                    }
+                                    else
+                                    {
+                                        short localIndex = ( short )procedureJumpLabelNameToLocalIndexMap[binaryLabel.Name];
+                                        instruction.Operand.SetInt16Value( localIndex );
+
+                                        Debug.Assert( procedure.Labels[localIndex].Name == binaryLabel.Name );
+                                    }
+                                }
+                                else
+                                {
+                                    short localIndex = ( short )procedureJumpLabelNameToLocalIndexMap[binaryLabel.Name];
+                                    instruction.Operand.SetInt16Value( localIndex );
+
+                                    Debug.Assert( procedure.Labels[localIndex].Name == binaryLabel.Name );
+                                }
+                                */
                             }
+
+                            procedure.Instructions[j] = instruction;
                         }
                     }
                     else

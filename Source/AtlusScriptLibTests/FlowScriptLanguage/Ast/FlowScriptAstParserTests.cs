@@ -16,6 +16,7 @@ using AtlusScriptLib.MessageScriptLanguage.Compiler;
 using AtlusScriptLib.Common.Text.Encodings;
 using AtlusScriptLib.FlowScriptLanguage.BinaryModel;
 using AtlusScriptLib.FlowScriptLanguage.Decompiler;
+using AtlusScriptLib.FlowScriptLanguage.FunctionDatabase;
 
 namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
 {
@@ -33,12 +34,18 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
             string flowScriptSource =
                 "void Main()" +
                 "{" +
-                "   int a = 0;" +
-                "   if ( a )" +
+                "   int a;" +
+                "   if ( true )" +
                 "   {" +
                 "       a = 1;" +
                 "   }" +
+                "   else" +
+                "   {" +
+                "       a = 0;" +
+                "   }" +
                 "}";
+
+            FlowScript flowScript;
 
             var flowScriptCompiler = new FlowScriptCompiler( FlowScriptFormatVersion.Version3BigEndian );
             flowScriptCompiler.AddListener( listener );
@@ -48,13 +55,20 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
             flowScriptCompiler.EnableStackTracing = false;
             flowScriptCompiler.EnableStackCookie = false;
 
-            //Assert.IsTrue( flowScriptCompiler.TryCompile( File.Open( @"D:\Users\smart\Documents\Visual Studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptCompiler\Resources\TestScript2.flow", FileMode.Open ), out var flowScript ) );
-            Assert.IsTrue( flowScriptCompiler.TryCompile( flowScriptSource, out var flowScript ) );
+            //Assert.IsTrue( flowScriptCompiler.TryCompile( File.Open( @"D:\Users\smart\Documents\Visual Studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptCompiler\Resources\TestScript2.flow", FileMode.Open ), out flowScript ) );
+            //Assert.IsTrue( flowScriptCompiler.TryCompile( flowScriptSource, out var flowScript ) );
             //Assert.IsTrue( flowScriptCompiler.TryCompile( File.Open( @"D:\Users\smart\Documents\Visual Studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptCompiler\Resources\Tests.flow", FileMode.Open ), out var flowScript ) );
 
             var flowScriptDecompiler = new FlowScriptDecompiler();
+            flowScriptDecompiler.AddListener( listener );
+            flowScriptDecompiler.FunctionDatabase = Persona5FunctionDatabase.Instance;
             //Assert.IsTrue( flowScriptDecompiler.TryDecompile( flowScript, out var compilationUnit ) );
-            Assert.IsTrue( flowScriptDecompiler.TryDecompile( flowScript, out var compilationUnit ) );
+            Assert.IsTrue( flowScriptDecompiler.TryDecompile( FlowScript.FromFile( @"D:\Modding\Persona 5 EU\Main game\Extracted\data\field\script\boss.bf" ), out var compilationUnit ) );
+
+            var flowScriptCompilationUnitWriter = new FlowScriptCompilationUnitWriter();
+            flowScriptCompilationUnitWriter.WriteToFile( compilationUnit, "output.flow" );
+
+            Assert.IsTrue( flowScriptCompiler.TryCompile( File.OpenRead( "output.flow" ), out flowScript ) );
 
             int fieldMajorId = 000;
             int fieldMinorId = 100;
@@ -69,66 +83,6 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
             flowScriptDiassembler.Dispose();
 
             Process.Start( @"D:\Modding\Persona 5 EU\Game mods\TestLevel\make_cpk_rpcs3.bat" );
-        }
-
-        void GenerateSelectBoss()
-        {
-            int selCount = 0;
-            int counter = 0;
-            foreach ( var procedure in FlowScriptBinary.FromFile( @"D:\Modding\Persona 5 EU\Main game\Extracted\data\field\script\boss.bf", FlowScriptBinaryFormatVersion.Version3BigEndian ).ProcedureLabelSection )
-            {
-                if ( counter == 0 )
-                {
-                    Debug.WriteLine( $"[sel SelectBoss{selCount++}]" );
-                }
-
-                Debug.WriteLine( $"[f 2 1]{procedure.Name}[e]" );
-                counter++;
-
-                if ( counter == 4 )
-                {
-                    Debug.WriteLine( "[f 2 1]Previous[e]" );
-                    Debug.WriteLine( "[f 2 1]Next[e]" );
-                    counter = 0;
-                }
-            }
-
-            Debug.WriteLine( "int SelectBoss()" );
-            Debug.WriteLine( "{" );
-            Debug.WriteLine( "    while ( true )" );
-            Debug.WriteLine( "    {" );
-            Debug.WriteLine( "        int selection;" );
-
-            int i = -1;
-            int spaceCount = 8;
-            int spacesPerTab = 4;
-            void WriteTabbed(string value, int index)
-            {
-                for ( int j = 0; j < spaceCount + ( spacesPerTab * index ); j++ )
-                {
-                    Debug.Write( " " );
-                }
-
-                Debug.WriteLine( value );
-            }
-
-            void GenerateSelectBossSelectionRecursive()
-            {
-                int index = ++i;
-                WriteTabbed( $"selection = SEL({index + 5});", index );
-                WriteTabbed( "if ( selection == 4 )", index );
-                WriteTabbed( "    continue;", index );
-                WriteTabbed( "if ( selection == 5 )", index );
-                WriteTabbed( "{", index );
-                if ( i < selCount )
-                    GenerateSelectBossSelectionRecursive();
-                WriteTabbed( "}", index );
-            }
-
-            GenerateSelectBossSelectionRecursive();
-
-            Debug.WriteLine( "    }" );
-            Debug.WriteLine( "}" );
         }
     }
 }

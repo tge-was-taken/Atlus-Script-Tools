@@ -41,6 +41,9 @@
     <Reference Include="MoreLinq, Version=2.0.20029.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
       <HintPath>..\packages\morelinq.2.3.0\lib\net35\MoreLinq.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -74,11 +77,25 @@
     <Compile Include="FlowScriptLanguage\Compiler\Parser\FlowScriptCompilationUnitParserFailureException.cs" />
     <Compile Include="FlowScriptLanguage\Compiler\Processing\FlowScriptDeclarationScope.cs" />
     <Compile Include="FlowScriptLanguage\Compiler\Processing\FlowScriptTypeResolver.cs" />
+    <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptCompilationUnitWriter.cs" />
     <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptDecompiler.cs" />
+    <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptEvaluatedIdentifierReference.cs" />
+    <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptEvaluatedProcedure.cs" />
+    <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptEvaluatedStatement.cs" />
+    <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptEvaluationResult.cs" />
+    <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptEvaluator.cs" />
+    <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptEvaluatedScope.cs" />
+    <Compile Include="FlowScriptLanguage\FunctionDatabase\FunctionDatabaseDeserializer.cs" />
+    <Compile Include="FlowScriptLanguage\FunctionDatabase\Persona5FunctionDatabase.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\FlowScriptSyntaxNode.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\FlowScriptSourceInfo.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\FlowScriptSyntaxVisitor.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Declarations\FlowScriptLabelDeclaration.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptAdditionAssignmentOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptAssignmentOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptAssignmentOperatorBase.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptCompoundAssignmentOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptDivisionAssignmentOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptDivisionOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptEqualityOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptGreaterThanOperator.cs" />
@@ -87,6 +104,8 @@
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptLessThanOrEqualOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptLogicalAndOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptLogicalOrOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptMultiplicationAssignmentOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptSubtractionAssignmentOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptSubtractionOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptMultiplicationOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptNonEqualityOperator.cs" />
@@ -100,8 +119,10 @@
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\FlowScriptBitwiseNotOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\FlowScriptPostfixDecrementOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\FlowScriptPostfixIncrementOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\FlowScriptPostfixOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\FlowScriptPrefixDecrementOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\FlowScriptPrefixIncrementOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\FlowScriptPrefixOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptBreakStatement.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptContinueStatement.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptDeclarationType.cs" />
@@ -204,6 +225,9 @@
     <None Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScript.g4" />
     <None Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScript.tokens" />
     <None Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScriptLexer.tokens" />
+    <None Include="FlowScriptLanguage\FunctionDatabase\Persona5FunctionDatabase.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptLexer.g4" />
     <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptLexer.tokens" />
     <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptParser.g4" />

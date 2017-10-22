@@ -25,6 +25,14 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
             Parameters = parameters.ToList();
         }
 
+        public FlowScriptFunctionDeclaration( FlowScriptIntLiteral index, FlowScriptTypeIdentifier returnType, FlowScriptIdentifier identifier, List<FlowScriptParameter> parameters )
+            : base( FlowScriptDeclarationType.Function, identifier )
+        {
+            Index = index;
+            ReturnType = returnType;
+            Parameters = parameters;
+        }
+
         public override string ToString()
         {
             var builder = new StringBuilder();

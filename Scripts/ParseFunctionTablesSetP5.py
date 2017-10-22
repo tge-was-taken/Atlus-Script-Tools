@@ -74,7 +74,7 @@ def ParseFunctionTable(address, count, index):
 		
 		for j in range(0, functionParameterCount):
 			argTypes.append("unk")
-			argNames.append("param" + str(j))
+			argNames.append("param" + str(j + 1))
 		
 		if (functionOPDAddress):
 				
@@ -119,7 +119,7 @@ def ParseFunctionTable(address, count, index):
 					argIndex = GetFunctionArgument(functionAddress, 0)
 					if (not argIndex < len(argTypes)):
 						argTypes.append("int")
-						argNames.append("param" + str(argIndex))
+						argNames.append("param" + str(argIndex + 1))
 						functionParameterCount += 1
 					else:
 						argTypes[argIndex] = "int"
@@ -128,7 +128,7 @@ def ParseFunctionTable(address, count, index):
 					argIndex = GetFunctionArgument(functionAddress, 0)
 					if (not argIndex < len(argTypes)):
 						argTypes.append("float")
-						argNames.append("param" + str(argIndex))
+						argNames.append("param" + str(argIndex + 1))
 						functionParameterCount += 1
 					else:
 						argTypes[argIndex] = "float"
@@ -137,7 +137,7 @@ def ParseFunctionTable(address, count, index):
 					argIndex = GetFunctionArgument(functionAddress, 0)
 					if (not argIndex < len(argTypes)):
 						argTypes.append("string")
-						argNames.append("param" + str(argIndex))
+						argNames.append("param" + str(argIndex + 1))
 						functionParameterCount += 1
 					else:
 						argTypes[argIndex] = "string"
@@ -193,12 +193,51 @@ def ParseFunctionTable(address, count, index):
 			if (j != functionParameterCount - 1):
 				functionArgsString += ", "
 
-		print "function(0x%04x) %s %s(%s);" % (functionID, retType, functionName, functionArgsString)
+		#print "function(0x%04x) %s %s(%s);" % (functionID, retType, functionName, functionArgsString)
+
+		functionDescription = ""
+		if retType == "unk":
+			functionDescription = "Null function pointer."
+			retType = "void"
+
+		print '    {'
+		print '        "Index": "0x%04x",' % functionID
+		print '        "ReturnType": "%s",' % retType
+		print '        "Name": "%s",' % functionName
+		print '        "Description": "%s",' % functionDescription
+		print '        "Parameters":'
+		print '        ['
+
+		for j in range( 0, functionParameterCount ):
+
+			parameterDescription = ""
+			if argTypes[j] == "unk":
+				parameterDescription = "Unknown type; assumed int."
+				argTypes[j] = "int"
+
+			print '			{'
+			print '				"Type": "%s",' % argTypes[j]
+			print '				"Name": "%s",' % argNames[j]
+			print '				"Description": "%s"' % parameterDescription
+
+			if ( j != functionParameterCount - 1 ):
+				print '			},'
+			else:
+				print '			}'
+
+		print '        ]'
+
+		if ( i != count - 1 ):
+			print '    },'
+		else:
+			print '    }'
 	
 	return
 	
 def ParseFunctionTableSet(address, count):
 	
+	print "["
+
 	for i in range(0, count):
 	
 		functionTableAddress = get_32bit(address)
@@ -208,6 +247,8 @@ def ParseFunctionTableSet(address, count):
 		address += 4
 		
 		ParseFunctionTable(functionTableAddress, functionTableEntryCount, i)
+
+	print "]"
 		
 	return
 	

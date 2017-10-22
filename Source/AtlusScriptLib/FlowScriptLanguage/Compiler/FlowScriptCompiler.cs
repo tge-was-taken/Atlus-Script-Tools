@@ -23,9 +23,9 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         //
         // compiler state state
         //
-        private Logger mLogger;
-        private FlowScriptFormatVersion mFormatVersion;
-        private HashSet<int> mImportedFileHashSet;
+        private readonly Logger mLogger;
+        private readonly FlowScriptFormatVersion mFormatVersion;
+        private readonly HashSet<int> mImportedFileHashSet;
         private bool mReresolveImports;
         private string mFilePath;
         private FlowScript mScript;
@@ -376,7 +376,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
             try
             {
-               messageScriptSource = File.ReadAllText( compilationUnitFilePath );
+                messageScriptSource = File.ReadAllText( compilationUnitFilePath );
             }
             catch ( Exception )
             {
@@ -384,7 +384,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 messageScript = null;
                 return false;
             }
-            
+
             int messageScriptSourceHash = messageScriptSource.GetHashCode();
 
             if ( !mImportedFileHashSet.Contains( messageScriptSourceHash ) )
@@ -495,11 +495,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 {
                     var window = mScript.MessageScript.Windows[i];
 
-                    var declaration = new FlowScriptVariableDeclaration(
+                    var declaration = new FlowScriptVariableDeclaration
+                    (
                         new FlowScriptVariableModifier( FlowScriptModifierType.Const ),
                         new FlowScriptTypeIdentifier( FlowScriptValueType.Int ),
                         new FlowScriptIdentifier( FlowScriptValueType.Int, window.Identifier ),
-                        new FlowScriptIntLiteral( i ) );
+                        new FlowScriptIntLiteral( i )
+                    );
 
                     if ( !Scope.TryDeclareVariable( declaration ) )
                     {
@@ -616,7 +618,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             if ( declaration.Body.Statements.Count == 0 || !( declaration.Body.Last() is FlowScriptReturnStatement ) )
             {
                 LogInfo( declaration.Body, "Adding implicit return statement" );
-                declaration.Body.Statements.Add(new FlowScriptReturnStatement());
+                declaration.Body.Statements.Add( new FlowScriptReturnStatement() );
             }
 
             // Emit procedure body
@@ -691,6 +693,26 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 }
             }
 
+            foreach ( var statement in body )
+            {
+                switch ( statement )
+                {
+                    case FlowScriptIfStatement ifStatement:
+                        if ( !TryRegisterLabels( ifStatement.Body ) )
+                            return false;
+
+                        if ( ifStatement.ElseBody != null )
+                        {
+                            if ( !TryRegisterLabels( ifStatement.ElseBody ) )
+                                return false;
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+
             return true;
         }
 
@@ -743,87 +765,84 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private bool TryEmitStatement( FlowScriptStatement statement )
         {
-            if ( statement is FlowScriptCompoundStatement compoundStatement )
+            switch ( statement )
             {
-                if ( !TryEmitCompoundStatement( compoundStatement ) )
-                    return false;
-            }
-            else if ( statement is FlowScriptDeclaration declaration )
-            {
-                if ( statement is FlowScriptVariableDeclaration variableDeclaration )
-                {
-                    if ( !TryEmitVariableDeclaration( variableDeclaration ) )
+                case FlowScriptCompoundStatement compoundStatement:
+                    if ( !TryEmitCompoundStatement( compoundStatement ) )
                         return false;
-                }
-                else if ( statement is FlowScriptLabelDeclaration labelDeclaration )
-                {
-                    if ( !TryRegisterLabelDeclaration( labelDeclaration ) )
+                    break;
+                case FlowScriptDeclaration _:
+                    {
+                        if ( statement is FlowScriptVariableDeclaration variableDeclaration )
+                        {
+                            if ( !TryEmitVariableDeclaration( variableDeclaration ) )
+                                return false;
+                        }
+                        else if ( statement is FlowScriptLabelDeclaration labelDeclaration )
+                        {
+                            if ( !TryRegisterLabelDeclaration( labelDeclaration ) )
+                                return false;
+                        }
+                        else
+                        {
+                            LogError( statement, "Expected variable or label declaration" );
+                            return false;
+                        }
+
+                        break;
+                    }
+
+                case FlowScriptExpression expression:
+                    if ( !TryEmitExpression( expression, true ) )
                         return false;
-                }
-                else
-                {
-                    LogError( statement, "Expected variable or label declaration" );
+                    break;
+                case FlowScriptIfStatement ifStatement:
+                    if ( !TryEmitIfStatement( ifStatement ) )
+                        return false;
+                    break;
+                case FlowScriptForStatement forStatement:
+                    if ( !TryEmitForStatement( forStatement ) )
+                        return false;
+                    break;
+                case FlowScriptWhileStatement whileStatement:
+                    if ( !TryEmitWhileStatement( whileStatement ) )
+                        return false;
+                    break;
+                case FlowScriptBreakStatement breakStatement:
+                    if ( !TryEmitBreakStatement( breakStatement ) )
+                        return false;
+                    break;
+                case FlowScriptContinueStatement continueStatement:
+                    if ( !TryEmitContinueStatement( continueStatement ) )
+                        return false;
+                    break;
+                case FlowScriptReturnStatement returnStatement:
+                    if ( !TryEmitReturnStatement( returnStatement ) )
+                    {
+                        LogError( returnStatement, $"Failed to compile return statement: {returnStatement}" );
+                        return false;
+                    }
+
+                    break;
+                case FlowScriptGotoStatement gotoStatement:
+                    if ( !TryEmitGotoStatement( gotoStatement ) )
+                    {
+                        LogError( gotoStatement, $"Failed to compile goto statement: {gotoStatement}" );
+                        return false;
+                    }
+
+                    break;
+                case FlowScriptSwitchStatement switchStatement:
+                    if ( !TryEmitSwitchStatement( switchStatement ) )
+                    {
+                        LogError( switchStatement, $"Failed to compile switch statement: {switchStatement}" );
+                        return false;
+                    }
+
+                    break;
+                default:
+                    LogError( statement, $"Compiling statement '{statement}' not implemented" );
                     return false;
-                }
-            }
-            else if ( statement is FlowScriptExpression expression )
-            {
-                if ( !TryEmitExpression( expression, true ) )
-                    return false;
-            }
-            else if ( statement is FlowScriptIfStatement ifStatement )
-            {
-                if ( !TryEmitIfStatement( ifStatement ) )
-                    return false;
-            }
-            else if ( statement is FlowScriptForStatement forStatement )
-            {
-                if ( !TryEmitForStatement( forStatement ) )
-                    return false;
-            }
-            else if ( statement is FlowScriptWhileStatement whileStatement )
-            {
-                if ( !TryEmitWhileStatement( whileStatement ) )
-                    return false;
-            }
-            else if ( statement is FlowScriptBreakStatement breakStatement )
-            {
-                if ( !TryEmitBreakStatement( breakStatement ) )
-                    return false;
-            }
-            else if ( statement is FlowScriptContinueStatement continueStatement )
-            {
-                if ( !TryEmitContinueStatement( continueStatement ) )
-                    return false;
-            }
-            else if ( statement is FlowScriptReturnStatement returnStatement )
-            {
-                if ( !TryEmitReturnStatement( returnStatement ) )
-                {
-                    LogError( returnStatement, $"Failed to compile return statement: {returnStatement}" );
-                    return false;
-                }
-            }
-            else if ( statement is FlowScriptGotoStatement gotoStatement )
-            {
-                if ( !TryEmitGotoStatement( gotoStatement ) )
-                {
-                    LogError( gotoStatement, $"Failed to compile goto statement: {gotoStatement}" );
-                    return false;
-                }
-            }
-            else if ( statement is FlowScriptSwitchStatement switchStatement )
-            {
-                if ( !TryEmitSwitchStatement( switchStatement ) )
-                {
-                    LogError( switchStatement, $"Failed to compile switch statement: {switchStatement}" );
-                    return false;
-                }
-            }
-            else
-            {
-                LogError( statement, $"Compiling statement '{statement}' not implemented" );
-                return false;
             }
 
             return true;
@@ -937,76 +956,69 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         //
         private bool TryEmitExpression( FlowScriptExpression expression, bool isStatement )
         {
-            if ( expression is FlowScriptCallOperator callExpression )
+            switch ( expression )
             {
-                if ( !TryEmitCall( callExpression, isStatement ) )
-                    return false;
-            }
-            else if ( expression is FlowScriptUnaryExpression unaryExpression )
-            {
-                if ( !TryEmitUnaryExpression( unaryExpression, isStatement ) )
-                    return false;
-            }
-            else if ( expression is FlowScriptBinaryExpression binaryExpression )
-            {
-                if ( !TryEmitBinaryExpression( binaryExpression, isStatement ) )
-                    return false;
-            }
-            else if ( expression is FlowScriptIdentifier identifier )
-            {
-                if ( isStatement )
-                {
-                    LogError( identifier, "An identifier is an invalid statement" );
-                    return false;
-                }
+                case FlowScriptCallOperator callExpression:
+                    if ( !TryEmitCall( callExpression, isStatement ) )
+                        return false;
+                    break;
+                case FlowScriptUnaryExpression unaryExpression:
+                    if ( !TryEmitUnaryExpression( unaryExpression, isStatement ) )
+                        return false;
+                    break;
+                case FlowScriptBinaryExpression binaryExpression:
+                    if ( !TryEmitBinaryExpression( binaryExpression, isStatement ) )
+                        return false;
+                    break;
+                case FlowScriptIdentifier identifier:
+                    if ( isStatement )
+                    {
+                        LogError( identifier, "An identifier is an invalid statement" );
+                        return false;
+                    }
 
-                if ( !TryEmitPushVariableValue( identifier ) )
-                    return false;
-            }
-            else if ( expression is FlowScriptBoolLiteral boolLiteral )
-            {
-                if ( isStatement )
-                {
-                    LogError( boolLiteral, "A boolean literal is an invalid statement" );
-                    return false;
-                }
+                    if ( !TryEmitPushVariableValue( identifier ) )
+                        return false;
+                    break;
+                case FlowScriptBoolLiteral boolLiteral:
+                    if ( isStatement )
+                    {
+                        LogError( boolLiteral, "A boolean literal is an invalid statement" );
+                        return false;
+                    }
 
-                EmitPushBoolLiteral( boolLiteral );
-            }
-            else if ( expression is FlowScriptIntLiteral intLiteral )
-            {
-                if ( isStatement )
-                {
-                    LogError( intLiteral, "A integer literal is an invalid statement" );
-                    return false;
-                }
+                    EmitPushBoolLiteral( boolLiteral );
+                    break;
+                case FlowScriptIntLiteral intLiteral:
+                    if ( isStatement )
+                    {
+                        LogError( intLiteral, "A integer literal is an invalid statement" );
+                        return false;
+                    }
 
-                EmitPushIntLiteral( intLiteral );
-            }
-            else if ( expression is FlowScriptFloatLiteral floatLiteral )
-            {
-                if ( isStatement )
-                {
-                    LogError( floatLiteral, "A float literal is an invalid statement" );
-                    return false;
-                }
+                    EmitPushIntLiteral( intLiteral );
+                    break;
+                case FlowScriptFloatLiteral floatLiteral:
+                    if ( isStatement )
+                    {
+                        LogError( floatLiteral, "A float literal is an invalid statement" );
+                        return false;
+                    }
 
-                EmitPushFloatLiteral( floatLiteral );
-            }
-            else if ( expression is FlowScriptStringLiteral stringLiteral )
-            {
-                if ( isStatement )
-                {
-                    LogError( stringLiteral, "A string literal is an invalid statement" );
-                    return false;
-                }
+                    EmitPushFloatLiteral( floatLiteral );
+                    break;
+                case FlowScriptStringLiteral stringLiteral:
+                    if ( isStatement )
+                    {
+                        LogError( stringLiteral, "A string literal is an invalid statement" );
+                        return false;
+                    }
 
-                EmitPushStringLiteral( stringLiteral );
-            }
-            else
-            {
-                LogError( expression, $"Compiling expression '{expression}' not implemented" );
-                return false;
+                    EmitPushStringLiteral( stringLiteral );
+                    break;
+                default:
+                    LogError( expression, $"Compiling expression '{expression}' not implemented" );
+                    return false;
             }
 
             return true;
@@ -1197,7 +1209,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                         return false;
                     }
 
-                    if ( !TryEmitExpression( prefixOperator.Operand, false))
+                    if ( !TryEmitExpression( prefixOperator.Operand, false ) )
                     {
                         LogError( prefixOperator.Operand, "Failed to emit operand for unary expression" );
                         return false;
@@ -1701,7 +1713,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             // Create labels
             var conditionLabel = CreateLabel( "ForConditionLabel" );
             var afterLoopLabel = CreateLabel( "ForAfterLoopLabel" );
-            var endLabel       = CreateLabel( "ForEndLabel" );
+            var endLabel = CreateLabel( "ForEndLabel" );
 
             // Emit condition check
             {
@@ -1831,7 +1843,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     }
 
                     // emit switch on expression
-                    if ( !TryEmitExpression( switchStatement.SwitchOn, false ))
+                    if ( !TryEmitExpression( switchStatement.SwitchOn, false ) )
                     {
                         LogError( switchStatement.SwitchOn, "Failed to emit switch statement condition" );
                         return false;
@@ -2026,7 +2038,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             }
 
             // Emit instruction
-            mInstructions.Add( instruction );         
+            mInstructions.Add( instruction );
 
             switch ( instruction.Opcode )
             {
@@ -2332,28 +2344,28 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             mLogger.Error( $"            {message}" );
         }
 
-        class Function
+        private class Function
         {
             public FlowScriptFunctionDeclaration Declaration { get; set; }
 
             public short Index { get; set; }
         }
 
-        class Procedure
+        private class Procedure
         {
             public FlowScriptProcedureDeclaration Declaration { get; set; }
 
             public short Index { get; set; }
         }
 
-        class Variable
+        private class Variable
         {
             public FlowScriptVariableDeclaration Declaration { get; set; }
 
             public short Index { get; set; }
         }
 
-        class Label
+        private class Label
         {
             public string Name { get; set; }
 
@@ -2364,15 +2376,15 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             public bool IsResolved { get; set; }
         }
 
-        class ScopeContext
+        private class ScopeContext
         {
-            public ScopeContext Parent { get; set; }
+            public ScopeContext Parent { get; }
 
-            public Dictionary<string, Function> Functions { get; set; }
+            public Dictionary<string, Function> Functions { get; }
 
-            public Dictionary<string, Procedure> Procedures { get; set; }
+            public Dictionary<string, Procedure> Procedures { get; }
 
-            public Dictionary<string, Variable> Variables { get; set; }
+            public Dictionary<string, Variable> Variables { get; }
 
             public Label BreakLabel { get; set; }
 

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AtlusScriptLib.Common.Logging;
+using AtlusScriptLib.FlowScriptLanguage.FunctionDatabase;
 using AtlusScriptLib.FlowScriptLanguage.Syntax;
 
 namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
@@ -12,27 +13,20 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
     public class FlowScriptDecompiler
     {
         private Logger mLogger;
-        private FlowScript mScript;
+        private FlowScriptEvaluationResult mEvaluatedScript;
         private FlowScriptCompilationUnit mCompilationUnit;
-
+        
         // procedure state
-        private FlowScriptProcedure mProcedure;
-        private FlowScriptTypeIdentifier mReturnType;
-        private List<FlowScriptParameter> mParameters;
-        private FlowScriptCompoundStatement mBody;
-
-        // evaluation state
-        private int mEvaluatedInstructionIndex;
-        private Stack<EvaluatedSyntax<FlowScriptStatement>> mEvaluationStatementStack;
-        private Dictionary<int, FlowScriptFunctionDeclaration> mFunctions;
-        private Dictionary<int, FlowScriptVariableDeclaration> mLocalIntVariables;
-        private Dictionary<int, FlowScriptVariableDeclaration> mLocalFloatVariables;
-        private Dictionary<int, FlowScriptVariableDeclaration> mStaticIntVariables;
-        private Dictionary<int, FlowScriptVariableDeclaration> mStaticFloatVariables;
-        private FlowScriptCallOperator mLastFunctionCall;
-        private FlowScriptCallOperator mLastProcedureCall;
+        private FlowScriptEvaluatedProcedure mEvaluatedProcedure;
 
         // compositing state
+        private List<FlowScriptEvaluatedStatement> mOriginalEvaluatedStatements;
+        private List<FlowScriptEvaluatedStatement> mEvaluatedStatements;
+        private Dictionary<FlowScriptStatement, int> mStatementInstructionIndexLookup;
+        private Dictionary<int, List<FlowScriptEvaluatedStatement>> mIfStatementBodyMap;
+        private Dictionary<int, List<FlowScriptEvaluatedStatement>> mIfStatementElseBodyMap;
+
+        public IFunctionDatabase FunctionDatabase { get; set; }
 
         /// <summary>
         /// Initializes a FlowScript decompiler.
@@ -54,7 +48,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
         public bool TryDecompile( FlowScript flowScript, out FlowScriptCompilationUnit compilationUnit )
         {
-            if ( !TryDecompileCompilationUnit( flowScript, out compilationUnit ))
+            if ( !TryDecompileScript( flowScript, out compilationUnit ))
             {
                 return false;
             }
@@ -65,28 +59,95 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
         // 
         // FlowScript Decompilation
         //
-        private void InitializeCompilationUnitDecompilationState( FlowScript flowScript )
+        private void InitializeScriptDecompilationState( FlowScriptEvaluationResult evaluationResult )
         {
-            mScript = flowScript;
+            mEvaluatedScript = evaluationResult;
             mCompilationUnit = new FlowScriptCompilationUnit();
         }
 
-        private bool TryDecompileCompilationUnit( FlowScript flowScript, out FlowScriptCompilationUnit compilationUnit )
+        private bool TryDecompileScript( FlowScript flowScript, out FlowScriptCompilationUnit compilationUnit )
         {
-            InitializeCompilationUnitDecompilationState( flowScript );
-
-            foreach ( var procedure in flowScript.Procedures )
+            // Evaluate script
+            if ( !TryEvaluateScript( flowScript, out var evaluationResult ) )
             {
-                if ( !TryDecompileProcedure( procedure, out var declaration ))
+                LogError( "Failed to evaluate script" );
+                compilationUnit = null;
+                return false;
+            }
+
+            if ( !TryDecompileScriptInternal( evaluationResult, out compilationUnit ) )
+            {
+                LogError( "Failed to decompile script" );
+                compilationUnit = null;
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool TryEvaluateScript( FlowScript flowScript, out FlowScriptEvaluationResult evaluationResult )
+        {
+            var evaluator = new FlowScriptEvaluator();
+            evaluator.FunctionDatabase = FunctionDatabase;
+            evaluator.AddListener( new LoggerPassthroughListener( mLogger ) );
+            if ( !evaluator.TryEvaluateScript( flowScript, out evaluationResult ) )
+            {
+                LogError( "Failed to evaluate script" );
+                evaluationResult = null;
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool TryDecompileScriptInternal( FlowScriptEvaluationResult evaluationResult, out FlowScriptCompilationUnit compilationUnit )
+        {
+            // Initialize decompiler
+            InitializeScriptDecompilationState( evaluationResult );
+
+            // Build function declarations and add them to AST
+            BuildFunctionDeclarationSyntaxNodes();
+
+            // Build script-local variable declarations and add them to AST
+            BuildScriptLocalVariableDeclarationSyntaxNodes();
+
+            // Build procedure declarations and add them to AST
+            if ( !TryBuildProcedureDeclarationSyntaxNodes() )
+            {
+                LogError( "Failed to decompile procedure declarations" );
+                compilationUnit = null;
+                return false;
+            }
+
+            compilationUnit = mCompilationUnit;
+            return true;
+        }
+
+        private void BuildFunctionDeclarationSyntaxNodes( )
+        {
+            foreach ( var functionDeclaration in mEvaluatedScript.Functions )
+                mCompilationUnit.Statements.Add( functionDeclaration );
+        }
+
+        private void BuildScriptLocalVariableDeclarationSyntaxNodes( )
+        {
+            foreach ( var flowScriptVariableDeclaration in mEvaluatedScript.Scope.Variables.Values )
+                mCompilationUnit.Statements.Add( flowScriptVariableDeclaration );
+        }
+
+        private bool TryBuildProcedureDeclarationSyntaxNodes( )
+        {
+            // Decompile procedures
+            foreach ( var evaluatedProcedure in mEvaluatedScript.Procedures )
+            {
+                if ( !TryDecompileProcedure( evaluatedProcedure, out var declaration ) )
                 {
-                    compilationUnit = null;
+                    LogError( $"Failed to decompile procedure: { evaluatedProcedure.Procedure.Name }" );
                     return false;
                 }
 
                 mCompilationUnit.Statements.Add( declaration );
             }
-
-            compilationUnit = mCompilationUnit;
 
             return true;
         }
@@ -94,683 +155,410 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
         //
         // Procedure decompilation
         //
-        private void InitializeProcedureDecompilationState( FlowScriptProcedure procedure )
+        private void InitializeProcedureDecompilationState( FlowScriptEvaluatedProcedure procedure )
         {
-            mProcedure = procedure;
-            mReturnType = new FlowScriptTypeIdentifier( FlowScriptValueType.Unresolved );
-            mParameters = new List<FlowScriptParameter>();
-            mBody = new FlowScriptCompoundStatement();
-            mFunctions = new Dictionary<int, FlowScriptFunctionDeclaration>();
+            mEvaluatedProcedure = procedure;
         }
 
-        private bool TryDecompileProcedure( FlowScriptProcedure procedure, out FlowScriptProcedureDeclaration declaration )
+        private bool TryDecompileProcedure( FlowScriptEvaluatedProcedure evaluatedProcedure, out FlowScriptProcedureDeclaration declaration )
         {
-            InitializeProcedureDecompilationState( procedure );
+            InitializeProcedureDecompilationState( evaluatedProcedure );
 
-            if ( !TryEvaluateInstructions( out var statements ) )
+            if ( !TryCompositeEvaluatedInstructions( evaluatedProcedure.Statements, out var statements ))
             {
-                LogError( "Failed to evaluate instructions" );
+                LogError( "Failed to composite evaluated instructions" );
                 declaration = null;
                 return false;
             }
-
-            mBody = new FlowScriptCompoundStatement( statements.Select( x => x.SyntaxNode ).ToList() );
-        
+            
             declaration = new FlowScriptProcedureDeclaration(
-                mReturnType,
-                new FlowScriptIdentifier( FlowScriptValueType.Procedure, procedure.Name ),
-                mParameters,
-                mBody );
+                new FlowScriptTypeIdentifier(evaluatedProcedure.ReturnType),
+                new FlowScriptIdentifier( FlowScriptValueType.Procedure, evaluatedProcedure.Procedure.Name ),
+                evaluatedProcedure.Parameters,
+                new FlowScriptCompoundStatement( statements ) );
 
             return true;
-        }
-
-        //
-        // Evaluation
-        //
-        private void InitializeEvaluationState()
-        {
-            mEvaluatedInstructionIndex = 0;
-            mEvaluationStatementStack = new Stack<EvaluatedSyntax<FlowScriptStatement>>();
-            mLocalIntVariables = new Dictionary<int, FlowScriptVariableDeclaration>();
-            mLocalFloatVariables = new Dictionary<int, FlowScriptVariableDeclaration>();
-            mStaticIntVariables = new Dictionary<int, FlowScriptVariableDeclaration>();
-            mStaticFloatVariables = new Dictionary<int, FlowScriptVariableDeclaration>();
-
-            // Add symbolic return address onto the stack
-            PushStatement(
-                new FlowScriptIdentifier( "<>__ReturnAddress" ) );
-        }
-
-        private bool TryEvaluateInstructions( out List<EvaluatedSyntax<FlowScriptStatement>> evaluatedStatements )
-        {
-            // This has so much state it might be better off being a seperate class
-            InitializeEvaluationState();
-
-            foreach ( var instruction in mProcedure.Instructions )
-            {
-                // Evaluate each instruction
-                if ( !TryEvaluateInstruction( instruction ) )
-                {
-                    LogError( $"Failed to evaluate instruction: { instruction }" );
-                    evaluatedStatements = null;
-                    return false;
-                }
-
-                ++mEvaluatedInstructionIndex;
-            }
-
-            // Statements, yay!
-            evaluatedStatements = mEvaluationStatementStack.ToList();
-            evaluatedStatements.Reverse();
-
-            // Insert label declarations
-            foreach ( var label in mProcedure.Labels )
-            {
-                // Simple binary search
-                int insertionIndex = -1;
-                for ( int i = 0; i < evaluatedStatements.Count; i++ )
-                {
-                    var statement = evaluatedStatements[i];
-                    if ( statement.InstructionIndex == label.InstructionIndex )
-                    {
-                        insertionIndex = i;
-                    }
-                    else if ( statement.InstructionIndex > label.InstructionIndex )
-                    { 
-                        if ( i > 0 )
-                            insertionIndex = i - 1;
-                        else
-                            insertionIndex = i;
-                    }
-                }
-
-                if ( insertionIndex == -1 )
-                {
-                    LogError( "Label is outside of instruction range" );
-                    continue;
-                }
-
-                // Insert label declaration
-                evaluatedStatements.Insert( insertionIndex,
-                    new EvaluatedSyntax<FlowScriptStatement>(
-                        new FlowScriptLabelDeclaration(
-                            new FlowScriptIdentifier( FlowScriptValueType.Label, label.Name ) ),
-                        label.InstructionIndex ) );
-            }
-
-            return true;
-        }
-
-        private bool TryEvaluateInstruction( FlowScriptInstruction instruction )
-        {
-            switch ( instruction.Opcode )
-            {
-                // Push integer to stack
-                case FlowScriptOpcode.PUSHI:
-                    PushStatement( new FlowScriptIntLiteral( instruction.Operand.GetInt32Value() ) );
-                    break;
-
-                // Push float to stack
-                case FlowScriptOpcode.PUSHF:
-                    PushStatement( new FlowScriptFloatLiteral( instruction.Operand.GetSingleValue() ) );
-                    break;
-
-                // Push value of static integer variable to stack
-                case FlowScriptOpcode.PUSHIX:
-                    {
-                        short index = instruction.Operand.GetInt16Value();
-                        if ( !mStaticIntVariables.TryGetValue( index, out var declaration ) )
-                        {
-                            LogError( $"Referenced undeclared static int variable: '{index}'" );
-                            return false;
-                        }
-
-                        PushStatement( declaration.Identifier );
-                    }
-                    break;
-
-                // Push value of static float variable to stack
-                case FlowScriptOpcode.PUSHIF:
-                    {
-                        short index = instruction.Operand.GetInt16Value();
-                        if ( !mStaticFloatVariables.TryGetValue( index, out var declaration ) )
-                        {
-                            LogError( $"Referenced undeclared static float variable: '{index}'" );
-                            return false;
-                        }
-
-                        PushStatement( declaration.Identifier );
-                    }
-                    break;
-
-                // Push return value of last function to stack
-                case FlowScriptOpcode.PUSHREG:
-                    {
-                        if ( mLastFunctionCall == null )
-                        {
-                            LogError( $"PUSHREG before a function call!" );
-                            return false;
-                        }
-
-                        PushStatement( mLastFunctionCall );
-                    }
-                    break;
-
-                // Load top stack value into static integer variable
-                case FlowScriptOpcode.POPIX:
-                    {
-                        short index = instruction.Operand.GetInt16Value();
-
-                        if ( !mStaticIntVariables.TryGetValue( index, out var declaration ) )
-                        {
-                            // variable hasn't been declared yet
-                            if ( !TryDeclareVariable( FlowScriptModifierType.Static, FlowScriptValueType.Int, index, true ) )
-                            {
-                                LogError( $"Failed to declare variable for POPIX" );
-                                return false;
-                            }
-                        }
-                        else
-                        {
-                            if ( !TryPopExpression( out var value ) )
-                            {
-                                LogError( $"Failed to pop expression for variable assignment" );
-                                return false;
-                            }
-
-                            PushStatement( new FlowScriptAssignmentOperator( declaration.Identifier, value ) );
-                        }
-                    }
-                    break;
-
-                // Load top stack value into static float variable
-                case FlowScriptOpcode.POPFX:
-                    {
-                        short index = instruction.Operand.GetInt16Value();
-
-                        if ( !mStaticFloatVariables.TryGetValue( index, out var declaration ) )
-                        {
-                            // variable hasn't been declared yet
-                            if ( !TryDeclareVariable( FlowScriptModifierType.Static, FlowScriptValueType.Float, index, true ) )
-                            {
-                                LogError( $"Failed to declare variable for POPIX" );
-                                return false;
-                            }
-                        }
-                        else
-                        {
-                            if ( !TryPopExpression( out var value ) )
-                            {
-                                LogError( $"Failed to pop expression for variable assignment" );
-                                return false;
-                            }
-
-                            PushStatement( new FlowScriptAssignmentOperator( declaration.Identifier, value ) );
-                        }
-                    }
-                    break;
-
-                // Marker for a procedure start
-                // Doesn't really do anything 
-                case FlowScriptOpcode.PROC:
-                    break;
-
-                // Call to function
-                case FlowScriptOpcode.COMM:
-                    {
-                        short index = instruction.Operand.GetInt16Value();
-                        if ( !mFunctions.TryGetValue( index, out var function ) )
-                        {
-                            LogError( $"Referenced unknown function: '{index}'" );
-                            return false;
-                        }
-
-                        var arguments = new List<FlowScriptExpression>();
-                        foreach ( var parameter in function.Parameters )
-                        {
-                            if ( !TryPopExpression( out var argument ) )
-                            {
-                                return false;
-                            }
-
-                            arguments.Add( argument );
-                        }
-
-                        var callOperator = new FlowScriptCallOperator( function.Identifier, arguments );
-                        PushStatement( callOperator );
-                        mLastFunctionCall = callOperator;
-                    }
-                    break;
-
-                // End of procedure
-                // Jumps to value on stack
-                case FlowScriptOpcode.END:
-                    {
-                        // Todo: return value
-                        PushStatement( new FlowScriptReturnStatement() );
-                    }
-                    break;
-
-                // Jump to procedure
-                // without saving return address
-                case FlowScriptOpcode.JUMP:
-                    {
-                        // Todo
-                        LogError( "Todo: JUMP" );
-                        return false;
-                    }
-                    break;
-
-                // Call procedure
-                case FlowScriptOpcode.CALL:
-                    {
-                        // Todo: arguments
-                        var index = instruction.Operand.GetInt16Value();
-                        var callOperator = new FlowScriptCallOperator( new FlowScriptIdentifier( mScript.Procedures[index].Name ) );
-                        PushStatement( callOperator );
-                        mLastProcedureCall = callOperator;
-                    }
-                    break;
-
-                case FlowScriptOpcode.RUN:
-                    {
-                        // Todo:
-                        LogError( "Todo: RUN" );
-                        return false;
-                    }
-                    break;
-
-                case FlowScriptOpcode.GOTO:
-                    {
-                        short index = instruction.Operand.GetInt16Value();
-                        PushStatement(
-                            new FlowScriptGotoStatement(
-                                new FlowScriptIdentifier( FlowScriptValueType.Label, mProcedure.Labels[index].Name ) ) );
-                    }
-                    break;
-                case FlowScriptOpcode.ADD:
-                    if ( !TryPushBinaryExpression<FlowScriptAdditionOperator>() )
-                    {
-                        LogError( $"Failed to evaluate ADD" );
-                        return false;
-                    }
-                    break;
-                case FlowScriptOpcode.SUB:
-                    if ( !TryPushBinaryExpression<FlowScriptSubtractionOperator>() )
-                    {
-                        LogError( $"Failed to evaluate SUB" );
-                        return false;
-                    }
-                    break;
-                case FlowScriptOpcode.MUL:
-                    if ( !TryPushBinaryExpression<FlowScriptMultiplicationOperator>() )
-                    {
-                        LogError( $"Failed to evaluate MUL" );
-                        return false;
-                    }
-                    break;
-                case FlowScriptOpcode.DIV:
-                    if ( !TryPushBinaryExpression<FlowScriptDivisionOperator>() )
-                    {
-                        LogError( $"Failed to evaluate DIV" );
-                        return false;
-                    }
-                    break;
-                case FlowScriptOpcode.MINUS:
-                    if ( !TryPushUnaryExpression<FlowScriptNegationOperator>() )
-                    {
-                        LogError( $"Failed to evaluate MINUS" );
-                        return false;
-                    }
-                    break;
-                case FlowScriptOpcode.NOT:
-                    if ( !TryPushUnaryExpression<FlowScriptLogicalNotOperator>() )
-                    {
-                        LogError( $"Failed to evaluate NOT" );
-                        return false;
-                    }
-                    break;
-                case FlowScriptOpcode.OR:
-                    if ( !TryPushBinaryExpression<FlowScriptLogicalOrOperator>() )
-                    {
-                        LogError( $"Failed to evaluate OR" );
-                        return false;
-                    }
-                    break;
-                case FlowScriptOpcode.AND:
-                    if ( !TryPushBinaryExpression<FlowScriptLogicalAndOperator>() )
-                    {
-                        LogError( $"Failed to evaluate AND" );
-                        return false;
-                    }
-                    break;
-                case FlowScriptOpcode.EQ:
-                    if ( !TryPushBinaryExpression<FlowScriptEqualityOperator>() )
-                    {
-                        LogError( $"Failed to evaluate EQ" );
-                        return false;
-                    }
-                    break;
-                case FlowScriptOpcode.NEQ:
-                    if ( !TryPushBinaryExpression<FlowScriptNonEqualityOperator>() )
-                    {
-                        LogError( $"Failed to evaluate NEQ" );
-                        return false;
-                    }
-                    break;
-                case FlowScriptOpcode.S:
-                    if ( !TryPushBinaryExpression<FlowScriptLessThanOperator>() )
-                    {
-                        LogError( $"Failed to evaluate S" );
-                        return false;
-                    }
-                    break;
-                case FlowScriptOpcode.L:
-                    if ( !TryPushBinaryExpression<FlowScriptGreaterThanOperator>() )
-                    {
-                        LogError( $"Failed to evaluate L" );
-                        return false;
-                    }
-                    break;
-                case FlowScriptOpcode.SE:
-                    if ( !TryPushBinaryExpression<FlowScriptLessThanOrEqualOperator>() )
-                    {
-                        LogError( $"Failed to evaluate SE" );
-                        return false;
-                    }
-                    break;
-                case FlowScriptOpcode.LE:
-                    if ( !TryPushBinaryExpression<FlowScriptGreaterThanOrEqualOperator>() )
-                    {
-                        LogError( $"Failed to evaluate LE" );
-                        return false;
-                    }
-                    break;
-
-                // If statement
-                case FlowScriptOpcode.IF:
-                    {
-                        // Pop condition
-                        if ( !TryPopExpression( out var condition ) )
-                        {
-                            LogError( $"Failed to pop if condition expression" );
-                            return false;
-                        }
-
-                        // The body and else body is structured later
-                        PushStatement( new FlowScriptIfStatement(
-                            condition,
-                            null,
-                            null ) );
-                    }
-                    break;
-
-                // Push short
-                case FlowScriptOpcode.PUSHIS:
-                    PushStatement( new FlowScriptIntLiteral( instruction.Operand.GetInt16Value() ) );
-                    break;
-
-                // Push local int variable value
-                case FlowScriptOpcode.PUSHLIX:
-                    {
-                        short index = instruction.Operand.GetInt16Value();
-                        if ( !mLocalIntVariables.TryGetValue( index, out var declaration ) )
-                        {
-                            LogError( $"Referenced undeclared local int variable: '{index}'" );
-                            return false;
-                        }
-
-                        PushStatement( declaration.Identifier );
-                    }
-                    break;
-                case FlowScriptOpcode.PUSHLFX:
-                    {
-                        short index = instruction.Operand.GetInt16Value();
-                        if ( !mLocalFloatVariables.TryGetValue( index, out var declaration ) )
-                        {
-                            LogError( $"Referenced undeclared local float variable: '{index}'" );
-                            return false;
-                        }
-
-                        PushStatement( declaration.Identifier );
-                    }
-                    break;
-                case FlowScriptOpcode.POPLIX:
-                    {
-                        short index = instruction.Operand.GetInt16Value();
-
-                        if ( !mLocalIntVariables.TryGetValue( index, out var declaration ) )
-                        {
-                            // variable hasn't been declared yet
-                            if ( !TryDeclareVariable( FlowScriptModifierType.Local, FlowScriptValueType.Int, index, true ) )
-                            {
-                                LogError( $"Failed to declare variable for POPLIX" );
-                                return false;
-                            }
-                        }
-                        else
-                        {
-                            if ( !TryPopExpression( out var value ) )
-                            {
-                                LogError( $"Failed to pop expression for variable assignment" );
-                                return false;
-                            }
-
-                            PushStatement( new FlowScriptAssignmentOperator( declaration.Identifier, value ) );
-                        }
-                    }
-                    break;
-                case FlowScriptOpcode.POPLFX:
-                    {
-                        short index = instruction.Operand.GetInt16Value();
-
-                        if ( !mLocalFloatVariables.TryGetValue( index, out var declaration ) )
-                        {
-                            // variable hasn't been declared yet
-                            if ( !TryDeclareVariable( FlowScriptModifierType.Local, FlowScriptValueType.Float, index, true ) )
-                            {
-                                LogError( $"Failed to declare variable for POPLFX" );
-                                return false;
-                            }
-                        }
-                        else
-                        {
-                            if ( !TryPopExpression( out var value ) )
-                            {
-                                LogError( $"Failed to pop expression for variable assignment" );
-                                return false;
-                            }
-
-                            PushStatement( new FlowScriptAssignmentOperator( declaration.Identifier, value ) );
-                        }
-                    }
-                    break;
-                case FlowScriptOpcode.PUSHSTR:
-                    {
-                        var stringValue = instruction.Operand.GetStringValue();
-                        PushStatement( new FlowScriptStringLiteral( stringValue ) );
-                    }
-                    break;
-                default:
-                    LogError( $"Unimplemented opcode: { instruction.Opcode }" );
-                    return false;
-            }
-
-            return true;
-        }
-
-        private void PushStatement( FlowScriptStatement expression )
-        {
-            mEvaluationStatementStack.Push( 
-                new EvaluatedSyntax<FlowScriptStatement>( expression, mEvaluatedInstructionIndex ));
-        }
-
-        private bool TryPopStatement( out FlowScriptStatement statement )
-        {
-            if ( mEvaluationStatementStack.Count == 0 )
-            {
-                statement = null;
-                return false;
-            }
-
-            statement = mEvaluationStatementStack.Pop().SyntaxNode;
-            return true;
-        }
-
-        private bool TryPopExpression( out FlowScriptExpression expression )
-        {
-            if ( !TryPopStatement( out var statement ))
-            {
-                expression = null;
-                return false;
-            }
-
-            expression = statement as FlowScriptExpression;
-            return expression != null;
-        }
-
-        private bool TryPushBinaryExpression<T>() where T : FlowScriptBinaryExpression, new()
-        {
-            var binaryExpression = new T();
-            if ( !TryPopExpression( out var left ) )
-            {
-                return false;
-            }
-
-            if ( !TryPopExpression( out var right ) )
-            {
-                return false;
-            }
-
-            binaryExpression.Left = left;
-            binaryExpression.Right = right;
-
-            PushStatement( binaryExpression );
-            return true;
-        }
-
-        private bool TryPushUnaryExpression<T>() where T : FlowScriptUnaryExpression, new()
-        {
-            var uanryExpression = new T();
-            if ( !TryPopExpression( out var operand ) )
-            {
-                return false;
-            }
-
-            uanryExpression.Operand = operand;
-
-            PushStatement( uanryExpression );
-            return true;
-        }
-
-        private bool TryDeclareVariable( FlowScriptModifierType modifierType, FlowScriptValueType valueType, short index, bool hasInitializer )
-        {
-            var modifier = new FlowScriptVariableModifier( modifierType );
-            var type = new FlowScriptTypeIdentifier( valueType );
-            var identifier = new FlowScriptIdentifier( valueType, GenerateVariableName( modifierType, valueType, index ) );
-
-            FlowScriptExpression initializer = null;
-            if ( hasInitializer )
-            {
-                if ( !TryPopExpression( out initializer ))
-                {
-                    LogError( $"Attempted to declare variable {identifier} with initializer, but expression stack is empty!" );
-                    return false;
-                }
-            }
-
-            var variableDeclaration = new FlowScriptVariableDeclaration( modifier, type, identifier, initializer );
-
-            switch ( modifierType )
-            {
-                case FlowScriptModifierType.Local:
-                    switch ( valueType )
-                    {
-                        case FlowScriptValueType.Int:
-                            if ( mLocalIntVariables.ContainsKey( index ) )
-                            {
-                                LogError( $"Attempted to declare already declared local int variable: '{index}'" );
-                                return false;
-                            }
-
-                            mLocalIntVariables[index] = variableDeclaration;
-                            break;
-                        case FlowScriptValueType.Float:
-                            if ( mLocalFloatVariables.ContainsKey( index ) )
-                            {
-                                LogError( $"Attempted to declare already declared local float variable: '{index}'" );
-                                return false;
-                            }
-
-                            mLocalFloatVariables[index] = variableDeclaration;
-                            break;
-                        default:
-                            LogError( $"Variable type not implemented: { type }" );
-                            return false;
-                    }
-                    break;
-                case FlowScriptModifierType.Static:
-                    switch ( valueType )
-                    {
-                        case FlowScriptValueType.Int:
-                            if ( mStaticIntVariables.ContainsKey( index ))
-                            {
-                                LogError( $"Attempted to declare already declared static int variable: '{index}'" );
-                                return false;
-                            }
-
-                            mStaticIntVariables[index] = variableDeclaration;
-                            break;
-                        case FlowScriptValueType.Float:
-
-                            if ( mStaticFloatVariables.ContainsKey( index ) )
-                            {
-                                LogError( $"Attempted to declare already declared static float variable: '{index}'" );
-                                return false;
-                            }
-
-                            mStaticFloatVariables[index] = variableDeclaration;
-                            break;
-                        default:
-                            LogError( $"Variable value type not implemented: { valueType }" );
-                            return false;
-                    }
-                    break;
-                default:
-                    LogError( $"Variable modifier type not implemented: { modifierType }" );
-                    return false;
-            }
-
-            PushStatement( variableDeclaration );
-
-            return true;
-        }
-
-        private string GenerateVariableName( FlowScriptModifierType modifier, FlowScriptValueType type, short index )
-        {
-            switch ( modifier )
-            {
-                case FlowScriptModifierType.Local:
-                    return $"variable{index}";
-                case FlowScriptModifierType.Static:
-                    return $"sVariable{index}";
-            }
-
-            Debug.Assert( false );
-            return null;
         }
 
         //
         // Compositing
         //
-        private void InitializeCompositionState()
+        private void InitializeCompositionState( List<FlowScriptEvaluatedStatement> evaluatedStatements )
         {
+            mOriginalEvaluatedStatements = evaluatedStatements;
+            mEvaluatedStatements = mOriginalEvaluatedStatements.ToList();
+
+            // Build lookup
+            mStatementInstructionIndexLookup = new Dictionary<FlowScriptStatement, int>( evaluatedStatements.Count );
+            foreach ( var evaluatedStatement in evaluatedStatements )
+                mStatementInstructionIndexLookup[evaluatedStatement.Statement] = evaluatedStatement.InstructionIndex;
+
+            mIfStatementBodyMap = new Dictionary<int, List<FlowScriptEvaluatedStatement>>();
+            mIfStatementElseBodyMap = new Dictionary<int, List<FlowScriptEvaluatedStatement>>();
         }
 
-        private bool TryCompositeEvaluatedInstructions( List<EvaluatedSyntax<FlowScriptStatement>> evaluatedStatements )
+        private bool TryCompositeEvaluatedInstructions( List<FlowScriptEvaluatedStatement> evaluatedStatements, out List<FlowScriptStatement> statements )
         {
+            InitializeCompositionState( evaluatedStatements );
+
+            // Insert label declarations, they'll be used to build if statements
+            InsertLabelDeclarations();
+
+            // Build the if statement bodies, they rely on the label declarations
+            BuildIfStatementBodyMap();
+
+            //
+            CoagulateVariableDeclarationAssignments();
+
+            /*
+            // Remove gotos whose labels are one instruction after them
+            foreach ( var evaluatedGotoStatement in evaluatedStatements.Where( x => x.SyntaxNode is FlowScriptGotoStatement ).ToList() )
+            {
+                if ( evaluatedGotoStatement.InstructionIndex + 1 == evaluatedGotoStatement.ReferencedLabel.InstructionIndex )
+                    evaluatedStatements.Remove( evaluatedGotoStatement );
+            }
+            */
+
+
+
+            /*
+            // Create bodies
+            for ( int i = 0; i < evaluatedIfStatements.Count; i++ )
+            {
+                var evaluatedIfStatement = evaluatedIfStatements[i];           
+                var bodyEvaluatedStatements = evaluatedIfStatementBodies[i];
+                var ifStatement = ( FlowScriptIfStatement )evaluatedIfStatement.SyntaxNode;
+                var falseLabel = evaluatedIfStatement.ReferencedLabel;
+
+                // Remove the statements from the list of evaluated statements as they will be stored in the if statement body instead
+                //bodyEvaluatedStatements.ForEach( x => evaluatedStatements.Remove( x ) );
+
+                // Remove false label declaration if it's right after the body
+                if ( falseLabel.InstructionIndex == bodyEvaluatedStatements.Last().InstructionIndex + 1 )
+                {
+                    evaluatedStatements.RemoveAll( x => x.SyntaxNode is FlowScriptLabelDeclaration && x.ReferencedLabel == falseLabel );
+                }
+
+                // Remove goto to after if statement inside body if it's right after the if statement body
+                if ( bodyEvaluatedStatements.Last().SyntaxNode is FlowScriptGotoStatement )
+                {
+                    var evaluatedGotoStatement = bodyEvaluatedStatements.Last();
+
+                    // Likely a single if statement
+                    if ( evaluatedGotoStatement.ReferencedLabel.InstructionIndex == evaluatedGotoStatement.InstructionIndex + 1 )
+                    {
+                        bodyEvaluatedStatements.Remove( evaluatedGotoStatement );
+
+                        // Remove label itself as well if nothing references it
+                        RemoveIfEndLabelIfNotReferenced( evaluatedStatements, ifStatement, evaluatedGotoStatement.ReferencedLabel );
+                        RemoveIfEndLabelIfNotReferenced( bodyEvaluatedStatements, ifStatement, evaluatedGotoStatement.ReferencedLabel );
+                    }
+                    else
+                    {
+                        // Try to detect if-else pattern
+                        var elseBodyEvaluatedStatements = evaluatedStatements
+                            .Where( x => x != evaluatedGotoStatement && x.InstructionIndex >= evaluatedGotoStatement.InstructionIndex && x.InstructionIndex < evaluatedGotoStatement.ReferencedLabel.InstructionIndex )
+                            .ToList();
+
+                        if ( elseBodyEvaluatedStatements.Any() )
+                        {
+                            // Remove goto
+                            bodyEvaluatedStatements.Remove( evaluatedGotoStatement );
+
+                            // Remove label if it's not referenced
+                            if ( !IsLabelReferenced( evaluatedStatements, evaluatedGotoStatement.ReferencedLabel ) && 
+                                !IsLabelReferenced( bodyEvaluatedStatements, evaluatedGotoStatement.ReferencedLabel ) && 
+                                !IsLabelReferenced( elseBodyEvaluatedStatements, evaluatedGotoStatement.ReferencedLabel ))
+                            {
+                                evaluatedStatements.RemoveAll( x => x.SyntaxNode is FlowScriptLabelDeclaration && x.ReferencedLabel == evaluatedGotoStatement.ReferencedLabel );
+                            }
+
+                            // Remove the else body statements from the list of evaluated statements as they will be stored in the if statement body instead
+                            //elseBodyEvaluatedStatements.ForEach( x => evaluatedStatements.Remove( x ) );
+
+                            ifStatement.ElseBody = new FlowScriptCompoundStatement(
+                                elseBodyEvaluatedStatements.Select( x => x.SyntaxNode )
+                                .ToList()
+                                );
+                        }
+                    }
+                }
+
+                // We grew a body
+                ifStatement.Body = new FlowScriptCompoundStatement(
+                        bodyEvaluatedStatements.Select( x => x.SyntaxNode )
+                        .ToList()
+                    );
+            }
+
+            // Remove bodies from evaluated statements
+            foreach ( var evaluatedIfStatement in evaluatedIfStatements )
+            {
+                var ifStatement = ( FlowScriptIfStatement )evaluatedIfStatement.SyntaxNode;
+                ifStatement.Body.Statements.ForEach( x => evaluatedStatements.RemoveAll( y => y.SyntaxNode == x ) );
+
+                if ( ifStatement.ElseBody != null )
+                {
+                    ifStatement.ElseBody.Statements.ForEach( x => evaluatedStatements.RemoveAll( y => y.SyntaxNode == x ) );
+                }
+            }
+            */
+
+            BuildIfStatements();
+
+            // Might be expanded to remove other symbolic values later
+            RemoveSymbolicReturnAddress();
+
+            // Fittingly remove duped return statements last
+            RemoveDuplicateReturnStatements();
+
+            statements = mEvaluatedStatements.Select( x => x.Statement ).ToList();
+
             return true;
+        }
+
+        private void InsertLabelDeclarations()
+        {
+            foreach ( var label in mEvaluatedProcedure.Procedure.Labels )
+            {
+                int insertionIndex = -1;
+                int highestIndexBefore = -1;
+                int lowestIndexAfter = int.MaxValue;
+                for ( int i = 0; i < mEvaluatedStatements.Count; i++ )
+                {
+                    var statement = mEvaluatedStatements[i];
+                    if ( statement.InstructionIndex == label.InstructionIndex )
+                    {
+                        insertionIndex = i;
+                        break;
+                    }
+                    else if ( statement.InstructionIndex > label.InstructionIndex )
+                    {
+                        if ( statement.InstructionIndex < lowestIndexAfter )
+                        {
+                            lowestIndexAfter = statement.InstructionIndex;
+                        }
+                    }
+                    else if ( statement.InstructionIndex < label.InstructionIndex )
+                    {
+                        if ( statement.InstructionIndex > highestIndexBefore )
+                        {
+                            highestIndexBefore = statement.InstructionIndex;
+                        }
+                    }
+                }
+
+                if ( insertionIndex == -1 )
+                {
+                    insertionIndex = lowestIndexAfter;
+
+                    int difference1 = label.InstructionIndex - highestIndexBefore;
+                    int difference2 = lowestIndexAfter - label.InstructionIndex;
+                    if ( difference1 < difference2 )
+                    {
+                        insertionIndex = mEvaluatedStatements.FindIndex( x => x.InstructionIndex == highestIndexBefore ) + 1;
+                    }
+                    else
+                    {
+                        insertionIndex = mEvaluatedStatements.FindIndex( x => x.InstructionIndex == lowestIndexAfter );
+                    }
+                }
+
+                // Insert label declaration
+                mEvaluatedStatements.Insert( insertionIndex,
+                    new FlowScriptEvaluatedStatement(
+                        new FlowScriptLabelDeclaration(
+                            new FlowScriptIdentifier( FlowScriptValueType.Label, label.Name ) ),
+                        label.InstructionIndex,
+                        label ) );
+            }
+        }
+
+        private void BuildIfStatementBodyMap()
+        {
+            // Build if statement bodies
+            var evaluatedIfStatements = mEvaluatedStatements.Where( x => x.Statement is FlowScriptIfStatement ).ToList();
+            foreach ( var evaluatedIfStatement in evaluatedIfStatements )
+            {
+                var ifStatement = ( FlowScriptIfStatement )evaluatedIfStatement.Statement;
+                var falseLabel = evaluatedIfStatement.ReferencedLabel;
+
+                // Extract statements contained in the if statement's body
+                var bodyEvaluatedStatements = mEvaluatedStatements
+                    .Where( x => x != evaluatedIfStatement && x.InstructionIndex >= evaluatedIfStatement.InstructionIndex && x.InstructionIndex < falseLabel.InstructionIndex )
+                    .ToList();
+
+                mIfStatementBodyMap[evaluatedIfStatement.InstructionIndex] = bodyEvaluatedStatements;
+
+                /*
+                // We grew a body
+                ifStatement.Body = new FlowScriptCompoundStatement(
+                    bodyEvaluatedStatements.Select( x => x.SyntaxNode )
+                        .ToList()
+                );
+                */
+            }
+
+            // Remove statements in if statement bodies from list of statements
+            foreach ( var evaluatedIfStatement in evaluatedIfStatements )
+            {
+                /*
+                var ifStatement = ( FlowScriptIfStatement )evaluatedIfStatement.SyntaxNode;
+                ifStatement.Body.Statements.ForEach( x => mEvaluatedStatements.RemoveAll( y => y.SyntaxNode == x ) );
+                */
+
+                var body = mIfStatementBodyMap[ evaluatedIfStatement.InstructionIndex ];
+                body.ForEach( x => mEvaluatedStatements.Remove( x ) );
+            }
+        }
+
+        private void CoagulateVariableDeclarationAssignments()
+        {
+            CoagulateVariableDeclarationAssignmentsRecursive( mEvaluatedStatements, new HashSet<string>() );
+        }
+
+        private void CoagulateVariableDeclarationAssignmentsRecursive( List<FlowScriptEvaluatedStatement> statements, HashSet<string> parentScopeDeclaredVariables )
+        {
+            var declaredVariables = new HashSet<string>();
+            var referencedIdentifiers =
+                mEvaluatedProcedure.ReferencedVariables.Where(
+                    x => statements.Any( y => x.InstructionIndex == y.InstructionIndex ) );
+
+            var ifStatements = statements.Where( x => x.Statement is FlowScriptIfStatement ).ToList();
+
+            foreach ( var identifierReference in referencedIdentifiers )
+            {
+                int index = identifierReference.InstructionIndex;
+                var identifier = identifierReference.Identifier;
+
+                if ( parentScopeDeclaredVariables.Contains( identifier.Text ) ||
+                     declaredVariables.Contains( identifier.Text ) ||
+                     !mEvaluatedProcedure.Scope.Variables.TryGetValue( identifier.Text, out var declaration ) )
+                    continue;
+
+                // Variable hasn't already been declared
+                int identifierReferenceStatementIndex = statements.FindIndex( x => x.InstructionIndex == index );
+                var statement = statements[ identifierReferenceStatementIndex ];
+                FlowScriptExpression initializer = null;
+                if ( statement.Statement is FlowScriptAssignmentOperator assignment )
+                {
+                    if ( assignment.Left == identifier )
+                    {
+                        initializer = assignment.Right;
+                    }
+                }
+
+                int insertionIndex = identifierReferenceStatementIndex;
+                int instructionIndex = index;
+
+                // Check if it's been referenced before in an if statement
+                foreach ( var evaluatedIfStatement in ifStatements.Where( x => x.InstructionIndex <= index ) )
+                {
+                    var ifStatementBody = mIfStatementBodyMap[evaluatedIfStatement.InstructionIndex];
+                    var referencedIdentifiersInIfStatementBody =
+                        mEvaluatedProcedure.ReferencedVariables.Where(
+                            x => ifStatementBody.Any( y => x.InstructionIndex == y.InstructionIndex ) );
+
+                    if ( referencedIdentifiersInIfStatementBody.Any( x => x.Identifier.Text == identifier.Text ) )
+                    {
+                        insertionIndex = statements.IndexOf( evaluatedIfStatement );
+                        instructionIndex = evaluatedIfStatement.InstructionIndex - 1;
+                        if ( instructionIndex < 0 )
+                            instructionIndex = 0;
+                        break;
+                    }
+                }
+
+                if ( insertionIndex != identifierReferenceStatementIndex )
+                {
+                    // Insert declaration before if statement in which it was used
+                    statements.Insert( insertionIndex,
+                        new FlowScriptEvaluatedStatement( declaration, instructionIndex, null ) );
+                }
+                else
+                {
+                    // Coagulate assignment with declaration
+                    declaration.Initializer = initializer;
+                    statements[identifierReferenceStatementIndex] = new FlowScriptEvaluatedStatement(
+                        declaration, instructionIndex, null );
+                }
+
+                declaredVariables.Add( identifier.Text );
+            }
+
+            // Merge scopes
+            foreach ( string declaredVariable in parentScopeDeclaredVariables )
+            {
+                declaredVariables.Add( declaredVariable );
+            }
+
+            foreach ( var ifStatement in ifStatements )
+            {
+                var body = mIfStatementBodyMap[ifStatement.InstructionIndex];
+                CoagulateVariableDeclarationAssignmentsRecursive( body, declaredVariables );
+
+                if ( mIfStatementElseBodyMap.TryGetValue( ifStatement.InstructionIndex, out var elseBody ) )
+                    CoagulateVariableDeclarationAssignmentsRecursive( elseBody, declaredVariables );
+            }
+        }
+
+        private void RemoveDuplicateReturnStatements()
+        {
+            var returnStatements = mEvaluatedStatements.Where( x => x.Statement is FlowScriptReturnStatement ).ToList();
+            for ( int i = 0; i < returnStatements.Count; i += 2 )
+            {
+                if ( i + 1 >= returnStatements.Count )
+                    break;
+
+                if ( ( returnStatements[i + 1].InstructionIndex - returnStatements[i].InstructionIndex ) == 1 )
+                    mEvaluatedStatements.Remove( returnStatements[i] );
+            }
+        }
+
+        private void RemoveSymbolicReturnAddress()
+        {
+            foreach ( var evaluatedStatement in mEvaluatedStatements.ToList() )
+            {
+                if ( evaluatedStatement.InstructionIndex == 0 && evaluatedStatement.Statement is FlowScriptIdentifier identifier )
+                {
+                    // Skip symbolic return address
+                    if ( identifier.Text == "<>__ReturnAddress" )
+                    {
+                        mEvaluatedStatements.Remove( evaluatedStatement );
+                    }
+                }
+            }
+        }
+
+        private void BuildIfStatements( )
+        {
+            foreach ( var evaluatedStatement in mOriginalEvaluatedStatements.Where( x => x.Statement is FlowScriptIfStatement ) )
+            {
+                var ifStatement = (FlowScriptIfStatement) evaluatedStatement.Statement;
+
+                var body = mIfStatementBodyMap[ evaluatedStatement.InstructionIndex ];
+                ifStatement.Body = new FlowScriptCompoundStatement( body.Select( x => x.Statement ).ToList() );
+
+                if ( mIfStatementElseBodyMap.TryGetValue( evaluatedStatement.InstructionIndex, out var elseBody ) )
+                    ifStatement.ElseBody = new FlowScriptCompoundStatement( elseBody.Select( x => x.Statement ).ToList() );
+            }
+        }
+
+        private bool IsLabelReferenced( List<FlowScriptEvaluatedStatement> evaluatedStatements, FlowScriptLabel label )
+        {
+            return evaluatedStatements.Any( x => !(x.Statement is FlowScriptLabelDeclaration) && x.ReferencedLabel == label );
+        }
+
+        private void RemoveIfEndLabelIfNotReferenced( List<FlowScriptEvaluatedStatement> evaluatedStatements, FlowScriptIfStatement ifStatement, FlowScriptLabel label )
+        {
+            var evaluatedLabelDeclaration = evaluatedStatements
+                            .SingleOrDefault( x => x.InstructionIndex == label.InstructionIndex && x.Statement is FlowScriptLabelDeclaration );
+
+            if ( evaluatedLabelDeclaration != null )
+            {
+                if ( !evaluatedStatements.Where( x => x != evaluatedLabelDeclaration && x.Statement != ifStatement && x.ReferencedLabel == evaluatedLabelDeclaration.ReferencedLabel ).Any() )
+                    evaluatedStatements.Remove( evaluatedLabelDeclaration );
+            }
         }
 
         //
@@ -788,24 +576,6 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             if ( Debugger.IsAttached )
             {
                 Debugger.Break();
-            }
-        }
-
-        class EvaluatedSyntax<T> where T : FlowScriptSyntaxNode
-        {
-            public T SyntaxNode { get; set; }
-
-            public int InstructionIndex { get; set; }
-
-            public EvaluatedSyntax( T syntaxNode, int instructionIndex )
-            {
-                SyntaxNode = syntaxNode;
-                InstructionIndex = instructionIndex;
-            }
-
-            public override string ToString()
-            {
-                return $"{SyntaxNode} at {InstructionIndex}";
             }
         }
     }
