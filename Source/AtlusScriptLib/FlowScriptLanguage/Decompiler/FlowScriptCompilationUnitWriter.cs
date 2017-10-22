@@ -40,6 +40,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             private int mTabLevel;
             private bool mInsideLine;
             private FlowScriptProcedureDeclaration mProcedure;
+            private bool mSuppressIfStatementNewLine;
+            private bool mSuppressCompoundStatementNewline;
 
             public WritingVisitor( StreamWriter writer )
             {
@@ -90,7 +92,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                     {
                         WriteNewLine();
                         WriteComment( "" );
-                        WriteComment( "Top-level variable definitions" );
+                        WriteComment( "Script-level variable definitions" );
                         WriteComment( "" );
                         WriteNewLine();
                         seenFirstVariableDeclaration = true;
@@ -182,6 +184,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
             public override void Visit( FlowScriptCompoundStatement compoundStatement )
             {
+                bool suppressNewLine = mSuppressCompoundStatementNewline;
+
                 if ( mInsideLine )
                     WriteNewLine();
 
@@ -195,7 +199,9 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                     WriteNewLine();
 
                 WriteIndentedLine( "}" );
-                WriteNewLine();
+
+                if ( !suppressNewLine )
+                    WriteNewLine();
             }
 
             public override void Visit( FlowScriptBreakStatement statement )
@@ -228,7 +234,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
             public override void Visit( FlowScriptForStatement forStatement )
             {
-                WriteNewLineAndIntent();
+                WriteNewLineAndIndent();
                 WriteWithSeperator( "for" );
                 WriteOpenParenthesis();
                 Visit( forStatement.Initializer );
@@ -248,12 +254,39 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
             public override void Visit( FlowScriptIfStatement ifStatement )
             {
-                WriteNewLineAndIntent();
+                if ( !mSuppressIfStatementNewLine )
+                    WriteNewLineAndIndent();
+
                 WriteWithSeperator( "if" );
                 WriteOpenParenthesis();
                 Visit( ifStatement.Condition );
                 WriteCloseParenthesis();
-                Visit( ifStatement.Body );
+
+                if ( ifStatement.ElseBody == null )
+                {
+                    Visit( ifStatement.Body );
+                }
+                else
+                {
+                    mSuppressCompoundStatementNewline = true;
+                    Visit( ifStatement.Body );
+                    mSuppressCompoundStatementNewline = false;
+
+                    WriteIndentation();
+                    WriteWithSeperator( "else" );
+
+                    if ( ifStatement.ElseBody.Statements.Count > 0 &&
+                         ifStatement.ElseBody.Statements[ 0 ] is FlowScriptIfStatement )
+                    {
+                        mSuppressIfStatementNewLine = true;
+                        Visit( (FlowScriptIfStatement) ifStatement.ElseBody.Statements[ 0 ] );
+                        mSuppressIfStatementNewLine = false;
+                    }
+                    else
+                    {
+                        Visit( ifStatement.ElseBody );
+                    }
+                }
             }
 
             public override void Visit( FlowScriptWhileStatement whileStatement )
@@ -529,7 +562,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                 mInsideLine = false;
             }
 
-            private void WriteNewLineAndIntent()
+            private void WriteNewLineAndIndent()
             {
                 WriteNewLine();
                 WriteIndentation();
