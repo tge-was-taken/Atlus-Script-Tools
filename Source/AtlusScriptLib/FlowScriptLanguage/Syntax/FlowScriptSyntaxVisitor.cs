@@ -15,7 +15,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
                 Visit( import );
             }
 
-            foreach ( var statement in compilationUnit.Statements )
+            foreach ( var statement in compilationUnit.Declarations )
             {
                 Visit( statement );
             }
@@ -27,7 +27,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
 
         public virtual void Visit( FlowScriptParameter parameter )
         {
-            Visit( parameter.TypeIdentifier );
+            Visit( parameter.Type );
             Visit( parameter.Identifier );
         }
 

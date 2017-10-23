@@ -2,7 +2,7 @@
 {
     public class FlowScriptParameter : FlowScriptSyntaxNode
     {
-        public FlowScriptTypeIdentifier TypeIdentifier { get; set; }
+        public FlowScriptTypeIdentifier Type { get; set; }
 
         public FlowScriptIdentifier Identifier { get; set; }
 
@@ -13,13 +13,13 @@
 
         public FlowScriptParameter( FlowScriptTypeIdentifier type, FlowScriptIdentifier identifier )
         {
-            TypeIdentifier = type;
+            Type = type;
             Identifier = identifier;
         }
 
         public override string ToString()
         {
-            return $"{TypeIdentifier} {Identifier}";
+            return $"{Type} {Identifier}";
         }
     }
 }

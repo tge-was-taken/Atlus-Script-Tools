@@ -14,7 +14,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.FunctionDatabase
     [SuppressMessage( "ReSharper", "CollectionNeverUpdated.Local" )]
     public class FunctionDatabaseDeserializer
     {
-        public static bool TryDeserialize( string path, out List<FlowScriptFunctionDeclaration> declarations )
+        public static bool TryDeserializeFlowScriptFunctionDatabase( string path, out List<FlowScriptFunctionDeclaration> declarations )
         {
             declarations = new List<FlowScriptFunctionDeclaration>();
             var definitions = JsonConvert.DeserializeObject<List<DatabaseFunctionDefinition>>( File.ReadAllText( path ) );

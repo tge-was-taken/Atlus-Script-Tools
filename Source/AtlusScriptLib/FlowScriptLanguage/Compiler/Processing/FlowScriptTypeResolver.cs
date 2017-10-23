@@ -57,7 +57,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
         {
             LogInfo( compilationUnit, "Registering/forward-declaring top level declarations" );
 
-            if ( !TryRegisterDeclarations( compilationUnit.Statements ) )
+            if ( !TryRegisterDeclarations( compilationUnit.Declarations ) )
                 return false;
 
             return true;
@@ -102,7 +102,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
             if ( !TryRegisterTopLevelDeclarations( compilationUnit ) )
                 return false;
 
-            foreach ( var statement in compilationUnit.Statements )
+            foreach ( var statement in compilationUnit.Declarations )
             {
                 if ( !TryResolveTypesInStatement( statement ) )
                     return false;
@@ -370,7 +370,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
             {
                 var parameterDeclaration = new FlowScriptVariableDeclaration(
                     new FlowScriptVariableModifier( FlowScriptModifierType.Local ),
-                    parameter.TypeIdentifier,
+                    parameter.Type,
                     parameter.Identifier,
                     null );
 

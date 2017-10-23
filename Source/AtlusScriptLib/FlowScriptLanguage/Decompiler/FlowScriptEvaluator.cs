@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using AtlusScriptLib.Common.Logging;
@@ -7,6 +8,29 @@ using AtlusScriptLib.FlowScriptLanguage.Syntax;
 
 namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 {
+    internal class FlowScriptProcedurePreEvaluationInfo
+    {
+        public FlowScriptProcedure Procedure { get; set; }
+
+        public List<FlowScriptStackSnapshot> Snapshots { get; set; }
+    }
+
+    internal class FlowScriptStackSnapshot
+    {
+        public Stack<FlowScriptStackValueType> Stack { get; set; }
+
+        public int StackBalance { get; set; }
+    }
+
+    internal enum FlowScriptStackValueType
+    {
+        None,
+        Int,
+        Float,
+        String,
+        Return
+    }
+
     public class FlowScriptEvaluator
     {
         private readonly Logger mLogger;
@@ -14,12 +38,15 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
         // FlowScript evaluation
         private FlowScript mScript;
         private Dictionary<int, FlowScriptFunctionDeclaration> mFunctions;
+        private Dictionary<int, FlowScriptProcedureDeclaration> mProcedures;
         private Stack<FlowScriptEvaluatedScope> mScopeStack;
         private FlowScriptEvaluatedScope Scope => mScopeStack.Peek();
 
         // Procedure evaluation
         private FlowScriptProcedure mProcedure;
+        private List<FlowScriptInstruction> mInstructions;
         private int mEvaluatedInstructionIndex;
+        private int mRealStackCount;
         private Stack<FlowScriptEvaluatedStatement> mEvaluationStatementStack;
         private FlowScriptCallOperator mLastFunctionCall;
         private FlowScriptCallOperator mLastProcedureCall;
@@ -67,6 +94,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             result = new FlowScriptEvaluationResult( Scope );
             result.Functions.AddRange( mFunctions.Values );
 
+            // Pre-evaluating stuff
+            var infos = PreEvaluateProcedures( flowScript );
+            var problematicInfos = infos.Where( x => x.Snapshots.Any( y => y.StackBalance < 1 ) );
+
+            // Evaluate procedures
             foreach ( var procedure in flowScript.Procedures )
             {
                 if ( !TryEvaluateProcedure( procedure, out var evaluatedProcedure ) )
@@ -86,6 +118,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
         {
             mScript = flowScript;
             mFunctions = new Dictionary<int, FlowScriptFunctionDeclaration>();
+            mProcedures = new Dictionary< int, FlowScriptProcedureDeclaration >();
             mScopeStack = new Stack<FlowScriptEvaluatedScope>();
         }
 
@@ -222,14 +255,38 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             return null;
         }
 
+        private string GenerateParameterName( FlowScriptValueType type, int index )
+        {
+            switch ( type )
+            {
+                case FlowScriptValueType.Int:
+                    return $"param{index}";
+                case FlowScriptValueType.Float:
+                    return $"floatParam{index}";
+            }
+
+            Debug.Assert( false );
+            return null;
+        }
+
         private void RegisterTopLevelVariables()
         {
-            var foundVariables = new Dictionary<int, (FlowScriptProcedure Procedure, FlowScriptModifierType Modifier, FlowScriptValueType Type)>();
+            var foundIntVariables = new Dictionary< int, (FlowScriptProcedure Procedure, FlowScriptModifierType Modifier, FlowScriptValueType Type) >();
+            var foundFloatVariables = new Dictionary< int, (FlowScriptProcedure Procedure, FlowScriptModifierType Modifier, FlowScriptValueType Type) >();
 
             foreach ( var procedure in mScript.Procedures )
             {
                 foreach ( var instruction in procedure.Instructions )
                 {
+                    var type = FlowScriptValueType.Int;
+                    if ( instruction.Opcode == FlowScriptOpcode.POPFX ||
+                         instruction.Opcode == FlowScriptOpcode.PUSHIF ||
+                         instruction.Opcode == FlowScriptOpcode.PUSHLFX ||
+                         instruction.Opcode == FlowScriptOpcode.POPLFX )
+                    {
+                        type = FlowScriptValueType.Float;
+                    }
+
                     switch ( instruction.Opcode )
                     {
                         case FlowScriptOpcode.PUSHIX:
@@ -242,7 +299,19 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         case FlowScriptOpcode.POPLFX:
                             {
                                 var index = instruction.Operand.GetInt16Value();
-                                if ( foundVariables.TryGetValue( index, out var context ) )
+                                if ( type == FlowScriptValueType.Int && foundIntVariables.TryGetValue( index, out var context ) )
+                                {
+                                    // Check if it was declared in a different procedure than the one we're currently processing
+                                    if ( procedure != context.Procedure )
+                                    {
+                                        // If the procedures are different, then this variable can't be local to the scope of the procedure
+                                        if ( !IsVariableDeclared( context.Modifier, context.Type, index ) )
+                                        {
+                                            Debug.Assert( TryDeclareVariable( context.Modifier, context.Type, index, out _ ) );
+                                        }
+                                    }
+                                }
+                                else if ( type == FlowScriptValueType.Float && foundFloatVariables.TryGetValue( index, out context ) )
                                 {
                                     // Check if it was declared in a different procedure than the one we're currently processing
                                     if ( procedure != context.Procedure )
@@ -265,16 +334,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                                         modifier = FlowScriptModifierType.Local;
                                     }
 
-                                    var type = FlowScriptValueType.Int;
-                                    if ( instruction.Opcode == FlowScriptOpcode.POPFX ||
-                                         instruction.Opcode == FlowScriptOpcode.PUSHIF ||
-                                         instruction.Opcode == FlowScriptOpcode.PUSHLFX ||
-                                         instruction.Opcode == FlowScriptOpcode.POPLFX )
-                                    {
-                                        type = FlowScriptValueType.Float;
-                                    }
-
-                                    foundVariables[index] = (procedure, modifier, type);
+                                    if ( type == FlowScriptValueType.Int )
+                                        foundIntVariables[index] = (procedure, modifier, type);
+                                    else
+                                        foundFloatVariables[index] = (procedure, modifier, type);
                                 }
 
                                 break;
@@ -307,12 +370,201 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             return true;
         }
 
+        // Procedure pre-evaluation
+        private List<FlowScriptProcedurePreEvaluationInfo> PreEvaluateProcedures( FlowScript flowScript )
+        {
+            var preEvaluationInfos = new List<FlowScriptProcedurePreEvaluationInfo>();
+            foreach ( var procedure in flowScript.Procedures )
+            {
+                var info = PreEvaluateProcedure( procedure );
+                preEvaluationInfos.Add( info );
+            }
+
+            return preEvaluationInfos;
+        }
+
+        private FlowScriptProcedurePreEvaluationInfo PreEvaluateProcedure( FlowScriptProcedure procedure )
+        {
+            var evaluationInfo = new FlowScriptProcedurePreEvaluationInfo();
+            evaluationInfo.Procedure = procedure;
+            evaluationInfo.Snapshots = GetStackSnapshots( procedure );
+
+            return evaluationInfo;
+        }
+
+        private List<FlowScriptStackSnapshot> GetStackSnapshots( FlowScriptProcedure procedure )
+        {
+            var snapshots = new List<FlowScriptStackSnapshot>();
+
+            var previousSnapshot = new FlowScriptStackSnapshot();
+            previousSnapshot.StackBalance = 1;
+            previousSnapshot.Stack = new Stack<FlowScriptStackValueType>();
+            previousSnapshot.Stack.Push( FlowScriptStackValueType.Return );
+
+            FlowScriptFunctionDeclaration lastFunction = null;
+
+            foreach ( var instruction in procedure.Instructions )
+            {
+                var snapshot = PreEvaluateInstruction( instruction, previousSnapshot, ref lastFunction );
+                snapshots.Add( snapshot );
+                previousSnapshot = snapshot;
+            }
+
+            return snapshots;
+        }
+
+        private FlowScriptStackSnapshot PreEvaluateInstruction( FlowScriptInstruction instruction, FlowScriptStackSnapshot previousSnapshot, ref FlowScriptFunctionDeclaration lastFunction )
+        {
+            var stack = new Stack<FlowScriptStackValueType>();
+            foreach ( var valueType in previousSnapshot.Stack.Reverse() )
+                stack.Push( valueType );
+
+            int stackBalance = previousSnapshot.StackBalance;
+
+            switch ( instruction.Opcode )
+            {
+                case FlowScriptOpcode.PUSHI:
+                    stack.Push( FlowScriptStackValueType.Int );
+                    ++stackBalance;
+                    break;
+                case FlowScriptOpcode.PUSHF:
+                    stack.Push( FlowScriptStackValueType.Float );
+                    ++stackBalance;
+                    break;
+                case FlowScriptOpcode.PUSHIX:
+                    stack.Push( FlowScriptStackValueType.Int );
+                    ++stackBalance;
+                    break;
+                case FlowScriptOpcode.PUSHIF:
+                    stack.Push( FlowScriptStackValueType.Float );
+                    ++stackBalance;
+                    break;
+                case FlowScriptOpcode.PUSHREG:
+                    {
+                        switch ( lastFunction.ReturnType.ValueType )
+                        {
+                            case FlowScriptValueType.Bool:
+                            case FlowScriptValueType.Int:
+                                stack.Push( FlowScriptStackValueType.Int );
+                                break;
+                            case FlowScriptValueType.Float:
+                                stack.Push( FlowScriptStackValueType.Float );
+                                break;
+                        }
+                        ++stackBalance;
+                    }
+                    break;
+                case FlowScriptOpcode.POPIX:
+                    if ( stack.Count != 0 )
+                        stack.Pop();
+                    --stackBalance;
+                    break;
+                case FlowScriptOpcode.POPFX:
+                    if ( stack.Count != 0 )
+                        stack.Pop();
+                    --stackBalance;
+                    break;
+                case FlowScriptOpcode.PROC:
+                    break;
+                case FlowScriptOpcode.COMM:
+                    {
+                        short index = instruction.Operand.GetInt16Value();
+                        foreach ( var parameter in mFunctions[index].Parameters )
+                        {
+                            if ( stack.Count != 0 )
+                                stack.Pop();
+                            --stackBalance;
+                        }
+
+                        lastFunction = mFunctions[index];
+                    }
+                    break;
+                case FlowScriptOpcode.END:
+                    break;
+                case FlowScriptOpcode.JUMP:
+                    break;
+                case FlowScriptOpcode.CALL:
+                    break;
+                case FlowScriptOpcode.RUN:
+                    break;
+                case FlowScriptOpcode.GOTO:
+                    break;
+                case FlowScriptOpcode.ADD:
+                case FlowScriptOpcode.SUB:
+                case FlowScriptOpcode.MUL:
+                case FlowScriptOpcode.DIV:
+                    {
+                        if ( stack.Count != 0 )
+                            stack.Pop();
+                        --stackBalance;
+                    }
+                    break;
+                case FlowScriptOpcode.MINUS:
+                case FlowScriptOpcode.NOT:
+                    break;
+                case FlowScriptOpcode.OR:
+                case FlowScriptOpcode.AND:
+                case FlowScriptOpcode.EQ:
+                case FlowScriptOpcode.NEQ:
+                case FlowScriptOpcode.S:
+                case FlowScriptOpcode.L:
+                case FlowScriptOpcode.SE:
+                case FlowScriptOpcode.LE:
+                    {
+                        if ( stack.Count != 0 )
+                            stack.Pop();
+                        --stackBalance;
+                    }
+                    break;
+                case FlowScriptOpcode.IF:
+                    {
+                        if ( stack.Count != 0 )
+                            stack.Pop();
+                        --stackBalance;
+                    }
+                    break;
+                case FlowScriptOpcode.PUSHIS:
+                    stack.Push( FlowScriptStackValueType.Int );
+                    ++stackBalance;
+                    break;
+                case FlowScriptOpcode.PUSHLIX:
+                    stack.Push( FlowScriptStackValueType.Int );
+                    ++stackBalance;
+                    break;
+                case FlowScriptOpcode.PUSHLFX:
+                    stack.Push( FlowScriptStackValueType.Float );
+                    ++stackBalance;
+                    break;
+                case FlowScriptOpcode.POPLIX:
+                    if ( stack.Count != 0 )
+                        stack.Pop();
+                    --stackBalance;
+                    break;
+                case FlowScriptOpcode.POPLFX:
+                    if ( stack.Count != 0 )
+                        stack.Pop();
+                    --stackBalance;
+                    break;
+                case FlowScriptOpcode.PUSHSTR:
+                    stack.Push( FlowScriptStackValueType.String );
+                    ++stackBalance;
+                    break;
+            }
+
+            var snapshot = new FlowScriptStackSnapshot();
+            snapshot.Stack = stack;
+            snapshot.StackBalance = stackBalance;
+
+            return snapshot;
+        }
+
         //
         // Procedure evaluation
         //
         private void InitializeProcedureEvaluationState( FlowScriptProcedure procedure )
         {
             mProcedure = procedure;
+            mInstructions = procedure.Instructions;
             mEvaluatedInstructionIndex = 0;
             mEvaluationStatementStack = new Stack<FlowScriptEvaluatedStatement>();
             mReturnType = FlowScriptValueType.Void;
@@ -397,11 +649,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                 // Push integer to stack
                 case FlowScriptOpcode.PUSHI:
                     PushStatement( new FlowScriptIntLiteral( instruction.Operand.GetInt32Value() ) );
+                    ++mRealStackCount;
                     break;
 
                 // Push float to stack
                 case FlowScriptOpcode.PUSHF:
                     PushStatement( new FlowScriptFloatLiteral( instruction.Operand.GetSingleValue() ) );
+                    ++mRealStackCount;
                     break;
 
                 // Push value of static integer variable to stack
@@ -415,6 +669,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         }
 
                         PushStatement( declaration.Identifier );
+                        ++mRealStackCount;
                     }
                     break;
 
@@ -429,6 +684,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         }
 
                         PushStatement( declaration.Identifier );
+                        ++mRealStackCount;
                     }
                     break;
 
@@ -442,6 +698,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         }
 
                         PushStatement( mLastFunctionCall );
+                        ++mRealStackCount;
                     }
                     break;
 
@@ -467,6 +724,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         }
 
                         PushStatement( new FlowScriptAssignmentOperator( declaration.Identifier, value ) );
+                        --mRealStackCount;
                     }
                     break;
 
@@ -492,6 +750,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         }
 
                         PushStatement( new FlowScriptAssignmentOperator( declaration.Identifier, value ) );
+                        --mRealStackCount;
                     }
                     break;
 
@@ -519,15 +778,42 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                                 return false;
                             }
 
+                            --mRealStackCount;
                             arguments.Add( argument );
                         }
 
-                        var callOperator = new FlowScriptCallOperator( function.Identifier, arguments );
+                        var callOperator = new FlowScriptCallOperator( 
+                            function.ReturnType.ValueType, 
+                            function.Identifier,
+                            arguments );
 
                         if ( function.ReturnType.ValueType == FlowScriptValueType.Void )
+                        {
                             PushStatement( callOperator );
+                        }
                         else
+                        {
+                            // Check if PUSHREG doesn't come next next
+                            int nextCommIndex = mInstructions
+                                .GetRange( mEvaluatedInstructionIndex + 1, mInstructions.Count - ( mEvaluatedInstructionIndex + 1 ) )
+                                .FindIndex( x => x.Opcode == FlowScriptOpcode.COMM );
+
+                            if ( nextCommIndex == -1 )
+                                nextCommIndex = mInstructions.Count - 1;
+                            else
+                                nextCommIndex += mEvaluatedInstructionIndex + 1;
+
+                            // Check if PUSHREG comes up between this and the next COMM instruction
+                            // ReSharper disable once SimplifyLinqExpression
+                            if ( !mInstructions.GetRange( mEvaluatedInstructionIndex, nextCommIndex - mEvaluatedInstructionIndex ).Any( x => x.Opcode == FlowScriptOpcode.PUSHREG ))
+                            {
+                                // If PUSHREG doesn't come before another COMM then the return value is unused
+                                PushStatement( callOperator );
+                            }
+
+                            // Otherwise let PUSHREG push the call operator
                             mLastFunctionCall = callOperator;
+                        }
                     }
                     break;
 
@@ -561,10 +847,46 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         }
 
                         var procedure = mScript.Procedures[index];
+                        int parameterCount;
+                        var arguments = new List<FlowScriptExpression>();
+                        if ( mProcedures.TryGetValue( index, out var declaration ) )
+                        {
+                            parameterCount = declaration.Parameters.Count;
+                        }
+                        else
+                        {
+                            // Number of parameters is unknown at this time
 
-                        // Number of parameters is unknown at this time
-                        var callOperator = new FlowScriptCallOperator(
-                            new FlowScriptIdentifier( procedure.Name ) );
+                            parameterCount = mRealStackCount;
+                            var parameters = new List< FlowScriptParameter >();
+                            for ( int i = 0; i < parameterCount; i++ )
+                                parameters.Add( new FlowScriptParameter( new FlowScriptTypeIdentifier( FlowScriptValueType.Int ), new FlowScriptIdentifier( $"param{i + 1}" ) ) );
+
+                            declaration = new FlowScriptProcedureDeclaration(
+                                new FlowScriptTypeIdentifier( FlowScriptValueType.Void ),
+                                new FlowScriptIdentifier( FlowScriptValueType.Procedure, procedure.Name ),
+                                parameters,
+                                null );
+
+                            mProcedures[index] = declaration;
+                        }
+                    
+                        for ( int i = 0; i < parameterCount; i++ )
+                        {
+                            if ( !TryPopExpression( out var expression ) )
+                            {
+                                LogError( "Failed to pop expression for argument" );
+                                return false;
+                            }
+
+                            arguments.Add( expression );
+                            --mRealStackCount;
+                        }
+
+                        var callOperator = new FlowScriptCallOperator( 
+                            declaration.ReturnType.ValueType, 
+                            declaration.Identifier,
+                            arguments );
 
                         PushStatement( callOperator );
                         mLastProcedureCall = callOperator;
@@ -594,6 +916,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         LogError( "Failed to evaluate ADD" );
                         return false;
                     }
+                    --mRealStackCount;
                     break;
                 case FlowScriptOpcode.SUB:
                     if ( !TryPushBinaryExpression<FlowScriptSubtractionOperator>() )
@@ -601,6 +924,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         LogError( "Failed to evaluate SUB" );
                         return false;
                     }
+                    --mRealStackCount;
                     break;
                 case FlowScriptOpcode.MUL:
                     if ( !TryPushBinaryExpression<FlowScriptMultiplicationOperator>() )
@@ -608,6 +932,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         LogError( "Failed to evaluate MUL" );
                         return false;
                     }
+                    --mRealStackCount;
                     break;
                 case FlowScriptOpcode.DIV:
                     if ( !TryPushBinaryExpression<FlowScriptDivisionOperator>() )
@@ -615,6 +940,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         LogError( "Failed to evaluate DIV" );
                         return false;
                     }
+                    --mRealStackCount;
                     break;
                 case FlowScriptOpcode.MINUS:
                     if ( !TryPushUnaryExpression<FlowScriptNegationOperator>() )
@@ -631,32 +957,36 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                     }
                     break;
                 case FlowScriptOpcode.OR:
-                    if ( !TryPushBinaryExpression<FlowScriptLogicalOrOperator>() )
+                    if ( !TryPushBinaryBooleanExpression<FlowScriptLogicalOrOperator>() )
                     {
                         LogError( "Failed to evaluate OR" );
                         return false;
                     }
+                    --mRealStackCount;
                     break;
                 case FlowScriptOpcode.AND:
-                    if ( !TryPushBinaryExpression<FlowScriptLogicalAndOperator>() )
+                    if ( !TryPushBinaryBooleanExpression<FlowScriptLogicalAndOperator>() )
                     {
                         LogError( "Failed to evaluate AND" );
                         return false;
                     }
+                    --mRealStackCount;
                     break;
                 case FlowScriptOpcode.EQ:
-                    if ( !TryPushBinaryExpression<FlowScriptEqualityOperator>() )
+                    if ( !TryPushBinaryBooleanExpression<FlowScriptEqualityOperator>() )
                     {
                         LogError( "Failed to evaluate EQ" );
                         return false;
                     }
+                    --mRealStackCount;
                     break;
                 case FlowScriptOpcode.NEQ:
-                    if ( !TryPushBinaryExpression<FlowScriptNonEqualityOperator>() )
+                    if ( !TryPushBinaryBooleanExpression<FlowScriptNonEqualityOperator>() )
                     {
                         LogError( "Failed to evaluate NEQ" );
                         return false;
                     }
+                    --mRealStackCount;
                     break;
                 case FlowScriptOpcode.S:
                     if ( !TryPushBinaryExpression<FlowScriptLessThanOperator>() )
@@ -664,6 +994,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         LogError( "Failed to evaluate S" );
                         return false;
                     }
+                    --mRealStackCount;
                     break;
                 case FlowScriptOpcode.L:
                     if ( !TryPushBinaryExpression<FlowScriptGreaterThanOperator>() )
@@ -671,6 +1002,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         LogError( "Failed to evaluate L" );
                         return false;
                     }
+                    --mRealStackCount;
                     break;
                 case FlowScriptOpcode.SE:
                     if ( !TryPushBinaryExpression<FlowScriptLessThanOrEqualOperator>() )
@@ -678,6 +1010,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         LogError( "Failed to evaluate SE" );
                         return false;
                     }
+                    --mRealStackCount;
                     break;
                 case FlowScriptOpcode.LE:
                     if ( !TryPushBinaryExpression<FlowScriptGreaterThanOrEqualOperator>() )
@@ -685,6 +1018,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         LogError( "Failed to evaluate LE" );
                         return false;
                     }
+                    --mRealStackCount;
                     break;
 
                 // If statement
@@ -707,11 +1041,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                             null,
                             null ), label );
                     }
+                    --mRealStackCount;
                     break;
 
                 // Push short
                 case FlowScriptOpcode.PUSHIS:
                     PushStatement( new FlowScriptIntLiteral( instruction.Operand.GetInt16Value() ) );
+                    ++mRealStackCount;
                     break;
 
                 // Push local int variable value
@@ -732,6 +1068,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         }
 
                         PushStatement( declaration.Identifier );
+                        ++mRealStackCount;
                     }
                     break;
                 case FlowScriptOpcode.PUSHLFX:
@@ -744,6 +1081,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         }
 
                         PushStatement( declaration.Identifier );
+                        ++mRealStackCount;
                     }
                     break;
                 case FlowScriptOpcode.POPLIX:
@@ -767,6 +1105,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         }
 
                         PushStatement( new FlowScriptAssignmentOperator( declaration.Identifier, value ) );
+                        --mRealStackCount;
                     }
                     break;
                 case FlowScriptOpcode.POPLFX:
@@ -790,12 +1129,14 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         }
 
                         PushStatement( new FlowScriptAssignmentOperator( declaration.Identifier, value ) );
+                        --mRealStackCount;
                     }
                     break;
                 case FlowScriptOpcode.PUSHSTR:
                     {
                         var stringValue = instruction.Operand.GetStringValue();
                         PushStatement( new FlowScriptStringLiteral( stringValue ) );
+                        ++mRealStackCount;
                     }
                     break;
                 default:
@@ -859,6 +1200,43 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             binaryExpression.Right = right;
 
             PushStatement( binaryExpression );
+            return true;
+        }
+
+        private bool TryPushBinaryBooleanExpression<T>() where T : FlowScriptBinaryExpression, new()
+        {
+            var binaryExpression = new T();
+            if ( !TryPopExpression( out var left ) )
+            {
+                return false;
+            }
+
+            if ( !TryPopExpression( out var right ) )
+            {
+                return false;
+            }
+
+            // Check if the left expression is already returns a boolean value, and if so
+            // omit the x == 0 or x == 1 expression
+            if ( left.ExpressionValueType == FlowScriptValueType.Bool && right is FlowScriptIntLiteral intLiteral )
+            {
+                if ( intLiteral.Value == 0 ) //  x == false -> !x
+                {
+                    PushStatement( new FlowScriptLogicalNotOperator( left ) );
+                    return true;
+                }
+                else if ( intLiteral.Value == 1 ) // x == true -> x
+                {
+                    PushStatement( left );
+                    return true;
+                }
+            }
+
+            binaryExpression.Left = left;
+            binaryExpression.Right = right;
+
+            PushStatement( binaryExpression );
+
             return true;
         }
 

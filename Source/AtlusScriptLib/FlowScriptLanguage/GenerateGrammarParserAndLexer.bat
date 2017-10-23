@@ -1,0 +1,2 @@
+cd "..\..\packages\Antlr4.CodeGenerator.4.6.4\tools"
+ikvm.exe -jar antlr4-csharp-4.6.4-complete.jar -lib "..\..\..\AtlusScriptLib\FlowScriptLanguage\Compiler\Parser\Grammar" -listener -visitor -package AtlusScriptLib.FlowScriptLanguage.Compiler.Parser.Grammar -Dlanguage=CSharp_v4_5 "..\..\..\AtlusScriptLib\FlowScriptLanguage\Compiler\Parser\Grammar\FlowScript.g4"

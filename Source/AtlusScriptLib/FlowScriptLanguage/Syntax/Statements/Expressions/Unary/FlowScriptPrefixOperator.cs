@@ -12,5 +12,9 @@
         {
 
         }
+
+        public FlowScriptPrefixOperator( FlowScriptValueType type, FlowScriptExpression operand ) : base( type, operand )
+        {
+        }
     }
 }

@@ -23,7 +23,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
         private static Dictionary<FlowScriptModifierType, string> sModifierTypeToString = new Dictionary<FlowScriptModifierType, string>()
         {
             { FlowScriptModifierType.Static,    "static" },
-            { FlowScriptModifierType.Const,     "const" }
+            { FlowScriptModifierType.Constant,     "const" }
         };
 
         public void WriteToFile( FlowScriptCompilationUnit compilationUnit, string path )
@@ -76,7 +76,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                 bool seenFirstFunction = false;
                 bool seenFirstVariableDeclaration = false;
                 bool seenFirstProcedure = false;
-                foreach ( var statement in compilationUnit.Statements )
+                foreach ( var statement in compilationUnit.Declarations )
                 {
                     if ( !seenFirstFunction && statement is FlowScriptFunctionDeclaration )
                     {
@@ -108,6 +108,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                     }
 
                     Visit( statement );
+
+                    if ( !( statement is FlowScriptProcedureDeclaration ) )
+                    {
+                        WriteStatementEnd();
+                    }
                 }
             }
 
@@ -262,15 +267,26 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                 Visit( ifStatement.Condition );
                 WriteCloseParenthesis();
 
+                bool temp;
+                bool temp2;
+
                 if ( ifStatement.ElseBody == null )
                 {
+                    temp = mSuppressCompoundStatementNewline;
+                    temp2 = mSuppressIfStatementNewLine;
+                    
+                    mSuppressCompoundStatementNewline = false;
+                    mSuppressIfStatementNewLine = false;
                     Visit( ifStatement.Body );
+                    mSuppressCompoundStatementNewline = temp;
+                    mSuppressIfStatementNewLine = temp2;
                 }
                 else
                 {
+                    temp = mSuppressCompoundStatementNewline;
                     mSuppressCompoundStatementNewline = true;
                     Visit( ifStatement.Body );
-                    mSuppressCompoundStatementNewline = false;
+                    mSuppressCompoundStatementNewline = temp;
 
                     WriteIndentation();
                     WriteWithSeperator( "else" );
@@ -278,13 +294,17 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                     if ( ifStatement.ElseBody.Statements.Count > 0 &&
                          ifStatement.ElseBody.Statements[ 0 ] is FlowScriptIfStatement )
                     {
+                        temp = mSuppressIfStatementNewLine;
                         mSuppressIfStatementNewLine = true;
                         Visit( (FlowScriptIfStatement) ifStatement.ElseBody.Statements[ 0 ] );
-                        mSuppressIfStatementNewLine = false;
+                        mSuppressIfStatementNewLine = temp;
                     }
                     else
                     {
+                        temp2 = mSuppressIfStatementNewLine;
+                        mSuppressIfStatementNewLine = false;
                         Visit( ifStatement.ElseBody );
+                        mSuppressIfStatementNewLine = temp2;
                     }
                 }
             }
@@ -634,7 +654,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                     for ( int i = 0; i < parameters.Count; i++ )
                     {
                         var parameter = parameters[i];
-                        Write( sValueTypeToString[parameter.TypeIdentifier.ValueType] );
+                        Write( sValueTypeToString[parameter.Type.ValueType] );
                         Write( " " );
                         Write( parameter.Identifier.Text );
                         if ( i != parameters.Count - 1 )
@@ -680,7 +700,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
             private bool FitsInByte( int value )
             {
-                return ( ( ( value & 0xf8000000 ) + 0x8000000 ) & 0xffffff7f ) == 0;
+                // doesn't catch negative values but that doesn't matter in this context
+                return ( value & ~0xFF ) == 0;
             }
 
             // Float literal

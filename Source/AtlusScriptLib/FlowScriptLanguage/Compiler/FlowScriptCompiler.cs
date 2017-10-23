@@ -20,6 +20,14 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
     /// </summary>
     public class FlowScriptCompiler
     {
+        private static Dictionary<FlowScriptValueType, FlowScriptValueType> sTypeToBaseTypeMap = new Dictionary<FlowScriptValueType, FlowScriptValueType>()
+        {
+            { FlowScriptValueType.Bool, FlowScriptValueType.Int },
+            { FlowScriptValueType.Int, FlowScriptValueType.Int },
+            { FlowScriptValueType.Float, FlowScriptValueType.Float },
+            { FlowScriptValueType.String, FlowScriptValueType.Int },
+        };
+
         //
         // compiler state state
         //
@@ -32,6 +40,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         private int mNextLabelIndex;
         private Stack<ScopeContext> mScopeStack;
         private ScopeContext mRootScope;
+        private Variable mIntReturnValueVariable;
+        private Variable mFloatReturnValueVariable;
 
         // variable indices
         private short mNextIntVariableIndex;
@@ -227,7 +237,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 return false;
 
             // Compile compilation unit body
-            foreach ( var statement in compilationUnit.Statements )
+            foreach ( var statement in compilationUnit.Declarations )
             {
                 if ( statement is FlowScriptProcedureDeclaration procedureDeclaration )
                 {
@@ -241,7 +251,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 }
                 else if ( statement is FlowScriptVariableDeclaration variableDeclaration )
                 {
-                    if ( variableDeclaration.Initializer != null && ( variableDeclaration.Modifier != null && variableDeclaration.Modifier.ModifierType != FlowScriptModifierType.Const ) )
+                    if ( variableDeclaration.Initializer != null && ( variableDeclaration.Modifier != null && variableDeclaration.Modifier.ModifierType != FlowScriptModifierType.Constant ) )
                     {
                         LogError( variableDeclaration.Initializer, "Non-constant variables declared outside of a procedure can't be initialized with a value" );
                         return false;
@@ -331,7 +341,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                         compilationUnit.Imports.AddRange( importedFlowScript.Imports );
                     }
 
-                    compilationUnit.Statements.AddRange( importedFlowScript.Statements );
+                    compilationUnit.Declarations.AddRange( importedFlowScript.Declarations );
                 }
             }
 
@@ -497,7 +507,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
                     var declaration = new FlowScriptVariableDeclaration
                     (
-                        new FlowScriptVariableModifier( FlowScriptModifierType.Const ),
+                        new FlowScriptVariableModifier( FlowScriptModifierType.Constant ),
                         new FlowScriptTypeIdentifier( FlowScriptValueType.Int ),
                         new FlowScriptIdentifier( FlowScriptValueType.Int, window.Identifier ),
                         new FlowScriptIntLiteral( i )
@@ -510,8 +520,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 }
             }
 
+            bool hasIntReturnValue = false;
+            bool hasFloatReturnValue = false;
+
             // top-level only
-            foreach ( var statement in compilationUnit.Statements )
+            foreach ( var statement in compilationUnit.Declarations )
             {
                 if ( statement is FlowScriptFunctionDeclaration functionDeclaration )
                 {
@@ -527,6 +540,16 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                         LogError( procedureDeclaration, $"Duplicate procedure declaration: {procedureDeclaration}" );
                         return false;
                     }
+
+                    if ( procedureDeclaration.ReturnType.ValueType == FlowScriptValueType.Bool ||
+                         procedureDeclaration.ReturnType.ValueType == FlowScriptValueType.Int )
+                    {
+                        hasIntReturnValue = true;
+                    }
+                    else if ( procedureDeclaration.ReturnType.ValueType == FlowScriptValueType.Float )
+                    {
+                        hasFloatReturnValue = true;
+                    }
                 }
                 else if ( statement is FlowScriptVariableDeclaration variableDeclaration )
                 {
@@ -536,6 +559,17 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                         return false;
                     }
                 }
+            }
+
+            // Declare return value variable
+            if ( hasIntReturnValue )
+            {
+                mIntReturnValueVariable = Scope.GenerateVariable( FlowScriptValueType.Int, mNextIntVariableIndex++ );
+            }
+
+            if ( hasFloatReturnValue )
+            {
+                mFloatReturnValueVariable = Scope.GenerateVariable( FlowScriptValueType.Float, mNextFloatVariableIndex++ );
             }
 
             return true;
@@ -636,49 +670,28 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private bool TryEmitProcedureParameters( List<FlowScriptParameter> parameters )
         {
-            // Save return value
-            var returnValueSave = Scope.GenerateVariable( FlowScriptValueType.Int, mNextIntVariableIndex++ );
-            Emit( FlowScriptInstruction.POPLIX( returnValueSave.Index ) );
-
             foreach ( var parameter in parameters )
             {
-                if ( !TryEmitProcedureParameter( parameter ) )
+                LogInfo( parameter, $"Emitting parameter: {parameter}" );
+
+                // Create declaration
+                var declaration = new FlowScriptVariableDeclaration(
+                    new FlowScriptVariableModifier( FlowScriptModifierType.Local ),
+                    parameter.Type,
+                    parameter.Identifier,
+                    null );
+
+                // Declare variable
+                if ( !TryRegisterVariableDeclaration( declaration ) )
                 {
-                    LogError( parameter, "Failed to emit code for procedure parameter" );
+                    LogError( "Failed to emit parameter variable declaration" );
                     return false;
                 }
+
+                // Assign the variable with the implicit return value on the stack
+                if ( !TryEmitVariableAssignment( declaration.Identifier ) )
+                    return false;
             }
-
-            // Push return value back on stack
-            Emit( FlowScriptInstruction.PUSHLIX( returnValueSave.Index ) );
-
-            return true;
-        }
-
-        private bool TryEmitProcedureParameter( FlowScriptParameter parameter )
-        {
-            LogInfo( parameter, $"Compiling parameter: {parameter}" );
-
-            // Create variable declaration for parameter
-            var parameterDeclaration = new FlowScriptVariableDeclaration(
-                        new FlowScriptVariableModifier( FlowScriptModifierType.Local ),
-                        parameter.TypeIdentifier,
-                        parameter.Identifier,
-                        null );
-
-            // Emit variable declaration code
-            if ( !TryEmitVariableDeclaration( parameterDeclaration ) )
-                return false;
-
-            // Snatch the variable from the current scope
-            if ( !Scope.TryGetVariable( parameter.Identifier.Text, out var parameterVariable ) )
-                return false;
-
-            // Assign the variable with the implicit return value on the stack
-            if ( parameter.TypeIdentifier.ValueType != FlowScriptValueType.Float )
-                Emit( FlowScriptInstruction.POPLIX( parameterVariable.Index ) );
-            else
-                Emit( FlowScriptInstruction.POPLFX( parameterVariable.Index ) );
 
             return true;
         }
@@ -884,7 +897,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     variableIndex = mNextStaticIntVariableIndex--;
                 }
             }
-            else if ( declaration.Modifier.ModifierType == FlowScriptModifierType.Const )
+            else if ( declaration.Modifier.ModifierType == FlowScriptModifierType.Constant )
             {
                 // Constant
                 variableIndex = -1;
@@ -917,7 +930,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             }
 
             // Nothing to emit for constants
-            if ( declaration.Modifier.ModifierType == FlowScriptModifierType.Const )
+            if ( declaration.Modifier.ModifierType == FlowScriptModifierType.Constant )
                 return true;
 
             // Emit the variable initializer if it has one         
@@ -1059,14 +1072,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 // call procedure
                 Emit( FlowScriptInstruction.CALL( procedure.Index ) );
 
-                // returnvalue will already be on the script stack so no need to push anything
-
-                if ( isStatement && procedure.Declaration.ReturnType.ValueType != FlowScriptValueType.Void )
+                if ( !isStatement )
                 {
-                    // clean up return value
-                    LogInfo( $"Cleaning up return value for procedure call to: { procedure }" );
-                    var returnValueHolder = Scope.GenerateVariable( FlowScriptValueType.Int, mNextIntVariableIndex++ );
-                    Emit( FlowScriptInstruction.POPLIX( returnValueHolder.Index ) );
+                    // Push return value of procedure
+                    if ( sTypeToBaseTypeMap[ procedure.Declaration.ReturnType.ValueType ] == FlowScriptValueType.Int )
+                        Emit( FlowScriptInstruction.PUSHLIX( mIntReturnValueVariable.Index ) );
+                    else
+                        Emit( FlowScriptInstruction.PUSHLFX( mFloatReturnValueVariable.Index ) );
                 }
             }
             else
@@ -1405,7 +1417,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 else
                     Emit( FlowScriptInstruction.PUSHIF( variable.Index ) );
             }
-            else if ( variable.Declaration.Modifier.ModifierType == FlowScriptModifierType.Const )
+            else if ( variable.Declaration.Modifier.ModifierType == FlowScriptModifierType.Constant )
             {
                 if ( !TryEmitExpression( variable.Declaration.Initializer, false ) )
                 {
@@ -1575,7 +1587,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 else
                     Emit( FlowScriptInstruction.POPFX( variable.Index ) );
             }
-            else if ( variable.Declaration.Modifier.ModifierType == FlowScriptModifierType.Const )
+            else if ( variable.Declaration.Modifier.ModifierType == FlowScriptModifierType.Constant )
             {
                 LogError( identifier, "Illegal assignment to constant" );
                 return false;
@@ -1661,15 +1673,26 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             }
 
             // compile if body
-            if ( !TryEmitIfStatementBody( ifStatement.Body, endLabel ) )
-                return false;
+            if ( ifStatement.ElseBody == null )
+            {
+                // If there's no else, then the end of the body will line up with the end label
+                if ( !TryEmitIfStatementBody( ifStatement.Body, null ) )
+                    return false;
+            }
+            else
+            {
+                // If there's an else body, then the end of the body will line up with the else label, but it should line up with the end label
+                if ( !TryEmitIfStatementBody( ifStatement.Body, endLabel ) )
+                    return false;
+            }
 
             if ( ifStatement.ElseBody != null )
             {
                 ResolveLabel( elseLabel );
 
                 // compile if else body
-                if ( !TryEmitIfStatementBody( ifStatement.ElseBody, endLabel ) )
+                // The else body will always line up with the end label
+                if ( !TryEmitIfStatementBody( ifStatement.ElseBody, null ) )
                     return false;
             }
 
@@ -1688,7 +1711,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             }
 
             // ensure that we end up at the right position after the body
-            Emit( FlowScriptInstruction.GOTO( endLabel.Index ) );
+            if ( endLabel != null )
+                Emit( FlowScriptInstruction.GOTO( endLabel.Index ) );
 
             return true;
         }
@@ -1947,9 +1971,6 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             // Save return address in a temporary variable
             if ( returnStatement.Value != null )
             {
-                var returnAddressSave = Scope.GenerateVariable( FlowScriptValueType.Int, mNextIntVariableIndex++ );
-                Emit( FlowScriptInstruction.POPLIX( returnAddressSave.Index ) );
-
                 // Emit return value
                 if ( !TryEmitExpression( returnStatement.Value, false ) )
                 {
@@ -1957,12 +1978,14 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     return false;
                 }
 
-                // Pop saved return address back on the stack
-                Emit( FlowScriptInstruction.PUSHLIX( returnAddressSave.Index ) );
+                if ( sTypeToBaseTypeMap[ mProcedureDeclaration.ReturnType.ValueType ] == FlowScriptValueType.Int )
+                    Emit( FlowScriptInstruction.POPLIX( mIntReturnValueVariable.Index ) );
+                else
+                    Emit( FlowScriptInstruction.POPLFX( mFloatReturnValueVariable.Index ) );
             }
             else if ( mProcedureDeclaration.ReturnType.ValueType != FlowScriptValueType.Void )
             {
-                LogError( returnStatement, "Missing return statement for procedure with non-void return type" );
+                LogError( returnStatement, "Missing return statement value for procedure with non-void return type" );
                 return false;
             }
 
@@ -2012,7 +2035,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     EmitTracePrint( "Arguments:" );
                     foreach ( var parameter in procedureCalled.Declaration.Parameters )
                     {
-                        EmitTracePrintValue( parameter.TypeIdentifier.ValueType );
+                        EmitTracePrintValue( parameter.Type.ValueType );
                     }
                 }
 
@@ -2029,7 +2052,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                         EmitTracePrint( "Arguments:" );
                         foreach ( var parameter in functionCalled.Declaration.Parameters )
                         {
-                            EmitTracePrintValue( parameter.TypeIdentifier.ValueType );
+                            EmitTracePrintValue( parameter.Type.ValueType );
                         }
                     }
 
@@ -2309,6 +2332,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         private void PopScope()
         {
             mScopeStack.Pop();
+
+            mNextIntVariableIndex -= ( short )Scope.Variables.Count( x => sTypeToBaseTypeMap[x.Value.Declaration.Type.ValueType] == FlowScriptValueType.Int );
+            mNextFloatVariableIndex -= ( short )Scope.Variables.Count( x => sTypeToBaseTypeMap[x.Value.Declaration.Type.ValueType] == FlowScriptValueType.Float );
+
             LogInfo( "Exited scope" );
         }
 

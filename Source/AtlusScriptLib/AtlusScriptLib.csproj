@@ -228,6 +228,7 @@
     <None Include="FlowScriptLanguage\FunctionDatabase\Persona5FunctionDatabase.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="FlowScriptLanguage\GenerateGrammarParserAndLexer.bat" />
     <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptLexer.g4" />
     <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptLexer.tokens" />
     <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptParser.g4" />

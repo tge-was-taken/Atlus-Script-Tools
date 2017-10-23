@@ -6,18 +6,18 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
     {
         public List<FlowScriptImport> Imports { get; set; }
 
-        public List<FlowScriptStatement> Statements { get; set; }
+        public List<FlowScriptDeclaration> Declarations { get; set; }
 
         public FlowScriptCompilationUnit()
         {
             Imports = new List<FlowScriptImport>();
-            Statements = new List<FlowScriptStatement>();
+            Declarations = new List<FlowScriptDeclaration>();
         }
 
-        public FlowScriptCompilationUnit( List<FlowScriptImport> imports, List<FlowScriptStatement> statements )
+        public FlowScriptCompilationUnit( List<FlowScriptImport> imports, List<FlowScriptDeclaration> declarations )
         {
             Imports = imports;
-            Statements = statements;
+            Declarations = declarations;
         }
     }
 }

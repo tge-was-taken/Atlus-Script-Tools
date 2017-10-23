@@ -160,26 +160,29 @@ namespace AtlusScriptLib.FlowScriptLanguage
             for ( int i = 0; i < binary.ProcedureLabelSection.Count; i++ )
             {
                 var procedureLabel = binary.ProcedureLabelSection[ i ];
-                int procedureStartIndex = instructionBinaryIndexToListIndexMap[ procedureLabel.InstructionIndex ];
+                int procedureListStartIndex = instructionBinaryIndexToListIndexMap[ procedureLabel.InstructionIndex ];
                 int nextProcedureLabelIndex = sortedProcedureLabels.FindIndex( x => x.InstructionIndex == procedureLabel.InstructionIndex ) + 1;
                 int procedureInstructionCount;
+                int procedureBinaryEndIndex; // inclusive
 
                 // Calculate the number of instructions in the procedure
                 bool isLastProcedure = nextProcedureLabelIndex == binary.ProcedureLabelSection.Count;
                 if ( isLastProcedure )
                 {
-                    procedureInstructionCount = ( instructions.Count - procedureStartIndex );
+                    procedureInstructionCount = ( instructions.Count - procedureListStartIndex );
+                    procedureBinaryEndIndex = binary.TextSection.Count - 1;
                 }
                 else
                 {
                     var nextProcedureLabel = binary.ProcedureLabelSection[nextProcedureLabelIndex];
-                    procedureInstructionCount = ( instructionBinaryIndexToListIndexMap[nextProcedureLabel.InstructionIndex] - procedureStartIndex );
+                    procedureInstructionCount = ( instructionBinaryIndexToListIndexMap[nextProcedureLabel.InstructionIndex] - procedureListStartIndex );
+                    procedureBinaryEndIndex = nextProcedureLabel.InstructionIndex - 1;
                 }
 
                 // Copy the instruction range
                 var procedureInstructions = new List<FlowScriptInstruction>( procedureInstructionCount );
                 for ( int j = 0; j < procedureInstructionCount; j++ )
-                    procedureInstructions.Add( instructions[ procedureStartIndex + j ] );
+                    procedureInstructions.Add( instructions[ procedureListStartIndex + j ] );
 
                 // Create the new procedure representation
                 FlowScriptProcedure procedure;
@@ -188,7 +191,7 @@ namespace AtlusScriptLib.FlowScriptLanguage
                 {
                     // Find jump labels within instruction range of procedure
                     var procedureBinaryJumpLabels = binary.JumpLabelSection
-                        .Where( x => x.InstructionIndex >= procedureLabel.InstructionIndex && x.InstructionIndex <= ( procedureLabel.InstructionIndex + procedureInstructionCount ) + 1 )
+                        .Where( x => x.InstructionIndex >= procedureLabel.InstructionIndex && x.InstructionIndex <= procedureBinaryEndIndex )
                         .ToList();
 
                     if ( procedureBinaryJumpLabels.Count > 0 )
@@ -204,7 +207,7 @@ namespace AtlusScriptLib.FlowScriptLanguage
                         foreach ( var procedureBinaryJumpLabel in procedureBinaryJumpLabels )
                         {
                             int globalInstructionListIndex = instructionBinaryIndexToListIndexMap[procedureBinaryJumpLabel.InstructionIndex];
-                            int localInstructionListIndex = globalInstructionListIndex - procedureStartIndex;
+                            int localInstructionListIndex = globalInstructionListIndex - procedureListStartIndex;
                             procedureJumpLabels.Add( new FlowScriptLabel( procedureBinaryJumpLabel.Name, localInstructionListIndex ) );
                         }
 
@@ -225,35 +228,6 @@ namespace AtlusScriptLib.FlowScriptLanguage
                                 instruction.Operand.SetInt16Value( localIndex );
 
                                 Debug.Assert( procedure.Labels[localIndex].Name == binaryLabel.Name );
-
-                                /*
-                                if ( binary.TextSection[binaryLabel.InstructionIndex].Opcode == FlowScriptOpcode.END )
-                                {
-                                    instruction = FlowScriptInstruction.END();
-                                }
-                                else if ( binary.TextSection[binaryLabel.InstructionIndex].Opcode == FlowScriptOpcode.GOTO )
-                                {
-                                    var gotoLabel = binary.JumpLabelSection[binary.TextSection[binaryLabel.InstructionIndex].OperandShort];
-                                    if ( binary.TextSection[gotoLabel.InstructionIndex].Opcode == FlowScriptOpcode.END )
-                                    {
-                                        instruction = FlowScriptInstruction.END();
-                                    }
-                                    else
-                                    {
-                                        short localIndex = ( short )procedureJumpLabelNameToLocalIndexMap[binaryLabel.Name];
-                                        instruction.Operand.SetInt16Value( localIndex );
-
-                                        Debug.Assert( procedure.Labels[localIndex].Name == binaryLabel.Name );
-                                    }
-                                }
-                                else
-                                {
-                                    short localIndex = ( short )procedureJumpLabelNameToLocalIndexMap[binaryLabel.Name];
-                                    instruction.Operand.SetInt16Value( localIndex );
-
-                                    Debug.Assert( procedure.Labels[localIndex].Name == binaryLabel.Name );
-                                }
-                                */
                             }
 
                             procedure.Instructions[j] = instruction;

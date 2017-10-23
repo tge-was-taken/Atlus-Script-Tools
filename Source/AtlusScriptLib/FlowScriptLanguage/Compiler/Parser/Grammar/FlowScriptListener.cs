@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from d:\users\smart\documents\visual studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptLib\FlowScriptLanguage\Compiler\Parser\Grammar\FlowScript.g4 by ANTLR 4.6.4
+// Generated from ..\..\..\AtlusScriptLib\FlowScriptLanguage\Compiler\Parser\Grammar\FlowScript.g4 by ANTLR 4.6.4
 
 // Unreachable code detected
 #pragma warning disable 0162

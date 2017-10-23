@@ -16,6 +16,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
 
         protected FlowScriptUnaryExpression( FlowScriptValueType type, FlowScriptExpression operand ) : base( type )
         {
+            Operand = operand;
         }
     }
 }

@@ -25,7 +25,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
         private Dictionary<FlowScriptStatement, int> mStatementInstructionIndexLookup;
         private Dictionary<int, List<FlowScriptEvaluatedStatement>> mIfStatementBodyMap;
         private Dictionary<int, List<FlowScriptEvaluatedStatement>> mIfStatementElseBodyMap;
-        private Dictionary<int, int> mIfStatementDepthMap;
+        private bool mKeepLabelsAndGotos = false;
+        private bool mConvertIfStatementsToGotos = false;
 
         public IFunctionDatabase FunctionDatabase { get; set; }
 
@@ -127,13 +128,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
         private void BuildFunctionDeclarationSyntaxNodes( )
         {
             foreach ( var functionDeclaration in mEvaluatedScript.Functions )
-                mCompilationUnit.Statements.Add( functionDeclaration );
+                mCompilationUnit.Declarations.Add( functionDeclaration );
         }
 
         private void BuildScriptLocalVariableDeclarationSyntaxNodes( )
         {
             foreach ( var flowScriptVariableDeclaration in mEvaluatedScript.Scope.Variables.Values )
-                mCompilationUnit.Statements.Add( flowScriptVariableDeclaration );
+                mCompilationUnit.Declarations.Add( flowScriptVariableDeclaration );
         }
 
         private bool TryBuildProcedureDeclarationSyntaxNodes( )
@@ -150,7 +151,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                     return false;
                 }
 
-                mCompilationUnit.Statements.Add( declaration );
+                mCompilationUnit.Declarations.Add( declaration );
             }
 
             return true;
@@ -199,7 +200,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
             mIfStatementBodyMap = new Dictionary<int, List<FlowScriptEvaluatedStatement>>();
             mIfStatementElseBodyMap = new Dictionary<int, List<FlowScriptEvaluatedStatement>>();
-            mIfStatementDepthMap = new Dictionary<int, int>();
+            new Dictionary<int, int>();
         }
 
         private bool TryCompositeEvaluatedInstructions( List<FlowScriptEvaluatedStatement> evaluatedStatements, out List<FlowScriptStatement> statements )
@@ -217,10 +218,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             CoagulateVariableDeclarationAssignments();
 
             // Remove unreferenced labels
-            RemoveUnreferencedLabels();
+            if ( !mKeepLabelsAndGotos )
+                RemoveUnreferencedLabels();
 
             // Build if statements
-            BuildIfStatements();
+            if ( !mConvertIfStatementsToGotos )
+                BuildIfStatements();
 
             // Fittingly remove duped return statements last
             RemoveDuplicateReturnStatements();
@@ -299,50 +302,47 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             {
                 var falseLabel = evaluatedIfStatement.ReferencedLabel;
 
-                // Extract statements contained in the if statement's body
-                var bodyEvaluatedStatements = mEvaluatedStatements
-                    .Where( x => x != evaluatedIfStatement && x.InstructionIndex >= evaluatedIfStatement.InstructionIndex && x.InstructionIndex < falseLabel.InstructionIndex )
-                    .ToList();
-
-                // We keep the if statements in a map to retain evaluation info until we finally build the if statements
-                mIfStatementBodyMap[evaluatedIfStatement.InstructionIndex] = bodyEvaluatedStatements;
-
-                // Detect else if
-                var evaluatedGotoStatement = bodyEvaluatedStatements.LastOrDefault();
-                if ( evaluatedGotoStatement != null && evaluatedGotoStatement.Statement is FlowScriptGotoStatement )
+                if ( mConvertIfStatementsToGotos )
                 {
-                    if ( evaluatedGotoStatement.ReferencedLabel.InstructionIndex !=
-                         evaluatedGotoStatement.InstructionIndex + 1 )
-                    {
-                        // Try to detect if-else pattern
-                        var elseBodyEvaluatedStatements = mEvaluatedStatements
-                            .Where( x => x != evaluatedGotoStatement && x.InstructionIndex >= evaluatedGotoStatement.InstructionIndex && x.InstructionIndex < evaluatedGotoStatement.ReferencedLabel.InstructionIndex )
-                            .ToList();
+                    var index = mEvaluatedStatements.IndexOf( evaluatedIfStatement );
+                    var ifStatement = ( FlowScriptIfStatement ) evaluatedIfStatement.Statement;
 
-                        if ( elseBodyEvaluatedStatements.Any() )
-                            mIfStatementElseBodyMap[evaluatedIfStatement.InstructionIndex] = elseBodyEvaluatedStatements;
-                    }
+                    mEvaluatedStatements.Insert( index, new FlowScriptEvaluatedStatement( ifStatement.Condition,
+                                                                                          evaluatedIfStatement.InstructionIndex - 1, null ) );
+                    mEvaluatedStatements[ index + 1 ] = new FlowScriptEvaluatedStatement(
+                        new FlowScriptGotoStatement( new FlowScriptIdentifier( falseLabel.Name ) ), evaluatedIfStatement.InstructionIndex, falseLabel );
                 }
-
-                // Increment depth
-                mIfStatementDepthMap[ evaluatedIfStatement.InstructionIndex ] = 0;
-
-                foreach ( var ifStatementBodyMap in mIfStatementBodyMap )
+                else
                 {
-                    if ( ifStatementBodyMap.Value.Contains( evaluatedIfStatement ) )
-                    {
-                        ++mIfStatementDepthMap[ ifStatementBodyMap.Key ];
-                    }
-                }
+                    // Extract statements contained in the if statement's body
+                    var bodyEvaluatedStatements = mEvaluatedStatements
+                        .Where( x => x != evaluatedIfStatement && x.InstructionIndex >= evaluatedIfStatement.InstructionIndex && x.InstructionIndex < falseLabel.InstructionIndex )
+                        .ToList();
 
-                foreach ( var ifStatementElseBodyMap in mIfStatementElseBodyMap )
-                {
-                    if ( ifStatementElseBodyMap.Value.Contains( evaluatedIfStatement ) )
+                    // We keep the if statements in a map to retain evaluation info until we finally build the if statements
+                    mIfStatementBodyMap[evaluatedIfStatement.InstructionIndex] = bodyEvaluatedStatements;
+
+                    // Detect else if
+                    var evaluatedGotoStatement = bodyEvaluatedStatements.LastOrDefault();
+                    if ( evaluatedGotoStatement != null && evaluatedGotoStatement.Statement is FlowScriptGotoStatement )
                     {
-                        ++mIfStatementDepthMap[ifStatementElseBodyMap.Key];
+                        if ( evaluatedGotoStatement.ReferencedLabel.InstructionIndex !=
+                             evaluatedGotoStatement.InstructionIndex + 1 )
+                        {
+                            // Try to detect if-else pattern
+                            var elseBodyEvaluatedStatements = mEvaluatedStatements
+                                .Where( x => x != evaluatedGotoStatement && x.InstructionIndex >= evaluatedGotoStatement.InstructionIndex && x.InstructionIndex < evaluatedGotoStatement.ReferencedLabel.InstructionIndex )
+                                .ToList();
+
+                            if ( elseBodyEvaluatedStatements.Any() )
+                                mIfStatementElseBodyMap[evaluatedIfStatement.InstructionIndex] = elseBodyEvaluatedStatements;
+                        }
                     }
                 }
             }
+
+            if ( mConvertIfStatementsToGotos )
+                return;
 
             // Remove statements in if statement bodies from list of statements
             foreach ( var evaluatedIfStatement in evaluatedIfStatements )
@@ -377,6 +377,9 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             }
 
             // Clean up if statement bodies
+            if ( mKeepLabelsAndGotos )
+                return;
+
             foreach ( var evaluatedIfStatement in evaluatedIfStatements )
             {
                 var bodyEvaluatedStatements = mIfStatementBodyMap[ evaluatedIfStatement.InstructionIndex ];
@@ -389,12 +392,6 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                     if ( evaluatedGotoStatement.ReferencedLabel.InstructionIndex == evaluatedGotoStatement.InstructionIndex + 1 )
                     {
                         bodyEvaluatedStatements.Remove( evaluatedGotoStatement );
-
-                        /*
-                        mEvaluatedStatements.RemoveAll(
-                            x => x.ReferencedLabel == evaluatedGotoStatement.ReferencedLabel &&
-                                 x.Statement is FlowScriptLabelDeclaration );
-                        */
                     }
 
                     if ( mIfStatementElseBodyMap.TryGetValue( evaluatedIfStatement.InstructionIndex,
@@ -414,12 +411,6 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                                      elseBodyGotoStatement.InstructionIndex + 1 )
                                 {
                                     elseBodyEvaluatedStatements.Remove( elseBodyGotoStatement );
-
-                                    /*
-                                    mEvaluatedStatements.RemoveAll(
-                                        x => x.ReferencedLabel == elseBodyGotoStatement.ReferencedLabel &&
-                                             x.Statement is FlowScriptLabelDeclaration );
-                                    */
                                 }
                             }
                         }
@@ -431,155 +422,137 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
         private void CoagulateVariableDeclarationAssignments()
         {
-            if ( mIfStatementDepthMap.Any( x => x.Key > 20 ) )
-            {
-                CoagulateVariableDeclarationAssignmentsNonRecursively();
-            }
-            else
-            {
-                CoagulateVariableDeclarationAssignmentsRecursively( mEvaluatedStatements, new HashSet<string>() );
-            }
-        }
-
-        private void CoagulateVariableDeclarationAssignmentsNonRecursively( )
-        {
-            // Declared variables in the current scope
-            var declaredVariables = new HashSet<string>();
-
-            foreach ( var referencedVariable in mEvaluatedProcedure.ReferencedVariables.OrderBy( x => x.InstructionIndex ) )
-            {
-                int index = referencedVariable.InstructionIndex;
-                var identifier = referencedVariable.Identifier;
-
-                // Scope if either the parent or the current scope contains the variable, or if the variable is declared in the evaluated Scope
-                if ( declaredVariables.Contains( identifier.Text ) ||
-                     !mEvaluatedProcedure.Scope.Variables.TryGetValue( identifier.Text, out var declaration ) )
-                    continue;
-
-                // Variable hasn't already been declared
-                int evaluatedStatementIndex = mEvaluatedStatements.FindIndex( x => x.InstructionIndex == index );
-                if ( evaluatedStatementIndex == -1 )
-                {
-                    mEvaluatedStatements.Insert( 0,
-                        new FlowScriptEvaluatedStatement(
-                            declaration, 0, null ) );
-                }
-                else
-                {
-                    var evaluatedStatement = mEvaluatedStatements[evaluatedStatementIndex];
-
-                    // Check if the statement is an assignment expression
-                    // Which would mean we have an initializer
-                    FlowScriptExpression initializer = null;
-                    if ( evaluatedStatement.Statement is FlowScriptAssignmentOperator assignment )
-                    {
-                        // Only match initializers if the target of the operator
-                        // Is actually the same identifier
-                        if ( assignment.Left == identifier )
-                        {
-                            initializer = assignment.Right;
-                        }
-                    }
-
-                    // Coagulate assignment with declaration
-                    if ( initializer != null )
-                    {
-                        declaration.Initializer = initializer;
-                        mEvaluatedStatements[evaluatedStatementIndex] = new FlowScriptEvaluatedStatement(
-                            declaration, index, null );
-                    }
-                    else
-                    {
-                        mEvaluatedStatements.Insert( evaluatedStatementIndex - 1,
-                            new FlowScriptEvaluatedStatement(
-                                declaration, index - 1, null ) );
-                    }
-                }
-
-                declaredVariables.Add( identifier.Text );
-            }
+            CoagulateVariableDeclarationAssignmentsRecursively( mEvaluatedStatements, new HashSet<string>() );
         }
 
         private void CoagulateVariableDeclarationAssignmentsRecursively( List<FlowScriptEvaluatedStatement> evaluatedStatements, HashSet<string> parentScopeDeclaredVariables )
         {
-            LogInfo( $"Coagulating variable declarations and assignments: {evaluatedStatements.First().InstructionIndex} - {evaluatedStatements.Last().InstructionIndex}" );
+            if ( !evaluatedStatements.Any() )
+                return;
+
+            int firstIndex = evaluatedStatements.First().InstructionIndex;
+            int lastIndex = evaluatedStatements.Last().InstructionIndex;
+            LogInfo( $"Coagulating variable declarations and assignments: { firstIndex } - { lastIndex }" );
 
             // Declared variables in the current scope
             var declaredVariables = new HashSet<string>();
-
-            // All referenced variable identifiers in statements
-            var referencedLocalVariableIdentifiers =
-                mEvaluatedProcedure.ReferencedVariables.Where(
-                    x => evaluatedStatements.Any( y => x.InstructionIndex == y.InstructionIndex ) );
 
             // All if statements in statements
             var ifStatements = evaluatedStatements
                 .Where( x => x.Statement is FlowScriptIfStatement )
                 .ToList();
 
-            foreach ( var variableIdentifierReference in referencedLocalVariableIdentifiers )
-            {
-                int index = variableIdentifierReference.InstructionIndex;
-                var identifier = variableIdentifierReference.Identifier;
+            // All referenced variable identifiers in statements, and if statements
+            var referencedLocalVariableIdentifiers =
+                mEvaluatedProcedure.ReferencedVariables
+                    .Where( x => x.InstructionIndex >= firstIndex && x.InstructionIndex <= lastIndex )
+                    .GroupBy( x => x.Identifier.Text );
 
-                // Scope if either the parent or the current scope contains the variable, or if the variable is declared in the evaluated Scope
-                if ( parentScopeDeclaredVariables.Contains( identifier.Text ) ||
-                     declaredVariables.Contains( identifier.Text ) ||
-                     !mEvaluatedProcedure.Scope.Variables.TryGetValue( identifier.Text, out var declaration ) )
+            foreach ( var referencedLocalVariableIdentifier in referencedLocalVariableIdentifiers )
+            {
+                var identifierText = referencedLocalVariableIdentifier.Key;
+                int firstReferenceInstructionIndex = referencedLocalVariableIdentifier.Min( x => x.InstructionIndex );
+
+                // Check if the variable was declared in either the scope of the parent or the current scope
+                if ( parentScopeDeclaredVariables.Contains( identifierText ) 
+                    || declaredVariables.Contains( identifierText )
+                    || !mEvaluatedProcedure.Scope.Variables.TryGetValue( identifierText, out var declaration ) )
                     continue;
 
                 // Variable hasn't already been declared
-                int evaluatedStatementIndex = evaluatedStatements.FindIndex( x => x.InstructionIndex == index );
-                var evaluatedStatement = evaluatedStatements[ evaluatedStatementIndex ];
-
-                // Check if the statement is an assignment expression
-                // Which would mean we have an initializer
+                // Find the index of the statement
+                int evaluatedStatementIndex = evaluatedStatements.FindIndex( x => x.InstructionIndex == firstReferenceInstructionIndex );
                 FlowScriptExpression initializer = null;
-                if ( evaluatedStatement.Statement is FlowScriptAssignmentOperator assignment )
+                bool shouldDeclareBeforeIfStatements = false;
+
+                if ( evaluatedStatementIndex == -1 )
                 {
-                    // Only match initializers if the target of the operator
-                    // Is actually the same identifier
-                    if ( assignment.Left == identifier )
+                    // Not in the list of statements, but in one of the if statements               
+                    bool accessedInIfStatementOnce = false;
+                    foreach ( var ifStatement in ifStatements )
                     {
-                        initializer = assignment.Right;
+                        // Check condition
+                        var conditionIdentifiers = IdentifierVisitor.GetIdentifiers( ( ( FlowScriptIfStatement ) ifStatement.Statement ).Condition );
+                        if ( conditionIdentifiers.Any( x => x.Text == referencedLocalVariableIdentifier.Key ) )
+                        {
+                            // Really Good Code
+                            shouldDeclareBeforeIfStatements = true;
+                            break;
+                        }
+
+                        // Check if any of instructions in the if body map to any of the instruction indices of the references
+                        var body = mIfStatementBodyMap[ ifStatement.InstructionIndex ];
+                        if ( body.Any( x => referencedLocalVariableIdentifier.Any( y => y.InstructionIndex == x.InstructionIndex ) ) )
+                        {
+                            if ( !accessedInIfStatementOnce )
+                            {
+                                accessedInIfStatementOnce = true;
+                            }
+                            else
+                            {
+                                shouldDeclareBeforeIfStatements = true;
+                                break;
+                            }
+                        }
+
+                        // Same for else body
+                        if ( mIfStatementElseBodyMap.TryGetValue( ifStatement.InstructionIndex, out var elseBody ) )
+                        {
+                            // Check if any of instructions in the if else body map to any of the instruction indices of the references
+                            if ( body.Any(
+                                x => referencedLocalVariableIdentifier.Any( y => y.InstructionIndex == x.InstructionIndex ) ) )
+                            {
+                                if ( !accessedInIfStatementOnce )
+                                {
+                                    accessedInIfStatementOnce = true;
+                                }
+                                else
+                                {
+                                    shouldDeclareBeforeIfStatements = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    var evaluatedStatement = evaluatedStatements[evaluatedStatementIndex];
+
+                    // Check if the statement is an assignment expression
+                    // Which would mean we have an initializer
+                    if ( evaluatedStatement.Statement is FlowScriptAssignmentOperator assignment )
+                    {
+                        // Only match initializers if the target of the operator
+                        // Is actually the same identifier
+                        if ( ((FlowScriptIdentifier)assignment.Left).Text == identifierText )
+                        {
+                            initializer = assignment.Right;
+                        }
                     }
                 }
 
-                // Find the best insertion index
-                int insertionIndex = evaluatedStatementIndex;
-                int instructionIndex = index;
-
-                // Check if the variable has been referenced before in an if statement
-                foreach ( var evaluatedIfStatement in ifStatements.Where( x => x.InstructionIndex <= index ) )
+                if ( evaluatedStatementIndex != -1 || shouldDeclareBeforeIfStatements )
                 {
-                    var ifStatementBody = mIfStatementBodyMap[evaluatedIfStatement.InstructionIndex];
-                    var referencedLocalVariableIdentifiersInIfStatementBody =
-                        mEvaluatedProcedure.ReferencedVariables.Where(
-                            x => ifStatementBody.Any( y => x.InstructionIndex == y.InstructionIndex ) );
+                    // Find the best insertion index
+                    int insertionIndex;
+                    if ( evaluatedStatementIndex != -1 )
+                        insertionIndex = evaluatedStatementIndex;
+                    else
+                        insertionIndex = evaluatedStatements.IndexOf( ifStatements.First() );
 
-                    if ( referencedLocalVariableIdentifiersInIfStatementBody.Any(
-                        x => x.Identifier.Text == identifier.Text ) )
+                    int instructionIndex = firstReferenceInstructionIndex;
+
+                    // Check if the variable has been referenced before in an if statement
+                    foreach ( var evaluatedIfStatement in ifStatements.Where( x => x.InstructionIndex <= firstReferenceInstructionIndex ) )
                     {
-                        // The variable was referenced in a previous if statement, so we should insert it before the start of the if statement
-                        insertionIndex = evaluatedStatements.IndexOf( evaluatedIfStatement );
-                        instructionIndex = evaluatedIfStatement.InstructionIndex - 1;
-
-                        // Edge case
-                        if ( instructionIndex < 0 )
-                            instructionIndex = 0;
-
-                        break;
-                    }
-
-                    if ( mIfStatementElseBodyMap.TryGetValue( evaluatedIfStatement.InstructionIndex,
-                        out var ifStatementElseBody ) )
-                    {
-                        var referencedLocalVariableIdentifiersInIfStatementElseBody =
+                        var ifStatementBody = mIfStatementBodyMap[ evaluatedIfStatement.InstructionIndex ];
+                        var referencedLocalVariableIdentifiersInIfStatementBody =
                             mEvaluatedProcedure.ReferencedVariables.Where(
-                                x => ifStatementElseBody.Any( y => x.InstructionIndex == y.InstructionIndex ) );
+                                x => ifStatementBody.Any( y => x.InstructionIndex == y.InstructionIndex ) );
 
-                        if ( referencedLocalVariableIdentifiersInIfStatementElseBody.Any(
-                            x => x.Identifier.Text == identifier.Text ) )
+                        if ( referencedLocalVariableIdentifiersInIfStatementBody.Any(
+                            x => x.Identifier.Text == identifierText ) )
                         {
                             // The variable was referenced in a previous if statement, so we should insert it before the start of the if statement
                             insertionIndex = evaluatedStatements.IndexOf( evaluatedIfStatement );
@@ -591,36 +564,58 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
                             break;
                         }
+
+                        if ( mIfStatementElseBodyMap.TryGetValue( evaluatedIfStatement.InstructionIndex,
+                            out var ifStatementElseBody ) )
+                        {
+                            var referencedLocalVariableIdentifiersInIfStatementElseBody =
+                                mEvaluatedProcedure.ReferencedVariables.Where(
+                                    x => ifStatementElseBody.Any( y => x.InstructionIndex == y.InstructionIndex ) );
+
+                            if ( referencedLocalVariableIdentifiersInIfStatementElseBody.Any(
+                                x => x.Identifier.Text == identifierText ) )
+                            {
+                                // The variable was referenced in a previous if statement, so we should insert it before the start of the if statement
+                                insertionIndex = evaluatedStatements.IndexOf( evaluatedIfStatement );
+                                instructionIndex = evaluatedIfStatement.InstructionIndex - 1;
+
+                                // Edge case
+                                if ( instructionIndex < 0 )
+                                    instructionIndex = 0;
+
+                                break;
+                            }
+                        }
                     }
-                }
 
-                if ( insertionIndex != evaluatedStatementIndex )
-                {
-                    // If the insertion index isn't equal to the evaluated statement index
-                    // Then that means it was previously referenced in the body of an if statement
-                    // So we insert declaration before if statement in which it was used
-                    evaluatedStatements.Insert( insertionIndex,
-                        new FlowScriptEvaluatedStatement( declaration, instructionIndex, null ) );
-                }
-                else
-                {
-                    // If the insertion index is still the same, then that means we probably have a declaration with an assignment
-                    // Or maybe we have a reference to an undeclared variable!
-
-                    if ( initializer == null )
+                    if ( insertionIndex != evaluatedStatementIndex )
                     {
-                        // Reference to undeclared variable
-                        LogInfo( $"Reference to uninitialized variable! Adding 0 initializer: {declaration}" );
-                        initializer = new FlowScriptIntLiteral( 0 ); 
+                        // If the insertion index isn't equal to the evaluated statement index
+                        // Then that means it was previously referenced in the body of an if statement
+                        // So we insert declaration before if statement in which it was used
+                        evaluatedStatements.Insert( insertionIndex,
+                            new FlowScriptEvaluatedStatement( declaration, instructionIndex, null ) );
+                    }
+                    else
+                    {
+                        // If the insertion index is still the same, then that means we probably have a declaration with an assignment
+                        // Or maybe we have a reference to an undeclared variable!
+
+                        if ( initializer == null )
+                        {
+                            // Reference to undeclared variable
+                            LogInfo( $"Reference to uninitialized variable! Adding 0 initializer: {declaration}" );
+                            initializer = new FlowScriptIntLiteral( 0 );
+                        }
+
+                        // Coagulate assignment with declaration
+                        declaration.Initializer = initializer;
+                        evaluatedStatements[ evaluatedStatementIndex ] = new FlowScriptEvaluatedStatement(
+                            declaration, instructionIndex, null );
                     }
 
-                    // Coagulate assignment with declaration
-                    declaration.Initializer = initializer;
-                    evaluatedStatements[evaluatedStatementIndex] = new FlowScriptEvaluatedStatement(
-                        declaration, instructionIndex, null );
+                    declaredVariables.Add( identifierText );
                 }
-
-                declaredVariables.Add( identifier.Text );
             }
 
             // Merge parent scope with local scope
@@ -730,6 +725,28 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             if ( Debugger.IsAttached )
             {
                 Debugger.Break();
+            }
+        }
+
+        class IdentifierVisitor : FlowScriptSyntaxVisitor
+        {
+            private readonly List<FlowScriptIdentifier> mIdentifiers;
+
+            private IdentifierVisitor()
+            {
+                mIdentifiers = new List< FlowScriptIdentifier >();
+            }
+
+            public static List<FlowScriptIdentifier> GetIdentifiers( FlowScriptSyntaxNode node )
+            {
+                var visitor = new IdentifierVisitor();
+                visitor.Visit( node );
+                return visitor.mIdentifiers;
+            }
+
+            public override void Visit( FlowScriptIdentifier identifier )
+            {
+                mIdentifiers.Add( identifier );
             }
         }
     }

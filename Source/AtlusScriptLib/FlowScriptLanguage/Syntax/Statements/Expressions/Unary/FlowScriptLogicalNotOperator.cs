@@ -7,7 +7,7 @@
 
         }
 
-        public FlowScriptLogicalNotOperator( FlowScriptExpression operand ) : base( operand )
+        public FlowScriptLogicalNotOperator( FlowScriptExpression operand ) : base( FlowScriptValueType.Bool, operand )
         {
 
         }

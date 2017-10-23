@@ -162,13 +162,13 @@
   },
   {
     "Index": "0x000c",
-    "ReturnType": "int",
+    "ReturnType": "bool",
     "Name": "BIT_CHK",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "bitId",
         "Description": ""
       }
     ]
@@ -181,7 +181,7 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "bitId",
         "Description": ""
       }
     ]
@@ -194,7 +194,7 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "bitId",
         "Description": ""
       }
     ]
@@ -23417,7 +23417,7 @@
   },
   {
     "Index": "0x3010",
-    "ReturnType": "int",
+    "ReturnType": "bool",
     "Name": "CMM_CHK_LVUP",
     "Description": "",
     "Parameters": [

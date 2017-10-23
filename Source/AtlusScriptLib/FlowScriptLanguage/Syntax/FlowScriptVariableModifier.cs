@@ -24,6 +24,6 @@
     {
         Local,
         Static,
-        Const,
+        Constant,
     }
 }

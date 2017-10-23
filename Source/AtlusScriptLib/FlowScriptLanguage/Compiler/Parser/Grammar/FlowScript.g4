@@ -8,7 +8,7 @@ grammar FlowScript;
 
 // Basic constructs
 compilationUnit
-	: importStatement* statement* EOF
+	: importStatement* declarationStatement* EOF
 	;
 
 importStatement
@@ -54,7 +54,7 @@ functionDeclarationStatement
 	;
 
 procedureDeclarationStatement
-	: TypeIdentifier Identifier parameterList compoundStatement
+	: TypeIdentifier ( Identifier | ProcedureIdentifier ) parameterList compoundStatement
 	;
 
 variableDeclarationStatement
@@ -255,8 +255,12 @@ StringHexEscape
     : '\\' 'x' HexDigit HexDigit;
 
 // Identifiers
+
 Identifier
 	: LetterOrUnderscore LetterOrUnderscoreOrDigit*;
+
+ProcedureIdentifier
+	: LetterOrUnderscoreOrDigit LetterOrUnderscoreOrDigit*;
 
 fragment
 Letter
@@ -284,8 +288,7 @@ LetterOrUnderscore
 
 fragment
 LetterOrUnderscoreOrDigit
-	: ( LetterOrUnderscore | Digit );
-
+	: ( Letter | '_' | Digit );
 
 
 // Whitespace, newline & comments

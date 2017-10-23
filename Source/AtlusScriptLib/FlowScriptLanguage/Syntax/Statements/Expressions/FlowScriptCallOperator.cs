@@ -23,6 +23,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
             Arguments = arguments;
         }
 
+        public FlowScriptCallOperator( FlowScriptValueType valueType, FlowScriptIdentifier identifier, List<FlowScriptExpression> arguments ) : base( valueType )
+        {
+            Identifier = identifier;
+            Arguments = arguments;
+        }
+
         public FlowScriptCallOperator( FlowScriptIdentifier identifier, params FlowScriptExpression[] arguments ) : base( FlowScriptValueType.Unresolved )
         {
             Identifier = identifier;

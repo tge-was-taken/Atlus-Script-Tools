@@ -30,7 +30,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.FunctionDatabase
 
         private Persona5FunctionDatabase()
         {
-            if ( !FunctionDatabaseDeserializer.TryDeserialize( "FlowScriptLanguage\\FunctionDatabase\\Persona5FunctionDatabase.json", out var functions ) )
+            if ( !FunctionDatabaseDeserializer.TryDeserializeFlowScriptFunctionDatabase( "FlowScriptLanguage\\FunctionDatabase\\Persona5FunctionDatabase.json", out var functions ) )
             {
                 throw new Exception( "Failed to deserialize Persona 5 function database" );
             }
