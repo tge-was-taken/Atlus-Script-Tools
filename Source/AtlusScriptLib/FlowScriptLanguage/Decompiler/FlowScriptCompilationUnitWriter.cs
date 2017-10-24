@@ -22,8 +22,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
         private static Dictionary<FlowScriptModifierType, string> sModifierTypeToString = new Dictionary<FlowScriptModifierType, string>()
         {
-            { FlowScriptModifierType.Static,    "static" },
-            { FlowScriptModifierType.Constant,     "const" }
+            { FlowScriptModifierType.Static,        "static" },
+            { FlowScriptModifierType.Constant,      "const" }
         };
 
         public void WriteToFile( FlowScriptCompilationUnit compilationUnit, string path )

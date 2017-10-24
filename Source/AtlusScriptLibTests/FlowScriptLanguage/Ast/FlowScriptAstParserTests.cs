@@ -31,6 +31,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
             // options without any text won't be displayed
 
             // TODO: implement custom types
+
             var listener = new DebugLogListener();
 
             string flowScriptSource =
@@ -39,6 +40,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
                 "   Test1 = 1," +
                 "   Test2 = MyEnum.Test1 + 1," +
                 "   Test3 = 3," +
+                "}" +
+                "" +
+                "enum MyEnum2" +
+                "{" +
+                "   Test1 = MyEnum.Test2" +
                 "}" +
                 "" +
                 "void Test( MyEnum test )" +
@@ -50,7 +56,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
                 "   int test = MyEnum.Test1;" +
                 "   test = MyEnum.Test2;" +
                 "   test = MyEnum.Test3;" +
-                "   Test( MyEnum.Test1 );" +
+                "   Test( MyEnum2.Test1 );" +
                 "}";
 
 
@@ -63,7 +69,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
             flowScriptCompiler.EnableFunctionCallTracing = false;
             flowScriptCompiler.EnableStackCookie = false;
 
-            //Assert.IsTrue( flowScriptCompiler.TryCompile( File.Open( @"D:\Users\smart\Documents\Visual Studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptCompiler\Resources\TestScript2.flow", FileMode.Open ), out flowScript ) );
+            //Assert.IsTrue( flowScriptCompiler.TryCompile( File.Open(@"..\..\..\Source\AtlusScriptCompiler\Resources\TestScript2.flow", FileMode.Open ), out flowScript ) );
             Assert.IsTrue( flowScriptCompiler.TryCompile( flowScriptSource, out flowScript ) );
             //Assert.IsTrue( flowScriptCompiler.TryCompile( File.Open( @"D:\Users\smart\Documents\Visual Studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptCompiler\Resources\Tests.flow", FileMode.Open ), out flowScript ) );
 
@@ -94,6 +100,15 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
             Process.Start( @"D:\Modding\Persona 5 EU\Game mods\TestLevel\make_cpk_rpcs3.bat" );
             */
             //OutputBothDisassemblies( @"D:\Modding\Persona 5 EU\Main game\Extracted\data\event\e800\e800\e800_021.bf", false );
+            RecursiveCount( 0, 10 );
+        }
+
+        static void RecursiveCount( int i, int max )
+        {
+            i = i + 1;
+            Debug.WriteLine(i);
+            if ( i < max )
+                RecursiveCount( i, max );
         }
 
         static void OutputBothDisassemblies( string path, bool isSource )

@@ -58,6 +58,19 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             return true;
         }
 
+        public bool TryDecompile( FlowScript flowScript, string filepath )
+        {
+            // Decompile to decompilation unit
+            if ( !TryDecompile( flowScript, out var compilationUnit ))
+                return false;
+
+            // Write out the decompilation unit
+            var writer = new FlowScriptCompilationUnitWriter();
+            writer.WriteToFile( compilationUnit, filepath );
+
+            return true;
+        }
+
         // 
         // FlowScript Decompilation
         //
@@ -142,9 +155,6 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             // Decompile procedures
             foreach ( var evaluatedProcedure in mEvaluatedScript.Procedures )
             {
-                //if ( evaluatedProcedure.Procedure.Name == "D_ENCOUNT_NO_GET" )
-                //    continue;
-
                 if ( !TryDecompileProcedure( evaluatedProcedure, out var declaration ) )
                 {
                     LogError( $"Failed to decompile procedure: { evaluatedProcedure.Procedure.Name }" );

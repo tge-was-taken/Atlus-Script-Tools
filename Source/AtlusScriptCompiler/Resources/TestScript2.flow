@@ -62,7 +62,7 @@ function( 0x108f ) void FLD_MODEL_SET_TRANSLATE( int modelHandle, float x, float
 function( 0x1301 ) void FLD_MODEL_SET_SCALE( int modelHandle, float scale );
 
 // Returns if the specified button is pressed
-function( 0x007a ) bool PAD_CHK_PRESS( int button );
+function( 0x007a ) bool PAD_CHK_PRESS( PadButton button );
 
 // Plays a specified bgm. Maps directly to the ids from the OST gamerip.
 function( 0x005c ) void BGM( int bgmId );
