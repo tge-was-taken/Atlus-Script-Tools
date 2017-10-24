@@ -9,7 +9,7 @@ using AtlusScriptLib.FlowScriptLanguage.Compiler;
 using AtlusScriptLib.FlowScriptLanguage.Compiler.Parser;
 using AtlusScriptLib.FlowScriptLanguage.Compiler.Processing;
 using System.IO;
-using AtlusLibSharp.FileSystems.PAKToolArchive;
+//using AtlusLibSharp.FileSystems.PAKToolArchive;
 using AtlusScriptLib.FlowScriptLanguage.Disassembler;
 using System.Diagnostics;
 using AtlusScriptLib.MessageScriptLanguage.Compiler;
@@ -41,11 +41,16 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
                 "   Test3 = 3," +
                 "}" +
                 "" +
+                "void Test( MyEnum test )" +
+                "{" +
+                "}" +
+                "" +
                 "void Main()" +
                 "{" +
                 "   int test = MyEnum.Test1;" +
                 "   test = MyEnum.Test2;" +
                 "   test = MyEnum.Test3;" +
+                "   Test( MyEnum.Test1 );" +
                 "}";
 
 
@@ -58,8 +63,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
             flowScriptCompiler.EnableFunctionCallTracing = false;
             flowScriptCompiler.EnableStackCookie = false;
 
-            Assert.IsTrue( flowScriptCompiler.TryCompile( File.Open( @"D:\Users\smart\Documents\Visual Studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptCompiler\Resources\TestScript2.flow", FileMode.Open ), out flowScript ) );
-            //Assert.IsTrue( flowScriptCompiler.TryCompile( flowScriptSource, out flowScript ) );
+            //Assert.IsTrue( flowScriptCompiler.TryCompile( File.Open( @"D:\Users\smart\Documents\Visual Studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptCompiler\Resources\TestScript2.flow", FileMode.Open ), out flowScript ) );
+            Assert.IsTrue( flowScriptCompiler.TryCompile( flowScriptSource, out flowScript ) );
             //Assert.IsTrue( flowScriptCompiler.TryCompile( File.Open( @"D:\Users\smart\Documents\Visual Studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptCompiler\Resources\Tests.flow", FileMode.Open ), out flowScript ) );
 
             var flowScriptDecompiler = new FlowScriptDecompiler();
@@ -76,6 +81,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
             const int fieldMajorId = 000;
             const int fieldMinorId = 100;
 
+            /*
             var archive = new PakToolArchiveFile();
             archive.Entries.Add( new PakToolArchiveEntry( $"init/fini_{fieldMajorId:D3}_{fieldMinorId:D3}.bf", ( MemoryStream )flowScript.ToStream() ) );
             archive.Save( $@"D:\Modding\Persona 5 EU\Game mods\TestLevel\mod\field\f{fieldMajorId:D3}_{fieldMinorId:D3}.pac" );
@@ -86,7 +92,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
             flowScriptDiassembler.Dispose();
 
             Process.Start( @"D:\Modding\Persona 5 EU\Game mods\TestLevel\make_cpk_rpcs3.bat" );
-
+            */
             //OutputBothDisassemblies( @"D:\Modding\Persona 5 EU\Main game\Extracted\data\event\e800\e800\e800_021.bf", false );
         }
 

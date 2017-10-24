@@ -104,7 +104,7 @@ expression
 	: ';'															# nullExpression
 	| '(' expression ')'											# compoundExpression
 	| Identifier '.' Identifier										# memberAccessExpression
-	| ( PrimitiveTypeIdentifier | Identifier ) '(' expression ')'	# castExpression				// precedence 2
+	| '(' ( PrimitiveTypeIdentifier | Identifier ) ')' '(' expression ')'	# castExpression				// precedence 2
 	| Identifier expressionList										# callExpression				// precedence 2
 	| expression Op=( '--' | '++' )									# unaryPostfixExpression		// precedence 2
 	| Op=( '!' | '-' | '--' | '++' ) expression						# unaryPrefixExpression			// precedence 3
