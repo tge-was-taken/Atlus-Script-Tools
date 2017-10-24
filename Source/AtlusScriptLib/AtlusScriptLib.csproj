@@ -90,6 +90,7 @@
     <Compile Include="FlowScriptLanguage\Syntax\FlowScriptSyntaxNode.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\FlowScriptSourceInfo.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\FlowScriptSyntaxVisitor.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Declarations\FlowScriptEnumDeclaration.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Declarations\FlowScriptLabelDeclaration.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptAdditionAssignmentOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptAssignmentOperator.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptNonEqualityOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptAdditionOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\FlowScriptBinaryExpression.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\FlowScriptMemberAccessExpression.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\IFlowScriptOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Identifiers\FlowScriptTypeIdentifier.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\FlowScriptUnaryExpression.cs" />

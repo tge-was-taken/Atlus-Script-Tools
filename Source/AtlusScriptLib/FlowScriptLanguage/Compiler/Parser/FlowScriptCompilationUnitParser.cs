@@ -369,6 +369,14 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
                 declaration = variableDeclaration;
             }
+            else if ( TryGet( context, context.enumTypeDeclarationStatement, out var enumDeclarationContext ) )
+            {
+                FlowScriptEnumDeclaration enumDeclaration = null;
+                if ( !TryFunc( enumDeclarationContext, "Failed to parse enum declaration", () => TryParseEnumDeclaration( enumDeclarationContext, out enumDeclaration ) ) )
+                    return false;
+
+                declaration = enumDeclaration;
+            }
             else if ( TryGet( context, context.labelDeclarationStatement, out var labelDeclarationContext ) )
             {
                 FlowScriptLabelDeclaration labelDeclaration = null;
@@ -392,10 +400,18 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
             functionDeclaration = CreateAstNode<FlowScriptFunctionDeclaration>( context );
 
+            int identifierIndex = 0;
             // Parse return type
             {
-                if ( !TryGet( context, "Expected function return type", context.TypeIdentifier, out var typeIdentifierNode ) )
-                    return false;
+                if ( !TryGet( context, "Expected function return type", context.PrimitiveTypeIdentifier, out var typeIdentifierNode ) )
+                {
+                    if ( !TryGet( context, "Expected function return type", () => context.Identifier(0), out typeIdentifierNode ) )
+                    {
+                        return false;
+                    }
+
+                    identifierIndex = 1;
+                }
 
                 FlowScriptTypeIdentifier typeIdentifier = null;
                 if ( !TryFunc( typeIdentifierNode, "Failed to parse function return type identifier", () => TryParseTypeIdentifier( typeIdentifierNode, out typeIdentifier ) ) )
@@ -418,7 +434,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
             // Parse identifier
             {
-                if ( !TryGet( context, "Expected function identifier", context.Identifier, out var identifierNode ) )
+                if ( !TryGet( context, "Expected function identifier", () => context.Identifier( identifierIndex ), out var identifierNode ) )
                     return false;
 
                 FlowScriptIdentifier identifier = null;
@@ -581,6 +597,61 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
             return true;
         }
 
+        private bool TryParseEnumDeclaration( FlowScriptParser.EnumTypeDeclarationStatementContext context, out FlowScriptEnumDeclaration enumDeclaration )
+        {
+            LogContextInfo( context );
+
+            enumDeclaration = CreateAstNode< FlowScriptEnumDeclaration >( context );
+
+            // Parse identifier
+            FlowScriptIdentifier identifier = null;
+            if ( !TryFunc( context.Identifier(), "Failed to parse enum identifier", () => TryParseIdentifier( context.Identifier(), out identifier ) ) )
+                return false;
+
+            enumDeclaration.Identifier = identifier;
+
+            // Parse values
+            List<FlowScriptEnumValueDeclaration> values = null;
+            if ( !TryFunc( context.enumValueList(), "Failed to parse enum values", () => TryParseEnumValueList( context.enumValueList(), out values ) ) )
+                return false;
+
+            enumDeclaration.Values = values;
+
+            return true;
+        }
+
+        private bool TryParseEnumValueList( FlowScriptParser.EnumValueListContext context, out List< FlowScriptEnumValueDeclaration > values )
+        {
+            values = new List< FlowScriptEnumValueDeclaration >();
+
+            foreach ( var valueContext in context.enumValueDeclaration() )
+            {
+                var value = CreateAstNode< FlowScriptEnumValueDeclaration >( valueContext );
+
+                // Parse identifier
+                FlowScriptIdentifier identifier = null;
+                if ( !TryFunc( valueContext.Identifier(), "Failed to parse enum value identifier", () => TryParseIdentifier( valueContext.Identifier(), out identifier ) ) )
+                    return false;
+
+                value.Identifier = identifier;
+
+                if ( valueContext.expression() != null )
+                {
+                    // Parse value expression
+                    FlowScriptExpression enumValue = null;
+
+                    if ( !TryFunc( valueContext.expression(), "Failed to parse enum value", () => TryParseExpression( valueContext.expression(), out enumValue ) ) )
+                        return false;
+
+                    value.Value = enumValue;
+                }
+
+                values.Add( value );
+            }
+
+            return true;
+        }
+
         private bool TryParseLabelDeclaration( FlowScriptParser.LabelDeclarationStatementContext context, out FlowScriptLabelDeclaration labelDeclaration )
         {
             LogContextInfo( context );
@@ -621,6 +692,14 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
             {
                 mLogger.Error( "Todo: cast" );
                 return false;
+            }
+            else if ( TryCast<FlowScriptParser.MemberAccessExpressionContext>( context, out var memberAccessExpressionContext ) )
+            {
+                FlowScriptMemberAccessExpression memberAccessExpression = null;
+                if ( !TryFunc( memberAccessExpressionContext, "Failed to parse member access operator", () => TryParseMemberAccessExpression( memberAccessExpressionContext, out memberAccessExpression ) ) )
+                    return false;
+
+                expression = memberAccessExpression;
             }
             else if ( TryCast<FlowScriptParser.CallExpressionContext>( context, out var callExpressionContext ) )
             {
@@ -715,6 +794,25 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                 LogError( context, "Unknown expression" );
                 return false;
             }
+
+            return true;
+        }
+
+        private bool TryParseMemberAccessExpression( FlowScriptParser.MemberAccessExpressionContext context, out FlowScriptMemberAccessExpression memberAccessExpression )
+        {
+            memberAccessExpression = CreateAstNode< FlowScriptMemberAccessExpression >( context );
+
+            FlowScriptIdentifier operand = null;
+            if ( !TryFunc( context.Identifier(0), "Failed to parse member access operand", () => TryParseIdentifier( context.Identifier( 0 ), out operand ) ) )
+                return false;
+
+            memberAccessExpression.Operand = operand;
+
+            FlowScriptIdentifier member = null;
+            if ( !TryFunc( context.Identifier( 1 ), "Failed to parse member identifier", () => TryParseIdentifier( context.Identifier( 1 ), out member ) ) )
+                return false;
+
+            memberAccessExpression.Member = member;
 
             return true;
         }
@@ -1082,7 +1180,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
             LogContextInfo( context );
 
             expression = null;
-            if ( !TryGet( context, "Expected primary expression", () => context.primary(), out var primaryContext ) )
+            if ( !TryGet( context, "Expected primary expression", context.primary, out var primaryContext ) )
                 return false;
 
             if ( TryCast<FlowScriptParser.ConstantExpressionContext>( primaryContext, out var constantExpressionContext ) )
@@ -1334,8 +1432,9 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
             if ( !Enum.TryParse<FlowScriptValueType>( identifier.Text, true, out var primitiveType ) )
             {
-                LogError( node.Symbol, $"Unknown value type: {identifier.Text }" );
-                return false;
+                primitiveType = FlowScriptValueType.Int;
+                //LogError( node.Symbol, $"Unknown value type: {identifier.Text }" );
+                //return false;
             }
 
             identifier.ValueType = primitiveType;

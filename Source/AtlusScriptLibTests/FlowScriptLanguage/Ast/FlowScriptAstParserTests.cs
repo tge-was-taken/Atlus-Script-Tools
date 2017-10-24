@@ -29,21 +29,26 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
             // FLD_GET_SCRIPT_TIMING returns a value ranging from 0 to 4 indicating the loading phase
             // without [f 2 1] the text doesn't scroll
             // options without any text won't be displayed
+
+            // TODO: implement custom types
             var listener = new DebugLogListener();
 
             string flowScriptSource =
-                "void Main()" +
+                "enum MyEnum" +
                 "{" +
-                "   float result = Test( 1, 2f );" +
+                "   Test1 = 1," +
+                "   Test2 = MyEnum.Test1 + 1," +
+                "   Test3 = 3," +
                 "}" +
                 "" +
-                "float Test( int param1, float param2 )" +
+                "void Main()" +
                 "{" +
-                "   return param1 * param2;" +
+                "   int test = MyEnum.Test1;" +
+                "   test = MyEnum.Test2;" +
+                "   test = MyEnum.Test3;" +
                 "}";
 
 
-            /*
             FlowScript flowScript;
 
             var flowScriptCompiler = new FlowScriptCompiler( FlowScriptFormatVersion.Version3BigEndian );
@@ -51,18 +56,16 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
             flowScriptCompiler.EnableProcedureTracing = false;
             flowScriptCompiler.EnableProcedureCallTracing = false;
             flowScriptCompiler.EnableFunctionCallTracing = false;
-            flowScriptCompiler.EnableStackTracing = false;
             flowScriptCompiler.EnableStackCookie = false;
 
-            //Assert.IsTrue( flowScriptCompiler.TryCompile( File.Open( @"D:\Users\smart\Documents\Visual Studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptCompiler\Resources\TestScript2.flow", FileMode.Open ), out flowScript ) );
+            Assert.IsTrue( flowScriptCompiler.TryCompile( File.Open( @"D:\Users\smart\Documents\Visual Studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptCompiler\Resources\TestScript2.flow", FileMode.Open ), out flowScript ) );
             //Assert.IsTrue( flowScriptCompiler.TryCompile( flowScriptSource, out flowScript ) );
-            //Assert.IsTrue( flowScriptCompiler.TryCompile( File.Open( @"D:\Users\smart\Documents\Visual Studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptCompiler\Resources\Tests.flow", FileMode.Open ), out var flowScript ) );
+            //Assert.IsTrue( flowScriptCompiler.TryCompile( File.Open( @"D:\Users\smart\Documents\Visual Studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptCompiler\Resources\Tests.flow", FileMode.Open ), out flowScript ) );
 
             var flowScriptDecompiler = new FlowScriptDecompiler();
             flowScriptDecompiler.AddListener( listener );
             flowScriptDecompiler.FunctionDatabase = Persona5FunctionDatabase.Instance;
-            //Assert.IsTrue( flowScriptDecompiler.TryDecompile( flowScript, out var compilationUnit ) );
-            flowScript = FlowScript.FromFile( @"D:\Modding\Persona 5 EU\Main game\Extracted\data\battle\script\enemy\btl_func_artist.bf" );
+            //flowScript = FlowScript.FromFile( @"D:\Modding\Persona 5 EU\Main game\Extracted\data\battle\script\enemy\btl_func_artist.bf" );
             Assert.IsTrue( flowScriptDecompiler.TryDecompile( flowScript, out var compilationUnit ) );
 
             var flowScriptCompilationUnitWriter = new FlowScriptCompilationUnitWriter();
@@ -70,8 +73,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
 
             //Assert.IsTrue( flowScriptCompiler.TryCompile( File.OpenRead( "output.flow" ), out flowScript ) );
 
-            int fieldMajorId = 000;
-            int fieldMinorId = 100;
+            const int fieldMajorId = 000;
+            const int fieldMinorId = 100;
 
             var archive = new PakToolArchiveFile();
             archive.Entries.Add( new PakToolArchiveEntry( $"init/fini_{fieldMajorId:D3}_{fieldMinorId:D3}.bf", ( MemoryStream )flowScript.ToStream() ) );
@@ -83,9 +86,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
             flowScriptDiassembler.Dispose();
 
             Process.Start( @"D:\Modding\Persona 5 EU\Game mods\TestLevel\make_cpk_rpcs3.bat" );
-            */
 
-            OutputBothDisassemblies( @"D:\Modding\Persona 5 EU\Main game\Extracted\data\event\e800\e800\e800_021.bf", false );
+            //OutputBothDisassemblies( @"D:\Modding\Persona 5 EU\Main game\Extracted\data\event\e800\e800\e800_021.bf", false );
         }
 
         static void OutputBothDisassemblies( string path, bool isSource )
@@ -122,7 +124,6 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
             flowScriptCompiler.EnableProcedureTracing = false;
             flowScriptCompiler.EnableProcedureCallTracing = false;
             flowScriptCompiler.EnableFunctionCallTracing = false;
-            flowScriptCompiler.EnableStackTracing = false;
             flowScriptCompiler.EnableStackCookie = false;
             Assert.IsTrue( flowScriptCompiler.TryCompile( source, out var flowScript ) );
             return flowScript;

@@ -217,6 +217,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             // This also solves the issue of variable scoping in if statements
             CoagulateVariableDeclarationAssignments();
 
+            // Remove redundant gotos
+            if ( !mKeepLabelsAndGotos )
+                RemoveRedundantGotos();
+
             // Remove unreferenced labels
             if ( !mKeepLabelsAndGotos )
                 RemoveUnreferencedLabels();
@@ -404,7 +408,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                             if ( elseBodyEvaluatedStatements.First().Statement is FlowScriptLabelDeclaration )
                                 elseBodyEvaluatedStatements.Remove( elseBodyEvaluatedStatements.First() );
 
-                            if ( elseBodyEvaluatedStatements.Last().Statement is FlowScriptGotoStatement )
+                            if ( elseBodyEvaluatedStatements.Any() && elseBodyEvaluatedStatements.Last().Statement is FlowScriptGotoStatement )
                             {
                                 var elseBodyGotoStatement = elseBodyEvaluatedStatements.Last();
                                 if ( elseBodyGotoStatement.ReferencedLabel.InstructionIndex ==
@@ -467,8 +471,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
                 if ( evaluatedStatementIndex == -1 )
                 {
-                    // Not in the list of statements, but in one of the if statements               
+                    // Referenced first in one of the if statements
+
+                    // But maybe it's accessed later in the body?
+                    bool accessedLaterInBody = referencedLocalVariableIdentifier.Any( x => evaluatedStatements.Any( y => y.InstructionIndex == x.InstructionIndex ) );
                     bool accessedInIfStatementOnce = false;
+
                     foreach ( var ifStatement in ifStatements )
                     {
                         // Check condition
@@ -487,6 +495,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                             if ( !accessedInIfStatementOnce )
                             {
                                 accessedInIfStatementOnce = true;
+                                if ( accessedLaterInBody )
+                                    shouldDeclareBeforeIfStatements = true;
                             }
                             else
                             {
@@ -499,12 +509,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         if ( mIfStatementElseBodyMap.TryGetValue( ifStatement.InstructionIndex, out var elseBody ) )
                         {
                             // Check if any of instructions in the if else body map to any of the instruction indices of the references
-                            if ( body.Any(
-                                x => referencedLocalVariableIdentifier.Any( y => y.InstructionIndex == x.InstructionIndex ) ) )
+                            if ( elseBody.Any( x => referencedLocalVariableIdentifier.Any( y => y.InstructionIndex == x.InstructionIndex ) ) )
                             {
                                 if ( !accessedInIfStatementOnce )
                                 {
                                     accessedInIfStatementOnce = true;
+                                    if ( accessedLaterInBody )
+                                        shouldDeclareBeforeIfStatements = true;
                                 }
                                 else
                                 {
@@ -643,6 +654,33 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
                 if ( ( returnStatements[i + 1].InstructionIndex - returnStatements[i].InstructionIndex ) == 1 )
                     mEvaluatedStatements.Remove( returnStatements[i] );
+            }
+        }
+
+        private void RemoveRedundantGotos()
+        {
+            foreach ( var evaluatedStatement in mEvaluatedStatements.Where( x => x.Statement is FlowScriptGotoStatement ).ToList() )
+            {
+                if ( evaluatedStatement.ReferencedLabel.InstructionIndex == evaluatedStatement.InstructionIndex + 1 )
+                    mEvaluatedStatements.Remove( evaluatedStatement );
+            }
+
+            foreach ( var body in mIfStatementBodyMap.Values )
+            {
+                foreach ( var evaluatedStatement in body.Where( x => x.Statement is FlowScriptGotoStatement ).ToList() )
+                {
+                    if ( evaluatedStatement.ReferencedLabel.InstructionIndex == evaluatedStatement.InstructionIndex + 1 )
+                        mEvaluatedStatements.Remove( evaluatedStatement );
+                }
+            }
+
+            foreach ( var body in mIfStatementElseBodyMap.Values )
+            {
+                foreach ( var evaluatedStatement in body.Where( x => x.Statement is FlowScriptGotoStatement ).ToList() )
+                {
+                    if ( evaluatedStatement.ReferencedLabel.InstructionIndex == evaluatedStatement.InstructionIndex + 1 )
+                        mEvaluatedStatements.Remove( evaluatedStatement );
+                }
             }
         }
 

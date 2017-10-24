@@ -34,46 +34,48 @@ public partial class FlowScriptParser : Parser {
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
 		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, T__15=16, T__16=17, 
 		T__17=18, T__18=19, T__19=20, T__20=21, T__21=22, T__22=23, T__23=24, 
-		T__24=25, T__25=26, T__26=27, Import=28, Function=29, Static=30, Const=31, 
-		If=32, Else=33, For=34, While=35, Break=36, Continue=37, Return=38, Goto=39, 
-		Switch=40, Case=41, Default=42, TypeIdentifier=43, BoolLiteral=44, IntLiteral=45, 
-		FloatLiteral=46, StringLiteral=47, Identifier=48, ProcedureIdentifier=49, 
-		Whitespace=50, Newline=51, BlockComment=52, LineComment=53;
+		T__24=25, T__25=26, T__26=27, T__27=28, Import=29, Function=30, Static=31, 
+		Const=32, If=33, Else=34, For=35, While=36, Break=37, Continue=38, Return=39, 
+		Goto=40, Switch=41, Case=42, Default=43, Enum=44, BoolLiteral=45, IntLiteral=46, 
+		FloatLiteral=47, StringLiteral=48, Identifier=49, PrimitiveTypeIdentifier=50, 
+		ProcedureIdentifier=51, Whitespace=52, Newline=53, BlockComment=54, LineComment=55;
 	public const int
 		RULE_compilationUnit = 0, RULE_importStatement = 1, RULE_statement = 2, 
 		RULE_nullStatement = 3, RULE_compoundStatement = 4, RULE_declarationStatement = 5, 
 		RULE_functionDeclarationStatement = 6, RULE_procedureDeclarationStatement = 7, 
-		RULE_variableDeclarationStatement = 8, RULE_labelDeclarationStatement = 9, 
-		RULE_variableModifier = 10, RULE_parameterList = 11, RULE_parameter = 12, 
-		RULE_expressionList = 13, RULE_expression = 14, RULE_primary = 15, RULE_constant = 16, 
-		RULE_ifStatement = 17, RULE_forStatement = 18, RULE_whileStatement = 19, 
-		RULE_breakStatement = 20, RULE_continueStatement = 21, RULE_returnStatement = 22, 
-		RULE_gotoStatement = 23, RULE_switchStatement = 24, RULE_switchLabel = 25;
+		RULE_variableDeclarationStatement = 8, RULE_enumTypeDeclarationStatement = 9, 
+		RULE_enumValueDeclaration = 10, RULE_enumValueList = 11, RULE_labelDeclarationStatement = 12, 
+		RULE_variableModifier = 13, RULE_parameterList = 14, RULE_parameter = 15, 
+		RULE_expressionList = 16, RULE_expression = 17, RULE_primary = 18, RULE_constant = 19, 
+		RULE_ifStatement = 20, RULE_forStatement = 21, RULE_whileStatement = 22, 
+		RULE_breakStatement = 23, RULE_continueStatement = 24, RULE_returnStatement = 25, 
+		RULE_gotoStatement = 26, RULE_switchStatement = 27, RULE_switchLabel = 28;
 	public static readonly string[] ruleNames = {
 		"compilationUnit", "importStatement", "statement", "nullStatement", "compoundStatement", 
 		"declarationStatement", "functionDeclarationStatement", "procedureDeclarationStatement", 
-		"variableDeclarationStatement", "labelDeclarationStatement", "variableModifier", 
-		"parameterList", "parameter", "expressionList", "expression", "primary", 
-		"constant", "ifStatement", "forStatement", "whileStatement", "breakStatement", 
-		"continueStatement", "returnStatement", "gotoStatement", "switchStatement", 
-		"switchLabel"
+		"variableDeclarationStatement", "enumTypeDeclarationStatement", "enumValueDeclaration", 
+		"enumValueList", "labelDeclarationStatement", "variableModifier", "parameterList", 
+		"parameter", "expressionList", "expression", "primary", "constant", "ifStatement", 
+		"forStatement", "whileStatement", "breakStatement", "continueStatement", 
+		"returnStatement", "gotoStatement", "switchStatement", "switchLabel"
 	};
 
 	private static readonly string[] _LiteralNames = {
-		null, "'('", "')'", "';'", "'{'", "'}'", "'='", "':'", "','", "'--'", 
+		null, "'('", "')'", "';'", "'{'", "'}'", "'='", "','", "':'", "'.'", "'--'", 
 		"'++'", "'!'", "'-'", "'*'", "'/'", "'+'", "'<'", "'>'", "'<='", "'>='", 
 		"'=='", "'!='", "'&&'", "'||'", "'+='", "'-='", "'*='", "'/='", "'import'", 
 		"'function'", "'static'", "'const'", "'if'", "'else'", "'for'", "'while'", 
-		"'break'", "'continue'", "'return'", "'goto'", "'switch'", "'case'", "'default'"
+		"'break'", "'continue'", "'return'", "'goto'", "'switch'", "'case'", "'default'", 
+		"'enum'"
 	};
 	private static readonly string[] _SymbolicNames = {
 		null, null, null, null, null, null, null, null, null, null, null, null, 
 		null, null, null, null, null, null, null, null, null, null, null, null, 
-		null, null, null, null, "Import", "Function", "Static", "Const", "If", 
-		"Else", "For", "While", "Break", "Continue", "Return", "Goto", "Switch", 
-		"Case", "Default", "TypeIdentifier", "BoolLiteral", "IntLiteral", "FloatLiteral", 
-		"StringLiteral", "Identifier", "ProcedureIdentifier", "Whitespace", "Newline", 
-		"BlockComment", "LineComment"
+		null, null, null, null, null, "Import", "Function", "Static", "Const", 
+		"If", "Else", "For", "While", "Break", "Continue", "Return", "Goto", "Switch", 
+		"Case", "Default", "Enum", "BoolLiteral", "IntLiteral", "FloatLiteral", 
+		"StringLiteral", "Identifier", "PrimitiveTypeIdentifier", "ProcedureIdentifier", 
+		"Whitespace", "Newline", "BlockComment", "LineComment"
 	};
 	public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);
 
@@ -167,33 +169,33 @@ public partial class FlowScriptParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 55;
+			State = 61;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
 			while (_la==Import) {
 				{
 				{
-				State = 52; importStatement();
-				}
-				}
-				State = 57;
-				_errHandler.Sync(this);
-				_la = _input.La(1);
-			}
-			State = 61;
-			_errHandler.Sync(this);
-			_la = _input.La(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Function) | (1L << Static) | (1L << Const) | (1L << TypeIdentifier) | (1L << Identifier))) != 0)) {
-				{
-				{
-				State = 58; declarationStatement();
+				State = 58; importStatement();
 				}
 				}
 				State = 63;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
 			}
-			State = 64; Match(Eof);
+			State = 67;
+			_errHandler.Sync(this);
+			_la = _input.La(1);
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Function) | (1L << Static) | (1L << Const) | (1L << Enum) | (1L << Identifier) | (1L << PrimitiveTypeIdentifier))) != 0)) {
+				{
+				{
+				State = 64; declarationStatement();
+				}
+				}
+				State = 69;
+				_errHandler.Sync(this);
+				_la = _input.La(1);
+			}
+			State = 70; Match(Eof);
 			}
 		}
 		catch (RecognitionException re) {
@@ -237,11 +239,11 @@ public partial class FlowScriptParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 66; Match(Import);
-			State = 67; Match(T__0);
-			State = 68; Match(StringLiteral);
-			State = 69; Match(T__1);
-			State = 70; Match(T__2);
+			State = 72; Match(Import);
+			State = 73; Match(T__0);
+			State = 74; Match(StringLiteral);
+			State = 75; Match(T__1);
+			State = 76; Match(T__2);
 			}
 		}
 		catch (RecognitionException re) {
@@ -317,91 +319,91 @@ public partial class FlowScriptParser : Parser {
 		StatementContext _localctx = new StatementContext(_ctx, State);
 		EnterRule(_localctx, 4, RULE_statement);
 		try {
-			State = 86;
+			State = 92;
 			_errHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(_input,2,_ctx) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 72; nullStatement();
+				State = 78; nullStatement();
 				}
 				break;
 
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 73; compoundStatement();
+				State = 79; compoundStatement();
 				}
 				break;
 
 			case 3:
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 74; declarationStatement();
+				State = 80; declarationStatement();
 				}
 				break;
 
 			case 4:
 				EnterOuterAlt(_localctx, 4);
 				{
-				State = 75; expression(0);
-				State = 76; Match(T__2);
+				State = 81; expression(0);
+				State = 82; Match(T__2);
 				}
 				break;
 
 			case 5:
 				EnterOuterAlt(_localctx, 5);
 				{
-				State = 78; ifStatement();
+				State = 84; ifStatement();
 				}
 				break;
 
 			case 6:
 				EnterOuterAlt(_localctx, 6);
 				{
-				State = 79; forStatement();
+				State = 85; forStatement();
 				}
 				break;
 
 			case 7:
 				EnterOuterAlt(_localctx, 7);
 				{
-				State = 80; whileStatement();
+				State = 86; whileStatement();
 				}
 				break;
 
 			case 8:
 				EnterOuterAlt(_localctx, 8);
 				{
-				State = 81; breakStatement();
+				State = 87; breakStatement();
 				}
 				break;
 
 			case 9:
 				EnterOuterAlt(_localctx, 9);
 				{
-				State = 82; continueStatement();
+				State = 88; continueStatement();
 				}
 				break;
 
 			case 10:
 				EnterOuterAlt(_localctx, 10);
 				{
-				State = 83; returnStatement();
+				State = 89; returnStatement();
 				}
 				break;
 
 			case 11:
 				EnterOuterAlt(_localctx, 11);
 				{
-				State = 84; gotoStatement();
+				State = 90; gotoStatement();
 				}
 				break;
 
 			case 12:
 				EnterOuterAlt(_localctx, 12);
 				{
-				State = 85; switchStatement();
+				State = 91; switchStatement();
 				}
 				break;
 			}
@@ -445,7 +447,7 @@ public partial class FlowScriptParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 88; Match(T__2);
+			State = 94; Match(T__2);
 			}
 		}
 		catch (RecognitionException re) {
@@ -494,21 +496,21 @@ public partial class FlowScriptParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 90; Match(T__3);
-			State = 94;
+			State = 96; Match(T__3);
+			State = 100;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__2) | (1L << T__3) | (1L << T__8) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << Function) | (1L << Static) | (1L << Const) | (1L << If) | (1L << For) | (1L << While) | (1L << Break) | (1L << Continue) | (1L << Return) | (1L << Goto) | (1L << Switch) | (1L << TypeIdentifier) | (1L << BoolLiteral) | (1L << IntLiteral) | (1L << FloatLiteral) | (1L << StringLiteral) | (1L << Identifier))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__2) | (1L << T__3) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << Function) | (1L << Static) | (1L << Const) | (1L << If) | (1L << For) | (1L << While) | (1L << Break) | (1L << Continue) | (1L << Return) | (1L << Goto) | (1L << Switch) | (1L << Enum) | (1L << BoolLiteral) | (1L << IntLiteral) | (1L << FloatLiteral) | (1L << StringLiteral) | (1L << Identifier) | (1L << PrimitiveTypeIdentifier))) != 0)) {
 				{
 				{
-				State = 91; statement();
+				State = 97; statement();
 				}
 				}
-				State = 96;
+				State = 102;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
 			}
-			State = 97; Match(T__4);
+			State = 103; Match(T__4);
 			}
 		}
 		catch (RecognitionException re) {
@@ -531,6 +533,9 @@ public partial class FlowScriptParser : Parser {
 		}
 		public VariableDeclarationStatementContext variableDeclarationStatement() {
 			return GetRuleContext<VariableDeclarationStatementContext>(0);
+		}
+		public EnumTypeDeclarationStatementContext enumTypeDeclarationStatement() {
+			return GetRuleContext<EnumTypeDeclarationStatementContext>(0);
 		}
 		public LabelDeclarationStatementContext labelDeclarationStatement() {
 			return GetRuleContext<LabelDeclarationStatementContext>(0);
@@ -560,34 +565,41 @@ public partial class FlowScriptParser : Parser {
 		DeclarationStatementContext _localctx = new DeclarationStatementContext(_ctx, State);
 		EnterRule(_localctx, 10, RULE_declarationStatement);
 		try {
-			State = 103;
+			State = 110;
 			_errHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(_input,4,_ctx) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 99; functionDeclarationStatement();
+				State = 105; functionDeclarationStatement();
 				}
 				break;
 
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 100; procedureDeclarationStatement();
+				State = 106; procedureDeclarationStatement();
 				}
 				break;
 
 			case 3:
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 101; variableDeclarationStatement();
+				State = 107; variableDeclarationStatement();
 				}
 				break;
 
 			case 4:
 				EnterOuterAlt(_localctx, 4);
 				{
-				State = 102; labelDeclarationStatement();
+				State = 108; enumTypeDeclarationStatement();
+				}
+				break;
+
+			case 5:
+				EnterOuterAlt(_localctx, 5);
+				{
+				State = 109; labelDeclarationStatement();
 				}
 				break;
 			}
@@ -606,11 +618,14 @@ public partial class FlowScriptParser : Parser {
 	public partial class FunctionDeclarationStatementContext : ParserRuleContext {
 		public ITerminalNode Function() { return GetToken(FlowScriptParser.Function, 0); }
 		public ITerminalNode IntLiteral() { return GetToken(FlowScriptParser.IntLiteral, 0); }
-		public ITerminalNode TypeIdentifier() { return GetToken(FlowScriptParser.TypeIdentifier, 0); }
-		public ITerminalNode Identifier() { return GetToken(FlowScriptParser.Identifier, 0); }
+		public ITerminalNode[] Identifier() { return GetTokens(FlowScriptParser.Identifier); }
+		public ITerminalNode Identifier(int i) {
+			return GetToken(FlowScriptParser.Identifier, i);
+		}
 		public ParameterListContext parameterList() {
 			return GetRuleContext<ParameterListContext>(0);
 		}
+		public ITerminalNode PrimitiveTypeIdentifier() { return GetToken(FlowScriptParser.PrimitiveTypeIdentifier, 0); }
 		public FunctionDeclarationStatementContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -635,17 +650,29 @@ public partial class FlowScriptParser : Parser {
 	public FunctionDeclarationStatementContext functionDeclarationStatement() {
 		FunctionDeclarationStatementContext _localctx = new FunctionDeclarationStatementContext(_ctx, State);
 		EnterRule(_localctx, 12, RULE_functionDeclarationStatement);
+		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 105; Match(Function);
-			State = 106; Match(T__0);
-			State = 107; Match(IntLiteral);
-			State = 108; Match(T__1);
-			State = 109; Match(TypeIdentifier);
-			State = 110; Match(Identifier);
-			State = 111; parameterList();
-			State = 112; Match(T__2);
+			State = 112; Match(Function);
+			State = 113; Match(T__0);
+			State = 114; Match(IntLiteral);
+			State = 115; Match(T__1);
+			State = 116;
+			_la = _input.La(1);
+			if ( !(_la==Identifier || _la==PrimitiveTypeIdentifier) ) {
+			_errHandler.RecoverInline(this);
+			} else {
+				if (_input.La(1) == TokenConstants.Eof) {
+					matchedEOF = true;
+				}
+
+				_errHandler.ReportMatch(this);
+				Consume();
+			}
+			State = 117; Match(Identifier);
+			State = 118; parameterList();
+			State = 119; Match(T__2);
 			}
 		}
 		catch (RecognitionException re) {
@@ -660,14 +687,17 @@ public partial class FlowScriptParser : Parser {
 	}
 
 	public partial class ProcedureDeclarationStatementContext : ParserRuleContext {
-		public ITerminalNode TypeIdentifier() { return GetToken(FlowScriptParser.TypeIdentifier, 0); }
 		public ParameterListContext parameterList() {
 			return GetRuleContext<ParameterListContext>(0);
 		}
 		public CompoundStatementContext compoundStatement() {
 			return GetRuleContext<CompoundStatementContext>(0);
 		}
-		public ITerminalNode Identifier() { return GetToken(FlowScriptParser.Identifier, 0); }
+		public ITerminalNode PrimitiveTypeIdentifier() { return GetToken(FlowScriptParser.PrimitiveTypeIdentifier, 0); }
+		public ITerminalNode[] Identifier() { return GetTokens(FlowScriptParser.Identifier); }
+		public ITerminalNode Identifier(int i) {
+			return GetToken(FlowScriptParser.Identifier, i);
+		}
 		public ITerminalNode ProcedureIdentifier() { return GetToken(FlowScriptParser.ProcedureIdentifier, 0); }
 		public ProcedureDeclarationStatementContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -697,8 +727,19 @@ public partial class FlowScriptParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 114; Match(TypeIdentifier);
-			State = 115;
+			State = 121;
+			_la = _input.La(1);
+			if ( !(_la==Identifier || _la==PrimitiveTypeIdentifier) ) {
+			_errHandler.RecoverInline(this);
+			} else {
+				if (_input.La(1) == TokenConstants.Eof) {
+					matchedEOF = true;
+				}
+
+				_errHandler.ReportMatch(this);
+				Consume();
+			}
+			State = 122;
 			_la = _input.La(1);
 			if ( !(_la==Identifier || _la==ProcedureIdentifier) ) {
 			_errHandler.RecoverInline(this);
@@ -710,8 +751,8 @@ public partial class FlowScriptParser : Parser {
 				_errHandler.ReportMatch(this);
 				Consume();
 			}
-			State = 116; parameterList();
-			State = 117; compoundStatement();
+			State = 123; parameterList();
+			State = 124; compoundStatement();
 			}
 		}
 		catch (RecognitionException re) {
@@ -726,8 +767,11 @@ public partial class FlowScriptParser : Parser {
 	}
 
 	public partial class VariableDeclarationStatementContext : ParserRuleContext {
-		public ITerminalNode TypeIdentifier() { return GetToken(FlowScriptParser.TypeIdentifier, 0); }
-		public ITerminalNode Identifier() { return GetToken(FlowScriptParser.Identifier, 0); }
+		public ITerminalNode[] Identifier() { return GetTokens(FlowScriptParser.Identifier); }
+		public ITerminalNode Identifier(int i) {
+			return GetToken(FlowScriptParser.Identifier, i);
+		}
+		public ITerminalNode PrimitiveTypeIdentifier() { return GetToken(FlowScriptParser.PrimitiveTypeIdentifier, 0); }
 		public VariableModifierContext variableModifier() {
 			return GetRuleContext<VariableModifierContext>(0);
 		}
@@ -762,28 +806,239 @@ public partial class FlowScriptParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 120;
+			State = 127;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
 			if (_la==Static || _la==Const) {
 				{
-				State = 119; variableModifier();
+				State = 126; variableModifier();
 				}
 			}
 
-			State = 122; Match(TypeIdentifier);
-			State = 123; Match(Identifier);
-			State = 126;
+			State = 129;
+			_la = _input.La(1);
+			if ( !(_la==Identifier || _la==PrimitiveTypeIdentifier) ) {
+			_errHandler.RecoverInline(this);
+			} else {
+				if (_input.La(1) == TokenConstants.Eof) {
+					matchedEOF = true;
+				}
+
+				_errHandler.ReportMatch(this);
+				Consume();
+			}
+			State = 130; Match(Identifier);
+			State = 133;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
 			if (_la==T__5) {
 				{
-				State = 124; Match(T__5);
-				State = 125; expression(0);
+				State = 131; Match(T__5);
+				State = 132; expression(0);
 				}
 			}
 
-			State = 128; Match(T__2);
+			State = 135; Match(T__2);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.ReportError(this, re);
+			_errHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class EnumTypeDeclarationStatementContext : ParserRuleContext {
+		public ITerminalNode Enum() { return GetToken(FlowScriptParser.Enum, 0); }
+		public ITerminalNode Identifier() { return GetToken(FlowScriptParser.Identifier, 0); }
+		public EnumValueListContext enumValueList() {
+			return GetRuleContext<EnumValueListContext>(0);
+		}
+		public EnumTypeDeclarationStatementContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_enumTypeDeclarationStatement; } }
+		public override void EnterRule(IParseTreeListener listener) {
+			IFlowScriptListener typedListener = listener as IFlowScriptListener;
+			if (typedListener != null) typedListener.EnterEnumTypeDeclarationStatement(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IFlowScriptListener typedListener = listener as IFlowScriptListener;
+			if (typedListener != null) typedListener.ExitEnumTypeDeclarationStatement(this);
+		}
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IFlowScriptVisitor<TResult> typedVisitor = visitor as IFlowScriptVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitEnumTypeDeclarationStatement(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public EnumTypeDeclarationStatementContext enumTypeDeclarationStatement() {
+		EnumTypeDeclarationStatementContext _localctx = new EnumTypeDeclarationStatementContext(_ctx, State);
+		EnterRule(_localctx, 18, RULE_enumTypeDeclarationStatement);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 137; Match(Enum);
+			State = 138; Match(Identifier);
+			State = 139; enumValueList();
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.ReportError(this, re);
+			_errHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class EnumValueDeclarationContext : ParserRuleContext {
+		public ITerminalNode Identifier() { return GetToken(FlowScriptParser.Identifier, 0); }
+		public ExpressionContext expression() {
+			return GetRuleContext<ExpressionContext>(0);
+		}
+		public EnumValueDeclarationContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_enumValueDeclaration; } }
+		public override void EnterRule(IParseTreeListener listener) {
+			IFlowScriptListener typedListener = listener as IFlowScriptListener;
+			if (typedListener != null) typedListener.EnterEnumValueDeclaration(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IFlowScriptListener typedListener = listener as IFlowScriptListener;
+			if (typedListener != null) typedListener.ExitEnumValueDeclaration(this);
+		}
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IFlowScriptVisitor<TResult> typedVisitor = visitor as IFlowScriptVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitEnumValueDeclaration(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public EnumValueDeclarationContext enumValueDeclaration() {
+		EnumValueDeclarationContext _localctx = new EnumValueDeclarationContext(_ctx, State);
+		EnterRule(_localctx, 20, RULE_enumValueDeclaration);
+		int _la;
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 141; Match(Identifier);
+			State = 144;
+			_errHandler.Sync(this);
+			_la = _input.La(1);
+			if (_la==T__5) {
+				{
+				State = 142; Match(T__5);
+				State = 143; expression(0);
+				}
+			}
+
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.ReportError(this, re);
+			_errHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class EnumValueListContext : ParserRuleContext {
+		public EnumValueDeclarationContext[] enumValueDeclaration() {
+			return GetRuleContexts<EnumValueDeclarationContext>();
+		}
+		public EnumValueDeclarationContext enumValueDeclaration(int i) {
+			return GetRuleContext<EnumValueDeclarationContext>(i);
+		}
+		public EnumValueListContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_enumValueList; } }
+		public override void EnterRule(IParseTreeListener listener) {
+			IFlowScriptListener typedListener = listener as IFlowScriptListener;
+			if (typedListener != null) typedListener.EnterEnumValueList(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IFlowScriptListener typedListener = listener as IFlowScriptListener;
+			if (typedListener != null) typedListener.ExitEnumValueList(this);
+		}
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IFlowScriptVisitor<TResult> typedVisitor = visitor as IFlowScriptVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitEnumValueList(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public EnumValueListContext enumValueList() {
+		EnumValueListContext _localctx = new EnumValueListContext(_ctx, State);
+		EnterRule(_localctx, 22, RULE_enumValueList);
+		int _la;
+		try {
+			int _alt;
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 146; Match(T__3);
+			State = 148;
+			_errHandler.Sync(this);
+			switch ( Interpreter.AdaptivePredict(_input,8,_ctx) ) {
+			case 1:
+				{
+				State = 147; enumValueDeclaration();
+				}
+				break;
+			}
+			State = 155;
+			_errHandler.Sync(this);
+			_alt = Interpreter.AdaptivePredict(_input,9,_ctx);
+			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.InvalidAltNumber ) {
+				if ( _alt==1 ) {
+					{
+					{
+					State = 150; enumValueDeclaration();
+					State = 151; Match(T__6);
+					}
+					} 
+				}
+				State = 157;
+				_errHandler.Sync(this);
+				_alt = Interpreter.AdaptivePredict(_input,9,_ctx);
+			}
+			State = 162;
+			_errHandler.Sync(this);
+			_la = _input.La(1);
+			if (_la==Identifier) {
+				{
+				State = 158; enumValueDeclaration();
+				State = 160;
+				_errHandler.Sync(this);
+				_la = _input.La(1);
+				if (_la==T__6) {
+					{
+					State = 159; Match(T__6);
+					}
+				}
+
+				}
+			}
+
+			State = 164; Match(T__4);
 			}
 		}
 		catch (RecognitionException re) {
@@ -822,12 +1077,12 @@ public partial class FlowScriptParser : Parser {
 	[RuleVersion(0)]
 	public LabelDeclarationStatementContext labelDeclarationStatement() {
 		LabelDeclarationStatementContext _localctx = new LabelDeclarationStatementContext(_ctx, State);
-		EnterRule(_localctx, 18, RULE_labelDeclarationStatement);
+		EnterRule(_localctx, 24, RULE_labelDeclarationStatement);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 130; Match(Identifier);
-			State = 131; Match(T__6);
+			State = 166; Match(Identifier);
+			State = 167; Match(T__7);
 			}
 		}
 		catch (RecognitionException re) {
@@ -867,12 +1122,12 @@ public partial class FlowScriptParser : Parser {
 	[RuleVersion(0)]
 	public VariableModifierContext variableModifier() {
 		VariableModifierContext _localctx = new VariableModifierContext(_ctx, State);
-		EnterRule(_localctx, 20, RULE_variableModifier);
+		EnterRule(_localctx, 26, RULE_variableModifier);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 133;
+			State = 169;
 			_la = _input.La(1);
 			if ( !(_la==Static || _la==Const) ) {
 			_errHandler.RecoverInline(this);
@@ -927,36 +1182,36 @@ public partial class FlowScriptParser : Parser {
 	[RuleVersion(0)]
 	public ParameterListContext parameterList() {
 		ParameterListContext _localctx = new ParameterListContext(_ctx, State);
-		EnterRule(_localctx, 22, RULE_parameterList);
+		EnterRule(_localctx, 28, RULE_parameterList);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 135; Match(T__0);
-			State = 137;
+			State = 171; Match(T__0);
+			State = 173;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
-			if (_la==TypeIdentifier) {
+			if (_la==Identifier || _la==PrimitiveTypeIdentifier) {
 				{
-				State = 136; parameter();
+				State = 172; parameter();
 				}
 			}
 
-			State = 143;
+			State = 179;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
-			while (_la==T__7) {
+			while (_la==T__6) {
 				{
 				{
-				State = 139; Match(T__7);
-				State = 140; parameter();
+				State = 175; Match(T__6);
+				State = 176; parameter();
 				}
 				}
-				State = 145;
+				State = 181;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
 			}
-			State = 146; Match(T__1);
+			State = 182; Match(T__1);
 			}
 		}
 		catch (RecognitionException re) {
@@ -971,8 +1226,11 @@ public partial class FlowScriptParser : Parser {
 	}
 
 	public partial class ParameterContext : ParserRuleContext {
-		public ITerminalNode TypeIdentifier() { return GetToken(FlowScriptParser.TypeIdentifier, 0); }
-		public ITerminalNode Identifier() { return GetToken(FlowScriptParser.Identifier, 0); }
+		public ITerminalNode[] Identifier() { return GetTokens(FlowScriptParser.Identifier); }
+		public ITerminalNode Identifier(int i) {
+			return GetToken(FlowScriptParser.Identifier, i);
+		}
+		public ITerminalNode PrimitiveTypeIdentifier() { return GetToken(FlowScriptParser.PrimitiveTypeIdentifier, 0); }
 		public ParameterContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -996,12 +1254,24 @@ public partial class FlowScriptParser : Parser {
 	[RuleVersion(0)]
 	public ParameterContext parameter() {
 		ParameterContext _localctx = new ParameterContext(_ctx, State);
-		EnterRule(_localctx, 24, RULE_parameter);
+		EnterRule(_localctx, 30, RULE_parameter);
+		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 148; Match(TypeIdentifier);
-			State = 149; Match(Identifier);
+			State = 184;
+			_la = _input.La(1);
+			if ( !(_la==Identifier || _la==PrimitiveTypeIdentifier) ) {
+			_errHandler.RecoverInline(this);
+			} else {
+				if (_input.La(1) == TokenConstants.Eof) {
+					matchedEOF = true;
+				}
+
+				_errHandler.ReportMatch(this);
+				Consume();
+			}
+			State = 185; Match(Identifier);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1045,36 +1315,36 @@ public partial class FlowScriptParser : Parser {
 	[RuleVersion(0)]
 	public ExpressionListContext expressionList() {
 		ExpressionListContext _localctx = new ExpressionListContext(_ctx, State);
-		EnterRule(_localctx, 26, RULE_expressionList);
+		EnterRule(_localctx, 32, RULE_expressionList);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 151; Match(T__0);
-			State = 153;
+			State = 187; Match(T__0);
+			State = 189;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__2) | (1L << T__8) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << TypeIdentifier) | (1L << BoolLiteral) | (1L << IntLiteral) | (1L << FloatLiteral) | (1L << StringLiteral) | (1L << Identifier))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__2) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << BoolLiteral) | (1L << IntLiteral) | (1L << FloatLiteral) | (1L << StringLiteral) | (1L << Identifier) | (1L << PrimitiveTypeIdentifier))) != 0)) {
 				{
-				State = 152; expression(0);
+				State = 188; expression(0);
 				}
 			}
 
-			State = 159;
+			State = 195;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
-			while (_la==T__7) {
+			while (_la==T__6) {
 				{
 				{
-				State = 155; Match(T__7);
-				State = 156; expression(0);
+				State = 191; Match(T__6);
+				State = 192; expression(0);
 				}
 				}
-				State = 161;
+				State = 197;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
 			}
-			State = 162; Match(T__1);
+			State = 198; Match(T__1);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1098,6 +1368,131 @@ public partial class FlowScriptParser : Parser {
 		public ExpressionContext() { }
 		public virtual void CopyFrom(ExpressionContext context) {
 			base.CopyFrom(context);
+		}
+	}
+	public partial class AssignmentExpressionContext : ExpressionContext {
+		public IToken Op;
+		public ITerminalNode Identifier() { return GetToken(FlowScriptParser.Identifier, 0); }
+		public ExpressionContext expression() {
+			return GetRuleContext<ExpressionContext>(0);
+		}
+		public AssignmentExpressionContext(ExpressionContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			IFlowScriptListener typedListener = listener as IFlowScriptListener;
+			if (typedListener != null) typedListener.EnterAssignmentExpression(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IFlowScriptListener typedListener = listener as IFlowScriptListener;
+			if (typedListener != null) typedListener.ExitAssignmentExpression(this);
+		}
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IFlowScriptVisitor<TResult> typedVisitor = visitor as IFlowScriptVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitAssignmentExpression(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class AdditionExpressionContext : ExpressionContext {
+		public IToken Op;
+		public ExpressionContext[] expression() {
+			return GetRuleContexts<ExpressionContext>();
+		}
+		public ExpressionContext expression(int i) {
+			return GetRuleContext<ExpressionContext>(i);
+		}
+		public AdditionExpressionContext(ExpressionContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			IFlowScriptListener typedListener = listener as IFlowScriptListener;
+			if (typedListener != null) typedListener.EnterAdditionExpression(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IFlowScriptListener typedListener = listener as IFlowScriptListener;
+			if (typedListener != null) typedListener.ExitAdditionExpression(this);
+		}
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IFlowScriptVisitor<TResult> typedVisitor = visitor as IFlowScriptVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitAdditionExpression(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class CallExpressionContext : ExpressionContext {
+		public ITerminalNode Identifier() { return GetToken(FlowScriptParser.Identifier, 0); }
+		public ExpressionListContext expressionList() {
+			return GetRuleContext<ExpressionListContext>(0);
+		}
+		public CallExpressionContext(ExpressionContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			IFlowScriptListener typedListener = listener as IFlowScriptListener;
+			if (typedListener != null) typedListener.EnterCallExpression(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IFlowScriptListener typedListener = listener as IFlowScriptListener;
+			if (typedListener != null) typedListener.ExitCallExpression(this);
+		}
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IFlowScriptVisitor<TResult> typedVisitor = visitor as IFlowScriptVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitCallExpression(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class LogicalAndExpressionContext : ExpressionContext {
+		public ExpressionContext[] expression() {
+			return GetRuleContexts<ExpressionContext>();
+		}
+		public ExpressionContext expression(int i) {
+			return GetRuleContext<ExpressionContext>(i);
+		}
+		public LogicalAndExpressionContext(ExpressionContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			IFlowScriptListener typedListener = listener as IFlowScriptListener;
+			if (typedListener != null) typedListener.EnterLogicalAndExpression(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IFlowScriptListener typedListener = listener as IFlowScriptListener;
+			if (typedListener != null) typedListener.ExitLogicalAndExpression(this);
+		}
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IFlowScriptVisitor<TResult> typedVisitor = visitor as IFlowScriptVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitLogicalAndExpression(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class PrimaryExpressionContext : ExpressionContext {
+		public PrimaryContext primary() {
+			return GetRuleContext<PrimaryContext>(0);
+		}
+		public PrimaryExpressionContext(ExpressionContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			IFlowScriptListener typedListener = listener as IFlowScriptListener;
+			if (typedListener != null) typedListener.EnterPrimaryExpression(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IFlowScriptListener typedListener = listener as IFlowScriptListener;
+			if (typedListener != null) typedListener.ExitPrimaryExpression(this);
+		}
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IFlowScriptVisitor<TResult> typedVisitor = visitor as IFlowScriptVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitPrimaryExpression(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class UnaryPostfixExpressionContext : ExpressionContext {
+		public IToken Op;
+		public ExpressionContext expression() {
+			return GetRuleContext<ExpressionContext>(0);
+		}
+		public UnaryPostfixExpressionContext(ExpressionContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			IFlowScriptListener typedListener = listener as IFlowScriptListener;
+			if (typedListener != null) typedListener.EnterUnaryPostfixExpression(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IFlowScriptListener typedListener = listener as IFlowScriptListener;
+			if (typedListener != null) typedListener.ExitUnaryPostfixExpression(this);
+		}
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IFlowScriptVisitor<TResult> typedVisitor = visitor as IFlowScriptVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitUnaryPostfixExpression(this);
+			else return visitor.VisitChildren(this);
 		}
 	}
 	public partial class LogicalOrExpressionContext : ExpressionContext {
@@ -1145,32 +1540,12 @@ public partial class FlowScriptParser : Parser {
 			else return visitor.VisitChildren(this);
 		}
 	}
-	public partial class AssignmentExpressionContext : ExpressionContext {
-		public IToken Op;
-		public ITerminalNode Identifier() { return GetToken(FlowScriptParser.Identifier, 0); }
-		public ExpressionContext expression() {
-			return GetRuleContext<ExpressionContext>(0);
-		}
-		public AssignmentExpressionContext(ExpressionContext context) { CopyFrom(context); }
-		public override void EnterRule(IParseTreeListener listener) {
-			IFlowScriptListener typedListener = listener as IFlowScriptListener;
-			if (typedListener != null) typedListener.EnterAssignmentExpression(this);
-		}
-		public override void ExitRule(IParseTreeListener listener) {
-			IFlowScriptListener typedListener = listener as IFlowScriptListener;
-			if (typedListener != null) typedListener.ExitAssignmentExpression(this);
-		}
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IFlowScriptVisitor<TResult> typedVisitor = visitor as IFlowScriptVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitAssignmentExpression(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
 	public partial class CastExpressionContext : ExpressionContext {
-		public ITerminalNode TypeIdentifier() { return GetToken(FlowScriptParser.TypeIdentifier, 0); }
 		public ExpressionContext expression() {
 			return GetRuleContext<ExpressionContext>(0);
 		}
+		public ITerminalNode PrimitiveTypeIdentifier() { return GetToken(FlowScriptParser.PrimitiveTypeIdentifier, 0); }
+		public ITerminalNode Identifier() { return GetToken(FlowScriptParser.Identifier, 0); }
 		public CastExpressionContext(ExpressionContext context) { CopyFrom(context); }
 		public override void EnterRule(IParseTreeListener listener) {
 			IFlowScriptListener typedListener = listener as IFlowScriptListener;
@@ -1209,29 +1584,6 @@ public partial class FlowScriptParser : Parser {
 			else return visitor.VisitChildren(this);
 		}
 	}
-	public partial class AdditionExpressionContext : ExpressionContext {
-		public IToken Op;
-		public ExpressionContext[] expression() {
-			return GetRuleContexts<ExpressionContext>();
-		}
-		public ExpressionContext expression(int i) {
-			return GetRuleContext<ExpressionContext>(i);
-		}
-		public AdditionExpressionContext(ExpressionContext context) { CopyFrom(context); }
-		public override void EnterRule(IParseTreeListener listener) {
-			IFlowScriptListener typedListener = listener as IFlowScriptListener;
-			if (typedListener != null) typedListener.EnterAdditionExpression(this);
-		}
-		public override void ExitRule(IParseTreeListener listener) {
-			IFlowScriptListener typedListener = listener as IFlowScriptListener;
-			if (typedListener != null) typedListener.ExitAdditionExpression(this);
-		}
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IFlowScriptVisitor<TResult> typedVisitor = visitor as IFlowScriptVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitAdditionExpression(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
 	public partial class CompoundExpressionContext : ExpressionContext {
 		public ExpressionContext expression() {
 			return GetRuleContext<ExpressionContext>(0);
@@ -1267,6 +1619,26 @@ public partial class FlowScriptParser : Parser {
 			else return visitor.VisitChildren(this);
 		}
 	}
+	public partial class MemberAccessExpressionContext : ExpressionContext {
+		public ITerminalNode[] Identifier() { return GetTokens(FlowScriptParser.Identifier); }
+		public ITerminalNode Identifier(int i) {
+			return GetToken(FlowScriptParser.Identifier, i);
+		}
+		public MemberAccessExpressionContext(ExpressionContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			IFlowScriptListener typedListener = listener as IFlowScriptListener;
+			if (typedListener != null) typedListener.EnterMemberAccessExpression(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IFlowScriptListener typedListener = listener as IFlowScriptListener;
+			if (typedListener != null) typedListener.ExitMemberAccessExpression(this);
+		}
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IFlowScriptVisitor<TResult> typedVisitor = visitor as IFlowScriptVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitMemberAccessExpression(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
 	public partial class UnaryPrefixExpressionContext : ExpressionContext {
 		public IToken Op;
 		public ExpressionContext expression() {
@@ -1284,28 +1656,6 @@ public partial class FlowScriptParser : Parser {
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			IFlowScriptVisitor<TResult> typedVisitor = visitor as IFlowScriptVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitUnaryPrefixExpression(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
-	public partial class LogicalAndExpressionContext : ExpressionContext {
-		public ExpressionContext[] expression() {
-			return GetRuleContexts<ExpressionContext>();
-		}
-		public ExpressionContext expression(int i) {
-			return GetRuleContext<ExpressionContext>(i);
-		}
-		public LogicalAndExpressionContext(ExpressionContext context) { CopyFrom(context); }
-		public override void EnterRule(IParseTreeListener listener) {
-			IFlowScriptListener typedListener = listener as IFlowScriptListener;
-			if (typedListener != null) typedListener.EnterLogicalAndExpression(this);
-		}
-		public override void ExitRule(IParseTreeListener listener) {
-			IFlowScriptListener typedListener = listener as IFlowScriptListener;
-			if (typedListener != null) typedListener.ExitLogicalAndExpression(this);
-		}
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IFlowScriptVisitor<TResult> typedVisitor = visitor as IFlowScriptVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitLogicalAndExpression(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
@@ -1332,65 +1682,6 @@ public partial class FlowScriptParser : Parser {
 			else return visitor.VisitChildren(this);
 		}
 	}
-	public partial class CallExpressionContext : ExpressionContext {
-		public ITerminalNode Identifier() { return GetToken(FlowScriptParser.Identifier, 0); }
-		public ExpressionListContext expressionList() {
-			return GetRuleContext<ExpressionListContext>(0);
-		}
-		public CallExpressionContext(ExpressionContext context) { CopyFrom(context); }
-		public override void EnterRule(IParseTreeListener listener) {
-			IFlowScriptListener typedListener = listener as IFlowScriptListener;
-			if (typedListener != null) typedListener.EnterCallExpression(this);
-		}
-		public override void ExitRule(IParseTreeListener listener) {
-			IFlowScriptListener typedListener = listener as IFlowScriptListener;
-			if (typedListener != null) typedListener.ExitCallExpression(this);
-		}
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IFlowScriptVisitor<TResult> typedVisitor = visitor as IFlowScriptVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitCallExpression(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
-	public partial class PrimaryExpressionContext : ExpressionContext {
-		public PrimaryContext primary() {
-			return GetRuleContext<PrimaryContext>(0);
-		}
-		public PrimaryExpressionContext(ExpressionContext context) { CopyFrom(context); }
-		public override void EnterRule(IParseTreeListener listener) {
-			IFlowScriptListener typedListener = listener as IFlowScriptListener;
-			if (typedListener != null) typedListener.EnterPrimaryExpression(this);
-		}
-		public override void ExitRule(IParseTreeListener listener) {
-			IFlowScriptListener typedListener = listener as IFlowScriptListener;
-			if (typedListener != null) typedListener.ExitPrimaryExpression(this);
-		}
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IFlowScriptVisitor<TResult> typedVisitor = visitor as IFlowScriptVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitPrimaryExpression(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
-	public partial class UnaryPostfixExpressionContext : ExpressionContext {
-		public IToken Op;
-		public ExpressionContext expression() {
-			return GetRuleContext<ExpressionContext>(0);
-		}
-		public UnaryPostfixExpressionContext(ExpressionContext context) { CopyFrom(context); }
-		public override void EnterRule(IParseTreeListener listener) {
-			IFlowScriptListener typedListener = listener as IFlowScriptListener;
-			if (typedListener != null) typedListener.EnterUnaryPostfixExpression(this);
-		}
-		public override void ExitRule(IParseTreeListener listener) {
-			IFlowScriptListener typedListener = listener as IFlowScriptListener;
-			if (typedListener != null) typedListener.ExitUnaryPostfixExpression(this);
-		}
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IFlowScriptVisitor<TResult> typedVisitor = visitor as IFlowScriptVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitUnaryPostfixExpression(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
 
 	[RuleVersion(0)]
 	public ExpressionContext expression() {
@@ -1402,23 +1693,23 @@ public partial class FlowScriptParser : Parser {
 		int _parentState = State;
 		ExpressionContext _localctx = new ExpressionContext(_ctx, _parentState);
 		ExpressionContext _prevctx = _localctx;
-		int _startState = 28;
-		EnterRecursionRule(_localctx, 28, RULE_expression, _p);
+		int _startState = 34;
+		EnterRecursionRule(_localctx, 34, RULE_expression, _p);
 		int _la;
 		try {
 			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 183;
+			State = 222;
 			_errHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(_input,11,_ctx) ) {
+			switch ( Interpreter.AdaptivePredict(_input,16,_ctx) ) {
 			case 1:
 				{
 				_localctx = new NullExpressionContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
-				State = 165; Match(T__2);
+				State = 201; Match(T__2);
 				}
 				break;
 
@@ -1427,43 +1718,65 @@ public partial class FlowScriptParser : Parser {
 				_localctx = new CompoundExpressionContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 166; Match(T__0);
-				State = 167; expression(0);
-				State = 168; Match(T__1);
+				State = 202; Match(T__0);
+				State = 203; expression(0);
+				State = 204; Match(T__1);
 				}
 				break;
 
 			case 3:
 				{
-				_localctx = new CastExpressionContext(_localctx);
+				_localctx = new MemberAccessExpressionContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 170; Match(TypeIdentifier);
-				State = 171; Match(T__0);
-				State = 172; expression(0);
-				State = 173; Match(T__1);
+				State = 206; Match(Identifier);
+				State = 207; Match(T__8);
+				State = 208; Match(Identifier);
 				}
 				break;
 
 			case 4:
 				{
-				_localctx = new CallExpressionContext(_localctx);
+				_localctx = new CastExpressionContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 175; Match(Identifier);
-				State = 176; expressionList();
+				State = 209;
+				_la = _input.La(1);
+				if ( !(_la==Identifier || _la==PrimitiveTypeIdentifier) ) {
+				_errHandler.RecoverInline(this);
+				} else {
+					if (_input.La(1) == TokenConstants.Eof) {
+						matchedEOF = true;
+					}
+
+					_errHandler.ReportMatch(this);
+					Consume();
+				}
+				State = 210; Match(T__0);
+				State = 211; expression(0);
+				State = 212; Match(T__1);
 				}
 				break;
 
 			case 5:
 				{
+				_localctx = new CallExpressionContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				State = 214; Match(Identifier);
+				State = 215; expressionList();
+				}
+				break;
+
+			case 6:
+				{
 				_localctx = new UnaryPrefixExpressionContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 177;
+				State = 216;
 				((UnaryPrefixExpressionContext)_localctx).Op = _input.Lt(1);
 				_la = _input.La(1);
-				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__8) | (1L << T__9) | (1L << T__10) | (1L << T__11))) != 0)) ) {
+				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12))) != 0)) ) {
 					((UnaryPrefixExpressionContext)_localctx).Op = _errHandler.RecoverInline(this);
 				} else {
 					if (_input.La(1) == TokenConstants.Eof) {
@@ -1473,20 +1786,20 @@ public partial class FlowScriptParser : Parser {
 					_errHandler.ReportMatch(this);
 					Consume();
 				}
-				State = 178; expression(9);
+				State = 217; expression(9);
 				}
 				break;
 
-			case 6:
+			case 7:
 				{
 				_localctx = new AssignmentExpressionContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 179; Match(Identifier);
-				State = 180;
+				State = 218; Match(Identifier);
+				State = 219;
 				((AssignmentExpressionContext)_localctx).Op = _input.Lt(1);
 				_la = _input.La(1);
-				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__5) | (1L << T__23) | (1L << T__24) | (1L << T__25) | (1L << T__26))) != 0)) ) {
+				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__5) | (1L << T__24) | (1L << T__25) | (1L << T__26) | (1L << T__27))) != 0)) ) {
 					((AssignmentExpressionContext)_localctx).Op = _errHandler.RecoverInline(this);
 				} else {
 					if (_input.La(1) == TokenConstants.Eof) {
@@ -1496,41 +1809,41 @@ public partial class FlowScriptParser : Parser {
 					_errHandler.ReportMatch(this);
 					Consume();
 				}
-				State = 181; expression(2);
+				State = 220; expression(2);
 				}
 				break;
 
-			case 7:
+			case 8:
 				{
 				_localctx = new PrimaryExpressionContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 182; primary();
+				State = 221; primary();
 				}
 				break;
 			}
 			_ctx.stop = _input.Lt(-1);
-			State = 207;
+			State = 246;
 			_errHandler.Sync(this);
-			_alt = Interpreter.AdaptivePredict(_input,13,_ctx);
+			_alt = Interpreter.AdaptivePredict(_input,18,_ctx);
 			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.InvalidAltNumber ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) TriggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					State = 205;
+					State = 244;
 					_errHandler.Sync(this);
-					switch ( Interpreter.AdaptivePredict(_input,12,_ctx) ) {
+					switch ( Interpreter.AdaptivePredict(_input,17,_ctx) ) {
 					case 1:
 						{
 						_localctx = new MultiplicationExpressionContext(new ExpressionContext(_parentctx, _parentState));
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
-						State = 185;
+						State = 224;
 						if (!(Precpred(_ctx, 8))) throw new FailedPredicateException(this, "Precpred(_ctx, 8)");
-						State = 186;
+						State = 225;
 						((MultiplicationExpressionContext)_localctx).Op = _input.Lt(1);
 						_la = _input.La(1);
-						if ( !(_la==T__12 || _la==T__13) ) {
+						if ( !(_la==T__13 || _la==T__14) ) {
 							((MultiplicationExpressionContext)_localctx).Op = _errHandler.RecoverInline(this);
 						} else {
 							if (_input.La(1) == TokenConstants.Eof) {
@@ -1540,7 +1853,7 @@ public partial class FlowScriptParser : Parser {
 							_errHandler.ReportMatch(this);
 							Consume();
 						}
-						State = 187; expression(9);
+						State = 226; expression(9);
 						}
 						break;
 
@@ -1548,12 +1861,12 @@ public partial class FlowScriptParser : Parser {
 						{
 						_localctx = new AdditionExpressionContext(new ExpressionContext(_parentctx, _parentState));
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
-						State = 188;
+						State = 227;
 						if (!(Precpred(_ctx, 7))) throw new FailedPredicateException(this, "Precpred(_ctx, 7)");
-						State = 189;
+						State = 228;
 						((AdditionExpressionContext)_localctx).Op = _input.Lt(1);
 						_la = _input.La(1);
-						if ( !(_la==T__11 || _la==T__14) ) {
+						if ( !(_la==T__12 || _la==T__15) ) {
 							((AdditionExpressionContext)_localctx).Op = _errHandler.RecoverInline(this);
 						} else {
 							if (_input.La(1) == TokenConstants.Eof) {
@@ -1563,7 +1876,7 @@ public partial class FlowScriptParser : Parser {
 							_errHandler.ReportMatch(this);
 							Consume();
 						}
-						State = 190; expression(8);
+						State = 229; expression(8);
 						}
 						break;
 
@@ -1571,12 +1884,12 @@ public partial class FlowScriptParser : Parser {
 						{
 						_localctx = new RelationalExpressionContext(new ExpressionContext(_parentctx, _parentState));
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
-						State = 191;
+						State = 230;
 						if (!(Precpred(_ctx, 6))) throw new FailedPredicateException(this, "Precpred(_ctx, 6)");
-						State = 192;
+						State = 231;
 						((RelationalExpressionContext)_localctx).Op = _input.Lt(1);
 						_la = _input.La(1);
-						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__15) | (1L << T__16) | (1L << T__17) | (1L << T__18))) != 0)) ) {
+						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__16) | (1L << T__17) | (1L << T__18) | (1L << T__19))) != 0)) ) {
 							((RelationalExpressionContext)_localctx).Op = _errHandler.RecoverInline(this);
 						} else {
 							if (_input.La(1) == TokenConstants.Eof) {
@@ -1586,7 +1899,7 @@ public partial class FlowScriptParser : Parser {
 							_errHandler.ReportMatch(this);
 							Consume();
 						}
-						State = 193; expression(7);
+						State = 232; expression(7);
 						}
 						break;
 
@@ -1594,12 +1907,12 @@ public partial class FlowScriptParser : Parser {
 						{
 						_localctx = new EqualityExpressionContext(new ExpressionContext(_parentctx, _parentState));
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
-						State = 194;
+						State = 233;
 						if (!(Precpred(_ctx, 5))) throw new FailedPredicateException(this, "Precpred(_ctx, 5)");
-						State = 195;
+						State = 234;
 						((EqualityExpressionContext)_localctx).Op = _input.Lt(1);
 						_la = _input.La(1);
-						if ( !(_la==T__19 || _la==T__20) ) {
+						if ( !(_la==T__20 || _la==T__21) ) {
 							((EqualityExpressionContext)_localctx).Op = _errHandler.RecoverInline(this);
 						} else {
 							if (_input.La(1) == TokenConstants.Eof) {
@@ -1609,7 +1922,7 @@ public partial class FlowScriptParser : Parser {
 							_errHandler.ReportMatch(this);
 							Consume();
 						}
-						State = 196; expression(6);
+						State = 235; expression(6);
 						}
 						break;
 
@@ -1617,10 +1930,10 @@ public partial class FlowScriptParser : Parser {
 						{
 						_localctx = new LogicalAndExpressionContext(new ExpressionContext(_parentctx, _parentState));
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
-						State = 197;
+						State = 236;
 						if (!(Precpred(_ctx, 4))) throw new FailedPredicateException(this, "Precpred(_ctx, 4)");
-						State = 198; Match(T__21);
-						State = 199; expression(5);
+						State = 237; Match(T__22);
+						State = 238; expression(5);
 						}
 						break;
 
@@ -1628,10 +1941,10 @@ public partial class FlowScriptParser : Parser {
 						{
 						_localctx = new LogicalOrExpressionContext(new ExpressionContext(_parentctx, _parentState));
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
-						State = 200;
+						State = 239;
 						if (!(Precpred(_ctx, 3))) throw new FailedPredicateException(this, "Precpred(_ctx, 3)");
-						State = 201; Match(T__22);
-						State = 202; expression(4);
+						State = 240; Match(T__23);
+						State = 241; expression(4);
 						}
 						break;
 
@@ -1639,12 +1952,12 @@ public partial class FlowScriptParser : Parser {
 						{
 						_localctx = new UnaryPostfixExpressionContext(new ExpressionContext(_parentctx, _parentState));
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
-						State = 203;
+						State = 242;
 						if (!(Precpred(_ctx, 10))) throw new FailedPredicateException(this, "Precpred(_ctx, 10)");
-						State = 204;
+						State = 243;
 						((UnaryPostfixExpressionContext)_localctx).Op = _input.Lt(1);
 						_la = _input.La(1);
-						if ( !(_la==T__8 || _la==T__9) ) {
+						if ( !(_la==T__9 || _la==T__10) ) {
 							((UnaryPostfixExpressionContext)_localctx).Op = _errHandler.RecoverInline(this);
 						} else {
 							if (_input.La(1) == TokenConstants.Eof) {
@@ -1659,9 +1972,9 @@ public partial class FlowScriptParser : Parser {
 					}
 					} 
 				}
-				State = 209;
+				State = 248;
 				_errHandler.Sync(this);
-				_alt = Interpreter.AdaptivePredict(_input,13,_ctx);
+				_alt = Interpreter.AdaptivePredict(_input,18,_ctx);
 			}
 			}
 		}
@@ -1728,9 +2041,9 @@ public partial class FlowScriptParser : Parser {
 	[RuleVersion(0)]
 	public PrimaryContext primary() {
 		PrimaryContext _localctx = new PrimaryContext(_ctx, State);
-		EnterRule(_localctx, 30, RULE_primary);
+		EnterRule(_localctx, 36, RULE_primary);
 		try {
-			State = 212;
+			State = 251;
 			_errHandler.Sync(this);
 			switch (_input.La(1)) {
 			case BoolLiteral:
@@ -1740,14 +2053,14 @@ public partial class FlowScriptParser : Parser {
 				_localctx = new ConstantExpressionContext(_localctx);
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 210; constant();
+				State = 249; constant();
 				}
 				break;
 			case Identifier:
 				_localctx = new IdentifierExpressionContext(_localctx);
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 211; Match(Identifier);
+				State = 250; Match(Identifier);
 				}
 				break;
 			default:
@@ -1793,12 +2106,12 @@ public partial class FlowScriptParser : Parser {
 	[RuleVersion(0)]
 	public ConstantContext constant() {
 		ConstantContext _localctx = new ConstantContext(_ctx, State);
-		EnterRule(_localctx, 32, RULE_constant);
+		EnterRule(_localctx, 38, RULE_constant);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 214;
+			State = 253;
 			_la = _input.La(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BoolLiteral) | (1L << IntLiteral) | (1L << FloatLiteral) | (1L << StringLiteral))) != 0)) ) {
 			_errHandler.RecoverInline(this);
@@ -1861,31 +2174,31 @@ public partial class FlowScriptParser : Parser {
 	[RuleVersion(0)]
 	public IfStatementContext ifStatement() {
 		IfStatementContext _localctx = new IfStatementContext(_ctx, State);
-		EnterRule(_localctx, 34, RULE_ifStatement);
+		EnterRule(_localctx, 40, RULE_ifStatement);
 		try {
 			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 216; Match(If);
-			State = 217; Match(T__0);
-			State = 218; expression(0);
-			State = 219; Match(T__1);
-			State = 220; statement();
-			State = 225;
+			State = 255; Match(If);
+			State = 256; Match(T__0);
+			State = 257; expression(0);
+			State = 258; Match(T__1);
+			State = 259; statement();
+			State = 264;
 			_errHandler.Sync(this);
-			_alt = Interpreter.AdaptivePredict(_input,15,_ctx);
+			_alt = Interpreter.AdaptivePredict(_input,20,_ctx);
 			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.InvalidAltNumber ) {
 				if ( _alt==1 ) {
 					{
 					{
-					State = 221; Match(Else);
-					State = 222; statement();
+					State = 260; Match(Else);
+					State = 261; statement();
 					}
 					} 
 				}
-				State = 227;
+				State = 266;
 				_errHandler.Sync(this);
-				_alt = Interpreter.AdaptivePredict(_input,15,_ctx);
+				_alt = Interpreter.AdaptivePredict(_input,20,_ctx);
 			}
 			}
 		}
@@ -1937,18 +2250,18 @@ public partial class FlowScriptParser : Parser {
 	[RuleVersion(0)]
 	public ForStatementContext forStatement() {
 		ForStatementContext _localctx = new ForStatementContext(_ctx, State);
-		EnterRule(_localctx, 36, RULE_forStatement);
+		EnterRule(_localctx, 42, RULE_forStatement);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 228; Match(For);
-			State = 229; Match(T__0);
-			State = 230; statement();
-			State = 231; expression(0);
-			State = 232; Match(T__2);
-			State = 233; expression(0);
-			State = 234; Match(T__1);
-			State = 235; statement();
+			State = 267; Match(For);
+			State = 268; Match(T__0);
+			State = 269; statement();
+			State = 270; expression(0);
+			State = 271; Match(T__2);
+			State = 272; expression(0);
+			State = 273; Match(T__1);
+			State = 274; statement();
 			}
 		}
 		catch (RecognitionException re) {
@@ -1993,13 +2306,13 @@ public partial class FlowScriptParser : Parser {
 	[RuleVersion(0)]
 	public WhileStatementContext whileStatement() {
 		WhileStatementContext _localctx = new WhileStatementContext(_ctx, State);
-		EnterRule(_localctx, 38, RULE_whileStatement);
+		EnterRule(_localctx, 44, RULE_whileStatement);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 237; Match(While);
-			State = 238; expression(0);
-			State = 239; statement();
+			State = 276; Match(While);
+			State = 277; expression(0);
+			State = 278; statement();
 			}
 		}
 		catch (RecognitionException re) {
@@ -2038,12 +2351,12 @@ public partial class FlowScriptParser : Parser {
 	[RuleVersion(0)]
 	public BreakStatementContext breakStatement() {
 		BreakStatementContext _localctx = new BreakStatementContext(_ctx, State);
-		EnterRule(_localctx, 40, RULE_breakStatement);
+		EnterRule(_localctx, 46, RULE_breakStatement);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 241; Match(Break);
-			State = 242; Match(T__2);
+			State = 280; Match(Break);
+			State = 281; Match(T__2);
 			}
 		}
 		catch (RecognitionException re) {
@@ -2082,12 +2395,12 @@ public partial class FlowScriptParser : Parser {
 	[RuleVersion(0)]
 	public ContinueStatementContext continueStatement() {
 		ContinueStatementContext _localctx = new ContinueStatementContext(_ctx, State);
-		EnterRule(_localctx, 42, RULE_continueStatement);
+		EnterRule(_localctx, 48, RULE_continueStatement);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 244; Match(Continue);
-			State = 245; Match(T__2);
+			State = 283; Match(Continue);
+			State = 284; Match(T__2);
 			}
 		}
 		catch (RecognitionException re) {
@@ -2129,21 +2442,21 @@ public partial class FlowScriptParser : Parser {
 	[RuleVersion(0)]
 	public ReturnStatementContext returnStatement() {
 		ReturnStatementContext _localctx = new ReturnStatementContext(_ctx, State);
-		EnterRule(_localctx, 44, RULE_returnStatement);
+		EnterRule(_localctx, 50, RULE_returnStatement);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 247; Match(Return);
-			State = 249;
+			State = 286; Match(Return);
+			State = 288;
 			_errHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(_input,16,_ctx) ) {
+			switch ( Interpreter.AdaptivePredict(_input,21,_ctx) ) {
 			case 1:
 				{
-				State = 248; expression(0);
+				State = 287; expression(0);
 				}
 				break;
 			}
-			State = 251; Match(T__2);
+			State = 290; Match(T__2);
 			}
 		}
 		catch (RecognitionException re) {
@@ -2183,13 +2496,13 @@ public partial class FlowScriptParser : Parser {
 	[RuleVersion(0)]
 	public GotoStatementContext gotoStatement() {
 		GotoStatementContext _localctx = new GotoStatementContext(_ctx, State);
-		EnterRule(_localctx, 46, RULE_gotoStatement);
+		EnterRule(_localctx, 52, RULE_gotoStatement);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 253; Match(Goto);
-			State = 254; Match(Identifier);
-			State = 255; Match(T__2);
+			State = 292; Match(Goto);
+			State = 293; Match(Identifier);
+			State = 294; Match(T__2);
 			}
 		}
 		catch (RecognitionException re) {
@@ -2237,30 +2550,30 @@ public partial class FlowScriptParser : Parser {
 	[RuleVersion(0)]
 	public SwitchStatementContext switchStatement() {
 		SwitchStatementContext _localctx = new SwitchStatementContext(_ctx, State);
-		EnterRule(_localctx, 48, RULE_switchStatement);
+		EnterRule(_localctx, 54, RULE_switchStatement);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 257; Match(Switch);
-			State = 258; Match(T__0);
-			State = 259; expression(0);
-			State = 260; Match(T__1);
-			State = 261; Match(T__3);
-			State = 263;
+			State = 296; Match(Switch);
+			State = 297; Match(T__0);
+			State = 298; expression(0);
+			State = 299; Match(T__1);
+			State = 300; Match(T__3);
+			State = 302;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
 			do {
 				{
 				{
-				State = 262; switchLabel();
+				State = 301; switchLabel();
 				}
 				}
-				State = 265;
+				State = 304;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
 			} while ( _la==Case || _la==Default );
-			State = 267; Match(T__4);
+			State = 306; Match(T__4);
 			}
 		}
 		catch (RecognitionException re) {
@@ -2309,28 +2622,28 @@ public partial class FlowScriptParser : Parser {
 	[RuleVersion(0)]
 	public SwitchLabelContext switchLabel() {
 		SwitchLabelContext _localctx = new SwitchLabelContext(_ctx, State);
-		EnterRule(_localctx, 50, RULE_switchLabel);
+		EnterRule(_localctx, 56, RULE_switchLabel);
 		int _la;
 		try {
-			State = 286;
+			State = 325;
 			_errHandler.Sync(this);
 			switch (_input.La(1)) {
 			case Case:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 269; Match(Case);
-				State = 270; expression(0);
-				State = 271; Match(T__6);
-				State = 275;
+				State = 308; Match(Case);
+				State = 309; expression(0);
+				State = 310; Match(T__7);
+				State = 314;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
-				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__2) | (1L << T__3) | (1L << T__8) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << Function) | (1L << Static) | (1L << Const) | (1L << If) | (1L << For) | (1L << While) | (1L << Break) | (1L << Continue) | (1L << Return) | (1L << Goto) | (1L << Switch) | (1L << TypeIdentifier) | (1L << BoolLiteral) | (1L << IntLiteral) | (1L << FloatLiteral) | (1L << StringLiteral) | (1L << Identifier))) != 0)) {
+				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__2) | (1L << T__3) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << Function) | (1L << Static) | (1L << Const) | (1L << If) | (1L << For) | (1L << While) | (1L << Break) | (1L << Continue) | (1L << Return) | (1L << Goto) | (1L << Switch) | (1L << Enum) | (1L << BoolLiteral) | (1L << IntLiteral) | (1L << FloatLiteral) | (1L << StringLiteral) | (1L << Identifier) | (1L << PrimitiveTypeIdentifier))) != 0)) {
 					{
 					{
-					State = 272; statement();
+					State = 311; statement();
 					}
 					}
-					State = 277;
+					State = 316;
 					_errHandler.Sync(this);
 					_la = _input.La(1);
 				}
@@ -2339,18 +2652,18 @@ public partial class FlowScriptParser : Parser {
 			case Default:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 278; Match(Default);
-				State = 279; Match(T__6);
-				State = 283;
+				State = 317; Match(Default);
+				State = 318; Match(T__7);
+				State = 322;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
-				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__2) | (1L << T__3) | (1L << T__8) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << Function) | (1L << Static) | (1L << Const) | (1L << If) | (1L << For) | (1L << While) | (1L << Break) | (1L << Continue) | (1L << Return) | (1L << Goto) | (1L << Switch) | (1L << TypeIdentifier) | (1L << BoolLiteral) | (1L << IntLiteral) | (1L << FloatLiteral) | (1L << StringLiteral) | (1L << Identifier))) != 0)) {
+				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__2) | (1L << T__3) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << Function) | (1L << Static) | (1L << Const) | (1L << If) | (1L << For) | (1L << While) | (1L << Break) | (1L << Continue) | (1L << Return) | (1L << Goto) | (1L << Switch) | (1L << Enum) | (1L << BoolLiteral) | (1L << IntLiteral) | (1L << FloatLiteral) | (1L << StringLiteral) | (1L << Identifier) | (1L << PrimitiveTypeIdentifier))) != 0)) {
 					{
 					{
-					State = 280; statement();
+					State = 319; statement();
 					}
 					}
-					State = 285;
+					State = 324;
 					_errHandler.Sync(this);
 					_la = _input.La(1);
 				}
@@ -2373,7 +2686,7 @@ public partial class FlowScriptParser : Parser {
 
 	public override bool Sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
 		switch (ruleIndex) {
-		case 14: return expression_sempred((ExpressionContext)_localctx, predIndex);
+		case 17: return expression_sempred((ExpressionContext)_localctx, predIndex);
 		}
 		return true;
 	}
@@ -2397,119 +2710,136 @@ public partial class FlowScriptParser : Parser {
 	}
 
 	public static readonly string _serializedATN =
-		"\x3\xAF6F\x8320\x479D\xB75C\x4880\x1605\x191C\xAB37\x3\x37\x123\x4\x2"+
+		"\x3\xAF6F\x8320\x479D\xB75C\x4880\x1605\x191C\xAB37\x3\x39\x14A\x4\x2"+
 		"\t\x2\x4\x3\t\x3\x4\x4\t\x4\x4\x5\t\x5\x4\x6\t\x6\x4\a\t\a\x4\b\t\b\x4"+
 		"\t\t\t\x4\n\t\n\x4\v\t\v\x4\f\t\f\x4\r\t\r\x4\xE\t\xE\x4\xF\t\xF\x4\x10"+
 		"\t\x10\x4\x11\t\x11\x4\x12\t\x12\x4\x13\t\x13\x4\x14\t\x14\x4\x15\t\x15"+
 		"\x4\x16\t\x16\x4\x17\t\x17\x4\x18\t\x18\x4\x19\t\x19\x4\x1A\t\x1A\x4\x1B"+
-		"\t\x1B\x3\x2\a\x2\x38\n\x2\f\x2\xE\x2;\v\x2\x3\x2\a\x2>\n\x2\f\x2\xE\x2"+
-		"\x41\v\x2\x3\x2\x3\x2\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x4\x3\x4"+
-		"\x3\x4\x3\x4\x3\x4\x3\x4\x3\x4\x3\x4\x3\x4\x3\x4\x3\x4\x3\x4\x3\x4\x3"+
-		"\x4\x5\x4Y\n\x4\x3\x5\x3\x5\x3\x6\x3\x6\a\x6_\n\x6\f\x6\xE\x6\x62\v\x6"+
-		"\x3\x6\x3\x6\x3\a\x3\a\x3\a\x3\a\x5\aj\n\a\x3\b\x3\b\x3\b\x3\b\x3\b\x3"+
-		"\b\x3\b\x3\b\x3\b\x3\t\x3\t\x3\t\x3\t\x3\t\x3\n\x5\n{\n\n\x3\n\x3\n\x3"+
-		"\n\x3\n\x5\n\x81\n\n\x3\n\x3\n\x3\v\x3\v\x3\v\x3\f\x3\f\x3\r\x3\r\x5\r"+
-		"\x8C\n\r\x3\r\x3\r\a\r\x90\n\r\f\r\xE\r\x93\v\r\x3\r\x3\r\x3\xE\x3\xE"+
-		"\x3\xE\x3\xF\x3\xF\x5\xF\x9C\n\xF\x3\xF\x3\xF\a\xF\xA0\n\xF\f\xF\xE\xF"+
-		"\xA3\v\xF\x3\xF\x3\xF\x3\x10\x3\x10\x3\x10\x3\x10\x3\x10\x3\x10\x3\x10"+
-		"\x3\x10\x3\x10\x3\x10\x3\x10\x3\x10\x3\x10\x3\x10\x3\x10\x3\x10\x3\x10"+
-		"\x3\x10\x3\x10\x5\x10\xBA\n\x10\x3\x10\x3\x10\x3\x10\x3\x10\x3\x10\x3"+
-		"\x10\x3\x10\x3\x10\x3\x10\x3\x10\x3\x10\x3\x10\x3\x10\x3\x10\x3\x10\x3"+
-		"\x10\x3\x10\x3\x10\x3\x10\x3\x10\a\x10\xD0\n\x10\f\x10\xE\x10\xD3\v\x10"+
-		"\x3\x11\x3\x11\x5\x11\xD7\n\x11\x3\x12\x3\x12\x3\x13\x3\x13\x3\x13\x3"+
-		"\x13\x3\x13\x3\x13\x3\x13\a\x13\xE2\n\x13\f\x13\xE\x13\xE5\v\x13\x3\x14"+
-		"\x3\x14\x3\x14\x3\x14\x3\x14\x3\x14\x3\x14\x3\x14\x3\x14\x3\x15\x3\x15"+
-		"\x3\x15\x3\x15\x3\x16\x3\x16\x3\x16\x3\x17\x3\x17\x3\x17\x3\x18\x3\x18"+
-		"\x5\x18\xFC\n\x18\x3\x18\x3\x18\x3\x19\x3\x19\x3\x19\x3\x19\x3\x1A\x3"+
-		"\x1A\x3\x1A\x3\x1A\x3\x1A\x3\x1A\x6\x1A\x10A\n\x1A\r\x1A\xE\x1A\x10B\x3"+
-		"\x1A\x3\x1A\x3\x1B\x3\x1B\x3\x1B\x3\x1B\a\x1B\x114\n\x1B\f\x1B\xE\x1B"+
-		"\x117\v\x1B\x3\x1B\x3\x1B\x3\x1B\a\x1B\x11C\n\x1B\f\x1B\xE\x1B\x11F\v"+
-		"\x1B\x5\x1B\x121\n\x1B\x3\x1B\x2\x2\x3\x1E\x1C\x2\x2\x4\x2\x6\x2\b\x2"+
-		"\n\x2\f\x2\xE\x2\x10\x2\x12\x2\x14\x2\x16\x2\x18\x2\x1A\x2\x1C\x2\x1E"+
-		"\x2 \x2\"\x2$\x2&\x2(\x2*\x2,\x2.\x2\x30\x2\x32\x2\x34\x2\x2\f\x3\x2\x32"+
-		"\x33\x3\x2 !\x3\x2\v\xE\x4\x2\b\b\x1A\x1D\x3\x2\xF\x10\x4\x2\xE\xE\x11"+
-		"\x11\x3\x2\x12\x15\x3\x2\x16\x17\x3\x2\v\f\x3\x2.\x31\x133\x2\x39\x3\x2"+
-		"\x2\x2\x4\x44\x3\x2\x2\x2\x6X\x3\x2\x2\x2\bZ\x3\x2\x2\x2\n\\\x3\x2\x2"+
-		"\x2\fi\x3\x2\x2\x2\xEk\x3\x2\x2\x2\x10t\x3\x2\x2\x2\x12z\x3\x2\x2\x2\x14"+
-		"\x84\x3\x2\x2\x2\x16\x87\x3\x2\x2\x2\x18\x89\x3\x2\x2\x2\x1A\x96\x3\x2"+
-		"\x2\x2\x1C\x99\x3\x2\x2\x2\x1E\xB9\x3\x2\x2\x2 \xD6\x3\x2\x2\x2\"\xD8"+
-		"\x3\x2\x2\x2$\xDA\x3\x2\x2\x2&\xE6\x3\x2\x2\x2(\xEF\x3\x2\x2\x2*\xF3\x3"+
-		"\x2\x2\x2,\xF6\x3\x2\x2\x2.\xF9\x3\x2\x2\x2\x30\xFF\x3\x2\x2\x2\x32\x103"+
-		"\x3\x2\x2\x2\x34\x120\x3\x2\x2\x2\x36\x38\x5\x4\x3\x2\x37\x36\x3\x2\x2"+
-		"\x2\x38;\x3\x2\x2\x2\x39\x37\x3\x2\x2\x2\x39:\x3\x2\x2\x2:?\x3\x2\x2\x2"+
-		";\x39\x3\x2\x2\x2<>\x5\f\a\x2=<\x3\x2\x2\x2>\x41\x3\x2\x2\x2?=\x3\x2\x2"+
-		"\x2?@\x3\x2\x2\x2@\x42\x3\x2\x2\x2\x41?\x3\x2\x2\x2\x42\x43\a\x2\x2\x3"+
-		"\x43\x3\x3\x2\x2\x2\x44\x45\a\x1E\x2\x2\x45\x46\a\x3\x2\x2\x46G\a\x31"+
-		"\x2\x2GH\a\x4\x2\x2HI\a\x5\x2\x2I\x5\x3\x2\x2\x2JY\x5\b\x5\x2KY\x5\n\x6"+
-		"\x2LY\x5\f\a\x2MN\x5\x1E\x10\x2NO\a\x5\x2\x2OY\x3\x2\x2\x2PY\x5$\x13\x2"+
-		"QY\x5&\x14\x2RY\x5(\x15\x2SY\x5*\x16\x2TY\x5,\x17\x2UY\x5.\x18\x2VY\x5"+
-		"\x30\x19\x2WY\x5\x32\x1A\x2XJ\x3\x2\x2\x2XK\x3\x2\x2\x2XL\x3\x2\x2\x2"+
-		"XM\x3\x2\x2\x2XP\x3\x2\x2\x2XQ\x3\x2\x2\x2XR\x3\x2\x2\x2XS\x3\x2\x2\x2"+
-		"XT\x3\x2\x2\x2XU\x3\x2\x2\x2XV\x3\x2\x2\x2XW\x3\x2\x2\x2Y\a\x3\x2\x2\x2"+
-		"Z[\a\x5\x2\x2[\t\x3\x2\x2\x2\\`\a\x6\x2\x2]_\x5\x6\x4\x2^]\x3\x2\x2\x2"+
-		"_\x62\x3\x2\x2\x2`^\x3\x2\x2\x2`\x61\x3\x2\x2\x2\x61\x63\x3\x2\x2\x2\x62"+
-		"`\x3\x2\x2\x2\x63\x64\a\a\x2\x2\x64\v\x3\x2\x2\x2\x65j\x5\xE\b\x2\x66"+
-		"j\x5\x10\t\x2gj\x5\x12\n\x2hj\x5\x14\v\x2i\x65\x3\x2\x2\x2i\x66\x3\x2"+
-		"\x2\x2ig\x3\x2\x2\x2ih\x3\x2\x2\x2j\r\x3\x2\x2\x2kl\a\x1F\x2\x2lm\a\x3"+
-		"\x2\x2mn\a/\x2\x2no\a\x4\x2\x2op\a-\x2\x2pq\a\x32\x2\x2qr\x5\x18\r\x2"+
-		"rs\a\x5\x2\x2s\xF\x3\x2\x2\x2tu\a-\x2\x2uv\t\x2\x2\x2vw\x5\x18\r\x2wx"+
-		"\x5\n\x6\x2x\x11\x3\x2\x2\x2y{\x5\x16\f\x2zy\x3\x2\x2\x2z{\x3\x2\x2\x2"+
-		"{|\x3\x2\x2\x2|}\a-\x2\x2}\x80\a\x32\x2\x2~\x7F\a\b\x2\x2\x7F\x81\x5\x1E"+
-		"\x10\x2\x80~\x3\x2\x2\x2\x80\x81\x3\x2\x2\x2\x81\x82\x3\x2\x2\x2\x82\x83"+
-		"\a\x5\x2\x2\x83\x13\x3\x2\x2\x2\x84\x85\a\x32\x2\x2\x85\x86\a\t\x2\x2"+
-		"\x86\x15\x3\x2\x2\x2\x87\x88\t\x3\x2\x2\x88\x17\x3\x2\x2\x2\x89\x8B\a"+
-		"\x3\x2\x2\x8A\x8C\x5\x1A\xE\x2\x8B\x8A\x3\x2\x2\x2\x8B\x8C\x3\x2\x2\x2"+
-		"\x8C\x91\x3\x2\x2\x2\x8D\x8E\a\n\x2\x2\x8E\x90\x5\x1A\xE\x2\x8F\x8D\x3"+
-		"\x2\x2\x2\x90\x93\x3\x2\x2\x2\x91\x8F\x3\x2\x2\x2\x91\x92\x3\x2\x2\x2"+
-		"\x92\x94\x3\x2\x2\x2\x93\x91\x3\x2\x2\x2\x94\x95\a\x4\x2\x2\x95\x19\x3"+
-		"\x2\x2\x2\x96\x97\a-\x2\x2\x97\x98\a\x32\x2\x2\x98\x1B\x3\x2\x2\x2\x99"+
-		"\x9B\a\x3\x2\x2\x9A\x9C\x5\x1E\x10\x2\x9B\x9A\x3\x2\x2\x2\x9B\x9C\x3\x2"+
-		"\x2\x2\x9C\xA1\x3\x2\x2\x2\x9D\x9E\a\n\x2\x2\x9E\xA0\x5\x1E\x10\x2\x9F"+
-		"\x9D\x3\x2\x2\x2\xA0\xA3\x3\x2\x2\x2\xA1\x9F\x3\x2\x2\x2\xA1\xA2\x3\x2"+
-		"\x2\x2\xA2\xA4\x3\x2\x2\x2\xA3\xA1\x3\x2\x2\x2\xA4\xA5\a\x4\x2\x2\xA5"+
-		"\x1D\x3\x2\x2\x2\xA6\xA7\b\x10\x1\x2\xA7\xBA\a\x5\x2\x2\xA8\xA9\a\x3\x2"+
-		"\x2\xA9\xAA\x5\x1E\x10\x2\xAA\xAB\a\x4\x2\x2\xAB\xBA\x3\x2\x2\x2\xAC\xAD"+
-		"\a-\x2\x2\xAD\xAE\a\x3\x2\x2\xAE\xAF\x5\x1E\x10\x2\xAF\xB0\a\x4\x2\x2"+
-		"\xB0\xBA\x3\x2\x2\x2\xB1\xB2\a\x32\x2\x2\xB2\xBA\x5\x1C\xF\x2\xB3\xB4"+
-		"\t\x4\x2\x2\xB4\xBA\x5\x1E\x10\v\xB5\xB6\a\x32\x2\x2\xB6\xB7\t\x5\x2\x2"+
-		"\xB7\xBA\x5\x1E\x10\x4\xB8\xBA\x5 \x11\x2\xB9\xA6\x3\x2\x2\x2\xB9\xA8"+
-		"\x3\x2\x2\x2\xB9\xAC\x3\x2\x2\x2\xB9\xB1\x3\x2\x2\x2\xB9\xB3\x3\x2\x2"+
-		"\x2\xB9\xB5\x3\x2\x2\x2\xB9\xB8\x3\x2\x2\x2\xBA\xD1\x3\x2\x2\x2\xBB\xBC"+
-		"\f\n\x2\x2\xBC\xBD\t\x6\x2\x2\xBD\xD0\x5\x1E\x10\v\xBE\xBF\f\t\x2\x2\xBF"+
-		"\xC0\t\a\x2\x2\xC0\xD0\x5\x1E\x10\n\xC1\xC2\f\b\x2\x2\xC2\xC3\t\b\x2\x2"+
-		"\xC3\xD0\x5\x1E\x10\t\xC4\xC5\f\a\x2\x2\xC5\xC6\t\t\x2\x2\xC6\xD0\x5\x1E"+
-		"\x10\b\xC7\xC8\f\x6\x2\x2\xC8\xC9\a\x18\x2\x2\xC9\xD0\x5\x1E\x10\a\xCA"+
-		"\xCB\f\x5\x2\x2\xCB\xCC\a\x19\x2\x2\xCC\xD0\x5\x1E\x10\x6\xCD\xCE\f\f"+
-		"\x2\x2\xCE\xD0\t\n\x2\x2\xCF\xBB\x3\x2\x2\x2\xCF\xBE\x3\x2\x2\x2\xCF\xC1"+
-		"\x3\x2\x2\x2\xCF\xC4\x3\x2\x2\x2\xCF\xC7\x3\x2\x2\x2\xCF\xCA\x3\x2\x2"+
-		"\x2\xCF\xCD\x3\x2\x2\x2\xD0\xD3\x3\x2\x2\x2\xD1\xCF\x3\x2\x2\x2\xD1\xD2"+
-		"\x3\x2\x2\x2\xD2\x1F\x3\x2\x2\x2\xD3\xD1\x3\x2\x2\x2\xD4\xD7\x5\"\x12"+
-		"\x2\xD5\xD7\a\x32\x2\x2\xD6\xD4\x3\x2\x2\x2\xD6\xD5\x3\x2\x2\x2\xD7!\x3"+
-		"\x2\x2\x2\xD8\xD9\t\v\x2\x2\xD9#\x3\x2\x2\x2\xDA\xDB\a\"\x2\x2\xDB\xDC"+
-		"\a\x3\x2\x2\xDC\xDD\x5\x1E\x10\x2\xDD\xDE\a\x4\x2\x2\xDE\xE3\x5\x6\x4"+
-		"\x2\xDF\xE0\a#\x2\x2\xE0\xE2\x5\x6\x4\x2\xE1\xDF\x3\x2\x2\x2\xE2\xE5\x3"+
-		"\x2\x2\x2\xE3\xE1\x3\x2\x2\x2\xE3\xE4\x3\x2\x2\x2\xE4%\x3\x2\x2\x2\xE5"+
-		"\xE3\x3\x2\x2\x2\xE6\xE7\a$\x2\x2\xE7\xE8\a\x3\x2\x2\xE8\xE9\x5\x6\x4"+
-		"\x2\xE9\xEA\x5\x1E\x10\x2\xEA\xEB\a\x5\x2\x2\xEB\xEC\x5\x1E\x10\x2\xEC"+
-		"\xED\a\x4\x2\x2\xED\xEE\x5\x6\x4\x2\xEE\'\x3\x2\x2\x2\xEF\xF0\a%\x2\x2"+
-		"\xF0\xF1\x5\x1E\x10\x2\xF1\xF2\x5\x6\x4\x2\xF2)\x3\x2\x2\x2\xF3\xF4\a"+
-		"&\x2\x2\xF4\xF5\a\x5\x2\x2\xF5+\x3\x2\x2\x2\xF6\xF7\a\'\x2\x2\xF7\xF8"+
-		"\a\x5\x2\x2\xF8-\x3\x2\x2\x2\xF9\xFB\a(\x2\x2\xFA\xFC\x5\x1E\x10\x2\xFB"+
-		"\xFA\x3\x2\x2\x2\xFB\xFC\x3\x2\x2\x2\xFC\xFD\x3\x2\x2\x2\xFD\xFE\a\x5"+
-		"\x2\x2\xFE/\x3\x2\x2\x2\xFF\x100\a)\x2\x2\x100\x101\a\x32\x2\x2\x101\x102"+
-		"\a\x5\x2\x2\x102\x31\x3\x2\x2\x2\x103\x104\a*\x2\x2\x104\x105\a\x3\x2"+
-		"\x2\x105\x106\x5\x1E\x10\x2\x106\x107\a\x4\x2\x2\x107\x109\a\x6\x2\x2"+
-		"\x108\x10A\x5\x34\x1B\x2\x109\x108\x3\x2\x2\x2\x10A\x10B\x3\x2\x2\x2\x10B"+
-		"\x109\x3\x2\x2\x2\x10B\x10C\x3\x2\x2\x2\x10C\x10D\x3\x2\x2\x2\x10D\x10E"+
-		"\a\a\x2\x2\x10E\x33\x3\x2\x2\x2\x10F\x110\a+\x2\x2\x110\x111\x5\x1E\x10"+
-		"\x2\x111\x115\a\t\x2\x2\x112\x114\x5\x6\x4\x2\x113\x112\x3\x2\x2\x2\x114"+
-		"\x117\x3\x2\x2\x2\x115\x113\x3\x2\x2\x2\x115\x116\x3\x2\x2\x2\x116\x121"+
-		"\x3\x2\x2\x2\x117\x115\x3\x2\x2\x2\x118\x119\a,\x2\x2\x119\x11D\a\t\x2"+
-		"\x2\x11A\x11C\x5\x6\x4\x2\x11B\x11A\x3\x2\x2\x2\x11C\x11F\x3\x2\x2\x2"+
-		"\x11D\x11B\x3\x2\x2\x2\x11D\x11E\x3\x2\x2\x2\x11E\x121\x3\x2\x2\x2\x11F"+
-		"\x11D\x3\x2\x2\x2\x120\x10F\x3\x2\x2\x2\x120\x118\x3\x2\x2\x2\x121\x35"+
-		"\x3\x2\x2\x2\x17\x39?X`iz\x80\x8B\x91\x9B\xA1\xB9\xCF\xD1\xD6\xE3\xFB"+
-		"\x10B\x115\x11D\x120";
+		"\t\x1B\x4\x1C\t\x1C\x4\x1D\t\x1D\x4\x1E\t\x1E\x3\x2\a\x2>\n\x2\f\x2\xE"+
+		"\x2\x41\v\x2\x3\x2\a\x2\x44\n\x2\f\x2\xE\x2G\v\x2\x3\x2\x3\x2\x3\x3\x3"+
+		"\x3\x3\x3\x3\x3\x3\x3\x3\x3\x3\x4\x3\x4\x3\x4\x3\x4\x3\x4\x3\x4\x3\x4"+
+		"\x3\x4\x3\x4\x3\x4\x3\x4\x3\x4\x3\x4\x3\x4\x5\x4_\n\x4\x3\x5\x3\x5\x3"+
+		"\x6\x3\x6\a\x6\x65\n\x6\f\x6\xE\x6h\v\x6\x3\x6\x3\x6\x3\a\x3\a\x3\a\x3"+
+		"\a\x3\a\x5\aq\n\a\x3\b\x3\b\x3\b\x3\b\x3\b\x3\b\x3\b\x3\b\x3\b\x3\t\x3"+
+		"\t\x3\t\x3\t\x3\t\x3\n\x5\n\x82\n\n\x3\n\x3\n\x3\n\x3\n\x5\n\x88\n\n\x3"+
+		"\n\x3\n\x3\v\x3\v\x3\v\x3\v\x3\f\x3\f\x3\f\x5\f\x93\n\f\x3\r\x3\r\x5\r"+
+		"\x97\n\r\x3\r\x3\r\x3\r\a\r\x9C\n\r\f\r\xE\r\x9F\v\r\x3\r\x3\r\x5\r\xA3"+
+		"\n\r\x5\r\xA5\n\r\x3\r\x3\r\x3\xE\x3\xE\x3\xE\x3\xF\x3\xF\x3\x10\x3\x10"+
+		"\x5\x10\xB0\n\x10\x3\x10\x3\x10\a\x10\xB4\n\x10\f\x10\xE\x10\xB7\v\x10"+
+		"\x3\x10\x3\x10\x3\x11\x3\x11\x3\x11\x3\x12\x3\x12\x5\x12\xC0\n\x12\x3"+
+		"\x12\x3\x12\a\x12\xC4\n\x12\f\x12\xE\x12\xC7\v\x12\x3\x12\x3\x12\x3\x13"+
+		"\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13"+
+		"\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13"+
+		"\x3\x13\x5\x13\xE1\n\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3"+
+		"\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3"+
+		"\x13\x3\x13\x3\x13\x3\x13\a\x13\xF7\n\x13\f\x13\xE\x13\xFA\v\x13\x3\x14"+
+		"\x3\x14\x5\x14\xFE\n\x14\x3\x15\x3\x15\x3\x16\x3\x16\x3\x16\x3\x16\x3"+
+		"\x16\x3\x16\x3\x16\a\x16\x109\n\x16\f\x16\xE\x16\x10C\v\x16\x3\x17\x3"+
+		"\x17\x3\x17\x3\x17\x3\x17\x3\x17\x3\x17\x3\x17\x3\x17\x3\x18\x3\x18\x3"+
+		"\x18\x3\x18\x3\x19\x3\x19\x3\x19\x3\x1A\x3\x1A\x3\x1A\x3\x1B\x3\x1B\x5"+
+		"\x1B\x123\n\x1B\x3\x1B\x3\x1B\x3\x1C\x3\x1C\x3\x1C\x3\x1C\x3\x1D\x3\x1D"+
+		"\x3\x1D\x3\x1D\x3\x1D\x3\x1D\x6\x1D\x131\n\x1D\r\x1D\xE\x1D\x132\x3\x1D"+
+		"\x3\x1D\x3\x1E\x3\x1E\x3\x1E\x3\x1E\a\x1E\x13B\n\x1E\f\x1E\xE\x1E\x13E"+
+		"\v\x1E\x3\x1E\x3\x1E\x3\x1E\a\x1E\x143\n\x1E\f\x1E\xE\x1E\x146\v\x1E\x5"+
+		"\x1E\x148\n\x1E\x3\x1E\x2\x2\x3$\x1F\x2\x2\x4\x2\x6\x2\b\x2\n\x2\f\x2"+
+		"\xE\x2\x10\x2\x12\x2\x14\x2\x16\x2\x18\x2\x1A\x2\x1C\x2\x1E\x2 \x2\"\x2"+
+		"$\x2&\x2(\x2*\x2,\x2.\x2\x30\x2\x32\x2\x34\x2\x36\x2\x38\x2:\x2\x2\r\x3"+
+		"\x2\x33\x34\x4\x2\x33\x33\x35\x35\x3\x2!\"\x3\x2\f\xF\x4\x2\b\b\x1B\x1E"+
+		"\x3\x2\x10\x11\x4\x2\xF\xF\x12\x12\x3\x2\x13\x16\x3\x2\x17\x18\x3\x2\f"+
+		"\r\x3\x2/\x32\x15E\x2?\x3\x2\x2\x2\x4J\x3\x2\x2\x2\x6^\x3\x2\x2\x2\b`"+
+		"\x3\x2\x2\x2\n\x62\x3\x2\x2\x2\fp\x3\x2\x2\x2\xEr\x3\x2\x2\x2\x10{\x3"+
+		"\x2\x2\x2\x12\x81\x3\x2\x2\x2\x14\x8B\x3\x2\x2\x2\x16\x8F\x3\x2\x2\x2"+
+		"\x18\x94\x3\x2\x2\x2\x1A\xA8\x3\x2\x2\x2\x1C\xAB\x3\x2\x2\x2\x1E\xAD\x3"+
+		"\x2\x2\x2 \xBA\x3\x2\x2\x2\"\xBD\x3\x2\x2\x2$\xE0\x3\x2\x2\x2&\xFD\x3"+
+		"\x2\x2\x2(\xFF\x3\x2\x2\x2*\x101\x3\x2\x2\x2,\x10D\x3\x2\x2\x2.\x116\x3"+
+		"\x2\x2\x2\x30\x11A\x3\x2\x2\x2\x32\x11D\x3\x2\x2\x2\x34\x120\x3\x2\x2"+
+		"\x2\x36\x126\x3\x2\x2\x2\x38\x12A\x3\x2\x2\x2:\x147\x3\x2\x2\x2<>\x5\x4"+
+		"\x3\x2=<\x3\x2\x2\x2>\x41\x3\x2\x2\x2?=\x3\x2\x2\x2?@\x3\x2\x2\x2@\x45"+
+		"\x3\x2\x2\x2\x41?\x3\x2\x2\x2\x42\x44\x5\f\a\x2\x43\x42\x3\x2\x2\x2\x44"+
+		"G\x3\x2\x2\x2\x45\x43\x3\x2\x2\x2\x45\x46\x3\x2\x2\x2\x46H\x3\x2\x2\x2"+
+		"G\x45\x3\x2\x2\x2HI\a\x2\x2\x3I\x3\x3\x2\x2\x2JK\a\x1F\x2\x2KL\a\x3\x2"+
+		"\x2LM\a\x32\x2\x2MN\a\x4\x2\x2NO\a\x5\x2\x2O\x5\x3\x2\x2\x2P_\x5\b\x5"+
+		"\x2Q_\x5\n\x6\x2R_\x5\f\a\x2ST\x5$\x13\x2TU\a\x5\x2\x2U_\x3\x2\x2\x2V"+
+		"_\x5*\x16\x2W_\x5,\x17\x2X_\x5.\x18\x2Y_\x5\x30\x19\x2Z_\x5\x32\x1A\x2"+
+		"[_\x5\x34\x1B\x2\\_\x5\x36\x1C\x2]_\x5\x38\x1D\x2^P\x3\x2\x2\x2^Q\x3\x2"+
+		"\x2\x2^R\x3\x2\x2\x2^S\x3\x2\x2\x2^V\x3\x2\x2\x2^W\x3\x2\x2\x2^X\x3\x2"+
+		"\x2\x2^Y\x3\x2\x2\x2^Z\x3\x2\x2\x2^[\x3\x2\x2\x2^\\\x3\x2\x2\x2^]\x3\x2"+
+		"\x2\x2_\a\x3\x2\x2\x2`\x61\a\x5\x2\x2\x61\t\x3\x2\x2\x2\x62\x66\a\x6\x2"+
+		"\x2\x63\x65\x5\x6\x4\x2\x64\x63\x3\x2\x2\x2\x65h\x3\x2\x2\x2\x66\x64\x3"+
+		"\x2\x2\x2\x66g\x3\x2\x2\x2gi\x3\x2\x2\x2h\x66\x3\x2\x2\x2ij\a\a\x2\x2"+
+		"j\v\x3\x2\x2\x2kq\x5\xE\b\x2lq\x5\x10\t\x2mq\x5\x12\n\x2nq\x5\x14\v\x2"+
+		"oq\x5\x1A\xE\x2pk\x3\x2\x2\x2pl\x3\x2\x2\x2pm\x3\x2\x2\x2pn\x3\x2\x2\x2"+
+		"po\x3\x2\x2\x2q\r\x3\x2\x2\x2rs\a \x2\x2st\a\x3\x2\x2tu\a\x30\x2\x2uv"+
+		"\a\x4\x2\x2vw\t\x2\x2\x2wx\a\x33\x2\x2xy\x5\x1E\x10\x2yz\a\x5\x2\x2z\xF"+
+		"\x3\x2\x2\x2{|\t\x2\x2\x2|}\t\x3\x2\x2}~\x5\x1E\x10\x2~\x7F\x5\n\x6\x2"+
+		"\x7F\x11\x3\x2\x2\x2\x80\x82\x5\x1C\xF\x2\x81\x80\x3\x2\x2\x2\x81\x82"+
+		"\x3\x2\x2\x2\x82\x83\x3\x2\x2\x2\x83\x84\t\x2\x2\x2\x84\x87\a\x33\x2\x2"+
+		"\x85\x86\a\b\x2\x2\x86\x88\x5$\x13\x2\x87\x85\x3\x2\x2\x2\x87\x88\x3\x2"+
+		"\x2\x2\x88\x89\x3\x2\x2\x2\x89\x8A\a\x5\x2\x2\x8A\x13\x3\x2\x2\x2\x8B"+
+		"\x8C\a.\x2\x2\x8C\x8D\a\x33\x2\x2\x8D\x8E\x5\x18\r\x2\x8E\x15\x3\x2\x2"+
+		"\x2\x8F\x92\a\x33\x2\x2\x90\x91\a\b\x2\x2\x91\x93\x5$\x13\x2\x92\x90\x3"+
+		"\x2\x2\x2\x92\x93\x3\x2\x2\x2\x93\x17\x3\x2\x2\x2\x94\x96\a\x6\x2\x2\x95"+
+		"\x97\x5\x16\f\x2\x96\x95\x3\x2\x2\x2\x96\x97\x3\x2\x2\x2\x97\x9D\x3\x2"+
+		"\x2\x2\x98\x99\x5\x16\f\x2\x99\x9A\a\t\x2\x2\x9A\x9C\x3\x2\x2\x2\x9B\x98"+
+		"\x3\x2\x2\x2\x9C\x9F\x3\x2\x2\x2\x9D\x9B\x3\x2\x2\x2\x9D\x9E\x3\x2\x2"+
+		"\x2\x9E\xA4\x3\x2\x2\x2\x9F\x9D\x3\x2\x2\x2\xA0\xA2\x5\x16\f\x2\xA1\xA3"+
+		"\a\t\x2\x2\xA2\xA1\x3\x2\x2\x2\xA2\xA3\x3\x2\x2\x2\xA3\xA5\x3\x2\x2\x2"+
+		"\xA4\xA0\x3\x2\x2\x2\xA4\xA5\x3\x2\x2\x2\xA5\xA6\x3\x2\x2\x2\xA6\xA7\a"+
+		"\a\x2\x2\xA7\x19\x3\x2\x2\x2\xA8\xA9\a\x33\x2\x2\xA9\xAA\a\n\x2\x2\xAA"+
+		"\x1B\x3\x2\x2\x2\xAB\xAC\t\x4\x2\x2\xAC\x1D\x3\x2\x2\x2\xAD\xAF\a\x3\x2"+
+		"\x2\xAE\xB0\x5 \x11\x2\xAF\xAE\x3\x2\x2\x2\xAF\xB0\x3\x2\x2\x2\xB0\xB5"+
+		"\x3\x2\x2\x2\xB1\xB2\a\t\x2\x2\xB2\xB4\x5 \x11\x2\xB3\xB1\x3\x2\x2\x2"+
+		"\xB4\xB7\x3\x2\x2\x2\xB5\xB3\x3\x2\x2\x2\xB5\xB6\x3\x2\x2\x2\xB6\xB8\x3"+
+		"\x2\x2\x2\xB7\xB5\x3\x2\x2\x2\xB8\xB9\a\x4\x2\x2\xB9\x1F\x3\x2\x2\x2\xBA"+
+		"\xBB\t\x2\x2\x2\xBB\xBC\a\x33\x2\x2\xBC!\x3\x2\x2\x2\xBD\xBF\a\x3\x2\x2"+
+		"\xBE\xC0\x5$\x13\x2\xBF\xBE\x3\x2\x2\x2\xBF\xC0\x3\x2\x2\x2\xC0\xC5\x3"+
+		"\x2\x2\x2\xC1\xC2\a\t\x2\x2\xC2\xC4\x5$\x13\x2\xC3\xC1\x3\x2\x2\x2\xC4"+
+		"\xC7\x3\x2\x2\x2\xC5\xC3\x3\x2\x2\x2\xC5\xC6\x3\x2\x2\x2\xC6\xC8\x3\x2"+
+		"\x2\x2\xC7\xC5\x3\x2\x2\x2\xC8\xC9\a\x4\x2\x2\xC9#\x3\x2\x2\x2\xCA\xCB"+
+		"\b\x13\x1\x2\xCB\xE1\a\x5\x2\x2\xCC\xCD\a\x3\x2\x2\xCD\xCE\x5$\x13\x2"+
+		"\xCE\xCF\a\x4\x2\x2\xCF\xE1\x3\x2\x2\x2\xD0\xD1\a\x33\x2\x2\xD1\xD2\a"+
+		"\v\x2\x2\xD2\xE1\a\x33\x2\x2\xD3\xD4\t\x2\x2\x2\xD4\xD5\a\x3\x2\x2\xD5"+
+		"\xD6\x5$\x13\x2\xD6\xD7\a\x4\x2\x2\xD7\xE1\x3\x2\x2\x2\xD8\xD9\a\x33\x2"+
+		"\x2\xD9\xE1\x5\"\x12\x2\xDA\xDB\t\x5\x2\x2\xDB\xE1\x5$\x13\v\xDC\xDD\a"+
+		"\x33\x2\x2\xDD\xDE\t\x6\x2\x2\xDE\xE1\x5$\x13\x4\xDF\xE1\x5&\x14\x2\xE0"+
+		"\xCA\x3\x2\x2\x2\xE0\xCC\x3\x2\x2\x2\xE0\xD0\x3\x2\x2\x2\xE0\xD3\x3\x2"+
+		"\x2\x2\xE0\xD8\x3\x2\x2\x2\xE0\xDA\x3\x2\x2\x2\xE0\xDC\x3\x2\x2\x2\xE0"+
+		"\xDF\x3\x2\x2\x2\xE1\xF8\x3\x2\x2\x2\xE2\xE3\f\n\x2\x2\xE3\xE4\t\a\x2"+
+		"\x2\xE4\xF7\x5$\x13\v\xE5\xE6\f\t\x2\x2\xE6\xE7\t\b\x2\x2\xE7\xF7\x5$"+
+		"\x13\n\xE8\xE9\f\b\x2\x2\xE9\xEA\t\t\x2\x2\xEA\xF7\x5$\x13\t\xEB\xEC\f"+
+		"\a\x2\x2\xEC\xED\t\n\x2\x2\xED\xF7\x5$\x13\b\xEE\xEF\f\x6\x2\x2\xEF\xF0"+
+		"\a\x19\x2\x2\xF0\xF7\x5$\x13\a\xF1\xF2\f\x5\x2\x2\xF2\xF3\a\x1A\x2\x2"+
+		"\xF3\xF7\x5$\x13\x6\xF4\xF5\f\f\x2\x2\xF5\xF7\t\v\x2\x2\xF6\xE2\x3\x2"+
+		"\x2\x2\xF6\xE5\x3\x2\x2\x2\xF6\xE8\x3\x2\x2\x2\xF6\xEB\x3\x2\x2\x2\xF6"+
+		"\xEE\x3\x2\x2\x2\xF6\xF1\x3\x2\x2\x2\xF6\xF4\x3\x2\x2\x2\xF7\xFA\x3\x2"+
+		"\x2\x2\xF8\xF6\x3\x2\x2\x2\xF8\xF9\x3\x2\x2\x2\xF9%\x3\x2\x2\x2\xFA\xF8"+
+		"\x3\x2\x2\x2\xFB\xFE\x5(\x15\x2\xFC\xFE\a\x33\x2\x2\xFD\xFB\x3\x2\x2\x2"+
+		"\xFD\xFC\x3\x2\x2\x2\xFE\'\x3\x2\x2\x2\xFF\x100\t\f\x2\x2\x100)\x3\x2"+
+		"\x2\x2\x101\x102\a#\x2\x2\x102\x103\a\x3\x2\x2\x103\x104\x5$\x13\x2\x104"+
+		"\x105\a\x4\x2\x2\x105\x10A\x5\x6\x4\x2\x106\x107\a$\x2\x2\x107\x109\x5"+
+		"\x6\x4\x2\x108\x106\x3\x2\x2\x2\x109\x10C\x3\x2\x2\x2\x10A\x108\x3\x2"+
+		"\x2\x2\x10A\x10B\x3\x2\x2\x2\x10B+\x3\x2\x2\x2\x10C\x10A\x3\x2\x2\x2\x10D"+
+		"\x10E\a%\x2\x2\x10E\x10F\a\x3\x2\x2\x10F\x110\x5\x6\x4\x2\x110\x111\x5"+
+		"$\x13\x2\x111\x112\a\x5\x2\x2\x112\x113\x5$\x13\x2\x113\x114\a\x4\x2\x2"+
+		"\x114\x115\x5\x6\x4\x2\x115-\x3\x2\x2\x2\x116\x117\a&\x2\x2\x117\x118"+
+		"\x5$\x13\x2\x118\x119\x5\x6\x4\x2\x119/\x3\x2\x2\x2\x11A\x11B\a\'\x2\x2"+
+		"\x11B\x11C\a\x5\x2\x2\x11C\x31\x3\x2\x2\x2\x11D\x11E\a(\x2\x2\x11E\x11F"+
+		"\a\x5\x2\x2\x11F\x33\x3\x2\x2\x2\x120\x122\a)\x2\x2\x121\x123\x5$\x13"+
+		"\x2\x122\x121\x3\x2\x2\x2\x122\x123\x3\x2\x2\x2\x123\x124\x3\x2\x2\x2"+
+		"\x124\x125\a\x5\x2\x2\x125\x35\x3\x2\x2\x2\x126\x127\a*\x2\x2\x127\x128"+
+		"\a\x33\x2\x2\x128\x129\a\x5\x2\x2\x129\x37\x3\x2\x2\x2\x12A\x12B\a+\x2"+
+		"\x2\x12B\x12C\a\x3\x2\x2\x12C\x12D\x5$\x13\x2\x12D\x12E\a\x4\x2\x2\x12E"+
+		"\x130\a\x6\x2\x2\x12F\x131\x5:\x1E\x2\x130\x12F\x3\x2\x2\x2\x131\x132"+
+		"\x3\x2\x2\x2\x132\x130\x3\x2\x2\x2\x132\x133\x3\x2\x2\x2\x133\x134\x3"+
+		"\x2\x2\x2\x134\x135\a\a\x2\x2\x135\x39\x3\x2\x2\x2\x136\x137\a,\x2\x2"+
+		"\x137\x138\x5$\x13\x2\x138\x13C\a\n\x2\x2\x139\x13B\x5\x6\x4\x2\x13A\x139"+
+		"\x3\x2\x2\x2\x13B\x13E\x3\x2\x2\x2\x13C\x13A\x3\x2\x2\x2\x13C\x13D\x3"+
+		"\x2\x2\x2\x13D\x148\x3\x2\x2\x2\x13E\x13C\x3\x2\x2\x2\x13F\x140\a-\x2"+
+		"\x2\x140\x144\a\n\x2\x2\x141\x143\x5\x6\x4\x2\x142\x141\x3\x2\x2\x2\x143"+
+		"\x146\x3\x2\x2\x2\x144\x142\x3\x2\x2\x2\x144\x145\x3\x2\x2\x2\x145\x148"+
+		"\x3\x2\x2\x2\x146\x144\x3\x2\x2\x2\x147\x136\x3\x2\x2\x2\x147\x13F\x3"+
+		"\x2\x2\x2\x148;\x3\x2\x2\x2\x1C?\x45^\x66p\x81\x87\x92\x96\x9D\xA2\xA4"+
+		"\xAF\xB5\xBF\xC5\xE0\xF6\xF8\xFD\x10A\x122\x132\x13C\x144\x147";
 	public static readonly ATN _ATN =
 		new ATNDeserializer().Deserialize(_serializedATN.ToCharArray());
 }

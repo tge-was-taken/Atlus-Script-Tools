@@ -11,6 +11,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
         Function,
         Procedure,
         Variable,
+        Enum,
+        EnumLabel,
         Label,
     }
 }

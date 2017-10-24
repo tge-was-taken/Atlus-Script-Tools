@@ -229,7 +229,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
         {
             LogInfo( expression, $"Resolving expression {expression}" );
 
-            if ( expression is FlowScriptCallOperator callExpression )
+            if ( expression is FlowScriptMemberAccessExpression memberAccessExpression )
+            {
+                expression.ExpressionValueType = FlowScriptValueType.Int; // enum
+            }
+            else if ( expression is FlowScriptCallOperator callExpression )
             {
                 if ( !TryResolveTypesInCallExpression( callExpression ) )
                     return false;

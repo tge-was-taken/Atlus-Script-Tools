@@ -36,7 +36,6 @@ nullStatement
 
 compoundStatement
 	: '{' statement* '}'
-	//| statement
 	;
 
 //
@@ -46,19 +45,32 @@ declarationStatement
 	: functionDeclarationStatement
 	| procedureDeclarationStatement
 	| variableDeclarationStatement
+	| enumTypeDeclarationStatement
 	| labelDeclarationStatement
 	;
 
 functionDeclarationStatement
-	: Function'('IntLiteral')' TypeIdentifier Identifier parameterList ';'
+	: Function'('IntLiteral')' ( PrimitiveTypeIdentifier | Identifier ) Identifier parameterList ';'
 	;
 
 procedureDeclarationStatement
-	: TypeIdentifier ( Identifier | ProcedureIdentifier ) parameterList compoundStatement
+	: ( PrimitiveTypeIdentifier | Identifier ) ( Identifier | ProcedureIdentifier ) parameterList compoundStatement
 	;
 
 variableDeclarationStatement
-	: variableModifier? TypeIdentifier Identifier ('=' expression)? ';'
+	: variableModifier? ( PrimitiveTypeIdentifier | Identifier ) Identifier ('=' expression)? ';'
+	;
+
+enumTypeDeclarationStatement
+	: Enum Identifier enumValueList
+	;
+
+enumValueDeclaration
+	: Identifier ( '=' expression )?
+	;
+
+enumValueList
+	: '{' enumValueDeclaration? ( enumValueDeclaration ',' )* ( enumValueDeclaration ','? )? '}'
 	;
 
 labelDeclarationStatement
@@ -78,7 +90,7 @@ parameterList
 	;
 
 parameter
-	: TypeIdentifier Identifier
+	: ( PrimitiveTypeIdentifier | Identifier ) Identifier
 	;
 
 //
@@ -91,7 +103,8 @@ expressionList
 expression
 	: ';'															# nullExpression
 	| '(' expression ')'											# compoundExpression
-	| TypeIdentifier '(' expression ')'								# castExpression				// precedence 2
+	| Identifier '.' Identifier										# memberAccessExpression
+	| ( PrimitiveTypeIdentifier | Identifier ) '(' expression ')'	# castExpression				// precedence 2
 	| Identifier expressionList										# callExpression				// precedence 2
 	| expression Op=( '--' | '++' )									# unaryPostfixExpression		// precedence 2
 	| Op=( '!' | '-' | '--' | '++' ) expression						# unaryPrefixExpression			// precedence 3
@@ -180,14 +193,7 @@ Goto:		'goto';
 Switch:		'switch';
 Case:		'case';
 Default:	'default';
-
-TypeIdentifier
-	: 'bool'
-	| 'int'
-	| 'float'
-	| 'string'
-	| 'void'
-	;
+Enum:		'enum';
 
 // Literals
 
@@ -216,7 +222,6 @@ HexIntLiteral
 
 // Float constant
 FloatLiteral
-	//: Sign? Digit+ '.'? Digit* FloatLiteralSuffix?;
 	: Sign? Digit* '.'? Digit+ ( FloatLiteralExponent Sign? Digit+ )? FloatLiteralSuffix?
 	;
 
@@ -258,6 +263,14 @@ StringHexEscape
 
 Identifier
 	: LetterOrUnderscore LetterOrUnderscoreOrDigit*;
+ 
+PrimitiveTypeIdentifier
+	: 'bool'
+	| 'int'
+	| 'float'
+	| 'string'
+	| 'void'
+	;
 
 ProcedureIdentifier
 	: LetterOrUnderscoreOrDigit LetterOrUnderscoreOrDigit*;

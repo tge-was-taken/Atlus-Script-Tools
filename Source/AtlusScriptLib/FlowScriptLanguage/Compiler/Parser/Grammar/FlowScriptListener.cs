@@ -149,6 +149,19 @@ public interface IFlowScriptListener : IParseTreeListener {
 	void ExitUnaryPrefixExpression([NotNull] FlowScriptParser.UnaryPrefixExpressionContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by the <c>memberAccessExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMemberAccessExpression([NotNull] FlowScriptParser.MemberAccessExpressionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>memberAccessExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMemberAccessExpression([NotNull] FlowScriptParser.MemberAccessExpressionContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by the <c>logicalAndExpression</c>
 	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
 	/// </summary>
@@ -337,6 +350,39 @@ public interface IFlowScriptListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitVariableDeclarationStatement([NotNull] FlowScriptParser.VariableDeclarationStatementContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="FlowScriptParser.enumTypeDeclarationStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterEnumTypeDeclarationStatement([NotNull] FlowScriptParser.EnumTypeDeclarationStatementContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="FlowScriptParser.enumTypeDeclarationStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitEnumTypeDeclarationStatement([NotNull] FlowScriptParser.EnumTypeDeclarationStatementContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="FlowScriptParser.enumValueDeclaration"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterEnumValueDeclaration([NotNull] FlowScriptParser.EnumValueDeclarationContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="FlowScriptParser.enumValueDeclaration"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitEnumValueDeclaration([NotNull] FlowScriptParser.EnumValueDeclarationContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="FlowScriptParser.enumValueList"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterEnumValueList([NotNull] FlowScriptParser.EnumValueListContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="FlowScriptParser.enumValueList"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitEnumValueList([NotNull] FlowScriptParser.EnumValueListContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="FlowScriptParser.labelDeclarationStatement"/>.

@@ -48,6 +48,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
         private int mEvaluatedInstructionIndex;
         private int mRealStackCount;
         private Stack<FlowScriptEvaluatedStatement> mEvaluationStatementStack;
+        private Stack<FlowScriptEvaluatedStatement> mExpressionStack;
         private FlowScriptCallOperator mLastFunctionCall;
         private FlowScriptCallOperator mLastProcedureCall;
         private FlowScriptValueType mReturnType;
@@ -567,6 +568,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             mInstructions = procedure.Instructions;
             mEvaluatedInstructionIndex = 0;
             mEvaluationStatementStack = new Stack<FlowScriptEvaluatedStatement>();
+            mExpressionStack = new Stack< FlowScriptEvaluatedStatement >();
             mReturnType = FlowScriptValueType.Void;
             mParameters = new List<FlowScriptParameter>();
             mProcedureLocalVariables = new List<FlowScriptEvaluatedIdentifierReference>();
@@ -643,6 +645,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
         private bool TryEvaluateInstruction( FlowScriptInstruction instruction )
         {
             //LogInfo( $"Evaluating instruction: {instruction}" );
+            // Todo: implement expression stack
 
             switch ( instruction.Opcode )
             {
@@ -857,7 +860,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         {
                             // Number of parameters is unknown at this time
 
-                            parameterCount = mRealStackCount;
+                            //parameterCount = mRealStackCount;
+                            parameterCount = 0;
                             var parameters = new List< FlowScriptParameter >();
                             for ( int i = 0; i < parameterCount; i++ )
                                 parameters.Add( new FlowScriptParameter( new FlowScriptTypeIdentifier( FlowScriptValueType.Int ), new FlowScriptIdentifier( $"param{i + 1}" ) ) );
@@ -1169,6 +1173,15 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
             statement = mEvaluationStatementStack.Pop().Statement;
             return true;
+        }
+
+        private void PushExpression( FlowScriptStatement statement )
+        {
+            var visitor = new StatementVisitor( this );
+            visitor.Visit( statement );
+
+            mExpressionStack.Push(
+                new FlowScriptEvaluatedStatement( statement, mEvaluatedInstructionIndex, null ) );
         }
 
         private bool TryPopExpression( out FlowScriptExpression expression )

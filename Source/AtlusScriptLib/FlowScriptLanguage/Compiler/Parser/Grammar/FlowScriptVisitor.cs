@@ -105,6 +105,14 @@ public interface IFlowScriptVisitor<Result> : IParseTreeVisitor<Result> {
 	Result VisitUnaryPrefixExpression([NotNull] FlowScriptParser.UnaryPrefixExpressionContext context);
 
 	/// <summary>
+	/// Visit a parse tree produced by the <c>memberAccessExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitMemberAccessExpression([NotNull] FlowScriptParser.MemberAccessExpressionContext context);
+
+	/// <summary>
 	/// Visit a parse tree produced by the <c>logicalAndExpression</c>
 	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
 	/// </summary>
@@ -222,6 +230,27 @@ public interface IFlowScriptVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitVariableDeclarationStatement([NotNull] FlowScriptParser.VariableDeclarationStatementContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="FlowScriptParser.enumTypeDeclarationStatement"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitEnumTypeDeclarationStatement([NotNull] FlowScriptParser.EnumTypeDeclarationStatementContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="FlowScriptParser.enumValueDeclaration"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitEnumValueDeclaration([NotNull] FlowScriptParser.EnumValueDeclarationContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="FlowScriptParser.enumValueList"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitEnumValueList([NotNull] FlowScriptParser.EnumValueListContext context);
 
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="FlowScriptParser.labelDeclarationStatement"/>.

@@ -61,26 +61,8 @@ function( 0x108f ) void FLD_MODEL_SET_TRANSLATE( int modelHandle, float x, float
 // Sets the scale of a model
 function( 0x1301 ) void FLD_MODEL_SET_SCALE( int modelHandle, float scale );
 
-const int BUTTON_SELECT 	= 0;
-const int BUTTON_LSTICK 	= 1;
-const int BUTTON_RSTICK 	= 2;
-const int BUTTON_START 		= 3;
-const int BUTTON_UP 		= 4;
-const int BUTTON_RIGHT 		= 5;
-const int BUTTON_DOWN 		= 6;
-const int BUTTON_LEFT 		= 7;
-const int BUTTON_L1 		= 8;
-const int BUTTON_R1 		= 9;
-const int BUTTON_L2 		= 10;
-const int BUTTON_R2 		= 11;
-const int BUTTON_TRIANGLE	= 12;
-const int BUTTON_CIRCLE		= 13;
-const int BUTTON_X 			= 14;
-const int BUTTON_SQUARE 	= 15;
-const int BUTTON_ANY 		= 16;
-
 // Returns if the specified button is pressed
-function( 0x007a ) bool PAD_CHK_PRESS( int buttonId );
+function( 0x007a ) bool PAD_CHK_PRESS( int button );
 
 // Plays a specified bgm. Maps directly to the ids from the OST gamerip.
 function( 0x005c ) void BGM( int bgmId );
@@ -92,6 +74,29 @@ function( 0x005c ) void BGM( int bgmId );
 static bool sHasRun;
 
 function( 0x11e3 ) void FLD_WAIT( int frameCount );
+
+// You can define enum values and refer to them like so
+// If you don't give them values they'll be given them from 0 to one
+enum PadButton
+{
+	Select,
+	LStick,
+	RStick,
+	Start,
+	Up,
+	Right,
+	Down,
+	Left,
+	L1,
+	R1,
+	L2,
+	R2,
+	Triangle,
+	Circle,
+	X,
+	Square,
+	Any
+}
 
 void Main()
 { 
@@ -123,7 +128,7 @@ void Main()
 			break;
 			
 		case 1:
-			CALL_FIELD( 0, 2, 0, 0, 0 );
+			CALL_FIELD( 0, 2, 0, 0 );
 			break;
 			
 		case 2:
@@ -211,9 +216,9 @@ void StartTeleportMode()
 	PUTS( "StartTeleportMode: playerResHandle =" );
 	PUT( playerResHandle );
 
-	while ( !PAD_CHK_PRESS( BUTTON_TRIANGLE ) ) // while triangle isn't pressed
+	while ( !PAD_CHK_PRESS( PadButton.Triangle ) ) // while triangle isn't pressed
 	{
-		if ( PAD_CHK_PRESS( BUTTON_ANY ) ) // if any button is pressed
+		if ( PAD_CHK_PRESS( PadButton.Any ) ) // if any button is pressed
 		{
 			float x = 0f;
 			float y = 0f;
@@ -221,28 +226,28 @@ void StartTeleportMode()
 			float multiplier = 1f;
 			bool anyValueSet = false;
 
-			if ( PAD_CHK_PRESS( BUTTON_X ) ) 
+			if ( PAD_CHK_PRESS( PadButton.X ) ) 
 				multiplier = 2f;
 
-			if ( PAD_CHK_PRESS( BUTTON_UP ) ) 
+			if ( PAD_CHK_PRESS( PadButton.Up ) ) 
 			{
 				y = y + ( 2000f * multiplier );
 				anyValueSet = true;
 			}
 
-			if ( PAD_CHK_PRESS( BUTTON_RIGHT ) ) 
+			if ( PAD_CHK_PRESS( PadButton.Right ) ) 
 			{
 				x = x + ( 2000f * multiplier );
 				anyValueSet = true;
 			}
 
-			if ( PAD_CHK_PRESS( BUTTON_DOWN ) ) 
+			if ( PAD_CHK_PRESS( PadButton.Down ) ) 
 			{
 				y = y - ( 2000f * multiplier );
 				anyValueSet = true;
 			}
 
-			if ( PAD_CHK_PRESS( BUTTON_LEFT ) ) 
+			if ( PAD_CHK_PRESS( PadButton.Left ) ) 
 			{
 				x = x - ( 2000f * multiplier );
 				anyValueSet = true;
