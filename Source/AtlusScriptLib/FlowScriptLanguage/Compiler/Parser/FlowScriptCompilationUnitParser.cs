@@ -113,8 +113,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
         //
         private bool TryParseCompilationUnit( FlowScriptParser.CompilationUnitContext context, out FlowScriptCompilationUnit compilationUnit )
         {
-            LogInfo( "Start parsing compilation unit" );
-
+            LogInfo( "Parsing compilation unit" );
             LogContextInfo( context );
 
             compilationUnit = CreateAstNode<FlowScriptCompilationUnit>( context );
@@ -129,18 +128,14 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                 compilationUnit.Imports = imports;
             }
 
-            // Parse statements
-            if ( !TryGet( context, "Expected statement(s)", context.declarationStatement, out var statementContexts ) )
-                return false;
-
+            // Parse declarations
             List<FlowScriptDeclaration> statements = null;
-            if ( !TryFunc( context, "Failed to parse statement(s)", () => TryParseDeclarationStatements( statementContexts, out statements ) ) )
+            if ( !TryFunc( context, "Failed to parse statement(s)", () => TryParseDeclarationStatements( context.declarationStatement(), out statements ) ) )
                 return false;
 
             compilationUnit.Declarations = statements;
 
             LogInfo( "Done parsing compilation unit" );
-
             return true;
         }
 
@@ -149,6 +144,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
         //
         private bool TryParseImports( FlowScriptParser.ImportStatementContext[] contexts, out System.Collections.Generic.List<FlowScriptImport> imports )
         {
+            LogInfo( "Parsing imports" );
             imports = new List<FlowScriptImport>();
 
             foreach ( var importContext in contexts )
@@ -160,6 +156,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                 imports.Add( import );
             }
 
+            LogInfo( "Done parsing imports" );
             return true;
         }
 
@@ -178,6 +175,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
             import = CreateAstNode<FlowScriptImport>( context );
             import.CompilationUnitFileName = filePath.Trim( '"' );
 
+            LogInfo( $"Parsed import: {import}" );
             return true;
         }
 
@@ -186,6 +184,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
         //
         private bool TryParseStatements( FlowScriptParser.StatementContext[] contexts, out List<FlowScriptStatement> statements )
         {
+            LogInfo( "Parsing statements" );
             statements = new List<FlowScriptStatement>();
 
             foreach ( var context in contexts )
@@ -197,6 +196,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                 statements.Add( statement );
             }
 
+            LogInfo( "Done parsing statements" );
             return true;
         }
 
@@ -296,6 +296,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
             else
             {
                 LogError( context, "Expected statement" );
+                return false;
             }
 
             return true;
@@ -303,6 +304,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
         private bool TryParseCompoundStatement( FlowScriptParser.CompoundStatementContext context, out FlowScriptCompoundStatement body )
         {
+            LogInfo( "Parsing compound statement" );
             LogContextInfo( context );
 
             body = CreateAstNode<FlowScriptCompoundStatement>( context );
@@ -316,6 +318,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
             body.Statements.AddRange( statements );
 
+            LogInfo( "Done parsing compound statement" );
             return true;
         }
 
@@ -324,6 +327,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
         //
         private bool TryParseDeclarationStatements( FlowScriptParser.DeclarationStatementContext[] contexts, out List<FlowScriptDeclaration> statements )
         {
+            LogInfo( "Parsing declarations" );
             statements = new List<FlowScriptDeclaration>();
 
             foreach ( var context in contexts )
@@ -335,6 +339,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                 statements.Add( statement );
             }
 
+            LogInfo( "Done parsing declarations" );
             return true;
         }
 
@@ -396,6 +401,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
         private bool TryParseFunctionDeclaration( FlowScriptParser.FunctionDeclarationStatementContext context, out FlowScriptFunctionDeclaration functionDeclaration )
         {
+            LogInfo( "Parsing function declaration" );
             LogContextInfo( context );
 
             functionDeclaration = CreateAstNode<FlowScriptFunctionDeclaration>( context );
@@ -458,11 +464,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                 functionDeclaration.Parameters = parameters;
             }
 
+            LogInfo( $"Done parsing functions statement: {functionDeclaration}" );
             return true;
         }
 
         private bool TryParseProcedureDeclaration( FlowScriptParser.ProcedureDeclarationStatementContext context, out FlowScriptProcedureDeclaration procedureDeclaration )
         {
+            LogInfo( "Start parsing procedure declaration" );
             LogContextInfo( context );
 
             procedureDeclaration = CreateAstNode<FlowScriptProcedureDeclaration>( context );
@@ -522,11 +530,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                 procedureDeclaration.Body = body;
             }
 
+            LogInfo( $"Done parsing procedure declaration: {procedureDeclaration}" );
             return true;
         }
 
         private bool TryParseVariableDeclaration( FlowScriptParser.VariableDeclarationStatementContext context, out FlowScriptVariableDeclaration variableDeclaration )
         {
+            LogInfo( "Parsing variable declaration" );
             LogContextInfo( context );
 
             variableDeclaration = CreateAstNode<FlowScriptVariableDeclaration>( context );
@@ -589,6 +599,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                 variableDeclaration.Initializer = initializer;
             }
 
+            LogInfo( $"Done parsing variable declaration: { variableDeclaration }" );
             return true;
         }
 
@@ -611,6 +622,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                 return false;
             }
 
+            LogInfo( $"Parsed variable modifier: {modifier}" );
             return true;
         }
 
@@ -627,6 +639,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
             enumDeclaration.Identifier = identifier;
 
+            LogInfo( $"Parsing enum declaration: {enumDeclaration}" );
+
             // Parse values
             List<FlowScriptEnumValueDeclaration> values = null;
             if ( !TryFunc( context.enumValueList(), "Failed to parse enum values", () => TryParseEnumValueList( context.enumValueList(), out values ) ) )
@@ -634,11 +648,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
             enumDeclaration.Values = values;
 
+            LogInfo( $"Parsed enum declaration: { enumDeclaration }" );
             return true;
         }
 
         private bool TryParseEnumValueList( FlowScriptParser.EnumValueListContext context, out List< FlowScriptEnumValueDeclaration > values )
         {
+            LogInfo( "Parsing enum value list" );
             values = new List< FlowScriptEnumValueDeclaration >();
 
             foreach ( var valueContext in context.enumValueDeclaration() )
@@ -663,8 +679,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                     value.Value = enumValue;
                 }
 
+                LogInfo( $"Parsed enum value: {value}" );
                 values.Add( value );
             }
+
+            LogInfo( "Done parsing enum value list" );
 
             return true;
         }
@@ -681,6 +700,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                 return false;
 
             labelDeclaration.Identifier = identifier;
+
+            LogInfo( $"Parsed label declaration: {labelDeclaration}" );
 
             return true;
         }
@@ -831,6 +852,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
             memberAccessExpression.Member = member;
 
+            LogInfo( $"Parsed member access expression: {memberAccessExpression}" );
+
             return true;
         }
 
@@ -849,6 +872,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
             callExpression.Identifier = identifier;
 
+            LogInfo( $"Parsing call expression: {identifier}( ... )" );
+
             if ( TryGet( context, context.expressionList, out var expressionListContext ) )
             {
                 if ( !TryGet( expressionListContext, "Expected expression(s)", () => expressionListContext.expression(), out var expressionContexts ) )
@@ -863,6 +888,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                     callExpression.Arguments.Add( expression );
                 }
             }
+
+            LogInfo( $"Parsed call expression: {callExpression}" );
 
             return true;
         }
@@ -891,6 +918,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                 return false;
 
             unaryExpression.Operand = leftExpression;
+
+            LogInfo( $"Parsed unary expression: {unaryExpression}" );
 
             return true;
         }
@@ -928,6 +957,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
             unaryExpression.Operand = leftExpression;
 
+            LogInfo( $"Parsed unary prefix expression: {unaryExpression}" );
+
             return true;
         }
 
@@ -935,36 +966,35 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
         {
             LogContextInfo( context );
 
-            if ( context.Op.Text == "*" )
+            switch ( context.Op.Text )
             {
-                binaryExpression = CreateAstNode<FlowScriptMultiplicationOperator>( context );
-            }
-            else if ( context.Op.Text == "/" )
-            {
-                binaryExpression = CreateAstNode<FlowScriptDivisionOperator>( context );
-            }
-            else
-            {
-                binaryExpression = null;
-                LogError( context, $"Invalid op for multiplication expression: ${context.Op}" );
-                return false;
+                case "*":
+                    binaryExpression = CreateAstNode< FlowScriptMultiplicationOperator >( context );
+                    break;
+                case "/":
+                    binaryExpression = CreateAstNode< FlowScriptDivisionOperator >( context );
+                    break;
+                default:
+                    binaryExpression = null;
+                    LogError( context, $"Invalid op for multiplication expression: ${context.Op}" );
+                    return false;
             }
 
             // Left
-            {
-                if ( !TryParseExpression( context.expression( 0 ), out var leftExpression ) )
-                    return false;
 
-                binaryExpression.Left = leftExpression;
-            }
+            if ( !TryParseExpression( context.expression( 0 ), out var leftExpression ) )
+                return false;
+
+            binaryExpression.Left = leftExpression;
 
             // Right
-            {
-                if ( !TryParseExpression( context.expression( 1 ), out var rightExpression ) )
-                    return false;
 
-                binaryExpression.Right = rightExpression;
-            }
+            if ( !TryParseExpression( context.expression( 1 ), out var rightExpression ) )
+                return false;
+
+            binaryExpression.Right = rightExpression;
+
+            LogInfo( $"Parsed multiplication expression: {binaryExpression}" );
 
             return true;
         }
@@ -1004,6 +1034,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                 binaryExpression.Right = rightExpression;
             }
 
+            LogInfo( $"Parsed addition expression: {binaryExpression}" );
+
             return true;
         }
 
@@ -1011,27 +1043,24 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
         {
             LogContextInfo( context );
 
-            if ( context.Op.Text == "<" )
+            switch ( context.Op.Text )
             {
-                binaryExpression = CreateAstNode<FlowScriptLessThanOperator>( context );
-            }
-            else if ( context.Op.Text == ">" )
-            {
-                binaryExpression = CreateAstNode<FlowScriptGreaterThanOperator>( context );
-            }
-            else if ( context.Op.Text == "<=" )
-            {
-                binaryExpression = CreateAstNode<FlowScriptLessThanOrEqualOperator>( context );
-            }
-            else if ( context.Op.Text == ">=" )
-            {
-                binaryExpression = CreateAstNode<FlowScriptGreaterThanOrEqualOperator>( context );
-            }
-            else
-            {
-                binaryExpression = null;
-                LogError( context, $"Invalid op for addition expression: ${context.Op}" );
-                return false;
+                case "<":
+                    binaryExpression = CreateAstNode<FlowScriptLessThanOperator>( context );
+                    break;
+                case ">":
+                    binaryExpression = CreateAstNode<FlowScriptGreaterThanOperator>( context );
+                    break;
+                case "<=":
+                    binaryExpression = CreateAstNode<FlowScriptLessThanOrEqualOperator>( context );
+                    break;
+                case ">=":
+                    binaryExpression = CreateAstNode<FlowScriptGreaterThanOrEqualOperator>( context );
+                    break;
+                default:
+                    binaryExpression = null;
+                    LogError( context, $"Invalid op for addition expression: ${context.Op}" );
+                    return false;
             }
 
             // Left
@@ -1050,6 +1079,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                 binaryExpression.Right = rightExpression;
             }
 
+            LogInfo( $"Parsed relational expression: {binaryExpression}" );
+
             return true;
         }
 
@@ -1057,19 +1088,18 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
         {
             LogContextInfo( context );
 
-            if ( context.Op.Text == "==" )
+            switch ( context.Op.Text )
             {
-                equalityExpression = CreateAstNode<FlowScriptEqualityOperator>( context );
-            }
-            else if ( context.Op.Text == "!=" )
-            {
-                equalityExpression = CreateAstNode<FlowScriptNonEqualityOperator>( context );
-            }
-            else
-            {
-                equalityExpression = null;
-                LogError( context, $"Invalid op for equality expression: ${context.Op}" );
-                return false;
+                case "==":
+                    equalityExpression = CreateAstNode<FlowScriptEqualityOperator>( context );
+                    break;
+                case "!=":
+                    equalityExpression = CreateAstNode<FlowScriptNonEqualityOperator>( context );
+                    break;
+                default:
+                    equalityExpression = null;
+                    LogError( context, $"Invalid op for equality expression: ${context.Op}" );
+                    return false;
             }
 
             // Left
@@ -1087,6 +1117,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
                 equalityExpression.Right = rightExpression;
             }
+
+            LogInfo( $"Parsed equality expression: {equalityExpression}" );
 
             return true;
         }
@@ -1113,6 +1145,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                 binaryExpression.Right = rightExpression;
             }
 
+            LogInfo( $"Parsed logical and expression: {binaryExpression}" );
+
             return true;
         }
 
@@ -1137,6 +1171,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
                 binaryExpression.Right = rightExpression;
             }
+
+            LogInfo( $"Parsed relational expression: {binaryExpression}" );
 
             return true;
         }
@@ -1189,6 +1225,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                 binaryExpression.Right = rightExpression;
             }
 
+            LogInfo( $"Parsed assignment expression: {binaryExpression}" );
+
             return true;
         }
 
@@ -1239,6 +1277,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
             expression = constantExpression;
 
+            LogInfo( $"Parsed primary constant expression: {expression}" );
+
             return true;
         }
 
@@ -1256,6 +1296,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                 return false;
 
             identifier = parsedIdentifier;
+
+            LogInfo( $"Parsed primary identifier expression: {identifier}" );
 
             return true;
         }
@@ -1387,6 +1429,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
         //
         private bool TryParseParameterList( FlowScriptParser.ParameterListContext context, out List<FlowScriptParameter> parameters )
         {
+            LogInfo( "Parsing parameter list" );
             LogContextInfo( context );
 
             parameters = new List<FlowScriptParameter>();
@@ -1443,6 +1486,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
             parameter.Identifier = identifier;
 
+            LogInfo( $"Parsed parameter: {parameter}" );
 
             return true;
         }
@@ -1497,6 +1541,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                 ifStatement.Condition = condition;
             }
 
+            LogInfo( $"Parsing if statement: {ifStatement}" );
+
             // Body
             {
                 if ( !TryGet( context, "Expected if body", () => context.statement( 0 ), out var bodyContext ) )
@@ -1537,6 +1583,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                 }
             }
 
+            LogInfo( $"Parsed if statement: {ifStatement}" );
+
             return true;
         }
 
@@ -1573,6 +1621,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
             forStatement.AfterLoop = afterLoop;
 
+            LogInfo( $"Parsing for loop: {forStatement}" );
+
             if ( !TryParseStatement( context.statement( 1 ), out var body ) )
             {
                 LogError( context.statement( 0 ), "Failed to parse for statement body" );
@@ -1588,6 +1638,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                 forStatement.Body = CreateAstNode<FlowScriptCompoundStatement>( context.statement( 1 ) );
                 forStatement.Body.Statements.Add( body );
             }
+
+            LogInfo( $"Parsed for loop: {forStatement}" );
 
             return true;
         }
@@ -1609,6 +1661,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
             whileStatement.Condition = condition;
 
+            LogInfo( $"Parsing while loop: {whileStatement}" );
+
             if ( !TryParseStatement( context.statement(), out var body ) )
             {
                 LogError( context.statement(), "Failed to parse while statement body" );
@@ -1624,6 +1678,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                 whileStatement.Body = CreateAstNode<FlowScriptCompoundStatement>( context.statement() );
                 whileStatement.Body.Statements.Add( body );
             }
+
+            LogInfo( $"Parsed while loop: {whileStatement}" );
 
             return true;
         }
@@ -1651,6 +1707,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
             gotoStatement.LabelIdentifier = target;
 
+            LogInfo( $"Parsed goto statement: {gotoStatement}" );
+
             return true;
         }
 
@@ -1674,6 +1732,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                 returnStatement.Value = expression;
             }
 
+            LogInfo( $"Parsed return statement: {returnStatement}" );
+
             return true;
         }
 
@@ -1691,6 +1751,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
             }
 
             switchStatement.SwitchOn = switchOn;
+
+            LogInfo( $"Parsing switch statement: {switchStatement}" );
 
             // Parse switch labels
             foreach ( var switchLabelContext in context.switchLabel() )
@@ -1726,6 +1788,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                 label.Body = body;
                 switchStatement.Labels.Add( label );
             }
+
+            LogInfo( $"Done parsing switch statement: {switchStatement}" );
 
             return true;
         }

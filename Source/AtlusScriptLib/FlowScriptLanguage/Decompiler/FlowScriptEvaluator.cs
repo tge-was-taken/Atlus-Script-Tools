@@ -668,7 +668,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         if ( !Scope.TryGetStaticIntVariable( index, out var declaration ) )
                         {
                             LogError( $"Referenced undeclared static int variable: '{index}'" );
-                            return false;
+                            //return false;
+
+                            if ( !TryDeclareVariable( FlowScriptModifierType.Static, FlowScriptValueType.Int, index, out declaration ) )
+                            {
+                                LogError( "Failed to declare static int variable for PUSHIX" );
+                                return false;
+                            }
                         }
 
                         PushStatement( declaration.Identifier );
@@ -683,7 +689,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         if ( !Scope.TryGetStaticFloatVariable( index, out var declaration ) )
                         {
                             LogError( $"Referenced undeclared static float variable: '{index}'" );
-                            return false;
+                            //return false;
+
+                            if ( !TryDeclareVariable( FlowScriptModifierType.Static, FlowScriptValueType.Float, index, out declaration ) )
+                            {
+                                LogError( "Failed to declare static float variable for PUSHIF" );
+                                return false;
+                            }
                         }
 
                         PushStatement( declaration.Identifier );
@@ -1066,7 +1078,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
                             if ( !TryDeclareVariable( FlowScriptModifierType.Local, FlowScriptValueType.Int, index, out declaration ) )
                             {
-                                LogError( "Failed to declare local int variable for PUSHLIX" );
+                                LogError( "Failed to declare local float variable for PUSHLIX" );
                                 return false;
                             }
                         }
@@ -1080,8 +1092,14 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         short index = instruction.Operand.GetInt16Value();
                         if ( !Scope.TryGetLocalFloatVariable( index, out var declaration ) )
                         {
-                            LogError( $"Referenced undeclared local float variable: '{index}'" );
-                            return false;
+                            LogInfo( $"Referenced undeclared local float variable: '{index}'" );
+                            //return false;
+
+                            if ( !TryDeclareVariable( FlowScriptModifierType.Local, FlowScriptValueType.Float, index, out declaration ) )
+                            {
+                                LogError( "Failed to declare local int variable for PUSHLFX" );
+                                return false;
+                            }
                         }
 
                         PushStatement( declaration.Identifier );

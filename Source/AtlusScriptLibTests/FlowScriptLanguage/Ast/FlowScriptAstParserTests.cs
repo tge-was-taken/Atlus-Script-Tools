@@ -12,6 +12,7 @@ using System.IO;
 //using AtlusLibSharp.FileSystems.PAKToolArchive;
 using AtlusScriptLib.FlowScriptLanguage.Disassembler;
 using System.Diagnostics;
+using AtlusLibSharp.FileSystems.PAKToolArchive;
 using AtlusScriptLib.MessageScriptLanguage.Compiler;
 using AtlusScriptLib.Common.Text.Encodings;
 using AtlusScriptLib.FlowScriptLanguage.BinaryModel;
@@ -35,30 +36,21 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
             var listener = new DebugLogListener();
 
             string flowScriptSource =
-                "enum MyEnum" +
-                "{" +
-                "   Test1 = 1," +
-                "   Test2 = MyEnum.Test1 + 1," +
-                "   Test3 = 3," +
-                "}" +
-                "" +
-                "enum MyEnum2" +
-                "{" +
-                "   Test1 = MyEnum.Test2" +
-                "}" +
-                "" +
-                "void Test( MyEnum test )" +
-                "{" +
-                "}" +
-                "" +
                 "void Main()" +
                 "{" +
-                "   int test = MyEnum.Test1;" +
-                "   test = MyEnum.Test2;" +
-                "   test = MyEnum.Test3;" +
-                "   Test( MyEnum2.Test1 );" +
+                "   int test = 1;" +
+                "" +
+                "   switch ( test )" +
+                "   {" +
+                "       default:" +
+                "           test = 10;" +
+                "           break;" +
+                "       case 1:" +
+                "       case 2:" +
+                "           test = 0;" +
+                "           break;" +
+                "   }" +
                 "}";
-
 
             FlowScript flowScript;
 
@@ -87,7 +79,6 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
             const int fieldMajorId = 000;
             const int fieldMinorId = 100;
 
-            /*
             var archive = new PakToolArchiveFile();
             archive.Entries.Add( new PakToolArchiveEntry( $"init/fini_{fieldMajorId:D3}_{fieldMinorId:D3}.bf", ( MemoryStream )flowScript.ToStream() ) );
             archive.Save( $@"D:\Modding\Persona 5 EU\Game mods\TestLevel\mod\field\f{fieldMajorId:D3}_{fieldMinorId:D3}.pac" );
@@ -98,17 +89,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
             flowScriptDiassembler.Dispose();
 
             Process.Start( @"D:\Modding\Persona 5 EU\Game mods\TestLevel\make_cpk_rpcs3.bat" );
-            */
             //OutputBothDisassemblies( @"D:\Modding\Persona 5 EU\Main game\Extracted\data\event\e800\e800\e800_021.bf", false );
-            RecursiveCount( 0, 10 );
-        }
-
-        static void RecursiveCount( int i, int max )
-        {
-            i = i + 1;
-            Debug.WriteLine(i);
-            if ( i < max )
-                RecursiveCount( i, max );
         }
 
         static void OutputBothDisassemblies( string path, bool isSource )

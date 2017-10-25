@@ -633,7 +633,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             mProcedureDeclaration = declaration;
             mInstructions = new List<FlowScriptInstruction>();
             mLabels = new Dictionary<string, Label>();
-            mStackValueCount = 1 + declaration.Parameters.Count;
+            mStackValueCount = 1;
         }
 
         private bool TryCompileProcedure( FlowScriptProcedureDeclaration declaration, out FlowScriptProcedure procedure )
@@ -2049,11 +2049,20 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         {
             LogInfo( switchStatement, $"Emitting switch statement: '{switchStatement}'" );
 
+            var defaultLabel = switchStatement.Labels.SingleOrDefault( x => x is FlowScriptDefaultSwitchLabel );
+            if ( switchStatement.Labels.Last() != defaultLabel )
+            {
+                switchStatement.Labels.Remove( defaultLabel );
+                switchStatement.Labels.Add( defaultLabel );
+            }
+
+            var switchEndLabel = CreateLabel( "SwitchStatementEndLabel" );
+            var labelBodyLabels = new List< Label >();
             foreach ( var label in switchStatement.Labels )
             {
                 if ( label is FlowScriptConditionSwitchLabel conditionLabel )
                 {
-                    // emit condition expression, which should push a boolean value to the stack
+                    // Emit condition expression, which should push a boolean value to the stack
                     if ( !TryEmitExpression( conditionLabel.Condition, false ) )
                     {
                         LogError( conditionLabel.Condition, "Failed to emit switch statement label condition" );
@@ -2067,50 +2076,58 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                         return false;
                     }
 
-                    // emit equality check
-                    Emit( FlowScriptInstruction.EQ() );
+                    // emit equality check, but check if it's not equal to jump to the body if it is
+                    Emit( FlowScriptInstruction.NEQ() );
 
                     // generate label for jump if condition is false
-                    var endLabel = CreateLabel( "SwitchStatementLabelEndLabel" );
+                    var labelBodyLabel = CreateLabel( "SwitchStatementLabelBodyLabel" );
 
-                    // emit if instruction that jumps to the end label if the condition is false
-                    Emit( FlowScriptInstruction.IF( endLabel.Index ) );
+                    // emit if instruction that jumps to the body if the condition is met
+                    Emit( FlowScriptInstruction.IF( labelBodyLabel.Index ) );
 
-                    // compile label body
-                    Scope.BreakLabel = endLabel;
-
-                    LogInfo( "Compiling switch statement label body" );
-                    if ( !TryEmitStatements( label.Body ) )
-                    {
-                        LogError( "Failed to compile switch statement label body" );
-                        return false;
-                    }
-
-                    Scope.BreakLabel = null;
-                    ResolveLabel( endLabel );
+                    labelBodyLabels.Add( labelBodyLabel );
                 }
             }
 
-            // Emit default label
-            var defaultLabel = switchStatement.Labels.SingleOrDefault( x => x is FlowScriptDefaultSwitchLabel );
             if ( defaultLabel != null )
             {
-                // generate label for jump if condition is false
-                var defaultEndLabel = CreateLabel( "SwitchStatementDefaultLabelEndLabel" );
+                // Emit body of default case first
+                Scope.BreakLabel = switchEndLabel;
 
-                // compile label body
-                Scope.BreakLabel = defaultEndLabel;
-
+                // Emit default case body
                 LogInfo( "Compiling switch statement label body" );
                 if ( !TryEmitStatements( defaultLabel.Body ) )
                 {
                     LogError( "Failed to compile switch statement label body" );
                     return false;
                 }
-
-                Scope.BreakLabel = null;
-                ResolveLabel( defaultEndLabel );
             }
+
+            // Emit other label bodies
+            for ( var i = 0; i < switchStatement.Labels.Count; i++ )
+            {
+                var label = switchStatement.Labels[ i ];
+
+                if ( label is FlowScriptConditionSwitchLabel )
+                {
+                    // Resolve body label
+                    var labelBodyLabel = labelBodyLabels[ i ];
+                    ResolveLabel( labelBodyLabel );
+
+                    // Break jumps to end of switch
+                    Scope.BreakLabel = switchEndLabel;
+
+                    // Emit body
+                    LogInfo( "Compiling switch statement label body" );
+                    if ( !TryEmitStatements( label.Body ) )
+                    {
+                        LogError( "Failed to compile switch statement label body" );
+                        return false;
+                    }
+                }
+            }
+
+            ResolveLabel( switchEndLabel );
 
             return true;
         }
@@ -2316,11 +2333,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private void Emit( FlowScriptInstruction instruction )
         {
-            int stackValueCountBefore = mStackValueCount;
-
             // Emit instruction
             mInstructions.Add( instruction );
+            TraceInstructionStackBehaviour( instruction );
+        }
 
+        private void TraceInstructionStackBehaviour( FlowScriptInstruction instruction )
+        {
             switch ( instruction.Opcode )
             {
                 case FlowScriptOpcode.PUSHI:
@@ -2337,23 +2356,19 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     --mStackValueCount;
                     break;
                 case FlowScriptOpcode.END:
-                    {
-                        // Log stack value count at procedure end
-                        mLogger.Debug( $"{mStackValueCount} values on stack at end" );
+                {
+                    // Log stack value count at procedure end
+                    mLogger.Debug( $"{mStackValueCount} values on stack at END" );
 
-                        if ( mStackValueCount < 1 )
-                        {
-                            mLogger.Error( "Stack underflow!!!" );
-                        }
-                        else if ( mStackValueCount != 1 && mProcedureDeclaration.ReturnType.ValueType == FlowScriptValueType.Void )
-                        {
-                            mLogger.Debug( "More or less than 1 value on the stack without return value. Return address might be corrupted if this is not a leaf function." );
-                        }
-                        else if ( mStackValueCount > 2 )
-                        {
-                            mLogger.Debug( "More than 2 values on the stack including return value. Return address and return value might be corrupted if this is not a leaf function." );
-                        }
+                    if ( mStackValueCount < 1 )
+                    {
+                        mLogger.Error( "Stack underflow!!!" );
                     }
+                    else if ( mStackValueCount != 1 )
+                    {
+                        mLogger.Error( "Return address corruption" );
+                    }
+                }
                     break;
                 case FlowScriptOpcode.ADD:
                 case FlowScriptOpcode.SUB:
@@ -2385,18 +2400,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     ++mStackValueCount;
                     break;
                 case FlowScriptOpcode.CALL:
-                    {
-                        var procedureCalled = mRootScope.Procedures.Values.Single( x => x.Index == instruction.Operand.GetInt16Value() );
-                        mStackValueCount -= procedureCalled.Declaration.Parameters.Count;
-                        if ( procedureCalled.Declaration.ReturnType.ValueType != FlowScriptValueType.Void )
-                            ++mStackValueCount;
-                    }
                     break;
                 case FlowScriptOpcode.COMM:
-                    {
-                        var functionCalled = mRootScope.Functions.Values.Single( x => x.Index == instruction.Operand.GetInt16Value() );
-                        mStackValueCount -= functionCalled.Declaration.Parameters.Count;
-                    }
+                {
+                    var functionCalled = mRootScope.Functions.Values.Single( x => x.Index == instruction.Operand.GetInt16Value() );
+                    mStackValueCount -= functionCalled.Declaration.Parameters.Count;
+                }
                     break;
                 case FlowScriptOpcode.OR:
                     mStackValueCount -= 2;
@@ -2422,6 +2431,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     mStackValueCount -= 2;
                     ++mStackValueCount;
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 

@@ -33,7 +33,6 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
         /// <summary>
         /// Initializes a FlowScript decompiler.
         /// </summary>
-        /// <param name="version"></param>
         public FlowScriptDecompiler()
         {
             mLogger = new Logger( nameof( FlowScriptDecompiler ) );
@@ -776,7 +775,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             }
         }
 
-        class IdentifierVisitor : FlowScriptSyntaxVisitor
+        private class IdentifierVisitor : FlowScriptSyntaxVisitor
         {
             private readonly List<FlowScriptIdentifier> mIdentifiers;
 
