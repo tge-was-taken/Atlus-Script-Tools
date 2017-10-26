@@ -36,6 +36,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         private readonly HashSet<int> mImportedFileHashSet;
         private bool mReresolveImports;
         private string mFilePath;
+        private string mCurrentBaseDirectory;
         private FlowScript mScript;
         private int mNextLabelIndex;
         private Stack<ScopeContext> mScopeStack;
@@ -143,6 +144,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             if ( stream is FileStream fileStream )
             {
                 mFilePath = Path.GetFullPath( fileStream.Name );
+                mCurrentBaseDirectory = Path.GetDirectoryName( mFilePath );
             }
 
             // Add hash for current file
@@ -269,12 +271,22 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             return true;
         }
 
+        private void ExpandImportStatementsPaths( FlowScriptCompilationUnit compilationUnit, string baseDirectory )
+        {
+            foreach ( var import in compilationUnit.Imports )
+            {
+                import.CompilationUnitFileName = Path.Combine( baseDirectory, import.CompilationUnitFileName );
+            }
+        }
+
         //
         // Resolving imports
         //
         private bool TryResolveImports( FlowScriptCompilationUnit compilationUnit )
         {
             LogInfo( compilationUnit, "Resolving imports" );
+
+            ExpandImportStatementsPaths( compilationUnit, Path.GetDirectoryName( mFilePath ) );
 
             var importedMessageScripts = new List<MessageScript>();
             var importedFlowScripts = new List<FlowScriptCompilationUnit>();
@@ -318,10 +330,15 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             // Resolve MessageScripts imports
             if ( importedMessageScripts.Count > 0 )
             {
-                mScript.MessageScript = importedMessageScripts[0];
+                int startIndex = 0;
+                if ( mScript.MessageScript == null )
+                {
+                    mScript.MessageScript = importedMessageScripts[ 0 ];
+                    startIndex = 1;
+                }
 
                 // Merge message scripts
-                for ( int i = 1; i < importedMessageScripts.Count; i++ )
+                for ( int i = startIndex; i < importedMessageScripts.Count; i++ )
                 {
                     mScript.MessageScript.Windows.AddRange( importedMessageScripts[i].Windows );
                 }
@@ -364,8 +381,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 // Retry as relative path if we have a filename
                 if ( mFilePath != null )
                 {
-                    var baseDirectory = Path.GetDirectoryName( mFilePath );
-                    compilationUnitFilePath = Path.Combine( baseDirectory, compilationUnitFilePath );
+                    compilationUnitFilePath = Path.Combine( mCurrentBaseDirectory, compilationUnitFilePath );
 
                     if ( !File.Exists( compilationUnitFilePath ) )
                     {
@@ -424,8 +440,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 // Retry as relative path if we have a filename
                 if ( mFilePath != null )
                 {
-                    var baseDirectory = Path.GetDirectoryName( mFilePath );
-                    compilationUnitFilePath = Path.Combine( baseDirectory, compilationUnitFilePath );
+                    compilationUnitFilePath = Path.Combine( Path.GetDirectoryName(mFilePath), compilationUnitFilePath );
 
                     if ( !File.Exists( compilationUnitFilePath ) )
                     {
@@ -466,6 +481,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 }
 
                 flowScriptSourceFile.Dispose();
+
+                ExpandImportStatementsPaths( importedCompilationUnit, Path.GetDirectoryName( compilationUnitFilePath ) );
 
                 mImportedFileHashSet.Add( flowScriptSourceHash );
             }
@@ -2048,6 +2065,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         private bool TryEmitSwitchStatement( FlowScriptSwitchStatement switchStatement )
         {
             LogInfo( switchStatement, $"Emitting switch statement: '{switchStatement}'" );
+            PushScope();
 
             var defaultLabel = switchStatement.Labels.SingleOrDefault( x => x is FlowScriptDefaultSwitchLabel );
             if ( switchStatement.Labels.Last() != defaultLabel )
@@ -2129,6 +2147,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
             ResolveLabel( switchEndLabel );
 
+            PopScope();
             return true;
         }
 
@@ -2240,33 +2259,9 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             if ( declaration.Parameters.Count > 0 )
             {
                 EmitTracePrint( "Arguments:" );
-
-                int intParameterCount = 1;
-                int floatParameterCount = 1;
-
                 foreach ( var parameter in declaration.Parameters )
                 {
-                    if ( sTypeToBaseTypeMap[parameter.Type.ValueType] == FlowScriptValueType.Int )
-                    {
-                        Emit( FlowScriptInstruction.PUSHLIX( ( short )( mNextIntParameterVariableIndex + intParameterCount ) ) );
-                    }
-                    else
-                    {
-                        Emit( FlowScriptInstruction.PUSHLFX( ( short )( mNextFloatParameterVariableIndex + floatParameterCount ) ) );
-                    }
-
                     EmitTracePrintValue( parameter.Type.ValueType );
-
-                    if ( sTypeToBaseTypeMap[parameter.Type.ValueType] == FlowScriptValueType.Int )
-                    {
-                        Emit( FlowScriptInstruction.POPLIX( ( short )( mNextIntParameterVariableIndex + intParameterCount ) ) );
-                        ++intParameterCount;
-                    }
-                    else
-                    {
-                        Emit( FlowScriptInstruction.POPLFX( ( short )( mNextFloatParameterVariableIndex + floatParameterCount ) ) );
-                        ++floatParameterCount;
-                    }
                 }
             }
         }

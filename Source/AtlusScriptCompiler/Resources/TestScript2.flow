@@ -76,7 +76,7 @@ static bool sHasRun;
 function( 0x11e3 ) void FLD_WAIT( int frameCount );
 
 // You can define enum values and refer to them like so
-// If you don't give them values they'll be given them from 0 to one
+// If you don't give them values they'll be given them automatically starting from 0
 enum PadButton
 {
 	Select,

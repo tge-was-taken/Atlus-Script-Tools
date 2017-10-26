@@ -5,6 +5,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 {
     public class FlowScriptEvaluationResult
     {
+        public FlowScript FlowScript { get; }
+
         public List<FlowScriptFunctionDeclaration> Functions { get; }
 
         public FlowScriptEvaluatedScope Scope { get; }
@@ -13,8 +15,9 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
         public Dictionary<FlowScriptStatement, FlowScriptEvaluatedStatement> EvaluatedStatementInfoLookup { get; }
 
-        internal FlowScriptEvaluationResult( FlowScriptEvaluatedScope scope )
+        internal FlowScriptEvaluationResult( FlowScript flowScript, FlowScriptEvaluatedScope scope )
         {
+            FlowScript = flowScript;
             Scope = scope;
             Functions = new List<FlowScriptFunctionDeclaration>();
             Procedures = new List<FlowScriptEvaluatedProcedure>();

@@ -7,7 +7,10 @@ using System.Text;
 using AtlusScriptLib.Common.Logging;
 using AtlusScriptLib.Common.Text.Encodings;
 using AtlusScriptLib.Common.Text.OutputProviders;
+using AtlusScriptLib.FlowScriptLanguage;
 using AtlusScriptLib.FlowScriptLanguage.BinaryModel;
+using AtlusScriptLib.FlowScriptLanguage.Compiler;
+using AtlusScriptLib.FlowScriptLanguage.Decompiler;
 using AtlusScriptLib.FlowScriptLanguage.Disassembler;
 using AtlusScriptLib.MessageScriptLanguage;
 using AtlusScriptLib.MessageScriptLanguage.Compiler;
@@ -39,30 +42,70 @@ namespace AtlusScriptCompiler
 
         public static OutputFileFormat OutputFileFormat;
 
-        public static OutputTextEncoding OutputTextEncoding;
+        public static MessageScriptTextEncoding MessageScriptTextEncoding;
+
+        public static string MessageScriptDatabasePath;
+
+        public static string FlowScriptDatabasePath;
+
+        public static bool FlowScriptEnableProcedureTracing;
+
+        public static bool FlowScriptEnableProcedureCallTracing;
+
+        public static bool FlowScriptEnableFunctionCallTracing;
+
+        public static bool FlowScriptEnableStackCookie;
 
         private static void DisplayUsage()
         {
             Console.WriteLine( $"AtlusScriptCompiler {Version.Major}.{Version.Minor} by TGE (2017)" );
             Console.WriteLine( "" );
-            Console.WriteLine( "Argument overview:" );
-            Console.WriteLine( "    -i <path to file>       Provides an input file source to the compiler. If no input source is explicitly specified, the first argument will be assumed to be one." );
-            Console.WriteLine( "    -o <path to file>       Provides an output file path to the compiler. If no output source is explicitly specified, the file will be output in the same folder as the source file under a different extension." );
-            Console.WriteLine( "    -com                    Instructs the compiler to compile the provided input file source." );
-            Console.WriteLine( "    -dec                    Instructs the compiler to decompile the provided input file source." );
-            Console.WriteLine( "    -dis                    Instructs the compiler to disassemble the provided input file source." );
-            Console.WriteLine( "    -infmt <format string>  Specifies the input file source format. By default this is guessed by the file extension." );
-            Console.WriteLine( "    -outfmt <format string> Specifies the output file format. See below for further info." );
-            Console.WriteLine( "    -outenc <format string> Specifies the output text encoding. See below for further info." );
+            Console.WriteLine( "Parameter overview:" );
+            Console.WriteLine( "    General:" );
+            Console.WriteLine( "        -In                     <path to file>      Provides an input file source to the compiler. If no input source is explicitly specified, " );
+            Console.WriteLine( "                                                    the first argument will be assumed to be one." );
+            Console.WriteLine( "        -InFormat               <format>            Specifies the input file source format. By default this is guessed by the file extension." );
+            Console.WriteLine( "        -Out                    <path to file>      Provides an output file path to the compiler. If no output source is explicitly specified, " );
+            Console.WriteLine( "                                                    the file will be output in the same folder as the source file under a different extension depending on the format used." );
+            Console.WriteLine( "        -Format                 <format>            Specifies the binary output file format. See below for further info." );
+            Console.WriteLine( "        -Compile                                    Instructs the compiler to compile the provided input file source." );
+            Console.WriteLine( "        -Decompile                                  Instructs the compiler to decompile the provided input file source." );
+            Console.WriteLine( "        -Disassemble                                Instructs the compiler to disassemble the provided input file source." );
+            Console.WriteLine();
+            Console.WriteLine( "    MessageScript:" );
+            Console.WriteLine( "        -mEncoding              <format>            Specifies the MessageScript binary output text encoding. See below for further info." );
+            Console.WriteLine( "        -mDB                    <path to db file>   Specifies the MessageScript function database to use. See below for further info." );
+            Console.WriteLine();
+            Console.WriteLine( "    FlowScript:" );
+            Console.WriteLine( "        -fDB                    <path to db file>   Specifies the FlowScript function database to use. See below for further info." );
+            Console.WriteLine( "        -fTraceProcedure                            Enables procedure tracing. Only applies to compiler." );
+            Console.WriteLine( "        -fTraceProcedureCalls                       Enables procedure call tracing. Only applies to compiler." );
+            Console.WriteLine( "        -fTraceFunctionCalls                        Enables function call tracing. Only applies to compiler." );
+            Console.WriteLine( "        -fStackCookie                               Enables stack cookie. Used for debugging stack corruptions." );
             Console.WriteLine( "" );
-            Console.WriteLine( "Argument detailed info:" );
-            Console.WriteLine( "    -outfmt" );
-            Console.WriteLine( "" );
-            Console.WriteLine( "        MessageScript formats:" );
+            Console.WriteLine( "Parameter detailed info:" );
+            Console.WriteLine( "    MessageScript:" );
+            Console.WriteLine( "        -Format" );
             Console.WriteLine( "            v1              Used by Persona 3, 4, 5 PS4" );
             Console.WriteLine( "            v1be            Used by Persona 5 PS3" );
-            Console.WriteLine( "" );
-            Console.WriteLine( "         FlowScript formats:" );
+            Console.WriteLine();
+            Console.WriteLine( "        -mEncoding" );
+            Console.WriteLine( "            Below is a list of different available encodings." );
+            Console.WriteLine( "            Note that ASCII characters don't really differ from the standard, so this mostly applies to special characters and japanese characters." );
+            Console.WriteLine();
+            Console.WriteLine( "            sj                  Shift-Jis encoding (CP932). Used by Persona Q" );
+            Console.WriteLine( "            p3                  Persona 3's custom encoding" );
+            Console.WriteLine( "            p4                  Persona 4's custom encoding" );
+            Console.WriteLine( "            p5                  Persona 5's custom encoding" );
+            Console.WriteLine();
+            Console.WriteLine( "        -mDB" );
+            Console.WriteLine( "            For MessageScripts the function database is used for the compiler and decompiler to emit the proper [f] tags for each aliased function." );
+            Console.WriteLine( "            If you don't use any aliased functions, you don't need to specify this, but if you do without specifying it, you'll get a compiler error." );
+            Console.WriteLine( "            Not specifying a function database means that the decompiler will not try to look up aliases for functions." );
+            Console.WriteLine( "            Databases can be found in the Library\\MessageScript\\Databases directory" );
+            Console.WriteLine();
+            Console.WriteLine( "    FlowScript:" );
+            Console.WriteLine( "        -Format" );
             Console.WriteLine( "            v1              Used by Persona 3 and 4" );
             Console.WriteLine( "            v1be            " );
             Console.WriteLine( "            v2              Used by Persona 4 Dancing All Night" );
@@ -70,14 +113,11 @@ namespace AtlusScriptCompiler
             Console.WriteLine( "            v3              Used by Persona 5 PS4" );
             Console.WriteLine( "            v3be            Used by Persona 5 PS3" );
             Console.WriteLine();
-            Console.WriteLine( "    -outenc" );
-            Console.WriteLine( "        Below is a list of different available encodings.");
-            Console.WriteLine( "        Note that ASCII characters don't really differ from the standard, so this mostly applies to special characters and japanese characters.");
-            Console.WriteLine();
-            Console.WriteLine( "        sj                  Shift-Jis encoding (CP932). Used by Persona Q" );
-            Console.WriteLine( "        p3                  Persona 3's custom encoding" );
-            Console.WriteLine( "        p4                  Persona 4's custom encoding" );
-            Console.WriteLine( "        p5                  Persona 5's custom encoding" );
+            Console.WriteLine( "        -fDB" );
+            Console.WriteLine( "            For FlowScripts the function database is used for the decompiler to decompile binary scripts, but it is also used to generate header files and documentation." );
+            Console.WriteLine( "            These header files are the same header files included for the standard library of each game." );
+            Console.WriteLine( "            Without a specified database you cannot decompile scripts." );
+            Console.WriteLine( "            Databases can be found in the Library\\FlowScript\\Databases directory" );
             Console.ReadKey();
         }
 
@@ -134,29 +174,62 @@ namespace AtlusScriptCompiler
         {
             for ( int i = 0; i < args.Length; i++ )
             {
+                bool isLast = i + 1 == args.Length;
+
                 switch ( args[i] )
                 {
-                    case "-i":
-                        if ( i + 1 == args.Length )
+                    // General
+                    case "-In":
+                        if ( isLast )
                         {
-                            Logger.Error( "Missing argument for -i parameter" );
+                            Logger.Error( "Missing argument for -In parameter" );
                             return false;
                         }
 
                         InputFilePath = args[++i];
                         break;
 
-                    case "-o":
-                        if ( i + 1 == args.Length )
+                    case "-InFormat":
+                        if ( isLast )
                         {
-                            Logger.Error( "Missing argument for -o parameter" );
+                            Logger.Error( "Missing argument for -InFormat parameter" );
+                            return false;
+                        }
+
+                        if ( !Enum.TryParse( args[++i], true, out InputFileFormat ) )
+                        {
+                            Logger.Error( "Invalid input file format specified" );
+                            return false;
+                        }
+
+                        break;
+
+                    case "-Out":
+                        if ( isLast )
+                        {
+                            Logger.Error( "Missing argument for -Out parameter" );
                             return false;
                         }
 
                         OutputFilePath = args[++i];
                         break;
 
-                    case "-com":
+                    case "-Format":
+                        if ( isLast )
+                        {
+                            Logger.Error( "Missing argument for -Format parameter" );
+                            return false;
+                        }
+
+                        if ( !Enum.TryParse( args[++i], true, out OutputFileFormat ) )
+                        {
+                            Logger.Error( "Invalid output file format specified" );
+                            return false;
+                        }
+
+                        break;
+
+                    case "-Compile":
                         if ( !IsActionAssigned )
                         {
                             IsActionAssigned = true;
@@ -170,7 +243,7 @@ namespace AtlusScriptCompiler
                         DoCompile = true;
                         break;
 
-                    case "-dec":
+                    case "-Decompile":
                         if ( !IsActionAssigned )
                         {
                             IsActionAssigned = true;
@@ -184,7 +257,7 @@ namespace AtlusScriptCompiler
                         DoDecompile = true;
                         break;
 
-                    case "-dis":
+                    case "-Disassemble":
                         if ( !IsActionAssigned )
                         {
                             IsActionAssigned = true;
@@ -198,51 +271,58 @@ namespace AtlusScriptCompiler
                         DoDisassemble = true;
                         break;
 
-                    case "-infmt":
-                        if ( i + 1 == args.Length )
+                    // MessageScript
+                    case "-mEncoding":
+                        if ( isLast )
                         {
-                            Logger.Error( "Missing argument for -infmt parameter" );
+                            Logger.Error( "Missing argument for -mEncoding parameter" );
                             return false;
                         }
 
-                        if ( !Enum.TryParse( args[++i], true, out InputFileFormat ) )
-                        {
-                            Logger.Error( "Invalid input file format specified" );
-                            return false;
-                        }
-
-                        break;
-
-                    case "-outfmt":
-                        if ( i + 1 == args.Length )
-                        {
-                            Logger.Error( "Missing argument for -outfmt parameter" );
-                            return false;
-                        }
-
-                        if ( !Enum.TryParse( args[++i], true, out OutputFileFormat ) )
-                        {
-                            Logger.Error( "Invalid output file format specified" );
-                            return false;
-                        }
-
-                        break;
-
-                    case "-outenc":
-                        if ( i + 1 == args.Length )
-                        {
-                            Logger.Error( "Missing argument for -outenc parameter" );
-                            return false;
-                        }
-
-                        if ( !Enum.TryParse( args[++i], true, out OutputTextEncoding ) )
+                        if ( !Enum.TryParse( args[++i], true, out MessageScriptTextEncoding ) )
                         {
                             Logger.Error( "Invalid output file encoding specified" );
                             return false;
                         }
 
-                        Logger.Info( $"Using {OutputTextEncoding} encoding" );
+                        Logger.Info( $"Using {MessageScriptTextEncoding} encoding" );
+                        break;
 
+                    case "-mDB":
+                        if ( isLast )
+                        {
+                            Logger.Error( "Missing argument for -mDB parameter" );
+                            return false;
+                        }
+
+                        MessageScriptDatabasePath = args[ ++i ];
+                        break;
+
+                    // FlowScript
+                    case "-fDB":
+                        if ( isLast )
+                        {
+                            Logger.Error( "Missing argument for -fDB parameter" );
+                            return false;
+                        }
+
+                        FlowScriptDatabasePath = args[++i];
+                        break;
+
+                    case "-fTraceProcedure":
+                        FlowScriptEnableProcedureTracing = true;
+                        break;
+
+                    case "-fTraceProcedureCalls":
+                        FlowScriptEnableProcedureCallTracing = true;
+                        break;
+
+                    case "-fTraceFunctionCalls":
+                        FlowScriptEnableFunctionCallTracing = true;
+                        break;
+
+                    case "-fStackCookie":
+                        FlowScriptEnableStackCookie = true;
                         break;
                 }
             }
@@ -357,8 +437,57 @@ namespace AtlusScriptCompiler
 
         private static bool TryDoFlowScriptCompilation()
         {
-            Logger.Error( "Compiling flow scripts is not implemented yet!" );
-            return false;
+            Logger.Info( "Compiling FlowScript..." );
+
+            // Get format verson
+            FlowScriptFormatVersion version;
+            switch ( OutputFileFormat )
+            {
+                case OutputFileFormat.V1:
+                    version = FlowScriptFormatVersion.Version1;
+                    break;
+                case OutputFileFormat.V1BE:
+                    version = FlowScriptFormatVersion.Version1BigEndian;
+                    break;
+                case OutputFileFormat.V2:
+                    version = FlowScriptFormatVersion.Version2;
+                    break;
+                case OutputFileFormat.V2BE:
+                    version = FlowScriptFormatVersion.Version2BigEndian;
+                    break;
+                case OutputFileFormat.V3:
+                    version = FlowScriptFormatVersion.Version3;
+                    break;
+                case OutputFileFormat.V3BE:
+                    version = FlowScriptFormatVersion.Version3BigEndian;
+                    break;
+                default:
+                    Logger.Error( "Invalid FlowScript file format specified" );
+                    return false;
+            }
+
+            // Compile source
+            var compiler = new FlowScriptCompiler( version );
+            compiler.AddListener( Listener );
+            compiler.Encoding = GetEncoding();
+            compiler.EnableProcedureTracing = FlowScriptEnableProcedureTracing;
+            compiler.EnableProcedureCallTracing = FlowScriptEnableProcedureCallTracing;
+            compiler.EnableFunctionCallTracing = FlowScriptEnableFunctionCallTracing;
+            compiler.EnableStackCookie = FlowScriptEnableStackCookie;
+
+            FlowScript flowScript;
+            using ( var file = File.Open( InputFilePath, FileMode.Open, FileAccess.Read, FileShare.Read ) )
+            {
+                if ( !compiler.TryCompile( file, out flowScript ) )
+                {
+                    Logger.Error( "One or more errors occured during compilation!" );
+                    return false;
+                }
+            }
+            
+            // Write binary
+            Logger.Info( "Writing binary to file..." );
+            return TryPerformAction( "An error occured while saving the file.", () => flowScript.ToFile( OutputFilePath ) );
         }
 
         private static bool TryDoMessageScriptCompilation()
@@ -423,8 +552,26 @@ namespace AtlusScriptCompiler
 
         private static bool TryDoFlowScriptDecompilation()
         {
-            Logger.Error( "Decompiling flow scripts is not implemented yet!" );
-            return false;
+            // Load binary file
+            Logger.Info( "Loading binary FlowScript file..." );
+            FlowScript flowScript = null;
+            var encoding = GetEncoding();
+
+            if ( !TryPerformAction( "Failed to load flow script from file", () => flowScript = FlowScript.FromFile( InputFilePath, encoding ) ) )
+                return false;
+
+            Logger.Info( "Decompiling FlowScript..." );
+
+            var decompiler = new FlowScriptDecompiler();
+            decompiler.AddListener( Listener );
+            decompiler.FunctionDatabase = null; // todo
+            if ( !decompiler.TryDecompile( flowScript, OutputFilePath ) )
+            {
+                Logger.Error( "Failed to decompile FlowScript" );
+                return false;
+            }
+
+            return true;
         }
 
         private static bool TryDoMessageScriptDecompilation()
@@ -534,19 +681,19 @@ namespace AtlusScriptCompiler
         {
             Encoding encoding = null;
 
-            if ( OutputTextEncoding == OutputTextEncoding.SJ )
+            if ( MessageScriptTextEncoding == MessageScriptTextEncoding.SJ )
             {
                 encoding = Encoding.GetEncoding( 932 );
             }
-            else if ( OutputTextEncoding == OutputTextEncoding.P3 )
+            else if ( MessageScriptTextEncoding == MessageScriptTextEncoding.P3 )
             {
                 encoding = new Persona3Encoding();
             }
-            else if ( OutputTextEncoding == OutputTextEncoding.P4 )
+            else if ( MessageScriptTextEncoding == MessageScriptTextEncoding.P4 )
             {
                 encoding = new Persona4Encoding();
             }
-            else if ( OutputTextEncoding == OutputTextEncoding.P5 )
+            else if ( MessageScriptTextEncoding == MessageScriptTextEncoding.P5 )
             {
                 encoding = new Persona5Encoding();
             }
@@ -585,7 +732,7 @@ namespace AtlusScriptCompiler
         V3BE
     }
 
-    public enum OutputTextEncoding
+    public enum MessageScriptTextEncoding
     {
         None,
         SJ,

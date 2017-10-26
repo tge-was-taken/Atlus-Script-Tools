@@ -415,7 +415,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
         {
             if ( !Scope.TryGetDeclaration( callExpression.Identifier, out var declaration ) )
             {
-                LogError( callExpression, $"Call expression references undeclared identifier '{callExpression.Identifier.Text}'" );
+                //LogError( callExpression, $"Call expression references undeclared identifier '{callExpression.Identifier.Text}'" );
             }
 
             if ( declaration is FlowScriptFunctionDeclaration functionDeclaration )
@@ -430,8 +430,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
             }
             else
             {
-                LogError( callExpression, "Invalid call expression. Expected function or procedure identifier" );
-                return false;
+                //LogError( callExpression, "Invalid call expression. Expected function or procedure identifier" );
+                //return false;
             }
 
             foreach ( var arg in callExpression.Arguments )

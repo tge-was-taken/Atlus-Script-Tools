@@ -12,7 +12,7 @@ namespace AtlusScriptLib.Tests
     {
         private FlowScript FromFile_ResultNotNullAndFormatIsEqualToParameter( FlowScriptBinaryFormatVersion version, FlowScriptBinaryFormatVersion actualVersion )
         {
-            var script = FlowScript.FromFile( $"TestResources\\{actualVersion}.bf", version );
+            var script = FlowScript.FromFile( $"TestResources\\{actualVersion}.bf", null, version );
 
             Assert.IsNotNull( script, "Script object should not be null" );
             Assert.AreEqual( (FlowScriptFormatVersion)actualVersion, script.FormatVersion );
@@ -92,13 +92,13 @@ namespace AtlusScriptLib.Tests
         [TestMethod()]
         public void FromFile_ShouldThrowInvalidDataException_InvalidFileFormatSmall()
         {
-            Assert.ThrowsException<InvalidDataException>( () => FlowScript.FromFile( "TestResources\\dummy_small.bin", FlowScriptBinaryFormatVersion.Unknown ) );
+            Assert.ThrowsException<InvalidDataException>( () => FlowScript.FromFile( "TestResources\\dummy_small.bin", null, FlowScriptBinaryFormatVersion.Unknown ) );
         }
 
         [TestMethod()]
         public void FromFile_ShouldThrowInvalidDataException_InvalidFileFormatBig()
         {
-            Assert.ThrowsException<InvalidDataException>( () => FlowScript.FromFile( "TestResources\\dummy_big.bin", FlowScriptBinaryFormatVersion.Unknown ) );
+            Assert.ThrowsException<InvalidDataException>( () => FlowScript.FromFile( "TestResources\\dummy_big.bin", null, FlowScriptBinaryFormatVersion.Unknown ) );
         }
 
         [TestMethod()]
@@ -115,7 +115,7 @@ namespace AtlusScriptLib.Tests
         {
             using ( var fileStream = File.OpenRead( "TestResources\\Version3BigEndian.bf" ) )
             {
-                var script = FlowScript.FromStream( fileStream, FlowScriptBinaryFormatVersion.Version3BigEndian );
+                var script = FlowScript.FromStream( fileStream, null, FlowScriptBinaryFormatVersion.Version3BigEndian, false );
 
                 Assert.IsNotNull( script );
                 Assert.AreEqual( FlowScriptFormatVersion.Version3BigEndian, script.FormatVersion );

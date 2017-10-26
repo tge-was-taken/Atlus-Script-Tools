@@ -36,48 +36,63 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
             var listener = new DebugLogListener();
 
             string flowScriptSource =
+                "function( 0x1001 ) int FLD_GET_SCRIPT_TIMING();" +
+                "function( 0x1000 ) void CALL_FIELD( int param0, int param1, int param2, int param3 );" +
+                "function(0x20ce) void CALL_BATTLE(int param0);" +
+                "function(0x2172) void CALL_FIELDBATTLE();" +
+                "function(0x2171) void PREPARE_FIELDBATTLE(int param0);" +
+                "function( 0x10d0 ) void FLD_START_BOSS( int bossId ); " +
+                "" +
                 "void Main()" +
                 "{" +
-                "   int test = 1;" +
-                "" +
-                "   switch ( test )" +
-                "   {" +
-                "       default:" +
-                "           test = 10;" +
-                "           break;" +
-                "       case 1:" +
-                "       case 2:" +
-                "           test = 0;" +
-                "           break;" +
-                "   }" +
+                "   CALL_FIELD( 0, 100, 0, 0 );" +
                 "}";
 
             FlowScript flowScript;
 
             var flowScriptCompiler = new FlowScriptCompiler( FlowScriptFormatVersion.Version3BigEndian );
             flowScriptCompiler.AddListener( listener );
-            flowScriptCompiler.EnableProcedureTracing = false;
-            flowScriptCompiler.EnableProcedureCallTracing = false;
-            flowScriptCompiler.EnableFunctionCallTracing = false;
+            flowScriptCompiler.EnableProcedureTracing = true;
+            flowScriptCompiler.EnableProcedureCallTracing = true;
+            flowScriptCompiler.EnableFunctionCallTracing = true;
             flowScriptCompiler.EnableStackCookie = false;
-
-            //Assert.IsTrue( flowScriptCompiler.TryCompile( File.Open(@"..\..\..\Source\AtlusScriptCompiler\Resources\TestScript2.flow", FileMode.Open ), out flowScript ) );
-            Assert.IsTrue( flowScriptCompiler.TryCompile( flowScriptSource, out flowScript ) );
-            //Assert.IsTrue( flowScriptCompiler.TryCompile( File.Open( @"D:\Users\smart\Documents\Visual Studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptCompiler\Resources\Tests.flow", FileMode.Open ), out flowScript ) );
 
             var flowScriptDecompiler = new FlowScriptDecompiler();
             flowScriptDecompiler.AddListener( listener );
             flowScriptDecompiler.FunctionDatabase = Persona5FunctionDatabase.Instance;
-            //flowScript = FlowScript.FromFile( @"D:\Modding\Persona 5 EU\Main game\Extracted\data\battle\script\enemy\btl_func_artist.bf" );
-            Assert.IsTrue( flowScriptDecompiler.TryDecompile( flowScript, out var compilationUnit ) );
 
-            var flowScriptCompilationUnitWriter = new FlowScriptCompilationUnitWriter();
-            flowScriptCompilationUnitWriter.WriteToFile( compilationUnit, "output.flow" );
+            //var flowScriptDiassembler = new FlowScriptBinaryDisassembler( $@"test.flow.asm" );
 
+            //Assert.IsTrue( flowScriptCompiler.TryCompile( File.OpenRead( "test.flow" ), out flowScript ) );
+            //Assert.IsTrue( flowScriptDecompiler.TryDecompile( flowScript, "test.flow.decompiled" ) );
+            //Assert.IsTrue( flowScriptDecompiler.TryDecompile( FlowScript.FromFile( @"D:\Modding\Persona 5 EU\Main game\Extracted\ps3\field\fldPack.pac.etc_field.bf" ), "field.flow" ) );
+
+            //var flowScriptBinary = flowScript.ToBinary();
+            //flowScriptDiassembler.Disassemble( flowScriptBinary );
+
+
+            //Assert.IsTrue( flowScriptCompiler.TryCompile( File.Open(@"..\..\..\Source\AtlusScriptCompiler\Resources\TestScript2.flow", FileMode.Open ), out flowScript ) );
+            //Assert.IsTrue( flowScriptCompiler.TryCompile( flowScriptSource, out flowScript ) );
+            //Assert.IsTrue( flowScriptCompiler.TryCompile( File.Open( @"D:\Users\smart\Documents\Visual Studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptCompiler\Resources\Tests.flow", FileMode.Open ), out flowScript ) );
+            Assert.IsTrue( flowScriptCompiler.TryCompile( File.Open( @"D:\Modding\Persona 5 EU\Game mods\TestLevel\mod\field\field.flow", FileMode.Open ), out flowScript ) );
+
+
+
+
+            /*
+            var fldPack = new PakToolArchiveFile( @"D:\Modding\Persona 5 EU\Game mods\TestLevel\mod\field\fldPack.pac" );
+            flowScript = FlowScript.FromStream(
+                new MemoryStream( fldPack.Entries.Single( x => x.Name == "etc/field.bf" ).Data )
+            );
+            */
+
+            //Assert.IsTrue( flowScriptDecompiler.TryDecompile( flowScript, "output.flow" ) );          
             //Assert.IsTrue( flowScriptCompiler.TryCompile( File.OpenRead( "output.flow" ), out flowScript ) );
 
+            /*
             const int fieldMajorId = 000;
-            const int fieldMinorId = 100;
+            const int fieldMinorId = 002;
+            //const int fieldMinorId = 100;
 
             var archive = new PakToolArchiveFile();
             archive.Entries.Add( new PakToolArchiveEntry( $"init/fini_{fieldMajorId:D3}_{fieldMinorId:D3}.bf", ( MemoryStream )flowScript.ToStream() ) );
@@ -87,9 +102,18 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
             var flowScriptDiassembler = new FlowScriptBinaryDisassembler( $@"D:\Modding\Persona 5 EU\Game mods\TestLevel\mod\field\f{fieldMajorId:D3}_{fieldMinorId:D3}.flowasm" );
             flowScriptDiassembler.Disassemble( flowScriptBinary );
             flowScriptDiassembler.Dispose();
+            */
+
+            var archive = new PakToolArchiveFile( @"D:\Modding\Persona 5 EU\Game mods\TestLevel\mod\field\fldPack.pac" );
+            var entry = archive.Entries.Single( x => x.Name == "etc/field.bf" );
+            entry.Data = ( ( MemoryStream ) flowScript.ToStream() ).ToArray();
+
+            archive.Save( @"D:\Modding\Persona 5 EU\Game mods\TestLevel\mod\field\fldPack.pac" );
 
             Process.Start( @"D:\Modding\Persona 5 EU\Game mods\TestLevel\make_cpk_rpcs3.bat" );
             //OutputBothDisassemblies( @"D:\Modding\Persona 5 EU\Main game\Extracted\data\event\e800\e800\e800_021.bf", false );
+
+            //flowScriptDiassembler.Dispose();
         }
 
         static void OutputBothDisassemblies( string path, bool isSource )

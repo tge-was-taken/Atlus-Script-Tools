@@ -297,6 +297,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         temp = mSuppressIfStatementNewLine;
                         mSuppressIfStatementNewLine = true;
                         Visit( (FlowScriptIfStatement) ifStatement.ElseBody.Statements[ 0 ] );
+                        for ( int i = 1; i < ifStatement.ElseBody.Statements.Count; i++ )
+                        {
+                            Visit( ifStatement.ElseBody.Statements[ i ] );
+                        }
                         mSuppressIfStatementNewLine = temp;
                     }
                     else

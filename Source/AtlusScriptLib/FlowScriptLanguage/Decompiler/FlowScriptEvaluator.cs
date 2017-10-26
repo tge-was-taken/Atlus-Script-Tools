@@ -92,7 +92,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             RegisterTopLevelVariables();
 
             // Start building result
-            result = new FlowScriptEvaluationResult( Scope );
+            result = new FlowScriptEvaluationResult( flowScript, Scope );
             result.Functions.AddRange( mFunctions.Values );
 
             // Pre-evaluating stuff

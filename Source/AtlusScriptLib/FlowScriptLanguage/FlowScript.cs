@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using AtlusScriptLib.FlowScriptLanguage.BinaryModel;
 using AtlusScriptLib.MessageScriptLanguage;
 
@@ -22,9 +23,9 @@ namespace AtlusScriptLib.FlowScriptLanguage
         /// </summary>
         /// <param name="path">Path to the file to load.</param>
         /// <returns>A <see cref="FlowScript"/> instance.</returns>
-        public static FlowScript FromFile( string path )
+        public static FlowScript FromFile( string path, Encoding encoding = null )
         {
-            return FromFile( path, FlowScriptBinaryFormatVersion.Unknown );
+            return FromFile( path, encoding, FlowScriptBinaryFormatVersion.Unknown );
         }
 
         /// <summary>
@@ -33,10 +34,10 @@ namespace AtlusScriptLib.FlowScriptLanguage
         /// <param name="path">Path to the file to load.</param>
         /// <param name="version">Format version the loader should use.</param>
         /// <returns>A <see cref="FlowScript"/> instance.</returns>
-        public static FlowScript FromFile( string path, FlowScriptBinaryFormatVersion version )
+        public static FlowScript FromFile( string path, Encoding encoding, FlowScriptBinaryFormatVersion version )
         {
             using ( var stream = File.OpenRead( path ) )
-                return FromStream( stream, version );
+                return FromStream( stream, encoding, version, false );
         }
 
         /// <summary>
@@ -45,9 +46,9 @@ namespace AtlusScriptLib.FlowScriptLanguage
         /// <param name="stream">Data stream.</param>
         /// <param name="version">Format version the loader should use.</param>
         /// <returns>A <see cref="FlowScript"/> instance.</returns>
-        public static FlowScript FromStream( Stream stream, bool leaveOpen = false )
+        public static FlowScript FromStream( Stream stream, Encoding encoding = null, bool leaveOpen = false )
         {
-            return FromStream( stream, FlowScriptBinaryFormatVersion.Unknown );
+            return FromStream( stream, encoding, FlowScriptBinaryFormatVersion.Unknown, leaveOpen );
         }
 
         /// <summary>
@@ -56,11 +57,11 @@ namespace AtlusScriptLib.FlowScriptLanguage
         /// <param name="stream">Data stream.</param>
         /// <param name="version">Format version the loader should use.</param>
         /// <returns>A <see cref="FlowScript"/> instance.</returns>
-        public static FlowScript FromStream( Stream stream, FlowScriptBinaryFormatVersion version, bool leaveOpen = false )
+        public static FlowScript FromStream( Stream stream, Encoding encoding, FlowScriptBinaryFormatVersion version, bool leaveOpen )
         {
             FlowScriptBinary binary = FlowScriptBinary.FromStream( stream, version, leaveOpen );
 
-            return FromBinary( binary );
+            return FromBinary( binary, encoding );
         }
 
         /// <summary>
@@ -68,7 +69,7 @@ namespace AtlusScriptLib.FlowScriptLanguage
         /// </summary>
         /// <param name="binary">A <see cref="FlowScriptBinary"/> instance.</param>
         /// <returns>A <see cref="FlowScript"/> instance.</returns>
-        public static FlowScript FromBinary( FlowScriptBinary binary )
+        public static FlowScript FromBinary( FlowScriptBinary binary, Encoding encoding = null )
         {
             var instance = new FlowScript()
             {
@@ -251,7 +252,7 @@ namespace AtlusScriptLib.FlowScriptLanguage
             // assign message script
             if ( binary.MessageScriptSection != null )
             {
-                instance.mMessageScript = MessageScript.FromBinary( binary.MessageScriptSection );
+                instance.mMessageScript = MessageScript.FromBinary( binary.MessageScriptSection, encoding );
             }
 
             // strings have already been assigned previously, 
