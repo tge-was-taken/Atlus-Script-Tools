@@ -1,0 +1,11 @@
+{
+  // Pretty name
+  "Name": "Persona 5",
+
+  // Short name for use with commandline tool
+  "ShortName": "p5",
+
+  // Json file paths
+  "FlowScriptLibraryPath": "Persona5\\Libraries.json", 
+  "MessageScriptLibraryPath": "Persona5\\MessageScriptLibrary.json"
+}

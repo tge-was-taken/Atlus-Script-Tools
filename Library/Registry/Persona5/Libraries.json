@@ -1,0 +1,62 @@
+[
+  // Common library
+  {
+    "Name": "Common library",
+    "ShortName": "Common",
+    "Description": "Non-domain specific commonly used functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "Libraries\\Common\\Enums.json",
+    "FunctionsPath": "Libraries\\Common\\Functions.json"
+  },
+
+  // Field library
+  {
+    "Name": "Field library",
+    "ShortName": "Field",
+    "Description": "Field related functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "Libraries\\Field\\Enums.json",
+    "FunctionsPath": "Libraries\\Field\\Functions.json"
+  },
+
+  // AI library
+  {
+    "Name": "AI library",
+    "ShortName": "AI",
+    "Description": "AI related functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "",
+    "FunctionsPath": "Libraries\\AI\\Functions.json"
+  },
+
+  // Social event library
+  {
+    "Name": "Social event library",
+    "ShortName": "Social",
+    "Description": "Social event related functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "",
+    "FunctionsPath": "Libraries\\Social\\Functions.json"
+  },
+
+  // Facility library
+  {
+    "Name": "Facility library",
+    "ShortName": "Facility",
+    "Description": "Facility related functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "",
+    "FunctionsPath": "Libraries\\Facility\\Functions.json"
+  },
+
+  // Net library
+  {
+    "Name": "Net library",
+    "ShortName": "Net",
+    "Description": "Net related functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "",
+    "FunctionsPath": "Libraries\\Net\\Functions.json"
+  }
+]
+

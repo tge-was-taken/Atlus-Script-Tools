@@ -2259,11 +2259,57 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             if ( declaration.Parameters.Count > 0 )
             {
                 EmitTracePrint( "Arguments:" );
+                var saves = new Stack< Variable >();
+
                 foreach ( var parameter in declaration.Parameters )
                 {
-                    EmitTracePrintValue( parameter.Type.ValueType );
+                    switch ( parameter.Type.ValueType )
+                    {
+                        case FlowScriptValueType.Int:
+                            saves.Push( EmitTracePrintIntegerNoPush() );
+                            break;
+                        case FlowScriptValueType.Float:
+                            saves.Push( EmitTracePrintFloatNoPush() );
+                            break;
+                        case FlowScriptValueType.Bool:
+                            saves.Push( EmitTracePrintBoolNoPush() );
+                            break;
+                        case FlowScriptValueType.String:
+                            //saves.Push( EmitTracePrintStringNoPush() );
+                            break;
+                    }
+                }
+
+                // Push values back onto stack
+                while ( saves.Count > 0 )
+                {
+                    var variable = saves.Pop();
+                    switch ( variable.Declaration.Type.ValueType )
+                    {
+                        case FlowScriptValueType.Bool:
+                        case FlowScriptValueType.Int:
+                            EmitUnchecked( FlowScriptInstruction.PUSHLIX( variable.Index ) );
+                            break;
+                        case FlowScriptValueType.Float:
+                            EmitUnchecked( FlowScriptInstruction.PUSHLFX( variable.Index ) );
+                            break;
+                    }
                 }
             }
+        }
+
+        private Variable EmitTracePrintStringNoPush()
+        {
+            var save = Scope.GenerateVariable( FlowScriptValueType.String, mNextIntVariableIndex++ );
+
+            // Pop integer value off stack and save it in a temporary variable
+            EmitUnchecked( FlowScriptInstruction.POPLFX( save.Index ) );
+
+            // Print it to log
+            EmitUnchecked( FlowScriptInstruction.PUSHLFX( save.Index ) );
+            EmitUnchecked( FlowScriptInstruction.COMM( 3 ) );
+
+            return save;
         }
 
         private void TraceFunctionCallReturnValue( FlowScriptFunctionDeclaration declaration )
@@ -2459,6 +2505,14 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private void EmitTracePrintInteger()
         {
+            var save = EmitTracePrintIntegerNoPush();
+
+            // Push the value back to the stack
+            EmitUnchecked( FlowScriptInstruction.PUSHLIX( save.Index ) );
+        }
+
+        private Variable EmitTracePrintIntegerNoPush()
+        {
             var save = Scope.GenerateVariable( FlowScriptValueType.Int, mNextIntVariableIndex++ );
 
             // Pop integer value off stack and save it in a temporary variable
@@ -2468,11 +2522,18 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             EmitUnchecked( FlowScriptInstruction.PUSHLIX( save.Index ) );
             EmitUnchecked( FlowScriptInstruction.COMM( 2 ) );
 
-            // Push the value back to the stack
-            EmitUnchecked( FlowScriptInstruction.PUSHLIX( save.Index ) );
+            return save;
         }
 
         private void EmitTracePrintFloat()
+        {
+            var save = EmitTracePrintFloatNoPush();
+
+            // Push the value back to the stack
+            EmitUnchecked( FlowScriptInstruction.PUSHLFX( save.Index ) );
+        }
+
+        private Variable EmitTracePrintFloatNoPush()
         {
             var save = Scope.GenerateVariable( FlowScriptValueType.Float, mNextFloatVariableIndex++ );
 
@@ -2483,11 +2544,18 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             EmitUnchecked( FlowScriptInstruction.PUSHLFX( save.Index ) );
             EmitUnchecked( FlowScriptInstruction.COMM( 4 ) );
 
-            // Push the value back to the stack
-            EmitUnchecked( FlowScriptInstruction.PUSHLFX( save.Index ) );
+            return save;
         }
 
         private void EmitTracePrintBool()
+        {
+            var save = EmitTracePrintBoolNoPush();
+
+            // Push the value back to the stack
+            EmitUnchecked( FlowScriptInstruction.PUSHLIX( save.Index ) );
+        }
+
+        private Variable EmitTracePrintBoolNoPush()
         {
             var save = Scope.GenerateVariable( FlowScriptValueType.Int, mNextIntVariableIndex++ );
 
@@ -2516,8 +2584,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             }
             ResolveLabel( endLabel );
 
-            // Push the value back to the stack
-            EmitUnchecked( FlowScriptInstruction.PUSHLIX( save.Index ) );
+            return save;
         }
 
         private void EmitUnchecked( FlowScriptInstruction instruction )
