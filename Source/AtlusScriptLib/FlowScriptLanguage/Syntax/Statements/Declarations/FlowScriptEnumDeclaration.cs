@@ -20,18 +20,4 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
             return $"enum {Identifier} {{ ... }}";
         }
     }
-
-    public class FlowScriptEnumValueDeclaration : FlowScriptDeclaration
-    {
-        public FlowScriptExpression Value { get; set; }
-
-        public FlowScriptEnumValueDeclaration() : base( FlowScriptDeclarationType.EnumLabel )
-        {         
-        }
-
-        public override string ToString()
-        {
-            return $"{Identifier} = {Value}";
-        }
-    }
 }

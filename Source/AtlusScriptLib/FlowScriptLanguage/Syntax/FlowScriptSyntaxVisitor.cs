@@ -319,11 +319,6 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
         {
         }
 
-        public virtual void Visit( FlowScriptBitwiseNotOperator unaryOperator )
-        {
-            Visit( unaryOperator.Operand );
-        }
-
         public virtual void Visit( FlowScriptLogicalNotOperator unaryOperator )
         {
             Visit( unaryOperator.Operand );
@@ -362,6 +357,50 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
         public virtual void Visit( FlowScriptPrefixOperator prefixOperator )
         {
             Visit( ( dynamic )prefixOperator );
+        }
+
+        public virtual void Visit( FlowScriptEnumDeclaration enumDeclaration )
+        {
+            Visit( enumDeclaration.Identifier );
+
+            foreach ( var enumValueDeclaration in enumDeclaration.Values )
+            {
+                Visit( enumValueDeclaration );
+            }
+        }
+
+        public virtual void Visit( FlowScriptEnumValueDeclaration enumValueDeclaration )
+        {
+            Visit( enumValueDeclaration.Identifier );
+            Visit( enumValueDeclaration.Value );
+        }
+
+        public virtual void Visit( FlowScriptMemberAccessExpression memberAccessExpression )
+        {
+            Visit( memberAccessExpression.Operand );
+            Visit( memberAccessExpression.Member );
+        }
+
+        public virtual void Visit( FlowScriptSwitchLabel switchLabel )
+        {
+            Visit( ( dynamic ) switchLabel );
+        }
+
+        public virtual void Visit( FlowScriptConditionSwitchLabel switchLabel )
+        {
+            Visit( switchLabel.Condition );
+            foreach ( var statement in switchLabel.Body )
+            {
+                Visit( statement );
+            }
+        }
+
+        public virtual void Visit( FlowScriptDefaultSwitchLabel switchLabel )
+        {
+            foreach ( var statement in switchLabel.Body )
+            {
+                Visit( statement );
+            }
         }
     }
 }

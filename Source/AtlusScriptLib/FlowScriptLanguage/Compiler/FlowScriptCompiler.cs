@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System;
 
 using AtlusScriptLib.Common.Logging;
+using AtlusScriptLib.Common.Registry;
 using AtlusScriptLib.FlowScriptLanguage.Compiler.Parser;
 using AtlusScriptLib.FlowScriptLanguage.Compiler.Processing;
 using AtlusScriptLib.FlowScriptLanguage.Syntax;
@@ -68,6 +69,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         /// Gets or sets the encoding to use for any imported MessageScripts.
         /// </summary>
         public Encoding Encoding { get; set; }
+
+        /// <summary>
+        /// Gets or sets the library registry to use for any imported MessageScripts.
+        /// </summary>
+        public LibraryRegistry LibraryRegistry { get; set; }
 
         /// <summary>
         /// Gets or sets whether the compiler should output procedure tracing code.
@@ -373,6 +379,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         {
             var messageScriptCompiler = new MessageScriptCompiler( GetMessageScriptFormatVersion(), Encoding );
             messageScriptCompiler.AddListener( new LoggerPassthroughListener( mLogger ) );
+            messageScriptCompiler.LibraryRegistry = LibraryRegistry;
 
             string compilationUnitFilePath = import.CompilationUnitFileName;
 

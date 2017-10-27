@@ -82,7 +82,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
             // Write out the decompilation unit
             var writer = new FlowScriptCompilationUnitWriter();
-            writer.WriteToFile( compilationUnit, filepath );
+            writer.Write( compilationUnit, filepath );
 
             // Decompile embedded message script
             if ( flowScript.MessageScript != null && DecompileMessageScript )

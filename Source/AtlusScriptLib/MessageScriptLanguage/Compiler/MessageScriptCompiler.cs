@@ -9,6 +9,8 @@ using AtlusScriptLib.MessageScriptLanguage.Compiler.Parser;
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 using System.Text;
+using AtlusScriptLib.Common.Registry;
+using System.Linq;
 
 namespace AtlusScriptLib.MessageScriptLanguage.Compiler
 {
@@ -23,6 +25,8 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
         private Logger mLogger;
         private MessageScriptFormatVersion mVersion;
         private Encoding mEncoding;
+
+        public LibraryRegistry LibraryRegistry { get; set; }
 
 
         /// <summary>
@@ -140,7 +144,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
 
             script = null;
 
-            if ( !TryGetFatal( context, () => context.messageWindow(), "Expected message dialog window", out var messageWindowContexts))
+            if ( !TryGetFatal( context, context.messageWindow, "Expected message dialog window", out var messageWindowContexts))
             {
                 return false;
             }
@@ -194,7 +198,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
             //
             string identifier;
             {
-                if ( !TryGetFatal( context, () => context.Identifier(), "Expected dialog window name", out var identifierNode ) )
+                if ( !TryGetFatal( context, context.Identifier, "Expected dialog window name", out var identifierNode ) )
                     return false;
 
                 identifier = identifierNode.Symbol.Text;
@@ -204,7 +208,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
             // Parse speaker name
             //
             IMessageScriptSpeaker speaker = null;
-            if ( TryGet( context, () => context.dialogWindowSpeakerName(), out var speakerNameContentContext ) )
+            if ( TryGet( context, context.dialogWindowSpeakerName, out var speakerNameContentContext ) )
             {
                 if ( !TryGetFatal( speakerNameContentContext, () => speakerNameContentContext.tagText(), "Expected dialog window speaker name text", out var speakerNameTagTextContext ) )
                     return false;
@@ -229,7 +233,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
             //
             List<MessageScriptLine> lines;
             {
-                if ( !TryGetFatal( context, () => context.tagText(), "Expected dialog window text", out var tagTextContext ) )
+                if ( !TryGetFatal( context, context.tagText, "Expected dialog window text", out var tagTextContext ) )
                     return false;
 
                 if ( !TryCompileLines( tagTextContext, out lines ) )
@@ -258,7 +262,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
             //
             string identifier;
             {
-                if ( !TryGetFatal( context, () => context.Identifier(), "Expected selection window name", out var identifierNode ) )
+                if ( !TryGetFatal( context, context.Identifier, "Expected selection window name", out var identifierNode ) )
                     return false;
 
                 identifier = identifierNode.Symbol.Text;
@@ -269,7 +273,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
             //
             List<MessageScriptLine> lines;
             {
-                if ( !TryGetFatal( context, () => context.tagText(), "Expected selection window text", out var tagTextContext ) )
+                if ( !TryGetFatal( context, context.tagText, "Expected selection window text", out var tagTextContext ) )
                     return false;
 
                 if ( !TryCompileLines( tagTextContext, out lines ) )
@@ -296,7 +300,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
 
             foreach ( var node in context.children )
             {
-                IMessageScriptLineToken lineToken = null;
+                IMessageScriptLineToken lineToken;
 
                 if ( TryCast<MessageScriptParser.TagContext>( node, out var tagContext ) )
                 {
@@ -308,13 +312,15 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
                     switch ( tagId.ToLowerInvariant() )
                     {
                         case "f":
-                            if ( !TryCompileFunctionToken( tagContext, out var functionToken ) )
                             {
-                                mLogger.Error( "Failed to compile function token" );
-                                return false;
-                            }
+                                if ( !TryCompileFunctionToken( tagContext, out var functionToken ) )
+                                {
+                                    mLogger.Error( "Failed to compile function token" );
+                                    return false;
+                                }
 
-                            lineToken = functionToken;
+                                lineToken = functionToken;
+                            }
                             break;
 
                         case "n":
@@ -338,19 +344,34 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
                             }
 
                         case "x":
-                            if ( !TryCompileCodePointToken( tagContext, out var codePointToken ) )
                             {
-                                mLogger.Error( "Failed to compile code point token" );
-                                return false;
-                            }
+                                if ( !TryCompileCodePointToken( tagContext, out var codePointToken ) )
+                                {
+                                    mLogger.Error( "Failed to compile code point token" );
+                                    return false;
+                                }
 
-                            lineToken = codePointToken;
+                                lineToken = codePointToken;
+                            }
                             break;
 
                         default:
                             {
-                                LogError( tagContext, $"Unknown tag with id {tagId}" );
-                                return false;
+                                lineToken = null;
+                                var wasAliasedFunction = false;
+
+                                if ( LibraryRegistry != null )
+                                {
+                                    wasAliasedFunction = TryCompileAliasedFunction( tagContext, tagId, out var functionToken );
+                                    lineToken = functionToken;
+                                }
+
+                                if ( !wasAliasedFunction )
+                                {
+                                    LogError( tagContext, $"Unknown tag with id {tagId}" );
+                                    return false;
+                                }
+                                break;
                             }
                     }
                 }
@@ -392,6 +413,36 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
             }
 
             return true;
+        }
+
+        private bool TryCompileAliasedFunction( MessageScriptParser.TagContext context, string tagId, out MessageScriptFunctionToken functionToken )
+        {
+            LogContextInfo( context );
+
+            functionToken = new MessageScriptFunctionToken();
+            var functionWasFound = false;
+
+            foreach ( var library in LibraryRegistry.MessageScriptLibraries )
+            {
+                var function = library.Functions.SingleOrDefault( x => x.Name == tagId );
+                if ( function == null )
+                    continue;
+
+                var arguments = new List<short>();
+                for ( var i = 0; i < function.Parameters.Count; i++ )
+                {
+                    if ( !TryParseShortIntLiteral( context, "Expected function argument", () => context.IntLiteral( i ), out var argument ) )
+                        return false;
+
+                    arguments.Add( argument );
+                }
+
+                functionToken = new MessageScriptFunctionToken( library.Index, function.Index, arguments );
+                functionWasFound = true;
+                break;
+            }
+
+            return functionWasFound;
         }
 
         private bool TryCompileFunctionToken( MessageScriptParser.TagContext context,  out MessageScriptFunctionToken functionToken )

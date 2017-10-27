@@ -89,7 +89,7 @@
     <Compile Include="FlowScriptLanguage\Compiler\Processing\FlowScriptTypeResolver.cs" />
     <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptCompilationUnitWriter.cs" />
     <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptDecompiler.cs" />
-    <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptEnumToKeyword.cs" />
+    <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptKeywordConverter.cs" />
     <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptEvaluatedIdentifierReference.cs" />
     <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptEvaluatedProcedure.cs" />
     <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptEvaluatedStatement.cs" />
@@ -100,6 +100,7 @@
     <Compile Include="FlowScriptLanguage\Syntax\FlowScriptSourceInfo.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\FlowScriptSyntaxVisitor.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Declarations\FlowScriptEnumDeclaration.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Declarations\FlowScriptEnumValueDeclaration.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Declarations\FlowScriptLabelDeclaration.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptAdditionAssignmentOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptAssignmentOperator.cs" />
@@ -127,7 +128,6 @@
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\FlowScriptUnaryExpression.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\FlowScriptLogicalNotOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\FlowScriptNegationOperator.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\FlowScriptBitwiseNotOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\FlowScriptPostfixDecrementOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\FlowScriptPostfixIncrementOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\FlowScriptPostfixOperator.cs" />
@@ -135,6 +135,7 @@
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\FlowScriptPrefixIncrementOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\FlowScriptPrefixOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptBreakStatement.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptConditionSwitchLabel.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptContinueStatement.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptDeclarationType.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\FlowScriptCallOperator.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="FlowScriptLanguage\Syntax\FlowScriptCompilationUnit.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptCompoundStatement.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptDeclaration.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptDefaultSwitchLabel.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptExpression.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Literals\FlowScriptFloatLiteral.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Declarations\FlowScriptFunctionDeclaration.cs" />
@@ -168,6 +170,7 @@
     <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptIfStatement.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptNullStatement.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptReturnStatement.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptSwitchLabel.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptSwitchStatement.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptWhileStatement.cs" />
     <Compile Include="MessageScriptLanguage\Compiler\MessageScriptCompiler.cs" />

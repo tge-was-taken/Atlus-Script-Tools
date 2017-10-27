@@ -23,10 +23,9 @@ namespace AtlusScriptLib.Common.Registry
 
     class ExternalJsonPathConverter : JsonConverter
     {
-        public override bool CanConvert( Type objectType )
-        {
-            return false;
-        }
+        public override bool CanConvert( Type objectType ) => false;
+
+        public override bool CanWrite => false;
 
         public override object ReadJson( JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer )
         {
@@ -49,10 +48,7 @@ namespace AtlusScriptLib.Common.Registry
 
     class HexIntStringJsonConverter : JsonConverter
     {
-        public override bool CanConvert( Type objectType )
-        {
-            return false;
-        }
+        public override bool CanConvert( Type objectType ) => false;
 
         public override bool CanWrite => false;
 

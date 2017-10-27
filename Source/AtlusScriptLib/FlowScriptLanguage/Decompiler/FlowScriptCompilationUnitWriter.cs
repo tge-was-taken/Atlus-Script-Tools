@@ -11,26 +11,29 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 {
     public class FlowScriptCompilationUnitWriter : FlowScriptSyntaxVisitor
     {
-        public void WriteToFile( FlowScriptCompilationUnit compilationUnit, string path )
+        public void Write( FlowScriptCompilationUnit compilationUnit, string path )
         {
-            using ( var writingVisitor = new WritingVisitor( File.CreateText( path ) ) )
+            using ( var writingVisitor = new WriterVisitor( File.CreateText( path ) ) )
             {
                 writingVisitor.Visit( compilationUnit );
             }
         }
 
-        class WritingVisitor : FlowScriptSyntaxVisitor, IDisposable
+        private class WriterVisitor : FlowScriptSyntaxVisitor, IDisposable
         {
-            private StreamWriter mWriter;
+            private readonly StreamWriter mWriter;
             private int mTabLevel;
             private bool mInsideLine;
             private FlowScriptProcedureDeclaration mProcedure;
-            private bool mSuppressIfStatementNewLine;
-            private bool mSuppressCompoundStatementNewline;
 
-            public WritingVisitor( StreamWriter writer )
+            private readonly Stack<bool> mSuppressIfStatementNewLine;
+            private readonly Stack<bool> mSuppressCompoundStatementNewline;
+
+            public WriterVisitor( StreamWriter writer )
             {
                 mWriter = writer;
+                mSuppressIfStatementNewLine = new Stack< bool >();
+                mSuppressCompoundStatementNewline = new Stack< bool >();
             }
 
             public override void Visit( FlowScriptImport import )
@@ -38,9 +41,67 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                 WriteImport( import );
             }
 
+            // Unimplemented
+            public override void Visit( FlowScriptEnumDeclaration enumDeclaration )
+            {
+                WriteWithSeperator( "enum" );
+                Visit( enumDeclaration.Identifier );
+
+                WriteNewLine();
+                WriteLine( "{" );
+                IncreaseIndentation();
+
+                for ( var i = 0; i < enumDeclaration.Values.Count; i++ )
+                {
+                    var enumValueDeclaration = enumDeclaration.Values[ i ];
+                    Visit( enumValueDeclaration );
+                    if ( i != enumDeclaration.Values.Count - 1 )
+                        WriteLine( "," );
+                }
+
+                DecreaseIndentation();
+                WriteNewLine();
+                WriteLine( "}" );
+            }
+
+            public override void Visit( FlowScriptEnumValueDeclaration enumValueDeclaration )
+            {
+                Visit( enumValueDeclaration.Identifier );
+                Write( " = " );
+                Visit( enumValueDeclaration.Value );
+            }
+
+            public override void Visit( FlowScriptMemberAccessExpression memberAccessExpression )
+            {
+                Visit( memberAccessExpression.Operand );
+                Write( "." );
+                Visit( memberAccessExpression.Member );
+            }
+
+            public override void Visit( FlowScriptSwitchStatement switchStatement )
+            {
+                WriteWithSeperator( "switch" );
+                WriteOpenParenthesis();
+                Visit( switchStatement.SwitchOn );
+                WriteCloseParenthesis();
+
+                WriteNewLine();
+                WriteIndentedLine( "{" );
+
+                foreach ( var label in switchStatement.Labels )
+                {
+                    Visit( label );
+                }
+
+                WriteNewLine();
+                WriteIndentedLine( "}" );
+                WriteNewLine();
+            }
+
             // Statements
             public override void Visit( FlowScriptCompilationUnit compilationUnit )
             {
+                // Write header comments
                 WriteNewLine();
                 WriteComment( "" );
                 WriteComment( "FlowScript decompiled by AtlusScriptLib by TGE (2017)" );
@@ -50,12 +111,18 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
                 if ( compilationUnit.Imports.Count > 0 )
                 {
+                    // Write import block comments
+                    WriteNewLine();
+                    WriteComment( "" );
                     WriteComment( "Imports" );
+                    WriteComment( "" );
+                    WriteNewLine();
+
+                    // Write each import
                     foreach ( var import in compilationUnit.Imports )
                     {
                         Visit( import );
                     }
-                    WriteNewLine();
                 }
 
                 bool seenFirstFunction = false;
@@ -63,6 +130,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                 bool seenFirstProcedure = false;
                 foreach ( var statement in compilationUnit.Declarations )
                 {
+                    // Write fancy comments for declaration blocks
                     if ( !seenFirstFunction && statement is FlowScriptFunctionDeclaration )
                     {
                         WriteNewLine();
@@ -92,8 +160,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         seenFirstProcedure = true;
                     }
 
+                    // Write the statement
                     Visit( statement );
 
+                    // Write the semicolon, but not for procedure declaration because it's ugly
                     if ( !( statement is FlowScriptProcedureDeclaration ) )
                     {
                         WriteStatementEnd();
@@ -174,7 +244,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
             public override void Visit( FlowScriptCompoundStatement compoundStatement )
             {
-                bool suppressNewLine = mSuppressCompoundStatementNewline;
+                bool suppressNewLine = mSuppressCompoundStatementNewline.Count != 0 && mSuppressCompoundStatementNewline.Pop();
 
                 if ( mInsideLine )
                     WriteNewLine();
@@ -244,56 +314,48 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
             public override void Visit( FlowScriptIfStatement ifStatement )
             {
-                if ( !mSuppressIfStatementNewLine )
+                if ( !(mSuppressIfStatementNewLine.Count != 0 && mSuppressIfStatementNewLine.Pop() ) )
                     WriteNewLineAndIndent();
 
+                // Write 'if ( <cond> )
                 WriteWithSeperator( "if" );
                 WriteOpenParenthesis();
                 Visit( ifStatement.Condition );
                 WriteCloseParenthesis();
 
-                bool temp;
-                bool temp2;
-
                 if ( ifStatement.ElseBody == null )
                 {
-                    temp = mSuppressCompoundStatementNewline;
-                    temp2 = mSuppressIfStatementNewLine;
-                    
-                    mSuppressCompoundStatementNewline = false;
-                    mSuppressIfStatementNewLine = false;
+                    // Write body
+                    mSuppressCompoundStatementNewline.Push( false );
+                    mSuppressIfStatementNewLine.Push( false );
                     Visit( ifStatement.Body );
-                    mSuppressCompoundStatementNewline = temp;
-                    mSuppressIfStatementNewLine = temp2;
                 }
                 else
                 {
-                    temp = mSuppressCompoundStatementNewline;
-                    mSuppressCompoundStatementNewline = true;
+                    // Write body
+                    mSuppressCompoundStatementNewline.Push( true );
                     Visit( ifStatement.Body );
-                    mSuppressCompoundStatementNewline = temp;
 
+                    // Write 'else'
                     WriteIndentation();
                     WriteWithSeperator( "else" );
 
                     if ( ifStatement.ElseBody.Statements.Count > 0 &&
                          ifStatement.ElseBody.Statements[ 0 ] is FlowScriptIfStatement )
                     {
-                        temp = mSuppressIfStatementNewLine;
-                        mSuppressIfStatementNewLine = true;
+                        // Write else if { }, instead of else { if { } }
+                        mSuppressIfStatementNewLine.Push( true );
                         Visit( (FlowScriptIfStatement) ifStatement.ElseBody.Statements[ 0 ] );
                         for ( int i = 1; i < ifStatement.ElseBody.Statements.Count; i++ )
                         {
                             Visit( ifStatement.ElseBody.Statements[ i ] );
                         }
-                        mSuppressIfStatementNewLine = temp;
                     }
                     else
                     {
-                        temp2 = mSuppressIfStatementNewLine;
-                        mSuppressIfStatementNewLine = false;
+                        // Write else body
+                        mSuppressIfStatementNewLine.Push( false );
                         Visit( ifStatement.ElseBody );
-                        mSuppressIfStatementNewLine = temp2;
                     }
                 }
             }

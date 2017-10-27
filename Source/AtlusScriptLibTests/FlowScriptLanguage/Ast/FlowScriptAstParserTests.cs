@@ -40,7 +40,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
             string flowScriptSource =
                 "void Main()" +
                 "{" +
-                "   for ( int i = 0; i < 22; i = i + 1 )" +
+                "   fo ( int i = 0; i < 10; i++ )" +
                 "   {" +
                 "   }" +
                 "}";
@@ -53,6 +53,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
             flowScriptCompiler.EnableProcedureCallTracing = true;
             flowScriptCompiler.EnableFunctionCallTracing = true;
             flowScriptCompiler.EnableStackCookie = false;
+            flowScriptCompiler.LibraryRegistry = LibraryRegistryManager.LibraryRegistriesByShortName[ "p5" ];
 
             var flowScriptDecompiler = new FlowScriptDecompiler();
             flowScriptDecompiler.AddListener( listener );
@@ -62,7 +63,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
 
             //Assert.IsTrue( flowScriptCompiler.TryCompile( File.OpenRead( "test.flow" ), out flowScript ) );
             //Assert.IsTrue( flowScriptDecompiler.TryDecompile( flowScript, "test.flow.decompiled" ) );
-            Assert.IsTrue( flowScriptDecompiler.TryDecompile( FlowScript.FromFile( @"D:\Modding\Persona 5 EU\Main game\Extracted\ps3\field\fldPack.pac.etc_field.bf" ), "field.flow" ) );
+            //Assert.IsTrue( flowScriptDecompiler.TryDecompile( FlowScript.FromFile( @"D:\Modding\Persona 5 EU\Main game\Extracted\ps3\field\fldPack.pac.etc_field.bf" ), "field.flow" ) );
 
             //var flowScriptBinary = flowScript.ToBinary();
             //flowScriptDiassembler.Disassemble( flowScriptBinary );
@@ -103,7 +104,6 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
             flowScriptDiassembler.Dispose();
             */
 
-            /*
             var archive = new PakToolArchiveFile( @"D:\Modding\Persona 5 EU\Game mods\TestLevel\mod\field\fldPack.pac" );
             var entry = archive.Entries.Single( x => x.Name == "etc/field.bf" );
             entry.Data = ( ( MemoryStream ) flowScript.ToStream() ).ToArray();
@@ -111,7 +111,6 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
             archive.Save( @"D:\Modding\Persona 5 EU\Game mods\TestLevel\mod\field\fldPack.pac" );
 
             Process.Start( @"D:\Modding\Persona 5 EU\Game mods\TestLevel\make_cpk_rpcs3.bat" );
-            */
             //OutputBothDisassemblies( @"D:\Modding\Persona 5 EU\Main game\Extracted\data\event\e800\e800\e800_021.bf", false );
 
             //flowScriptDiassembler.Dispose();
@@ -138,7 +137,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
             Assert.IsTrue( flowScriptDecompiler.TryDecompile( flowScript, out var compilationUnit ) );
 
             var flowScriptCompilationUnitWriter = new FlowScriptCompilationUnitWriter();
-            flowScriptCompilationUnitWriter.WriteToFile( compilationUnit, "original_decompiled.flow" );
+            flowScriptCompilationUnitWriter.Write( compilationUnit, "original_decompiled.flow" );
 
             var newFlowScript = Compile( File.ReadAllText( "original_decompiled.flow" ) );
             Dissassemble( newFlowScript, "recompiled_disassembly.flowasm" );

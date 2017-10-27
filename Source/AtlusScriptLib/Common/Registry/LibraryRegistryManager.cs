@@ -8,8 +8,6 @@ namespace AtlusScriptLib.Common.Registry
 {
     public static class LibraryRegistryManager
     {
-        private static readonly List<LibraryRegistry> mLibraryRegistries;
-
         public static readonly string RegistryDirectoryPath = Path.Combine( AppDomain.CurrentDomain.BaseDirectory, "Library\\Registry" );
 
         public static IReadOnlyList< LibraryRegistry > LibraryRegistries;
@@ -18,15 +16,15 @@ namespace AtlusScriptLib.Common.Registry
 
         static LibraryRegistryManager()
         {
-            mLibraryRegistries = new List< LibraryRegistry >();
+            var libraryRegistries = new List< LibraryRegistry >();
 
             foreach ( var libraryRegistryJsonPath in EnumerateLibraryRegistryJsons() )
             {
                 var libraryRegistry = ParseLibraryRegistry( libraryRegistryJsonPath );
-                mLibraryRegistries.Add( libraryRegistry );
+                libraryRegistries.Add( libraryRegistry );
             }
 
-            LibraryRegistries = mLibraryRegistries.AsReadOnly();
+            LibraryRegistries = libraryRegistries.AsReadOnly();
             LibraryRegistriesByShortName = LibraryRegistries.ToDictionary( x => x.ShortName );
         }
 
