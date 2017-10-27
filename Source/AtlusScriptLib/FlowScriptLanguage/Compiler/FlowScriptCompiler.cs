@@ -2923,7 +2923,9 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     null );
 
                 Debug.Assert( TryDeclareVariable( declaration, index ) );
-                Debug.Assert( TryGetVariable( declaration.Identifier.Text, out var variable ) );
+
+                var result = TryGetVariable( declaration.Identifier.Text, out var variable );
+                Debug.Assert( result );
 
                 return variable;
             }

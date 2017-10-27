@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using AtlusScriptLib.Common.Logging;
+using AtlusScriptLib.Common.Registry;
 using AtlusScriptLib.Common.Text.OutputProviders;
-using AtlusScriptLib.FlowScriptLanguage.FunctionDatabase;
 using AtlusScriptLib.FlowScriptLanguage.Syntax;
 using AtlusScriptLib.MessageScriptLanguage.Decompiler;
 
@@ -32,7 +30,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
         private bool mKeepLabelsAndGotos = false;
         private bool mConvertIfStatementsToGotos = false;
 
-        public IFunctionDatabase FunctionDatabase { get; set; }
+        public LibraryRegistry LibraryRegistry { get; set; }
 
         /// <summary>
         /// Gets or sets whether the embedded MessageScript (if it exists) should be decompiled as well.
@@ -130,7 +128,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
         private bool TryEvaluateScript( FlowScript flowScript, out FlowScriptEvaluationResult evaluationResult )
         {
             var evaluator = new FlowScriptEvaluator();
-            evaluator.FunctionDatabase = FunctionDatabase;
+            evaluator.LibraryRegistry = LibraryRegistry;
             evaluator.AddListener( new LoggerPassthroughListener( mLogger ) );
             if ( !evaluator.TryEvaluateScript( flowScript, out evaluationResult ) )
             {

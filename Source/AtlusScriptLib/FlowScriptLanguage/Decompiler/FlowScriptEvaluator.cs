@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using AtlusScriptLib.Common.Logging;
-using AtlusScriptLib.FlowScriptLanguage.FunctionDatabase;
+using AtlusScriptLib.Common.Registry;
 using AtlusScriptLib.FlowScriptLanguage.Syntax;
 
 namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
@@ -55,7 +55,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
         private List<FlowScriptParameter> mParameters;
         private List<FlowScriptEvaluatedIdentifierReference> mProcedureLocalVariables;
 
-        public IFunctionDatabase FunctionDatabase { get; set; }
+        public LibraryRegistry LibraryRegistry { get; set; }
 
         public FlowScriptEvaluator()
         {
@@ -357,7 +357,9 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                     continue;
 
                 // Declare function
-                var function = FunctionDatabase.Functions.SingleOrDefault( x => x.Index.Value == index );
+                var function = LibraryRegistry.FlowScriptLibraries
+                                              .SelectMany( x => x.Functions )
+                                              .SingleOrDefault( x => x.Index == index );
 
                 if ( function == null )
                 {
@@ -365,7 +367,21 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                     return false;
                 }
 
-                mFunctions[index] = function;
+                var functionParameters = new List< FlowScriptParameter >();
+                foreach ( var libraryFunctionParameter in function.Parameters )
+                {
+                    functionParameters.Add( new FlowScriptParameter(
+                                                new FlowScriptTypeIdentifier( libraryFunctionParameter.Type ),
+                                                new FlowScriptIdentifier( libraryFunctionParameter.Name ) ) );
+                }
+
+                var functionDeclaration = new FlowScriptFunctionDeclaration(
+                    new FlowScriptIntLiteral( function.Index ),
+                    new FlowScriptTypeIdentifier( function.ReturnType ),
+                    new FlowScriptIdentifier( function.Name ),
+                    functionParameters );
+
+                mFunctions[index] = functionDeclaration;
             }
 
             return true;

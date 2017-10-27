@@ -564,7 +564,7 @@ namespace AtlusScriptCompiler
 
             var decompiler = new FlowScriptDecompiler();
             decompiler.AddListener( Listener );
-            decompiler.FunctionDatabase = null; // todo
+            decompiler.LibraryRegistry = null; // todo
             if ( !decompiler.TryDecompile( flowScript, OutputFilePath ) )
             {
                 Logger.Error( "Failed to decompile FlowScript" );

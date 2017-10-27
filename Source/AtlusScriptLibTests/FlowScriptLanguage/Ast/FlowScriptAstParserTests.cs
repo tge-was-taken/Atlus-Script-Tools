@@ -13,11 +13,11 @@ using System.IO;
 using AtlusScriptLib.FlowScriptLanguage.Disassembler;
 using System.Diagnostics;
 using AtlusLibSharp.FileSystems.PAKToolArchive;
+using AtlusScriptLib.Common.Registry;
 using AtlusScriptLib.MessageScriptLanguage.Compiler;
 using AtlusScriptLib.Common.Text.Encodings;
 using AtlusScriptLib.FlowScriptLanguage.BinaryModel;
 using AtlusScriptLib.FlowScriptLanguage.Decompiler;
-using AtlusScriptLib.FlowScriptLanguage.FunctionDatabase;
 
 namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
 {
@@ -27,6 +27,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
         [TestMethod]
         public void TryParseTest()
         {
+            var test = LibraryRegistryManager.LibraryRegistries[ 0 ];
+
             // FLD_GET_SCRIPT_TIMING returns a value ranging from 0 to 4 indicating the loading phase
             // without [f 2 1] the text doesn't scroll
             // options without any text won't be displayed
@@ -54,13 +56,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
 
             var flowScriptDecompiler = new FlowScriptDecompiler();
             flowScriptDecompiler.AddListener( listener );
-            flowScriptDecompiler.FunctionDatabase = Persona5FunctionDatabase.Instance;
+            flowScriptDecompiler.LibraryRegistry = LibraryRegistryManager.LibraryRegistriesByShortName[ "p5" ];
 
             var flowScriptDiassembler = new FlowScriptBinaryDisassembler( $@"test.flow.asm" );
 
             //Assert.IsTrue( flowScriptCompiler.TryCompile( File.OpenRead( "test.flow" ), out flowScript ) );
             //Assert.IsTrue( flowScriptDecompiler.TryDecompile( flowScript, "test.flow.decompiled" ) );
-            //Assert.IsTrue( flowScriptDecompiler.TryDecompile( FlowScript.FromFile( @"D:\Modding\Persona 5 EU\Main game\Extracted\ps3\field\fldPack.pac.etc_field.bf" ), "field.flow" ) );
+            Assert.IsTrue( flowScriptDecompiler.TryDecompile( FlowScript.FromFile( @"D:\Modding\Persona 5 EU\Main game\Extracted\ps3\field\fldPack.pac.etc_field.bf" ), "field.flow" ) );
 
             //var flowScriptBinary = flowScript.ToBinary();
             //flowScriptDiassembler.Disassemble( flowScriptBinary );
@@ -132,7 +134,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
 
             var flowScriptDecompiler = new FlowScriptDecompiler();
             flowScriptDecompiler.AddListener( new DebugLogListener() );
-            flowScriptDecompiler.FunctionDatabase = Persona5FunctionDatabase.Instance;
+            flowScriptDecompiler.LibraryRegistry = LibraryRegistryManager.LibraryRegistriesByShortName[ "p5" ];
             Assert.IsTrue( flowScriptDecompiler.TryDecompile( flowScript, out var compilationUnit ) );
 
             var flowScriptCompilationUnitWriter = new FlowScriptCompilationUnitWriter();

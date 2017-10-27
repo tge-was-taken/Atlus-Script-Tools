@@ -11,21 +11,6 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 {
     public class FlowScriptCompilationUnitWriter : FlowScriptSyntaxVisitor
     {
-        private static Dictionary<FlowScriptValueType, string> sValueTypeToString = new Dictionary<FlowScriptValueType, string>()
-        {
-            { FlowScriptValueType.Void,         "void" },
-            { FlowScriptValueType.Bool,         "bool" },
-            { FlowScriptValueType.Int,          "int" },
-            { FlowScriptValueType.Float,        "float" },
-            { FlowScriptValueType.String,       "string" }
-        };
-
-        private static Dictionary<FlowScriptModifierType, string> sModifierTypeToString = new Dictionary<FlowScriptModifierType, string>()
-        {
-            { FlowScriptModifierType.Static,        "static" },
-            { FlowScriptModifierType.Constant,      "const" }
-        };
-
         public void WriteToFile( FlowScriptCompilationUnit compilationUnit, string path )
         {
             using ( var writingVisitor = new WritingVisitor( File.CreateText( path ) ) )
@@ -148,7 +133,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             {
                 if ( variableDeclaration.Modifier.ModifierType != FlowScriptModifierType.Local )
                 {
-                    WriteWithSeperator( sModifierTypeToString[variableDeclaration.Modifier.ModifierType] );
+                    WriteWithSeperator( FlowScriptKeywordConverter.ModifierTypeToKeyword[variableDeclaration.Modifier.ModifierType] );
                     Visit( variableDeclaration.Type );
                     Write( " " );
                     Visit( variableDeclaration.Identifier );
@@ -480,7 +465,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
             public override void Visit( FlowScriptTypeIdentifier typeIdentifier )
             {
-                Write( sValueTypeToString[typeIdentifier.ValueType] );
+                Write( FlowScriptKeywordConverter.ValueTypeToKeyword[typeIdentifier.ValueType] );
             }
 
             // Literals
@@ -658,7 +643,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                     for ( int i = 0; i < parameters.Count; i++ )
                     {
                         var parameter = parameters[i];
-                        Write( sValueTypeToString[parameter.Type.ValueType] );
+                        Write( FlowScriptKeywordConverter.ValueTypeToKeyword[parameter.Type.ValueType] );
                         Write( " " );
                         Write( parameter.Identifier.Text );
                         if ( i != parameters.Count - 1 )

@@ -68,6 +68,16 @@
     <Compile Include="Common\Logging\TraceLogListener.cs" />
     <Compile Include="Common\Reflection\MemberInfoExtensions.cs" />
     <Compile Include="Common\Reflection\TypeExtensions.cs" />
+    <Compile Include="Common\Registry\FlowScriptLibrary.cs" />
+    <Compile Include="Common\Registry\FlowScriptLibraryConstant.cs" />
+    <Compile Include="Common\Registry\FlowScriptLibraryEnum.cs" />
+    <Compile Include="Common\Registry\FlowScriptLibraryEnumMember.cs" />
+    <Compile Include="Common\Registry\FlowScriptLibraryFunction.cs" />
+    <Compile Include="Common\Registry\FlowScriptLibraryFunctionParameter.cs" />
+    <Compile Include="Common\Registry\LibraryRegistry.cs" />
+    <Compile Include="Common\Registry\MessageScriptLibrary.cs" />
+    <Compile Include="Common\Registry\MessageScriptLibraryFunction.cs" />
+    <Compile Include="Common\Registry\MessageScriptLibraryFunctionParameter.cs" />
     <Compile Include="Common\Text\Encodings\AtlusEncoding.cs" />
     <Compile Include="Common\Text\Encodings\CodePoint.cs" />
     <Compile Include="Common\Text\Encodings\Persona3Encoding.cs" />
@@ -79,14 +89,13 @@
     <Compile Include="FlowScriptLanguage\Compiler\Processing\FlowScriptTypeResolver.cs" />
     <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptCompilationUnitWriter.cs" />
     <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptDecompiler.cs" />
+    <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptEnumToKeyword.cs" />
     <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptEvaluatedIdentifierReference.cs" />
     <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptEvaluatedProcedure.cs" />
     <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptEvaluatedStatement.cs" />
     <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptEvaluationResult.cs" />
     <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptEvaluator.cs" />
     <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptEvaluatedScope.cs" />
-    <Compile Include="FlowScriptLanguage\FunctionDatabase\FunctionDatabaseDeserializer.cs" />
-    <Compile Include="FlowScriptLanguage\FunctionDatabase\Persona5FunctionDatabase.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\FlowScriptSyntaxNode.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\FlowScriptSourceInfo.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\FlowScriptSyntaxVisitor.cs" />
@@ -222,22 +231,56 @@
     <Compile Include="MessageScriptLanguage\BinaryModel\IO\RelocationTableEncoding.cs" />
     <Compile Include="Common\Text\Tokenizing\SourceInfo.cs" />
     <Compile Include="Common\Text\Tokenizing\Tokenizer.cs" />
+    <Compile Include="Common\Registry\LibraryRegistryManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScript.g4" />
     <None Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScript.tokens" />
     <None Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScriptLexer.tokens" />
-    <None Include="FlowScriptLanguage\FunctionDatabase\Persona5FunctionDatabase.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="FlowScriptLanguage\GenerateGrammarParserAndLexer.bat" />
+    <Content Include="Library\Registry\Persona5.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Library\Registry\Persona5\FlowScriptLibraries.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Library\Registry\Persona5\Libraries\AI\Functions.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Library\Registry\Persona5\Libraries\Common\Enums.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Library\Registry\Persona5\Libraries\Common\Functions.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Library\Registry\Persona5\Libraries\Facility\Functions.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Library\Registry\Persona5\Libraries\Field\Enums.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Library\Registry\Persona5\Libraries\Field\Functions.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Library\Registry\Persona5\Libraries\Net\Functions.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Library\Registry\Persona5\Libraries\Social\Functions.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Library\Registry\Persona5\MessageScriptLibrary.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptLexer.g4" />
     <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptLexer.tokens" />
     <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptParser.g4" />
     <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptParser.tokens" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Library\FlowScript\" />
+    <Folder Include="Library\MessageScript\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
