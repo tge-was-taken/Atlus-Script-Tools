@@ -1,5 +1,4 @@
 [
-  // Common library
   {
     "Name": "Common library",
     "ShortName": "Common",
@@ -8,8 +7,6 @@
     "EnumsPath": "Persona5\\Libraries\\Common\\Enums.json",
     "FunctionsPath": "Persona5\\Libraries\\Common\\Functions.json"
   },
-
-  // Field library
   {
     "Name": "Field library",
     "ShortName": "Field",
@@ -18,8 +15,6 @@
     "EnumsPath": "Persona5\\Libraries\\Field\\Enums.json",
     "FunctionsPath": "Persona5\\Libraries\\Field\\Functions.json"
   },
-
-  // AI library
   {
     "Name": "AI library",
     "ShortName": "AI",
@@ -28,8 +23,6 @@
     "EnumsPath": "",
     "FunctionsPath": "Persona5\\Libraries\\AI\\Functions.json"
   },
-
-  // Social event library
   {
     "Name": "Social event library",
     "ShortName": "Social",
@@ -38,8 +31,6 @@
     "EnumsPath": "",
     "FunctionsPath": "Persona5\\Libraries\\Social\\Functions.json"
   },
-
-  // Facility library
   {
     "Name": "Facility library",
     "ShortName": "Facility",
@@ -48,8 +39,6 @@
     "EnumsPath": "",
     "FunctionsPath": "Persona5\\Libraries\\Facility\\Functions.json"
   },
-
-  // Net library
   {
     "Name": "Net library",
     "ShortName": "Net",
@@ -59,4 +48,3 @@
     "FunctionsPath": "Persona5\\Libraries\\Net\\Functions.json"
   }
 ]
-
