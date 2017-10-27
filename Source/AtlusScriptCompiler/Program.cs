@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using AtlusScriptLib.Common.Logging;
+using AtlusScriptLib.Common.Registry;
 using AtlusScriptLib.Common.Text.Encodings;
 using AtlusScriptLib.Common.Text.OutputProviders;
 using AtlusScriptLib.FlowScriptLanguage;
@@ -44,9 +45,7 @@ namespace AtlusScriptCompiler
 
         public static MessageScriptTextEncoding MessageScriptTextEncoding;
 
-        public static string MessageScriptDatabasePath;
-
-        public static string FlowScriptDatabasePath;
+        public static string LibraryName;
 
         public static bool FlowScriptEnableProcedureTracing;
 
@@ -71,13 +70,12 @@ namespace AtlusScriptCompiler
             Console.WriteLine( "        -Compile                                    Instructs the compiler to compile the provided input file source." );
             Console.WriteLine( "        -Decompile                                  Instructs the compiler to decompile the provided input file source." );
             Console.WriteLine( "        -Disassemble                                Instructs the compiler to disassemble the provided input file source." );
+            Console.WriteLine( "        -Library                <name>              Specifies the name of the library that should be used." );
             Console.WriteLine();
             Console.WriteLine( "    MessageScript:" );
             Console.WriteLine( "        -mEncoding              <format>            Specifies the MessageScript binary output text encoding. See below for further info." );
-            Console.WriteLine( "        -mDB                    <path to db file>   Specifies the MessageScript function database to use. See below for further info." );
             Console.WriteLine();
             Console.WriteLine( "    FlowScript:" );
-            Console.WriteLine( "        -fDB                    <path to db file>   Specifies the FlowScript function database to use. See below for further info." );
             Console.WriteLine( "        -fTraceProcedure                            Enables procedure tracing. Only applies to compiler." );
             Console.WriteLine( "        -fTraceProcedureCalls                       Enables procedure call tracing. Only applies to compiler." );
             Console.WriteLine( "        -fTraceFunctionCalls                        Enables function call tracing. Only applies to compiler." );
@@ -98,11 +96,11 @@ namespace AtlusScriptCompiler
             Console.WriteLine( "            p4                  Persona 4's custom encoding" );
             Console.WriteLine( "            p5                  Persona 5's custom encoding" );
             Console.WriteLine();
-            Console.WriteLine( "        -mDB" );
-            Console.WriteLine( "            For MessageScripts the function database is used for the compiler and decompiler to emit the proper [f] tags for each aliased function." );
+            Console.WriteLine( "        -Library" );
+            Console.WriteLine( "            For MessageScripts the library definition registry is used for the compiler and decompiler to emit the proper [f] tags for each aliased function." );
             Console.WriteLine( "            If you don't use any aliased functions, you don't need to specify this, but if you do without specifying it, you'll get a compiler error." );
-            Console.WriteLine( "            Not specifying a function database means that the decompiler will not try to look up aliases for functions." );
-            Console.WriteLine( "            Databases can be found in the Library\\MessageScript\\Databases directory" );
+            Console.WriteLine( "            Not specifying a library definition registry means that the decompiler will not try to look up aliases for functions." );
+            Console.WriteLine( "            Library registries can be found in the Library\\Registry directory" );
             Console.WriteLine();
             Console.WriteLine( "    FlowScript:" );
             Console.WriteLine( "        -Format" );
@@ -113,11 +111,11 @@ namespace AtlusScriptCompiler
             Console.WriteLine( "            v3              Used by Persona 5 PS4" );
             Console.WriteLine( "            v3be            Used by Persona 5 PS3" );
             Console.WriteLine();
-            Console.WriteLine( "        -fDB" );
-            Console.WriteLine( "            For FlowScripts the function database is used for the decompiler to decompile binary scripts, but it is also used to generate header files and documentation." );
+            Console.WriteLine( "        -Library" );
+            Console.WriteLine( "            For FlowScripts the library definition registry is used for the decompiler to decompile binary scripts, but it is also used to generate header files and documentation." );
             Console.WriteLine( "            These header files are the same header files included for the standard library of each game." );
-            Console.WriteLine( "            Without a specified database you cannot decompile scripts." );
-            Console.WriteLine( "            Databases can be found in the Library\\FlowScript\\Databases directory" );
+            Console.WriteLine( "            Without a specified registry you cannot decompile scripts." );
+            Console.WriteLine( "            Library registries can be found in the Library\\Registry directory" );
             Console.ReadKey();
         }
 
@@ -271,6 +269,16 @@ namespace AtlusScriptCompiler
                         DoDisassemble = true;
                         break;
 
+                    case "-Library":
+                        if ( isLast )
+                        {
+                            Logger.Error( "Missing argument for -Library parameter" );
+                            return false;
+                        }
+
+                        LibraryName = args[ ++i ];
+                        break;
+
                     // MessageScript
                     case "-mEncoding":
                         if ( isLast )
@@ -286,27 +294,6 @@ namespace AtlusScriptCompiler
                         }
 
                         Logger.Info( $"Using {MessageScriptTextEncoding} encoding" );
-                        break;
-
-                    case "-mDB":
-                        if ( isLast )
-                        {
-                            Logger.Error( "Missing argument for -mDB parameter" );
-                            return false;
-                        }
-
-                        MessageScriptDatabasePath = args[ ++i ];
-                        break;
-
-                    // FlowScript
-                    case "-fDB":
-                        if ( isLast )
-                        {
-                            Logger.Error( "Missing argument for -fDB parameter" );
-                            return false;
-                        }
-
-                        FlowScriptDatabasePath = args[++i];
                         break;
 
                     case "-fTraceProcedure":
@@ -474,6 +461,16 @@ namespace AtlusScriptCompiler
             compiler.EnableProcedureCallTracing = FlowScriptEnableProcedureCallTracing;
             compiler.EnableFunctionCallTracing = FlowScriptEnableFunctionCallTracing;
             compiler.EnableStackCookie = FlowScriptEnableStackCookie;
+            if ( LibraryName != null )
+            {
+                if ( !LibraryRegistryManager.LibraryRegistriesByShortName.TryGetValue( LibraryName, out var library ) )
+                {
+                    Logger.Error( "Invalid library name specified" );
+                    return false;
+                }
+
+                compiler.LibraryRegistry = library;
+            }
 
             FlowScript flowScript;
             using ( var file = File.Open( InputFilePath, FileMode.Open, FileAccess.Read, FileShare.Read ) )
@@ -514,6 +511,18 @@ namespace AtlusScriptCompiler
             var encoding = GetEncoding();
             var compiler = new MessageScriptCompiler( version, encoding );
             compiler.AddListener( Listener );
+
+            if ( LibraryName != null )
+            {
+                if ( !LibraryRegistryManager.LibraryRegistriesByShortName.TryGetValue( LibraryName, out var library ) )
+                {
+                    Logger.Error( "Invalid library name specified" );
+                    return false;
+                }
+
+                compiler.LibraryRegistry = library;
+            }
+
             if ( !compiler.TryCompile( File.OpenText( InputFilePath ), out var script ) )
             {
                 Logger.Error( "One or more errors occured during compilation!" );
@@ -564,7 +573,18 @@ namespace AtlusScriptCompiler
 
             var decompiler = new FlowScriptDecompiler();
             decompiler.AddListener( Listener );
-            decompiler.LibraryRegistry = null; // todo
+
+            if ( LibraryName != null )
+            {
+                if ( !LibraryRegistryManager.LibraryRegistriesByShortName.TryGetValue( LibraryName, out var library ) )
+                {
+                    Logger.Error( "Invalid library name specified" );
+                    return false;
+                }
+
+                decompiler.LibraryRegistry = library;
+            }
+
             if ( !decompiler.TryDecompile( flowScript, OutputFilePath ) )
             {
                 Logger.Error( "Failed to decompile FlowScript" );
@@ -591,6 +611,17 @@ namespace AtlusScriptCompiler
                 using ( var decompiler = new MessageScriptDecompiler() )
                 {
                     decompiler.TextOutputProvider = new FileTextOutputProvider( OutputFilePath );
+
+                    if ( LibraryName != null )
+                    {
+                        if ( !LibraryRegistryManager.LibraryRegistriesByShortName.TryGetValue( LibraryName, out var library ) )
+                        {
+                            Logger.Error( "Invalid library name specified" );
+                        }
+
+                        decompiler.LibraryRegistry = library;
+                    }
+
                     decompiler.Decompile( script );
                 }
             } ) )
@@ -629,33 +660,24 @@ namespace AtlusScriptCompiler
             // load binary file
             Logger.Info( "Loading binary FlowScript file..." );
 
-            FlowScriptBinary script;
+            
+            FlowScriptBinary script = null;
 
-            try
+            if ( !TryPerformAction( "Failed to load flow script from file.", () =>
             {
                 script = FlowScriptBinary.FromFile( InputFilePath );
-            }
-            catch ( Exception e )
+            } ) )
             {
-                Logger.Error( "Failed to load flow script from file. Info:" );
-                Logger.Debug( $"{e.Message}" );
-                Logger.Debug( "Stacktrace:" );
-                Logger.Debug( $"{e.StackTrace}" );
                 return false;
             }
 
             Logger.Info( "Disassembling FlowScript..." );
-            try
+            if ( !TryPerformAction( "Failed to disassemble flow script to file.", () =>
             {
                 var disassembler = new FlowScriptBinaryDisassembler( OutputFilePath );
                 disassembler.Disassemble( script );
-            }
-            catch ( Exception e )
+            } ) )
             {
-                Logger.Error( "Failed to disassemble flow script to file. Info:" );
-                Logger.Debug( $"{e.Message}" );
-                Logger.Debug( "Stacktrace:" );
-                Logger.Debug( $"{e.StackTrace}" );
                 return false;
             }
 
@@ -664,15 +686,19 @@ namespace AtlusScriptCompiler
 
         private static bool TryPerformAction( string errorMessage, Action action )
         {
+#if !DEBUG
             try
             {
+#endif
                 action();
+#if !DEBUG
             }
             catch ( Exception e )
             {
                 LogException( errorMessage, e );
                 return false;
             }
+#endif
 
             return true;
         }

@@ -11,6 +11,8 @@ namespace AtlusScriptLib.MessageScriptLanguage.Decompiler
 
         public ITextOutputProvider TextOutputProvider { get; set; }
 
+        public bool OmitUnusedFunctions { get; set; } = true;
+
         public void Decompile( MessageScript script )
         {
             foreach ( var message in script.Windows )
@@ -140,16 +142,22 @@ namespace AtlusScriptLib.MessageScriptLanguage.Decompiler
             if ( LibraryRegistry != null )
             {
                 var function = LibraryRegistry.MessageScriptLibraries[ token.FunctionTableIndex ].Functions[ token.FunctionIndex ];
+                if ( function.Name == "@Unused" && OmitUnusedFunctions )
+                    return;
 
-                WriteOpenTag( function.Name );
-
-                for ( var i = 0; i < function.Parameters.Count; i++ )
+                if ( !string.IsNullOrWhiteSpace( function.Name) )
                 {
-                    var argument = function.Parameters[ i ];
-                    WriteTagArgument( token.Arguments[ i ].ToString() );
-                }
+                    WriteOpenTag( function.Name );
 
-                WriteCloseTag();
+                    for ( var i = 0; i < function.Parameters.Count; i++ )
+                    {
+                        var argument = function.Parameters[i];
+                        WriteTagArgument( token.Arguments[i].ToString() );
+                    }
+
+                    WriteCloseTag();
+                    return;
+                }
             }
 
             if ( token.Arguments.Count == 0 )
