@@ -464,10 +464,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 }
             }
 
-            int flowScriptSourceHash;
+            FileStream flowScriptFileStream;
             try
             {
-                flowScriptSourceHash = File.ReadAllText( compilationUnitFilePath ).GetHashCode();
+                flowScriptFileStream = File.Open( compilationUnitFilePath, FileMode.Open, FileAccess.Read, FileShare.Read );
             }
             catch ( Exception )
             {
@@ -476,18 +476,21 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 return false;
             }
 
+            var hashAlgo = new MD5CryptoServiceProvider();
+            var hashBytes = hashAlgo.ComputeHash( flowScriptFileStream );
+            int flowScriptSourceHash = BitConverter.ToInt32( hashBytes, 0 );
+
             if ( !mImportedFileHashSet.Contains( flowScriptSourceHash ) )
             {
-                var flowScriptSourceFile = File.Open( compilationUnitFilePath, FileMode.Open, FileAccess.Read, FileShare.Read );
                 var parser = new FlowScriptCompilationUnitParser();
                 parser.AddListener( new LoggerPassthroughListener( mLogger ) );
-                if ( !parser.TryParse( flowScriptSourceFile, out importedCompilationUnit ) )
+                if ( !parser.TryParse( flowScriptFileStream, out importedCompilationUnit ) )
                 {
                     LogError( import, "Failed to parse imported FlowScript" );
                     return false;
                 }
 
-                flowScriptSourceFile.Dispose();
+                flowScriptFileStream.Dispose();
 
                 ExpandImportStatementsPaths( importedCompilationUnit, Path.GetDirectoryName( compilationUnitFilePath ) );
 
