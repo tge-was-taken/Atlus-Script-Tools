@@ -560,11 +560,6 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             // Declared variables in the current scope
             var declaredVariables = new HashSet<string>();
 
-            // All if statements in statements
-            //var ifStatements = evaluatedStatements
-            //    .Where( x => x.Statement is FlowScriptIfStatement )
-            //    .ToList();
-
             var ifStatements = mOriginalEvaluatedStatements
                 .Where( x => x.InstructionIndex >= firstIndex )
                 .Where( x => x.InstructionIndex <= lastIndex )
@@ -594,6 +589,15 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                 FlowScriptExpression initializer = null;
                 bool shouldDeclareBeforeIfStatements = false;
                 bool accessedLaterInBody = referencedLocalVariableIdentifier.Any( x => evaluatedStatements.Any( y => y.InstructionIndex == x.InstructionIndex ) );
+
+                // Hack: Edge case - variable was assigned a non existent value
+                // This causes the assignment to not exist in the AST
+                // So just insert the assignment before the first reference
+                if ( evaluatedStatementIndex == -1 &&
+                    evaluatedStatements.Any( x => x.InstructionIndex == firstReferenceInstructionIndex - 1 ) && evaluatedStatements.Any( x => x.InstructionIndex == firstReferenceInstructionIndex + 1 ) )
+                {
+                    evaluatedStatementIndex = evaluatedStatements.FindIndex( x => x.InstructionIndex == firstReferenceInstructionIndex - 1 );
+                }
 
                 if ( evaluatedStatementIndex == -1 && !mConvertIfStatementsToGotos )
                 {
