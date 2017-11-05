@@ -68,12 +68,14 @@
     <Compile Include="Common\Logging\TraceLogListener.cs" />
     <Compile Include="Common\Reflection\MemberInfoExtensions.cs" />
     <Compile Include="Common\Reflection\TypeExtensions.cs" />
+    <Compile Include="Common\Registry\ExternalJsonPathConverter.cs" />
     <Compile Include="Common\Registry\FlowScriptLibrary.cs" />
     <Compile Include="Common\Registry\FlowScriptLibraryConstant.cs" />
     <Compile Include="Common\Registry\FlowScriptLibraryEnum.cs" />
     <Compile Include="Common\Registry\FlowScriptLibraryEnumMember.cs" />
     <Compile Include="Common\Registry\FlowScriptLibraryFunction.cs" />
     <Compile Include="Common\Registry\FlowScriptLibraryFunctionParameter.cs" />
+    <Compile Include="Common\Registry\HexIntStringJsonConverter.cs" />
     <Compile Include="Common\Registry\LibraryRegistry.cs" />
     <Compile Include="Common\Registry\MessageScriptLibrary.cs" />
     <Compile Include="Common\Registry\MessageScriptLibraryFunction.cs" />
@@ -98,6 +100,7 @@
     <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptEvaluatedScope.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\FlowScriptSyntaxNode.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\FlowScriptSourceInfo.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\FlowScriptSyntaxNodeCollector.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\FlowScriptSyntaxVisitor.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Declarations\FlowScriptEnumDeclaration.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Declarations\FlowScriptEnumValueDeclaration.cs" />
@@ -234,7 +237,7 @@
     <Compile Include="MessageScriptLanguage\BinaryModel\IO\RelocationTableEncoding.cs" />
     <Compile Include="Common\Text\Tokenizing\SourceInfo.cs" />
     <Compile Include="Common\Text\Tokenizing\Tokenizer.cs" />
-    <Compile Include="Common\Registry\LibraryRegistryManager.cs" />
+    <Compile Include="Common\Registry\LibraryRegistryCache.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScript.g4" />
@@ -272,6 +275,33 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Library\Registry\Persona5\MessageScriptLibrary.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Library\Registry\Persona5\Libraries\AI\Enums.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Library\Registry\DigitalDevilSaga.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Library\Registry\DigitalDevilSaga\FlowScriptLibraries.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Library\Registry\DigitalDevilSaga\Libraries\Common\Functions.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Library\Registry\DigitalDevilSaga\MessageScriptLibrary.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Library\Registry\Nocturne.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Library\Registry\Nocturne\Libraries\Common\Functions.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Library\Registry\Nocturne\FlowScriptLibraries.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Library\Registry\Nocturne\MessageScriptLibrary.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptLexer.g4" />

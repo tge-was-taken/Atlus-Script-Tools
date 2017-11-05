@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using AtlusScriptLib.Common.Registry;
+using AtlusScriptLib.FlowScriptLanguage.Decompiler;
 
 namespace AtlusScriptLib.FlowScriptLanguage.Syntax
 {
@@ -37,6 +39,16 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
             }
 
             return builder.ToString();
+        }
+
+        public static FlowScriptVariableDeclaration FromLibraryConstant( FlowScriptLibraryConstant libraryConstant )
+        {
+            var modifier = new FlowScriptVariableModifier( FlowScriptModifierType.Constant );
+            var type = new FlowScriptTypeIdentifier( FlowScriptKeywordConverter.KeywordToValueType[ libraryConstant.Type ] );
+            var identifier = new FlowScriptIdentifier( type.ValueType, libraryConstant.Name );
+            var initializer = FlowScriptExpression.FromText( libraryConstant.Value );
+
+            return new FlowScriptVariableDeclaration( modifier, type, identifier, initializer );
         }
     }
 }

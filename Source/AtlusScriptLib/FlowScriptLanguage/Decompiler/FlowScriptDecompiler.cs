@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -30,10 +31,14 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
         private bool mKeepLabelsAndGotos = false;
         private bool mConvertIfStatementsToGotos = false;
 
+        /// <summary>
+        /// Gets or sets the library registry.
+        /// </summary>
         public LibraryRegistry LibraryRegistry { get; set; }
 
         /// <summary>
         /// Gets or sets whether the embedded MessageScript (if it exists) should be decompiled as well.
+        /// True by default.
         /// </summary>
         public bool DecompileMessageScript { get; set; } = true;
 
@@ -71,7 +76,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
         public bool TryDecompile( FlowScript flowScript, string filepath )
         {
-            mFilePath = filepath;
+            mFilePath = Path.GetFullPath( filepath );
 
             if ( MessageScriptFilePath == null )
                 MessageScriptFilePath = Path.ChangeExtension( mFilePath, "msg" );
@@ -89,6 +94,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             {
                 var messageScriptDecompiler = new MessageScriptDecompiler();
                 messageScriptDecompiler.TextOutputProvider = new FileTextOutputProvider( MessageScriptFilePath );
+                messageScriptDecompiler.LibraryRegistry = LibraryRegistry;
                 messageScriptDecompiler.Decompile( flowScript.MessageScript );
                 messageScriptDecompiler.Dispose();
             }
@@ -147,11 +153,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
             if ( mEvaluatedScript.FlowScript.MessageScript != null && DecompileMessageScript )
             {
-                mCompilationUnit.Imports.Add( new FlowScriptImport( MessageScriptFilePath ) );
+                var importPath = MessageScriptFilePath.Replace( Path.GetDirectoryName(mFilePath), "" ).TrimStart('\\');
+                mCompilationUnit.Imports.Add( new FlowScriptImport( importPath ) );
             }
 
             // Build function declarations and add them to AST
-            BuildFunctionDeclarationSyntaxNodes();
+            //BuildFunctionDeclarationSyntaxNodes();
 
             // Build script-local variable declarations and add them to AST
             BuildScriptLocalVariableDeclarationSyntaxNodes();
@@ -252,6 +259,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                 ApplyMessageScriptConstants();
             }
 
+            InsertFunctionCallEnumParameterValues();
+
             // Insert label declarations, they'll be used to build if statements
             InsertLabelDeclarations();
 
@@ -289,7 +298,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
         {
             foreach ( var evaluatedStatement in mEvaluatedStatements )
             {
-                var calls = UtilityVisitor.GetCalls( evaluatedStatement.Statement );
+                var calls = FlowScriptSyntaxNodeCollector<FlowScriptCallOperator>.Collect( evaluatedStatement.Statement );
                 if ( calls.Any() )
                 {
                     foreach ( var call in calls )
@@ -303,6 +312,50 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                                     mEvaluatedScript.FlowScript.MessageScript.Windows[windowIndexLiteral.Value].Identifier );
                             }                      
                         }
+                    }
+                }
+            }
+        }
+
+        private void InsertFunctionCallEnumParameterValues()
+        {
+            foreach ( var evaluatedStatement in mEvaluatedStatements )
+            {
+                var calls = FlowScriptSyntaxNodeCollector<FlowScriptCallOperator>.Collect( evaluatedStatement.Statement );
+                foreach ( var call in calls )
+                {
+                    var libraryFunction = LibraryRegistry.FlowScriptLibraries
+                                                         .SelectMany( x => x.Functions )
+                                                         .SingleOrDefault( x => x.Name == call.Identifier.Text );
+
+                    if ( libraryFunction == null )
+                        continue;
+
+                    for ( var i = 0; i < libraryFunction.Parameters.Count; i++ )
+                    {
+                        var parameter = libraryFunction.Parameters[i];
+                        var argument = call.Arguments[i];
+
+                        if ( !( argument is FlowScriptIntLiteral argumentValue ) )
+                            continue;
+
+                        var libraryEnum = LibraryRegistry.FlowScriptLibraries
+                                                         .Where( x => x.Enums != null )
+                                                         .SelectMany( x => x.Enums )
+                                                         .SingleOrDefault( x => x.Name == parameter.Type );
+
+                        if ( libraryEnum == null )
+                            continue;
+
+                        var libraryEnumMember = libraryEnum.Members.SingleOrDefault( x => x.Value == argumentValue.Value.ToString() );
+                        if ( libraryEnumMember == null )
+                            continue;
+
+                        call.Arguments[i] = new FlowScriptMemberAccessExpression()
+                        {
+                            Operand = new FlowScriptTypeIdentifier( libraryEnum.Name ),
+                            Member = new FlowScriptIdentifier( libraryEnumMember.Name )
+                        };
                     }
                 }
             }
@@ -342,11 +395,9 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
                 if ( insertionIndex == -1 )
                 {
-                    insertionIndex = lowestIndexAfter;
-
-                    int difference1 = label.InstructionIndex - highestIndexBefore;
-                    int difference2 = lowestIndexAfter - label.InstructionIndex;
-                    if ( difference1 < difference2 )
+                    int differenceBefore = label.InstructionIndex - highestIndexBefore;
+                    int differenceAfter = lowestIndexAfter - label.InstructionIndex;
+                    if ( differenceBefore < differenceAfter )
                     {
                         insertionIndex = mEvaluatedStatements.FindIndex( x => x.InstructionIndex == highestIndexBefore ) + 1;
                     }
@@ -555,7 +606,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                     foreach ( var ifStatement in ifStatements )
                     {
                         // Check condition
-                        var conditionIdentifiers = UtilityVisitor.GetIdentifiers( ( ( FlowScriptIfStatement ) ifStatement.Statement ).Condition );
+                        var conditionIdentifiers = FlowScriptSyntaxNodeCollector<FlowScriptIdentifier>.Collect( ( ( FlowScriptIfStatement ) ifStatement.Statement ).Condition );
                         if ( conditionIdentifiers.Any( x => x.Text == referencedLocalVariableIdentifier.Key ) )
                         {
                             // Really Good Code
@@ -565,7 +616,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
                         // Check if any of instructions in the if body map to any of the instruction indices of the references
                         var body = mIfStatementBodyMap[ ifStatement.InstructionIndex ];
-                        var bodyIdentifiers = body.SelectMany( x => UtilityVisitor.GetIdentifiers( x.Statement ) );
+                        var bodyIdentifiers = body.SelectMany( x => FlowScriptSyntaxNodeCollector<FlowScriptIdentifier>.Collect( x.Statement ) );
                         if ( bodyIdentifiers.Any( x => x.Text == referencedLocalVariableIdentifier.Key) )
                         {
                             if ( !accessedInIfStatementOnce )
@@ -585,7 +636,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         if ( mIfStatementElseBodyMap.TryGetValue( ifStatement.InstructionIndex, out var elseBody ) )
                         {
                             // Check if any of instructions in the if else body map to any of the instruction indices of the references
-                            var elseBodyIdentifiers = body.SelectMany( x => UtilityVisitor.GetIdentifiers( x.Statement ) );
+                            var elseBodyIdentifiers = body.SelectMany( x => FlowScriptSyntaxNodeCollector<FlowScriptIdentifier>.Collect( x.Statement ) );
                             if ( elseBodyIdentifiers.Any( x => x.Text == referencedLocalVariableIdentifier.Key ) )
                             {
                                 if ( !accessedInIfStatementOnce )
@@ -853,46 +904,6 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             if ( Debugger.IsAttached )
             {
                 Debugger.Break();
-            }
-        }
-
-        private class UtilityVisitor : FlowScriptSyntaxVisitor
-        {
-            private readonly List<FlowScriptIdentifier> mIdentifiers;
-            private readonly List<FlowScriptCallOperator> mCalls;
-
-            private UtilityVisitor()
-            {
-                mIdentifiers = new List< FlowScriptIdentifier >();
-                mCalls = new List< FlowScriptCallOperator >();
-            }
-
-            public static List<FlowScriptIdentifier> GetIdentifiers( FlowScriptSyntaxNode node )
-            {
-                var visitor = new UtilityVisitor();
-                visitor.Visit( node );
-                return visitor.mIdentifiers;
-            }
-
-            public static List< FlowScriptCallOperator > GetCalls( FlowScriptSyntaxNode node )
-            {
-                var visitor = new UtilityVisitor();
-                visitor.Visit( node );
-                return visitor.mCalls;
-            }
-
-            public override void Visit( FlowScriptIdentifier identifier )
-            {
-                mIdentifiers.Add( identifier );
-
-                base.Visit( identifier );
-            }
-
-            public override void Visit( FlowScriptCallOperator callOperator )
-            {
-                mCalls.Add( callOperator );
-
-                base.Visit( callOperator );
             }
         }
     }

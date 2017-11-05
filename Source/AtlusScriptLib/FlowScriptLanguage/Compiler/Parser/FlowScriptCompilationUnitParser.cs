@@ -709,7 +709,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
         //
         // Expressions
         //
-        private bool TryParseExpression( FlowScriptParser.ExpressionContext context, out FlowScriptExpression expression )
+        internal bool TryParseExpression( FlowScriptParser.ExpressionContext context, out FlowScriptExpression expression )
         {
             LogContextInfo( context );
 

@@ -10,7 +10,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
         {
         }
 
-        public FlowScriptTypeIdentifier( FlowScriptValueType valueType ) : base( FlowScriptValueType.Type, valueType.ToString() )
+        public FlowScriptTypeIdentifier( FlowScriptValueType valueType ) : base( FlowScriptValueType.Type, FlowScriptKeywordConverter.ValueTypeToKeyword[valueType] )
         {
             ValueType = valueType;
         }

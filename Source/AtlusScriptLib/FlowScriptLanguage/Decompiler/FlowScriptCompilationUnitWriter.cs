@@ -527,7 +527,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
             public override void Visit( FlowScriptTypeIdentifier typeIdentifier )
             {
-                Write( FlowScriptKeywordConverter.ValueTypeToKeyword[typeIdentifier.ValueType] );
+                Write( typeIdentifier.Text );
             }
 
             // Literals
@@ -705,7 +705,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                     for ( int i = 0; i < parameters.Count; i++ )
                     {
                         var parameter = parameters[i];
-                        Write( FlowScriptKeywordConverter.ValueTypeToKeyword[parameter.Type.ValueType] );
+                        Write( parameter.Type.Text );
                         Write( " " );
                         Write( parameter.Identifier.Text );
                         if ( i != parameters.Count - 1 )

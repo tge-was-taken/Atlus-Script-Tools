@@ -24,7 +24,7 @@
     "Index": "0x2002",
     "ReturnType": "int",
     "Name": "AI_TAR_RND",
-    "Description": "",
+    "Description": "Select a random target.",
     "Parameters": [
     ]
   },
@@ -32,11 +32,11 @@
     "Index": "0x2003",
     "ReturnType": "void",
     "Name": "AI_ACT_SKILL",
-    "Description": "",
+    "Description": "Select a skill to use.",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleSkill",
+        "Name": "skill",
         "Description": ""
       }
     ]
@@ -82,7 +82,7 @@
   },
   {
     "Index": "0x2007",
-    "ReturnType": "int",
+    "ReturnType": "bool",
     "Name": "AI_CHK_MYHP",
     "Description": "",
     "Parameters": [
@@ -251,26 +251,26 @@
   },
   {
     "Index": "0x2014",
-    "ReturnType": "int",
+    "ReturnType": "bool",
     "Name": "AI_CHK_FRID",
     "Description": "",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleUnit",
+        "Name": "unit",
         "Description": ""
       }
     ]
   },
   {
     "Index": "0x2015",
-    "ReturnType": "int",
+    "ReturnType": "bool",
     "Name": "AI_CHK_ENID",
     "Description": "",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleUnit",
+        "Name": "unit",
         "Description": ""
       }
     ]
@@ -654,7 +654,7 @@
   },
   {
     "Index": "0x2033",
-    "ReturnType": "int",
+    "ReturnType": "bool",
     "Name": "AI_CHK_MORE",
     "Description": "",
     "Parameters": [
@@ -766,19 +766,19 @@
   },
   {
     "Index": "0x203c",
-    "ReturnType": "int",
+    "ReturnType": "bool",
     "Name": "AI_CHK_FRIDHP",
-    "Description": "",
+    "Description": "Returns if friendly HP is less than the specified percent",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Type": "BattleUnit",
+        "Name": "unit",
+        "Description": "ID of friendly unit"
       },
       {
         "Type": "int",
-        "Name": "param2",
-        "Description": ""
+        "Name": "percentage",
+        "Description": "Percentage of health"
       }
     ]
   },
@@ -820,18 +820,18 @@
   },
   {
     "Index": "0x203f",
-    "ReturnType": "int",
+    "ReturnType": "bool",
     "Name": "AI_CHK_FRIDBAD",
-    "Description": "",
+    "Description": "Returns if friendly is suffering from specified status effect",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleUnit",
+        "Name": "unitId",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "statusFlags",
         "Description": ""
       }
     ]
@@ -1018,18 +1018,18 @@
   },
   {
     "Index": "0x204a",
-    "ReturnType": "int",
+    "ReturnType": "bool",
     "Name": "AI_CHK_ENIDHP",
     "Description": "",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleUnit",
+        "Name": "unit",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "hp",
         "Description": ""
       }
     ]
@@ -1072,18 +1072,18 @@
   },
   {
     "Index": "0x204d",
-    "ReturnType": "int",
+    "ReturnType": "bool",
     "Name": "AI_CHK_ENIDBAD",
     "Description": "",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleUnit",
+        "Name": "unit",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "affinityFlags",
         "Description": ""
       }
     ]
@@ -1185,13 +1185,13 @@
     "Description": "",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleUnit",
+        "Name": "unitId",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "affinityFlags",
         "Description": ""
       }
     ]
@@ -1275,8 +1275,8 @@
     "Description": "",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleUnit",
+        "Name": "unitId",
         "Description": ""
       }
     ]
@@ -1533,8 +1533,8 @@
     "Description": "",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleUnit",
+        "Name": "unit",
         "Description": ""
       }
     ]
@@ -3918,8 +3918,8 @@
     "Description": "",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleUnit",
+        "Name": "unitId",
         "Description": ""
       }
     ]
@@ -3944,8 +3944,8 @@
     "Description": "",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleUnit",
+        "Name": "unit",
         "Description": ""
       },
       {
@@ -4370,8 +4370,8 @@
     "Description": "",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleUnit",
+        "Name": "unitId",
         "Description": ""
       }
     ]

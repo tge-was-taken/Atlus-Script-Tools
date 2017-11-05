@@ -8,6 +8,15 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
         {         
         }
 
+        public FlowScriptEnumValueDeclaration( FlowScriptIdentifier identifier ) : base( FlowScriptDeclarationType.EnumLabel, identifier )
+        {
+        }
+
+        public FlowScriptEnumValueDeclaration( FlowScriptIdentifier identifier, FlowScriptExpression value ) : base( FlowScriptDeclarationType.EnumLabel, identifier )
+        {
+            Value = value;
+        }
+
         public override string ToString()
         {
             return $"{Identifier} = {Value}";

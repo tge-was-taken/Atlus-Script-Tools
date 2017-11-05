@@ -66,35 +66,35 @@ namespace AtlusScriptCompiler
             Console.WriteLine( "        -InFormat               <format>            Specifies the input file source format. By default this is guessed by the file extension." );
             Console.WriteLine( "        -Out                    <path to file>      Provides an output file path to the compiler. If no output source is explicitly specified, " );
             Console.WriteLine( "                                                    the file will be output in the same folder as the source file under a different extension depending on the format used." );
-            Console.WriteLine( "        -Format                 <format>            Specifies the binary output file format. See below for further info." );
+            Console.WriteLine( "        -OutFormat              <format>            Specifies the binary output file format. See below for further info." );
             Console.WriteLine( "        -Compile                                    Instructs the compiler to compile the provided input file source." );
             Console.WriteLine( "        -Decompile                                  Instructs the compiler to decompile the provided input file source." );
             Console.WriteLine( "        -Disassemble                                Instructs the compiler to disassemble the provided input file source." );
             Console.WriteLine( "        -Library                <name>              Specifies the name of the library that should be used." );
             Console.WriteLine();
             Console.WriteLine( "    MessageScript:" );
-            Console.WriteLine( "        -mEncoding              <format>            Specifies the MessageScript binary output text encoding. See below for further info." );
+            Console.WriteLine( "        -Encoding               <format>            Specifies the MessageScript binary output text encoding. See below for further info." );
             Console.WriteLine();
             Console.WriteLine( "    FlowScript:" );
-            Console.WriteLine( "        -fTraceProcedure                            Enables procedure tracing. Only applies to compiler." );
-            Console.WriteLine( "        -fTraceProcedureCalls                       Enables procedure call tracing. Only applies to compiler." );
-            Console.WriteLine( "        -fTraceFunctionCalls                        Enables function call tracing. Only applies to compiler." );
-            Console.WriteLine( "        -fStackCookie                               Enables stack cookie. Used for debugging stack corruptions." );
+            Console.WriteLine( "        -TraceProcedure                            Enables procedure tracing. Only applies to compiler." );
+            Console.WriteLine( "        -TraceProcedureCalls                       Enables procedure call tracing. Only applies to compiler." );
+            Console.WriteLine( "        -TraceFunctionCalls                        Enables function call tracing. Only applies to compiler." );
+            Console.WriteLine( "        -StackCookie                               Enables stack cookie. Used for debugging stack corruptions." );
             Console.WriteLine( "" );
             Console.WriteLine( "Parameter detailed info:" );
             Console.WriteLine( "    MessageScript:" );
-            Console.WriteLine( "        -Format" );
-            Console.WriteLine( "            v1              Used by Persona 3, 4, 5 PS4" );
-            Console.WriteLine( "            v1be            Used by Persona 5 PS3" );
+            Console.WriteLine( "        -OutFormat" );
+            Console.WriteLine( "            V1              Used by Persona 3, 4, 5 PS4" );
+            Console.WriteLine( "            V1BE            Used by Persona 5 PS3" );
             Console.WriteLine();
-            Console.WriteLine( "        -mEncoding" );
+            Console.WriteLine( "        -Encoding" );
             Console.WriteLine( "            Below is a list of different available encodings." );
             Console.WriteLine( "            Note that ASCII characters don't really differ from the standard, so this mostly applies to special characters and japanese characters." );
             Console.WriteLine();
-            Console.WriteLine( "            sj                  Shift-Jis encoding (CP932). Used by Persona Q" );
-            Console.WriteLine( "            p3                  Persona 3's custom encoding" );
-            Console.WriteLine( "            p4                  Persona 4's custom encoding" );
-            Console.WriteLine( "            p5                  Persona 5's custom encoding" );
+            Console.WriteLine( "            SJ                  Shift-Jis encoding (CP932). Used by Persona Q" );
+            Console.WriteLine( "            P3                  Persona 3's custom encoding" );
+            Console.WriteLine( "            P4                  Persona 4's custom encoding" );
+            Console.WriteLine( "            P5                  Persona 5's custom encoding" );
             Console.WriteLine();
             Console.WriteLine( "        -Library" );
             Console.WriteLine( "            For MessageScripts the library definition registry is used for the compiler and decompiler to emit the proper [f] tags for each aliased function." );
@@ -103,17 +103,16 @@ namespace AtlusScriptCompiler
             Console.WriteLine( "            Library registries can be found in the Library\\Registry directory" );
             Console.WriteLine();
             Console.WriteLine( "    FlowScript:" );
-            Console.WriteLine( "        -Format" );
-            Console.WriteLine( "            v1              Used by Persona 3 and 4" );
-            Console.WriteLine( "            v1be            " );
-            Console.WriteLine( "            v2              Used by Persona 4 Dancing All Night" );
-            Console.WriteLine( "            v2be            " );
-            Console.WriteLine( "            v3              Used by Persona 5 PS4" );
-            Console.WriteLine( "            v3be            Used by Persona 5 PS3" );
+            Console.WriteLine( "        -OutFormat" );
+            Console.WriteLine( "            V1              Used by Persona 3 and 4" );
+            Console.WriteLine( "            V1BE            " );
+            Console.WriteLine( "            V2              Used by Persona 4 Dancing All Night" );
+            Console.WriteLine( "            V2BE            " );
+            Console.WriteLine( "            V3              Used by Persona 5 PS4" );
+            Console.WriteLine( "            V3BE            Used by Persona 5 PS3" );
             Console.WriteLine();
             Console.WriteLine( "        -Library" );
-            Console.WriteLine( "            For FlowScripts the library definition registry is used for the decompiler to decompile binary scripts, but it is also used to generate header files and documentation." );
-            Console.WriteLine( "            These header files are the same header files included for the standard library of each game." );
+            Console.WriteLine( "            For FlowScripts the library definition registry is used for the decompiler to decompile binary scripts, but it is also used to generate documentation." );
             Console.WriteLine( "            Without a specified registry you cannot decompile scripts." );
             Console.WriteLine( "            Library registries can be found in the Library\\Registry directory" );
             Console.ReadKey();
@@ -212,10 +211,10 @@ namespace AtlusScriptCompiler
                         OutputFilePath = args[++i];
                         break;
 
-                    case "-Format":
+                    case "-OutFormat":
                         if ( isLast )
                         {
-                            Logger.Error( "Missing argument for -Format parameter" );
+                            Logger.Error( "Missing argument for -OutFormat parameter" );
                             return false;
                         }
 
@@ -280,10 +279,10 @@ namespace AtlusScriptCompiler
                         break;
 
                     // MessageScript
-                    case "-mEncoding":
+                    case "-Encoding":
                         if ( isLast )
                         {
-                            Logger.Error( "Missing argument for -mEncoding parameter" );
+                            Logger.Error( "Missing argument for -Encoding parameter" );
                             return false;
                         }
 
@@ -296,19 +295,19 @@ namespace AtlusScriptCompiler
                         Logger.Info( $"Using {MessageScriptTextEncoding} encoding" );
                         break;
 
-                    case "-fTraceProcedure":
+                    case "-TraceProcedure":
                         FlowScriptEnableProcedureTracing = true;
                         break;
 
-                    case "-fTraceProcedureCalls":
+                    case "-TraceProcedureCalls":
                         FlowScriptEnableProcedureCallTracing = true;
                         break;
 
-                    case "-fTraceFunctionCalls":
+                    case "-TraceFunctionCalls":
                         FlowScriptEnableFunctionCallTracing = true;
                         break;
 
-                    case "-fStackCookie":
+                    case "-StackCookie":
                         FlowScriptEnableStackCookie = true;
                         break;
                 }
@@ -463,7 +462,9 @@ namespace AtlusScriptCompiler
             compiler.EnableStackCookie = FlowScriptEnableStackCookie;
             if ( LibraryName != null )
             {
-                if ( !LibraryRegistryManager.LibraryRegistriesByShortName.TryGetValue( LibraryName, out var library ) )
+                var library = LibraryRegistryCache.GetLibraryRegistry( LibraryName );
+
+                if ( library == null )
                 {
                     Logger.Error( "Invalid library name specified" );
                     return false;
@@ -514,7 +515,9 @@ namespace AtlusScriptCompiler
 
             if ( LibraryName != null )
             {
-                if ( !LibraryRegistryManager.LibraryRegistriesByShortName.TryGetValue( LibraryName, out var library ) )
+                var library = LibraryRegistryCache.GetLibraryRegistry( LibraryName );
+
+                if ( library == null )
                 {
                     Logger.Error( "Invalid library name specified" );
                     return false;
@@ -576,7 +579,9 @@ namespace AtlusScriptCompiler
 
             if ( LibraryName != null )
             {
-                if ( !LibraryRegistryManager.LibraryRegistriesByShortName.TryGetValue( LibraryName, out var library ) )
+                var library = LibraryRegistryCache.GetLibraryRegistry( LibraryName );
+
+                if ( library == null )
                 {
                     Logger.Error( "Invalid library name specified" );
                     return false;
@@ -614,7 +619,9 @@ namespace AtlusScriptCompiler
 
                     if ( LibraryName != null )
                     {
-                        if ( !LibraryRegistryManager.LibraryRegistriesByShortName.TryGetValue( LibraryName, out var library ) )
+                        var library = LibraryRegistryCache.GetLibraryRegistry( LibraryName );
+
+                        if ( library == null )
                         {
                             Logger.Error( "Invalid library name specified" );
                         }
@@ -765,34 +772,5 @@ namespace AtlusScriptCompiler
         P3,
         P4,
         P5
-    }
-
-    public class Argument
-    {
-        public string Key { get; }
-
-        public string Description { get; }
-
-        public List<ArgumentParameter> Parameters { get; }
-
-        public Argument( string key, string description, params ArgumentParameter[] parameters)
-        {
-            Key = key;
-            Description = description;
-            Parameters = parameters.ToList();
-        }
-    }
-
-    public class ArgumentParameter
-    {
-        public string Name { get; }
-
-        public Action<string> AssignmentAction { get; }
-
-        public ArgumentParameter( string name, Action<string> assignment)
-        {
-            Name = name;
-            AssignmentAction = assignment;
-        }
     }
 }

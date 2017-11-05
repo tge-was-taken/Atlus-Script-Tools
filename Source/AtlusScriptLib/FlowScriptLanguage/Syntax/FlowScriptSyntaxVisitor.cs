@@ -8,6 +8,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
 {
     public class FlowScriptSyntaxVisitor
     {
+
         public virtual void Visit( FlowScriptCompilationUnit compilationUnit )
         {
             foreach ( var import in compilationUnit.Imports )

@@ -1,0 +1,10 @@
+﻿[
+  {
+    "Name": "Common library",
+    "ShortName": "Common",
+    "Description": "Non-domain specific commonly used functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "",
+    "FunctionsPath": "Nocturne\\Libraries\\Common\\Functions.json"
+  }
+]

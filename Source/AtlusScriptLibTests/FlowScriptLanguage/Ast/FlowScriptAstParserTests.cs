@@ -27,8 +27,6 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
         [TestMethod]
         public void TryParseTest()
         {
-            var test = LibraryRegistryManager.LibraryRegistries[ 0 ];
-
             // FLD_GET_SCRIPT_TIMING returns a value ranging from 0 to 4 indicating the loading phase
             // without [f 2 1] the text doesn't scroll
             // options without any text won't be displayed
@@ -40,9 +38,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
             string flowScriptSource =
                 "void Main()" +
                 "{" +
-                "   fo ( int i = 0; i < 10; i++ )" +
-                "   {" +
-                "   }" +
+                "   CALL_FIELD( 0, 100, 0, 0 );" +
                 "}";
 
             FlowScript flowScript;
@@ -53,11 +49,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
             flowScriptCompiler.EnableProcedureCallTracing = true;
             flowScriptCompiler.EnableFunctionCallTracing = true;
             flowScriptCompiler.EnableStackCookie = false;
-            flowScriptCompiler.LibraryRegistry = LibraryRegistryManager.LibraryRegistriesByShortName[ "p5" ];
+            flowScriptCompiler.LibraryRegistry = LibraryRegistryCache.GetLibraryRegistry( "p5" );
 
             var flowScriptDecompiler = new FlowScriptDecompiler();
             flowScriptDecompiler.AddListener( listener );
-            flowScriptDecompiler.LibraryRegistry = LibraryRegistryManager.LibraryRegistriesByShortName[ "p5" ];
+            flowScriptDecompiler.LibraryRegistry = LibraryRegistryCache.GetLibraryRegistry( "p5" );
 
             var flowScriptDiassembler = new FlowScriptBinaryDisassembler( $@"test.flow.asm" );
 
@@ -70,13 +66,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
 
 
             //Assert.IsTrue( flowScriptCompiler.TryCompile( File.Open(@"..\..\..\Source\AtlusScriptCompiler\Resources\TestScript2.flow", FileMode.Open ), out flowScript ) );
-            //Assert.IsTrue( flowScriptCompiler.TryCompile( flowScriptSource, out flowScript ) );
+            Assert.IsTrue( flowScriptCompiler.TryCompile( flowScriptSource, out flowScript ) );
             //Assert.IsTrue( flowScriptCompiler.TryCompile( File.Open( @"D:\Users\smart\Documents\Visual Studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptCompiler\Resources\Tests.flow", FileMode.Open ), out flowScript ) );
-            Assert.IsTrue( flowScriptCompiler.TryCompile( File.Open( @"D:\Modding\Persona 5 EU\Game mods\TestLevel\mod\field\field.flow", FileMode.Open ), out flowScript ) );
+            //Assert.IsTrue( flowScriptCompiler.TryCompile( File.Open( @"D:\Modding\Persona 5 EU\Game mods\TestLevel\mod\field\field.flow", FileMode.Open ), out flowScript ) );
 
             flowScriptDiassembler.Disassemble( flowScript.ToBinary() );
             flowScriptDiassembler.Dispose();
-
 
 
             /*
@@ -89,7 +84,6 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
             //Assert.IsTrue( flowScriptDecompiler.TryDecompile( flowScript, "output.flow" ) );          
             //Assert.IsTrue( flowScriptCompiler.TryCompile( File.OpenRead( "output.flow" ), out flowScript ) );
 
-            /*
             const int fieldMajorId = 000;
             const int fieldMinorId = 002;
             //const int fieldMinorId = 100;
@@ -98,18 +92,14 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
             archive.Entries.Add( new PakToolArchiveEntry( $"init/fini_{fieldMajorId:D3}_{fieldMinorId:D3}.bf", ( MemoryStream )flowScript.ToStream() ) );
             archive.Save( $@"D:\Modding\Persona 5 EU\Game mods\TestLevel\mod\field\f{fieldMajorId:D3}_{fieldMinorId:D3}.pac" );
 
-            var flowScriptBinary = flowScript.ToBinary();
-            var flowScriptDiassembler = new FlowScriptBinaryDisassembler( $@"D:\Modding\Persona 5 EU\Game mods\TestLevel\mod\field\f{fieldMajorId:D3}_{fieldMinorId:D3}.flowasm" );
-            flowScriptDiassembler.Disassemble( flowScriptBinary );
-            flowScriptDiassembler.Dispose();
-            */
 
+            /*
             var archive = new PakToolArchiveFile( @"D:\Modding\Persona 5 EU\Game mods\TestLevel\mod\field\fldPack.pac" );
             var entry = archive.Entries.Single( x => x.Name == "etc/field.bf" );
             entry.Data = ( ( MemoryStream ) flowScript.ToStream() ).ToArray();
 
             archive.Save( @"D:\Modding\Persona 5 EU\Game mods\TestLevel\mod\field\fldPack.pac" );
-
+            */
             Process.Start( @"D:\Modding\Persona 5 EU\Game mods\TestLevel\make_cpk_rpcs3.bat" );
             //OutputBothDisassemblies( @"D:\Modding\Persona 5 EU\Main game\Extracted\data\event\e800\e800\e800_021.bf", false );
 
@@ -133,7 +123,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax.Tests
 
             var flowScriptDecompiler = new FlowScriptDecompiler();
             flowScriptDecompiler.AddListener( new DebugLogListener() );
-            flowScriptDecompiler.LibraryRegistry = LibraryRegistryManager.LibraryRegistriesByShortName[ "p5" ];
+            flowScriptDecompiler.LibraryRegistry = LibraryRegistryCache.GetLibraryRegistry( "p5" );
             Assert.IsTrue( flowScriptDecompiler.TryDecompile( flowScript, out var compilationUnit ) );
 
             var flowScriptCompilationUnitWriter = new FlowScriptCompilationUnitWriter();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AtlusScriptLib.Common.Registry;
 using AtlusScriptLib.Common.Text.OutputProviders;
 
@@ -141,22 +142,29 @@ namespace AtlusScriptLib.MessageScriptLanguage.Decompiler
         {
             if ( LibraryRegistry != null )
             {
-                var function = LibraryRegistry.MessageScriptLibraries[ token.FunctionTableIndex ].Functions[ token.FunctionIndex ];
-                if ( function.Name == "@Unused" && OmitUnusedFunctions )
-                    return;
-
-                if ( !string.IsNullOrWhiteSpace( function.Name) )
+                var library = LibraryRegistry.MessageScriptLibraries.FirstOrDefault( x => x.Index == token.FunctionTableIndex );
+                if ( library != null )
                 {
-                    WriteOpenTag( function.Name );
-
-                    for ( var i = 0; i < function.Parameters.Count; i++ )
+                    var function = library.Functions.FirstOrDefault( x => x.Index == token.FunctionIndex );
+                    if ( function != null )
                     {
-                        var argument = function.Parameters[i];
-                        WriteTagArgument( token.Arguments[i].ToString() );
-                    }
+                        if ( function.Name == "@Unused" && OmitUnusedFunctions )
+                            return;
 
-                    WriteCloseTag();
-                    return;
+                        if ( !string.IsNullOrWhiteSpace( function.Name ) )
+                        {
+                            WriteOpenTag( function.Name );
+
+                            for ( var i = 0; i < function.Parameters.Count; i++ )
+                            {
+                                var argument = function.Parameters[i];
+                                WriteTagArgument( token.Arguments[i].ToString() );
+                            }
+
+                            WriteCloseTag();
+                            return;
+                        }
+                    }
                 }
             }
 

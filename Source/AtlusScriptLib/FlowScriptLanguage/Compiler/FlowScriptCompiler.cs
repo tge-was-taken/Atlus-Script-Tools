@@ -156,7 +156,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             // Add hash for current file
             var hashAlgo = new MD5CryptoServiceProvider();
             var hashBytes = hashAlgo.ComputeHash( stream );
-            int hashInt = unchecked(BitConverter.ToInt32( hashBytes, 0 ));
+            int hashInt = BitConverter.ToInt32( hashBytes, 0 );
             mImportedFileHashSet.Add( hashInt );
             stream.Position = 0;
 
@@ -597,7 +597,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                             short intParameterCount = ( short )procedureDeclaration.Parameters.Count( x => sTypeToBaseTypeMap[x.Type.ValueType] == FlowScriptValueType.Int );
                             short floatParameterCount = ( short )procedureDeclaration.Parameters.Count( x => sTypeToBaseTypeMap[x.Type.ValueType] == FlowScriptValueType.Float );
                             maxIntParameterCount = Math.Max( intParameterCount, maxIntParameterCount );
-                            maxFloatParameterCount = System.Math.Max( floatParameterCount, maxFloatParameterCount );
+                            maxFloatParameterCount = Math.Max( floatParameterCount, maxFloatParameterCount );
                         }
                         break;
 
@@ -624,6 +624,32 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                             }
                         }
                         break;
+                }
+            }
+
+            // Add stuff from registry
+            if ( LibraryRegistry != null )
+            {
+                // Functions
+                foreach ( var libraryFunction in LibraryRegistry.FlowScriptLibraries.SelectMany( x => x.Functions ) )
+                {
+                    Scope.TryDeclareFunction( FlowScriptFunctionDeclaration.FromLibraryFunction( libraryFunction ) );
+                }
+
+                // Enums
+                foreach ( var libraryEnum in LibraryRegistry.FlowScriptLibraries
+                                                            .Where( x => x.Enums != null )
+                                                            .SelectMany( x => x.Enums ) )
+                {
+                    Scope.TryDeclareEnum( FlowScriptEnumDeclaration.FromLibraryEnum( libraryEnum ) );
+                }
+
+                // Constants
+                foreach ( var libraryConstant in LibraryRegistry.FlowScriptLibraries
+                                                            .Where( x => x.Constants != null )
+                                                            .SelectMany( x => x.Constants ) )
+                {
+                    Scope.TryDeclareVariable( FlowScriptVariableDeclaration.FromLibraryConstant( libraryConstant ) );
                 }
             }
 

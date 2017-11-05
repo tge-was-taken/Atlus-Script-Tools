@@ -20,7 +20,7 @@
     "ShortName": "AI",
     "Description": "AI related functions.",
     "ConstantsPath": "",
-    "EnumsPath": "",
+    "EnumsPath": "Persona5\\Libraries\\AI\\Enums.json",
     "FunctionsPath": "Persona5\\Libraries\\AI\\Functions.json"
   },
   {

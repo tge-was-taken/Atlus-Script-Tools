@@ -367,21 +367,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                     return false;
                 }
 
-                var functionParameters = new List< FlowScriptParameter >();
-                foreach ( var libraryFunctionParameter in function.Parameters )
-                {
-                    functionParameters.Add( new FlowScriptParameter(
-                                                new FlowScriptTypeIdentifier( libraryFunctionParameter.Type ),
-                                                new FlowScriptIdentifier( libraryFunctionParameter.Name ) ) );
-                }
-
-                var functionDeclaration = new FlowScriptFunctionDeclaration(
-                    new FlowScriptIntLiteral( function.Index ),
-                    new FlowScriptTypeIdentifier( function.ReturnType ),
-                    new FlowScriptIdentifier( function.Name ),
-                    functionParameters );
-
-                mFunctions[index] = functionDeclaration;
+                mFunctions[index] = FlowScriptFunctionDeclaration.FromLibraryFunction( function );
             }
 
             return true;

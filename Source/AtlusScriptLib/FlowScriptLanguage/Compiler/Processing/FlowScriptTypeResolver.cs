@@ -225,7 +225,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
             return true;
         }
 
-        private bool TryResolveTypesInExpression( FlowScriptExpression expression )
+        internal bool TryResolveTypesInExpression( FlowScriptExpression expression )
         {
             LogInfo( expression, $"Resolving expression {expression}" );
 
