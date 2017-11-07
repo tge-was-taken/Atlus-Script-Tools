@@ -582,6 +582,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
         private bool TryEvaluateProcedure( FlowScriptProcedure procedure, out FlowScriptEvaluatedProcedure evaluatedProcedure )
         {
+            LogInfo( $"Evaluating procedure: {procedure.Name}" );
+
             // Initialize
             InitializeProcedureEvaluationState( procedure );
 

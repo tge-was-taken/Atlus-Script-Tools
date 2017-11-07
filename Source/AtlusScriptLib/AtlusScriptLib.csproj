@@ -304,6 +304,12 @@
     <Content Include="Library\Registry\Nocturne\MessageScriptLibrary.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Library\Registry\Nocturne\Libraries\Common\Enums.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Library\Registry\DigitalDevilSaga\Libraries\Common\Enums.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptLexer.g4" />
     <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptLexer.tokens" />
     <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptParser.g4" />

@@ -214,6 +214,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
         private bool TryDecompileProcedure( FlowScriptEvaluatedProcedure evaluatedProcedure, out FlowScriptProcedureDeclaration declaration )
         {
+            LogInfo( $"Decompiling procedure: {evaluatedProcedure.Procedure.Name}" );
             InitializeProcedureDecompilationState( evaluatedProcedure );
 
             if ( !TryCompositeEvaluatedInstructions( evaluatedProcedure.Statements, out var statements ))
@@ -555,7 +556,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
             int firstIndex = evaluatedStatements.First().InstructionIndex;
             int lastIndex = evaluatedStatements.Last().InstructionIndex;
-            LogInfo( $"Coagulating variable declarations and assignments: { firstIndex } - { lastIndex }" );
+            //LogInfo( $"Coagulating variable declarations and assignments: { firstIndex } - { lastIndex }" );
 
             // Declared variables in the current scope
             var declaredVariables = new HashSet<string>();

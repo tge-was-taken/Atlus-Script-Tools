@@ -2,10 +2,9 @@
   {
     "Index": "0x0000",
     "ReturnType": "int",
-    "Name": "FUNCTION_0000",
+    "Name": "MSG",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -16,19 +15,17 @@
   {
     "Index": "0x0001",
     "ReturnType": "int",
-    "Name": "FUNCTION_0001",
+    "Name": "MSG_WND_DSP",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
     "Index": "0x0002",
     "ReturnType": "int",
-    "Name": "FUNCTION_0002",
+    "Name": "MSG_WND_CLS",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -36,8 +33,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0003",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -50,8 +46,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0004",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -59,8 +54,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0005",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -68,8 +62,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0006",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -82,8 +75,7 @@
     "ReturnType": "bool",
     "Name": "BIT_CHK",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -96,8 +88,7 @@
     "ReturnType": "int",
     "Name": "BIT_ON",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -110,8 +101,7 @@
     "ReturnType": "int",
     "Name": "BIT_OFF",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -124,8 +114,7 @@
     "ReturnType": "int",
     "Name": "RND",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -138,8 +127,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_000B",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -152,8 +140,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_000C",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -166,8 +153,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_000D",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -175,8 +161,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_000E",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -189,8 +174,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_000F",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -208,8 +192,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0010",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -227,8 +210,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0011",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -276,8 +258,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0012",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -290,8 +271,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0013",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -309,8 +289,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0014",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -333,8 +312,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0015",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -352,8 +330,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0016",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -366,8 +343,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0017",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -400,8 +376,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0018",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -429,8 +404,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0019",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -443,8 +417,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_001A",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -467,8 +440,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_001B",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -496,8 +468,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_001C",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -510,8 +481,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_001D",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -519,8 +489,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_001E",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -533,8 +502,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_001F",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -547,8 +515,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0020",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -556,8 +523,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0021",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -575,8 +541,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0022",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -589,8 +554,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0023",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -598,8 +562,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0024",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -612,8 +575,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0025",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -621,8 +583,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0026",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -630,8 +591,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0027",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -639,8 +599,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0028",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -658,8 +617,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0029",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -667,8 +625,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_002A",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -681,8 +638,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_002B",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -695,8 +651,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_002C",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -709,8 +664,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_002D",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -723,8 +677,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_002E",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -732,8 +685,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_002F",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -762,8 +714,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0032",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -773,8 +724,8 @@
     "Description": "",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleSkill",
+        "Name": "skill",
         "Description": ""
       }
     ]
@@ -792,8 +743,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0035",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -801,8 +751,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0036",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -815,8 +764,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0037",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -829,8 +777,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0038",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -843,8 +790,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0039",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -857,8 +803,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_003A",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -871,8 +816,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_003B",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -885,8 +829,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_003C",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -902,8 +845,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_003E",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -911,8 +853,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_003F",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -920,8 +861,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0040",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -934,8 +874,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0041",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -948,8 +887,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0042",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -962,8 +900,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0043",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -971,8 +908,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0044",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -990,8 +926,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0045",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -999,8 +934,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0046",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -1008,8 +942,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0047",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1032,8 +965,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0048",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1051,8 +983,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0049",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1065,8 +996,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_004A",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1084,8 +1014,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_004B",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1103,8 +1032,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_004C",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1122,8 +1050,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_004D",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1141,8 +1068,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_004E",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -1150,8 +1076,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_004F",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -1159,8 +1084,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0050",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1173,8 +1097,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0051",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -1182,8 +1105,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0052",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -1191,8 +1113,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0053",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1205,8 +1126,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0054",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1219,8 +1139,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0055",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1233,8 +1152,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0056",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1257,8 +1175,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0057",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1281,8 +1198,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0058",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1300,8 +1216,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0059",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1319,8 +1234,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_005A",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -1328,8 +1242,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_005B",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -1337,8 +1250,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_005C",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -1346,8 +1258,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_005D",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1370,8 +1281,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_005E",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1384,8 +1294,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_005F",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1398,8 +1307,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0060",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -1407,8 +1315,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0061",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -1416,8 +1323,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0062",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -1425,8 +1331,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0063",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -1434,8 +1339,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0064",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -1443,8 +1347,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0065",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1457,8 +1360,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0066",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1471,8 +1373,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0067",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1485,8 +1386,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0068",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -1494,8 +1394,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0069",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1508,8 +1407,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_006A",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1522,8 +1420,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_006B",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1546,8 +1443,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_006C",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1560,8 +1456,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_006D",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1574,8 +1469,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_006E",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -1583,8 +1477,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_006F",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -1592,8 +1485,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0070",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1611,8 +1503,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0071",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1635,8 +1526,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0072",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1649,8 +1539,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0073",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1683,8 +1572,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0074",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1707,8 +1595,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0075",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -1716,8 +1603,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0076",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1730,8 +1616,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0077",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1759,8 +1644,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0078",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1788,8 +1672,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0079",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1817,8 +1700,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_007A",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1859,8 +1741,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_007C",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1873,17 +1754,15 @@
     "ReturnType": "int",
     "Name": "FUNCTION_007D",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
     "Index": "0x007e",
     "ReturnType": "int",
-    "Name": "FUNCTION_007E",
+    "Name": "AI_CHK_TURN",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1896,8 +1775,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_007F",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1910,8 +1788,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0080",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1924,8 +1801,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0081",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1938,8 +1814,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0082",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1952,8 +1827,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0083",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1966,8 +1840,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0084",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1980,8 +1853,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0085",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -1992,10 +1864,9 @@
   {
     "Index": "0x0086",
     "ReturnType": "int",
-    "Name": "FUNCTION_0086",
+    "Name": "AI_CHK_ENHOJO",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2006,10 +1877,9 @@
   {
     "Index": "0x0087",
     "ReturnType": "int",
-    "Name": "FUNCTION_0087",
+    "Name": "AI_CHK_FRHOJO",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2022,8 +1892,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0088",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -2031,8 +1900,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0089",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2045,8 +1913,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_008A",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2059,8 +1926,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_008B",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2103,8 +1969,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_008C",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -2112,8 +1977,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_008D",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2126,8 +1990,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_008E",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2145,8 +2008,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_008F",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2164,8 +2026,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0090",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2183,8 +2044,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0091",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -2192,8 +2052,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0092",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -2201,8 +2060,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0093",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2215,8 +2073,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0094",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2229,8 +2086,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0095",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2268,8 +2124,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0096",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2292,8 +2147,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0097",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2316,8 +2170,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0098",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2335,8 +2188,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0099",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -2344,8 +2196,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_009A",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2358,8 +2209,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_009B",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2372,8 +2222,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_009C",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2401,8 +2250,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_009D",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2420,8 +2268,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_009E",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2434,8 +2281,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_009F",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2448,8 +2294,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00A0",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2467,8 +2312,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00A1",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2491,8 +2335,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00A2",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2505,8 +2348,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00A3",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2519,8 +2361,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00A4",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -2528,8 +2369,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00A5",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2547,8 +2387,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00A6",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2561,8 +2400,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00A7",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2575,8 +2413,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00A8",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2589,8 +2426,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00A9",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2603,8 +2439,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00AA",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2622,8 +2457,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00AB",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2641,8 +2475,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00AC",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -2650,8 +2483,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00AD",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2669,8 +2501,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00AE",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2683,8 +2514,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00AF",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2732,8 +2562,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00B0",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2766,8 +2595,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00B1",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2780,8 +2608,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00B2",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2814,8 +2641,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00B3",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2838,8 +2664,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00B4",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2867,8 +2692,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00B5",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2896,8 +2720,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00B6",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2925,8 +2748,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00B7",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2939,8 +2761,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00B8",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2953,8 +2774,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00B9",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2972,8 +2792,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00BA",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -2991,8 +2810,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00BB",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3020,8 +2838,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00BC",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3054,8 +2871,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00BD",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3078,8 +2894,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00BE",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3097,8 +2912,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00BF",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -3106,8 +2920,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00C0",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -3115,8 +2928,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00C1",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3129,8 +2941,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00C2",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3148,8 +2959,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00C3",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3162,8 +2972,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00C4",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3186,8 +2995,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00C5",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3205,8 +3013,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00C6",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3224,8 +3031,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00C7",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3238,8 +3044,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00C8",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3252,8 +3057,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00C9",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3271,8 +3075,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00CA",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3290,8 +3093,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00CB",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3309,8 +3111,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00CC",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3328,8 +3129,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00CD",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3342,8 +3142,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00CE",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3361,8 +3160,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00CF",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3390,8 +3188,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00D0",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3409,8 +3206,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00D1",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3428,8 +3224,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00D2",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3442,8 +3237,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00D3",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3456,8 +3250,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00D4",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3475,8 +3268,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00D5",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3489,8 +3281,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00D6",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3508,8 +3299,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00D7",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3532,8 +3322,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00D8",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3566,8 +3355,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00D9",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3585,8 +3373,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00DA",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3619,8 +3406,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00DB",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3633,8 +3419,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00DC",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3647,8 +3432,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00DD",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3661,8 +3445,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00DE",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3675,8 +3458,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00DF",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3689,8 +3471,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00E0",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -3698,24 +3479,22 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00E1",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
     "Index": "0x00e2",
     "ReturnType": "int",
-    "Name": "FUNCTION_00E2",
+    "Name": "AI_ACT_SKILL_PARAM",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
-        "Type": "int",
+        "Type": "BattleSkill",
         "Name": "param1",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "BattleUnit",
         "Name": "param2",
         "Description": ""
       }
@@ -3726,8 +3505,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00E3",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3740,8 +3518,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00E4",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -3749,8 +3526,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00E5",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -3758,8 +3534,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00E6",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -3767,8 +3542,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00E7",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3781,8 +3555,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00E8",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3795,8 +3568,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00E9",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3809,8 +3581,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00EA",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3833,8 +3604,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00EB",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3862,8 +3632,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00EC",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3886,8 +3655,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00ED",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3900,8 +3668,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00EE",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3914,8 +3681,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00EF",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3958,8 +3724,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00F0",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -3987,8 +3752,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00F1",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4011,8 +3775,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00F2",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4025,8 +3788,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00F3",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4039,8 +3801,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00F4",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4083,8 +3844,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00F5",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -4092,8 +3852,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00F6",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -4101,8 +3860,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00F7",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4115,8 +3873,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00F8",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4129,8 +3886,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00F9",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4143,8 +3899,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00FA",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -4152,8 +3907,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00FB",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -4161,8 +3915,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00FC",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -4170,8 +3923,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00FD",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -4179,8 +3931,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00FE",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -4188,8 +3939,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00FF",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -4197,8 +3947,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0100",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4216,8 +3965,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0101",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4235,8 +3983,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0102",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4264,8 +4011,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0103",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4293,8 +4039,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0104",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4322,8 +4067,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0105",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4351,8 +4095,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0106",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4380,8 +4123,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0107",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4404,8 +4146,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0108",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4428,8 +4169,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0109",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4452,8 +4192,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_010A",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4476,8 +4215,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_010B",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4500,8 +4238,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_010C",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4524,8 +4261,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_010D",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4553,8 +4289,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_010E",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4577,8 +4312,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_010F",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4601,8 +4335,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0110",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4630,8 +4363,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0111",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4654,8 +4386,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0112",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4678,8 +4409,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0113",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4692,8 +4422,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0114",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4706,8 +4435,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0115",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -4715,8 +4443,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0116",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -4724,8 +4451,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0117",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4743,8 +4469,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0118",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -4752,8 +4477,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0119",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4766,8 +4490,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_011A",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4780,8 +4503,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_011B",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4794,8 +4516,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_011C",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -4803,8 +4524,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_011D",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4817,8 +4537,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_011E",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4831,8 +4550,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_011F",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -4840,8 +4558,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0120",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -4849,8 +4566,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0121",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -4858,8 +4574,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0122",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -4867,8 +4582,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0123",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4881,8 +4595,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0124",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4895,8 +4608,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0125",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -4904,8 +4616,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0126",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -4913,8 +4624,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0127",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4927,8 +4637,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0128",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4941,8 +4650,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0129",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4965,8 +4673,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_012A",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -4994,8 +4701,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_012B",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5013,8 +4719,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_012C",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5027,8 +4732,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_012D",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5041,8 +4745,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_012E",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5070,8 +4773,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_012F",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5084,8 +4786,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0130",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5098,8 +4799,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0131",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5112,8 +4812,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0132",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5126,8 +4825,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0133",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5155,8 +4853,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0134",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5179,8 +4876,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0135",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5193,8 +4889,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0136",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5207,8 +4902,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0137",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5221,8 +4915,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0138",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5240,8 +4933,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0139",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5254,8 +4946,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_013A",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5268,8 +4959,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_013B",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5282,8 +4972,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_013C",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5301,8 +4990,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_013D",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5310,8 +4998,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_013E",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5319,8 +5006,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_013F",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5328,8 +5014,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0140",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5337,8 +5022,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0141",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5346,8 +5030,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0142",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5360,8 +5043,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0143",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5374,8 +5056,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0144",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5418,8 +5099,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0145",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5447,8 +5127,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0146",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5471,8 +5150,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0147",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5485,8 +5163,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0148",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5504,8 +5181,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0149",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5513,8 +5189,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_014A",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5527,8 +5202,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_014B",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5538,11 +5212,10 @@
   },
   {
     "Index": "0x014c",
-    "ReturnType": "int",
+    "ReturnType": "bool",
     "Name": "FUNCTION_014C",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5550,8 +5223,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_014D",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5559,8 +5231,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_014E",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5568,8 +5239,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_014F",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5577,8 +5247,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0150",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5586,8 +5255,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0151",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5595,8 +5263,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0152",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5604,8 +5271,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0153",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5613,8 +5279,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0154",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5622,8 +5287,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0155",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5631,8 +5295,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0156",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5640,8 +5303,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0157",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5649,8 +5311,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0158",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5658,8 +5319,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0159",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5667,8 +5327,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_015A",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5676,8 +5335,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_015B",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5685,8 +5343,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_015C",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5699,8 +5356,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_015D",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5708,8 +5364,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_015E",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5717,8 +5372,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_015F",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5741,8 +5395,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0160",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5760,8 +5413,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0161",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5769,8 +5421,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0162",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5778,8 +5429,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0163",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5787,8 +5437,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0164",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5796,8 +5445,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0165",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5820,8 +5468,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0166",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5834,8 +5481,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0167",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5858,8 +5504,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0168",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5882,8 +5527,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0169",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5891,8 +5535,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_016A",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5905,8 +5548,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_016B",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5914,8 +5556,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_016C",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5928,8 +5569,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_016D",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5937,8 +5577,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_016E",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5946,8 +5585,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_016F",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5960,8 +5598,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0170",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -5974,8 +5611,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0171",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5983,8 +5619,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0172",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -5992,8 +5627,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0173",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6001,8 +5635,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0174",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6010,8 +5643,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0175",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6019,8 +5651,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0176",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6028,8 +5659,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0177",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6037,8 +5667,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0178",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6046,8 +5675,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0179",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6055,8 +5683,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_017A",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -6069,8 +5696,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_017B",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6078,8 +5704,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_017C",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6087,8 +5712,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_017D",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -6101,8 +5725,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_017E",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -6120,8 +5743,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_017F",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6129,8 +5751,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0180",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6138,8 +5759,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0181",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6147,8 +5767,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0182",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6156,8 +5775,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0183",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6165,8 +5783,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0184",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6174,8 +5791,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0185",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -6198,8 +5814,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0186",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6207,8 +5822,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0187",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6216,8 +5830,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0188",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6225,8 +5838,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0189",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6234,8 +5846,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_018A",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6243,8 +5854,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_018B",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6252,8 +5862,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_018C",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6261,8 +5870,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_018D",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6270,8 +5878,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_018E",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6279,8 +5886,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_018F",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -6293,8 +5899,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0190",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -6307,8 +5912,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0191",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -6321,8 +5925,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0192",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -6340,8 +5943,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0193",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -6359,8 +5961,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0194",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -6373,8 +5974,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0195",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6382,8 +5982,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0196",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6391,8 +5990,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0197",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -6415,8 +6013,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0198",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -6434,8 +6031,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0199",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6443,8 +6039,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_019A",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -6457,8 +6052,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_019B",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -6471,8 +6065,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_019C",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -6485,8 +6078,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_019D",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -6512,8 +6104,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_019F",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -6526,8 +6117,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01A0",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6535,8 +6125,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01A1",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -6564,8 +6153,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01A2",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6573,8 +6161,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01A3",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6582,8 +6169,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01A4",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6591,8 +6177,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01A5",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6600,8 +6185,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01A6",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6609,8 +6193,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01A7",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -6623,8 +6206,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01A8",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -6637,8 +6219,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01A9",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -6651,8 +6232,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01AA",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -6665,8 +6245,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01AB",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -6679,8 +6258,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01AC",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -6693,8 +6271,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01AD",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -6707,8 +6284,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01AE",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6716,8 +6292,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01AF",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6725,8 +6300,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01B0",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6734,8 +6308,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01B1",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6743,8 +6316,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01B2",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -6767,8 +6339,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01B3",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6776,8 +6347,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01B4",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -6800,8 +6370,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01B5",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6809,8 +6378,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01B6",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6818,8 +6386,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01B7",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6827,8 +6394,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01B8",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -6841,8 +6407,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01B9",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -6855,8 +6420,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01BA",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -6869,8 +6433,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01BB",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -6883,8 +6446,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01BC",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6892,8 +6454,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01BD",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6901,8 +6462,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01BE",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6910,8 +6470,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01BF",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6919,8 +6478,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01C0",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6928,8 +6486,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01C1",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6937,8 +6494,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01C2",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6946,8 +6502,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01C3",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6955,8 +6510,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01C4",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6964,8 +6518,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01C5",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -6973,8 +6526,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01C6",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -6987,8 +6539,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01C7",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7001,8 +6552,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01C8",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7015,8 +6565,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01C9",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7029,8 +6578,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01CA",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7043,8 +6591,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01CB",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7052,8 +6599,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01CC",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7066,8 +6612,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01CD",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7075,8 +6620,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01CE",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7089,8 +6633,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01CF",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7098,8 +6641,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01D0",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7107,8 +6649,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01D1",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7116,8 +6657,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01D2",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7130,8 +6670,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01D3",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7144,8 +6683,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01D4",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7153,8 +6691,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01D5",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7197,8 +6734,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01D6",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7241,8 +6777,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01D7",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7260,8 +6795,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01D8",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7269,8 +6803,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01D9",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7278,8 +6811,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01DA",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7287,8 +6819,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01DB",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7296,8 +6827,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01DC",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7305,8 +6835,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01DD",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7314,8 +6843,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01DE",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7323,8 +6851,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01DF",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7332,8 +6859,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01E0",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7351,8 +6877,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01E1",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7365,8 +6890,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01E2",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7384,8 +6908,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01E3",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7398,8 +6921,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01E4",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7407,8 +6929,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01E5",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7431,8 +6952,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01E6",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7440,8 +6960,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01E7",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7449,8 +6968,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01E8",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7458,8 +6976,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01E9",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7467,8 +6984,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01EA",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7476,8 +6992,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01EB",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7485,8 +7000,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01EC",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7494,8 +7008,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01ED",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7503,8 +7016,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01EE",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7512,8 +7024,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01EF",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7521,8 +7032,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01F0",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7540,8 +7050,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01F1",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7554,8 +7063,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01F2",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7563,8 +7071,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01F3",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7582,8 +7089,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01F4",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7601,8 +7107,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01F5",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7615,8 +7120,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01F6",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7649,8 +7153,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01F7",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7663,8 +7166,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01F8",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7672,8 +7174,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01F9",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7681,8 +7182,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01FA",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7695,8 +7195,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01FB",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7709,8 +7208,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01FC",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7718,8 +7216,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01FD",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7727,8 +7224,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01FE",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7736,8 +7232,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01FF",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7750,8 +7245,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0200",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7764,8 +7258,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0201",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7778,8 +7271,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0202",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7787,8 +7279,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0203",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7796,8 +7287,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0204",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7805,8 +7295,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0205",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7824,8 +7313,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0206",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7843,8 +7331,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0207",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7852,8 +7339,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0208",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7866,8 +7352,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0209",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7885,8 +7370,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_020A",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7894,8 +7378,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_020B",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7903,8 +7386,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_020C",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7917,8 +7399,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_020D",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7926,8 +7407,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_020E",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7935,8 +7415,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_020F",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7949,8 +7428,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0210",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7963,8 +7441,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0211",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -7985,8 +7462,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0213",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -7994,8 +7470,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0214",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -8008,8 +7483,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0215",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -8022,8 +7496,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0216",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -8031,8 +7504,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0217",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -8045,8 +7517,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0218",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -8054,8 +7525,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0219",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -8063,8 +7533,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_021A",
     "Description": "Null pointer",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   },
   {
@@ -8072,8 +7541,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_021B",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -8086,8 +7554,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_021C",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -8100,8 +7567,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_021D",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -8114,8 +7580,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_021E",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
@@ -8128,8 +7593,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_021F",
     "Description": "",
-    "Parameters":
-    [
+    "Parameters": [
     ]
   }
 ]

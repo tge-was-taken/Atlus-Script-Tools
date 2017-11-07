@@ -4,7 +4,7 @@
     "ShortName": "Common",
     "Description": "Non-domain specific commonly used functions.",
     "ConstantsPath": "",
-    "EnumsPath": "",
+    "EnumsPath": "DigitalDevilSaga\\Libraries\\Common\\Enums.json",
     "FunctionsPath": "DigitalDevilSaga\\Libraries\\Common\\Functions.json"
   }
 ]

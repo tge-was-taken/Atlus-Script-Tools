@@ -4,7 +4,7 @@
     "ShortName": "Common",
     "Description": "Non-domain specific commonly used functions.",
     "ConstantsPath": "",
-    "EnumsPath": "",
+    "EnumsPath": "Nocturne\\Libraries\\Common\\Enums.json",
     "FunctionsPath": "Nocturne\\Libraries\\Common\\Functions.json"
   }
 ]

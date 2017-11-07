@@ -396,8 +396,10 @@ namespace AtlusMessageScriptExtractor
         {
             Writer.WriteLine( name );
 
-            foreach ( var window in script.Windows )
+            for ( var i = 0; i < script.Windows.Count; i++ )
             {
+                var window = script.Windows[ i ];
+                Writer.WriteLine( $"Id: {i}" );
                 WriteWindow( window );
             }
 

@@ -62,6 +62,9 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         // tracing
         private int mStackValueCount; // for debugging
+        private int mPUTFunctionIndex = -1;
+        private int mPUTSFunctionIndex = -1;
+        private int mPUTFFunctionIndex = -1;
 
         private ScopeContext Scope => mScopeStack.Peek();
 
@@ -243,6 +246,24 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             // Evaluate declarations, return values, parameters etc
             if ( !TryEvaluateCompilationUnitBeforeCompilation( compilationUnit ) )
                 return false;
+
+            // Set up tracing functions
+            if ( Scope.TryGetFunction( "PUT", out var putFunction ) )
+            {
+                mPUTFunctionIndex = putFunction.Index;
+            }
+
+            // Set up tracing functions
+            if ( Scope.TryGetFunction( "PUTS", out var putsFunction ) )
+            {
+                mPUTSFunctionIndex = putsFunction.Index;
+            }
+
+            // Set up tracing functions
+            if ( Scope.TryGetFunction( "PUTF", out var putfFunction ) )
+            {
+                mPUTFFunctionIndex = putfFunction.Index;
+            }
 
             // Compile compilation unit body
             foreach ( var statement in compilationUnit.Declarations )
@@ -479,6 +500,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             var hashAlgo = new MD5CryptoServiceProvider();
             var hashBytes = hashAlgo.ComputeHash( flowScriptFileStream );
             int flowScriptSourceHash = BitConverter.ToInt32( hashBytes, 0 );
+            flowScriptFileStream.Position = 0;
 
             if ( !mImportedFileHashSet.Contains( flowScriptSourceHash ) )
             {
@@ -2302,13 +2324,16 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     switch ( parameter.Type.ValueType )
                     {
                         case FlowScriptValueType.Int:
-                            saves.Push( EmitTracePrintIntegerNoPush() );
+                            if ( mPUTFunctionIndex != -1 )
+                                saves.Push( EmitTracePrintIntegerNoPush() );
                             break;
                         case FlowScriptValueType.Float:
-                            saves.Push( EmitTracePrintFloatNoPush() );
+                            if ( mPUTFFunctionIndex != -1 )
+                                saves.Push( EmitTracePrintFloatNoPush() );
                             break;
                         case FlowScriptValueType.Bool:
-                            saves.Push( EmitTracePrintBoolNoPush() );
+                            if ( mPUTSFunctionIndex != -1 )
+                                saves.Push( EmitTracePrintBoolNoPush() );
                             break;
                         case FlowScriptValueType.String:
                             //saves.Push( EmitTracePrintStringNoPush() );
@@ -2323,11 +2348,16 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     switch ( variable.Declaration.Type.ValueType )
                     {
                         case FlowScriptValueType.Bool:
+                            if ( mPUTSFunctionIndex != -1 )
+                                EmitUnchecked( FlowScriptInstruction.PUSHLIX( variable.Index ) );
+                            break;
                         case FlowScriptValueType.Int:
-                            EmitUnchecked( FlowScriptInstruction.PUSHLIX( variable.Index ) );
+                            if ( mPUTFunctionIndex != -1 )
+                                EmitUnchecked( FlowScriptInstruction.PUSHLIX( variable.Index ) );
                             break;
                         case FlowScriptValueType.Float:
-                            EmitUnchecked( FlowScriptInstruction.PUSHLFX( variable.Index ) );
+                            if ( mPUTFFunctionIndex != -1 )
+                                EmitUnchecked( FlowScriptInstruction.PUSHLFX( variable.Index ) );
                             break;
                     }
                 }
@@ -2343,7 +2373,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
             // Print it to log
             EmitUnchecked( FlowScriptInstruction.PUSHLFX( save.Index ) );
-            EmitUnchecked( FlowScriptInstruction.COMM( 3 ) );
+            EmitUnchecked( FlowScriptInstruction.COMM( (short)mPUTSFunctionIndex ) );
 
             return save;
         }
@@ -2367,23 +2397,32 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
                 foreach ( var parameter in declaration.Parameters )
                 {
-                    if ( sTypeToBaseTypeMap[parameter.Type.ValueType] == FlowScriptValueType.Int )
+                    if ( parameter.Type.ValueType == FlowScriptValueType.Int && mPUTFunctionIndex != -1 )
                     {
                         Emit( FlowScriptInstruction.PUSHLIX( ( short )( mNextIntParameterVariableIndex + intParameterCount ) ) );
                     }
-                    else
+                    if ( parameter.Type.ValueType == FlowScriptValueType.Bool && mPUTSFunctionIndex != -1 )
+                    {
+                        Emit( FlowScriptInstruction.PUSHLIX( ( short )( mNextIntParameterVariableIndex + intParameterCount ) ) );
+                    }
+                    else if ( mPUTFFunctionIndex != -1 )
                     {
                         Emit( FlowScriptInstruction.PUSHLFX( ( short )( mNextFloatParameterVariableIndex + floatParameterCount ) ) );
                     }
 
                     EmitTracePrintValue( parameter.Type.ValueType );
 
-                    if ( sTypeToBaseTypeMap[parameter.Type.ValueType] == FlowScriptValueType.Int )
+                    if ( parameter.Type.ValueType == FlowScriptValueType.Int && mPUTFunctionIndex != -1 )
                     {
                         Emit( FlowScriptInstruction.POPLIX( ( short )( mNextIntParameterVariableIndex + intParameterCount ) ) );
                         ++intParameterCount;
                     }
-                    else
+                    else if ( parameter.Type.ValueType == FlowScriptValueType.Bool && mPUTSFunctionIndex != -1 )
+                    {
+                        Emit( FlowScriptInstruction.POPLIX( ( short )( mNextIntParameterVariableIndex + intParameterCount ) ) );
+                        ++intParameterCount;
+                    }
+                    else if( mPUTFFunctionIndex != -1 )
                     {
                         Emit( FlowScriptInstruction.POPLFX( ( short )( mNextFloatParameterVariableIndex + floatParameterCount ) ) );
                         ++floatParameterCount;
@@ -2515,12 +2554,15 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private void EmitTracePrint( string message, bool prefixTrace = true )
         {
+            if ( mPUTSFunctionIndex == -1 )
+                return;
+
             var messageFormatted = message;
             if ( prefixTrace )
                 messageFormatted = $"Trace: {message}";
 
             EmitUnchecked( FlowScriptInstruction.PUSHSTR( messageFormatted ) );
-            EmitUnchecked( FlowScriptInstruction.COMM( 3 ) );
+            EmitUnchecked( FlowScriptInstruction.COMM( (short)mPUTSFunctionIndex ) );
         }
 
         private void EmitTracePrintValue( FlowScriptValueType type )
@@ -2541,6 +2583,9 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private void EmitTracePrintInteger()
         {
+            if ( mPUTFunctionIndex == -1 )
+                return;
+
             var save = EmitTracePrintIntegerNoPush();
 
             // Push the value back to the stack
@@ -2549,6 +2594,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private Variable EmitTracePrintIntegerNoPush()
         {
+            Trace.Assert( mPUTFunctionIndex != -1 );
             var save = Scope.GenerateVariable( FlowScriptValueType.Int, mNextIntVariableIndex++ );
 
             // Pop integer value off stack and save it in a temporary variable
@@ -2556,13 +2602,16 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
             // Print it to log
             EmitUnchecked( FlowScriptInstruction.PUSHLIX( save.Index ) );
-            EmitUnchecked( FlowScriptInstruction.COMM( 2 ) );
+            EmitUnchecked( FlowScriptInstruction.COMM( (short)mPUTFunctionIndex ) );
 
             return save;
         }
 
         private void EmitTracePrintFloat()
         {
+            if ( mPUTFFunctionIndex == -1 )
+                return;
+
             var save = EmitTracePrintFloatNoPush();
 
             // Push the value back to the stack
@@ -2571,6 +2620,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private Variable EmitTracePrintFloatNoPush()
         {
+            Trace.Assert( mPUTFFunctionIndex != -1 );
             var save = Scope.GenerateVariable( FlowScriptValueType.Float, mNextFloatVariableIndex++ );
 
             // Pop integer value off stack and save it in a temporary variable
@@ -2578,13 +2628,16 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
             // Print it to log
             EmitUnchecked( FlowScriptInstruction.PUSHLFX( save.Index ) );
-            EmitUnchecked( FlowScriptInstruction.COMM( 4 ) );
+            EmitUnchecked( FlowScriptInstruction.COMM( (short)mPUTFFunctionIndex ) );
 
             return save;
         }
 
         private void EmitTracePrintBool()
         {
+            if ( mPUTSFunctionIndex == -1 )
+                return;
+
             var save = EmitTracePrintBoolNoPush();
 
             // Push the value back to the stack
@@ -2593,6 +2646,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private Variable EmitTracePrintBoolNoPush()
         {
+            Trace.Assert( mPUTSFunctionIndex != -1 );
+
             var save = Scope.GenerateVariable( FlowScriptValueType.Int, mNextIntVariableIndex++ );
 
             // Pop integer value off stack and save it in a temporary variable
@@ -2958,9 +3013,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     new FlowScriptIdentifier( type, $"<>__CompilerGenerated{type}Variable{index}" ),
                     null );
 
-                Debug.Assert( TryDeclareVariable( declaration, index ) );
+                bool result;
+                result = TryDeclareVariable( declaration, index );
+                Debug.Assert( result );
 
-                var result = TryGetVariable( declaration.Identifier.Text, out var variable );
+                result = TryGetVariable( declaration.Identifier.Text, out var variable );
                 Debug.Assert( result );
 
                 return variable;

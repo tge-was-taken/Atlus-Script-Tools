@@ -2,12 +2,12 @@
   {
     "Index": "0x0000",
     "ReturnType": "int",
-    "Name": "FUNCTION_0000",
+    "Name": "MSG",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "messageId",
         "Description": ""
       }
     ]
@@ -15,7 +15,7 @@
   {
     "Index": "0x0001",
     "ReturnType": "int",
-    "Name": "FUNCTION_0001",
+    "Name": "MSG_WND_DSP",
     "Description": "",
     "Parameters": [
     ]
@@ -23,7 +23,7 @@
   {
     "Index": "0x0002",
     "ReturnType": "int",
-    "Name": "FUNCTION_0002",
+    "Name": "MSG_WND_CLS",
     "Description": "",
     "Parameters": [
     ]
@@ -709,7 +709,7 @@
   {
     "Index": "0x0031",
     "ReturnType": "int",
-    "Name": "FUNCTION_0031",
+    "Name": "AI_ACT_ESCAPE",
     "Description": "",
     "Parameters": [
     ]
@@ -729,8 +729,8 @@
     "Description": "",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleSkill",
+        "Name": "skill",
         "Description": ""
       }
     ]
@@ -746,7 +746,7 @@
   {
     "Index": "0x0035",
     "ReturnType": "int",
-    "Name": "FUNCTION_0035",
+    "Name": "AI_TARGET_MINE",
     "Description": "",
     "Parameters": [
     ]
@@ -825,7 +825,7 @@
   {
     "Index": "0x003d",
     "ReturnType": "int",
-    "Name": "FUNCTION_003D",
+    "Name": "AI_ACT_WAIT",
     "Description": "",
     "Parameters": [
     ]
@@ -1715,8 +1715,8 @@
   },
   {
     "Index": "0x007b",
-    "ReturnType": "int",
-    "Name": "FUNCTION_007B",
+    "ReturnType": "bool",
+    "Name": "AI_CHK_MYHP",
     "Description": "",
     "Parameters": [
       {
@@ -1754,8 +1754,8 @@
   },
   {
     "Index": "0x007e",
-    "ReturnType": "int",
-    "Name": "FUNCTION_007E",
+    "ReturnType": "bool",
+    "Name": "AI_CHK_TURN",
     "Description": "",
     "Parameters": [
       {
@@ -1858,26 +1858,26 @@
   },
   {
     "Index": "0x0086",
-    "ReturnType": "int",
-    "Name": "FUNCTION_0086",
-    "Description": "",
+    "ReturnType": "bool",
+    "Name": "AI_CHK_ENHOJO",
+    "Description": "Returns if enemy has the specified support skill active",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "supportSkillId",
         "Description": ""
       }
     ]
   },
   {
     "Index": "0x0087",
-    "ReturnType": "int",
-    "Name": "FUNCTION_0087",
-    "Description": "",
+    "ReturnType": "bool",
+    "Name": "AI_CHK_FRHOJO",
+    "Description": "Returns if an ally has the specified support skill active",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "supportSkillId",
         "Description": ""
       }
     ]
@@ -3485,16 +3485,16 @@
   {
     "Index": "0x00e2",
     "ReturnType": "int",
-    "Name": "FUNCTION_00E2",
+    "Name": "AI_ACT_SKILL_PARAM",
     "Description": "",
     "Parameters": [
       {
-        "Type": "int",
+        "Type": "BattleSkill",
         "Name": "param1",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "BattleUnit",
         "Name": "param2",
         "Description": ""
       }
@@ -5242,7 +5242,7 @@
   },
   {
     "Index": "0x014c",
-    "ReturnType": "int",
+    "ReturnType": "bool",
     "Name": "FUNCTION_014C",
     "Description": "",
     "Parameters": [
@@ -5393,8 +5393,8 @@
   {
     "Index": "0x015b",
     "ReturnType": "int",
-    "Name": "FUNCTION_015B",
-    "Description": "",
+    "Name": "AI_TAR_AI",
+    "Description": "Targets unit that isn't the main character",
     "Parameters": [
     ]
   },
