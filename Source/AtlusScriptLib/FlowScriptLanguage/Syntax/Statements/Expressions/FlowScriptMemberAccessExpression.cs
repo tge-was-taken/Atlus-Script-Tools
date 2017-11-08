@@ -17,5 +17,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
         public FlowScriptMemberAccessExpression() : base( FlowScriptValueType.Unresolved )
         {
         }
+
+        public override string ToString()
+        {
+            return $"{Operand}.{Member}";
+        }
     }
 }

@@ -269,7 +269,7 @@
   {
     "Index": "0x0013",
     "ReturnType": "int",
-    "Name": "FUNCTION_0013",
+    "Name": "CAM_PATH_MOVE",
     "Description": "",
     "Parameters": [
       {
@@ -526,7 +526,7 @@
   {
     "Index": "0x0021",
     "ReturnType": "int",
-    "Name": "FUNCTION_0021",
+    "Name": "PMV_LOAD",
     "Description": "",
     "Parameters": [
       {
@@ -544,7 +544,7 @@
   {
     "Index": "0x0022",
     "ReturnType": "int",
-    "Name": "FUNCTION_0022",
+    "Name": "PMV_RUN2",
     "Description": "",
     "Parameters": [
       {
@@ -557,7 +557,7 @@
   {
     "Index": "0x0023",
     "ReturnType": "int",
-    "Name": "FUNCTION_0023",
+    "Name": "FLD_EVENT_END2",
     "Description": "",
     "Parameters": [
     ]
@@ -586,7 +586,7 @@
   {
     "Index": "0x0026",
     "ReturnType": "int",
-    "Name": "FUNCTION_0026",
+    "Name": "UNIT_ALL_CLEAR",
     "Description": "",
     "Parameters": [
     ]
@@ -602,7 +602,7 @@
   {
     "Index": "0x0028",
     "ReturnType": "int",
-    "Name": "FUNCTION_0028",
+    "Name": "CALL_EVENT_BATTLE",
     "Description": "",
     "Parameters": [
       {
@@ -620,7 +620,7 @@
   {
     "Index": "0x0029",
     "ReturnType": "int",
-    "Name": "FUNCTION_0029",
+    "Name": "UNIT_ALL_CLEAR2",
     "Description": "",
     "Parameters": [
     ]
@@ -628,7 +628,7 @@
   {
     "Index": "0x002a",
     "ReturnType": "int",
-    "Name": "FUNCTION_002A",
+    "Name": "IMAGE_LOAD",
     "Description": "",
     "Parameters": [
       {
@@ -667,7 +667,7 @@
   {
     "Index": "0x002d",
     "ReturnType": "int",
-    "Name": "FUNCTION_002D",
+    "Name": "IMAGE_DISPLAY",
     "Description": "",
     "Parameters": [
       {
@@ -953,7 +953,7 @@
   {
     "Index": "0x0048",
     "ReturnType": "int",
-    "Name": "FUNCTION_0048",
+    "Name": "SET_SKY_A",
     "Description": "",
     "Parameters": [
       {
@@ -1056,7 +1056,7 @@
   {
     "Index": "0x004e",
     "ReturnType": "int",
-    "Name": "FUNCTION_004E",
+    "Name": "FLD_EVENT_END",
     "Description": "",
     "Parameters": [
     ]
@@ -1348,7 +1348,7 @@
   {
     "Index": "0x0066",
     "ReturnType": "int",
-    "Name": "FUNCTION_0066",
+    "Name": "CALL_EVENT",
     "Description": "",
     "Parameters": [
       {
@@ -1361,7 +1361,7 @@
   {
     "Index": "0x0067",
     "ReturnType": "int",
-    "Name": "FUNCTION_0067",
+    "Name": "CALL_BATTLE",
     "Description": "",
     "Parameters": [
       {
@@ -1408,7 +1408,7 @@
   {
     "Index": "0x006b",
     "ReturnType": "int",
-    "Name": "FUNCTION_006B",
+    "Name": "OBJ_PATH_MOVE",
     "Description": "",
     "Parameters": [
       {
@@ -1431,7 +1431,7 @@
   {
     "Index": "0x006c",
     "ReturnType": "int",
-    "Name": "FUNCTION_006C",
+    "Name": "OBJ_PATH_WAIT",
     "Description": "",
     "Parameters": [
       {
@@ -1973,7 +1973,7 @@
   {
     "Index": "0x008e",
     "ReturnType": "int",
-    "Name": "FUNCTION_008E",
+    "Name": "BGM_PLAY_E",
     "Description": "",
     "Parameters": [
       {
@@ -2130,7 +2130,7 @@
   {
     "Index": "0x0097",
     "ReturnType": "int",
-    "Name": "FUNCTION_0097",
+    "Name": "CALL_NEXT",
     "Description": "",
     "Parameters": [
       {
@@ -2179,7 +2179,7 @@
   {
     "Index": "0x009a",
     "ReturnType": "int",
-    "Name": "FUNCTION_009A",
+    "Name": "D3P_LOAD",
     "Description": "",
     "Parameters": [
       {
@@ -2352,7 +2352,7 @@
   {
     "Index": "0x00a5",
     "ReturnType": "int",
-    "Name": "FUNCTION_00A5",
+    "Name": "SCR_RUN",
     "Description": "",
     "Parameters": [
       {
@@ -2545,7 +2545,7 @@
   {
     "Index": "0x00b0",
     "ReturnType": "int",
-    "Name": "FUNCTION_00B0",
+    "Name": "MODEL_LIGHT_DIR",
     "Description": "",
     "Parameters": [
       {
@@ -2996,7 +2996,7 @@
   {
     "Index": "0x00c6",
     "ReturnType": "int",
-    "Name": "FUNCTION_00C6",
+    "Name": "LIGHT_PATH_MOVE",
     "Description": "",
     "Parameters": [
       {
@@ -3027,7 +3027,7 @@
   {
     "Index": "0x00c8",
     "ReturnType": "int",
-    "Name": "FUNCTION_00C8",
+    "Name": "BE_LOAD",
     "Description": "",
     "Parameters": [
       {
@@ -3040,7 +3040,7 @@
   {
     "Index": "0x00c9",
     "ReturnType": "int",
-    "Name": "FUNCTION_00C9",
+    "Name": "MODEL_BE",
     "Description": "",
     "Parameters": [
       {
@@ -3076,7 +3076,7 @@
   {
     "Index": "0x00cb",
     "ReturnType": "int",
-    "Name": "FUNCTION_00CB",
+    "Name": "EFFECT_BE",
     "Description": "",
     "Parameters": [
       {
@@ -3094,7 +3094,7 @@
   {
     "Index": "0x00cc",
     "ReturnType": "int",
-    "Name": "FUNCTION_00CC",
+    "Name": "TEX_BE",
     "Description": "",
     "Parameters": [
       {
@@ -3125,7 +3125,7 @@
   {
     "Index": "0x00ce",
     "ReturnType": "int",
-    "Name": "FUNCTION_00CE",
+    "Name": "EFFBED_START",
     "Description": "",
     "Parameters": [
       {
@@ -3189,7 +3189,7 @@
   {
     "Index": "0x00d1",
     "ReturnType": "int",
-    "Name": "FUNCTION_00D1",
+    "Name": "EFFECT_PATH_MOVE",
     "Description": "",
     "Parameters": [
       {
@@ -3207,7 +3207,7 @@
   {
     "Index": "0x00d2",
     "ReturnType": "int",
-    "Name": "FUNCTION_00D2",
+    "Name": "EFFECT_PATH_WAIT",
     "Description": "",
     "Parameters": [
       {
@@ -3233,7 +3233,7 @@
   {
     "Index": "0x00d4",
     "ReturnType": "int",
-    "Name": "FUNCTION_00D4",
+    "Name": "EFFMG1_BE",
     "Description": "",
     "Parameters": [
       {
@@ -3264,7 +3264,7 @@
   {
     "Index": "0x00d6",
     "ReturnType": "int",
-    "Name": "FUNCTION_00D6",
+    "Name": "EFFMG2_BE",
     "Description": "",
     "Parameters": [
       {
@@ -3282,7 +3282,7 @@
   {
     "Index": "0x00d7",
     "ReturnType": "int",
-    "Name": "FUNCTION_00D7",
+    "Name": "EFFMG1_POS",
     "Description": "",
     "Parameters": [
       {
@@ -3305,7 +3305,7 @@
   {
     "Index": "0x00d8",
     "ReturnType": "int",
-    "Name": "FUNCTION_00D8",
+    "Name": "EFFMG2_POS",
     "Description": "",
     "Parameters": [
       {
@@ -3853,7 +3853,7 @@
   {
     "Index": "0x00f7",
     "ReturnType": "int",
-    "Name": "FUNCTION_00F7",
+    "Name": "BE_READ",
     "Description": "",
     "Parameters": [
       {
@@ -3866,7 +3866,7 @@
   {
     "Index": "0x00f8",
     "ReturnType": "int",
-    "Name": "FUNCTION_00F8",
+    "Name": "BE_OK",
     "Description": "",
     "Parameters": [
       {
@@ -3879,7 +3879,7 @@
   {
     "Index": "0x00f9",
     "ReturnType": "int",
-    "Name": "FUNCTION_00F9",
+    "Name": "BE_DEL",
     "Description": "",
     "Parameters": [
       {
@@ -4032,7 +4032,7 @@
   {
     "Index": "0x0104",
     "ReturnType": "int",
-    "Name": "FUNCTION_0104",
+    "Name": "OFF",
     "Description": "",
     "Parameters": [
       {
@@ -4282,7 +4282,7 @@
   {
     "Index": "0x010e",
     "ReturnType": "int",
-    "Name": "FUNCTION_010E",
+    "Name": "NPC_ON",
     "Description": "",
     "Parameters": [
       {
@@ -4305,7 +4305,7 @@
   {
     "Index": "0x010f",
     "ReturnType": "int",
-    "Name": "FUNCTION_010F",
+    "Name": "NPC_OFF",
     "Description": "",
     "Parameters": [
       {
@@ -4328,7 +4328,7 @@
   {
     "Index": "0x0110",
     "ReturnType": "int",
-    "Name": "FUNCTION_0110",
+    "Name": "GIMIC_HOJI",
     "Description": "",
     "Parameters": [
       {
@@ -4663,7 +4663,7 @@
   {
     "Index": "0x0129",
     "ReturnType": "int",
-    "Name": "FUNCTION_0129",
+    "Name": "BLUR2_PARA",
     "Description": "",
     "Parameters": [
       {
@@ -4745,7 +4745,7 @@
   {
     "Index": "0x012d",
     "ReturnType": "int",
-    "Name": "FUNCTION_012D",
+    "Name": "FILTER2_PARA",
     "Description": "",
     "Parameters": [
       {
@@ -4825,7 +4825,7 @@
   {
     "Index": "0x0132",
     "ReturnType": "int",
-    "Name": "FUNCTION_0132",
+    "Name": "MFILTER_PARA",
     "Description": "",
     "Parameters": [
       {
@@ -4928,7 +4928,7 @@
   {
     "Index": "0x0138",
     "ReturnType": "int",
-    "Name": "FUNCTION_0138",
+    "Name": "BGM_PLAY_E_TRANS",
     "Description": "",
     "Parameters": [
       {
@@ -5562,7 +5562,7 @@
   {
     "Index": "0x0168",
     "ReturnType": "int",
-    "Name": "FUNCTION_0168",
+    "Name": "EFFBED_START2",
     "Description": "",
     "Parameters": [
       {
@@ -6921,7 +6921,7 @@
   {
     "Index": "0x01f2",
     "ReturnType": "int",
-    "Name": "FUNCTION_01F2",
+    "Name": "ITEMBOX_RND",
     "Description": "",
     "Parameters": [
     ]
@@ -7002,7 +7002,7 @@
   {
     "Index": "0x01f9",
     "ReturnType": "int",
-    "Name": "FUNCTION_01F9",
+    "Name": "DANTE_STANCE_SET",
     "Description": "",
     "Parameters": [
       {

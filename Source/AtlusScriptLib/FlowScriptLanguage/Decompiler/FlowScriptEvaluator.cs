@@ -275,6 +275,16 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             var foundIntVariables = new Dictionary< int, (FlowScriptProcedure Procedure, FlowScriptModifierType Modifier, FlowScriptValueType Type) >();
             var foundFloatVariables = new Dictionary< int, (FlowScriptProcedure Procedure, FlowScriptModifierType Modifier, FlowScriptValueType Type) >();
 
+            void DeclareVariableIfNotDeclared( (FlowScriptProcedure Procedure, FlowScriptModifierType Modifier, FlowScriptValueType Type) context, short index )
+            {
+                // If the procedures are different, then this variable can't be local to the scope of the procedure
+                if ( !IsVariableDeclared( context.Modifier, context.Type, index ) )
+                {
+                    var result = TryDeclareVariable( context.Modifier, context.Type, index, out _ );
+                    Debug.Assert( result );
+                }
+            }
+
             foreach ( var procedure in mScript.Procedures )
             {
                 foreach ( var instruction in procedure.Instructions )
@@ -299,46 +309,49 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         case FlowScriptOpcode.POPLIX:
                         case FlowScriptOpcode.POPLFX:
                             {
+                                var modifier = FlowScriptModifierType.Static;
+                                if ( instruction.Opcode == FlowScriptOpcode.POPLIX ||
+                                     instruction.Opcode == FlowScriptOpcode.PUSHLIX ||
+                                     instruction.Opcode == FlowScriptOpcode.POPLFX ||
+                                     instruction.Opcode == FlowScriptOpcode.PUSHLFX )
+                                {
+                                    modifier = FlowScriptModifierType.Local;
+                                }
+
                                 var index = instruction.Operand.GetInt16Value();
-                                if ( type == FlowScriptValueType.Int && foundIntVariables.TryGetValue( index, out var context ) )
+
+                                if ( modifier != FlowScriptModifierType.Static && type == FlowScriptValueType.Int && foundIntVariables.TryGetValue( index, out var context ) )
                                 {
                                     // Check if it was declared in a different procedure than the one we're currently processing
                                     if ( procedure != context.Procedure )
                                     {
                                         // If the procedures are different, then this variable can't be local to the scope of the procedure
-                                        if ( !IsVariableDeclared( context.Modifier, context.Type, index ) )
-                                        {
-                                            Debug.Assert( TryDeclareVariable( context.Modifier, context.Type, index, out _ ) );
-                                        }
+                                        DeclareVariableIfNotDeclared( context, index );
                                     }
                                 }
-                                else if ( type == FlowScriptValueType.Float && foundFloatVariables.TryGetValue( index, out context ) )
+                                else if ( modifier != FlowScriptModifierType.Static && type == FlowScriptValueType.Float && foundFloatVariables.TryGetValue( index, out context ) )
                                 {
                                     // Check if it was declared in a different procedure than the one we're currently processing
                                     if ( procedure != context.Procedure )
                                     {
                                         // If the procedures are different, then this variable can't be local to the scope of the procedure
-                                        if ( !IsVariableDeclared( context.Modifier, context.Type, index ) )
-                                        {
-                                            Debug.Assert( TryDeclareVariable( context.Modifier, context.Type, index, out _ ) );
-                                        }
+                                        DeclareVariableIfNotDeclared( context, index );
                                     }
                                 }
                                 else
-                                {
-                                    var modifier = FlowScriptModifierType.Static;
-                                    if ( instruction.Opcode == FlowScriptOpcode.POPLIX ||
-                                         instruction.Opcode == FlowScriptOpcode.PUSHLIX ||
-                                         instruction.Opcode == FlowScriptOpcode.POPLFX ||
-                                         instruction.Opcode == FlowScriptOpcode.PUSHLFX )
+                                {                                 
+                                    context = (procedure, modifier, type);
+
+                                    if ( modifier == FlowScriptModifierType.Static )
                                     {
-                                        modifier = FlowScriptModifierType.Local;
+                                        // If it's a global, declare it anyway
+                                        DeclareVariableIfNotDeclared( context, index );
                                     }
 
                                     if ( type == FlowScriptValueType.Int )
-                                        foundIntVariables[index] = (procedure, modifier, type);
+                                        foundIntVariables[index] = context;
                                     else
-                                        foundFloatVariables[index] = (procedure, modifier, type);
+                                        foundFloatVariables[index] = context;
                                 }
 
                                 break;
@@ -848,15 +861,14 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                 // Jump to procedure
                 // without saving return address
                 case FlowScriptOpcode.JUMP:
-                    {
-                        // Todo
-                        LogError( "Todo: JUMP" );
-                        return false;
-                    }
-
                 // Call procedure
                 case FlowScriptOpcode.CALL:
                     {
+                        if ( instruction.Opcode == FlowScriptOpcode.JUMP )
+                        {
+                            LogInfo( "JUMP not implemented! Emulating as CALL" );
+                        }
+
                         // Todo: arguments
                         short index = instruction.Operand.GetInt16Value();
                         if ( index < 0 || index >= mScript.Procedures.Count )

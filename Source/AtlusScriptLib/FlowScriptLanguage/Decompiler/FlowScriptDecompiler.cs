@@ -561,7 +561,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             // Declared variables in the current scope
             var declaredVariables = new HashSet<string>();
 
-            var ifStatements = mOriginalEvaluatedStatements
+            var allIfStatements = mOriginalEvaluatedStatements
                 .Where( x => x.InstructionIndex >= firstIndex )
                 .Where( x => x.InstructionIndex <= lastIndex )
                 .Where( x => x.Statement is FlowScriptIfStatement )
@@ -606,9 +606,9 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
                     // But maybe it's accessed later in the body?              
                     bool accessedInIfStatementOnce = false;
-                    var curIfStatements = ifStatements;
+                    var curIfStatements = allIfStatements;
 
-                    foreach ( var ifStatement in ifStatements )
+                    foreach ( var ifStatement in allIfStatements )
                     {
                         // Check condition
                         var conditionIdentifiers = FlowScriptSyntaxNodeCollector<FlowScriptIdentifier>.Collect( ( ( FlowScriptIfStatement ) ifStatement.Statement ).Condition );
@@ -683,12 +683,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                     if ( evaluatedStatementIndex != -1 )
                         insertionIndex = evaluatedStatementIndex;
                     else
-                        insertionIndex = evaluatedStatements.IndexOf( ifStatements.First() );
+                        insertionIndex = evaluatedStatements.IndexOf( allIfStatements.First() );
 
                     int instructionIndex = firstReferenceInstructionIndex;
 
                     // Check if the variable has been referenced before in an if statement
-                    foreach ( var evaluatedIfStatement in ifStatements.Where( x => x.InstructionIndex <= firstReferenceInstructionIndex ) )
+                    foreach ( var evaluatedIfStatement in allIfStatements.Where( x => x.InstructionIndex <= firstReferenceInstructionIndex ) )
                     {
                         var ifStatementBody = mIfStatementBodyMap[ evaluatedIfStatement.InstructionIndex ];
                         var referencedLocalVariableIdentifiersInIfStatementBody =
@@ -778,7 +778,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
             if ( !mConvertIfStatementsToGotos )
             {
-                foreach ( var ifStatement in ifStatements )
+                var ifStatementsInScope = evaluatedStatements
+                    .Where( x => x.Statement is FlowScriptIfStatement );
+
+                foreach ( var ifStatement in ifStatementsInScope )
                 {
                     // Do the same for each if statement
                     var body = mIfStatementBodyMap[ ifStatement.InstructionIndex ];
