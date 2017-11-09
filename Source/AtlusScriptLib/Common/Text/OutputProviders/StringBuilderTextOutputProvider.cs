@@ -3,7 +3,7 @@ using System.Text;
 
 namespace AtlusScriptLib.Common.Text.OutputProviders
 {
-    public class StringBuilderTextOutputProvider : ITextOutputProvider
+    public sealed class StringBuilderTextOutputProvider : ITextOutputProvider
     {
         public StringBuilder StringBuilder { get; }
 

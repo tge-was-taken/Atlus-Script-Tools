@@ -2,7 +2,7 @@
 
 namespace AtlusScriptLib.Common.Text.OutputProviders
 {
-    public class StringTextOutputProvider : ITextOutputProvider
+    public sealed class StringTextOutputProvider : ITextOutputProvider
     {
         private readonly StringBuilderTextOutputProvider mOutput;
 

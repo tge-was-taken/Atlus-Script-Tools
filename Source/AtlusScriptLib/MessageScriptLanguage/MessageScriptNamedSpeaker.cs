@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents a named dialogue message speaker.
     /// </summary>
-    public class MessageScriptNamedSpeaker : IMessageScriptSpeaker
+    public sealed class MessageScriptNamedSpeaker : IMessageScriptSpeaker
     {
         /// <summary>
         /// Gets the name of the speaker.

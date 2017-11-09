@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using AtlusScriptLib.Common.Registry.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

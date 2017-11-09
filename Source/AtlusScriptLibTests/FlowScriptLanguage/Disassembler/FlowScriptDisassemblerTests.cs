@@ -4,10 +4,8 @@ using System.Text;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using AtlusScriptLib.FlowScriptLanguage.BinaryModel;
-using AtlusScriptLib.FlowScriptLanguage.Disassembler;
-using AtlusScriptLib.FlowScriptLanguage;
 
-namespace AtlusScriptLib.Disassembler.Tests
+namespace AtlusScriptLib.FlowScriptLanguage.Disassembler.Tests
 {
     [TestClass()]
     public class FlowScriptBinaryDisassemblerTests

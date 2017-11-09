@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using Newtonsoft.Json;
 
-namespace AtlusScriptLib.Common.Registry
+namespace AtlusScriptLib.Common.Registry.Serialization
 {
     internal class ExternalJsonPathConverter : JsonConverter
     {

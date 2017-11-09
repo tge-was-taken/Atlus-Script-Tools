@@ -6,7 +6,7 @@ using AtlusScriptLib.Common.Text.OutputProviders;
 
 namespace AtlusScriptLib.MessageScriptLanguage.Decompiler
 {
-    public class MessageScriptDecompiler : IDisposable
+    public sealed class MessageScriptDecompiler : IDisposable
     {
         public LibraryRegistry LibraryRegistry { get; set; }
 

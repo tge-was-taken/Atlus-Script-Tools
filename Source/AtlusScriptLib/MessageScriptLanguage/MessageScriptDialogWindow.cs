@@ -7,7 +7,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
     /// <summary>
     /// Represents a dialog window in a message script.
     /// </summary>
-    public class MessageScriptDialogWindow : IMessageScriptWindow
+    public sealed class MessageScriptDialogWindow : IMessageScriptWindow
     {
         /// <summary>
         /// Gets the text identifier of this dialog window.

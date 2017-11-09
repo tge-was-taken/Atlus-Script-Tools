@@ -3,7 +3,7 @@ using System.IO;
 
 namespace AtlusScriptLib.Common.Text.OutputProviders
 {
-    public class TextWriterTextOutputProvider : ITextOutputProvider
+    public sealed class TextWriterTextOutputProvider : ITextOutputProvider
     {
         private readonly TextWriter mTextWriter;
 

@@ -1,8 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
-using AtlusScriptLib.FlowScriptLanguage.BinaryModel;
 
-namespace AtlusScriptLib.BinaryModel.Tests
+namespace AtlusScriptLib.FlowScriptLanguage.BinaryModel.Tests
 {
     [TestClass()]
     public class FlowScriptBinaryTests

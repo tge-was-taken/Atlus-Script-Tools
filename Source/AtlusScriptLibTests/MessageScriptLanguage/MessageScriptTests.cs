@@ -1,11 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System;
-using AtlusScriptLib.BinaryModel;
 using AtlusScriptLib.MessageScriptLanguage.BinaryModel;
-using AtlusScriptLib.MessageScriptLanguage;
 
-namespace AtlusScriptLib.Tests
+namespace AtlusScriptLib.MessageScriptLanguage.Tests
 {
     [TestClass()]
     public class MessageScriptTests

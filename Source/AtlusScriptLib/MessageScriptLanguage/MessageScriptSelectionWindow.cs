@@ -6,7 +6,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
     /// <summary>
     /// Represents a selection window in a message script.
     /// </summary>
-    public class MessageScriptSelectionWindow : IMessageScriptWindow
+    public sealed class MessageScriptSelectionWindow : IMessageScriptWindow
     {
         /// <summary>
         /// Gets the text identifier of this window.

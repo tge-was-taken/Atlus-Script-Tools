@@ -494,11 +494,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
             procedureDeclaration.ReturnType = typeIdentifier;
 
             // Parse identifier
-            ITerminalNode identifierNode;
 
-            if ( !TryGet( context, context.ProcedureIdentifier, out identifierNode ) )
+            if ( !TryGet( context, context.ProcedureIdentifier, out ITerminalNode identifierNode ) )
             {
-                if ( !TryGet( context, "Expected procedure identifier", () => context.Identifier(identifierIndex), out identifierNode ) )
+                if ( !TryGet( context, "Expected procedure identifier", () => context.Identifier( identifierIndex ), out identifierNode ) )
                     return false;
             }
 
@@ -1350,8 +1349,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
         {
             literal = CreateAstNode<FlowScriptBoolLiteral>( node );
 
-            bool value;
-            if ( !bool.TryParse( node.Symbol.Text, out value ) )
+            if ( !bool.TryParse( node.Symbol.Text, out bool value ) )
             {
                 LogError( node.Symbol, "Invalid boolean value" );
                 return false;
@@ -1403,8 +1401,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                 floatString = floatString.Substring( 0, floatString.Length - 1 );
             }
 
-            float value;
-            if ( !float.TryParse( floatString, out value ) )
+            if ( !float.TryParse( floatString, out float value ) )
             {
                 LogError( node.Symbol, "Invalid float value" );
                 return false;
@@ -1798,16 +1795,14 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
         //
         private T CreateAstNode<T>( ParserRuleContext context ) where T : FlowScriptSyntaxNode, new()
         {
-            T instance = new T();
-            instance.SourceInfo = ParseSourceInfo( context.Start );
+            T instance = new T { SourceInfo = ParseSourceInfo( context.Start ) };
 
             return instance;
         }
 
         private T CreateAstNode<T>( ITerminalNode node ) where T : FlowScriptSyntaxNode, new()
         {
-            T instance = new T();
-            instance.SourceInfo = ParseSourceInfo( node.Symbol );
+            T instance = new T { SourceInfo = ParseSourceInfo( node.Symbol ) };
 
             return instance;
         }
@@ -1858,7 +1853,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
             {
                 value = getFunc();
             }
-            catch ( Exception e )
+            catch ( Exception )
             {
                 value = default( T );
                 return false;

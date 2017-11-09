@@ -59,16 +59,13 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Disassembler\FlowScriptDisassemblerTests.cs" />
-    <Compile Include="BinaryModel\FlowScriptBinaryTests.cs" />
-    <Compile Include="FlowScriptLanguage\Ast\FlowScriptAstParserTests.cs" />
-    <Compile Include="FlowScriptTests.cs" />
-    <Compile Include="BinaryModel\MessageScriptBinaryTests.cs" />
+    <Compile Include="FlowScriptLanguage\Disassembler\FlowScriptDisassemblerTests.cs" />
+    <Compile Include="FlowScriptLanguage\BinaryModel\FlowScriptBinaryTests.cs" />
+    <Compile Include="FlowScriptLanguage\FlowScriptTests.cs" />
+    <Compile Include="MessageScriptLanguage\BinaryModel\MessageScriptBinaryTests.cs" />
     <Compile Include="MessageScriptLanguage\Compiler\MessageScriptCompilerTests.cs" />
-    <Compile Include="MessageScriptTests.cs" />
-    <Compile Include="Parsers\FlowScriptBinarySyntaxParserTests.cs" />
+    <Compile Include="MessageScriptLanguage\MessageScriptTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Common\Tokenizing\TokenizerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -129,6 +126,10 @@
     <Error Condition="!Exists('..\packages\MSTest.TestAdapter.1.1.11\build\net45\MSTest.TestAdapter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestAdapter.1.1.11\build\net45\MSTest.TestAdapter.targets'))" />
   </Target>
   <Import Project="..\packages\MSTest.TestAdapter.1.1.11\build\net45\MSTest.TestAdapter.targets" Condition="Exists('..\packages\MSTest.TestAdapter.1.1.11\build\net45\MSTest.TestAdapter.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

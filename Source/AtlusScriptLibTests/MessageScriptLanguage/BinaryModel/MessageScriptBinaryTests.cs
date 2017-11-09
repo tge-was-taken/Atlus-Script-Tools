@@ -3,9 +3,8 @@ using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Linq;
-using AtlusScriptLib.MessageScriptLanguage.BinaryModel;
 
-namespace AtlusScriptLib.BinaryModel.Tests
+namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel.Tests
 {
     [TestClass()]
     public class MessageScriptBinaryTests

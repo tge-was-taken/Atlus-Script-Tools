@@ -30,7 +30,7 @@ namespace AtlusMessageScriptExtractor
         Autodetect,
     }
 
-    public class Archive : IDisposable, IEnumerable<string>
+    public sealed class Archive : IDisposable, IEnumerable<string>
     {
         //
         // Static methods

@@ -3,9 +3,8 @@ using System;
 using System.IO;
 using System.Linq;
 using AtlusScriptLib.FlowScriptLanguage.BinaryModel;
-using AtlusScriptLib.FlowScriptLanguage;
 
-namespace AtlusScriptLib.Tests
+namespace AtlusScriptLib.FlowScriptLanguage.Tests
 {
     [TestClass()]
     public class FlowScriptTests

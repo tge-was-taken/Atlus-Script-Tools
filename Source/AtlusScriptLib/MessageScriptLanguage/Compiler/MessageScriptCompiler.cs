@@ -533,7 +533,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
             {
                 value = getFunc();
             }
-            catch ( Exception e )
+            catch ( Exception )
             {
                 value = default( T );
                 return false;
@@ -645,6 +645,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
         }
     }
 
+    [Serializable]
     public class MessageScriptCompilationFailureException : Exception
     {
         public MessageScriptCompilationFailureException()
