@@ -40,12 +40,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
         /// <returns></returns>
         public bool TryResolveTypes( FlowScriptCompilationUnit compilationUnit )
         {
-            LogInfo( compilationUnit, "Start resolving types in compilation unit" );
+            LogInfo( "Resolving types in compilation unit" );
 
             if ( !TryResolveTypesInCompilationUnit( compilationUnit ) )
                 return false;
 
-            LogInfo( compilationUnit, "Done resolving types in compilation unit" );
+            LogInfo( "Done resolving types in compilation unit" );
 
             return true;
         }
@@ -55,7 +55,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
         //
         private bool TryRegisterTopLevelDeclarations( FlowScriptCompilationUnit compilationUnit )
         {
-            LogInfo( compilationUnit, "Registering/forward-declaring top level declarations" );
+            LogTrace(  "Registering/forward-declaring top level declarations" );
 
             if ( !TryRegisterDeclarations( compilationUnit.Declarations ) )
                 return false;
@@ -169,7 +169,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
             }
             else
             {
-                LogInfo( $"No types resolved in statement '{statement}'" );
+                LogWarning( $"No types resolved in statement '{statement}'" );
                 //return false;
             }
 
@@ -219,6 +219,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
                 if ( !TryResolveTypesInVariableDeclaration( variableDeclaration ) )
                 {
                     LogError( variableDeclaration, $"Failed to resolve types in variable declaration: {variableDeclaration}" );
+                    return false;
                 }
             }
 
@@ -227,7 +228,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
 
         internal bool TryResolveTypesInExpression( FlowScriptExpression expression )
         {
-            LogInfo( expression, $"Resolving expression {expression}" );
+            LogTrace( expression, $"Resolving expression {expression}" );
 
             if ( expression is FlowScriptMemberAccessExpression memberAccessExpression )
             {
@@ -275,7 +276,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
                 }
             }
 
-            LogInfo( expression, $"Resolved expression {expression} to type {expression.ExpressionValueType}" );
+            LogTrace( expression, $"Resolved expression {expression} to type {expression.ExpressionValueType}" );
 
             return true;
         }
@@ -363,6 +364,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
         // Declarations
         private bool TryResolveTypesInProcedureDeclaration( FlowScriptProcedureDeclaration declaration )
         {
+            LogInfo( declaration, $"Resolving types in procedure '{declaration.Identifier.Text}'" );
+
             // Nothing to resolve if there's no body
             if ( declaration.Body == null )
                 return true;
@@ -415,7 +418,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
         {
             if ( !Scope.TryGetDeclaration( callExpression.Identifier, out var declaration ) )
             {
-                //LogError( callExpression, $"Call expression references undeclared identifier '{callExpression.Identifier.Text}'" );
+                // Disable for now because we import functions at compile time
+                //LogWarning( callExpression, $"Call expression references undeclared identifier '{callExpression.Identifier.Text}'" );
             }
 
             if ( declaration is FlowScriptFunctionDeclaration functionDeclaration )
@@ -430,7 +434,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
             }
             else
             {
-                //LogError( callExpression, "Invalid call expression. Expected function or procedure identifier" );
+                // Disable for now because we import functions at compile time
+                //LogWarning( callExpression, "Expected function or procedure identifier" );
                 //return false;
             }
 
@@ -447,7 +452,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
         {
             if ( !Scope.TryGetDeclaration( identifier, out var declaration ) )
             {
-                LogInfo( identifier, $"Identifiers references undeclared identifier '{identifier.Text}'" );
+                LogWarning( identifier, $"Identifiers references undeclared identifier '{identifier.Text}'" );
             }
 
             if ( declaration is FlowScriptFunctionDeclaration functionDeclaration )
@@ -468,7 +473,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
             }
             else
             {
-                LogInfo( identifier, "Expected function, procedure, variable or label identifier" );
+                LogWarning( identifier, "Expected function, procedure, variable or label identifier" );
             }
 
             return true;
@@ -498,23 +503,33 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
         //
         // Logging
         //
-        private void LogInfo( FlowScriptSyntaxNode node, string message )
+        private void LogTrace( FlowScriptSyntaxNode node, string message )
         {
             if ( node.SourceInfo != null )
-                mLogger.Info( $"({node.SourceInfo.Line:D4}:{node.SourceInfo.Column:D4}) {message}" );
+                LogTrace( $"({node.SourceInfo.Line:D4}:{node.SourceInfo.Column:D4}) {message}" );
             else
-                LogInfo( message );
+                LogTrace( message );
+        }
+
+        private void LogTrace( string message )
+        {
+            mLogger.Trace( $"{message}" );
         }
 
         private void LogInfo( string message )
         {
-            mLogger.Info( $"            {message}" );
+            mLogger.Info( $"{message}" );
+        }
+
+        private void LogInfo( FlowScriptSyntaxNode node, string message )
+        {
+            mLogger.Info( $"({node.SourceInfo.Line:D4}:{node.SourceInfo.Column:D4}) {message}" );
         }
 
         private void LogError( FlowScriptSyntaxNode node, string message )
         {
             if ( node.SourceInfo != null )
-                mLogger.Error( $"({node.SourceInfo.Line:D4}:{node.SourceInfo.Column:D4}) {message}" );
+                LogError( $"({node.SourceInfo.Line:D4}:{node.SourceInfo.Column:D4}) {message}" );
             else
                 LogError( message );
 
@@ -524,7 +539,17 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
 
         private void LogError( string message )
         {
-            mLogger.Error( $"            {message}" );
+            mLogger.Error( $"{message}" );
+        }
+
+        private void LogWarning( string message )
+        {
+            mLogger.Warning( $"{message}" );
+        }
+
+        private void LogWarning( FlowScriptSyntaxNode node, string message )
+        {
+            mLogger.Warning( $"({node.SourceInfo.Line:D4}:{node.SourceInfo.Column:D4}) {message}" );
         }
     }
 }

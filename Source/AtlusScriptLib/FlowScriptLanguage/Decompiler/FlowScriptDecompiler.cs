@@ -14,7 +14,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 {
     public class FlowScriptDecompiler
     {
-        private Logger mLogger;
+        private readonly Logger mLogger;
         private FlowScriptEvaluationResult mEvaluatedScript;
         private FlowScriptCompilationUnit mCompilationUnit;
         private string mFilePath;
@@ -66,37 +66,47 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
         public bool TryDecompile( FlowScript flowScript, out FlowScriptCompilationUnit compilationUnit )
         {
+            LogInfo( "Start decompiling FlowScript" );
             if ( !TryDecompileScript( flowScript, out compilationUnit ))
             {
                 return false;
             }
 
+            LogInfo( "Done decompiling FlowScript" );
             return true;
         }
 
         public bool TryDecompile( FlowScript flowScript, string filepath )
         {
             mFilePath = Path.GetFullPath( filepath );
+            LogInfo( $"FlowScript output path set to {mFilePath}" );
 
             if ( MessageScriptFilePath == null )
+            {
                 MessageScriptFilePath = Path.ChangeExtension( mFilePath, "msg" );
+            }
+
+            LogInfo( $"MessageScript output path set to {MessageScriptFilePath}" );
 
             // Decompile to decompilation unit
             if ( !TryDecompile( flowScript, out var compilationUnit ))
                 return false;
 
             // Write out the decompilation unit
+            LogInfo( "Writing decompiled FlowScript to file" );
             var writer = new FlowScriptCompilationUnitWriter();
             writer.Write( compilationUnit, filepath );
 
             // Decompile embedded message script
             if ( flowScript.MessageScript != null && DecompileMessageScript )
             {
-                var messageScriptDecompiler = new MessageScriptDecompiler();
-                messageScriptDecompiler.TextOutputProvider = new FileTextOutputProvider( MessageScriptFilePath );
-                messageScriptDecompiler.LibraryRegistry = LibraryRegistry;
-                messageScriptDecompiler.Decompile( flowScript.MessageScript );
-                messageScriptDecompiler.Dispose();
+                LogInfo( "Writing decompiled MessageScript to file" );
+                using ( var messageScriptDecompiler = new MessageScriptDecompiler() )
+                {
+                    messageScriptDecompiler.TextOutputProvider = new FileTextOutputProvider( MessageScriptFilePath );
+                    messageScriptDecompiler.LibraryRegistry = LibraryRegistry;
+                    messageScriptDecompiler.Decompile( flowScript.MessageScript );
+                }
             }
 
             return true;
@@ -280,12 +290,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             if ( !mKeepLabelsAndGotos )
                 RemoveUnreferencedLabels();
 
+            RemoveDuplicateReturnStatements();
+
             // Build if statements
             if ( !mConvertIfStatementsToGotos )
                 BuildIfStatements();
-
-            // Fittingly remove duped return statements last
-            RemoveDuplicateReturnStatements();
 
             // Convert the evaluated statements to regular statements
             statements = mEvaluatedStatements
@@ -348,7 +357,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         if ( libraryEnum == null )
                             continue;
 
-                        var libraryEnumMember = libraryEnum.Members.SingleOrDefault( x => x.Value == argumentValue.Value.ToString() );
+                        var libraryEnumMember = libraryEnum.Members.FirstOrDefault( x => x.Value == argumentValue.Value.ToString() );
                         if ( libraryEnumMember == null )
                             continue;
 
@@ -793,19 +802,6 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             }
         }
 
-        private void RemoveDuplicateReturnStatements()
-        {
-            var returnStatements = mEvaluatedStatements.Where( x => x.Statement is FlowScriptReturnStatement ).ToList();
-            for ( int i = 0; i < returnStatements.Count; i += 2 )
-            {
-                if ( i + 1 >= returnStatements.Count )
-                    break;
-
-                if ( ( returnStatements[i + 1].InstructionIndex - returnStatements[i].InstructionIndex ) == 1 )
-                    mEvaluatedStatements.Remove( returnStatements[i] );
-            }
-        }
-
         private void RemoveRedundantGotos()
         {
             foreach ( var evaluatedStatement in mEvaluatedStatements.Where( x => x.Statement is FlowScriptGotoStatement ).ToList() )
@@ -830,20 +826,6 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                     if ( evaluatedStatement.ReferencedLabel.InstructionIndex == evaluatedStatement.InstructionIndex + 1 )
                         mEvaluatedStatements.Remove( evaluatedStatement );
                 }
-            }
-        }
-
-        private void BuildIfStatements()
-        {
-            foreach ( var evaluatedStatement in mOriginalEvaluatedStatements.Where( x => x.Statement is FlowScriptIfStatement ) )
-            {
-                var ifStatement = (FlowScriptIfStatement) evaluatedStatement.Statement;
-
-                var body = mIfStatementBodyMap[ evaluatedStatement.InstructionIndex ];
-                ifStatement.Body = new FlowScriptCompoundStatement( body.Select( x => x.Statement ).ToList() );
-
-                if ( mIfStatementElseBodyMap.TryGetValue( evaluatedStatement.InstructionIndex, out var elseBody ) )
-                    ifStatement.ElseBody = new FlowScriptCompoundStatement( elseBody.Select( x => x.Statement ).ToList() );
             }
         }
 
@@ -897,17 +879,60 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             return false;
         }
 
+        private void RemoveDuplicateReturnStatements()
+        {
+            void RemoveDuplicateReturnStatements( List<FlowScriptEvaluatedStatement> statements )
+            {
+                var returnStatements = statements.Where( x => x.Statement is FlowScriptReturnStatement ).ToList();
+                for ( int i = 0; i < returnStatements.Count; i++ )
+                {
+                    if ( i + 1 >= returnStatements.Count )
+                        break;
+
+                    if ( ( returnStatements[i + 1].InstructionIndex - returnStatements[i].InstructionIndex ) == 1 )
+                        statements.Remove( returnStatements[i] );
+                }
+            }
+
+            RemoveDuplicateReturnStatements( mEvaluatedStatements );
+
+            foreach ( var body in mIfStatementBodyMap.Values )
+                RemoveDuplicateReturnStatements( body );
+
+            foreach ( var body in mIfStatementElseBodyMap.Values )
+                RemoveDuplicateReturnStatements( body );
+        }
+
+        private void BuildIfStatements()
+        {
+            foreach ( var evaluatedStatement in mOriginalEvaluatedStatements.Where( x => x.Statement is FlowScriptIfStatement ) )
+            {
+                var ifStatement = ( FlowScriptIfStatement )evaluatedStatement.Statement;
+
+                var body = mIfStatementBodyMap[evaluatedStatement.InstructionIndex];
+                ifStatement.Body = new FlowScriptCompoundStatement( body.Select( x => x.Statement ).ToList() );
+
+                if ( mIfStatementElseBodyMap.TryGetValue( evaluatedStatement.InstructionIndex, out var elseBody ) )
+                    ifStatement.ElseBody = new FlowScriptCompoundStatement( elseBody.Select( x => x.Statement ).ToList() );
+            }
+        }
+
         //
         // Logging
         //
+        private void LogTrace( string message )
+        {
+            mLogger.Trace( message );
+        }
+
         private void LogInfo( string message )
         {
-            mLogger.Info( $"            {message}" );
+            mLogger.Info( $"{message}" );
         }
 
         private void LogError( string message )
         {
-            mLogger.Error( $"            {message}" );
+            mLogger.Error( $"{message}" );
 
             if ( Debugger.IsAttached )
             {

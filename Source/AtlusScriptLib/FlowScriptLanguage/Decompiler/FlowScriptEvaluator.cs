@@ -76,11 +76,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
         //
         public bool TryEvaluateScript( FlowScript flowScript, out FlowScriptEvaluationResult result )
         {
+            LogInfo( "Start evaluating FlowScript" );
             InitializeScriptEvaluationState( flowScript );
 
             PushScope();
 
-            // Register functions used in the script
+            // Register functions used in the script       
             if ( !TryRegisterUsedFunctions() )
             {
                 LogError( "Failed to register functions" );
@@ -100,6 +101,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             var problematicInfos = infos.Where( x => x.Snapshots.Any( y => y.StackBalance < 1 ) );
 
             // Evaluate procedures
+            LogInfo( "Evaluating procedures" );
             foreach ( var procedure in flowScript.Procedures )
             {
                 if ( !TryEvaluateProcedure( procedure, out var evaluatedProcedure ) )
@@ -112,6 +114,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             }
 
             PopScope();
+
+            LogInfo( "Done evaluating FlowScript" );
             return true;
         }
 
@@ -272,6 +276,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
         private void RegisterTopLevelVariables()
         {
+            LogInfo( "Registering top level variables" );
+
             var foundIntVariables = new Dictionary< int, (FlowScriptProcedure Procedure, FlowScriptModifierType Modifier, FlowScriptValueType Type) >();
             var foundFloatVariables = new Dictionary< int, (FlowScriptProcedure Procedure, FlowScriptModifierType Modifier, FlowScriptValueType Type) >();
 
@@ -363,6 +369,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
         private bool TryRegisterUsedFunctions()
         {
+            LogInfo( "Registering functions" );
             foreach ( var instruction in mScript.Procedures.SelectMany( x => x.Instructions ).Where( x => x.Opcode == FlowScriptOpcode.COMM ) )
             {
                 var index = instruction.Operand.GetInt16Value();
@@ -595,7 +602,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
         private bool TryEvaluateProcedure( FlowScriptProcedure procedure, out FlowScriptEvaluatedProcedure evaluatedProcedure )
         {
-            LogInfo( $"Evaluating procedure: {procedure.Name}" );
+            LogInfo( $"Evaluating procedure: '{procedure.Name}'" );
 
             // Initialize
             InitializeProcedureEvaluationState( procedure );
@@ -1306,12 +1313,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
         //
         private void LogInfo( string message )
         {
-            mLogger.Info( $"            {message}" );
+            mLogger.Info( $"{message}" );
         }
 
         private void LogError( string message )
         {
-            mLogger.Error( $"            {message}" );
+            mLogger.Error( $"{message}" );
 
             if ( Debugger.IsAttached )
             {

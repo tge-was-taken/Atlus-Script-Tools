@@ -126,6 +126,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         /// <returns></returns>
         public bool TryCompile( string source, out FlowScript flowScript )
         {
+            Info( "Start compiling FlowScript from source" );
+
             // Add source to prevent recursion
             mImportedFileHashSet.Add( source.GetHashCode() );
 
@@ -134,7 +136,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             parser.AddListener( new LoggerPassthroughListener( mLogger ) );
             if ( !parser.TryParse( source, out var compilationUnit ) )
             {
-                LogError( "Failed to parse compilation unit" );
+                Error( "Failed to parse compilation unit" );
                 flowScript = null;
                 return false;
             }
@@ -154,6 +156,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             {
                 mFilePath = Path.GetFullPath( fileStream.Name );
                 mCurrentBaseDirectory = Path.GetDirectoryName( mFilePath );
+                Info( $"Start compiling FlowScript from file '{mFilePath}'" );
+                Info( $"Base directory set to '{mCurrentBaseDirectory}'" );
+            }
+            else
+            {
+                Info( "Start compiling FlowScript from stream" );
+                Warning( "Because the input is not a file, this means imports will not work!" );
             }
 
             // Add hash for current file
@@ -168,7 +177,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             parser.AddListener( new LoggerPassthroughListener( mLogger ) );
             if ( !parser.TryParse( stream, out var compilationUnit ) )
             {
-                LogError( "Failed to parse compilation unit" );
+                Error( "Failed to parse compilation unit" );
                 flowScript = null;
                 return false;
             }
@@ -189,7 +198,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             resolver.AddListener( new LoggerPassthroughListener( mLogger ) );
             if ( !resolver.TryResolveTypes( compilationUnit ) )
             {
-                LogError( "Failed to resolve types in compilation unit" );
+                Error( "Failed to resolve types in compilation unit" );
                 flowScript = null;
                 return false;
             }
@@ -228,20 +237,23 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private bool TryCompileCompilationUnit( FlowScriptCompilationUnit compilationUnit )
         {
-            LogInfo( compilationUnit, $"Start compiling FlowScript with version {mFormatVersion}" );
+            Info( $"Start compiling FlowScript compilation unit with version {mFormatVersion}" );
 
             // Initialize
             InitializeCompilationState();
 
             // Resolve imports
-            do
+            if ( compilationUnit.Imports.Count > 0 )
             {
-                if ( !TryResolveImports( compilationUnit ) )
+                do
                 {
-                    LogError( compilationUnit, "Failed to resolve imports" );
-                    return false;
-                }
-            } while ( mReresolveImports );
+                    if ( !TryResolveImports( compilationUnit ) )
+                    {
+                        Error( compilationUnit, "Failed to resolve imports" );
+                        return false;
+                    }
+                } while ( mReresolveImports );
+            }
 
             // Evaluate declarations, return values, parameters etc
             if ( !TryEvaluateCompilationUnitBeforeCompilation( compilationUnit ) )
@@ -282,18 +294,18 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 {
                     if ( variableDeclaration.Initializer != null && ( variableDeclaration.Modifier != null && variableDeclaration.Modifier.ModifierType != FlowScriptModifierType.Constant ) )
                     {
-                        LogError( variableDeclaration.Initializer, "Non-constant variables declared outside of a procedure can't be initialized with a value" );
+                        Error( variableDeclaration.Initializer, "Non-constant variables declared outside of a procedure can't be initialized with a value" );
                         return false;
                     }
                 }
                 else if ( !( statement is FlowScriptFunctionDeclaration ) && !( statement is FlowScriptEnumDeclaration ) )
                 {
-                    LogError( statement, $"Unexpected top-level statement type: {statement}" );
+                    Error( statement, $"Unexpected top-level statement type: {statement}" );
                     return false;
                 }
             }
 
-            LogInfo( compilationUnit, "Done compiling compilation unit" );
+            Info( "Done compiling compilation unit" );
 
             return true;
         }
@@ -311,7 +323,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         //
         private bool TryResolveImports( FlowScriptCompilationUnit compilationUnit )
         {
-            LogInfo( compilationUnit, "Resolving imports" );
+            Info( compilationUnit, "Resolving imports" );
 
             ExpandImportStatementsPaths( compilationUnit, Path.GetDirectoryName( mFilePath ) );
 
@@ -325,7 +337,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     // MessageScript
                     if ( !TryResolveMessageScriptImport( import, out var messageScript ) )
                     {
-                        LogError( import, $"Failed to resolve MessageScript import: { import.CompilationUnitFileName }" );
+                        Error( import, $"Failed to resolve MessageScript import: { import.CompilationUnitFileName }" );
                         return false;
                     }
 
@@ -338,7 +350,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     // FlowScript
                     if ( !TryResolveFlowScriptImport( import, out var importedCompilationUnit ) )
                     {
-                        LogError( import, $"Failed to resolve FlowScript import: { import.CompilationUnitFileName }" );
+                        Error( import, $"Failed to resolve FlowScript import: { import.CompilationUnitFileName }" );
                         return false;
                     }
 
@@ -349,7 +361,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 else
                 {
                     // Unknown
-                    LogError( import, $"Unknown import file type: {import.CompilationUnitFileName}" );
+                    Error( import, $"Unknown import file type: {import.CompilationUnitFileName}" );
                     return false;
                 }
             }
@@ -391,13 +403,16 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
             mReresolveImports = shouldReresolveImports;
 
-            LogInfo( compilationUnit, "Done resolving imports" );
+            if ( !mReresolveImports )
+                Info( compilationUnit, "Done resolving imports" );
 
             return true;
         }
 
         private bool TryResolveMessageScriptImport( FlowScriptImport import, out MessageScript messageScript )
         {
+            Info( $"Resolving MessageScript import '{import.CompilationUnitFileName}'" );
+
             var messageScriptCompiler = new MessageScriptCompiler( GetMessageScriptFormatVersion(), Encoding );
             messageScriptCompiler.AddListener( new LoggerPassthroughListener( mLogger ) );
             messageScriptCompiler.LibraryRegistry = LibraryRegistry;
@@ -413,18 +428,20 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
                     if ( !File.Exists( compilationUnitFilePath ) )
                     {
-                        LogError( import, $"MessageScript file to import does not exist: {import.CompilationUnitFileName}" );
+                        Error( import, $"MessageScript file to import does not exist: {import.CompilationUnitFileName}" );
                         messageScript = null;
                         return false;
                     }
                 }
                 else
                 {
-                    LogError( import, $"MessageScript file to import does not exist: {import.CompilationUnitFileName}" );
+                    Error( import, $"MessageScript file to import does not exist: {import.CompilationUnitFileName}" );
                     messageScript = null;
                     return false;
                 }
             }
+
+            Info( $"Importing MessageScript from file '{compilationUnitFilePath}'" );
 
             string messageScriptSource;
 
@@ -434,7 +451,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             }
             catch ( Exception )
             {
-                LogError( import, $"Can't open MessageScript file to import: {import.CompilationUnitFileName}" );
+                Error( import, $"Can't open MessageScript file to import: {import.CompilationUnitFileName}" );
                 messageScript = null;
                 return false;
             }
@@ -445,7 +462,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             {
                 if ( !messageScriptCompiler.TryCompile( messageScriptSource, out messageScript ) )
                 {
-                    LogError( import, $"Import MessageScript failed to compile: {import.CompilationUnitFileName}" );
+                    Error( import, $"Import MessageScript failed to compile: {import.CompilationUnitFileName}" );
                     return false;
                 }
 
@@ -453,6 +470,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             }
             else
             {
+                Warning( $"MessageScript file '{compilationUnitFilePath}' was already included once! Skipping!" );
                 messageScript = null;
             }
 
@@ -462,6 +480,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         private bool TryResolveFlowScriptImport( FlowScriptImport import, out FlowScriptCompilationUnit importedCompilationUnit )
         {
             string compilationUnitFilePath = import.CompilationUnitFileName;
+            Info( $"Resolving FlowScript import '{compilationUnitFilePath}'" );
 
             if ( !File.Exists( compilationUnitFilePath ) )
             {
@@ -472,19 +491,20 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
                     if ( !File.Exists( compilationUnitFilePath ) )
                     {
-                        LogError( import, $"FlowScript file to import does not exist: {import.CompilationUnitFileName}" );
+                        Error( import, $"FlowScript file to import does not exist: {import.CompilationUnitFileName}" );
                         importedCompilationUnit = null;
                         return false;
                     }
                 }
                 else
                 {
-                    LogError( import, $"FlowScript file to import does not exist: {import.CompilationUnitFileName}" );
+                    Error( import, $"FlowScript file to import does not exist: {import.CompilationUnitFileName}" );
                     importedCompilationUnit = null;
                     return false;
                 }
             }
 
+            Info( $"Importing FlowScript from file '{compilationUnitFilePath}'" );
             FileStream flowScriptFileStream;
             try
             {
@@ -492,7 +512,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             }
             catch ( Exception )
             {
-                LogError( import, $"Can't open FlowScript file to import: {import.CompilationUnitFileName}" );
+                Error( import, $"Can't open FlowScript file to import: {import.CompilationUnitFileName}" );
                 importedCompilationUnit = null;
                 return false;
             }
@@ -508,7 +528,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 parser.AddListener( new LoggerPassthroughListener( mLogger ) );
                 if ( !parser.TryParse( flowScriptFileStream, out importedCompilationUnit ) )
                 {
-                    LogError( import, "Failed to parse imported FlowScript" );
+                    Error( import, "Failed to parse imported FlowScript" );
                     return false;
                 }
 
@@ -520,6 +540,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             }
             else
             {
+                Warning( "FlowScript file '{compilationUnitFilePath}' was already included once! Skipping!" );
                 importedCompilationUnit = null;
             }
 
@@ -548,7 +569,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             // Declare constants for the message script window names
             if ( mScript.MessageScript != null )
             {
-                LogInfo( "Inserting MessageScript window identifier constants" );
+                Info( "Inserting MessageScript window identifier constants" );
                 for ( int i = 0; i < mScript.MessageScript.Windows.Count; i++ )
                 {
                     var window = mScript.MessageScript.Windows[i];
@@ -563,11 +584,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
                     if ( !Scope.TryDeclareVariable( declaration ) )
                     {
-                        LogError( declaration, $"Compiler generated constant for MessageScript window {window.Identifier} conflicts with another variable" );
+                        Error( declaration, $"Compiler generated constant for MessageScript window {window.Identifier} conflicts with another variable" );
                     }
                     else
                     {
-                        LogInfo( $"Declared compile time constant: {declaration}" );
+                        Info( $"Declared compile time constant: {declaration}" );
                     }
                 }
             }
@@ -578,7 +599,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             short maxFloatParameterCount = 0;
 
             // top-level only
-            LogInfo( "Registering script declarations" );
+            Trace( "Registering script declarations" );
             foreach ( var statement in compilationUnit.Declarations )
             {
                 switch ( statement )
@@ -587,11 +608,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                         {
                             if ( !Scope.TryDeclareFunction( functionDeclaration ) )
                             {
-                                LogInfo( functionDeclaration, $"Ignoring duplicate function declaration: {functionDeclaration}" );
+                                Warning( functionDeclaration, $"Ignoring duplicate function declaration: {functionDeclaration}" );
                             }
                             else
                             {
-                                LogInfo( $"Registered function declaration '{functionDeclaration}'" );
+                                Trace( $"Registered function declaration '{functionDeclaration}'" );
                             }
                         }
                         break;
@@ -599,12 +620,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                         {
                             if ( !Scope.TryDeclareProcedure( procedureDeclaration ) )
                             {
-                                LogError( procedureDeclaration, $"Duplicate procedure declaration: {procedureDeclaration}" );
+                                Error( procedureDeclaration, $"Duplicate procedure declaration: {procedureDeclaration}" );
                                 return false;
                             }
                             else
                             {
-                                LogInfo( $"Registered procedure declaration '{procedureDeclaration}'" );
+                                Trace( $"Registered procedure declaration '{procedureDeclaration}'" );
                             }
 
                             if ( procedureDeclaration.ReturnType.ValueType != FlowScriptValueType.Void )
@@ -630,12 +651,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                         {
                             if ( !TryRegisterVariableDeclaration( variableDeclaration ) )
                             {
-                                LogError( variableDeclaration, $"Duplicate variable declaration: {variableDeclaration}" );
+                                Error( variableDeclaration, $"Duplicate variable declaration: {variableDeclaration}" );
                                 return false;
                             }
                             else
                             {
-                                LogInfo( $"Registered variable declaration '{variableDeclaration}'" );
+                                Trace( $"Registered variable declaration '{variableDeclaration}'" );
                             }
                         }
                         break;
@@ -644,7 +665,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                         {
                             if ( !Scope.TryDeclareEnum( enumDeclaration ) )
                             {
-                                LogError( enumDeclaration, $"Failed to declare enum: {enumDeclaration}" );
+                                Error( enumDeclaration, $"Failed to declare enum: {enumDeclaration}" );
                                 return false;
                             }
                         }
@@ -713,7 +734,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private bool TryCompileProcedure( FlowScriptProcedureDeclaration declaration, out FlowScriptProcedure procedure )
         {
-            LogInfo( declaration, $"Compiling procedure declaration: {declaration}" );
+            Info( declaration, $"Compiling procedure: {declaration.Identifier.Text}" );
 
             // Initialize procedure to null so we can return without having to set it explicitly
             procedure = null;
@@ -729,14 +750,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             // Create the procedure object
             procedure = new FlowScriptProcedure( declaration.Identifier.Text, mInstructions, labels );
 
-            LogInfo( declaration, $"Done compiling procedure declaration: {declaration}" );
-
             return true;
         }
 
         private bool TryEmitProcedureBody( FlowScriptProcedureDeclaration declaration )
         {
-            LogInfo( declaration.Body, $"Emitting procedure body for {declaration}" );
+            Trace( declaration.Body, $"Emitting procedure body for {declaration}" );
 
             // Initialize some state
             InitializeProcedureCompilationState( declaration );
@@ -758,20 +777,20 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             }
 
             // Register / forward declare labels in procedure body before codegen
-            LogInfo( declaration.Body, "Forward declaring labels in procedure body" );
+            Trace( declaration.Body, "Forward declaring labels in procedure body" );
             if ( !TryRegisterLabels( declaration.Body ) )
             {
-                LogError( declaration.Body, "Failed to forward declare labels in procedure body" );
+                Error( declaration.Body, "Failed to forward declare labels in procedure body" );
                 return false;
             }
 
             // Emit procedure parameters
             if ( declaration.Parameters.Count > 0 )
             {
-                LogInfo( declaration, "Emitting code for procedure parameters" );
+                Trace( declaration, "Emitting code for procedure parameters" );
                 if ( !TryEmitProcedureParameters( declaration.Parameters ) )
                 {
-                    LogError( declaration, "Failed to emit procedure parameters" );
+                    Error( declaration, "Failed to emit procedure parameters" );
                     return false;
                 }
             }
@@ -779,15 +798,15 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             // Add implicit return
             if ( declaration.Body.Statements.Count == 0 || !( declaration.Body.Last() is FlowScriptReturnStatement ) )
             {
-                LogInfo( declaration.Body, "Adding implicit return statement" );
+                Trace( declaration.Body, "Adding implicit return statement" );
                 declaration.Body.Statements.Add( new FlowScriptReturnStatement() );
             }
 
             // Emit procedure body
-            LogInfo( declaration.Body, "Emitting code for procedure body" );
+            Trace( declaration.Body, "Emitting code for procedure body" );
             if ( !TryEmitCompoundStatement( declaration.Body ) )
             {
-                LogError( declaration.Body, "Failed to emit procedure body" );
+                Error( declaration.Body, "Failed to emit procedure body" );
                 return false;
             }
 
@@ -803,7 +822,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
             foreach ( var parameter in parameters )
             {
-                LogInfo( parameter, $"Emitting parameter: {parameter}" );
+                Trace( parameter, $"Emitting parameter: {parameter}" );
 
                 // Create declaration
                 var declaration = new FlowScriptVariableDeclaration(
@@ -875,7 +894,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private bool TryResolveProcedureLabels( out List<FlowScriptLabel> labels )
         {
-            LogInfo( "Resolving labels in procedure" );
+            Trace( "Resolving labels in procedure" );
             if ( mLabels.Values.Any( x => !x.IsResolved ) )
             {
                 foreach ( var item in mLabels.Values.Where( x => !x.IsResolved ) )
@@ -942,7 +961,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                         }
                         else
                         {
-                            LogError( statement, "Expected variable or label declaration" );
+                            Error( statement, "Expected variable or label declaration" );
                             return false;
                         }
 
@@ -976,7 +995,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 case FlowScriptReturnStatement returnStatement:
                     if ( !TryEmitReturnStatement( returnStatement ) )
                     {
-                        LogError( returnStatement, $"Failed to compile return statement: {returnStatement}" );
+                        Error( returnStatement, $"Failed to compile return statement: {returnStatement}" );
                         return false;
                     }
 
@@ -984,7 +1003,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 case FlowScriptGotoStatement gotoStatement:
                     if ( !TryEmitGotoStatement( gotoStatement ) )
                     {
-                        LogError( gotoStatement, $"Failed to compile goto statement: {gotoStatement}" );
+                        Error( gotoStatement, $"Failed to compile goto statement: {gotoStatement}" );
                         return false;
                     }
 
@@ -992,13 +1011,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 case FlowScriptSwitchStatement switchStatement:
                     if ( !TryEmitSwitchStatement( switchStatement ) )
                     {
-                        LogError( switchStatement, $"Failed to compile switch statement: {switchStatement}" );
+                        Error( switchStatement, $"Failed to compile switch statement: {switchStatement}" );
                         return false;
                     }
 
                     break;
                 default:
-                    LogError( statement, $"Compiling statement '{statement}' not implemented" );
+                    Error( statement, $"Compiling statement '{statement}' not implemented" );
                     return false;
             }
 
@@ -1043,7 +1062,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             }
             else
             {
-                LogError( declaration.Modifier, $"Unexpected variable modifier: {declaration.Modifier}" );
+                Error( declaration.Modifier, $"Unexpected variable modifier: {declaration.Modifier}" );
                 variableIndex = -1;
                 return false;
             }
@@ -1053,19 +1072,19 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private bool TryRegisterVariableDeclaration( FlowScriptVariableDeclaration declaration )
         {
-            LogInfo( declaration, $"Registering variable declaration: {declaration}" );
+            Trace( declaration, $"Registering variable declaration: {declaration}" );
 
             // Get variable idnex
             if ( !TryGetVariableIndex( declaration, out var variableIndex ) )
             {
-                LogError( declaration, $"Failed to get index for variable '{declaration}'" );
+                Error( declaration, $"Failed to get index for variable '{declaration}'" );
                 return false;
             }
 
             // Declare variable in scope
             if ( !Scope.TryDeclareVariable( declaration, variableIndex ) )
             {
-                LogError( declaration, $"Variable '{declaration}' has already been declared" );
+                Error( declaration, $"Variable '{declaration}' has already been declared" );
                 return false;
             }
 
@@ -1074,12 +1093,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private bool TryEmitVariableDeclaration( FlowScriptVariableDeclaration declaration )
         {
-            LogInfo( declaration, $"Emitting variable declaration: {declaration}" );
+            Trace( declaration, $"Emitting variable declaration: {declaration}" );
 
             // Register variable
             if ( !TryRegisterVariableDeclaration( declaration ) )
             {
-                LogError( declaration, "Failed to register variable declaration" );
+                Error( declaration, "Failed to register variable declaration" );
                 return false;
             }
 
@@ -1090,11 +1109,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             // Emit the variable initializer if it has one         
             if ( declaration.Initializer != null )
             {
-                LogInfo( declaration.Initializer, "Emitting variable initializer" );
+                Trace( declaration.Initializer, "Emitting variable initializer" );
 
                 if ( !TryEmitVariableAssignment( declaration.Identifier, declaration.Initializer, true ) )
                 {
-                    LogError( declaration.Initializer, "Failed to emit code for variable initializer" );
+                    Error( declaration.Initializer, "Failed to emit code for variable initializer" );
                     return false;
                 }
             }
@@ -1104,12 +1123,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private bool TryRegisterLabelDeclaration( FlowScriptLabelDeclaration declaration )
         {
-            LogInfo( declaration, $"Registering label declaration: {declaration}" );
+            Trace( declaration, $"Registering label declaration: {declaration}" );
 
             // register label
             if ( !mLabels.TryGetValue( declaration.Identifier.Text, out var label ) )
             {
-                LogError( declaration.Identifier, $"Unexpected declaration of an registered label: '{declaration}'" );
+                Error( declaration.Identifier, $"Unexpected declaration of an registered label: '{declaration}'" );
                 return false;
             }
 
@@ -1128,7 +1147,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 case FlowScriptMemberAccessExpression memberAccessExpression:
                     if ( isStatement )
                     {
-                        LogError( memberAccessExpression, "An identifier is an invalid statement" );
+                        Error( memberAccessExpression, "An identifier is an invalid statement" );
                         return false;
                     }
 
@@ -1151,7 +1170,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 case FlowScriptIdentifier identifier:
                     if ( isStatement )
                     {
-                        LogError( identifier, "An identifier is an invalid statement" );
+                        Error( identifier, "An identifier is an invalid statement" );
                         return false;
                     }
 
@@ -1161,7 +1180,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 case FlowScriptBoolLiteral boolLiteral:
                     if ( isStatement )
                     {
-                        LogError( boolLiteral, "A boolean literal is an invalid statement" );
+                        Error( boolLiteral, "A boolean literal is an invalid statement" );
                         return false;
                     }
 
@@ -1170,7 +1189,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 case FlowScriptIntLiteral intLiteral:
                     if ( isStatement )
                     {
-                        LogError( intLiteral, "A integer literal is an invalid statement" );
+                        Error( intLiteral, "A integer literal is an invalid statement" );
                         return false;
                     }
 
@@ -1179,7 +1198,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 case FlowScriptFloatLiteral floatLiteral:
                     if ( isStatement )
                     {
-                        LogError( floatLiteral, "A float literal is an invalid statement" );
+                        Error( floatLiteral, "A float literal is an invalid statement" );
                         return false;
                     }
 
@@ -1188,14 +1207,14 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 case FlowScriptStringLiteral stringLiteral:
                     if ( isStatement )
                     {
-                        LogError( stringLiteral, "A string literal is an invalid statement" );
+                        Error( stringLiteral, "A string literal is an invalid statement" );
                         return false;
                     }
 
                     EmitPushStringLiteral( stringLiteral );
                     break;
                 default:
-                    LogError( expression, $"Compiling expression '{expression}' not implemented" );
+                    Error( expression, $"Compiling expression '{expression}' not implemented" );
                     return false;
             }
 
@@ -1204,23 +1223,23 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private bool TryEmitMemberAccess( FlowScriptMemberAccessExpression memberAccessExpression )
         {
-            LogInfo( memberAccessExpression, $"Emitting member access '{memberAccessExpression}'" );
+            Trace( memberAccessExpression, $"Emitting member access '{memberAccessExpression}'" );
 
             if ( !Scope.TryGetEnum( memberAccessExpression.Operand.Text, out var enumType ) )
             {
-                LogError( $"Referenced undeclared enum '{memberAccessExpression.Operand.Text}'" );
+                Error( $"Referenced undeclared enum '{memberAccessExpression.Operand.Text}'" );
                 return false;
             }
 
             if ( !enumType.Members.TryGetValue( memberAccessExpression.Member.Text, out var value ) )
             {
-                LogError( $"Referenced undeclared enum member '{memberAccessExpression.Member.Text}' in enum '{memberAccessExpression.Operand.Text}'" );
+                Error( $"Referenced undeclared enum member '{memberAccessExpression.Member.Text}' in enum '{memberAccessExpression.Operand.Text}'" );
                 return false;
             }
 
             if ( !TryEmitExpression( value, false ) )
             {
-                LogError( $"Failed to emit enum value '{value}'" );
+                Error( $"Failed to emit enum value '{value}'" );
                 return false;
             }
 
@@ -1229,13 +1248,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private bool TryEmitCall( FlowScriptCallOperator callExpression, bool isStatement )
         {
-            LogInfo( callExpression, $"Emitting call: {callExpression}" );
+            Trace( callExpression, $"Emitting call: {callExpression}" );
 
             if ( mRootScope.TryGetFunction( callExpression.Identifier.Text, out var function ) )
             {
                 if ( callExpression.Arguments.Count != function.Declaration.Parameters.Count )
                 {
-                    LogError( $"Function '{function.Declaration}' expects {function.Declaration.Parameters.Count} arguments but {callExpression.Arguments.Count} are given" );
+                    Error( $"Function '{function.Declaration}' expects {function.Declaration.Parameters.Count} arguments but {callExpression.Arguments.Count} are given" );
                     return false;
                 }
 
@@ -1256,7 +1275,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 if ( !isStatement && function.Declaration.ReturnType.ValueType != FlowScriptValueType.Void )
                 {
                     // push return value of function
-                    LogInfo( callExpression, $"Emitting PUSHREG for {callExpression}" );
+                    Trace( callExpression, $"Emitting PUSHREG for {callExpression}" );
                     Emit( FlowScriptInstruction.PUSHREG() );
 
                     if ( EnableFunctionCallTracing )
@@ -1269,7 +1288,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             {
                 if ( callExpression.Arguments.Count != procedure.Declaration.Parameters.Count )
                 {
-                    LogError( $"Procedure '{procedure.Declaration}' expects {procedure.Declaration.Parameters.Count} arguments but {callExpression.Arguments.Count} are given" );
+                    Error( $"Procedure '{procedure.Declaration}' expects {procedure.Declaration.Parameters.Count} arguments but {callExpression.Arguments.Count} are given" );
                     return false;
                 }
 
@@ -1303,7 +1322,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             }
             else
             {
-                LogError( callExpression, $"Invalid call expression. Expected function or procedure identifier, got: {callExpression.Identifier}" );
+                Error( callExpression, $"Invalid call expression. Expected function or procedure identifier, got: {callExpression.Identifier}" );
                 return false;
             }
 
@@ -1312,14 +1331,14 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private bool TryEmitFunctionCallArguments( FlowScriptCallOperator callExpression )
         {
-            LogInfo( "Emitting function call arguments" );
+            Trace( "Emitting function call arguments" );
 
             // Compile expressions backwards so they are pushed to the stack in the right order
             for ( int i = callExpression.Arguments.Count - 1; i >= 0; i-- )
             {
                 if ( !TryEmitExpression( callExpression.Arguments[i], false ) )
                 {
-                    LogError( callExpression.Arguments[i], $"Failed to compile function call argument: {callExpression.Arguments[i]}" );
+                    Error( callExpression.Arguments[i], $"Failed to compile function call argument: {callExpression.Arguments[i]}" );
                     return false;
                 }
             }
@@ -1329,7 +1348,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private bool TryEmitParameterCallArguments( FlowScriptCallOperator callExpression, FlowScriptProcedureDeclaration declaration )
         {
-            LogInfo( "Emitting parameter call arguments" );
+            Trace( "Emitting parameter call arguments" );
 
             int intParameterCount = 0;
             int floatParameterCount = 0;
@@ -1338,7 +1357,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             {
                 if ( !TryEmitExpression( callExpression.Arguments[i], false ) )
                 {
-                    LogError( callExpression.Arguments[i], $"Failed to compile function call argument: {callExpression.Arguments[i]}" );
+                    Error( callExpression.Arguments[i], $"Failed to compile function call argument: {callExpression.Arguments[i]}" );
                     return false;
                 }
 
@@ -1364,14 +1383,14 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private bool TryEmitUnaryExpression( FlowScriptUnaryExpression unaryExpression, bool isStatement )
         {
-            LogInfo( unaryExpression, $"Emitting unary expression: {unaryExpression}" );
+            Trace( unaryExpression, $"Emitting unary expression: {unaryExpression}" );
 
             switch ( unaryExpression )
             {
                 case FlowScriptPostfixOperator postfixOperator:
                     if ( !TryEmitPostfixOperator( postfixOperator, isStatement ) )
                     {
-                        LogError( postfixOperator, "Failed to emit postfix operator" );
+                        Error( postfixOperator, "Failed to emit postfix operator" );
                         return false;
                     }
                     break;
@@ -1379,13 +1398,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 case FlowScriptPrefixOperator prefixOperator:
                     if ( !TryEmitPrefixOperator( prefixOperator, isStatement ) )
                     {
-                        LogError( prefixOperator, "Failed to emit prefix operator" );
+                        Error( prefixOperator, "Failed to emit prefix operator" );
                         return false;
                     }
                     break;
 
                 default:
-                    LogError( unaryExpression, $"Emitting unary expression '{unaryExpression}' not implemented" );
+                    Error( unaryExpression, $"Emitting unary expression '{unaryExpression}' not implemented" );
                     return false;
             }
 
@@ -1397,7 +1416,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             var identifier = ( FlowScriptIdentifier )postfixOperator.Operand;
             if ( !Scope.TryGetVariable( identifier.Text, out var variable ) )
             {
-                LogError( identifier, $"Reference to undefined variable: {identifier}" );
+                Error( identifier, $"Reference to undefined variable: {identifier}" );
                 return false;
             }
 
@@ -1420,14 +1439,14 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 // Push value of the variable to save in the copy
                 if ( !TryEmitPushVariableValue( identifier ) )
                 {
-                    LogError( identifier, $"Failed to push variable value to copy variable: {identifier}" );
+                    Error( identifier, $"Failed to push variable value to copy variable: {identifier}" );
                     return false;
                 }
 
                 // Assign the copy with the value of the variable
                 if ( !TryEmitVariableAssignment( copy.Declaration.Identifier ) )
                 {
-                    LogError( $"Failed to emit variable assignment to copy variable: {copy}" );
+                    Error( $"Failed to emit variable assignment to copy variable: {copy}" );
                     return false;
                 }
             }
@@ -1440,7 +1459,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 // Push value of the variable
                 if ( !TryEmitPushVariableValue( identifier ) )
                 {
-                    LogError( identifier, $"Failed to push variable value to copy variable: {identifier}" );
+                    Error( identifier, $"Failed to push variable value to copy variable: {identifier}" );
                     return false;
                 }
 
@@ -1461,7 +1480,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 // Emit assignment with calculated value
                 if ( !TryEmitVariableAssignment( identifier ) )
                 {
-                    LogError( identifier, $"Failed to emit variable assignment: {identifier}" );
+                    Error( identifier, $"Failed to emit variable assignment: {identifier}" );
                     return false;
                 }
             }
@@ -1469,11 +1488,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             if ( !isStatement )
             {
                 // Push the value of the copy
-                LogInfo( $"Pushing variable value: {copy.Declaration.Identifier}" );
+                Trace( $"Pushing variable value: {copy.Declaration.Identifier}" );
 
                 if ( !TryEmitPushVariableValue( copy.Declaration.Identifier ) )
                 {
-                    LogError( $"Failed to push value for copy variable { copy }" );
+                    Error( $"Failed to push value for copy variable { copy }" );
                     return false;
                 }
             }
@@ -1489,24 +1508,24 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 case FlowScriptNegationOperator _:
                     if ( isStatement )
                     {
-                        LogError( prefixOperator, "A logical not operator is an invalid statement" );
+                        Error( prefixOperator, "A logical not operator is an invalid statement" );
                         return false;
                     }
 
                     if ( !TryEmitExpression( prefixOperator.Operand, false ) )
                     {
-                        LogError( prefixOperator.Operand, "Failed to emit operand for unary expression" );
+                        Error( prefixOperator.Operand, "Failed to emit operand for unary expression" );
                         return false;
                     }
 
                     if ( prefixOperator is FlowScriptLogicalNotOperator )
                     {
-                        LogInfo( prefixOperator, "Emitting NOT" );
+                        Trace( prefixOperator, "Emitting NOT" );
                         Emit( FlowScriptInstruction.NOT() );
                     }
                     else if ( prefixOperator is FlowScriptNegationOperator )
                     {
-                        LogInfo( prefixOperator, "Emitting MINUS" );
+                        Trace( prefixOperator, "Emitting MINUS" );
                         Emit( FlowScriptInstruction.MINUS() );
                     }
                     else
@@ -1525,7 +1544,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                         var identifier = ( FlowScriptIdentifier )prefixOperator.Operand;
                         if ( !TryEmitPushVariableValue( identifier ) )
                         {
-                            LogError( identifier, $"Failed to emit variable value for: { identifier }" );
+                            Error( identifier, $"Failed to emit variable value for: { identifier }" );
                             return false;
                         }
 
@@ -1546,17 +1565,17 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                         // Emit assignment
                         if ( !TryEmitVariableAssignment( identifier ) )
                         {
-                            LogError( prefixOperator, $"Failed to emit variable assignment: {prefixOperator}" );
+                            Error( prefixOperator, $"Failed to emit variable assignment: {prefixOperator}" );
                             return false;
                         }
 
                         if ( !isStatement )
                         {
-                            LogInfo( prefixOperator, $"Emitting variable value: {identifier}" );
+                            Trace( prefixOperator, $"Emitting variable value: {identifier}" );
 
                             if ( !TryEmitPushVariableValue( identifier ) )
                             {
-                                LogError( identifier, $"Failed to emit variable value for: { identifier }" );
+                                Error( identifier, $"Failed to emit variable value for: { identifier }" );
                                 return false;
                             }
                         }
@@ -1564,7 +1583,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     break;
 
                 default:
-                    LogError( prefixOperator, $"Unknown prefix operator: {prefixOperator}" );
+                    Error( prefixOperator, $"Unknown prefix operator: {prefixOperator}" );
                     return false;
             }
 
@@ -1573,13 +1592,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private bool TryEmitBinaryExpression( FlowScriptBinaryExpression binaryExpression, bool isStatement )
         {
-            LogInfo( binaryExpression, $"Emitting binary expression: {binaryExpression}" );
+            Trace( binaryExpression, $"Emitting binary expression: {binaryExpression}" );
 
             if ( binaryExpression is FlowScriptAssignmentOperatorBase assignment )
             {
                 if ( !TryEmitVariableAssignmentBase( assignment, isStatement ) )
                 {
-                    LogError( assignment, $"Failed to emit variable assignment: { assignment }" );
+                    Error( assignment, $"Failed to emit variable assignment: { assignment }" );
                     return false;
                 }
             }
@@ -1587,23 +1606,23 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             {
                 if ( isStatement )
                 {
-                    LogError( binaryExpression, "A binary operator is not a valid statement" );
+                    Error( binaryExpression, "A binary operator is not a valid statement" );
                     return false;
                 }
                 else
                 {
-                    LogInfo( "Emitting value for binary expression" );
+                    Trace( "Emitting value for binary expression" );
                 }
 
                 if ( !TryEmitExpression( binaryExpression.Right, false ) )
                 {
-                    LogError( binaryExpression.Right, $"Failed to emit right expression: {binaryExpression.Left}" );
+                    Error( binaryExpression.Right, $"Failed to emit right expression: {binaryExpression.Left}" );
                     return false;
                 }
 
                 if ( !TryEmitExpression( binaryExpression.Left, false ) )
                 {
-                    LogError( binaryExpression.Right, $"Failed to emit left expression: {binaryExpression.Right}" );
+                    Error( binaryExpression.Right, $"Failed to emit left expression: {binaryExpression.Right}" );
                     return false;
                 }
 
@@ -1646,7 +1665,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                         Emit( FlowScriptInstruction.LE() );
                         break;
                     default:
-                        LogError( binaryExpression, $"Emitting binary expression '{binaryExpression}' not implemented" );
+                        Error( binaryExpression, $"Emitting binary expression '{binaryExpression}' not implemented" );
                         return false;
                 }
             }
@@ -1656,11 +1675,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private bool TryEmitPushVariableValue( FlowScriptIdentifier identifier )
         {
-            LogInfo( identifier, $"Emitting variable reference: {identifier}" );
+            Trace( identifier, $"Emitting variable reference: {identifier}" );
 
             if ( !Scope.TryGetVariable( identifier.Text, out var variable ) )
             {
-                LogError( identifier, $"Referenced undeclared variable '{identifier}'" );
+                Error( identifier, $"Referenced undeclared variable '{identifier}'" );
                 return false;
             }
 
@@ -1682,13 +1701,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             {
                 if ( !TryEmitExpression( variable.Declaration.Initializer, false ) )
                 {
-                    LogError( variable.Declaration.Initializer, $"Failed to emit value for constant expression: {variable.Declaration}" );
+                    Error( variable.Declaration.Initializer, $"Failed to emit value for constant expression: {variable.Declaration}" );
                     return false;
                 }
             }
             else
             {
-                LogError( variable.Declaration, "Unsupported variable modifier type" );
+                Error( variable.Declaration, "Unsupported variable modifier type" );
                 return false;
             }
 
@@ -1701,7 +1720,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             {
                 if ( !TryEmitVariableCompoundAssignment( compoundAssignment, isStatement ) )
                 {
-                    LogError( compoundAssignment, $"Failed to emit compound assignment: {compoundAssignment}" );
+                    Error( compoundAssignment, $"Failed to emit compound assignment: {compoundAssignment}" );
                     return false;
                 }
             }
@@ -1709,7 +1728,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             {
                 if ( !TryEmitVariableAssignment( ( FlowScriptIdentifier )assignment.Left, assignment.Right, isStatement ) )
                 {
-                    LogError( assignment, $"Failed to emit assignment: {assignment}" );
+                    Error( assignment, $"Failed to emit assignment: {assignment}" );
                     return false;
                 }
             }
@@ -1719,12 +1738,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private bool TryEmitVariableCompoundAssignment( FlowScriptCompoundAssignmentOperator compoundAssignment, bool isStatement )
         {
-            LogInfo( compoundAssignment, $"Emitting compound assignment: {compoundAssignment}" );
+            Trace( compoundAssignment, $"Emitting compound assignment: {compoundAssignment}" );
 
             // Push value of right expression
             if ( !TryEmitExpression( compoundAssignment.Right, false ) )
             {
-                LogError( compoundAssignment.Right, $"Failed to emit expression: { compoundAssignment.Right }" );
+                Error( compoundAssignment.Right, $"Failed to emit expression: { compoundAssignment.Right }" );
                 return false;
             }
 
@@ -1732,7 +1751,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             var identifier = ( FlowScriptIdentifier )compoundAssignment.Left;
             if ( !TryEmitPushVariableValue( identifier ) )
             {
-                LogError( identifier, $"Failed to emit variable value for: { identifier }" );
+                Error( identifier, $"Failed to emit variable value for: { identifier }" );
                 return false;
             }
 
@@ -1756,25 +1775,25 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     break;
 
                 default:
-                    LogError( compoundAssignment, $"Unknown compound assignment type: { compoundAssignment }" );
+                    Error( compoundAssignment, $"Unknown compound assignment type: { compoundAssignment }" );
                     return false;
             }
 
             // Assign the value to the variable
             if ( !TryEmitVariableAssignment( identifier ) )
             {
-                LogError( identifier, $"Failed to assign value to variable: { identifier }" );
+                Error( identifier, $"Failed to assign value to variable: { identifier }" );
                 return false;
             }
 
             if ( !isStatement )
             {
-                LogInfo( compoundAssignment, $"Pushing variable value: {identifier}" );
+                Trace( compoundAssignment, $"Pushing variable value: {identifier}" );
 
                 // Push value of variable
                 if ( !TryEmitPushVariableValue( identifier ) )
                 {
-                    LogError( identifier, $"Failed to emit variable value for: { identifier }" );
+                    Error( identifier, $"Failed to emit variable value for: { identifier }" );
                     return false;
                 }
             }
@@ -1791,28 +1810,28 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         /// <returns></returns>
         private bool TryEmitVariableAssignment( FlowScriptIdentifier identifier, FlowScriptExpression expression, bool isStatement )
         {
-            LogInfo( $"Emitting variable assignment: {identifier} = {expression}" );
+            Trace( $"Emitting variable assignment: {identifier} = {expression}" );
 
             if ( !TryEmitExpression( expression, false ) )
             {
-                LogError( expression, "Failed to emit code for assigment value expression" );
+                Error( expression, "Failed to emit code for assigment value expression" );
                 return false;
             }
 
             if ( !TryEmitVariableAssignment( identifier ) )
             {
-                LogError( identifier, "Failed to emit code for value assignment to variable" );
+                Error( identifier, "Failed to emit code for value assignment to variable" );
                 return false;
             }
 
             if ( !isStatement )
             {
                 // Push value of variable
-                LogInfo( identifier, $"Pushing variable value: {identifier}" );
+                Trace( identifier, $"Pushing variable value: {identifier}" );
 
                 if ( !TryEmitPushVariableValue( identifier ) )
                 {
-                    LogError( identifier, $"Failed to emit variable value for: { identifier }" );
+                    Error( identifier, $"Failed to emit variable value for: { identifier }" );
                     return false;
                 }
             }
@@ -1829,7 +1848,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         {
             if ( !Scope.TryGetVariable( identifier.Text, out var variable ) )
             {
-                LogError( identifier, $"Assignment to undeclared variable: {identifier}" );
+                Error( identifier, $"Assignment to undeclared variable: {identifier}" );
                 return false;
             }
 
@@ -1858,12 +1877,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             }
             else if ( declaration.Modifier.ModifierType == FlowScriptModifierType.Constant )
             {
-                LogError( declaration.Identifier, "Illegal assignment to constant" );
+                Error( declaration.Identifier, "Illegal assignment to constant" );
                 return false;
             }
             else
             {
-                LogError( declaration.Identifier, $"Unsupported variable modifier type: {declaration.Modifier}" );
+                Error( declaration.Identifier, $"Unsupported variable modifier type: {declaration.Modifier}" );
                 return false;
             }
 
@@ -1875,7 +1894,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         //
         private void EmitPushBoolLiteral( FlowScriptBoolLiteral boolLiteral )
         {
-            LogInfo( boolLiteral, $"Pushing bool literal: {boolLiteral}" );
+            Trace( boolLiteral, $"Pushing bool literal: {boolLiteral}" );
 
             if ( boolLiteral.Value )
                 Emit( FlowScriptInstruction.PUSHIS( 1 ) );
@@ -1885,7 +1904,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private void EmitPushIntLiteral( FlowScriptIntLiteral intLiteral )
         {
-            LogInfo( intLiteral, $"Pushing int literal: {intLiteral}" );
+            Trace( intLiteral, $"Pushing int literal: {intLiteral}" );
 
             if ( IntFitsInShort( intLiteral.Value ) )
                 Emit( FlowScriptInstruction.PUSHIS( ( short )intLiteral.Value ) );
@@ -1895,14 +1914,14 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private void EmitPushFloatLiteral( FlowScriptFloatLiteral floatLiteral )
         {
-            LogInfo( floatLiteral, $"Pushing float literal: {floatLiteral}" );
+            Trace( floatLiteral, $"Pushing float literal: {floatLiteral}" );
 
             Emit( FlowScriptInstruction.PUSHF( floatLiteral.Value ) );
         }
 
         private void EmitPushStringLiteral( FlowScriptStringLiteral stringLiteral )
         {
-            LogInfo( stringLiteral, $"Pushing string literal: {stringLiteral}" );
+            Trace( stringLiteral, $"Pushing string literal: {stringLiteral}" );
 
             Emit( FlowScriptInstruction.PUSHSTR( stringLiteral.Value ) );
         }
@@ -1917,12 +1936,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         //
         private bool TryEmitIfStatement( FlowScriptIfStatement ifStatement )
         {
-            LogInfo( ifStatement, $"Emitting if statement: '{ifStatement}'" );
+            Trace( ifStatement, $"Emitting if statement: '{ifStatement}'" );
 
             // emit condition expression, which should push a boolean value to the stack
             if ( !TryEmitExpression( ifStatement.Condition, false ) )
             {
-                LogError( ifStatement.Condition, "Failed to emit if statement condition" );
+                Error( ifStatement.Condition, "Failed to emit if statement condition" );
                 return false;
             }
 
@@ -1972,10 +1991,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private bool TryEmitIfStatementBody( FlowScriptCompoundStatement body, Label endLabel )
         {
-            LogInfo( body, "Compiling if statement body" );
+            Trace( body, "Compiling if statement body" );
             if ( !TryEmitCompoundStatement( body ) )
             {
-                LogError( body, "Failed to compile if statement body" );
+                Error( body, "Failed to compile if statement body" );
                 return false;
             }
 
@@ -1991,7 +2010,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         //
         private bool TryEmitForStatement( FlowScriptForStatement forStatement )
         {
-            LogInfo( forStatement, $"Emitting for statement: '{forStatement}'" );
+            Trace( forStatement, $"Emitting for statement: '{forStatement}'" );
 
             // Enter for scope
             PushScope();
@@ -1999,7 +2018,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             // Emit initializer
             if ( !TryEmitStatement( forStatement.Initializer ) )
             {
-                LogError( forStatement.Condition, "Failed to emit for statement initializer" );
+                Error( forStatement.Condition, "Failed to emit for statement initializer" );
                 return false;
             }
 
@@ -2015,7 +2034,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 // Emit condition
                 if ( !TryEmitExpression( forStatement.Condition, false ) )
                 {
-                    LogError( forStatement.Condition, "Failed to emit for statement condition" );
+                    Error( forStatement.Condition, "Failed to emit for statement condition" );
                     return false;
                 }
 
@@ -2030,10 +2049,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 Scope.ContinueLabel = afterLoopLabel;
 
                 // emit body
-                LogInfo( forStatement.Body, "Emitting for statement body" );
+                Trace( forStatement.Body, "Emitting for statement body" );
                 if ( !TryEmitCompoundStatement( forStatement.Body ) )
                 {
-                    LogError( forStatement.Body, "Failed to emit for statement body" );
+                    Error( forStatement.Body, "Failed to emit for statement body" );
                     return false;
                 }
             }
@@ -2044,7 +2063,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
                 if ( !TryEmitExpression( forStatement.AfterLoop, true ) )
                 {
-                    LogError( forStatement.AfterLoop, "Failed to emit for statement after loop expression" );
+                    Error( forStatement.AfterLoop, "Failed to emit for statement after loop expression" );
                     return false;
                 }
 
@@ -2066,7 +2085,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         //
         private bool TryEmitWhileStatement( FlowScriptWhileStatement whileStatement )
         {
-            LogInfo( whileStatement, $"Emitting while statement: '{whileStatement}'" );
+            Trace( whileStatement, $"Emitting while statement: '{whileStatement}'" );
 
             // Create labels
             var conditionLabel = CreateLabel( "WhileConditionLabel" );
@@ -2079,7 +2098,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 // compile condition expression, which should push a boolean value to the stack
                 if ( !TryEmitExpression( whileStatement.Condition, false ) )
                 {
-                    LogError( whileStatement.Condition, "Failed to emit while statement condition" );
+                    Error( whileStatement.Condition, "Failed to emit while statement condition" );
                     return false;
                 }
 
@@ -2097,10 +2116,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 Scope.ContinueLabel = conditionLabel;
 
                 // emit body
-                LogInfo( whileStatement.Body, "Emitting while statement body" );
+                Trace( whileStatement.Body, "Emitting while statement body" );
                 if ( !TryEmitCompoundStatement( whileStatement.Body ) )
                 {
-                    LogError( whileStatement.Body, "Failed to emit while statement body" );
+                    Error( whileStatement.Body, "Failed to emit while statement body" );
                     return false;
                 }
 
@@ -2122,7 +2141,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         //
         private bool TryEmitSwitchStatement( FlowScriptSwitchStatement switchStatement )
         {
-            LogInfo( switchStatement, $"Emitting switch statement: '{switchStatement}'" );
+            Trace( switchStatement, $"Emitting switch statement: '{switchStatement}'" );
             PushScope();
 
             var defaultLabel = switchStatement.Labels.SingleOrDefault( x => x is FlowScriptDefaultSwitchLabel );
@@ -2141,14 +2160,14 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     // Emit condition expression, which should push a boolean value to the stack
                     if ( !TryEmitExpression( conditionLabel.Condition, false ) )
                     {
-                        LogError( conditionLabel.Condition, "Failed to emit switch statement label condition" );
+                        Error( conditionLabel.Condition, "Failed to emit switch statement label condition" );
                         return false;
                     }
 
                     // emit switch on expression
                     if ( !TryEmitExpression( switchStatement.SwitchOn, false ) )
                     {
-                        LogError( switchStatement.SwitchOn, "Failed to emit switch statement condition" );
+                        Error( switchStatement.SwitchOn, "Failed to emit switch statement condition" );
                         return false;
                     }
 
@@ -2171,10 +2190,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 Scope.BreakLabel = switchEndLabel;
 
                 // Emit default case body
-                LogInfo( "Compiling switch statement label body" );
+                Trace( "Compiling switch statement label body" );
                 if ( !TryEmitStatements( defaultLabel.Body ) )
                 {
-                    LogError( "Failed to compile switch statement label body" );
+                    Error( "Failed to compile switch statement label body" );
                     return false;
                 }
             }
@@ -2194,10 +2213,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     Scope.BreakLabel = switchEndLabel;
 
                     // Emit body
-                    LogInfo( "Compiling switch statement label body" );
+                    Trace( "Compiling switch statement label body" );
                     if ( !TryEmitStatements( label.Body ) )
                     {
-                        LogError( "Failed to compile switch statement label body" );
+                        Error( "Failed to compile switch statement label body" );
                         return false;
                     }
                 }
@@ -2216,7 +2235,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         {
             if ( !Scope.TryGetBreakLabel( out var label ) )
             {
-                LogError( breakStatement, "Break statement is invalid in this context" );
+                Error( breakStatement, "Break statement is invalid in this context" );
                 return false;
             }
 
@@ -2229,7 +2248,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         {
             if ( !Scope.TryGetContinueLabel( out var label ) )
             {
-                LogError( continueStatement, "Continue statement is invalid in this context" );
+                Error( continueStatement, "Continue statement is invalid in this context" );
                 return false;
             }
 
@@ -2240,7 +2259,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private bool TryEmitReturnStatement( FlowScriptReturnStatement returnStatement )
         {
-            LogInfo( returnStatement, $"Emitting return statement: '{returnStatement}'" );
+            Trace( returnStatement, $"Emitting return statement: '{returnStatement}'" );
 
             if ( EnableStackCookie )
             {
@@ -2266,14 +2285,14 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             {
                 if ( mProcedureDeclaration.ReturnType.ValueType == FlowScriptValueType.Void )
                 {
-                    LogError( returnStatement, "Procedure with void return type can't return a value" );
+                    Error( returnStatement, "Procedure with void return type can't return a value" );
                     return false;
                 }
 
                 // Emit return value
                 if ( !TryEmitExpression( returnStatement.Value, false ) )
                 {
-                    LogError( returnStatement.Value, $"Failed to emit return value: {returnStatement.Value}" );
+                    Error( returnStatement.Value, $"Failed to emit return value: {returnStatement.Value}" );
                     return false;
                 }
 
@@ -2284,7 +2303,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             }
             else if ( mProcedureDeclaration.ReturnType.ValueType != FlowScriptValueType.Void )
             {
-                LogError( returnStatement, "Missing return statement value for procedure with non-void return type" );
+                Error( returnStatement, "Missing return statement value for procedure with non-void return type" );
                 return false;
             }
 
@@ -2295,11 +2314,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private bool TryEmitGotoStatement( FlowScriptGotoStatement gotoStatement )
         {
-            LogInfo( gotoStatement, $"Emitting goto statement: '{gotoStatement}'" );
+            Trace( gotoStatement, $"Emitting goto statement: '{gotoStatement}'" );
 
             if ( !mLabels.TryGetValue( gotoStatement.LabelIdentifier.Text, out var label ) )
             {
-                LogError( gotoStatement.LabelIdentifier, $"Goto statement referenced undeclared label: {gotoStatement.LabelIdentifier}" );
+                Error( gotoStatement.LabelIdentifier, $"Goto statement referenced undeclared label: {gotoStatement.LabelIdentifier}" );
                 return false;
             }
 
@@ -2594,7 +2613,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private Variable EmitTracePrintIntegerNoPush()
         {
-            Trace.Assert( mPUTFunctionIndex != -1 );
+            System.Diagnostics.Trace.Assert( mPUTFunctionIndex != -1 );
             var save = Scope.GenerateVariable( FlowScriptValueType.Int, mNextIntVariableIndex++ );
 
             // Pop integer value off stack and save it in a temporary variable
@@ -2620,7 +2639,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private Variable EmitTracePrintFloatNoPush()
         {
-            Trace.Assert( mPUTFFunctionIndex != -1 );
+            System.Diagnostics.Trace.Assert( mPUTFFunctionIndex != -1 );
             var save = Scope.GenerateVariable( FlowScriptValueType.Float, mNextFloatVariableIndex++ );
 
             // Pop integer value off stack and save it in a temporary variable
@@ -2646,7 +2665,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private Variable EmitTracePrintBoolNoPush()
         {
-            Trace.Assert( mPUTSFunctionIndex != -1 );
+            System.Diagnostics.Trace.Assert( mPUTSFunctionIndex != -1 );
 
             var save = Scope.GenerateVariable( FlowScriptValueType.Int, mNextIntVariableIndex++ );
 
@@ -2699,13 +2718,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             label.InstructionIndex = ( short )( mInstructions.Count );
             label.IsResolved = true;
 
-            LogInfo( $"Resolved label {label.Name} to instruction index {label.InstructionIndex}" );
+            Trace( $"Resolved label {label.Name} to instruction index {label.InstructionIndex}" );
         }
 
         private void PushScope()
         {
             mScopeStack.Push( new ScopeContext( mScopeStack.Peek() ) );
-            LogInfo( "Entered scope" );
+            Trace( "Entered scope" );
         }
 
         private void PopScope()
@@ -2713,39 +2732,68 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             //mNextIntVariableIndex -= ( short )Scope.Variables.Count( x => sTypeToBaseTypeMap[x.Value.Declaration.Type.ValueType] == FlowScriptValueType.Int );
             //mNextFloatVariableIndex -= ( short )Scope.Variables.Count( x => sTypeToBaseTypeMap[x.Value.Declaration.Type.ValueType] == FlowScriptValueType.Float );
             mScopeStack.Pop();
-            LogInfo( "Exited scope" );
+            Trace( "Exited scope" );
         }
 
         //
         // Logging
         //
-        private void LogInfo( FlowScriptSyntaxNode node, string message )
+        private void Trace( FlowScriptSyntaxNode node, string message )
         {
             if ( node.SourceInfo != null )
-                mLogger.Info( $"({node.SourceInfo.Line:D4}:{node.SourceInfo.Column:D4}) {message}" );
+                Trace( $"({node.SourceInfo.Line:D4}:{node.SourceInfo.Column:D4}) {message}" );
             else
-                LogInfo( message );
+                Trace( message );
         }
 
-        private void LogInfo( string message )
+        private void Trace( string message )
         {
-            mLogger.Info( $"            {message}" );
+            mLogger.Trace( $"{message}" );
         }
 
-        private void LogError( FlowScriptSyntaxNode node, string message )
+        private void Info( FlowScriptSyntaxNode node, string message )
         {
             if ( node.SourceInfo != null )
-                mLogger.Error( $"({node.SourceInfo.Line:D4}:{node.SourceInfo.Column:D4}) {message}" );
+                Info( $"({node.SourceInfo.Line:D4}:{node.SourceInfo.Column:D4}) {message}" );
             else
-                LogError( message );
+                Info( message );
+        }
+
+        private void Info( string message )
+        {
+            mLogger.Info( $"{message}" );
+        }
+
+        private void Error( FlowScriptSyntaxNode node, string message )
+        {
+            if ( node.SourceInfo != null )
+                Error( $"({node.SourceInfo.Line:D4}:{node.SourceInfo.Column:D4}) {message}" );
+            else
+                Error( message );
 
             if ( Debugger.IsAttached )
                 Debugger.Break();
         }
 
-        private void LogError( string message )
+        private void Error( string message )
         {
-            mLogger.Error( $"            {message}" );
+            mLogger.Error( $"{message}" );
+        }
+
+        private void Warning( FlowScriptSyntaxNode node, string message )
+        {
+            if ( node.SourceInfo != null )
+                Warning( $"({node.SourceInfo.Line:D4}:{node.SourceInfo.Column:D4}) {message}" );
+            else
+                Warning( message );
+
+            if ( Debugger.IsAttached )
+                Debugger.Break();
+        }
+
+        private void Warning( string message )
+        {
+            mLogger.Warning( $"{message}" );
         }
 
         private class Function

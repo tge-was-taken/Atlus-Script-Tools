@@ -6,9 +6,16 @@ namespace AtlusScriptLib.Common.Logging
     {
         public string ChannelName { get; }
 
+        public LogLevel Filter { get; set; } = LogLevel.All;
+
         public LogListener()
         {
 
+        }
+
+        public LogListener( LogLevel filter )
+        {
+            Filter = filter;
         }
 
         public LogListener( string channelName )
@@ -26,6 +33,12 @@ namespace AtlusScriptLib.Common.Logging
             logger.LogEvent -= OnLog;
         }
 
-        protected abstract void OnLog( object sender, LogEventArgs e );
+        protected void OnLog( object sender, LogEventArgs e )
+        {
+            if ( Filter.HasFlag( e.Level ) )
+                OnLogCore( sender, e );
+        }
+
+        protected abstract void OnLogCore( object sender, LogEventArgs e );
     }
 }

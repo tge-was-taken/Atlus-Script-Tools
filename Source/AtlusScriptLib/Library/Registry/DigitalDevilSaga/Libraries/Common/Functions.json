@@ -1760,7 +1760,7 @@
   {
     "Index": "0x007e",
     "ReturnType": "int",
-    "Name": "AI_CHK_TURN",
+    "Name": "AI_CHK_TURN_EQUAL",
     "Description": "",
     "Parameters": [
       {

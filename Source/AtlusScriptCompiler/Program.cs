@@ -25,7 +25,7 @@ namespace AtlusScriptCompiler
 
         public static Logger Logger = new Logger(nameof(AtlusScriptCompiler));
 
-        public static LogListener Listener = new ConsoleLogListener( true );
+        public static LogListener Listener = new ConsoleLogListener( true, LogLevel.Info | LogLevel.Warning | LogLevel.Error | LogLevel.Fatal );
 
         public static string InputFilePath;
 
@@ -46,6 +46,8 @@ namespace AtlusScriptCompiler
         public static MessageScriptTextEncoding MessageScriptTextEncoding;
 
         public static string LibraryName;
+
+        public static bool LogTrace;
 
         public static bool FlowScriptEnableProcedureTracing;
 
@@ -71,6 +73,7 @@ namespace AtlusScriptCompiler
             Console.WriteLine( "        -Decompile                                  Instructs the compiler to decompile the provided input file source." );
             Console.WriteLine( "        -Disassemble                                Instructs the compiler to disassemble the provided input file source." );
             Console.WriteLine( "        -Library                <name>              Specifies the name of the library that should be used." );
+            Console.WriteLine( "        -LogTrace                                   Outputs trace log messages to the console" );
             Console.WriteLine();
             Console.WriteLine( "    MessageScript:" );
             Console.WriteLine( "        -Encoding               <format>            Specifies the MessageScript binary output text encoding. See below for further info." );
@@ -120,9 +123,6 @@ namespace AtlusScriptCompiler
 
         public static void Main( string[] args )
         {
-            // set up log listener
-            Listener.Subscribe( Logger );
-
             if ( args.Length == 0 )
             {
                 Logger.Error( "No arguments specified!" );
@@ -136,6 +136,11 @@ namespace AtlusScriptCompiler
                 DisplayUsage();
                 return;
             }
+
+            // set up log listener
+            Listener.Subscribe( Logger );
+            if ( LogTrace )
+                Listener.Filter |= LogLevel.Trace;
 
             bool success;
 
@@ -163,8 +168,7 @@ namespace AtlusScriptCompiler
             else
                 Logger.Error( "One or more errors occured while executing task!" );
 
-            Logger.Info( "Press any key to continue" );
-            Console.ReadKey();
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         private static bool TryParseArguments( string[] args )
@@ -276,6 +280,10 @@ namespace AtlusScriptCompiler
                         }
 
                         LibraryName = args[ ++i ];
+                        break;
+
+                    case "-LogTrace":
+                        LogTrace = true;
                         break;
 
                     // MessageScript
@@ -460,6 +468,7 @@ namespace AtlusScriptCompiler
             compiler.EnableProcedureCallTracing = FlowScriptEnableProcedureCallTracing;
             compiler.EnableFunctionCallTracing = FlowScriptEnableFunctionCallTracing;
             compiler.EnableStackCookie = FlowScriptEnableStackCookie;
+
             if ( LibraryName != null )
             {
                 var library = LibraryRegistryCache.GetLibraryRegistry( LibraryName );

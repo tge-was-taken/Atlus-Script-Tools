@@ -213,18 +213,33 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
                 if ( !TryGetFatal( speakerNameContentContext, () => speakerNameContentContext.tagText(), "Expected dialog window speaker name text", out var speakerNameTagTextContext ) )
                     return false;
 
-                if ( !TryCompileLines( speakerNameTagTextContext, out var speakerNameLines ) )
+                if ( speakerNameTagTextContext.ChildCount != 0 )
                 {
-                    LogError( speakerNameContentContext, "Failed to compile dialog window speaker name" );
-                    return false;
-                }
+                    if ( !TryCompileLines( speakerNameTagTextContext, out var speakerNameLines ) )
+                    {
+                        LogError( speakerNameContentContext, "Failed to compile dialog window speaker name" );
+                        return false;
+                    }
 
-                if ( speakerNameLines.Count != 0 )
-                {
-                    if ( speakerNameLines.Count > 1 )
-                        LogWarning( speakerNameTagTextContext, "More than 1 line for dialog window speaker name. Only the 1st line will be used" );
+                    if ( speakerNameLines.Count != 0 && speakerNameLines[0].Tokens.Count != 0 )
+                    {
+                        if ( speakerNameLines.Count > 1 )
+                            LogWarning( speakerNameTagTextContext, "More than 1 line for dialog window speaker name. Only the 1st line will be used" );
 
-                    speaker = new MessageScriptNamedSpeaker( speakerNameLines[0] );
+                        if ( speakerNameLines[0].Tokens[0].Type == MessageScriptTokenType.Text )
+                        {
+                            // This is kind of a hack
+                            var text = ( ( MessageScriptTextToken )speakerNameLines[0].Tokens[0] ).Text;
+                            if ( int.TryParse( text, out int variableIndex ) )
+                            {
+                                speaker = new MessageScriptVariableSpeaker( variableIndex );
+                            }
+                            else
+                            {
+                                speaker = new MessageScriptNamedSpeaker( speakerNameLines[0] );
+                            }
+                        }                      
+                    }
                 }
             }
 

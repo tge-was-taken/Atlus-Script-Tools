@@ -6,7 +6,7 @@ namespace AtlusScriptLib.Common.Logging
     {
         public bool UseColors { get; set; }
 
-        public ConsoleLogListener( bool useColors ) : base()
+        public ConsoleLogListener( bool useColors, LogLevel filter ) : base( filter )
         {
             UseColors = useColors;
         }
@@ -16,7 +16,7 @@ namespace AtlusScriptLib.Common.Logging
             UseColors = useColors;
         }
 
-        protected override void OnLog( object sender, LogEventArgs e )
+        protected override void OnLogCore( object sender, LogEventArgs e )
         {
             ConsoleColor prevColor = 0;
 

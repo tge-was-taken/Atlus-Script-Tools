@@ -31,7 +31,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser.Grammar
             // parser
             var parser = new FlowScriptParser( tokenStream );
             parser.BuildParseTree = true;
-            //parser.ErrorHandler = new BailErrorStrategy();
+            parser.ErrorHandler = new BailErrorStrategy();
 
             if ( errorListener != null )
             {

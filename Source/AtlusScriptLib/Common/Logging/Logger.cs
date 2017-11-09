@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,11 @@ namespace AtlusScriptLib.Common.Logging
             Log( LogLevel.Debug, message );
         }
 
+        public void Trace( string message )
+        {
+            Log( LogLevel.Trace, message );
+        }
+
         public void Info( string message )
         {
             Log( LogLevel.Info, message );
@@ -49,12 +55,15 @@ namespace AtlusScriptLib.Common.Logging
 
     public delegate void LogEventHandler( object sender, LogEventArgs e );
 
+    [Flags]
     public enum LogLevel
     {
-        Debug,
-        Info,
-        Warning,
-        Error,
-        Fatal
+        Debug    = 1 << 1,
+        Trace    = 1 << 2,
+        Info     = 1 << 3,
+        Warning  = 1 << 4,
+        Error    = 1 << 5,
+        Fatal    = 1 << 6,
+        All      = Debug | Trace | Info | Warning | Error | Fatal,
     }
 }

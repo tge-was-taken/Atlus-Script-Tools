@@ -5059,7 +5059,6 @@
         "Value": 0,
         "Description": "Generated from enemy name table entry: Not Used"
       },
-      /*
       {
         "Name": "ShadowofGod",
         "Value": 1,
@@ -5105,7 +5104,6 @@
         "Value": 9,
         "Description": "Generated from enemy name table entry: War-hungry Horseman"
       },
-      */
       {
         "Name": "HerogatheringTyrant",
         "Value": 10,
