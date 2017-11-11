@@ -2786,9 +2786,6 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 Warning( $"({node.SourceInfo.Line:D4}:{node.SourceInfo.Column:D4}) {message}" );
             else
                 Warning( message );
-
-            if ( Debugger.IsAttached )
-                Debugger.Break();
         }
 
         private void Warning( string message )
