@@ -6,7 +6,7 @@ using System.Linq;
 
 using AtlusScriptLib.Common.Logging;
 using AtlusScriptLib.Common.Registry;
-using AtlusScriptLib.Common.Text.OutputProviders;
+using AtlusScriptLib.Common.Text;
 using AtlusScriptLib.FlowScriptLanguage.Syntax;
 using AtlusScriptLib.MessageScriptLanguage.Decompiler;
 
@@ -101,9 +101,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             if ( flowScript.MessageScript != null && DecompileMessageScript )
             {
                 LogInfo( "Writing decompiled MessageScript to file" );
-                using ( var messageScriptDecompiler = new MessageScriptDecompiler() )
+                using ( var messageScriptDecompiler = new MessageScriptDecompiler( new FileTextWriter( MessageScriptFilePath )) )
                 {
-                    messageScriptDecompiler.TextOutputProvider = new FileTextOutputProvider( MessageScriptFilePath );
                     messageScriptDecompiler.LibraryRegistry = LibraryRegistry;
                     messageScriptDecompiler.Decompile( flowScript.MessageScript );
                 }

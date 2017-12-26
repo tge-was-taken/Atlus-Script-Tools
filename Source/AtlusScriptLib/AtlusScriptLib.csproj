@@ -178,13 +178,7 @@
     <Compile Include="MessageScriptLanguage\Compiler\Parser\MessageScriptParserListener.cs" />
     <Compile Include="MessageScriptLanguage\Compiler\Parser\MessageScriptParserVisitor.cs" />
     <Compile Include="MessageScriptLanguage\Decompiler\MessageScriptDecompiler.cs" />
-    <Compile Include="Common\Text\OutputProviders\FileTextOutputProvider.cs" />
-    <Compile Include="Common\Text\OutputProviders\ITextOutputProvider.cs" />
-    <Compile Include="Common\Text\OutputProviders\StreamTextOutputProvider.cs" />
-    <Compile Include="Common\Text\OutputProviders\StreamWriterTextOutputProvider.cs" />
-    <Compile Include="Common\Text\OutputProviders\StringBuilderTextOutputProvider.cs" />
-    <Compile Include="Common\Text\OutputProviders\StringTextOutputProvider.cs" />
-    <Compile Include="Common\Text\OutputProviders\TextWriterTextOutputProvider.cs" />
+    <Compile Include="Common\Text\FileSimpleTextWriter.cs" />
     <Compile Include="Common\Text\Encodings\Persona5Encoding.cs" />
     <Compile Include="FlowScriptLanguage\BinaryModel\FlowScriptBinary.cs" />
     <Compile Include="FlowScriptLanguage\BinaryModel\FlowScriptBinaryBuilder.cs" />

@@ -135,7 +135,7 @@ def ParseCOMMTable( address, getIntArgFuncAddress, getFloatArgFuncAddress, getSt
 
 	return
 
-# DDS
+# DDS 1
 #ParseCOMMTable( 0x0039E388, 0, 0, 0, 544 )
 
 # Nocturne

@@ -251,11 +251,11 @@
           },
           {
             "Name": "param5",
-            "Description": "Unknown value, always -1."
+            "Description": "Unknown value."
           },
           {
             "Name": "param6",
-            "Description": "Unknown value, always 0."
+            "Description": "Unknown value."
           }
         ]
       }

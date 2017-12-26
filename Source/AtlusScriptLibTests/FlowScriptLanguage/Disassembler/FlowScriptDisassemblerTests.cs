@@ -4,6 +4,7 @@ using System.Text;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using AtlusScriptLib.FlowScriptLanguage.BinaryModel;
+using AtlusScriptLib.Common.Text;
 
 namespace AtlusScriptLib.FlowScriptLanguage.Disassembler.Tests
 {
@@ -49,8 +50,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Disassembler.Tests
         public void DisassembleTest()
         {
             var script = FlowScriptBinary.FromFile( "TestResources\\Version1.bf" );
-            var builder = new StringBuilder();
-            using ( var disassembler = new FlowScriptBinaryDisassembler( builder ) )
+            using ( var disassembler = new FlowScriptBinaryDisassembler( new StringWriter() ) )
                 disassembler.Disassemble( script );
         }
 

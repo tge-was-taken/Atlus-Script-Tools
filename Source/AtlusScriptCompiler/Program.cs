@@ -7,7 +7,7 @@ using System.Text;
 using AtlusScriptLib.Common.Logging;
 using AtlusScriptLib.Common.Registry;
 using AtlusScriptLib.Common.Text.Encodings;
-using AtlusScriptLib.Common.Text.OutputProviders;
+using AtlusScriptLib.Common.Text;
 using AtlusScriptLib.FlowScriptLanguage;
 using AtlusScriptLib.FlowScriptLanguage.BinaryModel;
 using AtlusScriptLib.FlowScriptLanguage.Compiler;
@@ -622,10 +622,8 @@ namespace AtlusScriptCompiler
 
             if ( !TryPerformAction( "Failed to decompile message script to file.", () =>
             {
-                using ( var decompiler = new MessageScriptDecompiler() )
+                using ( var decompiler = new MessageScriptDecompiler( new FileTextWriter( OutputFilePath ) ) )
                 {
-                    decompiler.TextOutputProvider = new FileTextOutputProvider( OutputFilePath );
-
                     if ( LibraryName != null )
                     {
                         var library = LibraryRegistryCache.GetLibraryRegistry( LibraryName );

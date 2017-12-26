@@ -9,7 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using AtlusScriptLib.Common.IO;
-using AtlusScriptLib.Common.Text.OutputProviders;
+using AtlusScriptLib.Common.Text;
 using AtlusScriptLib.FlowScriptLanguage.BinaryModel;
 using AtlusScriptLib.MessageScriptLanguage;
 using AtlusScriptLib.MessageScriptLanguage.BinaryModel;
@@ -69,6 +69,8 @@ namespace AtlusMessageScriptExtractor
             Console.WriteLine( "p3                          Persona 3's custom encoding");
             Console.WriteLine( "p4                          Persona 4's custom encoding");
             Console.WriteLine( "p5                          Persona 5's custom encoding");
+            Console.WriteLine();
+            Console.WriteLine( "Press any key to exit" );
             Console.ReadKey();
         }
 
@@ -79,7 +81,6 @@ namespace AtlusMessageScriptExtractor
                 if ( ParseArguments( args ) )
                 {
                     ExtractMessageScripts();
-                    return;
                 }
                 else
                 {
@@ -217,8 +218,7 @@ namespace AtlusMessageScriptExtractor
             {
                 if ( UseDecompiler )
                 {
-                    Decompiler = new MessageScriptDecompiler();
-                    Decompiler.TextOutputProvider = new TextWriterTextOutputProvider( Writer );
+                    Decompiler = new MessageScriptDecompiler( Writer );
                 }
 
                 foreach ( var file in Directory.EnumerateFiles( DirectoryPath, "*.*", SearchOption.AllDirectories ) )
@@ -241,7 +241,7 @@ namespace AtlusMessageScriptExtractor
             }
 
             Console.WriteLine( "Done." );
-            Console.ReadKey();
+            //Console.ReadKey();
         }
 
         static void ExtractMessageScript( string file, Stream stream, string parentArchiveFile )
@@ -374,7 +374,11 @@ namespace AtlusMessageScriptExtractor
                         var script = MessageScript.FromBinary( scriptBinary );
 
                         Console.WriteLine( $"Found message script at 0x{scriptStartPosition:X8}. Writing to file..." );
-                        WriteMessageScript( $"{prettyFileName} @ 0x{scriptStartPosition:X8}", script );
+
+                        if ( UseDecompiler )
+                            WriteMessageScriptWithDecompiler( $"{prettyFileName} @ 0x{scriptStartPosition:X8}", script );
+                        else
+                            WriteMessageScript( $"{prettyFileName} @ 0x{scriptStartPosition:X8}", script );
 
                         stream.Position = scriptStartPosition + scriptBinary.Header.FileSize;
                     }
