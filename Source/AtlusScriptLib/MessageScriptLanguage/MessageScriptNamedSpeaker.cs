@@ -8,21 +8,21 @@
         /// <summary>
         /// Gets the name of the speaker.
         /// </summary>
-        public MessageScriptLine Name { get; }
+        public MessageScriptText Name { get; }
 
         /// <summary>
         /// Constructs a new speaker.
         /// </summary>
         /// <param name="name">The name of the speaker.</param>
-        public MessageScriptNamedSpeaker( MessageScriptLine name )
+        public MessageScriptNamedSpeaker( MessageScriptText name )
         {
             Name = name;
         }
 
         public MessageScriptNamedSpeaker( string name )
         {
-            Name = new MessageScriptLineBuilder()
-                .AddText( name )
+            Name = new MessageScriptTextBuilder()
+                .AddString( name )
                 .Build();
         }
 
@@ -37,9 +37,7 @@
             if ( Name != null && Name.Tokens.Count > 0 )
             {
                 foreach ( var token in Name.Tokens )
-                {
-                    str += token.ToString() + " ";
-                }
+                    str += token + " ";
             }
 
             return str;

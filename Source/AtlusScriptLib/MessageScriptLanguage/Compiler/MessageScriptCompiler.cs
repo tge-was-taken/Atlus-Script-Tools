@@ -226,10 +226,10 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
                         if ( speakerNameLines.Count > 1 )
                             LogWarning( speakerNameTagTextContext, "More than 1 line for dialog window speaker name. Only the 1st line will be used" );
 
-                        if ( speakerNameLines[0].Tokens[0].Type == MessageScriptTokenType.Text )
+                        if ( speakerNameLines[0].Tokens[0].Type == MessageScriptTextTokenType.String )
                         {
                             // This is kind of a hack
-                            var text = ( ( MessageScriptTextToken )speakerNameLines[0].Tokens[0] ).Text;
+                            var text = ( ( MessageScriptStringToken )speakerNameLines[0].Tokens[0] ).Value;
                             if ( int.TryParse( text, out int variableIndex ) )
                             {
                                 speaker = new MessageScriptVariableSpeaker( variableIndex );
@@ -246,7 +246,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
             // 
             // Parse text content
             //
-            List<MessageScriptLine> lines;
+            List<MessageScriptText> lines;
             {
                 if ( !TryGetFatal( context, context.tagText, "Expected dialog window text", out var tagTextContext ) )
                     return false;
@@ -286,7 +286,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
             // 
             // Parse text content
             //
-            List<MessageScriptLine> lines;
+            List<MessageScriptText> lines;
             {
                 if ( !TryGetFatal( context, context.tagText, "Expected selection window text", out var tagTextContext ) )
                     return false;
@@ -306,16 +306,16 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryCompileLines( MessageScriptParser.TagTextContext context, out List<MessageScriptLine> lines )
+        private bool TryCompileLines( MessageScriptParser.TagTextContext context, out List<MessageScriptText> lines )
         {
             LogContextInfo( context );
 
-            lines = new List<MessageScriptLine>();
-            MessageScriptLineBuilder lineBuilder = null;
+            lines = new List<MessageScriptText>();
+            MessageScriptTextBuilder lineBuilder = null;
 
             foreach ( var node in context.children )
             {
-                IMessageScriptLineToken lineToken;
+                IMessageScriptTextToken lineToken;
 
                 if ( TryCast<MessageScriptParser.TagContext>( node, out var tagContext ) )
                 {
@@ -347,7 +347,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
                                 if ( lineBuilder == null )
                                 {
                                     LogWarning( context, "Empty line" );
-                                    lines.Add( new MessageScriptLine() );
+                                    lines.Add( new MessageScriptText() );
                                 }
                                 else
                                 {
@@ -398,7 +398,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
                     if ( textWithoutNewlines.Length == 0 )
                         continue; // filter out standalone newlines
 
-                    lineToken = new MessageScriptTextToken( textWithoutNewlines );
+                    lineToken = new MessageScriptStringToken( textWithoutNewlines );
                 }
                 else
                 {
@@ -415,7 +415,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
                 }
 
                 if ( lineBuilder == null )
-                    lineBuilder = new MessageScriptLineBuilder();
+                    lineBuilder = new MessageScriptTextBuilder();
 
                 Debug.Assert( lineToken != null, "Line token shouldn't be null" );
 

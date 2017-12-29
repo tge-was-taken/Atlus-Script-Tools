@@ -20,6 +20,6 @@ namespace AtlusScriptLib.MessageScriptLanguage
         /// <summary>
         /// Gets the list of lines contained in this window.
         /// </summary>
-        List<MessageScriptLine> Lines { get; }
+        List<MessageScriptText> Lines { get; }
     }
 }

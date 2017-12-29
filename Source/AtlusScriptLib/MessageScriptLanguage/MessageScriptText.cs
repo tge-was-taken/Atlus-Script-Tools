@@ -8,26 +8,26 @@ namespace AtlusScriptLib.MessageScriptLanguage
     /// <summary>
     /// Represents a single line of text.
     /// </summary>
-    public class MessageScriptLine : IEnumerable<IMessageScriptLineToken>
+    public class MessageScriptText : IEnumerable<IMessageScriptTextToken>
     {
         /// <summary>
         /// Gets the list of tokens contained in this line of text.
         /// </summary>
-        public List<IMessageScriptLineToken> Tokens { get; }
+        public List<IMessageScriptTextToken> Tokens { get; }
 
         /// <summary>
         /// Construct a new empty message script line.
         /// </summary>
-        public MessageScriptLine()
+        public MessageScriptText()
         {
-            Tokens = new List<IMessageScriptLineToken>();
+            Tokens = new List<IMessageScriptTextToken>();
         }
 
         /// <summary>
         /// Constructs a new message script line with a list of tokens.
         /// </summary>
         /// <param name="tokens">The list of message script tokens.</param>
-        public MessageScriptLine( List<IMessageScriptLineToken> tokens )
+        public MessageScriptText( List<IMessageScriptTextToken> tokens )
         {
             Tokens = tokens ?? throw new ArgumentNullException( nameof( tokens ) );
         }
@@ -36,7 +36,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
         /// Constructs a new message script line with a list of tokens.
         /// </summary>
         /// <param name="tokens">The list of message script tokens.</param>
-        public MessageScriptLine( params IMessageScriptLineToken[] tokens )
+        public MessageScriptText( params IMessageScriptTextToken[] tokens )
         {
             Tokens = tokens.ToList();
         }
@@ -45,9 +45,9 @@ namespace AtlusScriptLib.MessageScriptLanguage
         /// Returns an enumerator that iterates through the tokens in the line.
         /// </summary>
         /// <returns></returns>
-        public IEnumerator<IMessageScriptLineToken> GetEnumerator()
+        public IEnumerator<IMessageScriptTextToken> GetEnumerator()
         {
-            return ( ( IEnumerable<IMessageScriptLineToken> )Tokens ).GetEnumerator();
+            return ( ( IEnumerable<IMessageScriptTextToken> )Tokens ).GetEnumerator();
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
         /// <returns></returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return ( ( IEnumerable<IMessageScriptLineToken> )Tokens ).GetEnumerator();
+            return ( ( IEnumerable<IMessageScriptTextToken> )Tokens ).GetEnumerator();
         }
     }
 }

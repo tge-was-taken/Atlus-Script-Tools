@@ -145,52 +145,52 @@ namespace AtlusScriptLib.Common.Text.Encodings
 
         protected abstract char[] CharTable { get; }
 
-        public AtlusEncoding()
+        protected AtlusEncoding()
         {
-            if ( !sIsInitialized )
+            if ( sIsInitialized )
+                return;
+
+            // build character to codepoint table
+            sCharToCodePoint = new Dictionary<char, CodePoint>( CharTable.Length );
+
+            // add the ascii range seperately
+            for ( int charIndex = 0; charIndex < ASCII_RANGE + 1; charIndex++ )
             {
-                // build character to codepoint table
-                sCharToCodePoint = new Dictionary<char, CodePoint>( CharTable.Length );
-
-                // add the ascii range seperately
-                for ( int charIndex = 0; charIndex < ASCII_RANGE + 1; charIndex++ )
-                {
-                    if ( !sCharToCodePoint.ContainsKey( CharTable[charIndex] ) )
-                        sCharToCodePoint[CharTable[charIndex]] = new CodePoint( 0, ( byte )charIndex );
-                }
-
-                // add extended characters, but don't re-include the ascii range
-                for ( int charIndex = ASCII_RANGE + 1; charIndex < CharTable.Length; charIndex++ )
-                {
-                    int glyphIndex = charIndex + CHAR_TO_GLYPH_INDEX_OFFSET;
-                    int tableIndex = ( glyphIndex / GLYPH_TABLE_SIZE ) - 1;
-                    int tableRelativeIndex = glyphIndex - ( tableIndex * GLYPH_TABLE_SIZE );
-
-                    if ( !sCharToCodePoint.ContainsKey( CharTable[charIndex] ) )
-                        sCharToCodePoint[CharTable[charIndex]] = new CodePoint( ( byte )( GLYPH_TABLE_INDEX_MARKER | tableIndex ), ( byte )( tableRelativeIndex ) );
-                }
-
-                // build code point to character lookup table
-                sCodePointToChar = new Dictionary<CodePoint, char>( CharTable.Length );
-
-                // add the ascii range seperately
-                for ( int charIndex = 0; charIndex < ASCII_RANGE + 1; charIndex++ )
-                {
-                    sCodePointToChar[new CodePoint( 0, ( byte )charIndex )] = CharTable[charIndex];
-                }
-
-                // add extended characters, and make sure to include the ascii range again due to overlap
-                for ( int charIndex = 0x20; charIndex < CharTable.Length; charIndex++ )
-                {
-                    int glyphIndex = charIndex + CHAR_TO_GLYPH_INDEX_OFFSET;
-                    int tableIndex = ( glyphIndex / GLYPH_TABLE_SIZE ) - 1;
-                    int tableRelativeIndex = glyphIndex - ( tableIndex * GLYPH_TABLE_SIZE );
-
-                    sCodePointToChar[new CodePoint( ( byte )( GLYPH_TABLE_INDEX_MARKER | tableIndex ), ( byte )( tableRelativeIndex ) )] = CharTable[charIndex];
-                }
-
-                sIsInitialized = true;
+                if ( !sCharToCodePoint.ContainsKey( CharTable[charIndex] ) )
+                    sCharToCodePoint[CharTable[charIndex]] = new CodePoint( 0, ( byte )charIndex );
             }
+
+            // add extended characters, but don't re-include the ascii range
+            for ( int charIndex = ASCII_RANGE + 1; charIndex < CharTable.Length; charIndex++ )
+            {
+                int glyphIndex = charIndex + CHAR_TO_GLYPH_INDEX_OFFSET;
+                int tableIndex = ( glyphIndex / GLYPH_TABLE_SIZE ) - 1;
+                int tableRelativeIndex = glyphIndex - ( tableIndex * GLYPH_TABLE_SIZE );
+
+                if ( !sCharToCodePoint.ContainsKey( CharTable[charIndex] ) )
+                    sCharToCodePoint[CharTable[charIndex]] = new CodePoint( ( byte )( GLYPH_TABLE_INDEX_MARKER | tableIndex ), ( byte )( tableRelativeIndex ) );
+            }
+
+            // build code point to character lookup table
+            sCodePointToChar = new Dictionary<CodePoint, char>( CharTable.Length );
+
+            // add the ascii range seperately
+            for ( int charIndex = 0; charIndex < ASCII_RANGE + 1; charIndex++ )
+            {
+                sCodePointToChar[new CodePoint( 0, ( byte )charIndex )] = CharTable[charIndex];
+            }
+
+            // add extended characters, and make sure to include the ascii range again due to overlap
+            for ( int charIndex = 0x20; charIndex < CharTable.Length; charIndex++ )
+            {
+                int glyphIndex = charIndex + CHAR_TO_GLYPH_INDEX_OFFSET;
+                int tableIndex = ( glyphIndex / GLYPH_TABLE_SIZE ) - 1;
+                int tableRelativeIndex = glyphIndex - ( tableIndex * GLYPH_TABLE_SIZE );
+
+                sCodePointToChar[new CodePoint( ( byte )( GLYPH_TABLE_INDEX_MARKER | tableIndex ), ( byte )( tableRelativeIndex ) )] = CharTable[charIndex];
+            }
+
+            sIsInitialized = true;
         }
     }
 }

@@ -456,7 +456,7 @@ namespace AtlusMessageScriptExtractor
             }
         }
 
-        static void WriteLine( MessageScriptLine line, bool writeNewLine = true )
+        static void WriteLine( MessageScriptText line, bool writeNewLine = true )
         {
             if ( line == null )
                 return;
@@ -467,27 +467,27 @@ namespace AtlusMessageScriptExtractor
             }
 
             // write newline if the line doesn't contain any
-            if ( writeNewLine && ( !line.Tokens.Any( x => x.Type == MessageScriptTokenType.NewLine ) || ( OutputFunctions && line.Tokens.Last().Type == MessageScriptTokenType.Function ) ) )
+            if ( writeNewLine && ( !line.Tokens.Any( x => x.Type == MessageScriptTextTokenType.NewLine ) || ( OutputFunctions && line.Tokens.Last().Type == MessageScriptTextTokenType.Function ) ) )
             {
                 Writer.WriteLine();
             }
         }
 
-        static void WriteToken( IMessageScriptLineToken token )
+        static void WriteToken( IMessageScriptTextToken token )
         {
-            if ( token.Type == MessageScriptTokenType.CodePoint )
+            if ( token.Type == MessageScriptTextTokenType.CodePoint )
             {
                 WriteCodePointToken( ( MessageScriptCodePointToken )token );
             }
-            else if ( token.Type == MessageScriptTokenType.NewLine )
+            else if ( token.Type == MessageScriptTextTokenType.NewLine )
             {
                 Writer.WriteLine();
             }
-            else if ( token.Type == MessageScriptTokenType.Text )
+            else if ( token.Type == MessageScriptTextTokenType.String )
             {
-                WriteTextToken( ( MessageScriptTextToken )token );
+                WriteTextToken( ( MessageScriptStringToken )token );
             }
-            else if ( token.Type == MessageScriptTokenType.Function && OutputFunctions )
+            else if ( token.Type == MessageScriptTextTokenType.Function && OutputFunctions )
             {
                 WriteFunctionToken( ( MessageScriptFunctionToken )token );
             }
@@ -516,9 +516,9 @@ namespace AtlusMessageScriptExtractor
             Writer.Write( str );
         }
 
-        static void WriteTextToken( MessageScriptTextToken token )
+        static void WriteTextToken( MessageScriptStringToken token )
         {
-            Writer.Write( token.Text );
+            Writer.Write( token.Value );
         }
 
         static void WriteFunctionToken( MessageScriptFunctionToken token )

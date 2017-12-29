@@ -22,7 +22,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
         /// <summary>
         /// Gets the lines contained in this message.
         /// </summary>
-        public List<MessageScriptLine> Lines { get; }
+        public List<MessageScriptText> Lines { get; }
 
         /// <summary>
         /// Constructs a new dialog window with just an identifier.
@@ -32,7 +32,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
         {
             Identifier = identifier ?? throw new ArgumentNullException( nameof( identifier ) );
             Speaker = null;
-            Lines = new List<MessageScriptLine>();
+            Lines = new List<MessageScriptText>();
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
         {
             Identifier = identifier ?? throw new ArgumentNullException( nameof( identifier ) );
             Speaker = speaker;
-            Lines = new List<MessageScriptLine>();
+            Lines = new List<MessageScriptText>();
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
         /// <param name="identifier">The identifier of the window.</param>
         /// <param name="speaker">The speaker of the window.</param>
         /// <param name="lines">The list of lines of the window.</param>
-        public MessageScriptDialogWindow( string identifier, IMessageScriptSpeaker speaker, List<MessageScriptLine> lines )
+        public MessageScriptDialogWindow( string identifier, IMessageScriptSpeaker speaker, List<MessageScriptText> lines )
         {
             Identifier = identifier ?? throw new ArgumentNullException( nameof( identifier ) );
             Speaker = speaker;
@@ -65,7 +65,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
         /// </summary>
         /// <param name="identifier">The identifier of the window.</param>
         /// <param name="lines">The list of lines of the window.</param>
-        public MessageScriptDialogWindow( string identifier, List<MessageScriptLine> lines )
+        public MessageScriptDialogWindow( string identifier, List<MessageScriptText> lines )
         {
             Identifier = identifier ?? throw new ArgumentNullException( nameof( identifier ) );
             Speaker = null;
@@ -78,7 +78,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
         /// <param name="identifier">The identifier of the window.</param>
         /// <param name="speaker">The speaker of the window.</param>
         /// <param name="lines">The list of lines of the window.</param>
-        public MessageScriptDialogWindow( string identifier, IMessageScriptSpeaker speaker, params MessageScriptLine[] lines )
+        public MessageScriptDialogWindow( string identifier, IMessageScriptSpeaker speaker, params MessageScriptText[] lines )
         {
             Identifier = identifier ?? throw new ArgumentNullException( nameof( identifier ) );
             Speaker = speaker;
@@ -90,7 +90,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
         /// </summary>
         /// <param name="identifier">The identifier of the window.</param>
         /// <param name="lines">The list of lines of the window.</param>
-        public MessageScriptDialogWindow( string identifier, params MessageScriptLine[] lines )
+        public MessageScriptDialogWindow( string identifier, params MessageScriptText[] lines )
         {
             Identifier = identifier ?? throw new ArgumentNullException( nameof( identifier ) );
             Speaker = null;

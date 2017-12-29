@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents a single newline token.
     /// </summary>
-    public class MessageScriptNewLineToken : IMessageScriptLineToken
+    public class MessageScriptNewLineToken : IMessageScriptTextToken
     {
         /// <summary>
         /// The constant value of a newline token.
@@ -13,7 +13,7 @@
         /// <summary>
         /// Gets the type of this token.
         /// </summary>
-        public MessageScriptTokenType Type => MessageScriptTokenType.NewLine;
+        public MessageScriptTextTokenType Type => MessageScriptTextTokenType.NewLine;
 
         /// <summary>
         /// Converts this token to its string reprentation.

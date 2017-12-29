@@ -46,7 +46,7 @@ public partial class MessageScriptParser : Parser {
 		null, null, null, null, "'dlg'", "'sel'"
 	};
 	private static readonly string[] _SymbolicNames = {
-		null, "OpenCode", "CloseText", "Text", "MessageDialogTagId", "SelectionDialogTagId", 
+		null, "OpenCode", "CloseText", "Value", "MessageDialogTagId", "SelectionDialogTagId", 
 		"CloseCode", "OpenText", "IntLiteral", "Identifier", "Whitespace"
 	};
 	public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);

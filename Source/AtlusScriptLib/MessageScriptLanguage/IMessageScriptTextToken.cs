@@ -3,11 +3,11 @@
     /// <summary>
     /// Common interface for message script line tokens.
     /// </summary>
-    public interface IMessageScriptLineToken
+    public interface IMessageScriptTextToken
     {
         /// <summary>
         /// Gets the type of token.
         /// </summary>
-        MessageScriptTokenType Type { get; }
+        MessageScriptTextTokenType Type { get; }
     }
 }

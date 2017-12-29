@@ -1498,7 +1498,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
             if ( !Enum.TryParse<FlowScriptValueType>( identifier.Text, true, out var primitiveType ) )
             {
                 primitiveType = FlowScriptValueType.Int;
-                //LogError( node.Symbol, $"Unknown value type: {identifier.Text }" );
+                //LogError( node.Symbol, $"Unknown value type: {identifier.Value }" );
                 //return false;
             }
 

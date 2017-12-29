@@ -190,7 +190,7 @@
     <Compile Include="FlowScriptLanguage\FlowScriptEnums.cs" />
     <Compile Include="FlowScriptLanguage\FlowScriptProcedure.cs" />
     <Compile Include="FlowScriptLanguage\FlowScript.cs" />
-    <Compile Include="MessageScriptLanguage\IMessageScriptLineToken.cs" />
+    <Compile Include="MessageScriptLanguage\IMessageScriptTextToken.cs" />
     <Compile Include="Common\IO\EndianBinaryReader.cs" />
     <Compile Include="Common\IO\EndianBinaryWriter.cs" />
     <Compile Include="Common\IO\Endianness.cs" />
@@ -206,13 +206,13 @@
     <Compile Include="MessageScriptLanguage\MessageScriptCodePointToken.cs" />
     <Compile Include="MessageScriptLanguage\MessageScriptDialogWindow.cs" />
     <Compile Include="MessageScriptLanguage\MessageScriptFunctionToken.cs" />
-    <Compile Include="MessageScriptLanguage\MessageScriptLine.cs" />
+    <Compile Include="MessageScriptLanguage\MessageScriptText.cs" />
     <Compile Include="MessageScriptLanguage\MessageScriptEnums.cs" />
-    <Compile Include="MessageScriptLanguage\MessageScriptLineBuilder.cs" />
+    <Compile Include="MessageScriptLanguage\MessageScriptTextBuilder.cs" />
     <Compile Include="MessageScriptLanguage\MessageScriptNamedSpeaker.cs" />
     <Compile Include="MessageScriptLanguage\MessageScriptNewLineToken.cs" />
     <Compile Include="MessageScriptLanguage\MessageScriptSelectionWindow.cs" />
-    <Compile Include="MessageScriptLanguage\MessageScriptTextToken.cs" />
+    <Compile Include="MessageScriptLanguage\MessageScriptStringToken.cs" />
     <Compile Include="MessageScriptLanguage\MessageScriptVariableSpeaker.cs" />
     <Compile Include="FlowScriptLanguage\Disassembler\FlowScriptBinaryDisassembler.cs" />
     <Compile Include="FlowScriptLanguage\BinaryModel\FlowScriptBinaryEnums.cs" />

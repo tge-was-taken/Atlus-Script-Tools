@@ -37,7 +37,7 @@ public partial class MessageScriptLexer : Lexer {
 	};
 
 	public static readonly string[] ruleNames = {
-		"OpenCode", "CloseText", "Text", "MessageDialogTagId", "SelectionDialogTagId", 
+		"OpenCode", "CloseText", "Value", "MessageDialogTagId", "SelectionDialogTagId", 
 		"CloseCode", "OpenText", "IntLiteral", "Identifier", "DecIntLiteral", 
 		"HexIntLiteral", "Letter", "Digit", "HexDigit", "HexLiteralPrefix", "Sign", 
 		"Whitespace"
@@ -54,7 +54,7 @@ public partial class MessageScriptLexer : Lexer {
 		null, null, null, null, "'dlg'", "'sel'"
 	};
 	private static readonly string[] _SymbolicNames = {
-		null, "OpenCode", "CloseText", "Text", "MessageDialogTagId", "SelectionDialogTagId", 
+		null, "OpenCode", "CloseText", "Value", "MessageDialogTagId", "SelectionDialogTagId", 
 		"CloseCode", "OpenText", "IntLiteral", "Identifier", "Whitespace"
 	};
 	public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);

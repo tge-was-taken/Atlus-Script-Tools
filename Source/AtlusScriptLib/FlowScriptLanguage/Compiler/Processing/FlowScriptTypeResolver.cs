@@ -419,7 +419,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
             if ( !Scope.TryGetDeclaration( callExpression.Identifier, out var declaration ) )
             {
                 // Disable for now because we import functions at compile time
-                //LogWarning( callExpression, $"Call expression references undeclared identifier '{callExpression.Identifier.Text}'" );
+                //LogWarning( callExpression, $"Call expression references undeclared identifier '{callExpression.Identifier.Value}'" );
             }
 
             if ( declaration is FlowScriptFunctionDeclaration functionDeclaration )

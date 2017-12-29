@@ -168,7 +168,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel
             return binary;
         }
 
-        private List<byte> ProcessLine( MessageScriptLine line )
+        private List<byte> ProcessLine( MessageScriptText line )
         {
             List<byte> bytes = new List<byte>();
 
@@ -180,23 +180,23 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel
             return bytes;
         }
 
-        private void ProcessToken( IMessageScriptLineToken token, List<byte> bytes )
+        private void ProcessToken( IMessageScriptTextToken token, List<byte> bytes )
         {
             switch ( token.Type )
             {
-                case MessageScriptTokenType.Text:
-                    ProcessTextToken( ( MessageScriptTextToken )token, bytes );
+                case MessageScriptTextTokenType.String:
+                    ProcessTextToken( ( MessageScriptStringToken )token, bytes );
                     break;
 
-                case MessageScriptTokenType.Function:
+                case MessageScriptTextTokenType.Function:
                     ProcessFunctionToken( ( MessageScriptFunctionToken )token, bytes );
                     break;
 
-                case MessageScriptTokenType.CodePoint:
+                case MessageScriptTextTokenType.CodePoint:
                     ProcessCodePoint( ( MessageScriptCodePointToken )token, bytes );
                     break;
 
-                case MessageScriptTokenType.NewLine:
+                case MessageScriptTextTokenType.NewLine:
                     bytes.Add( MessageScriptNewLineToken.Value );
                     break;
 
@@ -205,13 +205,13 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel
             }
         }
 
-        private void ProcessTextToken( MessageScriptTextToken token, List<byte> bytes )
+        private void ProcessTextToken( MessageScriptStringToken token, List<byte> bytes )
         {
             byte[] textBytes;
             if ( mEncoding != null )
-                textBytes = mEncoding.GetBytes( token.Text );
+                textBytes = mEncoding.GetBytes( token.Value );
             else
-                textBytes = Encoding.ASCII.GetBytes( token.Text );
+                textBytes = Encoding.ASCII.GetBytes( token.Value );
 
             // simple add to the list of bytes
             bytes.AddRange( textBytes );

@@ -16,7 +16,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
         /// <summary>
         /// Gets the lines contained in this window.
         /// </summary>
-        public List<MessageScriptLine> Lines { get; }
+        public List<MessageScriptText> Lines { get; }
 
         /// <summary>
         /// Constructs a new selection window with just an identifier.
@@ -25,7 +25,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
         public MessageScriptSelectionWindow( string identifier )
         {
             Identifier = identifier;
-            Lines = new List<MessageScriptLine>();
+            Lines = new List<MessageScriptText>();
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
         /// </summary>
         /// <param name="identifier">The text identifier of the window.</param>
         /// <param name="lines">The list of lines in the window.</param>
-        public MessageScriptSelectionWindow( string identifier, List<MessageScriptLine> lines )
+        public MessageScriptSelectionWindow( string identifier, List<MessageScriptText> lines )
         {
             Identifier = identifier;
             Lines = lines;
@@ -44,7 +44,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
         /// </summary>
         /// <param name="identifier">The text identifier of the window.</param>
         /// <param name="lines">The list of lines in the window.</param>
-        public MessageScriptSelectionWindow( string identifier, params MessageScriptLine[] lines )
+        public MessageScriptSelectionWindow( string identifier, params MessageScriptText[] lines )
         {
             Identifier = identifier;
             Lines = lines.ToList();

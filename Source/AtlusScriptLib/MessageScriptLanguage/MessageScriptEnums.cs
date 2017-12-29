@@ -14,9 +14,9 @@ namespace AtlusScriptLib.MessageScriptLanguage
     /// <summary>
     /// Represents the message script token types.
     /// </summary>
-    public enum MessageScriptTokenType
+    public enum MessageScriptTextTokenType
     {
-        Text,
+        String,
         Function,
         CodePoint,
         NewLine,

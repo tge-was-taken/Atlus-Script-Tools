@@ -66,7 +66,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
                                 if ( binary.SpeakerTableHeader.SpeakerNameArray.Value == null )
                                     throw new InvalidDataException( "Speaker name array is null while being referenced" );
 
-                                MessageScriptLine speakerName = null;
+                                MessageScriptText speakerName = null;
                                 if ( binaryMessage.SpeakerId < binary.SpeakerTableHeader.SpeakerCount )
                                 {
                                     speakerName = ParseSpeakerLine( binary.SpeakerTableHeader.SpeakerNameArray
@@ -148,7 +148,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
             for ( int lineIndex = 0; lineIndex < rebasedLineStartAddresses.Length; lineIndex++ )
             {
                 // Initialize a new line
-                var line = new MessageScriptLine();
+                var line = new MessageScriptText();
 
                 // Now that the line start addresses have been rebased, we can use them as indices into the buffer
                 int bufferIndex = rebasedLineStartAddresses[lineIndex];
@@ -170,9 +170,9 @@ namespace AtlusScriptLib.MessageScriptLanguage
             }
         }
 
-        private static MessageScriptLine ParseSpeakerLine( IReadOnlyList<byte> bytes, Encoding encoding )
+        private static MessageScriptText ParseSpeakerLine( IReadOnlyList<byte> bytes, Encoding encoding )
         {
-            var line = new MessageScriptLine();
+            var line = new MessageScriptText();
 
             int bufferIndex = 0;
 
@@ -187,10 +187,10 @@ namespace AtlusScriptLib.MessageScriptLanguage
             return line;
         }
 
-        private static bool TryParseTokens( IReadOnlyList<byte> buffer, ref int bufferIndex, out List<IMessageScriptLineToken> tokens, Encoding encoding )
+        private static bool TryParseTokens( IReadOnlyList<byte> buffer, ref int bufferIndex, out List<IMessageScriptTextToken> tokens, Encoding encoding )
         {
             byte b = buffer[bufferIndex++];
-            tokens = new List<IMessageScriptLineToken>();
+            tokens = new List<IMessageScriptTextToken>();
 
             // Check if the current byte signifies a function
             if ( b == 0 )
@@ -212,11 +212,6 @@ namespace AtlusScriptLib.MessageScriptLanguage
             }
 
             return true;
-        }
-
-        private static MessageScriptCodePointToken ParseCharacterCodeToken( byte b, IReadOnlyList<byte> buffer, ref int bufferIndex )
-        {
-            return new MessageScriptCodePointToken( b, buffer[bufferIndex++] );
         }
 
         private static MessageScriptFunctionToken ParseFunctionToken( byte b, IReadOnlyList<byte> buffer, ref int bufferIndex )
@@ -244,12 +239,11 @@ namespace AtlusScriptLib.MessageScriptLanguage
             return new MessageScriptFunctionToken( functionTableIndex, functionIndex, functionArguments );
         }
 
-        private static List<IMessageScriptLineToken> ParseTextTokens( byte b, IReadOnlyList<byte> buffer, ref int bufferIndex, Encoding encoding )
+        private static List<IMessageScriptTextToken> ParseTextTokens( byte b, IReadOnlyList<byte> buffer, ref int bufferIndex, Encoding encoding )
         {
             var accumulatedText = new List<byte>();
             var charBytes = new byte[2];
-            var atlusEncoding = encoding as AtlusEncoding;
-            var tokens = new List<IMessageScriptLineToken>();
+            var tokens = new List<IMessageScriptTextToken>();
             byte b2;
 
             while ( true )
@@ -307,7 +301,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
                             // There was some proper text previously, so make sure we add it
                             if ( stringBuilder.Length != 0 )
                             {
-                                tokens.Add( new MessageScriptTextToken( stringBuilder.ToString() ) );
+                                tokens.Add( new MessageScriptStringToken( stringBuilder.ToString() ) );
                                 stringBuilder.Clear();
                             }
 
@@ -332,7 +326,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
             // There was some proper text previously, so make sure we add it
             if ( stringBuilder.Length != 0 )
             {
-                tokens.Add( new MessageScriptTextToken( stringBuilder.ToString() ) );
+                tokens.Add( new MessageScriptStringToken( stringBuilder.ToString() ) );
                 stringBuilder.Clear();
             }
 

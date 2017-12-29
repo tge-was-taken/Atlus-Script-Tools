@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents a code point token. This maps a glyph on the game's font.
     /// </summary>
-    public struct MessageScriptCodePointToken : IMessageScriptLineToken
+    public struct MessageScriptCodePointToken : IMessageScriptTextToken
     {
         /// <summary>
         /// Gets the high surrogate byte of the code point.
@@ -29,7 +29,7 @@
         /// <summary>
         /// Gets the token type of this token.
         /// </summary>
-        MessageScriptTokenType IMessageScriptLineToken.Type => MessageScriptTokenType.CodePoint;
+        MessageScriptTextTokenType IMessageScriptTextToken.Type => MessageScriptTextTokenType.CodePoint;
 
         /// <summary>
         /// Converts this token to its string representation.

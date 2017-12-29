@@ -111,7 +111,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Decompiler
             }
         }
 
-        public void Decompile( MessageScriptLine line, bool emitLineEndTag = true )
+        public void Decompile( MessageScriptText line, bool emitLineEndTag = true )
         {
             foreach ( var token in line.Tokens )
             {
@@ -122,20 +122,20 @@ namespace AtlusScriptLib.MessageScriptLanguage.Decompiler
                 WriteTag( "e" );
         }
 
-        public void Decompile( IMessageScriptLineToken token )
+        public void Decompile( IMessageScriptTextToken token )
         {
             switch ( token.Type )
             {
-                case MessageScriptTokenType.Text:
-                    Decompile( ( MessageScriptTextToken )token );
+                case MessageScriptTextTokenType.String:
+                    Decompile( ( MessageScriptStringToken )token );
                     break;
-                case MessageScriptTokenType.Function:
+                case MessageScriptTextTokenType.Function:
                     Decompile( ( MessageScriptFunctionToken )token );
                     break;
-                case MessageScriptTokenType.CodePoint:
+                case MessageScriptTextTokenType.CodePoint:
                     Decompile( ( MessageScriptCodePointToken )token );
                     break;
-                case MessageScriptTokenType.NewLine:
+                case MessageScriptTextTokenType.NewLine:
                     Decompile( ( MessageScriptNewLineToken )token );
                     break;
 
@@ -193,9 +193,9 @@ namespace AtlusScriptLib.MessageScriptLanguage.Decompiler
             }
         }
 
-        public void Decompile( MessageScriptTextToken token )
+        public void Decompile( MessageScriptStringToken token )
         {
-            mWriter.Write( token.Text );
+            mWriter.Write( token.Value );
         }
 
         public void Decompile( MessageScriptCodePointToken token )

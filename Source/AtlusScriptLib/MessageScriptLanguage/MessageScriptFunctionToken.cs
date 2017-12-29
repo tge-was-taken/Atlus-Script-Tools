@@ -6,7 +6,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
     /// <summary>
     /// Represents a message script function token.
     /// </summary>
-    public struct MessageScriptFunctionToken : IMessageScriptLineToken
+    public struct MessageScriptFunctionToken : IMessageScriptTextToken
     {
         /// <summary>
         /// Gets the function table index.
@@ -82,6 +82,6 @@ namespace AtlusScriptLib.MessageScriptLanguage
         /// <summary>
         /// Gets the token type.
         /// </summary>
-        MessageScriptTokenType IMessageScriptLineToken.Type => MessageScriptTokenType.Function;
+        MessageScriptTextTokenType IMessageScriptTextToken.Type => MessageScriptTextTokenType.Function;
     }
 }

@@ -1,5 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
+using System;
 using AtlusScriptLib.FlowScriptLanguage.BinaryModel.IO;
 using AtlusScriptLib.MessageScriptLanguage.BinaryModel;
 
@@ -94,6 +98,37 @@ namespace AtlusScriptLib.FlowScriptLanguage.BinaryModel
         public MessageScriptBinary MessageScriptSection
         {
             get { return mMessageScriptSection; }
+            set
+            {
+                // Fixup size
+                int sizeDifference = value.Header.FileSize - mMessageScriptSection.Header.FileSize;
+
+                if ( sizeDifference != 0 )
+                {
+                    var sectionHeaderIndex = Array.FindIndex( mSectionHeaders, x => x.SectionType == FlowScriptBinarySectionType.MessageScriptSection );
+
+                    if ( sectionHeaderIndex != -1 )
+                    {
+                        mSectionHeaders[sectionHeaderIndex].ElementCount = mMessageScriptSection.Header.FileSize;
+
+                        int lastHeaderIndex = mSectionHeaders.Length - 1;
+                        if ( sectionHeaderIndex != lastHeaderIndex )
+                        {
+                            int numHeadersToFixUp = sectionHeaderIndex - lastHeaderIndex;
+                            for ( int i = sectionHeaderIndex + 1; i < numHeadersToFixUp; i++ )
+                            {
+                                mSectionHeaders[i].FirstElementAddress += sizeDifference;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        throw new NotImplementedException( "Adding a MessageScript section where it does not exist yet is not implemented" );
+                    }
+                }
+
+                mMessageScriptSection = value;
+            }
         }
 
         public ReadOnlyCollection<byte> StringSection
