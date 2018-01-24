@@ -11,9 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtlusScriptLibTests", "Atlu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtlusScriptCompiler", "AtlusScriptCompiler\AtlusScriptCompiler.csproj", "{58E13E8A-EA32-4627-A798-58E4648D812E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utillities", "Utillities", "{913E0C03-CF2B-4D8E-8A74-675EED60A103}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilities", "Utilities", "{913E0C03-CF2B-4D8E-8A74-675EED60A103}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtlusMessageScriptExtractor", "Utillities\AtlusMessageScriptExtractor\AtlusMessageScriptExtractor.csproj", "{94101A4C-6C79-4FCB-AB3F-51059A0CCE02}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtlusMessageScriptExtractor", "Utilities\AtlusMessageScriptExtractor\AtlusMessageScriptExtractor.csproj", "{94101A4C-6C79-4FCB-AB3F-51059A0CCE02}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
