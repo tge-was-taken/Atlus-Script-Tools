@@ -1267,22 +1267,26 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                         case "MSG":
                         case "SEL":
                             {
-                                var index = ( ( FlowScriptIntLiteral )callExpression.Arguments[0] ).Value;
-                                if ( index < 0 || index >= mScript.MessageScript.Windows.Count )
+                                var firstArgument = callExpression.Arguments[ 0 ];
+                                if ( firstArgument is FlowScriptIntLiteral firstArgumentInt )
                                 {
-                                    Error( $"Function call to {callExpression.Identifier.Text} references message that doesn't exist (index: {index})" );
-                                    return false;
-                                }
+                                    var index = firstArgumentInt.Value;
+                                    if ( index < 0 || index >= mScript.MessageScript.Windows.Count )
+                                    {
+                                        Error( $"Function call to {callExpression.Identifier.Text} references message that doesn't exist (index: {index})" );
+                                        return false;
+                                    }
 
-                                var expectedWindowType = callExpression.Identifier.Text == "MSG"
-                                    ? MessageScriptWindowType.Dialogue
-                                    : MessageScriptWindowType.Selection;
+                                    var expectedWindowType = callExpression.Identifier.Text == "MSG"
+                                        ? MessageScriptWindowType.Dialogue
+                                        : MessageScriptWindowType.Selection;
 
-                                var window = mScript.MessageScript.Windows[ index ];
-                                if ( window.Type != expectedWindowType )
-                                {
-                                    Error( $"Function call to {callExpression.Identifier.Text} doesn't reference a {expectedWindowType} message, got message of type: {window.Type}" );
-                                    return false;
+                                    var window = mScript.MessageScript.Windows[index];
+                                    if ( window.Type != expectedWindowType )
+                                    {
+                                        Error( $"Function call to {callExpression.Identifier.Text} doesn't reference a {expectedWindowType} message, got message of type: {window.Type} index: {index}" );
+                                        return false;
+                                    }
                                 }
                             }
                             break;
