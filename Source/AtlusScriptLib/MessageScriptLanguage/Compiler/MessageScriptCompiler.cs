@@ -22,9 +22,9 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
     /// </summary>
     public class MessageScriptCompiler
     {
-        private Logger mLogger;
-        private MessageScriptFormatVersion mVersion;
-        private Encoding mEncoding;
+        private readonly Logger mLogger;
+        private readonly MessageScriptFormatVersion mVersion;
+        private readonly Encoding mEncoding;
 
         public LibraryRegistry LibraryRegistry { get; set; }
 
@@ -98,7 +98,10 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
         /// <returns>A boolean value indicating whether the compilation succeeded or not.</returns>
         public bool TryCompile( string input, out MessageScript script )
         {
-            var cst = MessageScriptParserHelper.ParseCompilationUnit( input );
+            LogInfo( "Parsing MessageScript source" );
+            var cst = MessageScriptParserHelper.ParseCompilationUnit( input, new AntlrErrorListener(this) );
+            LogInfo( "Done parsing MessageScript source" );
+
             return TryCompile( cst, out script );
         }
 
@@ -110,7 +113,10 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
         /// <returns>A boolean value indicating whether the compilation succeeded or not.</returns>
         public bool TryCompile( TextReader input, out MessageScript script )
         {
+            LogInfo( "Parsing MessageScript source" );
             var cst = MessageScriptParserHelper.ParseCompilationUnit( input, new AntlrErrorListener( this ) );
+            LogInfo( "Done parsing MessageScript source" );
+
             return TryCompile( cst, out script );
         }
 
@@ -122,18 +128,25 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
         /// <returns>A boolean value indicating whether the compilation succeeded or not.</returns>
         public bool TryCompile( Stream input, out MessageScript script )
         {
+            LogInfo( "Parsing MessageScript source" );
             var cst = MessageScriptParserHelper.ParseCompilationUnit( input, new AntlrErrorListener(this) );
+            LogInfo( "Done parsing MessageScript source" );
+
             return TryCompile( cst, out script );
         }
 
         // Compilation methods
         private bool TryCompile( MessageScriptParser.CompilationUnitContext context, out MessageScript script )
         {
+            LogInfo( context, "Compiling MessageScript compilation unit" );
+
             if ( !TryCompileImpl( context, out script ) )
             {
                 LogError( context, "Failed to compile message script" );
                 return false;
             }
+
+            LogInfo( context, "Done compiling MessageScript compilation unit" );
 
             return true;
         }
@@ -203,6 +216,8 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
 
                 identifier = identifierNode.Symbol.Text;
             }
+
+            LogInfo( context, $"Compiling dialog window: {identifier}" );
 
             //
             // Parse speaker name
@@ -282,6 +297,8 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
 
                 identifier = identifierNode.Symbol.Text;
             }
+
+            LogInfo( context, $"Compiling selection window: {identifier}" );
 
             // 
             // Parse text content
@@ -608,7 +625,17 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
         // Logging
         private void LogContextInfo( ParserRuleContext context )
         {
-            mLogger.Info( $"({context.Start.Line:D4}:{context.Start.Column:D4}) Compiling {MessageScriptParser.ruleNames[context.RuleIndex]}" );
+            mLogger.Trace( $"({context.Start.Line:D4}:{context.Start.Column:D4}) Compiling {MessageScriptParser.ruleNames[context.RuleIndex]}" );
+        }
+
+        private void LogInfo( ParserRuleContext context, string str )
+        {
+            mLogger.Info( $"({context.Start.Line:D4}:{context.Start.Column:D4}) {str}" );
+        }
+
+        private void LogInfo(string str )
+        {
+            mLogger.Info( str );
         }
 
         private void LogError( ParserRuleContext context, string str )
