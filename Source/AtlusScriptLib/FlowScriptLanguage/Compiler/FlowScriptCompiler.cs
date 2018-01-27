@@ -540,7 +540,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             }
             else
             {
-                Warning( "FlowScript file '{compilationUnitFilePath}' was already included once! Skipping!" );
+                Warning( $"FlowScript file '{compilationUnitFilePath}' was already included once! Skipping!" );
                 importedCompilationUnit = null;
             }
 
