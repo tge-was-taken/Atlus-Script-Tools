@@ -1258,6 +1258,37 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     return false;
                 }
 
+                // Check MessageScript function call semantics
+                if ( mScript.MessageScript != null )
+                {
+                    // Todo: make this less hardcoded
+                    switch ( callExpression.Identifier.Text )
+                    {
+                        case "MSG":
+                        case "SEL":
+                            {
+                                var index = ( ( FlowScriptIntLiteral )callExpression.Arguments[0] ).Value;
+                                if ( index < 0 || index >= mScript.MessageScript.Windows.Count )
+                                {
+                                    Error( $"Function call to {callExpression.Identifier.Text} references message that doesn't exist (index: {index})" );
+                                    return false;
+                                }
+
+                                var expectedWindowType = callExpression.Identifier.Text == "MSG"
+                                    ? MessageScriptWindowType.Dialogue
+                                    : MessageScriptWindowType.Selection;
+
+                                var window = mScript.MessageScript.Windows[ index ];
+                                if ( window.Type != expectedWindowType )
+                                {
+                                    Error( $"Function call to {callExpression.Identifier.Text} doesn't reference a {expectedWindowType} message, got message of type: {window.Type}" );
+                                    return false;
+                                }
+                            }
+                            break;
+                    }
+                }
+
                 if ( function.Declaration.Parameters.Count > 0 )
                 {
                     if ( !TryEmitFunctionCallArguments( callExpression ) )
