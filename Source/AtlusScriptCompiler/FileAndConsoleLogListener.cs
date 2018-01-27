@@ -4,13 +4,16 @@ using AtlusScriptLib.Common.Logging;
 
 namespace AtlusScriptCompiler
 {
-    public class FileAndConsoleLogListener : ConsoleLogListener
+    public class FileAndConsoleLogListener : ConsoleLogListener, IDisposable
     {
         private readonly StreamWriter mFileWriter;
+        private readonly LogLevel mConsoleLogFilter;
+        private bool mDisposed;
 
-        public FileAndConsoleLogListener( bool useColors, LogLevel filter ) : base( useColors, filter )
+        public FileAndConsoleLogListener( bool useColors, LogLevel filter ) : base( useColors, LogLevel.All )
         {
             mFileWriter = File.CreateText( Program.AssemblyName.Name + ".log" );
+            mConsoleLogFilter = filter;
         }
 
         public FileAndConsoleLogListener( string channelName, bool useColors ) : base( channelName, useColors )
@@ -22,7 +25,28 @@ namespace AtlusScriptCompiler
         {
             mFileWriter.WriteLine( $"{DateTime.Now} {e.ChannelName} {e.Level}: {e.Message}" );
 
-            base.OnLogCore( sender, e );
+            if ( mConsoleLogFilter.HasFlag(e.Level) )
+                base.OnLogCore( sender, e );
+        }
+
+        protected virtual void Dispose( bool disposing )
+        {
+            if ( !mDisposed )
+            {
+                mFileWriter.Dispose();
+                mDisposed = true;
+            }
+        }
+
+        ~FileAndConsoleLogListener()
+        {
+            Dispose( false );
+        }
+
+        public void Dispose()
+        {
+            Dispose( true );
+            GC.SuppressFinalize(this);
         }
     }
 }

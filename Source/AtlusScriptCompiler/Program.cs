@@ -130,6 +130,12 @@ namespace AtlusScriptCompiler
                 return;
             }
 
+            // Set up log listener
+            Listener.Subscribe( Logger );
+
+            // Log arguments
+            Logger.Trace( $"Arguments: {string.Join( " ", args )}" );
+
             if ( !TryParseArguments( args ) )
             {
                 Logger.Error( "Failed to parse arguments!" );
@@ -137,30 +143,36 @@ namespace AtlusScriptCompiler
                 return;
             }
 
-            // set up log listener
-            Listener.Subscribe( Logger );
             if ( LogTrace )
                 Listener.Filter |= LogLevel.Trace;
 
             bool success;
 
-            if ( DoCompile )
+            try
             {
-                success = TryDoCompilation();
+                if ( DoCompile )
+                {
+                    success = TryDoCompilation();
+                }
+                else if ( DoDecompile )
+                {
+                    success = TryDoDecompilation();
+                }
+                else if ( DoDisassemble )
+                {
+                    success = TryDoDisassembling();
+                }
+                else
+                {
+                    Logger.Error( "No compilation, decompilation or disassemble instruction given!" );
+                    DisplayUsage();
+                    return;
+                }
             }
-            else if ( DoDecompile )
+            catch ( Exception e )
             {
-                success = TryDoDecompilation();
-            }
-            else if ( DoDisassemble )
-            {
-                success = TryDoDisassembling();
-            }
-            else
-            {
-                Logger.Error( "No compilation, decompilation or disassemble instruction given!" );
-                DisplayUsage();
-                return;
+                LogException( "Unhandled exception thrown", e );
+                success = false;
             }
 
             if ( success )
@@ -168,7 +180,7 @@ namespace AtlusScriptCompiler
             else
                 Logger.Error( "One or more errors occured while executing task!" );
 
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Gray;
         }
 
         private static bool TryParseArguments( string[] args )
