@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 using AtlusScriptLib.Common.Logging;
@@ -21,11 +19,13 @@ namespace AtlusScriptCompiler
 {
     internal class Program
     {
-        public static Version Version = Assembly.GetExecutingAssembly().GetName().Version;
+        public static AssemblyName AssemblyName = Assembly.GetExecutingAssembly().GetName();
+
+        public static Version Version = AssemblyName.Version;
 
         public static Logger Logger = new Logger(nameof(AtlusScriptCompiler));
 
-        public static LogListener Listener = new ConsoleLogListener( true, LogLevel.Info | LogLevel.Warning | LogLevel.Error | LogLevel.Fatal );
+        public static LogListener Listener = new FileAndConsoleLogListener( true, LogLevel.Info | LogLevel.Warning | LogLevel.Error | LogLevel.Fatal );
 
         public static string InputFilePath;
 
