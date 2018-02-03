@@ -1,6 +1,0 @@
-{
-  "Name": "Persona 5",
-  "ShortName": "p5",
-  "FlowScriptLibraryRegistryPath": "Persona5\\FlowScriptLibraries.json",
-  "MessageScriptLibraryPath": "Persona5\\MessageScriptLibrary.json"
-}

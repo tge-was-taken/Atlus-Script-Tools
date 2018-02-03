@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AtlusScriptLib.Common.Logging
 {
@@ -64,6 +60,6 @@ namespace AtlusScriptLib.Common.Logging
         Warning  = 1 << 4,
         Error    = 1 << 5,
         Fatal    = 1 << 6,
-        All      = Debug | Trace | Info | Warning | Error | Fatal,
+        All      = Debug | Trace | Info | Warning | Error | Fatal
     }
 }

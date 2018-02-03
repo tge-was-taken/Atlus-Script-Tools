@@ -1,40 +1,40 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
 using System.IO;
-using System;
 using AtlusScriptLib.MessageScriptLanguage.BinaryModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AtlusScriptLib.MessageScriptLanguage.Tests
 {
-    [TestClass()]
+    [TestClass]
     public class MessageScriptTests
     {
-        [TestMethod()]
+        [TestMethod]
         public void FromBinary_ShouldNotThrow_Version1()
         {
             var binary = MessageScriptBinary.FromFile( "TestResources\\Version1.bmd" );
             var script = MessageScript.FromBinary( binary );
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void FromBinary_ShouldNotThrow_Version1BigEndian()
         {
             var binary = MessageScriptBinary.FromFile( "TestResources\\Version1BigEndian.bmd" );
             var script = MessageScript.FromBinary( binary );
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void FromFile_ShouldNotThrow_Version1()
         {
             var script = MessageScript.FromFile( "TestResources\\Version1.bmd" );
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void FromFile_ShouldNotThrow_Version1BigEndian()
         {
             var script = MessageScript.FromFile( "TestResources\\Version1BigEndian.bmd" );
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void FromStream_ShouldNotThrow_Version1()
         {
             using ( var fileStream = File.OpenRead( "TestResources\\Version1.bmd" ) )
@@ -43,7 +43,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Tests
             }
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void FromStream_ShouldNotThrow_Version1BigEndian()
         {
             using ( var fileStream = File.OpenRead( "TestResources\\Version1BigEndian.bmd" ) )
@@ -52,17 +52,17 @@ namespace AtlusScriptLib.MessageScriptLanguage.Tests
             }
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void Constructor_ShouldNotFailDefaultValueCheck()
         {
-            var script = new MessageScript( MessageScriptFormatVersion.Version1 );
+            var script = new MessageScript( FormatVersion.Version1 );
 
             Assert.AreEqual( 0, script.Id );
-            Assert.AreEqual( MessageScriptFormatVersion.Version1, script.FormatVersion );
+            Assert.AreEqual( FormatVersion.Version1, script.FormatVersion );
             Assert.AreEqual( 0, script.Windows.Count );
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ToBinary_ShouldMatchSourceBinary_Version1()
         {
             var binary = MessageScriptBinary.FromFile( "TestResources\\Version1.bmd" );
@@ -72,7 +72,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Tests
             Compare( binary, newBinary );
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ToBinary_ShouldMatchSourceBinary_Version1BigEndian()
         {
             var binary = MessageScriptBinary.FromFile( "TestResources\\Version1BigEndian.bmd" );
@@ -110,10 +110,10 @@ namespace AtlusScriptLib.MessageScriptLanguage.Tests
                 // compare message data
                 switch ( header.WindowType )
                 {
-                    case MessageScriptBinaryWindowType.Dialogue:
+                    case BinaryWindowType.Dialogue:
                         {
-                            var dialogue = ( MessageScriptBinaryDialogueWindow )header.Window.Value;
-                            var newDialogue = ( MessageScriptBinaryDialogueWindow )newHeader.Window.Value;
+                            var dialogue = ( BinaryDialogueWindow )header.Window.Value;
+                            var newDialogue = ( BinaryDialogueWindow )newHeader.Window.Value;
 
                             Assert.AreEqual( dialogue.Identifier, newDialogue.Identifier );
                             Assert.AreEqual( dialogue.LineCount, newDialogue.LineCount );
@@ -124,10 +124,10 @@ namespace AtlusScriptLib.MessageScriptLanguage.Tests
                         }
                         break;
 
-                    case MessageScriptBinaryWindowType.Selection:
+                    case BinaryWindowType.Selection:
                         {
-                            var selection = ( MessageScriptBinarySelectionWindow )header.Window.Value;
-                            var newSelection = ( MessageScriptBinarySelectionWindow )newHeader.Window.Value;
+                            var selection = ( BinarySelectionWindow )header.Window.Value;
+                            var newSelection = ( BinarySelectionWindow )newHeader.Window.Value;
 
                             Assert.AreEqual( selection.Identifier, newSelection.Identifier );
                             Assert.AreEqual( selection.Field18, newSelection.Field18 );

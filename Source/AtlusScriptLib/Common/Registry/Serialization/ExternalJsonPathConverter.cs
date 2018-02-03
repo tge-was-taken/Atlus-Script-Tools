@@ -16,7 +16,7 @@ namespace AtlusScriptLib.Common.Registry.Serialization
             if ( string.IsNullOrEmpty( path ) )
                 return null;
 
-            var fullPath = Path.Combine( LibraryRegistryCache.RegistryDirectoryPath, path );
+            var fullPath = Path.Combine( LibraryLookup.LibraryDirectoryPath, path );
             var jsonString = File.ReadAllText( fullPath );
             var obj = JsonConvert.DeserializeObject( jsonString, objectType );
 

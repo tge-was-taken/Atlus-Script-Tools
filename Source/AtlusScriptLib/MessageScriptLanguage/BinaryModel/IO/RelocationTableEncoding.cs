@@ -46,14 +46,11 @@ namespace AtlusScriptLib.MessageScriptLanguage.IO
                         // Continue the loop early so we skip adding the reloc value to the list later on
                         continue;
                     }
-                    else
-                    {
-                        // If value isn't a sequence run then read the next byte and bitwise OR it onto the value
+                    // If value isn't a sequence run then read the next byte and bitwise OR it onto the value
 
-                        // Decrement the reloc value to remove the extra bit added to make it an odd number
-                        reloc -= 1;
-                        reloc |= relocationTable[++i] << 8;
-                    }
+                    // Decrement the reloc value to remove the extra bit added to make it an odd number
+                    reloc -= 1;
+                    reloc |= relocationTable[++i] << 8;
                 }
                 else
                 {

@@ -138,8 +138,7 @@ namespace AtlusScriptLib.Common.IO
         {
             if (mSwap)
                 return EndiannessHelper.Swap(base.ReadInt16());
-            else
-                return base.ReadInt16();
+            return base.ReadInt16();
         }
 
         public short[] ReadInt16s(int count)
@@ -157,8 +156,7 @@ namespace AtlusScriptLib.Common.IO
         {
             if (mSwap)
                 return EndiannessHelper.Swap(base.ReadUInt16());
-            else
-                return base.ReadUInt16();
+            return base.ReadUInt16();
         }
 
         public ushort[] ReadUInt16s(int count)
@@ -176,8 +174,7 @@ namespace AtlusScriptLib.Common.IO
         {
             if (mSwap)
                 return EndiannessHelper.Swap(base.ReadDecimal());
-            else
-                return base.ReadDecimal();
+            return base.ReadDecimal();
         }
 
         public decimal[] ReadDecimals(int count)
@@ -195,8 +192,7 @@ namespace AtlusScriptLib.Common.IO
         {
             if (mSwap)
                 return EndiannessHelper.Swap(base.ReadDouble());
-            else
-                return base.ReadDouble();
+            return base.ReadDouble();
         }
 
         public double[] ReadDoubles(int count)
@@ -214,8 +210,7 @@ namespace AtlusScriptLib.Common.IO
         {
             if (mSwap)
                 return EndiannessHelper.Swap(base.ReadInt32());
-            else
-                return base.ReadInt32();
+            return base.ReadInt32();
         }
 
         public int[] ReadInt32s(int count)
@@ -233,8 +228,7 @@ namespace AtlusScriptLib.Common.IO
         {
             if (mSwap)
                 return EndiannessHelper.Swap(base.ReadInt64());
-            else
-                return base.ReadInt64();
+            return base.ReadInt64();
         }
 
         public long[] ReadInt64s(int count)
@@ -252,8 +246,7 @@ namespace AtlusScriptLib.Common.IO
         {
             if (mSwap)
                 return EndiannessHelper.Swap(base.ReadSingle());
-            else
-                return base.ReadSingle();
+            return base.ReadSingle();
         }
 
         public float[] ReadSingles(int count)
@@ -271,8 +264,7 @@ namespace AtlusScriptLib.Common.IO
         {
             if (mSwap)
                 return EndiannessHelper.Swap(base.ReadUInt32());
-            else
-                return base.ReadUInt32();
+            return base.ReadUInt32();
         }
 
         public uint[] ReadUInt32s(int count)
@@ -290,8 +282,7 @@ namespace AtlusScriptLib.Common.IO
         {
             if (mSwap)
                 return EndiannessHelper.Swap(base.ReadUInt64());
-            else
-                return base.ReadUInt64();
+            return base.ReadUInt64();
         }
 
         public ulong[] ReadUInt64s(int count)

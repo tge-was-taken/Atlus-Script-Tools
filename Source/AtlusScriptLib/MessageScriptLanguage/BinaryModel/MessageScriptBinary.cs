@@ -16,10 +16,10 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel
             if ( string.IsNullOrEmpty( path ) )
                 throw new ArgumentException( "Value cannot be null or empty.", nameof( path ) );
 
-            return FromFile( path, MessageScriptBinaryFormatVersion.Unknown );
+            return FromFile( path, BinaryFormatVersion.Unknown );
         }
 
-        public static MessageScriptBinary FromFile( string path, MessageScriptBinaryFormatVersion version )
+        public static MessageScriptBinary FromFile( string path, BinaryFormatVersion version )
         {
             if ( path == null )
                 throw new ArgumentNullException( nameof( path ) );
@@ -27,9 +27,9 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel
             if ( string.IsNullOrEmpty( path ) )
                 throw new ArgumentException( "Value cannot be null or empty.", nameof( path ) );
 
-            if ( !Enum.IsDefined( typeof( MessageScriptBinaryFormatVersion ), version ) )
+            if ( !Enum.IsDefined( typeof( BinaryFormatVersion ), version ) )
                 throw new InvalidEnumArgumentException( nameof( version ), ( int )version,
-                    typeof( MessageScriptBinaryFormatVersion ) );
+                    typeof( BinaryFormatVersion ) );
 
             using ( var fileStream = File.OpenRead( path ) )
                 return FromStream( fileStream, version );
@@ -40,17 +40,17 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel
             if ( stream == null )
                 throw new ArgumentNullException( nameof( stream ) );
 
-            return FromStream( stream, MessageScriptBinaryFormatVersion.Unknown, leaveOpen );
+            return FromStream( stream, BinaryFormatVersion.Unknown, leaveOpen );
         }
 
-        public static MessageScriptBinary FromStream( Stream stream, MessageScriptBinaryFormatVersion version, bool leaveOpen = false )
+        public static MessageScriptBinary FromStream( Stream stream, BinaryFormatVersion version, bool leaveOpen = false )
         {
             if ( stream == null )
                 throw new ArgumentNullException( nameof( stream ) );
 
-            if ( !Enum.IsDefined( typeof( MessageScriptBinaryFormatVersion ), version ) )
+            if ( !Enum.IsDefined( typeof( BinaryFormatVersion ), version ) )
                 throw new InvalidEnumArgumentException( nameof( version ), ( int )version,
-                    typeof( MessageScriptBinaryFormatVersion ) );
+                    typeof( BinaryFormatVersion ) );
 
             using ( var reader = new MessageScriptBinaryReader( stream, version, leaveOpen ) )
             {
@@ -59,19 +59,19 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel
         }
 
         // these fields are internal because they are used by the builder, reader & writer
-        internal MessageScriptBinaryHeader mHeader;
-        internal MessageScriptBinaryWindowHeader[] mWindowHeaders;
-        internal MessageScriptBinarySpeakerTableHeader mSpeakerTableHeader;
-        internal MessageScriptBinaryFormatVersion mFormatVersion;
+        internal BinaryHeader mHeader;
+        internal BinaryWindowHeader[] mWindowHeaders;
+        internal BinarySpeakerTableHeader mSpeakerTableHeader;
+        internal BinaryFormatVersion mFormatVersion;
 
-        public MessageScriptBinaryHeader Header => mHeader;
+        public BinaryHeader Header => mHeader;
 
-        public ReadOnlyCollection<MessageScriptBinaryWindowHeader> WindowHeaders
-            => new ReadOnlyCollection<MessageScriptBinaryWindowHeader>( mWindowHeaders );
+        public ReadOnlyCollection<BinaryWindowHeader> WindowHeaders
+            => new ReadOnlyCollection<BinaryWindowHeader>( mWindowHeaders );
 
-        public MessageScriptBinarySpeakerTableHeader SpeakerTableHeader => mSpeakerTableHeader;
+        public BinarySpeakerTableHeader SpeakerTableHeader => mSpeakerTableHeader;
 
-        public MessageScriptBinaryFormatVersion FormatVersion => mFormatVersion;
+        public BinaryFormatVersion FormatVersion => mFormatVersion;
 
         // this constructor is internal because it is used by the builder, reader & writer
         internal MessageScriptBinary()

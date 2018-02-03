@@ -18,14 +18,11 @@ namespace AtlusScriptLib.Common.Reflection
             {
                 throw new Exception( "More than one attribute of type present" );
             }
-            else if ( customAttributes.Length == 1 )
+            if ( customAttributes.Length == 1 )
             {
                 return customAttributes[0];
             }
-            else
-            {
-                return default( T );
-            }
+            return default( T );
         }
     }
 }

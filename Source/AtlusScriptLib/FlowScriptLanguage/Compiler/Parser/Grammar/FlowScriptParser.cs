@@ -11,6 +11,14 @@
 // Generated from ..\..\..\AtlusScriptLib\FlowScriptLanguage\Compiler\Parser\Grammar\FlowScript.g4 by ANTLR 4.6.4
 
 // Unreachable code detected
+
+using System;
+using System.CodeDom.Compiler;
+using Antlr4.Runtime;
+using Antlr4.Runtime.Atn;
+using Antlr4.Runtime.Misc;
+using Antlr4.Runtime.Tree;
+
 #pragma warning disable 0162
 // The variable '...' is assigned but its value is never used
 #pragma warning disable 0219
@@ -20,25 +28,19 @@
 #pragma warning disable 419
 
 namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser.Grammar {
-using Antlr4.Runtime;
-using Antlr4.Runtime.Atn;
-using Antlr4.Runtime.Misc;
-using Antlr4.Runtime.Tree;
-using System.Collections.Generic;
-using DFA = Antlr4.Runtime.Dfa.DFA;
-
-[System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.6.4")]
-[System.CLSCompliant(false)]
-public partial class FlowScriptParser : Parser {
+    [GeneratedCode("ANTLR", "4.6.4")]
+[CLSCompliant(false)]
+public partial class FlowScriptParser : Antlr4.Runtime.Parser {
 	public const int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
 		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, T__15=16, T__16=17, 
 		T__17=18, T__18=19, T__19=20, T__20=21, T__21=22, T__22=23, T__23=24, 
-		T__24=25, T__25=26, T__26=27, T__27=28, Import=29, Function=30, Static=31, 
-		Const=32, If=33, Else=34, For=35, While=36, Break=37, Continue=38, Return=39, 
-		Goto=40, Switch=41, Case=42, Default=43, Enum=44, BoolLiteral=45, IntLiteral=46, 
-		FloatLiteral=47, StringLiteral=48, Identifier=49, PrimitiveTypeIdentifier=50, 
-		ProcedureIdentifier=51, Whitespace=52, Newline=53, BlockComment=54, LineComment=55;
+		T__24=25, T__25=26, T__26=27, T__27=28, Import=29, Function=30, Global=31, 
+		Const=32, AiLocal=33, AiGlobal=34, Bit=35, Enum=36, If=37, Else=38, For=39, 
+		While=40, Break=41, Continue=42, Return=43, Goto=44, Switch=45, Case=46, 
+		Default=47, BoolLiteral=48, IntLiteral=49, FloatLiteral=50, StringLiteral=51, 
+		Identifier=52, PrimitiveTypeIdentifier=53, ProcedureIdentifier=54, Whitespace=55, 
+		Newline=56, BlockComment=57, LineComment=58;
 	public const int
 		RULE_compilationUnit = 0, RULE_importStatement = 1, RULE_statement = 2, 
 		RULE_nullStatement = 3, RULE_compoundStatement = 4, RULE_declarationStatement = 5, 
@@ -64,22 +66,22 @@ public partial class FlowScriptParser : Parser {
 		null, "'('", "')'", "';'", "'{'", "'}'", "'='", "','", "':'", "'.'", "'--'", 
 		"'++'", "'!'", "'-'", "'*'", "'/'", "'+'", "'<'", "'>'", "'<='", "'>='", 
 		"'=='", "'!='", "'&&'", "'||'", "'+='", "'-='", "'*='", "'/='", "'import'", 
-		"'function'", "'static'", "'const'", "'if'", "'else'", "'for'", "'while'", 
-		"'break'", "'continue'", "'return'", "'goto'", "'switch'", "'case'", "'default'", 
-		"'enum'"
+		"'function'", "'global'", "'const'", "'ai_local'", "'ai_global'", "'bit'", 
+		"'enum'", "'if'", "'else'", "'for'", "'while'", "'break'", "'continue'", 
+		"'return'", "'goto'", "'switch'", "'case'", "'default'"
 	};
 	private static readonly string[] _SymbolicNames = {
 		null, null, null, null, null, null, null, null, null, null, null, null, 
 		null, null, null, null, null, null, null, null, null, null, null, null, 
-		null, null, null, null, null, "Import", "Function", "Static", "Const", 
-		"If", "Else", "For", "While", "Break", "Continue", "Return", "Goto", "Switch", 
-		"Case", "Default", "Enum", "BoolLiteral", "IntLiteral", "FloatLiteral", 
-		"StringLiteral", "Identifier", "PrimitiveTypeIdentifier", "ProcedureIdentifier", 
-		"Whitespace", "Newline", "BlockComment", "LineComment"
+		null, null, null, null, null, "Import", "Function", "Global", "Const", 
+		"AiLocal", "AiGlobal", "Bit", "Enum", "If", "Else", "For", "While", "Break", 
+		"Continue", "Return", "Goto", "Switch", "Case", "Default", "BoolLiteral", 
+		"IntLiteral", "FloatLiteral", "StringLiteral", "Identifier", "PrimitiveTypeIdentifier", 
+		"ProcedureIdentifier", "Whitespace", "Newline", "BlockComment", "LineComment"
 	};
 	public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);
 
-	[System.Obsolete("Use Vocabulary instead.")]
+	[Obsolete("Use Vocabulary instead.")]
 	public static readonly string[] tokenNames = GenerateTokenNames(DefaultVocabulary, _SymbolicNames.Length);
 
 	private static string[] GenerateTokenNames(IVocabulary vocabulary, int length) {
@@ -98,7 +100,7 @@ public partial class FlowScriptParser : Parser {
 		return tokenNames;
 	}
 
-	[System.Obsolete("Use IRecognizer.Vocabulary instead.")]
+	[Obsolete("Use IRecognizer.Vocabulary instead.")]
 	public override string[] TokenNames
 	{
 		get
@@ -185,7 +187,7 @@ public partial class FlowScriptParser : Parser {
 			State = 67;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Function) | (1L << Static) | (1L << Const) | (1L << Enum) | (1L << Identifier) | (1L << PrimitiveTypeIdentifier))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Function) | (1L << Global) | (1L << Const) | (1L << AiLocal) | (1L << AiGlobal) | (1L << Bit) | (1L << Enum) | (1L << Identifier) | (1L << PrimitiveTypeIdentifier))) != 0)) {
 				{
 				{
 				State = 64; declarationStatement();
@@ -500,7 +502,7 @@ public partial class FlowScriptParser : Parser {
 			State = 100;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__2) | (1L << T__3) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << Function) | (1L << Static) | (1L << Const) | (1L << If) | (1L << For) | (1L << While) | (1L << Break) | (1L << Continue) | (1L << Return) | (1L << Goto) | (1L << Switch) | (1L << Enum) | (1L << BoolLiteral) | (1L << IntLiteral) | (1L << FloatLiteral) | (1L << StringLiteral) | (1L << Identifier) | (1L << PrimitiveTypeIdentifier))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__2) | (1L << T__3) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << Function) | (1L << Global) | (1L << Const) | (1L << AiLocal) | (1L << AiGlobal) | (1L << Bit) | (1L << Enum) | (1L << If) | (1L << For) | (1L << While) | (1L << Break) | (1L << Continue) | (1L << Return) | (1L << Goto) | (1L << Switch) | (1L << BoolLiteral) | (1L << IntLiteral) | (1L << FloatLiteral) | (1L << StringLiteral) | (1L << Identifier) | (1L << PrimitiveTypeIdentifier))) != 0)) {
 				{
 				{
 				State = 97; statement();
@@ -809,7 +811,7 @@ public partial class FlowScriptParser : Parser {
 			State = 127;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
-			if (_la==Static || _la==Const) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << Global) | (1L << Const) | (1L << AiLocal) | (1L << AiGlobal) | (1L << Bit))) != 0)) {
 				{
 				State = 126; variableModifier();
 				}
@@ -1007,7 +1009,7 @@ public partial class FlowScriptParser : Parser {
 			State = 155;
 			_errHandler.Sync(this);
 			_alt = Interpreter.AdaptivePredict(_input,9,_ctx);
-			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.InvalidAltNumber ) {
+			while ( _alt!=2 && _alt!=ATN.InvalidAltNumber ) {
 				if ( _alt==1 ) {
 					{
 					{
@@ -1097,8 +1099,12 @@ public partial class FlowScriptParser : Parser {
 	}
 
 	public partial class VariableModifierContext : ParserRuleContext {
-		public ITerminalNode Static() { return GetToken(FlowScriptParser.Static, 0); }
+		public ITerminalNode Global() { return GetToken(FlowScriptParser.Global, 0); }
+		public ITerminalNode IntLiteral() { return GetToken(FlowScriptParser.IntLiteral, 0); }
 		public ITerminalNode Const() { return GetToken(FlowScriptParser.Const, 0); }
+		public ITerminalNode AiLocal() { return GetToken(FlowScriptParser.AiLocal, 0); }
+		public ITerminalNode AiGlobal() { return GetToken(FlowScriptParser.AiGlobal, 0); }
+		public ITerminalNode Bit() { return GetToken(FlowScriptParser.Bit, 0); }
 		public VariableModifierContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -1125,20 +1131,79 @@ public partial class FlowScriptParser : Parser {
 		EnterRule(_localctx, 26, RULE_variableModifier);
 		int _la;
 		try {
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 169;
-			_la = _input.La(1);
-			if ( !(_la==Static || _la==Const) ) {
-			_errHandler.RecoverInline(this);
-			} else {
-				if (_input.La(1) == TokenConstants.Eof) {
-					matchedEOF = true;
+			State = 192;
+			_errHandler.Sync(this);
+			switch (_input.La(1)) {
+			case Global:
+				EnterOuterAlt(_localctx, 1);
+				{
+				State = 169; Match(Global);
+				State = 173;
+				_errHandler.Sync(this);
+				_la = _input.La(1);
+				if (_la==T__0) {
+					{
+					State = 170; Match(T__0);
+					State = 171; Match(IntLiteral);
+					State = 172; Match(T__1);
+					}
 				}
 
-				_errHandler.ReportMatch(this);
-				Consume();
-			}
+				}
+				break;
+			case Const:
+				EnterOuterAlt(_localctx, 2);
+				{
+				State = 175; Match(Const);
+				}
+				break;
+			case AiLocal:
+				EnterOuterAlt(_localctx, 3);
+				{
+				State = 176; Match(AiLocal);
+				State = 180;
+				_errHandler.Sync(this);
+				_la = _input.La(1);
+				if (_la==T__0) {
+					{
+					State = 177; Match(T__0);
+					State = 178; Match(IntLiteral);
+					State = 179; Match(T__1);
+					}
+				}
+
+				}
+				break;
+			case AiGlobal:
+				EnterOuterAlt(_localctx, 4);
+				{
+				State = 182; Match(AiGlobal);
+				State = 186;
+				_errHandler.Sync(this);
+				_la = _input.La(1);
+				if (_la==T__0) {
+					{
+					State = 183; Match(T__0);
+					State = 184; Match(IntLiteral);
+					State = 185; Match(T__1);
+					}
+				}
+
+				}
+				break;
+			case Bit:
+				EnterOuterAlt(_localctx, 5);
+				{
+				State = 188; Match(Bit);
+				{
+				State = 189; Match(T__0);
+				State = 190; Match(IntLiteral);
+				State = 191; Match(T__1);
+				}
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1187,31 +1252,31 @@ public partial class FlowScriptParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 171; Match(T__0);
-			State = 173;
+			State = 194; Match(T__0);
+			State = 196;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
 			if (_la==Identifier || _la==PrimitiveTypeIdentifier) {
 				{
-				State = 172; parameter();
+				State = 195; parameter();
 				}
 			}
 
-			State = 179;
+			State = 202;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
 			while (_la==T__6) {
 				{
 				{
-				State = 175; Match(T__6);
-				State = 176; parameter();
+				State = 198; Match(T__6);
+				State = 199; parameter();
 				}
 				}
-				State = 181;
+				State = 204;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
 			}
-			State = 182; Match(T__1);
+			State = 205; Match(T__1);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1259,7 +1324,7 @@ public partial class FlowScriptParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 184;
+			State = 207;
 			_la = _input.La(1);
 			if ( !(_la==Identifier || _la==PrimitiveTypeIdentifier) ) {
 			_errHandler.RecoverInline(this);
@@ -1271,7 +1336,7 @@ public partial class FlowScriptParser : Parser {
 				_errHandler.ReportMatch(this);
 				Consume();
 			}
-			State = 185; Match(Identifier);
+			State = 208; Match(Identifier);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1320,31 +1385,31 @@ public partial class FlowScriptParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 187; Match(T__0);
-			State = 189;
+			State = 210; Match(T__0);
+			State = 212;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
 			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__2) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << BoolLiteral) | (1L << IntLiteral) | (1L << FloatLiteral) | (1L << StringLiteral) | (1L << Identifier))) != 0)) {
 				{
-				State = 188; expression(0);
+				State = 211; expression(0);
 				}
 			}
 
-			State = 195;
+			State = 218;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
 			while (_la==T__6) {
 				{
 				{
-				State = 191; Match(T__6);
-				State = 192; expression(0);
+				State = 214; Match(T__6);
+				State = 215; expression(0);
 				}
 				}
-				State = 197;
+				State = 220;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
 			}
-			State = 198; Match(T__1);
+			State = 221; Match(T__1);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1700,16 +1765,16 @@ public partial class FlowScriptParser : Parser {
 			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 224;
+			State = 247;
 			_errHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(_input,16,_ctx) ) {
+			switch ( Interpreter.AdaptivePredict(_input,20,_ctx) ) {
 			case 1:
 				{
 				_localctx = new NullExpressionContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
-				State = 201; Match(T__2);
+				State = 224; Match(T__2);
 				}
 				break;
 
@@ -1718,9 +1783,9 @@ public partial class FlowScriptParser : Parser {
 				_localctx = new CompoundExpressionContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 202; Match(T__0);
-				State = 203; expression(0);
-				State = 204; Match(T__1);
+				State = 225; Match(T__0);
+				State = 226; expression(0);
+				State = 227; Match(T__1);
 				}
 				break;
 
@@ -1729,9 +1794,9 @@ public partial class FlowScriptParser : Parser {
 				_localctx = new MemberAccessExpressionContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 206; Match(Identifier);
-				State = 207; Match(T__8);
-				State = 208; Match(Identifier);
+				State = 229; Match(Identifier);
+				State = 230; Match(T__8);
+				State = 231; Match(Identifier);
 				}
 				break;
 
@@ -1740,8 +1805,8 @@ public partial class FlowScriptParser : Parser {
 				_localctx = new CastExpressionContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 209; Match(T__0);
-				State = 210;
+				State = 232; Match(T__0);
+				State = 233;
 				_la = _input.La(1);
 				if ( !(_la==Identifier || _la==PrimitiveTypeIdentifier) ) {
 				_errHandler.RecoverInline(this);
@@ -1753,10 +1818,10 @@ public partial class FlowScriptParser : Parser {
 					_errHandler.ReportMatch(this);
 					Consume();
 				}
-				State = 211; Match(T__1);
-				State = 212; Match(T__0);
-				State = 213; expression(0);
-				State = 214; Match(T__1);
+				State = 234; Match(T__1);
+				State = 235; Match(T__0);
+				State = 236; expression(0);
+				State = 237; Match(T__1);
 				}
 				break;
 
@@ -1765,8 +1830,8 @@ public partial class FlowScriptParser : Parser {
 				_localctx = new CallExpressionContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 216; Match(Identifier);
-				State = 217; expressionList();
+				State = 239; Match(Identifier);
+				State = 240; expressionList();
 				}
 				break;
 
@@ -1775,7 +1840,7 @@ public partial class FlowScriptParser : Parser {
 				_localctx = new UnaryPrefixExpressionContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 218;
+				State = 241;
 				((UnaryPrefixExpressionContext)_localctx).Op = _input.Lt(1);
 				_la = _input.La(1);
 				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12))) != 0)) ) {
@@ -1788,7 +1853,7 @@ public partial class FlowScriptParser : Parser {
 					_errHandler.ReportMatch(this);
 					Consume();
 				}
-				State = 219; expression(9);
+				State = 242; expression(9);
 				}
 				break;
 
@@ -1797,8 +1862,8 @@ public partial class FlowScriptParser : Parser {
 				_localctx = new AssignmentExpressionContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 220; Match(Identifier);
-				State = 221;
+				State = 243; Match(Identifier);
+				State = 244;
 				((AssignmentExpressionContext)_localctx).Op = _input.Lt(1);
 				_la = _input.La(1);
 				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__5) | (1L << T__24) | (1L << T__25) | (1L << T__26) | (1L << T__27))) != 0)) ) {
@@ -1811,7 +1876,7 @@ public partial class FlowScriptParser : Parser {
 					_errHandler.ReportMatch(this);
 					Consume();
 				}
-				State = 222; expression(2);
+				State = 245; expression(2);
 				}
 				break;
 
@@ -1820,29 +1885,29 @@ public partial class FlowScriptParser : Parser {
 				_localctx = new PrimaryExpressionContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				State = 223; primary();
+				State = 246; primary();
 				}
 				break;
 			}
 			_ctx.stop = _input.Lt(-1);
-			State = 248;
+			State = 271;
 			_errHandler.Sync(this);
-			_alt = Interpreter.AdaptivePredict(_input,18,_ctx);
-			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.InvalidAltNumber ) {
+			_alt = Interpreter.AdaptivePredict(_input,22,_ctx);
+			while ( _alt!=2 && _alt!=ATN.InvalidAltNumber ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) TriggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					State = 246;
+					State = 269;
 					_errHandler.Sync(this);
-					switch ( Interpreter.AdaptivePredict(_input,17,_ctx) ) {
+					switch ( Interpreter.AdaptivePredict(_input,21,_ctx) ) {
 					case 1:
 						{
 						_localctx = new MultiplicationExpressionContext(new ExpressionContext(_parentctx, _parentState));
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
-						State = 226;
+						State = 249;
 						if (!(Precpred(_ctx, 8))) throw new FailedPredicateException(this, "Precpred(_ctx, 8)");
-						State = 227;
+						State = 250;
 						((MultiplicationExpressionContext)_localctx).Op = _input.Lt(1);
 						_la = _input.La(1);
 						if ( !(_la==T__13 || _la==T__14) ) {
@@ -1855,7 +1920,7 @@ public partial class FlowScriptParser : Parser {
 							_errHandler.ReportMatch(this);
 							Consume();
 						}
-						State = 228; expression(9);
+						State = 251; expression(9);
 						}
 						break;
 
@@ -1863,9 +1928,9 @@ public partial class FlowScriptParser : Parser {
 						{
 						_localctx = new AdditionExpressionContext(new ExpressionContext(_parentctx, _parentState));
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
-						State = 229;
+						State = 252;
 						if (!(Precpred(_ctx, 7))) throw new FailedPredicateException(this, "Precpred(_ctx, 7)");
-						State = 230;
+						State = 253;
 						((AdditionExpressionContext)_localctx).Op = _input.Lt(1);
 						_la = _input.La(1);
 						if ( !(_la==T__12 || _la==T__15) ) {
@@ -1878,7 +1943,7 @@ public partial class FlowScriptParser : Parser {
 							_errHandler.ReportMatch(this);
 							Consume();
 						}
-						State = 231; expression(8);
+						State = 254; expression(8);
 						}
 						break;
 
@@ -1886,9 +1951,9 @@ public partial class FlowScriptParser : Parser {
 						{
 						_localctx = new RelationalExpressionContext(new ExpressionContext(_parentctx, _parentState));
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
-						State = 232;
+						State = 255;
 						if (!(Precpred(_ctx, 6))) throw new FailedPredicateException(this, "Precpred(_ctx, 6)");
-						State = 233;
+						State = 256;
 						((RelationalExpressionContext)_localctx).Op = _input.Lt(1);
 						_la = _input.La(1);
 						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__16) | (1L << T__17) | (1L << T__18) | (1L << T__19))) != 0)) ) {
@@ -1901,7 +1966,7 @@ public partial class FlowScriptParser : Parser {
 							_errHandler.ReportMatch(this);
 							Consume();
 						}
-						State = 234; expression(7);
+						State = 257; expression(7);
 						}
 						break;
 
@@ -1909,9 +1974,9 @@ public partial class FlowScriptParser : Parser {
 						{
 						_localctx = new EqualityExpressionContext(new ExpressionContext(_parentctx, _parentState));
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
-						State = 235;
+						State = 258;
 						if (!(Precpred(_ctx, 5))) throw new FailedPredicateException(this, "Precpred(_ctx, 5)");
-						State = 236;
+						State = 259;
 						((EqualityExpressionContext)_localctx).Op = _input.Lt(1);
 						_la = _input.La(1);
 						if ( !(_la==T__20 || _la==T__21) ) {
@@ -1924,7 +1989,7 @@ public partial class FlowScriptParser : Parser {
 							_errHandler.ReportMatch(this);
 							Consume();
 						}
-						State = 237; expression(6);
+						State = 260; expression(6);
 						}
 						break;
 
@@ -1932,10 +1997,10 @@ public partial class FlowScriptParser : Parser {
 						{
 						_localctx = new LogicalAndExpressionContext(new ExpressionContext(_parentctx, _parentState));
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
-						State = 238;
+						State = 261;
 						if (!(Precpred(_ctx, 4))) throw new FailedPredicateException(this, "Precpred(_ctx, 4)");
-						State = 239; Match(T__22);
-						State = 240; expression(5);
+						State = 262; Match(T__22);
+						State = 263; expression(5);
 						}
 						break;
 
@@ -1943,10 +2008,10 @@ public partial class FlowScriptParser : Parser {
 						{
 						_localctx = new LogicalOrExpressionContext(new ExpressionContext(_parentctx, _parentState));
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
-						State = 241;
+						State = 264;
 						if (!(Precpred(_ctx, 3))) throw new FailedPredicateException(this, "Precpred(_ctx, 3)");
-						State = 242; Match(T__23);
-						State = 243; expression(4);
+						State = 265; Match(T__23);
+						State = 266; expression(4);
 						}
 						break;
 
@@ -1954,9 +2019,9 @@ public partial class FlowScriptParser : Parser {
 						{
 						_localctx = new UnaryPostfixExpressionContext(new ExpressionContext(_parentctx, _parentState));
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
-						State = 244;
+						State = 267;
 						if (!(Precpred(_ctx, 10))) throw new FailedPredicateException(this, "Precpred(_ctx, 10)");
-						State = 245;
+						State = 268;
 						((UnaryPostfixExpressionContext)_localctx).Op = _input.Lt(1);
 						_la = _input.La(1);
 						if ( !(_la==T__9 || _la==T__10) ) {
@@ -1974,9 +2039,9 @@ public partial class FlowScriptParser : Parser {
 					}
 					} 
 				}
-				State = 250;
+				State = 273;
 				_errHandler.Sync(this);
-				_alt = Interpreter.AdaptivePredict(_input,18,_ctx);
+				_alt = Interpreter.AdaptivePredict(_input,22,_ctx);
 			}
 			}
 		}
@@ -2045,7 +2110,7 @@ public partial class FlowScriptParser : Parser {
 		PrimaryContext _localctx = new PrimaryContext(_ctx, State);
 		EnterRule(_localctx, 36, RULE_primary);
 		try {
-			State = 253;
+			State = 276;
 			_errHandler.Sync(this);
 			switch (_input.La(1)) {
 			case BoolLiteral:
@@ -2055,14 +2120,14 @@ public partial class FlowScriptParser : Parser {
 				_localctx = new ConstantExpressionContext(_localctx);
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 251; constant();
+				State = 274; constant();
 				}
 				break;
 			case Identifier:
 				_localctx = new IdentifierExpressionContext(_localctx);
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 252; Match(Identifier);
+				State = 275; Match(Identifier);
 				}
 				break;
 			default:
@@ -2113,7 +2178,7 @@ public partial class FlowScriptParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 255;
+			State = 278;
 			_la = _input.La(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BoolLiteral) | (1L << IntLiteral) | (1L << FloatLiteral) | (1L << StringLiteral))) != 0)) ) {
 			_errHandler.RecoverInline(this);
@@ -2181,26 +2246,26 @@ public partial class FlowScriptParser : Parser {
 			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 257; Match(If);
-			State = 258; Match(T__0);
-			State = 259; expression(0);
-			State = 260; Match(T__1);
-			State = 261; statement();
-			State = 266;
+			State = 280; Match(If);
+			State = 281; Match(T__0);
+			State = 282; expression(0);
+			State = 283; Match(T__1);
+			State = 284; statement();
+			State = 289;
 			_errHandler.Sync(this);
-			_alt = Interpreter.AdaptivePredict(_input,20,_ctx);
-			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.InvalidAltNumber ) {
+			_alt = Interpreter.AdaptivePredict(_input,24,_ctx);
+			while ( _alt!=2 && _alt!=ATN.InvalidAltNumber ) {
 				if ( _alt==1 ) {
 					{
 					{
-					State = 262; Match(Else);
-					State = 263; statement();
+					State = 285; Match(Else);
+					State = 286; statement();
 					}
 					} 
 				}
-				State = 268;
+				State = 291;
 				_errHandler.Sync(this);
-				_alt = Interpreter.AdaptivePredict(_input,20,_ctx);
+				_alt = Interpreter.AdaptivePredict(_input,24,_ctx);
 			}
 			}
 		}
@@ -2256,14 +2321,14 @@ public partial class FlowScriptParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 269; Match(For);
-			State = 270; Match(T__0);
-			State = 271; statement();
-			State = 272; expression(0);
-			State = 273; Match(T__2);
-			State = 274; expression(0);
-			State = 275; Match(T__1);
-			State = 276; statement();
+			State = 292; Match(For);
+			State = 293; Match(T__0);
+			State = 294; statement();
+			State = 295; expression(0);
+			State = 296; Match(T__2);
+			State = 297; expression(0);
+			State = 298; Match(T__1);
+			State = 299; statement();
 			}
 		}
 		catch (RecognitionException re) {
@@ -2312,9 +2377,9 @@ public partial class FlowScriptParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 278; Match(While);
-			State = 279; expression(0);
-			State = 280; statement();
+			State = 301; Match(While);
+			State = 302; expression(0);
+			State = 303; statement();
 			}
 		}
 		catch (RecognitionException re) {
@@ -2357,8 +2422,8 @@ public partial class FlowScriptParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 282; Match(Break);
-			State = 283; Match(T__2);
+			State = 305; Match(Break);
+			State = 306; Match(T__2);
 			}
 		}
 		catch (RecognitionException re) {
@@ -2401,8 +2466,8 @@ public partial class FlowScriptParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 285; Match(Continue);
-			State = 286; Match(T__2);
+			State = 308; Match(Continue);
+			State = 309; Match(T__2);
 			}
 		}
 		catch (RecognitionException re) {
@@ -2448,17 +2513,17 @@ public partial class FlowScriptParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 288; Match(Return);
-			State = 290;
+			State = 311; Match(Return);
+			State = 313;
 			_errHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(_input,21,_ctx) ) {
+			switch ( Interpreter.AdaptivePredict(_input,25,_ctx) ) {
 			case 1:
 				{
-				State = 289; expression(0);
+				State = 312; expression(0);
 				}
 				break;
 			}
-			State = 292; Match(T__2);
+			State = 315; Match(T__2);
 			}
 		}
 		catch (RecognitionException re) {
@@ -2502,9 +2567,9 @@ public partial class FlowScriptParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 294; Match(Goto);
-			State = 295; Match(Identifier);
-			State = 296; Match(T__2);
+			State = 317; Match(Goto);
+			State = 318; Match(Identifier);
+			State = 319; Match(T__2);
 			}
 		}
 		catch (RecognitionException re) {
@@ -2557,25 +2622,25 @@ public partial class FlowScriptParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 298; Match(Switch);
-			State = 299; Match(T__0);
-			State = 300; expression(0);
-			State = 301; Match(T__1);
-			State = 302; Match(T__3);
-			State = 304;
+			State = 321; Match(Switch);
+			State = 322; Match(T__0);
+			State = 323; expression(0);
+			State = 324; Match(T__1);
+			State = 325; Match(T__3);
+			State = 327;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
 			do {
 				{
 				{
-				State = 303; switchLabel();
+				State = 326; switchLabel();
 				}
 				}
-				State = 306;
+				State = 329;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
 			} while ( _la==Case || _la==Default );
-			State = 308; Match(T__4);
+			State = 331; Match(T__4);
 			}
 		}
 		catch (RecognitionException re) {
@@ -2627,25 +2692,25 @@ public partial class FlowScriptParser : Parser {
 		EnterRule(_localctx, 56, RULE_switchLabel);
 		int _la;
 		try {
-			State = 327;
+			State = 350;
 			_errHandler.Sync(this);
 			switch (_input.La(1)) {
 			case Case:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 310; Match(Case);
-				State = 311; expression(0);
-				State = 312; Match(T__7);
-				State = 316;
+				State = 333; Match(Case);
+				State = 334; expression(0);
+				State = 335; Match(T__7);
+				State = 339;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
-				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__2) | (1L << T__3) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << Function) | (1L << Static) | (1L << Const) | (1L << If) | (1L << For) | (1L << While) | (1L << Break) | (1L << Continue) | (1L << Return) | (1L << Goto) | (1L << Switch) | (1L << Enum) | (1L << BoolLiteral) | (1L << IntLiteral) | (1L << FloatLiteral) | (1L << StringLiteral) | (1L << Identifier) | (1L << PrimitiveTypeIdentifier))) != 0)) {
+				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__2) | (1L << T__3) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << Function) | (1L << Global) | (1L << Const) | (1L << AiLocal) | (1L << AiGlobal) | (1L << Bit) | (1L << Enum) | (1L << If) | (1L << For) | (1L << While) | (1L << Break) | (1L << Continue) | (1L << Return) | (1L << Goto) | (1L << Switch) | (1L << BoolLiteral) | (1L << IntLiteral) | (1L << FloatLiteral) | (1L << StringLiteral) | (1L << Identifier) | (1L << PrimitiveTypeIdentifier))) != 0)) {
 					{
 					{
-					State = 313; statement();
+					State = 336; statement();
 					}
 					}
-					State = 318;
+					State = 341;
 					_errHandler.Sync(this);
 					_la = _input.La(1);
 				}
@@ -2654,18 +2719,18 @@ public partial class FlowScriptParser : Parser {
 			case Default:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 319; Match(Default);
-				State = 320; Match(T__7);
-				State = 324;
+				State = 342; Match(Default);
+				State = 343; Match(T__7);
+				State = 347;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
-				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__2) | (1L << T__3) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << Function) | (1L << Static) | (1L << Const) | (1L << If) | (1L << For) | (1L << While) | (1L << Break) | (1L << Continue) | (1L << Return) | (1L << Goto) | (1L << Switch) | (1L << Enum) | (1L << BoolLiteral) | (1L << IntLiteral) | (1L << FloatLiteral) | (1L << StringLiteral) | (1L << Identifier) | (1L << PrimitiveTypeIdentifier))) != 0)) {
+				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__2) | (1L << T__3) | (1L << T__9) | (1L << T__10) | (1L << T__11) | (1L << T__12) | (1L << Function) | (1L << Global) | (1L << Const) | (1L << AiLocal) | (1L << AiGlobal) | (1L << Bit) | (1L << Enum) | (1L << If) | (1L << For) | (1L << While) | (1L << Break) | (1L << Continue) | (1L << Return) | (1L << Goto) | (1L << Switch) | (1L << BoolLiteral) | (1L << IntLiteral) | (1L << FloatLiteral) | (1L << StringLiteral) | (1L << Identifier) | (1L << PrimitiveTypeIdentifier))) != 0)) {
 					{
 					{
-					State = 321; statement();
+					State = 344; statement();
 					}
 					}
-					State = 326;
+					State = 349;
 					_errHandler.Sync(this);
 					_la = _input.La(1);
 				}
@@ -2712,10 +2777,10 @@ public partial class FlowScriptParser : Parser {
 	}
 
 	public static readonly string _serializedATN =
-		"\x3\xAF6F\x8320\x479D\xB75C\x4880\x1605\x191C\xAB37\x3\x39\x14C\x4\x2"+
-		"\t\x2\x4\x3\t\x3\x4\x4\t\x4\x4\x5\t\x5\x4\x6\t\x6\x4\a\t\a\x4\b\t\b\x4"+
-		"\t\t\t\x4\n\t\n\x4\v\t\v\x4\f\t\f\x4\r\t\r\x4\xE\t\xE\x4\xF\t\xF\x4\x10"+
-		"\t\x10\x4\x11\t\x11\x4\x12\t\x12\x4\x13\t\x13\x4\x14\t\x14\x4\x15\t\x15"+
+		"\x3\xAF6F\x8320\x479D\xB75C\x4880\x1605\x191C\xAB37\x3<\x163\x4\x2\t\x2"+
+		"\x4\x3\t\x3\x4\x4\t\x4\x4\x5\t\x5\x4\x6\t\x6\x4\a\t\a\x4\b\t\b\x4\t\t"+
+		"\t\x4\n\t\n\x4\v\t\v\x4\f\t\f\x4\r\t\r\x4\xE\t\xE\x4\xF\t\xF\x4\x10\t"+
+		"\x10\x4\x11\t\x11\x4\x12\t\x12\x4\x13\t\x13\x4\x14\t\x14\x4\x15\t\x15"+
 		"\x4\x16\t\x16\x4\x17\t\x17\x4\x18\t\x18\x4\x19\t\x19\x4\x1A\t\x1A\x4\x1B"+
 		"\t\x1B\x4\x1C\t\x1C\x4\x1D\t\x1D\x4\x1E\t\x1E\x3\x2\a\x2>\n\x2\f\x2\xE"+
 		"\x2\x41\v\x2\x3\x2\a\x2\x44\n\x2\f\x2\xE\x2G\v\x2\x3\x2\x3\x2\x3\x3\x3"+
@@ -2726,41 +2791,43 @@ public partial class FlowScriptParser : Parser {
 		"\t\x3\t\x3\t\x3\t\x3\n\x5\n\x82\n\n\x3\n\x3\n\x3\n\x3\n\x5\n\x88\n\n\x3"+
 		"\n\x3\n\x3\v\x3\v\x3\v\x3\v\x3\f\x3\f\x3\f\x5\f\x93\n\f\x3\r\x3\r\x5\r"+
 		"\x97\n\r\x3\r\x3\r\x3\r\a\r\x9C\n\r\f\r\xE\r\x9F\v\r\x3\r\x3\r\x5\r\xA3"+
-		"\n\r\x5\r\xA5\n\r\x3\r\x3\r\x3\xE\x3\xE\x3\xE\x3\xF\x3\xF\x3\x10\x3\x10"+
-		"\x5\x10\xB0\n\x10\x3\x10\x3\x10\a\x10\xB4\n\x10\f\x10\xE\x10\xB7\v\x10"+
-		"\x3\x10\x3\x10\x3\x11\x3\x11\x3\x11\x3\x12\x3\x12\x5\x12\xC0\n\x12\x3"+
-		"\x12\x3\x12\a\x12\xC4\n\x12\f\x12\xE\x12\xC7\v\x12\x3\x12\x3\x12\x3\x13"+
+		"\n\r\x5\r\xA5\n\r\x3\r\x3\r\x3\xE\x3\xE\x3\xE\x3\xF\x3\xF\x3\xF\x3\xF"+
+		"\x5\xF\xB0\n\xF\x3\xF\x3\xF\x3\xF\x3\xF\x3\xF\x5\xF\xB7\n\xF\x3\xF\x3"+
+		"\xF\x3\xF\x3\xF\x5\xF\xBD\n\xF\x3\xF\x3\xF\x3\xF\x3\xF\x5\xF\xC3\n\xF"+
+		"\x3\x10\x3\x10\x5\x10\xC7\n\x10\x3\x10\x3\x10\a\x10\xCB\n\x10\f\x10\xE"+
+		"\x10\xCE\v\x10\x3\x10\x3\x10\x3\x11\x3\x11\x3\x11\x3\x12\x3\x12\x5\x12"+
+		"\xD7\n\x12\x3\x12\x3\x12\a\x12\xDB\n\x12\f\x12\xE\x12\xDE\v\x12\x3\x12"+
+		"\x3\x12\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13"+
 		"\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13"+
-		"\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13"+
-		"\x3\x13\x3\x13\x3\x13\x5\x13\xE3\n\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3"+
+		"\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x5\x13\xFA\n\x13\x3\x13\x3\x13\x3"+
 		"\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3"+
-		"\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\a\x13\xF9\n\x13\f\x13\xE\x13\xFC"+
-		"\v\x13\x3\x14\x3\x14\x5\x14\x100\n\x14\x3\x15\x3\x15\x3\x16\x3\x16\x3"+
-		"\x16\x3\x16\x3\x16\x3\x16\x3\x16\a\x16\x10B\n\x16\f\x16\xE\x16\x10E\v"+
-		"\x16\x3\x17\x3\x17\x3\x17\x3\x17\x3\x17\x3\x17\x3\x17\x3\x17\x3\x17\x3"+
-		"\x18\x3\x18\x3\x18\x3\x18\x3\x19\x3\x19\x3\x19\x3\x1A\x3\x1A\x3\x1A\x3"+
-		"\x1B\x3\x1B\x5\x1B\x125\n\x1B\x3\x1B\x3\x1B\x3\x1C\x3\x1C\x3\x1C\x3\x1C"+
-		"\x3\x1D\x3\x1D\x3\x1D\x3\x1D\x3\x1D\x3\x1D\x6\x1D\x133\n\x1D\r\x1D\xE"+
-		"\x1D\x134\x3\x1D\x3\x1D\x3\x1E\x3\x1E\x3\x1E\x3\x1E\a\x1E\x13D\n\x1E\f"+
-		"\x1E\xE\x1E\x140\v\x1E\x3\x1E\x3\x1E\x3\x1E\a\x1E\x145\n\x1E\f\x1E\xE"+
-		"\x1E\x148\v\x1E\x5\x1E\x14A\n\x1E\x3\x1E\x2\x2\x3$\x1F\x2\x2\x4\x2\x6"+
-		"\x2\b\x2\n\x2\f\x2\xE\x2\x10\x2\x12\x2\x14\x2\x16\x2\x18\x2\x1A\x2\x1C"+
-		"\x2\x1E\x2 \x2\"\x2$\x2&\x2(\x2*\x2,\x2.\x2\x30\x2\x32\x2\x34\x2\x36\x2"+
-		"\x38\x2:\x2\x2\r\x3\x2\x33\x34\x4\x2\x33\x33\x35\x35\x3\x2!\"\x3\x2\f"+
+		"\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\x3\x13\a\x13\x110\n\x13"+
+		"\f\x13\xE\x13\x113\v\x13\x3\x14\x3\x14\x5\x14\x117\n\x14\x3\x15\x3\x15"+
+		"\x3\x16\x3\x16\x3\x16\x3\x16\x3\x16\x3\x16\x3\x16\a\x16\x122\n\x16\f\x16"+
+		"\xE\x16\x125\v\x16\x3\x17\x3\x17\x3\x17\x3\x17\x3\x17\x3\x17\x3\x17\x3"+
+		"\x17\x3\x17\x3\x18\x3\x18\x3\x18\x3\x18\x3\x19\x3\x19\x3\x19\x3\x1A\x3"+
+		"\x1A\x3\x1A\x3\x1B\x3\x1B\x5\x1B\x13C\n\x1B\x3\x1B\x3\x1B\x3\x1C\x3\x1C"+
+		"\x3\x1C\x3\x1C\x3\x1D\x3\x1D\x3\x1D\x3\x1D\x3\x1D\x3\x1D\x6\x1D\x14A\n"+
+		"\x1D\r\x1D\xE\x1D\x14B\x3\x1D\x3\x1D\x3\x1E\x3\x1E\x3\x1E\x3\x1E\a\x1E"+
+		"\x154\n\x1E\f\x1E\xE\x1E\x157\v\x1E\x3\x1E\x3\x1E\x3\x1E\a\x1E\x15C\n"+
+		"\x1E\f\x1E\xE\x1E\x15F\v\x1E\x5\x1E\x161\n\x1E\x3\x1E\x2\x2\x3$\x1F\x2"+
+		"\x2\x4\x2\x6\x2\b\x2\n\x2\f\x2\xE\x2\x10\x2\x12\x2\x14\x2\x16\x2\x18\x2"+
+		"\x1A\x2\x1C\x2\x1E\x2 \x2\"\x2$\x2&\x2(\x2*\x2,\x2.\x2\x30\x2\x32\x2\x34"+
+		"\x2\x36\x2\x38\x2:\x2\x2\f\x3\x2\x36\x37\x4\x2\x36\x36\x38\x38\x3\x2\f"+
 		"\xF\x4\x2\b\b\x1B\x1E\x3\x2\x10\x11\x4\x2\xF\xF\x12\x12\x3\x2\x13\x16"+
-		"\x3\x2\x17\x18\x3\x2\f\r\x3\x2/\x32\x160\x2?\x3\x2\x2\x2\x4J\x3\x2\x2"+
-		"\x2\x6^\x3\x2\x2\x2\b`\x3\x2\x2\x2\n\x62\x3\x2\x2\x2\fp\x3\x2\x2\x2\xE"+
-		"r\x3\x2\x2\x2\x10{\x3\x2\x2\x2\x12\x81\x3\x2\x2\x2\x14\x8B\x3\x2\x2\x2"+
-		"\x16\x8F\x3\x2\x2\x2\x18\x94\x3\x2\x2\x2\x1A\xA8\x3\x2\x2\x2\x1C\xAB\x3"+
-		"\x2\x2\x2\x1E\xAD\x3\x2\x2\x2 \xBA\x3\x2\x2\x2\"\xBD\x3\x2\x2\x2$\xE2"+
-		"\x3\x2\x2\x2&\xFF\x3\x2\x2\x2(\x101\x3\x2\x2\x2*\x103\x3\x2\x2\x2,\x10F"+
-		"\x3\x2\x2\x2.\x118\x3\x2\x2\x2\x30\x11C\x3\x2\x2\x2\x32\x11F\x3\x2\x2"+
-		"\x2\x34\x122\x3\x2\x2\x2\x36\x128\x3\x2\x2\x2\x38\x12C\x3\x2\x2\x2:\x149"+
+		"\x3\x2\x17\x18\x3\x2\f\r\x3\x2\x32\x35\x17E\x2?\x3\x2\x2\x2\x4J\x3\x2"+
+		"\x2\x2\x6^\x3\x2\x2\x2\b`\x3\x2\x2\x2\n\x62\x3\x2\x2\x2\fp\x3\x2\x2\x2"+
+		"\xEr\x3\x2\x2\x2\x10{\x3\x2\x2\x2\x12\x81\x3\x2\x2\x2\x14\x8B\x3\x2\x2"+
+		"\x2\x16\x8F\x3\x2\x2\x2\x18\x94\x3\x2\x2\x2\x1A\xA8\x3\x2\x2\x2\x1C\xC2"+
+		"\x3\x2\x2\x2\x1E\xC4\x3\x2\x2\x2 \xD1\x3\x2\x2\x2\"\xD4\x3\x2\x2\x2$\xF9"+
+		"\x3\x2\x2\x2&\x116\x3\x2\x2\x2(\x118\x3\x2\x2\x2*\x11A\x3\x2\x2\x2,\x126"+
+		"\x3\x2\x2\x2.\x12F\x3\x2\x2\x2\x30\x133\x3\x2\x2\x2\x32\x136\x3\x2\x2"+
+		"\x2\x34\x139\x3\x2\x2\x2\x36\x13F\x3\x2\x2\x2\x38\x143\x3\x2\x2\x2:\x160"+
 		"\x3\x2\x2\x2<>\x5\x4\x3\x2=<\x3\x2\x2\x2>\x41\x3\x2\x2\x2?=\x3\x2\x2\x2"+
 		"?@\x3\x2\x2\x2@\x45\x3\x2\x2\x2\x41?\x3\x2\x2\x2\x42\x44\x5\f\a\x2\x43"+
 		"\x42\x3\x2\x2\x2\x44G\x3\x2\x2\x2\x45\x43\x3\x2\x2\x2\x45\x46\x3\x2\x2"+
 		"\x2\x46H\x3\x2\x2\x2G\x45\x3\x2\x2\x2HI\a\x2\x2\x3I\x3\x3\x2\x2\x2JK\a"+
-		"\x1F\x2\x2KL\a\x3\x2\x2LM\a\x32\x2\x2MN\a\x4\x2\x2NO\a\x5\x2\x2O\x5\x3"+
+		"\x1F\x2\x2KL\a\x3\x2\x2LM\a\x35\x2\x2MN\a\x4\x2\x2NO\a\x5\x2\x2O\x5\x3"+
 		"\x2\x2\x2P_\x5\b\x5\x2Q_\x5\n\x6\x2R_\x5\f\a\x2ST\x5$\x13\x2TU\a\x5\x2"+
 		"\x2U_\x3\x2\x2\x2V_\x5*\x16\x2W_\x5,\x17\x2X_\x5.\x18\x2Y_\x5\x30\x19"+
 		"\x2Z_\x5\x32\x1A\x2[_\x5\x34\x1B\x2\\_\x5\x36\x1C\x2]_\x5\x38\x1D\x2^"+
@@ -2772,14 +2839,14 @@ public partial class FlowScriptParser : Parser {
 		"\x3\x2\x2\x2ij\a\a\x2\x2j\v\x3\x2\x2\x2kq\x5\xE\b\x2lq\x5\x10\t\x2mq\x5"+
 		"\x12\n\x2nq\x5\x14\v\x2oq\x5\x1A\xE\x2pk\x3\x2\x2\x2pl\x3\x2\x2\x2pm\x3"+
 		"\x2\x2\x2pn\x3\x2\x2\x2po\x3\x2\x2\x2q\r\x3\x2\x2\x2rs\a \x2\x2st\a\x3"+
-		"\x2\x2tu\a\x30\x2\x2uv\a\x4\x2\x2vw\t\x2\x2\x2wx\a\x33\x2\x2xy\x5\x1E"+
+		"\x2\x2tu\a\x33\x2\x2uv\a\x4\x2\x2vw\t\x2\x2\x2wx\a\x36\x2\x2xy\x5\x1E"+
 		"\x10\x2yz\a\x5\x2\x2z\xF\x3\x2\x2\x2{|\t\x2\x2\x2|}\t\x3\x2\x2}~\x5\x1E"+
 		"\x10\x2~\x7F\x5\n\x6\x2\x7F\x11\x3\x2\x2\x2\x80\x82\x5\x1C\xF\x2\x81\x80"+
 		"\x3\x2\x2\x2\x81\x82\x3\x2\x2\x2\x82\x83\x3\x2\x2\x2\x83\x84\t\x2\x2\x2"+
-		"\x84\x87\a\x33\x2\x2\x85\x86\a\b\x2\x2\x86\x88\x5$\x13\x2\x87\x85\x3\x2"+
+		"\x84\x87\a\x36\x2\x2\x85\x86\a\b\x2\x2\x86\x88\x5$\x13\x2\x87\x85\x3\x2"+
 		"\x2\x2\x87\x88\x3\x2\x2\x2\x88\x89\x3\x2\x2\x2\x89\x8A\a\x5\x2\x2\x8A"+
-		"\x13\x3\x2\x2\x2\x8B\x8C\a.\x2\x2\x8C\x8D\a\x33\x2\x2\x8D\x8E\x5\x18\r"+
-		"\x2\x8E\x15\x3\x2\x2\x2\x8F\x92\a\x33\x2\x2\x90\x91\a\b\x2\x2\x91\x93"+
+		"\x13\x3\x2\x2\x2\x8B\x8C\a&\x2\x2\x8C\x8D\a\x36\x2\x2\x8D\x8E\x5\x18\r"+
+		"\x2\x8E\x15\x3\x2\x2\x2\x8F\x92\a\x36\x2\x2\x90\x91\a\b\x2\x2\x91\x93"+
 		"\x5$\x13\x2\x92\x90\x3\x2\x2\x2\x92\x93\x3\x2\x2\x2\x93\x17\x3\x2\x2\x2"+
 		"\x94\x96\a\x6\x2\x2\x95\x97\x5\x16\f\x2\x96\x95\x3\x2\x2\x2\x96\x97\x3"+
 		"\x2\x2\x2\x97\x9D\x3\x2\x2\x2\x98\x99\x5\x16\f\x2\x99\x9A\a\t\x2\x2\x9A"+
@@ -2787,62 +2854,72 @@ public partial class FlowScriptParser : Parser {
 		"\x2\x2\x9D\x9E\x3\x2\x2\x2\x9E\xA4\x3\x2\x2\x2\x9F\x9D\x3\x2\x2\x2\xA0"+
 		"\xA2\x5\x16\f\x2\xA1\xA3\a\t\x2\x2\xA2\xA1\x3\x2\x2\x2\xA2\xA3\x3\x2\x2"+
 		"\x2\xA3\xA5\x3\x2\x2\x2\xA4\xA0\x3\x2\x2\x2\xA4\xA5\x3\x2\x2\x2\xA5\xA6"+
-		"\x3\x2\x2\x2\xA6\xA7\a\a\x2\x2\xA7\x19\x3\x2\x2\x2\xA8\xA9\a\x33\x2\x2"+
-		"\xA9\xAA\a\n\x2\x2\xAA\x1B\x3\x2\x2\x2\xAB\xAC\t\x4\x2\x2\xAC\x1D\x3\x2"+
-		"\x2\x2\xAD\xAF\a\x3\x2\x2\xAE\xB0\x5 \x11\x2\xAF\xAE\x3\x2\x2\x2\xAF\xB0"+
-		"\x3\x2\x2\x2\xB0\xB5\x3\x2\x2\x2\xB1\xB2\a\t\x2\x2\xB2\xB4\x5 \x11\x2"+
-		"\xB3\xB1\x3\x2\x2\x2\xB4\xB7\x3\x2\x2\x2\xB5\xB3\x3\x2\x2\x2\xB5\xB6\x3"+
-		"\x2\x2\x2\xB6\xB8\x3\x2\x2\x2\xB7\xB5\x3\x2\x2\x2\xB8\xB9\a\x4\x2\x2\xB9"+
-		"\x1F\x3\x2\x2\x2\xBA\xBB\t\x2\x2\x2\xBB\xBC\a\x33\x2\x2\xBC!\x3\x2\x2"+
-		"\x2\xBD\xBF\a\x3\x2\x2\xBE\xC0\x5$\x13\x2\xBF\xBE\x3\x2\x2\x2\xBF\xC0"+
-		"\x3\x2\x2\x2\xC0\xC5\x3\x2\x2\x2\xC1\xC2\a\t\x2\x2\xC2\xC4\x5$\x13\x2"+
-		"\xC3\xC1\x3\x2\x2\x2\xC4\xC7\x3\x2\x2\x2\xC5\xC3\x3\x2\x2\x2\xC5\xC6\x3"+
-		"\x2\x2\x2\xC6\xC8\x3\x2\x2\x2\xC7\xC5\x3\x2\x2\x2\xC8\xC9\a\x4\x2\x2\xC9"+
-		"#\x3\x2\x2\x2\xCA\xCB\b\x13\x1\x2\xCB\xE3\a\x5\x2\x2\xCC\xCD\a\x3\x2\x2"+
-		"\xCD\xCE\x5$\x13\x2\xCE\xCF\a\x4\x2\x2\xCF\xE3\x3\x2\x2\x2\xD0\xD1\a\x33"+
-		"\x2\x2\xD1\xD2\a\v\x2\x2\xD2\xE3\a\x33\x2\x2\xD3\xD4\a\x3\x2\x2\xD4\xD5"+
-		"\t\x2\x2\x2\xD5\xD6\a\x4\x2\x2\xD6\xD7\a\x3\x2\x2\xD7\xD8\x5$\x13\x2\xD8"+
-		"\xD9\a\x4\x2\x2\xD9\xE3\x3\x2\x2\x2\xDA\xDB\a\x33\x2\x2\xDB\xE3\x5\"\x12"+
-		"\x2\xDC\xDD\t\x5\x2\x2\xDD\xE3\x5$\x13\v\xDE\xDF\a\x33\x2\x2\xDF\xE0\t"+
-		"\x6\x2\x2\xE0\xE3\x5$\x13\x4\xE1\xE3\x5&\x14\x2\xE2\xCA\x3\x2\x2\x2\xE2"+
-		"\xCC\x3\x2\x2\x2\xE2\xD0\x3\x2\x2\x2\xE2\xD3\x3\x2\x2\x2\xE2\xDA\x3\x2"+
-		"\x2\x2\xE2\xDC\x3\x2\x2\x2\xE2\xDE\x3\x2\x2\x2\xE2\xE1\x3\x2\x2\x2\xE3"+
-		"\xFA\x3\x2\x2\x2\xE4\xE5\f\n\x2\x2\xE5\xE6\t\a\x2\x2\xE6\xF9\x5$\x13\v"+
-		"\xE7\xE8\f\t\x2\x2\xE8\xE9\t\b\x2\x2\xE9\xF9\x5$\x13\n\xEA\xEB\f\b\x2"+
-		"\x2\xEB\xEC\t\t\x2\x2\xEC\xF9\x5$\x13\t\xED\xEE\f\a\x2\x2\xEE\xEF\t\n"+
-		"\x2\x2\xEF\xF9\x5$\x13\b\xF0\xF1\f\x6\x2\x2\xF1\xF2\a\x19\x2\x2\xF2\xF9"+
-		"\x5$\x13\a\xF3\xF4\f\x5\x2\x2\xF4\xF5\a\x1A\x2\x2\xF5\xF9\x5$\x13\x6\xF6"+
-		"\xF7\f\f\x2\x2\xF7\xF9\t\v\x2\x2\xF8\xE4\x3\x2\x2\x2\xF8\xE7\x3\x2\x2"+
-		"\x2\xF8\xEA\x3\x2\x2\x2\xF8\xED\x3\x2\x2\x2\xF8\xF0\x3\x2\x2\x2\xF8\xF3"+
-		"\x3\x2\x2\x2\xF8\xF6\x3\x2\x2\x2\xF9\xFC\x3\x2\x2\x2\xFA\xF8\x3\x2\x2"+
-		"\x2\xFA\xFB\x3\x2\x2\x2\xFB%\x3\x2\x2\x2\xFC\xFA\x3\x2\x2\x2\xFD\x100"+
-		"\x5(\x15\x2\xFE\x100\a\x33\x2\x2\xFF\xFD\x3\x2\x2\x2\xFF\xFE\x3\x2\x2"+
-		"\x2\x100\'\x3\x2\x2\x2\x101\x102\t\f\x2\x2\x102)\x3\x2\x2\x2\x103\x104"+
-		"\a#\x2\x2\x104\x105\a\x3\x2\x2\x105\x106\x5$\x13\x2\x106\x107\a\x4\x2"+
-		"\x2\x107\x10C\x5\x6\x4\x2\x108\x109\a$\x2\x2\x109\x10B\x5\x6\x4\x2\x10A"+
-		"\x108\x3\x2\x2\x2\x10B\x10E\x3\x2\x2\x2\x10C\x10A\x3\x2\x2\x2\x10C\x10D"+
-		"\x3\x2\x2\x2\x10D+\x3\x2\x2\x2\x10E\x10C\x3\x2\x2\x2\x10F\x110\a%\x2\x2"+
-		"\x110\x111\a\x3\x2\x2\x111\x112\x5\x6\x4\x2\x112\x113\x5$\x13\x2\x113"+
-		"\x114\a\x5\x2\x2\x114\x115\x5$\x13\x2\x115\x116\a\x4\x2\x2\x116\x117\x5"+
-		"\x6\x4\x2\x117-\x3\x2\x2\x2\x118\x119\a&\x2\x2\x119\x11A\x5$\x13\x2\x11A"+
-		"\x11B\x5\x6\x4\x2\x11B/\x3\x2\x2\x2\x11C\x11D\a\'\x2\x2\x11D\x11E\a\x5"+
-		"\x2\x2\x11E\x31\x3\x2\x2\x2\x11F\x120\a(\x2\x2\x120\x121\a\x5\x2\x2\x121"+
-		"\x33\x3\x2\x2\x2\x122\x124\a)\x2\x2\x123\x125\x5$\x13\x2\x124\x123\x3"+
-		"\x2\x2\x2\x124\x125\x3\x2\x2\x2\x125\x126\x3\x2\x2\x2\x126\x127\a\x5\x2"+
-		"\x2\x127\x35\x3\x2\x2\x2\x128\x129\a*\x2\x2\x129\x12A\a\x33\x2\x2\x12A"+
-		"\x12B\a\x5\x2\x2\x12B\x37\x3\x2\x2\x2\x12C\x12D\a+\x2\x2\x12D\x12E\a\x3"+
-		"\x2\x2\x12E\x12F\x5$\x13\x2\x12F\x130\a\x4\x2\x2\x130\x132\a\x6\x2\x2"+
-		"\x131\x133\x5:\x1E\x2\x132\x131\x3\x2\x2\x2\x133\x134\x3\x2\x2\x2\x134"+
-		"\x132\x3\x2\x2\x2\x134\x135\x3\x2\x2\x2\x135\x136\x3\x2\x2\x2\x136\x137"+
-		"\a\a\x2\x2\x137\x39\x3\x2\x2\x2\x138\x139\a,\x2\x2\x139\x13A\x5$\x13\x2"+
-		"\x13A\x13E\a\n\x2\x2\x13B\x13D\x5\x6\x4\x2\x13C\x13B\x3\x2\x2\x2\x13D"+
-		"\x140\x3\x2\x2\x2\x13E\x13C\x3\x2\x2\x2\x13E\x13F\x3\x2\x2\x2\x13F\x14A"+
-		"\x3\x2\x2\x2\x140\x13E\x3\x2\x2\x2\x141\x142\a-\x2\x2\x142\x146\a\n\x2"+
-		"\x2\x143\x145\x5\x6\x4\x2\x144\x143\x3\x2\x2\x2\x145\x148\x3\x2\x2\x2"+
-		"\x146\x144\x3\x2\x2\x2\x146\x147\x3\x2\x2\x2\x147\x14A\x3\x2\x2\x2\x148"+
-		"\x146\x3\x2\x2\x2\x149\x138\x3\x2\x2\x2\x149\x141\x3\x2\x2\x2\x14A;\x3"+
-		"\x2\x2\x2\x1C?\x45^\x66p\x81\x87\x92\x96\x9D\xA2\xA4\xAF\xB5\xBF\xC5\xE2"+
-		"\xF8\xFA\xFF\x10C\x124\x134\x13E\x146\x149";
+		"\x3\x2\x2\x2\xA6\xA7\a\a\x2\x2\xA7\x19\x3\x2\x2\x2\xA8\xA9\a\x36\x2\x2"+
+		"\xA9\xAA\a\n\x2\x2\xAA\x1B\x3\x2\x2\x2\xAB\xAF\a!\x2\x2\xAC\xAD\a\x3\x2"+
+		"\x2\xAD\xAE\a\x33\x2\x2\xAE\xB0\a\x4\x2\x2\xAF\xAC\x3\x2\x2\x2\xAF\xB0"+
+		"\x3\x2\x2\x2\xB0\xC3\x3\x2\x2\x2\xB1\xC3\a\"\x2\x2\xB2\xB6\a#\x2\x2\xB3"+
+		"\xB4\a\x3\x2\x2\xB4\xB5\a\x33\x2\x2\xB5\xB7\a\x4\x2\x2\xB6\xB3\x3\x2\x2"+
+		"\x2\xB6\xB7\x3\x2\x2\x2\xB7\xC3\x3\x2\x2\x2\xB8\xBC\a$\x2\x2\xB9\xBA\a"+
+		"\x3\x2\x2\xBA\xBB\a\x33\x2\x2\xBB\xBD\a\x4\x2\x2\xBC\xB9\x3\x2\x2\x2\xBC"+
+		"\xBD\x3\x2\x2\x2\xBD\xC3\x3\x2\x2\x2\xBE\xBF\a%\x2\x2\xBF\xC0\a\x3\x2"+
+		"\x2\xC0\xC1\a\x33\x2\x2\xC1\xC3\a\x4\x2\x2\xC2\xAB\x3\x2\x2\x2\xC2\xB1"+
+		"\x3\x2\x2\x2\xC2\xB2\x3\x2\x2\x2\xC2\xB8\x3\x2\x2\x2\xC2\xBE\x3\x2\x2"+
+		"\x2\xC3\x1D\x3\x2\x2\x2\xC4\xC6\a\x3\x2\x2\xC5\xC7\x5 \x11\x2\xC6\xC5"+
+		"\x3\x2\x2\x2\xC6\xC7\x3\x2\x2\x2\xC7\xCC\x3\x2\x2\x2\xC8\xC9\a\t\x2\x2"+
+		"\xC9\xCB\x5 \x11\x2\xCA\xC8\x3\x2\x2\x2\xCB\xCE\x3\x2\x2\x2\xCC\xCA\x3"+
+		"\x2\x2\x2\xCC\xCD\x3\x2\x2\x2\xCD\xCF\x3\x2\x2\x2\xCE\xCC\x3\x2\x2\x2"+
+		"\xCF\xD0\a\x4\x2\x2\xD0\x1F\x3\x2\x2\x2\xD1\xD2\t\x2\x2\x2\xD2\xD3\a\x36"+
+		"\x2\x2\xD3!\x3\x2\x2\x2\xD4\xD6\a\x3\x2\x2\xD5\xD7\x5$\x13\x2\xD6\xD5"+
+		"\x3\x2\x2\x2\xD6\xD7\x3\x2\x2\x2\xD7\xDC\x3\x2\x2\x2\xD8\xD9\a\t\x2\x2"+
+		"\xD9\xDB\x5$\x13\x2\xDA\xD8\x3\x2\x2\x2\xDB\xDE\x3\x2\x2\x2\xDC\xDA\x3"+
+		"\x2\x2\x2\xDC\xDD\x3\x2\x2\x2\xDD\xDF\x3\x2\x2\x2\xDE\xDC\x3\x2\x2\x2"+
+		"\xDF\xE0\a\x4\x2\x2\xE0#\x3\x2\x2\x2\xE1\xE2\b\x13\x1\x2\xE2\xFA\a\x5"+
+		"\x2\x2\xE3\xE4\a\x3\x2\x2\xE4\xE5\x5$\x13\x2\xE5\xE6\a\x4\x2\x2\xE6\xFA"+
+		"\x3\x2\x2\x2\xE7\xE8\a\x36\x2\x2\xE8\xE9\a\v\x2\x2\xE9\xFA\a\x36\x2\x2"+
+		"\xEA\xEB\a\x3\x2\x2\xEB\xEC\t\x2\x2\x2\xEC\xED\a\x4\x2\x2\xED\xEE\a\x3"+
+		"\x2\x2\xEE\xEF\x5$\x13\x2\xEF\xF0\a\x4\x2\x2\xF0\xFA\x3\x2\x2\x2\xF1\xF2"+
+		"\a\x36\x2\x2\xF2\xFA\x5\"\x12\x2\xF3\xF4\t\x4\x2\x2\xF4\xFA\x5$\x13\v"+
+		"\xF5\xF6\a\x36\x2\x2\xF6\xF7\t\x5\x2\x2\xF7\xFA\x5$\x13\x4\xF8\xFA\x5"+
+		"&\x14\x2\xF9\xE1\x3\x2\x2\x2\xF9\xE3\x3\x2\x2\x2\xF9\xE7\x3\x2\x2\x2\xF9"+
+		"\xEA\x3\x2\x2\x2\xF9\xF1\x3\x2\x2\x2\xF9\xF3\x3\x2\x2\x2\xF9\xF5\x3\x2"+
+		"\x2\x2\xF9\xF8\x3\x2\x2\x2\xFA\x111\x3\x2\x2\x2\xFB\xFC\f\n\x2\x2\xFC"+
+		"\xFD\t\x6\x2\x2\xFD\x110\x5$\x13\v\xFE\xFF\f\t\x2\x2\xFF\x100\t\a\x2\x2"+
+		"\x100\x110\x5$\x13\n\x101\x102\f\b\x2\x2\x102\x103\t\b\x2\x2\x103\x110"+
+		"\x5$\x13\t\x104\x105\f\a\x2\x2\x105\x106\t\t\x2\x2\x106\x110\x5$\x13\b"+
+		"\x107\x108\f\x6\x2\x2\x108\x109\a\x19\x2\x2\x109\x110\x5$\x13\a\x10A\x10B"+
+		"\f\x5\x2\x2\x10B\x10C\a\x1A\x2\x2\x10C\x110\x5$\x13\x6\x10D\x10E\f\f\x2"+
+		"\x2\x10E\x110\t\n\x2\x2\x10F\xFB\x3\x2\x2\x2\x10F\xFE\x3\x2\x2\x2\x10F"+
+		"\x101\x3\x2\x2\x2\x10F\x104\x3\x2\x2\x2\x10F\x107\x3\x2\x2\x2\x10F\x10A"+
+		"\x3\x2\x2\x2\x10F\x10D\x3\x2\x2\x2\x110\x113\x3\x2\x2\x2\x111\x10F\x3"+
+		"\x2\x2\x2\x111\x112\x3\x2\x2\x2\x112%\x3\x2\x2\x2\x113\x111\x3\x2\x2\x2"+
+		"\x114\x117\x5(\x15\x2\x115\x117\a\x36\x2\x2\x116\x114\x3\x2\x2\x2\x116"+
+		"\x115\x3\x2\x2\x2\x117\'\x3\x2\x2\x2\x118\x119\t\v\x2\x2\x119)\x3\x2\x2"+
+		"\x2\x11A\x11B\a\'\x2\x2\x11B\x11C\a\x3\x2\x2\x11C\x11D\x5$\x13\x2\x11D"+
+		"\x11E\a\x4\x2\x2\x11E\x123\x5\x6\x4\x2\x11F\x120\a(\x2\x2\x120\x122\x5"+
+		"\x6\x4\x2\x121\x11F\x3\x2\x2\x2\x122\x125\x3\x2\x2\x2\x123\x121\x3\x2"+
+		"\x2\x2\x123\x124\x3\x2\x2\x2\x124+\x3\x2\x2\x2\x125\x123\x3\x2\x2\x2\x126"+
+		"\x127\a)\x2\x2\x127\x128\a\x3\x2\x2\x128\x129\x5\x6\x4\x2\x129\x12A\x5"+
+		"$\x13\x2\x12A\x12B\a\x5\x2\x2\x12B\x12C\x5$\x13\x2\x12C\x12D\a\x4\x2\x2"+
+		"\x12D\x12E\x5\x6\x4\x2\x12E-\x3\x2\x2\x2\x12F\x130\a*\x2\x2\x130\x131"+
+		"\x5$\x13\x2\x131\x132\x5\x6\x4\x2\x132/\x3\x2\x2\x2\x133\x134\a+\x2\x2"+
+		"\x134\x135\a\x5\x2\x2\x135\x31\x3\x2\x2\x2\x136\x137\a,\x2\x2\x137\x138"+
+		"\a\x5\x2\x2\x138\x33\x3\x2\x2\x2\x139\x13B\a-\x2\x2\x13A\x13C\x5$\x13"+
+		"\x2\x13B\x13A\x3\x2\x2\x2\x13B\x13C\x3\x2\x2\x2\x13C\x13D\x3\x2\x2\x2"+
+		"\x13D\x13E\a\x5\x2\x2\x13E\x35\x3\x2\x2\x2\x13F\x140\a.\x2\x2\x140\x141"+
+		"\a\x36\x2\x2\x141\x142\a\x5\x2\x2\x142\x37\x3\x2\x2\x2\x143\x144\a/\x2"+
+		"\x2\x144\x145\a\x3\x2\x2\x145\x146\x5$\x13\x2\x146\x147\a\x4\x2\x2\x147"+
+		"\x149\a\x6\x2\x2\x148\x14A\x5:\x1E\x2\x149\x148\x3\x2\x2\x2\x14A\x14B"+
+		"\x3\x2\x2\x2\x14B\x149\x3\x2\x2\x2\x14B\x14C\x3\x2\x2\x2\x14C\x14D\x3"+
+		"\x2\x2\x2\x14D\x14E\a\a\x2\x2\x14E\x39\x3\x2\x2\x2\x14F\x150\a\x30\x2"+
+		"\x2\x150\x151\x5$\x13\x2\x151\x155\a\n\x2\x2\x152\x154\x5\x6\x4\x2\x153"+
+		"\x152\x3\x2\x2\x2\x154\x157\x3\x2\x2\x2\x155\x153\x3\x2\x2\x2\x155\x156"+
+		"\x3\x2\x2\x2\x156\x161\x3\x2\x2\x2\x157\x155\x3\x2\x2\x2\x158\x159\a\x31"+
+		"\x2\x2\x159\x15D\a\n\x2\x2\x15A\x15C\x5\x6\x4\x2\x15B\x15A\x3\x2\x2\x2"+
+		"\x15C\x15F\x3\x2\x2\x2\x15D\x15B\x3\x2\x2\x2\x15D\x15E\x3\x2\x2\x2\x15E"+
+		"\x161\x3\x2\x2\x2\x15F\x15D\x3\x2\x2\x2\x160\x14F\x3\x2\x2\x2\x160\x158"+
+		"\x3\x2\x2\x2\x161;\x3\x2\x2\x2 ?\x45^\x66p\x81\x87\x92\x96\x9D\xA2\xA4"+
+		"\xAF\xB6\xBC\xC2\xC6\xCC\xD6\xDC\xF9\x10F\x111\x116\x123\x13B\x14B\x155"+
+		"\x15D\x160";
 	public static readonly ATN _ATN =
 		new ATNDeserializer().Deserialize(_serializedATN.ToCharArray());
 }

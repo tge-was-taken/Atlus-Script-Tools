@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AtlusScriptLib.Common.Logging;
+﻿using AtlusScriptLib.Common.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AtlusScriptLib.FlowScriptLanguage.Compiler
@@ -25,7 +19,7 @@ void Main()
     int test2 = test;
 }";
 
-            var compiler = new FlowScriptCompiler( FlowScriptFormatVersion.Version3BigEndian );
+            var compiler = new FlowScriptCompiler( FormatVersion.Version3BigEndian );
             compiler.AddListener( new DebugLogListener() );
             Assert.IsTrue( compiler.TryCompile( source, out _ ) );
         }

@@ -13,12 +13,12 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel.IO
         private bool mDisposed;
         private long mPositionBase;
         private EndianBinaryReader mReader;
-        private MessageScriptBinaryFormatVersion mVersion;
+        private BinaryFormatVersion mVersion;
 
-        public MessageScriptBinaryReader( Stream stream, MessageScriptBinaryFormatVersion version, bool leaveOpen = false )
+        public MessageScriptBinaryReader( Stream stream, BinaryFormatVersion version, bool leaveOpen = false )
         {
             mPositionBase = stream.Position;
-            mReader = new EndianBinaryReader( stream, Encoding.Default, leaveOpen, version.HasFlag( MessageScriptBinaryFormatVersion.BigEndian ) ? Endianness.BigEndian : Endianness.LittleEndian );
+            mReader = new EndianBinaryReader( stream, Encoding.Default, leaveOpen, version.HasFlag( BinaryFormatVersion.BigEndian ) ? Endianness.BigEndian : Endianness.LittleEndian );
             mVersion = version;
         }
 
@@ -36,67 +36,64 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel.IO
             return binary;
         }
 
-        public MessageScriptBinaryHeader ReadHeader()
+        public BinaryHeader ReadHeader()
         {
-            MessageScriptBinaryHeader header = new MessageScriptBinaryHeader();
+            BinaryHeader header = new BinaryHeader();
 
             // Check if the stream isn't too small to be a proper file
-            if ( mReader.BaseStreamLength < MessageScriptBinaryHeader.SIZE )
+            if ( mReader.BaseStreamLength < BinaryHeader.SIZE )
             {
                 throw new InvalidDataException( "Stream is too small to be valid" );
             }
+            header.FileType = mReader.ReadByte();
+            header.IsCompressed = mReader.ReadByte() != 0;
+            header.UserId = mReader.ReadInt16();
+            header.FileSize = mReader.ReadInt32();
+            header.Magic = mReader.ReadBytes( 4 );
+            header.Field0C = mReader.ReadInt32();
+            header.RelocationTable.Offset = mReader.ReadInt32();
+            header.RelocationTableSize = mReader.ReadInt32();
+            header.WindowCount = mReader.ReadInt32();
+            header.IsRelocated = mReader.ReadInt16() != 0;
+            header.Field1E = mReader.ReadInt16();
+
+            // swap endianness
+            if ( header.Magic.SequenceEqual( BinaryHeader.MAGIC_V1 ) || header.Magic.SequenceEqual( BinaryHeader.MAGIC_V0 ) )
+            {
+                if ( mVersion.HasFlag( BinaryFormatVersion.BigEndian ) )
+                {
+                    SwapHeader( ref header );
+                    mReader.Endianness = Endianness.LittleEndian;
+                }
+
+                mVersion = BinaryFormatVersion.Version1;
+            }
+            else if ( header.Magic.SequenceEqual( BinaryHeader.MAGIC_V1_BE ) )
+            {
+                if ( !mVersion.HasFlag( BinaryFormatVersion.BigEndian ) )
+                {
+                    SwapHeader( ref header );
+                    mReader.Endianness = Endianness.BigEndian;
+                }
+
+                mVersion = BinaryFormatVersion.Version1BigEndian;
+            }
             else
             {
-                header.FileType = mReader.ReadByte();
-                header.IsCompressed = mReader.ReadByte() != 0;
-                header.UserId = mReader.ReadInt16();
-                header.FileSize = mReader.ReadInt32();
-                header.Magic = mReader.ReadBytes( 4 );
-                header.Field0C = mReader.ReadInt32();
-                header.RelocationTable.Offset = mReader.ReadInt32();
-                header.RelocationTableSize = mReader.ReadInt32();
-                header.WindowCount = mReader.ReadInt32();
-                header.IsRelocated = mReader.ReadInt16() != 0;
-                header.Field1E = mReader.ReadInt16();
+                throw new InvalidDataException( "Header magic value does not match" );
+            }
 
-                // swap endianness
-                if ( header.Magic.SequenceEqual( MessageScriptBinaryHeader.MAGIC_V1 ) || header.Magic.SequenceEqual( MessageScriptBinaryHeader.MAGIC_V0 ) )
-                {
-                    if ( mVersion.HasFlag( MessageScriptBinaryFormatVersion.BigEndian ) )
-                    {
-                        SwapHeader( ref header );
-                        mReader.Endianness = Endianness.LittleEndian;
-                    }
-
-                    mVersion = MessageScriptBinaryFormatVersion.Version1;
-                }
-                else if ( header.Magic.SequenceEqual( MessageScriptBinaryHeader.MAGIC_V1_BE ) )
-                {
-                    if ( !mVersion.HasFlag( MessageScriptBinaryFormatVersion.BigEndian ) )
-                    {
-                        SwapHeader( ref header );
-                        mReader.Endianness = Endianness.BigEndian;
-                    }
-
-                    mVersion = MessageScriptBinaryFormatVersion.Version1BigEndian;
-                }
-                else
-                {
-                    throw new InvalidDataException( "Header magic value does not match" );
-                }
-
-                if ( header.RelocationTable.Offset != 0 )
-                {
-                    mReader.EnqueuePositionAndSeekBegin( mPositionBase + header.RelocationTable.Offset );
-                    header.RelocationTable.Value = mReader.ReadBytes( header.RelocationTableSize );
-                    mReader.SeekBeginToDequedPosition();
-                }
+            if ( header.RelocationTable.Offset != 0 )
+            {
+                mReader.EnqueuePositionAndSeekBegin( mPositionBase + header.RelocationTable.Offset );
+                header.RelocationTable.Value = mReader.ReadBytes( header.RelocationTableSize );
+                mReader.SeekBeginToDequedPosition();
             }
 
             return header;
         }
 
-        private void SwapHeader( ref MessageScriptBinaryHeader header )
+        private void SwapHeader( ref BinaryHeader header )
         {
             EndiannessHelper.Swap( ref header.UserId );
             EndiannessHelper.Swap( ref header.FileSize );
@@ -107,14 +104,14 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel.IO
             EndiannessHelper.Swap( ref header.Field1E );
         }
 
-        public MessageScriptBinaryWindowHeader[] ReadMessageHeaders( int count )
+        public BinaryWindowHeader[] ReadMessageHeaders( int count )
         {
-            MessageScriptBinaryWindowHeader[] messageHeaders = new MessageScriptBinaryWindowHeader[count];
+            BinaryWindowHeader[] messageHeaders = new BinaryWindowHeader[count];
 
             for ( int i = 0; i < messageHeaders.Length; i++ )
             {
                 ref var messageHeader = ref messageHeaders[i];
-                messageHeader.WindowType = ( MessageScriptBinaryWindowType )mReader.ReadInt32();
+                messageHeader.WindowType = ( BinaryWindowType )mReader.ReadInt32();
                 messageHeader.Window.Offset = mReader.ReadInt32();
 
                 if ( messageHeader.Window.Offset != 0 )
@@ -124,9 +121,9 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel.IO
             return messageHeaders;
         }
 
-        public MessageScriptBinarySpeakerTableHeader ReadSpeakerTableHeader()
+        public BinarySpeakerTableHeader ReadSpeakerTableHeader()
         {
-            MessageScriptBinarySpeakerTableHeader header;
+            BinarySpeakerTableHeader header;
 
             header.SpeakerNameArray.Offset = mReader.ReadInt32();
             header.SpeakerCount = mReader.ReadInt32();
@@ -139,17 +136,17 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel.IO
                 header.SpeakerNameArray.Value = null;
 
             if ( header.Field08 != 0 )
-                Debug.WriteLine( $"{nameof( MessageScriptBinarySpeakerTableHeader )}.{nameof( header.Field08 )} = {header.Field08}" );
+                Debug.WriteLine( $"{nameof( BinarySpeakerTableHeader )}.{nameof( header.Field08 )} = {header.Field08}" );
 
             if ( header.Field0C != 0 )
-                Debug.WriteLine( $"{nameof( MessageScriptBinarySpeakerTableHeader )}.{nameof( header.Field0C )} = {header.Field0C}" );
+                Debug.WriteLine( $"{nameof( BinarySpeakerTableHeader )}.{nameof( header.Field0C )} = {header.Field0C}" );
 
             return header;
         }
 
         public OffsetTo<List<byte>>[] ReadSpeakerNames( int address, int count )
         {
-            mReader.SeekBegin( mPositionBase + MessageScriptBinaryHeader.SIZE + address );
+            mReader.SeekBegin( mPositionBase + BinaryHeader.SIZE + address );
 
             var speakerNameAddresses = mReader.ReadInt32s( count );
             var speakerNames = new OffsetTo<List<byte>>[count];
@@ -158,7 +155,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel.IO
             {
                 ref int speakerNameAddress = ref speakerNameAddresses[i];
 
-                mReader.SeekBegin( mPositionBase + MessageScriptBinaryHeader.SIZE + speakerNameAddress );
+                mReader.SeekBegin( mPositionBase + BinaryHeader.SIZE + speakerNameAddress );
                 var bytes = new List<byte>();
                 while ( true )
                 {
@@ -175,19 +172,19 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel.IO
             return speakerNames;
         }
 
-        private object ReadMessage( MessageScriptBinaryWindowType type, int address )
+        private object ReadMessage( BinaryWindowType type, int address )
         {
             object message;
 
-            mReader.EnqueuePositionAndSeekBegin( mPositionBase + MessageScriptBinaryHeader.SIZE + address );
+            mReader.EnqueuePositionAndSeekBegin( mPositionBase + BinaryHeader.SIZE + address );
 
             switch ( type )
             {
-                case MessageScriptBinaryWindowType.Dialogue:
+                case BinaryWindowType.Dialogue:
                     message = ReadDialogueMessage();
                     break;
 
-                case MessageScriptBinaryWindowType.Selection:
+                case BinaryWindowType.Selection:
                     message = ReadSelectionMessage();
                     break;
 
@@ -200,11 +197,11 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel.IO
             return message;
         }
 
-        public MessageScriptBinaryDialogueWindow ReadDialogueMessage()
+        public BinaryDialogueWindow ReadDialogueMessage()
         {
-            MessageScriptBinaryDialogueWindow message;
+            BinaryDialogueWindow message;
 
-            message.Identifier = mReader.ReadString( StringBinaryFormat.FixedLength, MessageScriptBinaryDialogueWindow.IDENTIFIER_LENGTH );
+            message.Identifier = mReader.ReadString( StringBinaryFormat.FixedLength, BinaryDialogueWindow.IDENTIFIER_LENGTH );
             message.LineCount = mReader.ReadInt16();
             message.SpeakerId = mReader.ReadUInt16();
 
@@ -224,11 +221,11 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel.IO
             return message;
         }
 
-        public MessageScriptBinarySelectionWindow ReadSelectionMessage()
+        public BinarySelectionWindow ReadSelectionMessage()
         {
-            MessageScriptBinarySelectionWindow message;
+            BinarySelectionWindow message;
 
-            message.Identifier = mReader.ReadString( StringBinaryFormat.FixedLength, MessageScriptBinaryDialogueWindow.IDENTIFIER_LENGTH );
+            message.Identifier = mReader.ReadString( StringBinaryFormat.FixedLength, BinaryDialogueWindow.IDENTIFIER_LENGTH );
             message.Field18 = mReader.ReadInt16();
             message.OptionCount = mReader.ReadInt16();
             message.Field1C = mReader.ReadInt16();
@@ -238,13 +235,13 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel.IO
             message.TextBuffer = mReader.ReadBytes( message.TextBufferSize );
 
             if ( message.Field18 != 0 )
-                Debug.WriteLine( $"{nameof( MessageScriptBinarySelectionWindow )}.{nameof( message.Field18 )} = {message.Field18}" );
+                Debug.WriteLine( $"{nameof( BinarySelectionWindow )}.{nameof( message.Field18 )} = {message.Field18}" );
 
             if ( message.Field1C != 0 )
-                Debug.WriteLine( $"{nameof( MessageScriptBinarySelectionWindow )}.{nameof( message.Field1C )} = {message.Field1C}" );
+                Debug.WriteLine( $"{nameof( BinarySelectionWindow )}.{nameof( message.Field1C )} = {message.Field1C}" );
 
             if ( message.Field1E != 0 )
-                Debug.WriteLine( $"{nameof( MessageScriptBinarySelectionWindow )}.{nameof( message.Field1E )} = {message.Field1E}" );
+                Debug.WriteLine( $"{nameof( BinarySelectionWindow )}.{nameof( message.Field1E )} = {message.Field1E}" );
 
             return message;
         }

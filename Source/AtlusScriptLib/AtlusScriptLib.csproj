@@ -62,98 +62,106 @@
     <Compile Include="Common\Reflection\MemberInfoExtensions.cs" />
     <Compile Include="Common\Reflection\TypeExtensions.cs" />
     <Compile Include="Common\Registry\Serialization\ExternalJsonPathConverter.cs" />
-    <Compile Include="Common\Registry\FlowScriptLibrary.cs" />
-    <Compile Include="Common\Registry\FlowScriptLibraryConstant.cs" />
-    <Compile Include="Common\Registry\FlowScriptLibraryEnum.cs" />
-    <Compile Include="Common\Registry\FlowScriptLibraryEnumMember.cs" />
-    <Compile Include="Common\Registry\FlowScriptLibraryFunction.cs" />
-    <Compile Include="Common\Registry\FlowScriptLibraryFunctionParameter.cs" />
+    <Compile Include="Common\Registry\FlowScriptModule.cs" />
+    <Compile Include="Common\Registry\FlowScriptModuleConstant.cs" />
+    <Compile Include="Common\Registry\FlowScriptModuleEnum.cs" />
+    <Compile Include="Common\Registry\FlowScriptModuleEnumMember.cs" />
+    <Compile Include="Common\Registry\FlowScriptModuleFunction.cs" />
+    <Compile Include="Common\Registry\FlowScriptModuleParameter.cs" />
     <Compile Include="Common\Registry\Serialization\HexIntStringJsonConverter.cs" />
-    <Compile Include="Common\Registry\LibraryRegistry.cs" />
+    <Compile Include="Common\Registry\Library.cs" />
     <Compile Include="Common\Registry\MessageScriptLibrary.cs" />
     <Compile Include="Common\Registry\MessageScriptLibraryFunction.cs" />
-    <Compile Include="Common\Registry\MessageScriptLibraryFunctionParameter.cs" />
+    <Compile Include="Common\Registry\MessageScriptLibraryParameter.cs" />
     <Compile Include="Common\Text\Encodings\AtlusEncoding.cs" />
     <Compile Include="Common\Text\Encodings\CodePoint.cs" />
     <Compile Include="Common\Text\Encodings\Persona3Encoding.cs" />
     <Compile Include="Common\Text\Encodings\Persona4Encoding.cs" />
     <Compile Include="FlowScriptLanguage\Compiler\FlowScriptCompiler.cs" />
-    <Compile Include="FlowScriptLanguage\Compiler\Parser\FlowScriptCompilationUnitParser.cs" />
-    <Compile Include="FlowScriptLanguage\Compiler\Parser\FlowScriptCompilationUnitParserFailureException.cs" />
-    <Compile Include="FlowScriptLanguage\Compiler\Processing\FlowScriptDeclarationScope.cs" />
-    <Compile Include="FlowScriptLanguage\Compiler\Processing\FlowScriptTypeResolver.cs" />
-    <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptCompilationUnitWriter.cs" />
+    <Compile Include="FlowScriptLanguage\Compiler\Enum.cs" />
+    <Compile Include="FlowScriptLanguage\Compiler\Function.cs" />
+    <Compile Include="FlowScriptLanguage\Compiler\IntrinsicSupport.cs" />
+    <Compile Include="FlowScriptLanguage\Compiler\Label.cs" />
+    <Compile Include="FlowScriptLanguage\Compiler\Procedure.cs" />
+    <Compile Include="FlowScriptLanguage\Compiler\ScopeContext.cs" />
+    <Compile Include="FlowScriptLanguage\Compiler\Variable.cs" />
+    <Compile Include="FlowScriptLanguage\Compiler\Parser\CompilationUnitParser.cs" />
+    <Compile Include="FlowScriptLanguage\Compiler\Parser\CompilationUnitParserFailureException.cs" />
+    <Compile Include="FlowScriptLanguage\Compiler\Processing\DeclarationScope.cs" />
+    <Compile Include="FlowScriptLanguage\Compiler\Processing\TypeResolver.cs" />
+    <Compile Include="FlowScriptLanguage\Decompiler\CompilationUnitWriter.cs" />
     <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptDecompiler.cs" />
-    <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptKeywordConverter.cs" />
-    <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptEvaluatedIdentifierReference.cs" />
-    <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptEvaluatedProcedure.cs" />
-    <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptEvaluatedStatement.cs" />
-    <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptEvaluationResult.cs" />
-    <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptEvaluator.cs" />
-    <Compile Include="FlowScriptLanguage\Decompiler\FlowScriptEvaluatedScope.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\FlowScriptSyntaxNode.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\FlowScriptSourceInfo.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\FlowScriptSyntaxNodeCollector.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\FlowScriptSyntaxVisitor.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Declarations\FlowScriptEnumDeclaration.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Declarations\FlowScriptEnumValueDeclaration.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Declarations\FlowScriptLabelDeclaration.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptAdditionAssignmentOperator.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptAssignmentOperator.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptAssignmentOperatorBase.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptCompoundAssignmentOperator.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptDivisionAssignmentOperator.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptDivisionOperator.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptEqualityOperator.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptGreaterThanOperator.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptGreaterThanOrEqualOperator.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptLessThanOperator.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptLessThanOrEqualOperator.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptLogicalAndOperator.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptLogicalOrOperator.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptMultiplicationAssignmentOperator.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptSubtractionAssignmentOperator.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptSubtractionOperator.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptMultiplicationOperator.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptNonEqualityOperator.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\FlowScriptAdditionOperator.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\FlowScriptBinaryExpression.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\FlowScriptMemberAccessExpression.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\IFlowScriptOperator.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Identifiers\FlowScriptTypeIdentifier.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\FlowScriptUnaryExpression.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\FlowScriptLogicalNotOperator.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\FlowScriptNegationOperator.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\FlowScriptPostfixDecrementOperator.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\FlowScriptPostfixIncrementOperator.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\FlowScriptPostfixOperator.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\FlowScriptPrefixDecrementOperator.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\FlowScriptPrefixIncrementOperator.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\FlowScriptPrefixOperator.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptBreakStatement.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptConditionSwitchLabel.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptContinueStatement.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptDeclarationType.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\FlowScriptCallOperator.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Literals\FlowScriptBoolLiteral.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\FlowScriptCompilationUnit.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptCompoundStatement.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptDeclaration.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptDefaultSwitchLabel.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptExpression.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Literals\FlowScriptFloatLiteral.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Declarations\FlowScriptFunctionDeclaration.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\FlowScriptIdentifier.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\FlowScriptImport.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Literals\FlowScriptIntLiteral.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\FlowScriptLiteral.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\FlowScriptParameter.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\FlowScriptValueType.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Declarations\FlowScriptProcedureDeclaration.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\FlowScriptStatement.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Literals\FlowScriptStringLiteral.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Declarations\FlowScriptVariableDeclaration.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\FlowScriptVariableModifier.cs" />
+    <Compile Include="FlowScriptLanguage\Decompiler\KeywordDictionary.cs" />
+    <Compile Include="FlowScriptLanguage\Decompiler\EvaluatedIdentifierReference.cs" />
+    <Compile Include="FlowScriptLanguage\Decompiler\EvaluatedProcedure.cs" />
+    <Compile Include="FlowScriptLanguage\Decompiler\EvaluatedStatement.cs" />
+    <Compile Include="FlowScriptLanguage\Decompiler\EvaluationResult.cs" />
+    <Compile Include="FlowScriptLanguage\Decompiler\Evaluator.cs" />
+    <Compile Include="FlowScriptLanguage\Decompiler\EvaluatedScope.cs" />
+    <Compile Include="FlowScriptLanguage\Operand.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\SyntaxNode.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\SourceInfo.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\SyntaxNodeCollector.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\SyntaxNodeVisitor.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Declarations\EnumDeclaration.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Declarations\EnumValueDeclaration.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Declarations\LabelDeclaration.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\AdditionAssignmentOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\AssignmentOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\AssignmentOperatorBase.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\CompoundAssignmentOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\DivisionAssignmentOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\DivisionOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\EqualityOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\GreaterThanOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\GreaterThanOrEqualOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\LessThanOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\LessThanOrEqualOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\LogicalAndOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\LogicalOrOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\MultiplicationAssignmentOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\SubtractionAssignmentOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\SubtractionOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\MultiplicationOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\NonEqualityOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\AdditionOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\BinaryExpression.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\MemberAccessExpression.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\IOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Identifiers\TypeIdentifier.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\UnaryExpression.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\LogicalNotOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\NegationOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\PostfixDecrementOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\PostfixIncrementOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\PostfixOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\PrefixDecrementOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\PrefixIncrementOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\PrefixOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\BreakStatement.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\ConditionSwitchLabel.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\ContinueStatement.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\DeclarationType.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\CallOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Literals\BoolLiteral.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\CompilationUnit.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\CompoundStatement.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Declaration.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\DefaultSwitchLabel.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expression.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Literals\FloatLiteral.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Declarations\FunctionDeclaration.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Identifier.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Import.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Literals\IntLiteral.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Literal.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Parameter.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\ValueKind.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Declarations\ProcedureDeclaration.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statement.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Literals\StringLiteral.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Declarations\VariableDeclaration.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\VariableModifier.cs" />
     <Compile Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScriptBaseListener.cs" />
     <Compile Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScriptBaseVisitor.cs" />
     <Compile Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScriptLexer.cs" />
@@ -161,14 +169,14 @@
     <Compile Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScriptParser.cs" />
     <Compile Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScriptVisitor.cs" />
     <Compile Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScriptParserHelper.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptForStatement.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptGotoStatement.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptIfStatement.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptNullStatement.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptReturnStatement.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptSwitchLabel.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptSwitchStatement.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\FlowScriptWhileStatement.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\ForStatement.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\GotoStatement.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\IfStatement.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\NullStatement.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\ReturnStatement.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\SwitchLabel.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\SwitchStatement.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\WhileStatement.cs" />
     <Compile Include="MessageScriptLanguage\Compiler\MessageScriptCompiler.cs" />
     <Compile Include="MessageScriptLanguage\Compiler\Parser\MessageScriptLexer.cs" />
     <Compile Include="MessageScriptLanguage\Compiler\Parser\MessageScriptParser.cs" />
@@ -184,127 +192,147 @@
     <Compile Include="FlowScriptLanguage\BinaryModel\FlowScriptBinaryBuilder.cs" />
     <Compile Include="FlowScriptLanguage\BinaryModel\IO\FlowScriptBinaryReader.cs" />
     <Compile Include="FlowScriptLanguage\BinaryModel\IO\FlowScriptBinaryWriter.cs" />
-    <Compile Include="FlowScriptLanguage\FlowScriptBuilder.cs" />
-    <Compile Include="FlowScriptLanguage\FlowScriptInstruction.cs" />
-    <Compile Include="FlowScriptLanguage\FlowScriptLabel.cs" />
-    <Compile Include="FlowScriptLanguage\FlowScriptEnums.cs" />
-    <Compile Include="FlowScriptLanguage\FlowScriptProcedure.cs" />
+    <Compile Include="FlowScriptLanguage\Instruction.cs" />
+    <Compile Include="FlowScriptLanguage\Label.cs" />
+    <Compile Include="FlowScriptLanguage\Enums.cs" />
+    <Compile Include="FlowScriptLanguage\Procedure.cs" />
     <Compile Include="FlowScriptLanguage\FlowScript.cs" />
-    <Compile Include="MessageScriptLanguage\IMessageScriptTextToken.cs" />
+    <Compile Include="MessageScriptLanguage\IToken.cs" />
     <Compile Include="Common\IO\EndianBinaryReader.cs" />
     <Compile Include="Common\IO\EndianBinaryWriter.cs" />
     <Compile Include="Common\IO\Endianness.cs" />
     <Compile Include="Common\IO\OffsetTo.cs" />
     <Compile Include="Common\IO\StringBinaryFormat.cs" />
     <Compile Include="Common\IO\Unsafe.cs" />
-    <Compile Include="MessageScriptLanguage\IMessageScriptSpeaker.cs" />
+    <Compile Include="MessageScriptLanguage\Speaker.cs" />
     <Compile Include="MessageScriptLanguage\MessageScript.cs" />
     <Compile Include="MessageScriptLanguage\BinaryModel\MessageScriptBinaryBuilder.cs" />
     <Compile Include="MessageScriptLanguage\BinaryModel\IO\MessageScriptBinaryReader.cs" />
     <Compile Include="MessageScriptLanguage\BinaryModel\IO\MessageScriptBinaryWriter.cs" />
-    <Compile Include="MessageScriptLanguage\IMessageScriptMessage.cs" />
-    <Compile Include="MessageScriptLanguage\MessageScriptCodePointToken.cs" />
-    <Compile Include="MessageScriptLanguage\MessageScriptDialogWindow.cs" />
-    <Compile Include="MessageScriptLanguage\MessageScriptFunctionToken.cs" />
-    <Compile Include="MessageScriptLanguage\MessageScriptText.cs" />
-    <Compile Include="MessageScriptLanguage\MessageScriptEnums.cs" />
-    <Compile Include="MessageScriptLanguage\MessageScriptTextBuilder.cs" />
-    <Compile Include="MessageScriptLanguage\MessageScriptNamedSpeaker.cs" />
-    <Compile Include="MessageScriptLanguage\MessageScriptNewLineToken.cs" />
-    <Compile Include="MessageScriptLanguage\MessageScriptSelectionWindow.cs" />
-    <Compile Include="MessageScriptLanguage\MessageScriptStringToken.cs" />
-    <Compile Include="MessageScriptLanguage\MessageScriptVariableSpeaker.cs" />
+    <Compile Include="MessageScriptLanguage\IWindow.cs" />
+    <Compile Include="MessageScriptLanguage\CodePointToken.cs" />
+    <Compile Include="MessageScriptLanguage\DialogWindow.cs" />
+    <Compile Include="MessageScriptLanguage\FunctionToken.cs" />
+    <Compile Include="MessageScriptLanguage\TokenText.cs" />
+    <Compile Include="MessageScriptLanguage\Enums.cs" />
+    <Compile Include="MessageScriptLanguage\TextBuilder.cs" />
+    <Compile Include="MessageScriptLanguage\NamedSpeaker.cs" />
+    <Compile Include="MessageScriptLanguage\NewLineToken.cs" />
+    <Compile Include="MessageScriptLanguage\SelectionWindow.cs" />
+    <Compile Include="MessageScriptLanguage\StringToken.cs" />
+    <Compile Include="MessageScriptLanguage\VariableSpeaker.cs" />
     <Compile Include="FlowScriptLanguage\Disassembler\FlowScriptBinaryDisassembler.cs" />
-    <Compile Include="FlowScriptLanguage\BinaryModel\FlowScriptBinaryEnums.cs" />
-    <Compile Include="FlowScriptLanguage\BinaryModel\FlowScriptBinaryStructs.cs" />
+    <Compile Include="FlowScriptLanguage\BinaryModel\Enums.cs" />
+    <Compile Include="FlowScriptLanguage\BinaryModel\Structs.cs" />
     <Compile Include="MessageScriptLanguage\BinaryModel\MessageScriptBinary.cs" />
-    <Compile Include="MessageScriptLanguage\BinaryModel\MessageScriptBinaryEnums.cs" />
-    <Compile Include="MessageScriptLanguage\BinaryModel\MessageScriptBinaryStructs.cs" />
+    <Compile Include="MessageScriptLanguage\BinaryModel\Enums.cs" />
+    <Compile Include="MessageScriptLanguage\BinaryModel\Structs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MessageScriptLanguage\BinaryModel\IO\RelocationTableEncoding.cs" />
-    <Compile Include="Common\Registry\LibraryRegistryCache.cs" />
+    <Compile Include="Common\Registry\LibraryLookup.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScript.g4" />
     <None Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScript.tokens" />
     <None Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScriptLexer.tokens" />
     <None Include="FlowScriptLanguage\GenerateGrammarParserAndLexer.bat" />
-    <Content Include="Library\Registry\Persona5.json">
+    <Content Include="Library\Persona5.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Registry\Persona5\FlowScriptLibraries.json">
+    <Content Include="Library\Persona5\FlowScriptModules.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Registry\Persona5\Libraries\AI\Functions.json">
+    <Content Include="Library\Persona5\Modules\AI\Functions.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Registry\Persona5\Libraries\Common\Enums.json">
+    <Content Include="Library\Persona5\Modules\Common\Enums.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Registry\Persona5\Libraries\Common\Functions.json">
+    <Content Include="Library\Persona5\Modules\Common\Functions.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Registry\Persona5\Libraries\Facility\Functions.json">
+    <Content Include="Library\Persona5\Modules\Facility\Functions.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Registry\Persona5\Libraries\Field\Enums.json">
+    <Content Include="Library\Persona5\Modules\Field\Enums.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Registry\Persona5\Libraries\Field\Functions.json">
+    <Content Include="Library\Persona5\Modules\Field\Functions.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Registry\Persona5\Libraries\Net\Functions.json">
+    <Content Include="Library\Persona5\Modules\Net\Functions.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Registry\Persona5\Libraries\Social\Functions.json">
+    <Content Include="Library\Persona5\Modules\Social\Functions.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Registry\Persona5\MessageScriptLibrary.json">
+    <Content Include="Library\Persona5\MessageScriptLibrary.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Registry\Persona5\Libraries\AI\Enums.json">
+    <Content Include="Library\Persona5\Modules\AI\Enums.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Registry\DigitalDevilSaga.json">
+    <Content Include="Library\DigitalDevilSaga.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Registry\DigitalDevilSaga\FlowScriptLibraries.json">
+    <Content Include="Library\DigitalDevilSaga\FlowScriptModules.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Registry\DigitalDevilSaga\Libraries\Common\Functions.json">
+    <Content Include="Library\DigitalDevilSaga\Modules\Common\Functions.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Registry\DigitalDevilSaga\MessageScriptLibrary.json">
+    <Content Include="Library\DigitalDevilSaga\MessageScriptLibrary.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Registry\Nocturne.json">
+    <Content Include="Library\Nocturne.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Registry\Nocturne\Libraries\Common\Functions.json">
+    <Content Include="Library\Nocturne\Modules\Common\Functions.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Registry\Nocturne\FlowScriptLibraries.json">
+    <Content Include="Library\Nocturne\FlowScriptModules.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Registry\Nocturne\MessageScriptLibrary.json">
+    <Content Include="Library\Nocturne\MessageScriptLibrary.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Registry\Nocturne\Libraries\Common\Enums.json">
+    <Content Include="Library\Nocturne\Modules\Common\Enums.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Registry\DigitalDevilSaga\Libraries\Common\Enums.json">
+    <Content Include="Library\DigitalDevilSaga\Modules\Common\Enums.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Library\Persona4.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Library\Persona4\FlowScriptModules.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Library\Persona4\Modules\AI\Enums.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Library\Persona4\Modules\AI\Functions.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Library\Persona4\Modules\Common\Functions.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Library\Persona4\Modules\Event\Functions.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Library\Persona4\Modules\Field\Functions.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Library\Persona4\MessageScriptLibrary.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptLexer.g4" />
     <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptLexer.tokens" />
     <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptParser.g4" />
     <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptParser.tokens" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Library\FlowScript\" />
-    <Folder Include="Library\MessageScript\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

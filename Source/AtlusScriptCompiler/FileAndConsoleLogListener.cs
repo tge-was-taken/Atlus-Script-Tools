@@ -31,7 +31,7 @@ namespace AtlusScriptCompiler
 
         protected virtual void Dispose( bool disposing )
         {
-            if ( !mDisposed )
+            if ( !mDisposed && disposing )
             {
                 mFileWriter.Dispose();
                 mDisposed = true;

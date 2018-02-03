@@ -7,13 +7,12 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-
 using AtlusScriptLib.Common.IO;
-using AtlusScriptLib.Common.Text;
 using AtlusScriptLib.FlowScriptLanguage.BinaryModel;
 using AtlusScriptLib.MessageScriptLanguage;
 using AtlusScriptLib.MessageScriptLanguage.BinaryModel;
 using AtlusScriptLib.MessageScriptLanguage.Decompiler;
+using BinaryHeader = AtlusScriptLib.MessageScriptLanguage.BinaryModel.BinaryHeader;
 
 namespace AtlusMessageScriptExtractor
 {
@@ -153,7 +152,7 @@ namespace AtlusMessageScriptExtractor
                                 i--;
                                 break;
                             }
-                            else if ( ext[0] != '.' )
+                            if ( ext[0] != '.' )
                             {
                                 ext = "." + ext;
                             }
@@ -179,7 +178,7 @@ namespace AtlusMessageScriptExtractor
                                 i--;
                                 break;
                             }
-                            else if ( ext[0] != '.' )
+                            if ( ext[0] != '.' )
                             {
                                 ext = "." + ext;
                             }
@@ -357,7 +356,7 @@ namespace AtlusMessageScriptExtractor
                     break;
                 }
 
-                if ( stream.Position + MessageScriptBinaryHeader.SIZE < stream.Length )
+                if ( stream.Position + BinaryHeader.SIZE < stream.Length )
                 {
                     // Read 4 bytes
                     magic[0] = ( byte )stream.ReadByte();
@@ -365,9 +364,9 @@ namespace AtlusMessageScriptExtractor
                     magic[2] = ( byte )stream.ReadByte();
                     magic[3] = ( byte )stream.ReadByte();
 
-                    if ( magic.SequenceEqual( MessageScriptBinaryHeader.MAGIC_V0 ) ||
-                        magic.SequenceEqual( MessageScriptBinaryHeader.MAGIC_V1 ) ||
-                        magic.SequenceEqual( MessageScriptBinaryHeader.MAGIC_V1_BE ) )
+                    if ( magic.SequenceEqual( BinaryHeader.MAGIC_V0 ) ||
+                        magic.SequenceEqual( BinaryHeader.MAGIC_V1 ) ||
+                        magic.SequenceEqual( BinaryHeader.MAGIC_V1_BE ) )
                     {
                         long scriptStartPosition = stream.Position - 12;
                         var scriptBinary = MessageScriptBinary.FromStream( new StreamView( stream, scriptStartPosition, stream.Length - scriptStartPosition ) );
@@ -420,13 +419,13 @@ namespace AtlusMessageScriptExtractor
             Writer.Flush();
         }
 
-        static void WriteWindow( IMessageScriptWindow window )
+        static void WriteWindow( IWindow window )
         {
             Writer.WriteLine( window.Identifier );
 
-            if ( window.Type == MessageScriptWindowType.Dialogue )
+            if ( window.Type == WindowType.Dialogue )
             {
-                WriteDialogWindowSpeaker( ( MessageScriptDialogWindow )window );
+                WriteDialogWindowSpeaker( ( DialogWindow )window );
             }
 
             foreach ( var line in window.Lines )
@@ -438,17 +437,17 @@ namespace AtlusMessageScriptExtractor
             Writer.WriteLine();
         }
 
-        static void WriteDialogWindowSpeaker( MessageScriptDialogWindow window )
+        static void WriteDialogWindowSpeaker( DialogWindow window )
         {
             if ( window.Speaker != null )
             {
-                if ( window.Speaker.Type == MessageScriptSpeakerType.Named )
+                if ( window.Speaker.Type == SpeakerType.Named )
                 {
-                    WriteLine( ( ( MessageScriptNamedSpeaker )window.Speaker ).Name, false );
+                    WriteLine( ( ( NamedSpeaker )window.Speaker ).Name, false );
                 }
-                else if ( window.Speaker.Type == MessageScriptSpeakerType.Variable )
+                else if ( window.Speaker.Type == SpeakerType.Variable )
                 {
-                    Writer.Write( $"var({( ( MessageScriptVariableSpeaker )window.Speaker ).Index})" );
+                    Writer.Write( $"var({( ( VariableSpeaker )window.Speaker ).Index})" );
                 }
 
                 Writer.WriteLine( ":" );
@@ -456,7 +455,7 @@ namespace AtlusMessageScriptExtractor
             }
         }
 
-        static void WriteLine( MessageScriptText line, bool writeNewLine = true )
+        static void WriteLine( TokenText line, bool writeNewLine = true )
         {
             if ( line == null )
                 return;
@@ -467,33 +466,33 @@ namespace AtlusMessageScriptExtractor
             }
 
             // write newline if the line doesn't contain any
-            if ( writeNewLine && ( !line.Tokens.Any( x => x.Type == MessageScriptTextTokenType.NewLine ) || ( OutputFunctions && line.Tokens.Last().Type == MessageScriptTextTokenType.Function ) ) )
+            if ( writeNewLine && ( !line.Tokens.Any( x => x.Kind == TokenKind.NewLine ) || ( OutputFunctions && line.Tokens.Last().Kind == TokenKind.Function ) ) )
             {
                 Writer.WriteLine();
             }
         }
 
-        static void WriteToken( IMessageScriptTextToken token )
+        static void WriteToken( IToken token )
         {
-            if ( token.Type == MessageScriptTextTokenType.CodePoint )
+            if ( token.Kind == TokenKind.CodePoint )
             {
-                WriteCodePointToken( ( MessageScriptCodePointToken )token );
+                WriteCodePointToken( ( CodePointToken )token );
             }
-            else if ( token.Type == MessageScriptTextTokenType.NewLine )
+            else if ( token.Kind == TokenKind.NewLine )
             {
                 Writer.WriteLine();
             }
-            else if ( token.Type == MessageScriptTextTokenType.String )
+            else if ( token.Kind == TokenKind.String )
             {
-                WriteTextToken( ( MessageScriptStringToken )token );
+                WriteTextToken( ( StringToken )token );
             }
-            else if ( token.Type == MessageScriptTextTokenType.Function && OutputFunctions )
+            else if ( token.Kind == TokenKind.Function && OutputFunctions )
             {
-                WriteFunctionToken( ( MessageScriptFunctionToken )token );
+                WriteFunctionToken( ( FunctionToken )token );
             }
         }
 
-        static void WriteCodePointToken( MessageScriptCodePointToken token )
+        static void WriteCodePointToken( CodePointToken token )
         {
             string str = null;
 
@@ -516,12 +515,12 @@ namespace AtlusMessageScriptExtractor
             Writer.Write( str );
         }
 
-        static void WriteTextToken( MessageScriptStringToken token )
+        static void WriteTextToken( StringToken token )
         {
             Writer.Write( token.Value );
         }
 
-        static void WriteFunctionToken( MessageScriptFunctionToken token )
+        static void WriteFunctionToken( FunctionToken token )
         {
             Writer.Write( $"[F {token.FunctionTableIndex} {token.FunctionIndex}]" );
         }

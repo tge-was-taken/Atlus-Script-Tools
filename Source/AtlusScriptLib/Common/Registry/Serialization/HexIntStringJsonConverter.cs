@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using Newtonsoft.Json;
 
 namespace AtlusScriptLib.Common.Registry.Serialization
@@ -12,7 +13,7 @@ namespace AtlusScriptLib.Common.Registry.Serialization
         public override object ReadJson( JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer )
         {
             var stringValue = ( string ) reader.Value;
-            return int.Parse( stringValue.Substring( 2 ), System.Globalization.NumberStyles.HexNumber );
+            return int.Parse( stringValue.Substring( 2 ), NumberStyles.HexNumber );
         }
 
         public override void WriteJson( JsonWriter writer, object value, JsonSerializer serializer )

@@ -11,6 +11,12 @@
 // Generated from D:\Users\smart\Documents\Visual Studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptLib\MessageScriptLanguage\Parser\MessageScriptParser.g4 by ANTLR 4.6.4
 
 // Unreachable code detected
+
+using System;
+using System.CodeDom.Compiler;
+using Antlr4.Runtime.Misc;
+using Antlr4.Runtime.Tree;
+
 #pragma warning disable 0162
 // The variable '...' is assigned but its value is never used
 #pragma warning disable 0219
@@ -20,17 +26,13 @@
 #pragma warning disable 419
 
 namespace AtlusScriptLib.MessageScriptLanguage.Compiler.Parser {
-using Antlr4.Runtime.Misc;
-using Antlr4.Runtime.Tree;
-using IToken = Antlr4.Runtime.IToken;
-
-/// <summary>
+    /// <summary>
 /// This interface defines a complete generic visitor for a parse tree produced
 /// by <see cref="MessageScriptParser"/>.
 /// </summary>
 /// <typeparam name="Result">The return type of the visit operation.</typeparam>
-[System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.6.4")]
-[System.CLSCompliant(false)]
+[GeneratedCode("ANTLR", "4.6.4")]
+[CLSCompliant(false)]
 public interface IMessageScriptParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="MessageScriptParser.compilationUnit"/>.

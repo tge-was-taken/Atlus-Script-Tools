@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AtlusScriptLib.Common.Text.Encodings
+﻿namespace AtlusScriptLib.Common.Text.Encodings
 {
     public class Persona4Encoding : AtlusEncoding
     {
@@ -13,8 +7,7 @@ namespace AtlusScriptLib.Common.Text.Encodings
         /// <summary>
         /// All credit goes to Senketsu (鮮尻) and tomas_xc for mapping out this table.
         /// </summary>
-        private static char[] sCharTable = new char[]
-        {
+        private static char[] sCharTable = {
             (char)00, (char)01, (char)02, (char)03, (char)04, (char)05, (char)06, (char)07, (char)08, (char)09, (char)10, (char)11, (char)12, (char)13, (char)14, (char)15,
             (char)16, (char)17, (char)18, (char)19, (char)20, (char)21, (char)22, (char)23, (char)24, (char)25, (char)26, (char)27, (char)28, (char)29, (char)30, (char)31,
             ' ', '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',

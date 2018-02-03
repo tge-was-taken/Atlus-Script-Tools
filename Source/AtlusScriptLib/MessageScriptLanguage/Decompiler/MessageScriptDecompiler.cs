@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using AtlusScriptLib.Common.Registry;
-using AtlusScriptLib.Common;
 
 namespace AtlusScriptLib.MessageScriptLanguage.Decompiler
 {
@@ -11,7 +9,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Decompiler
     {
         private readonly TextWriter mWriter;
 
-        public LibraryRegistry LibraryRegistry { get; set; }
+        public Library Library { get; set; }
 
         public bool OmitUnusedFunctions { get; set; } = true;
 
@@ -29,15 +27,15 @@ namespace AtlusScriptLib.MessageScriptLanguage.Decompiler
             }
         }
 
-        public void Decompile( IMessageScriptWindow message )
+        public void Decompile( IWindow message )
         {
             switch ( message.Type )
             {
-                case MessageScriptWindowType.Dialogue:
-                    Decompile( ( MessageScriptDialogWindow )message );
+                case WindowType.Dialogue:
+                    Decompile( ( DialogWindow )message );
                     break;
-                case MessageScriptWindowType.Selection:
-                    Decompile( ( MessageScriptSelectionWindow )message );
+                case WindowType.Selection:
+                    Decompile( ( SelectionWindow )message );
                     break;
 
                 default:
@@ -45,20 +43,20 @@ namespace AtlusScriptLib.MessageScriptLanguage.Decompiler
             }
         }
 
-        public void Decompile( MessageScriptDialogWindow message )
+        public void Decompile( DialogWindow message )
         {
             if ( message.Speaker != null )
             {
                 switch ( message.Speaker.Type )
                 {
-                    case MessageScriptSpeakerType.Named:
+                    case SpeakerType.Named:
                         {
                             WriteOpenTag( "dlg" );
                             WriteTagArgument( message.Identifier );
                             {
                                 mWriter.Write( " " );
 
-                                var speaker = ( MessageScriptNamedSpeaker )message.Speaker;
+                                var speaker = ( NamedSpeaker )message.Speaker;
                                 if ( speaker.Name != null )
                                 {
                                     WriteOpenTag();
@@ -70,14 +68,14 @@ namespace AtlusScriptLib.MessageScriptLanguage.Decompiler
                         }
                         break;
 
-                    case MessageScriptSpeakerType.Variable:
+                    case SpeakerType.Variable:
                         {
                             WriteOpenTag( "dlg" );
                             WriteTagArgument( message.Identifier );
                             {
                                 mWriter.Write( " " );
                                 WriteOpenTag();
-                                mWriter.Write( ( ( MessageScriptVariableSpeaker )message.Speaker ).Index.ToString() );
+                                mWriter.Write( ( ( VariableSpeaker )message.Speaker ).Index.ToString() );
                                 WriteCloseTag();
                             }
                             WriteCloseTag();
@@ -99,7 +97,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Decompiler
             }
         }
 
-        public void Decompile( MessageScriptSelectionWindow message )
+        public void Decompile( SelectionWindow message )
         {
             WriteTag( "sel", message.Identifier );
             mWriter.WriteLine();
@@ -111,7 +109,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Decompiler
             }
         }
 
-        public void Decompile( MessageScriptText line, bool emitLineEndTag = true )
+        public void Decompile( TokenText line, bool emitLineEndTag = true )
         {
             foreach ( var token in line.Tokens )
             {
@@ -122,33 +120,33 @@ namespace AtlusScriptLib.MessageScriptLanguage.Decompiler
                 WriteTag( "e" );
         }
 
-        public void Decompile( IMessageScriptTextToken token )
+        public void Decompile( IToken token )
         {
-            switch ( token.Type )
+            switch ( token.Kind )
             {
-                case MessageScriptTextTokenType.String:
-                    Decompile( ( MessageScriptStringToken )token );
+                case TokenKind.String:
+                    Decompile( ( StringToken )token );
                     break;
-                case MessageScriptTextTokenType.Function:
-                    Decompile( ( MessageScriptFunctionToken )token );
+                case TokenKind.Function:
+                    Decompile( ( FunctionToken )token );
                     break;
-                case MessageScriptTextTokenType.CodePoint:
-                    Decompile( ( MessageScriptCodePointToken )token );
+                case TokenKind.CodePoint:
+                    Decompile( ( CodePointToken )token );
                     break;
-                case MessageScriptTextTokenType.NewLine:
-                    Decompile( ( MessageScriptNewLineToken )token );
+                case TokenKind.NewLine:
+                    Decompile( ( NewLineToken )token );
                     break;
 
                 default:
-                    throw new NotImplementedException( token.Type.ToString() );
+                    throw new NotImplementedException( token.Kind.ToString() );
             }
         }
 
-        public void Decompile( MessageScriptFunctionToken token )
+        public void Decompile( FunctionToken token )
         {
-            if ( LibraryRegistry != null )
+            if ( Library != null )
             {
-                var library = LibraryRegistry.MessageScriptLibraries.FirstOrDefault( x => x.Index == token.FunctionTableIndex );
+                var library = Library.MessageScriptLibraries.FirstOrDefault( x => x.Index == token.FunctionTableIndex );
                 if ( library != null )
                 {
                     var function = library.Functions.FirstOrDefault( x => x.Index == token.FunctionIndex );
@@ -193,17 +191,17 @@ namespace AtlusScriptLib.MessageScriptLanguage.Decompiler
             }
         }
 
-        public void Decompile( MessageScriptStringToken token )
+        public void Decompile( StringToken token )
         {
             mWriter.Write( token.Value );
         }
 
-        public void Decompile( MessageScriptCodePointToken token )
+        public void Decompile( CodePointToken token )
         {
             WriteTag( $"x 0x{token.HighSurrogate:X2} 0x{token.LowSurrogate:X2}" );
         }
 
-        public void Decompile( MessageScriptNewLineToken token )
+        public void Decompile( NewLineToken token )
         {
             WriteTag( "n" );
         }

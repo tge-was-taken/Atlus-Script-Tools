@@ -10,6 +10,6 @@ namespace AtlusScriptLib.Common.Registry
 
         public string Description { get; set; }
 
-        public List<MessageScriptLibraryFunctionParameter> Parameters { get; set; }
+        public List<MessageScriptLibraryParameter> Parameters { get; set; }
     }
 }

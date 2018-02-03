@@ -11,6 +11,14 @@
 // Generated from D:\Users\smart\Documents\Visual Studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptLib\MessageScriptLanguage\Parser\MessageScriptParser.g4 by ANTLR 4.6.4
 
 // Unreachable code detected
+
+using System;
+using System.CodeDom.Compiler;
+using Antlr4.Runtime;
+using Antlr4.Runtime.Atn;
+using Antlr4.Runtime.Misc;
+using Antlr4.Runtime.Tree;
+
 #pragma warning disable 0162
 // The variable '...' is assigned but its value is never used
 #pragma warning disable 0219
@@ -20,16 +28,9 @@
 #pragma warning disable 419
 
 namespace AtlusScriptLib.MessageScriptLanguage.Compiler.Parser {
-using Antlr4.Runtime;
-using Antlr4.Runtime.Atn;
-using Antlr4.Runtime.Misc;
-using Antlr4.Runtime.Tree;
-using System.Collections.Generic;
-using DFA = Antlr4.Runtime.Dfa.DFA;
-
-[System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.6.4")]
-[System.CLSCompliant(false)]
-public partial class MessageScriptParser : Parser {
+    [GeneratedCode("ANTLR", "4.6.4")]
+[CLSCompliant(false)]
+public partial class MessageScriptParser : Antlr4.Runtime.Parser {
 	public const int
 		OpenCode=1, CloseText=2, Text=3, MessageDialogTagId=4, SelectionDialogTagId=5, 
 		CloseCode=6, OpenText=7, IntLiteral=8, Identifier=9, Whitespace=10;
@@ -51,7 +52,7 @@ public partial class MessageScriptParser : Parser {
 	};
 	public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);
 
-	[System.Obsolete("Use Vocabulary instead.")]
+	[Obsolete("Use Vocabulary instead.")]
 	public static readonly string[] tokenNames = GenerateTokenNames(DefaultVocabulary, _SymbolicNames.Length);
 
 	private static string[] GenerateTokenNames(IVocabulary vocabulary, int length) {
@@ -70,7 +71,7 @@ public partial class MessageScriptParser : Parser {
 		return tokenNames;
 	}
 
-	[System.Obsolete("Use IRecognizer.Vocabulary instead.")]
+	[Obsolete("Use IRecognizer.Vocabulary instead.")]
 	public override string[] TokenNames
 	{
 		get
@@ -433,7 +434,7 @@ public partial class MessageScriptParser : Parser {
 			State = 49;
 			_errHandler.Sync(this);
 			_alt = Interpreter.AdaptivePredict(_input,4,_ctx);
-			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.InvalidAltNumber ) {
+			while ( _alt!=2 && _alt!=ATN.InvalidAltNumber ) {
 				if ( _alt==1 ) {
 					{
 					State = 47;

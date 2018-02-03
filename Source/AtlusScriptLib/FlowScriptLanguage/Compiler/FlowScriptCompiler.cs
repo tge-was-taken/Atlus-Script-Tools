@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Security.Cryptography;
-using System;
-
+using System.Text;
 using AtlusScriptLib.Common.Logging;
 using AtlusScriptLib.Common.Registry;
 using AtlusScriptLib.FlowScriptLanguage.Compiler.Parser;
@@ -21,19 +20,19 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
     /// </summary>
     public class FlowScriptCompiler
     {
-        private static readonly Dictionary<FlowScriptValueType, FlowScriptValueType> sTypeToBaseTypeMap = new Dictionary<FlowScriptValueType, FlowScriptValueType>()
+        private static readonly Dictionary<ValueKind, ValueKind> sTypeToBaseTypeMap = new Dictionary<ValueKind, ValueKind>
         {
-            { FlowScriptValueType.Bool, FlowScriptValueType.Int },
-            { FlowScriptValueType.Int, FlowScriptValueType.Int },
-            { FlowScriptValueType.Float, FlowScriptValueType.Float },
-            { FlowScriptValueType.String, FlowScriptValueType.Int },
+            { ValueKind.Bool, ValueKind.Int },
+            { ValueKind.Int, ValueKind.Int },
+            { ValueKind.Float, ValueKind.Float },
+            { ValueKind.String, ValueKind.Int }
         };
 
         //
         // compiler state state
         //
         private readonly Logger mLogger;
-        private readonly FlowScriptFormatVersion mFormatVersion;
+        private readonly FormatVersion mFormatVersion;
         private readonly HashSet<int> mImportedFileHashSet;
         private bool mReresolveImports;
         private string mFilePath;
@@ -52,19 +51,18 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         private short mNextStaticFloatVariableIndex = 255; // reduce the chance of conflict with the game's original scripts
         private short mNextIntParameterVariableIndex;
         private short mNextFloatParameterVariableIndex;
+        private short mNextAiLocalVariableIndex;
+        private short mNextAiGlobalVariableIndex;
 
         //
         // procedure state
         //
-        private FlowScriptProcedureDeclaration mProcedureDeclaration;
-        private List<FlowScriptInstruction> mInstructions;
+        private ProcedureDeclaration mProcedureDeclaration;
+        private List<Instruction> mInstructions;
         private Dictionary<string, Label> mLabels;
 
-        // tracing
         private int mStackValueCount; // for debugging
-        private int mPUTFunctionIndex = -1;
-        private int mPUTSFunctionIndex = -1;
-        private int mPUTFFunctionIndex = -1;
+        private IntrinsicSupport mInstrinsic;
 
         private ScopeContext Scope => mScopeStack.Peek();
 
@@ -76,7 +74,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         /// <summary>
         /// Gets or sets the library registry to use for any imported MessageScripts.
         /// </summary>
-        public LibraryRegistry LibraryRegistry { get; set; }
+        public Library Library { get; set; }
 
         /// <summary>
         /// Gets or sets whether the compiler should output procedure tracing code.
@@ -86,23 +84,23 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         /// <summary>
         /// Gets or sets whether the compiler should output procedure call tracing code.
         /// </summary>
-        public bool EnableProcedureCallTracing { get; set; } = false;
+        public bool EnableProcedureCallTracing { get; set; }
 
         /// <summary>
         /// Gets or sets whether the compiler should output function call tracing code.
         /// </summary>
-        public bool EnableFunctionCallTracing { get; set; } = false;
+        public bool EnableFunctionCallTracing { get; set; }
 
         /// <summary>
         /// Gets or sets whether the compiler should use stack cookies
         /// </summary>
-        public bool EnableStackCookie { get; set; } = true;
+        public bool EnableStackCookie { get; set; }
 
         /// <summary>
         /// Initializes a FlowScript compiler with the given format version.
         /// </summary>
         /// <param name="version"></param>
-        public FlowScriptCompiler( FlowScriptFormatVersion version )
+        public FlowScriptCompiler( FormatVersion version )
         {
             mLogger = new Logger( nameof( FlowScriptCompiler ) );
             mFormatVersion = version;
@@ -132,7 +130,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             mImportedFileHashSet.Add( source.GetHashCode() );
 
             // Parse compilation unit
-            var parser = new FlowScriptCompilationUnitParser();
+            var parser = new CompilationUnitParser();
             parser.AddListener( new LoggerPassthroughListener( mLogger ) );
             if ( !parser.TryParse( source, out var compilationUnit ) )
             {
@@ -173,7 +171,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             stream.Position = 0;
 
             // Parse compilation unit
-            var parser = new FlowScriptCompilationUnitParser();
+            var parser = new CompilationUnitParser();
             parser.AddListener( new LoggerPassthroughListener( mLogger ) );
             if ( !parser.TryParse( stream, out var compilationUnit ) )
             {
@@ -191,10 +189,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         /// <param name="source"></param>
         /// <param name="flowScript"></param>
         /// <returns></returns>
-        public bool TryCompile( FlowScriptCompilationUnit compilationUnit, out FlowScript flowScript )
+        public bool TryCompile( CompilationUnit compilationUnit, out FlowScript flowScript )
         {
             // Resolve types that are unresolved at parse time
-            var resolver = new FlowScriptTypeResolver();
+            var resolver = new TypeResolver();
             resolver.AddListener( new LoggerPassthroughListener( mLogger ) );
             if ( !resolver.TryResolveTypes( compilationUnit ) )
             {
@@ -233,9 +231,16 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             // This is where all script-level declarations are stored
             mRootScope = new ScopeContext( null );
             mScopeStack.Push( mRootScope );
+
+            mInstrinsic = new IntrinsicSupport( Library );
+            if ( !mInstrinsic.SupportsTrace )
+            {
+                Warning( "Tracing is not supported by the specified library; it will be disabled for the current compilation" );
+                EnableFunctionCallTracing = EnableProcedureCallTracing = EnableProcedureTracing = EnableStackCookie = false;
+            }
         }
 
-        private bool TryCompileCompilationUnit( FlowScriptCompilationUnit compilationUnit )
+        private bool TryCompileCompilationUnit( CompilationUnit compilationUnit )
         {
             Info( $"Start compiling FlowScript compilation unit with version {mFormatVersion}" );
 
@@ -259,28 +264,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             if ( !TryEvaluateCompilationUnitBeforeCompilation( compilationUnit ) )
                 return false;
 
-            // Set up tracing functions
-            if ( Scope.TryGetFunction( "PUT", out var putFunction ) )
-            {
-                mPUTFunctionIndex = putFunction.Index;
-            }
-
-            // Set up tracing functions
-            if ( Scope.TryGetFunction( "PUTS", out var putsFunction ) )
-            {
-                mPUTSFunctionIndex = putsFunction.Index;
-            }
-
-            // Set up tracing functions
-            if ( Scope.TryGetFunction( "PUTF", out var putfFunction ) )
-            {
-                mPUTFFunctionIndex = putfFunction.Index;
-            }
-
             // Compile compilation unit body
             foreach ( var statement in compilationUnit.Declarations )
             {
-                if ( statement is FlowScriptProcedureDeclaration procedureDeclaration )
+                if ( statement is ProcedureDeclaration procedureDeclaration )
                 {
                     if ( procedureDeclaration.Body != null )
                     {
@@ -290,15 +277,15 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                         mScript.Procedures.Add( procedure );
                     }
                 }
-                else if ( statement is FlowScriptVariableDeclaration variableDeclaration )
+                else if ( statement is VariableDeclaration variableDeclaration )
                 {
-                    if ( variableDeclaration.Initializer != null && ( variableDeclaration.Modifier != null && variableDeclaration.Modifier.ModifierType != FlowScriptModifierType.Constant ) )
+                    if ( variableDeclaration.Initializer != null && ( variableDeclaration.Modifier != null && variableDeclaration.Modifier.Kind != VariableModifierKind.Constant ) )
                     {
                         Error( variableDeclaration.Initializer, "Non-constant variables declared outside of a procedure can't be initialized with a value" );
                         return false;
                     }
                 }
-                else if ( !( statement is FlowScriptFunctionDeclaration ) && !( statement is FlowScriptEnumDeclaration ) )
+                else if ( !( statement is FunctionDeclaration ) && !( statement is EnumDeclaration ) )
                 {
                     Error( statement, $"Unexpected top-level statement type: {statement}" );
                     return false;
@@ -310,7 +297,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private void ExpandImportStatementsPaths( FlowScriptCompilationUnit compilationUnit, string baseDirectory )
+        private void ExpandImportStatementsPaths( CompilationUnit compilationUnit, string baseDirectory )
         {
             foreach ( var import in compilationUnit.Imports )
             {
@@ -321,14 +308,14 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         //
         // Resolving imports
         //
-        private bool TryResolveImports( FlowScriptCompilationUnit compilationUnit )
+        private bool TryResolveImports( CompilationUnit compilationUnit )
         {
             Info( compilationUnit, "Resolving imports" );
 
             ExpandImportStatementsPaths( compilationUnit, Path.GetDirectoryName( mFilePath ) );
 
             var importedMessageScripts = new List<MessageScript>();
-            var importedFlowScripts = new List<FlowScriptCompilationUnit>();
+            var importedFlowScripts = new List<CompilationUnit>();
 
             foreach ( var import in compilationUnit.Imports )
             {
@@ -409,13 +396,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryResolveMessageScriptImport( FlowScriptImport import, out MessageScript messageScript )
+        private bool TryResolveMessageScriptImport( Import import, out MessageScript messageScript )
         {
             Info( $"Resolving MessageScript import '{import.CompilationUnitFileName}'" );
 
             var messageScriptCompiler = new MessageScriptCompiler( GetMessageScriptFormatVersion(), Encoding );
             messageScriptCompiler.AddListener( new LoggerPassthroughListener( mLogger ) );
-            messageScriptCompiler.LibraryRegistry = LibraryRegistry;
+            messageScriptCompiler.Library = Library;
 
             string compilationUnitFilePath = import.CompilationUnitFileName;
 
@@ -477,7 +464,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryResolveFlowScriptImport( FlowScriptImport import, out FlowScriptCompilationUnit importedCompilationUnit )
+        private bool TryResolveFlowScriptImport( Import import, out CompilationUnit importedCompilationUnit )
         {
             string compilationUnitFilePath = import.CompilationUnitFileName;
             Info( $"Resolving FlowScript import '{compilationUnitFilePath}'" );
@@ -524,7 +511,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
             if ( !mImportedFileHashSet.Contains( flowScriptSourceHash ) )
             {
-                var parser = new FlowScriptCompilationUnitParser();
+                var parser = new CompilationUnitParser();
                 parser.AddListener( new LoggerPassthroughListener( mLogger ) );
                 if ( !parser.TryParse( flowScriptFileStream, out importedCompilationUnit ) )
                 {
@@ -547,24 +534,24 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private MessageScriptFormatVersion GetMessageScriptFormatVersion()
+        private MessageScriptLanguage.FormatVersion GetMessageScriptFormatVersion()
         {
             switch ( mFormatVersion )
             {
-                case FlowScriptFormatVersion.Version1:
-                case FlowScriptFormatVersion.Version2:
-                case FlowScriptFormatVersion.Version3:
-                    return MessageScriptFormatVersion.Version1;
-                case FlowScriptFormatVersion.Version1BigEndian:
-                case FlowScriptFormatVersion.Version2BigEndian:
-                case FlowScriptFormatVersion.Version3BigEndian:
-                    return MessageScriptFormatVersion.Version1BigEndian;
+                case FormatVersion.Version1:
+                case FormatVersion.Version2:
+                case FormatVersion.Version3:
+                    return MessageScriptLanguage.FormatVersion.Version1;
+                case FormatVersion.Version1BigEndian:
+                case FormatVersion.Version2BigEndian:
+                case FormatVersion.Version3BigEndian:
+                    return MessageScriptLanguage.FormatVersion.Version1BigEndian;
             }
 
-            return MessageScriptFormatVersion.Version1;
+            return MessageScriptLanguage.FormatVersion.Version1;
         }
 
-        private bool TryEvaluateCompilationUnitBeforeCompilation( FlowScriptCompilationUnit compilationUnit )
+        private bool TryEvaluateCompilationUnitBeforeCompilation( CompilationUnit compilationUnit )
         {
             // Declare constants for the message script window names
             if ( mScript.MessageScript != null )
@@ -574,12 +561,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 {
                     var window = mScript.MessageScript.Windows[i];
 
-                    var declaration = new FlowScriptVariableDeclaration
+                    var declaration = new VariableDeclaration
                     (
-                        new FlowScriptVariableModifier( FlowScriptModifierType.Constant ),
-                        new FlowScriptTypeIdentifier( FlowScriptValueType.Int ),
-                        new FlowScriptIdentifier( FlowScriptValueType.Int, window.Identifier ),
-                        new FlowScriptIntLiteral( i )
+                        new VariableModifier( VariableModifierKind.Constant ),
+                        new TypeIdentifier( ValueKind.Int ),
+                        new Identifier( ValueKind.Int, window.Identifier ),
+                        new IntLiteral( i )
                     );
 
                     if ( !Scope.TryDeclareVariable( declaration ) )
@@ -604,7 +591,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             {
                 switch ( statement )
                 {
-                    case FlowScriptFunctionDeclaration functionDeclaration:
+                    case FunctionDeclaration functionDeclaration:
                         {
                             if ( !Scope.TryDeclareFunction( functionDeclaration ) )
                             {
@@ -616,52 +603,46 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                             }
                         }
                         break;
-                    case FlowScriptProcedureDeclaration procedureDeclaration:
+                    case ProcedureDeclaration procedureDeclaration:
                         {
                             if ( !Scope.TryDeclareProcedure( procedureDeclaration ) )
                             {
                                 Error( procedureDeclaration, $"Duplicate procedure declaration: {procedureDeclaration}" );
                                 return false;
                             }
-                            else
-                            {
-                                Trace( $"Registered procedure declaration '{procedureDeclaration}'" );
-                            }
+                            Trace( $"Registered procedure declaration '{procedureDeclaration}'" );
 
-                            if ( procedureDeclaration.ReturnType.ValueType != FlowScriptValueType.Void )
+                            if ( procedureDeclaration.ReturnType.ValueKind != ValueKind.Void )
                             {
-                                if ( sTypeToBaseTypeMap[procedureDeclaration.ReturnType.ValueType] == FlowScriptValueType.Int )
+                                if ( sTypeToBaseTypeMap[procedureDeclaration.ReturnType.ValueKind] == ValueKind.Int )
                                 {
                                     hasIntReturnValue = true;
                                 }
-                                else if ( procedureDeclaration.ReturnType.ValueType == FlowScriptValueType.Float )
+                                else if ( procedureDeclaration.ReturnType.ValueKind == ValueKind.Float )
                                 {
                                     hasFloatReturnValue = true;
                                 }
                             }
 
-                            short intParameterCount = ( short )procedureDeclaration.Parameters.Count( x => sTypeToBaseTypeMap[x.Type.ValueType] == FlowScriptValueType.Int );
-                            short floatParameterCount = ( short )procedureDeclaration.Parameters.Count( x => sTypeToBaseTypeMap[x.Type.ValueType] == FlowScriptValueType.Float );
+                            short intParameterCount = ( short )procedureDeclaration.Parameters.Count( x => sTypeToBaseTypeMap[x.Type.ValueKind] == ValueKind.Int );
+                            short floatParameterCount = ( short )procedureDeclaration.Parameters.Count( x => sTypeToBaseTypeMap[x.Type.ValueKind] == ValueKind.Float );
                             maxIntParameterCount = Math.Max( intParameterCount, maxIntParameterCount );
                             maxFloatParameterCount = Math.Max( floatParameterCount, maxFloatParameterCount );
                         }
                         break;
 
-                    case FlowScriptVariableDeclaration variableDeclaration:
+                    case VariableDeclaration variableDeclaration:
                         {
                             if ( !TryRegisterVariableDeclaration( variableDeclaration ) )
                             {
                                 Error( variableDeclaration, $"Duplicate variable declaration: {variableDeclaration}" );
                                 return false;
                             }
-                            else
-                            {
-                                Trace( $"Registered variable declaration '{variableDeclaration}'" );
-                            }
+                            Trace( $"Registered variable declaration '{variableDeclaration}'" );
                         }
                         break;
 
-                    case FlowScriptEnumDeclaration enumDeclaration:
+                    case EnumDeclaration enumDeclaration:
                         {
                             if ( !Scope.TryDeclareEnum( enumDeclaration ) )
                             {
@@ -674,40 +655,40 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             }
 
             // Add stuff from registry
-            if ( LibraryRegistry != null )
+            if ( Library != null )
             {
                 // Functions
-                foreach ( var libraryFunction in LibraryRegistry.FlowScriptLibraries.SelectMany( x => x.Functions ) )
+                foreach ( var libraryFunction in Library.FlowScriptModules.SelectMany( x => x.Functions ) )
                 {
-                    Scope.TryDeclareFunction( FlowScriptFunctionDeclaration.FromLibraryFunction( libraryFunction ) );
+                    Scope.TryDeclareFunction( FunctionDeclaration.FromLibraryFunction( libraryFunction ) );
                 }
 
                 // Enums
-                foreach ( var libraryEnum in LibraryRegistry.FlowScriptLibraries
+                foreach ( var libraryEnum in Library.FlowScriptModules
                                                             .Where( x => x.Enums != null )
                                                             .SelectMany( x => x.Enums ) )
                 {
-                    Scope.TryDeclareEnum( FlowScriptEnumDeclaration.FromLibraryEnum( libraryEnum ) );
+                    Scope.TryDeclareEnum( EnumDeclaration.FromLibraryEnum( libraryEnum ) );
                 }
 
                 // Constants
-                foreach ( var libraryConstant in LibraryRegistry.FlowScriptLibraries
+                foreach ( var libraryConstant in Library.FlowScriptModules
                                                             .Where( x => x.Constants != null )
                                                             .SelectMany( x => x.Constants ) )
                 {
-                    Scope.TryDeclareVariable( FlowScriptVariableDeclaration.FromLibraryConstant( libraryConstant ) );
+                    Scope.TryDeclareVariable( VariableDeclaration.FromLibraryConstant( libraryConstant ) );
                 }
             }
 
             // Declare return value variable
             if ( hasIntReturnValue )
             {
-                mIntReturnValueVariable = Scope.GenerateVariable( FlowScriptValueType.Int, mNextIntVariableIndex++ );
+                mIntReturnValueVariable = Scope.GenerateVariable( ValueKind.Int, mNextIntVariableIndex++ );
             }
 
             if ( hasFloatReturnValue )
             {
-                mFloatReturnValueVariable = Scope.GenerateVariable( FlowScriptValueType.Float, mNextFloatVariableIndex++ );
+                mFloatReturnValueVariable = Scope.GenerateVariable( ValueKind.Float, mNextFloatVariableIndex++ );
             }
 
 
@@ -724,15 +705,15 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         //
         // Procedure code generation
         //
-        private void InitializeProcedureCompilationState( FlowScriptProcedureDeclaration declaration )
+        private void InitializeProcedureCompilationState( ProcedureDeclaration declaration )
         {
             mProcedureDeclaration = declaration;
-            mInstructions = new List<FlowScriptInstruction>();
+            mInstructions = new List<Instruction>();
             mLabels = new Dictionary<string, Label>();
             mStackValueCount = 1;
         }
 
-        private bool TryCompileProcedure( FlowScriptProcedureDeclaration declaration, out FlowScriptProcedure procedure )
+        private bool TryCompileProcedure( ProcedureDeclaration declaration, out FlowScriptLanguage.Procedure procedure )
         {
             Info( declaration, $"Compiling procedure: {declaration.Identifier.Text}" );
 
@@ -748,12 +729,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 return false;
 
             // Create the procedure object
-            procedure = new FlowScriptProcedure( declaration.Identifier.Text, mInstructions, labels );
+            procedure = new FlowScriptLanguage.Procedure( declaration.Identifier.Text, mInstructions, labels );
 
             return true;
         }
 
-        private bool TryEmitProcedureBody( FlowScriptProcedureDeclaration declaration )
+        private bool TryEmitProcedureBody( ProcedureDeclaration declaration )
         {
             Trace( declaration.Body, $"Emitting procedure body for {declaration}" );
 
@@ -762,7 +743,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
             // Emit procedure start  
             PushScope();
-            Emit( FlowScriptInstruction.PROC( mRootScope.Procedures[declaration.Identifier.Text].Index ) );
+            Emit( Instruction.PROC( mRootScope.Procedures[declaration.Identifier.Text].Index ) );
 
             if ( EnableProcedureTracing )
                 TraceProcedureStart();
@@ -773,7 +754,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             if ( EnableStackCookie )
             {
                 // Emit stack cookie
-                Emit( FlowScriptInstruction.PUSHI( declaration.Identifier.Text.GetHashCode() ) );
+                Emit( Instruction.PUSHI( declaration.Identifier.Text.GetHashCode() ) );
             }
 
             // Register / forward declare labels in procedure body before codegen
@@ -796,10 +777,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             }
 
             // Add implicit return
-            if ( declaration.Body.Statements.Count == 0 || !( declaration.Body.Last() is FlowScriptReturnStatement ) )
+            if ( declaration.Body.Statements.Count == 0 || !( declaration.Body.Last() is ReturnStatement ) )
             {
                 Trace( declaration.Body, "Adding implicit return statement" );
-                declaration.Body.Statements.Add( new FlowScriptReturnStatement() );
+                declaration.Body.Statements.Add( new ReturnStatement() );
             }
 
             // Emit procedure body
@@ -815,7 +796,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryEmitProcedureParameters( List<FlowScriptParameter> parameters )
+        private bool TryEmitProcedureParameters( List<Parameter> parameters )
         {
             int intParameterCount = 0;
             int floatParameterCount = 0;
@@ -825,8 +806,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 Trace( parameter, $"Emitting parameter: {parameter}" );
 
                 // Create declaration
-                var declaration = new FlowScriptVariableDeclaration(
-                    new FlowScriptVariableModifier( FlowScriptModifierType.Local ),
+                var declaration = new VariableDeclaration(
+                    new VariableModifier( VariableModifierKind.Local ),
                     parameter.Type,
                     parameter.Identifier,
                     null );
@@ -836,14 +817,14 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     return false;
 
                 // Push parameter value
-                if ( sTypeToBaseTypeMap[declaration.Type.ValueType] == FlowScriptValueType.Int )
+                if ( sTypeToBaseTypeMap[declaration.Type.ValueKind] == ValueKind.Int )
                 {
-                    Emit( FlowScriptInstruction.PUSHLIX( mNextIntParameterVariableIndex++ ) );
+                    Emit( Instruction.PUSHLIX( mNextIntParameterVariableIndex++ ) );
                     ++intParameterCount;
                 }
                 else
                 {
-                    Emit( FlowScriptInstruction.PUSHLFX( mNextFloatParameterVariableIndex++ ) );
+                    Emit( Instruction.PUSHLFX( mNextFloatParameterVariableIndex++ ) );
                     ++floatParameterCount;
                 }
 
@@ -859,11 +840,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryRegisterLabels( FlowScriptCompoundStatement body )
+        private bool TryRegisterLabels( CompoundStatement body )
         {
-            foreach ( var declaration in body.Select( x => x as FlowScriptDeclaration ).Where( x => x != null ) )
+            foreach ( var declaration in body.Select( x => x as Declaration ).Where( x => x != null ) )
             {
-                if ( declaration.DeclarationType == FlowScriptDeclarationType.Label )
+                if ( declaration.DeclarationType == DeclarationType.Label )
                 {
                     mLabels[declaration.Identifier.Text] = CreateLabel( declaration.Identifier.Text );
                 }
@@ -873,7 +854,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             {
                 switch ( statement )
                 {
-                    case FlowScriptIfStatement ifStatement:
+                    case IfStatement ifStatement:
                         if ( !TryRegisterLabels( ifStatement.Body ) )
                             return false;
 
@@ -892,7 +873,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryResolveProcedureLabels( out List<FlowScriptLabel> labels )
+        private bool TryResolveProcedureLabels( out List<FlowScriptLanguage.Label> labels )
         {
             Trace( "Resolving labels in procedure" );
             if ( mLabels.Values.Any( x => !x.IsResolved ) )
@@ -906,7 +887,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             }
 
             labels = mLabels.Values
-                .Select( x => new FlowScriptLabel( x.Name, x.InstructionIndex ) )
+                .Select( x => new FlowScriptLanguage.Label( x.Name, x.InstructionIndex ) )
                 .ToList();
 
             mLabels.Clear();
@@ -916,7 +897,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         //
         // Statements
         //
-        private bool TryEmitStatements( IEnumerable<FlowScriptStatement> statements )
+        private bool TryEmitStatements( IEnumerable<Statement> statements )
         {
             foreach ( var statement in statements )
             {
@@ -927,7 +908,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryEmitCompoundStatement( FlowScriptCompoundStatement compoundStatement )
+        private bool TryEmitCompoundStatement( CompoundStatement compoundStatement )
         {
             PushScope();
 
@@ -939,22 +920,22 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryEmitStatement( FlowScriptStatement statement )
+        private bool TryEmitStatement( Statement statement )
         {
             switch ( statement )
             {
-                case FlowScriptCompoundStatement compoundStatement:
+                case CompoundStatement compoundStatement:
                     if ( !TryEmitCompoundStatement( compoundStatement ) )
                         return false;
                     break;
-                case FlowScriptDeclaration _:
+                case Declaration _:
                     {
-                        if ( statement is FlowScriptVariableDeclaration variableDeclaration )
+                        if ( statement is VariableDeclaration variableDeclaration )
                         {
                             if ( !TryEmitVariableDeclaration( variableDeclaration ) )
                                 return false;
                         }
-                        else if ( statement is FlowScriptLabelDeclaration labelDeclaration )
+                        else if ( statement is LabelDeclaration labelDeclaration )
                         {
                             if ( !TryRegisterLabelDeclaration( labelDeclaration ) )
                                 return false;
@@ -968,31 +949,31 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                         break;
                     }
 
-                case FlowScriptExpression expression:
+                case Expression expression:
                     if ( !TryEmitExpression( expression, true ) )
                         return false;
                     break;
-                case FlowScriptIfStatement ifStatement:
+                case IfStatement ifStatement:
                     if ( !TryEmitIfStatement( ifStatement ) )
                         return false;
                     break;
-                case FlowScriptForStatement forStatement:
+                case ForStatement forStatement:
                     if ( !TryEmitForStatement( forStatement ) )
                         return false;
                     break;
-                case FlowScriptWhileStatement whileStatement:
+                case WhileStatement whileStatement:
                     if ( !TryEmitWhileStatement( whileStatement ) )
                         return false;
                     break;
-                case FlowScriptBreakStatement breakStatement:
+                case BreakStatement breakStatement:
                     if ( !TryEmitBreakStatement( breakStatement ) )
                         return false;
                     break;
-                case FlowScriptContinueStatement continueStatement:
+                case ContinueStatement continueStatement:
                     if ( !TryEmitContinueStatement( continueStatement ) )
                         return false;
                     break;
-                case FlowScriptReturnStatement returnStatement:
+                case ReturnStatement returnStatement:
                     if ( !TryEmitReturnStatement( returnStatement ) )
                     {
                         Error( returnStatement, $"Failed to compile return statement: {returnStatement}" );
@@ -1000,7 +981,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     }
 
                     break;
-                case FlowScriptGotoStatement gotoStatement:
+                case GotoStatement gotoStatement:
                     if ( !TryEmitGotoStatement( gotoStatement ) )
                     {
                         Error( gotoStatement, $"Failed to compile goto statement: {gotoStatement}" );
@@ -1008,7 +989,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     }
 
                     break;
-                case FlowScriptSwitchStatement switchStatement:
+                case SwitchStatement switchStatement:
                     if ( !TryEmitSwitchStatement( switchStatement ) )
                     {
                         Error( switchStatement, $"Failed to compile switch statement: {switchStatement}" );
@@ -1027,12 +1008,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         //
         // Variable stuff
         //
-        private bool TryGetVariableIndex( FlowScriptVariableDeclaration declaration, out short variableIndex )
+        private bool TryGetVariableIndex( VariableDeclaration declaration, out short variableIndex )
         {
-            if ( declaration.Modifier == null || declaration.Modifier.ModifierType == FlowScriptModifierType.Local )
+            if ( declaration.Modifier == null || declaration.Modifier.Kind == VariableModifierKind.Local )
             {
                 // Local variable
-                if ( declaration.Type.ValueType == FlowScriptValueType.Float )
+                if ( declaration.Type.ValueKind == ValueKind.Float )
                 {
                     variableIndex = mNextFloatVariableIndex++;
                 }
@@ -1041,24 +1022,70 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     variableIndex = mNextIntVariableIndex++;
                 }
             }
-            else if ( declaration.Modifier.ModifierType == FlowScriptModifierType.Static )
+            else if ( declaration.Modifier.Kind == VariableModifierKind.Global )
             {
-                // Static variable
-                // We count the indices for the static variables *down* to
-                // to reduce the chance we conflict with the game's original scripts
-                if ( declaration.Type.ValueType == FlowScriptValueType.Float )
+                if ( declaration.Modifier.Index == null )
                 {
-                    variableIndex = mNextStaticFloatVariableIndex--;
+                    // Static variable
+                    // We count the indices for the static variables *down* to
+                    // to reduce the chance we conflict with the game's original scripts
+                    if ( declaration.Type.ValueKind == ValueKind.Float )
+                    {
+                        variableIndex = mNextStaticFloatVariableIndex--;
+                    }
+                    else
+                    {
+                        variableIndex = mNextStaticIntVariableIndex--;
+                    }
                 }
                 else
                 {
-                    variableIndex = mNextStaticIntVariableIndex--;
+                    variableIndex = ( short )declaration.Modifier.Index.Value;
                 }
             }
-            else if ( declaration.Modifier.ModifierType == FlowScriptModifierType.Constant )
+            else if ( declaration.Modifier.Kind == VariableModifierKind.Constant )
             {
                 // Constant
                 variableIndex = -1;
+            }
+            else if ( declaration.Modifier.Kind == VariableModifierKind.AiLocal )
+            {
+                if ( !mInstrinsic.SupportsAiLocal )
+                {
+                    Error( declaration.Modifier, "ai_local modifier is not supported by the specified library" );
+                    variableIndex = -1;
+                    return false;
+                }
+
+                if ( declaration.Modifier.Index == null )
+                    variableIndex = mNextAiLocalVariableIndex++;
+                else
+                    variableIndex = ( short ) declaration.Modifier.Index.Value;
+            }
+            else if ( declaration.Modifier.Kind == VariableModifierKind.AiGlobal )
+            {
+                if ( !mInstrinsic.SupportsAiGlobal )
+                {
+                    Error( declaration.Modifier, "ai_global modifier is not supported by the specified library" );
+                    variableIndex = -1;
+                    return false;
+                }
+
+                if ( declaration.Modifier.Index == null )
+                    variableIndex = mNextAiGlobalVariableIndex++;
+                else
+                    variableIndex = ( short ) declaration.Modifier.Index.Value;
+            }
+            else if ( declaration.Modifier.Kind == VariableModifierKind.Bit )
+            {
+                if ( !mInstrinsic.SupportsBit )
+                {
+                    Error( declaration.Modifier, "bit modifier is not supported by the specified library" );
+                    variableIndex = -1;
+                    return false;
+                }
+
+                variableIndex = ( short )declaration.Modifier.Index.Value;
             }
             else
             {
@@ -1070,7 +1097,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryRegisterVariableDeclaration( FlowScriptVariableDeclaration declaration )
+        private bool TryRegisterVariableDeclaration( VariableDeclaration declaration )
         {
             Trace( declaration, $"Registering variable declaration: {declaration}" );
 
@@ -1091,7 +1118,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryEmitVariableDeclaration( FlowScriptVariableDeclaration declaration )
+        private bool TryEmitVariableDeclaration( VariableDeclaration declaration )
         {
             Trace( declaration, $"Emitting variable declaration: {declaration}" );
 
@@ -1103,7 +1130,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             }
 
             // Nothing to emit for constants
-            if ( declaration.Modifier.ModifierType == FlowScriptModifierType.Constant )
+            if ( declaration.Modifier.Kind == VariableModifierKind.Constant )
                 return true;
 
             // Emit the variable initializer if it has one         
@@ -1121,7 +1148,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryRegisterLabelDeclaration( FlowScriptLabelDeclaration declaration )
+        private bool TryRegisterLabelDeclaration( LabelDeclaration declaration )
         {
             Trace( declaration, $"Registering label declaration: {declaration}" );
 
@@ -1140,11 +1167,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         //
         // Expressions
         //
-        private bool TryEmitExpression( FlowScriptExpression expression, bool isStatement )
+        private bool TryEmitExpression( Expression expression, bool isStatement )
         {
             switch ( expression )
             {
-                case FlowScriptMemberAccessExpression memberAccessExpression:
+                case MemberAccessExpression memberAccessExpression:
                     if ( isStatement )
                     {
                         Error( memberAccessExpression, "An identifier is an invalid statement" );
@@ -1155,19 +1182,19 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                         return false;
                     break;
 
-                case FlowScriptCallOperator callExpression:
+                case CallOperator callExpression:
                     if ( !TryEmitCall( callExpression, isStatement ) )
                         return false;
                     break;
-                case FlowScriptUnaryExpression unaryExpression:
+                case UnaryExpression unaryExpression:
                     if ( !TryEmitUnaryExpression( unaryExpression, isStatement ) )
                         return false;
                     break;
-                case FlowScriptBinaryExpression binaryExpression:
+                case BinaryExpression binaryExpression:
                     if ( !TryEmitBinaryExpression( binaryExpression, isStatement ) )
                         return false;
                     break;
-                case FlowScriptIdentifier identifier:
+                case Identifier identifier:
                     if ( isStatement )
                     {
                         Error( identifier, "An identifier is an invalid statement" );
@@ -1177,7 +1204,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     if ( !TryEmitPushVariableValue( identifier ) )
                         return false;
                     break;
-                case FlowScriptBoolLiteral boolLiteral:
+                case BoolLiteral boolLiteral:
                     if ( isStatement )
                     {
                         Error( boolLiteral, "A boolean literal is an invalid statement" );
@@ -1186,7 +1213,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
                     EmitPushBoolLiteral( boolLiteral );
                     break;
-                case FlowScriptIntLiteral intLiteral:
+                case IntLiteral intLiteral:
                     if ( isStatement )
                     {
                         Error( intLiteral, "A integer literal is an invalid statement" );
@@ -1195,7 +1222,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
                     EmitPushIntLiteral( intLiteral );
                     break;
-                case FlowScriptFloatLiteral floatLiteral:
+                case FloatLiteral floatLiteral:
                     if ( isStatement )
                     {
                         Error( floatLiteral, "A float literal is an invalid statement" );
@@ -1204,7 +1231,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
                     EmitPushFloatLiteral( floatLiteral );
                     break;
-                case FlowScriptStringLiteral stringLiteral:
+                case StringLiteral stringLiteral:
                     if ( isStatement )
                     {
                         Error( stringLiteral, "A string literal is an invalid statement" );
@@ -1221,7 +1248,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryEmitMemberAccess( FlowScriptMemberAccessExpression memberAccessExpression )
+        private bool TryEmitMemberAccess( MemberAccessExpression memberAccessExpression )
         {
             Trace( memberAccessExpression, $"Emitting member access '{memberAccessExpression}'" );
 
@@ -1246,7 +1273,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryEmitCall( FlowScriptCallOperator callExpression, bool isStatement )
+        private bool TryEmitCall( CallOperator callExpression, bool isStatement )
         {
             Trace( callExpression, $"Emitting call: {callExpression}" );
 
@@ -1268,7 +1295,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                         case "SEL":
                             {
                                 var firstArgument = callExpression.Arguments[ 0 ];
-                                if ( firstArgument is FlowScriptIntLiteral firstArgumentInt )
+                                if ( firstArgument is IntLiteral firstArgumentInt )
                                 {
                                     var index = firstArgumentInt.Value;
                                     if ( index < 0 || index >= mScript.MessageScript.Windows.Count )
@@ -1278,8 +1305,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                                     }
 
                                     var expectedWindowType = callExpression.Identifier.Text == "MSG"
-                                        ? MessageScriptWindowType.Dialogue
-                                        : MessageScriptWindowType.Selection;
+                                        ? WindowType.Dialogue
+                                        : WindowType.Selection;
 
                                     var window = mScript.MessageScript.Windows[index];
                                     if ( window.Type != expectedWindowType )
@@ -1293,6 +1320,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     }
                 }
 
+                if ( EnableFunctionCallTracing )
+                {
+                    TraceFunctionCall( function.Declaration );
+                }
+
                 if ( function.Declaration.Parameters.Count > 0 )
                 {
                     if ( !TryEmitFunctionCallArguments( callExpression ) )
@@ -1300,20 +1332,17 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 }
 
                 // call function
-                if ( EnableFunctionCallTracing )
+                Emit( Instruction.COMM( function.Index ) );
+
+                if ( !isStatement && function.Declaration.ReturnType.ValueKind != ValueKind.Void )
                 {
-                    TraceFunctionCall( function.Declaration );
-                }
-
-                Emit( FlowScriptInstruction.COMM( function.Index ) );
-
-                if ( !isStatement && function.Declaration.ReturnType.ValueType != FlowScriptValueType.Void )
-                {
-                    // push return value of function
-                    Trace( callExpression, $"Emitting PUSHREG for {callExpression}" );
-                    Emit( FlowScriptInstruction.PUSHREG() );
-
-                    if ( EnableFunctionCallTracing )
+                    if ( !EnableFunctionCallTracing )
+                    {
+                        // push return value of function
+                        Trace( callExpression, $"Emitting PUSHREG for {callExpression}" );
+                        Emit( Instruction.PUSHREG() );
+                    }
+                    else
                     {
                         TraceFunctionCallReturnValue( function.Declaration );
                     }
@@ -1327,6 +1356,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     return false;
                 }
 
+                if ( EnableProcedureCallTracing )
+                {
+                    TraceProcedureCall( procedure.Declaration );
+                }
+
                 if ( procedure.Declaration.Parameters.Count > 0 )
                 {
                     if ( !TryEmitParameterCallArguments( callExpression, procedure.Declaration ) )
@@ -1334,22 +1368,19 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 }
 
                 // call procedure
-                if ( EnableProcedureCallTracing )
-                {
-                    TraceProcedureCall( procedure.Declaration );
-                }
+                Emit( Instruction.CALL( procedure.Index ) );
 
-                Emit( FlowScriptInstruction.CALL( procedure.Index ) );
-
-                if ( !isStatement && procedure.Declaration.ReturnType.ValueType != FlowScriptValueType.Void )
+                if ( !isStatement && procedure.Declaration.ReturnType.ValueKind != ValueKind.Void )
                 {
-                    // Push return value of procedure
-                    if ( sTypeToBaseTypeMap[procedure.Declaration.ReturnType.ValueType] == FlowScriptValueType.Int )
-                        Emit( FlowScriptInstruction.PUSHLIX( mIntReturnValueVariable.Index ) );
+                    if ( !EnableProcedureCallTracing )
+                    {
+                        // Push return value of procedure
+                        if ( sTypeToBaseTypeMap[ procedure.Declaration.ReturnType.ValueKind ] == ValueKind.Int )
+                            Emit( Instruction.PUSHLIX( mIntReturnValueVariable.Index ) );
+                        else
+                            Emit( Instruction.PUSHLFX( mFloatReturnValueVariable.Index ) );
+                    }
                     else
-                        Emit( FlowScriptInstruction.PUSHLFX( mFloatReturnValueVariable.Index ) );
-
-                    if ( EnableProcedureCallTracing )
                     {
                         TraceProcedureCallReturnValue( procedure.Declaration );
                     }
@@ -1364,7 +1395,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryEmitFunctionCallArguments( FlowScriptCallOperator callExpression )
+        private bool TryEmitFunctionCallArguments( CallOperator callExpression )
         {
             Trace( "Emitting function call arguments" );
 
@@ -1381,7 +1412,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryEmitParameterCallArguments( FlowScriptCallOperator callExpression, FlowScriptProcedureDeclaration declaration )
+        private bool TryEmitParameterCallArguments( CallOperator callExpression, ProcedureDeclaration declaration )
         {
             Trace( "Emitting parameter call arguments" );
 
@@ -1397,14 +1428,14 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 }
 
                 // Assign each required parameter variable
-                if ( sTypeToBaseTypeMap[declaration.Parameters[i].Type.ValueType] == FlowScriptValueType.Int )
+                if ( sTypeToBaseTypeMap[declaration.Parameters[i].Type.ValueKind] == ValueKind.Int )
                 {
-                    Emit( FlowScriptInstruction.POPLIX( mNextIntParameterVariableIndex++ ) );
+                    Emit( Instruction.POPLIX( mNextIntParameterVariableIndex++ ) );
                     ++intParameterCount;
                 }
                 else
                 {
-                    Emit( FlowScriptInstruction.POPLFX( mNextFloatParameterVariableIndex++ ) );
+                    Emit( Instruction.POPLFX( mNextFloatParameterVariableIndex++ ) );
                     ++floatParameterCount;
                 }
             }
@@ -1416,13 +1447,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryEmitUnaryExpression( FlowScriptUnaryExpression unaryExpression, bool isStatement )
+        private bool TryEmitUnaryExpression( UnaryExpression unaryExpression, bool isStatement )
         {
             Trace( unaryExpression, $"Emitting unary expression: {unaryExpression}" );
 
             switch ( unaryExpression )
             {
-                case FlowScriptPostfixOperator postfixOperator:
+                case PostfixOperator postfixOperator:
                     if ( !TryEmitPostfixOperator( postfixOperator, isStatement ) )
                     {
                         Error( postfixOperator, "Failed to emit postfix operator" );
@@ -1430,7 +1461,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     }
                     break;
 
-                case FlowScriptPrefixOperator prefixOperator:
+                case PrefixOperator prefixOperator:
                     if ( !TryEmitPrefixOperator( prefixOperator, isStatement ) )
                     {
                         Error( prefixOperator, "Failed to emit prefix operator" );
@@ -1446,9 +1477,9 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryEmitPostfixOperator( FlowScriptPostfixOperator postfixOperator, bool isStatement )
+        private bool TryEmitPostfixOperator( PostfixOperator postfixOperator, bool isStatement )
         {
-            var identifier = ( FlowScriptIdentifier )postfixOperator.Operand;
+            var identifier = ( Identifier )postfixOperator.Operand;
             if ( !Scope.TryGetVariable( identifier.Text, out var variable ) )
             {
                 Error( identifier, $"Reference to undefined variable: {identifier}" );
@@ -1456,7 +1487,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             }
 
             short index;
-            if ( variable.Declaration.Type.ValueType != FlowScriptValueType.Float )
+            if ( variable.Declaration.Type.ValueKind != ValueKind.Float )
             {
                 index = mNextIntVariableIndex++;
             }
@@ -1469,7 +1500,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             if ( !isStatement )
             {
                 // Make copy of variable
-                copy = Scope.GenerateVariable( variable.Declaration.Type.ValueType, index );
+                copy = Scope.GenerateVariable( variable.Declaration.Type.ValueKind, index );
 
                 // Push value of the variable to save in the copy
                 if ( !TryEmitPushVariableValue( identifier ) )
@@ -1489,7 +1520,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             // In/decrement the actual variable
             {
                 // Push 1
-                Emit( FlowScriptInstruction.PUSHIS( 1 ) );
+                Emit( Instruction.PUSHIS( 1 ) );
 
                 // Push value of the variable
                 if ( !TryEmitPushVariableValue( identifier ) )
@@ -1499,13 +1530,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 }
 
                 // Subtract or add
-                if ( postfixOperator is FlowScriptPostfixDecrementOperator )
+                if ( postfixOperator is PostfixDecrementOperator )
                 {
-                    Emit( FlowScriptInstruction.SUB() );
+                    Emit( Instruction.SUB() );
                 }
-                else if ( postfixOperator is FlowScriptPostfixIncrementOperator )
+                else if ( postfixOperator is PostfixIncrementOperator )
                 {
-                    Emit( FlowScriptInstruction.ADD() );
+                    Emit( Instruction.ADD() );
                 }
                 else
                 {
@@ -1535,12 +1566,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryEmitPrefixOperator( FlowScriptPrefixOperator prefixOperator, bool isStatement )
+        private bool TryEmitPrefixOperator( PrefixOperator prefixOperator, bool isStatement )
         {
             switch ( prefixOperator )
             {
-                case FlowScriptLogicalNotOperator _:
-                case FlowScriptNegationOperator _:
+                case LogicalNotOperator _:
+                case NegationOperator _:
                     if ( isStatement )
                     {
                         Error( prefixOperator, "A logical not operator is an invalid statement" );
@@ -1553,15 +1584,15 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                         return false;
                     }
 
-                    if ( prefixOperator is FlowScriptLogicalNotOperator )
+                    if ( prefixOperator is LogicalNotOperator )
                     {
                         Trace( prefixOperator, "Emitting NOT" );
-                        Emit( FlowScriptInstruction.NOT() );
+                        Emit( Instruction.NOT() );
                     }
-                    else if ( prefixOperator is FlowScriptNegationOperator )
+                    else if ( prefixOperator is NegationOperator )
                     {
                         Trace( prefixOperator, "Emitting MINUS" );
-                        Emit( FlowScriptInstruction.MINUS() );
+                        Emit( Instruction.MINUS() );
                     }
                     else
                     {
@@ -1569,14 +1600,14 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     }
                     break;
 
-                case FlowScriptPrefixDecrementOperator _:
-                case FlowScriptPrefixIncrementOperator _:
+                case PrefixDecrementOperator _:
+                case PrefixIncrementOperator _:
                     {
                         // Push 1
-                        Emit( FlowScriptInstruction.PUSHIS( 1 ) );
+                        Emit( Instruction.PUSHIS( 1 ) );
 
                         // Push value
-                        var identifier = ( FlowScriptIdentifier )prefixOperator.Operand;
+                        var identifier = ( Identifier )prefixOperator.Operand;
                         if ( !TryEmitPushVariableValue( identifier ) )
                         {
                             Error( identifier, $"Failed to emit variable value for: { identifier }" );
@@ -1584,13 +1615,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                         }
 
                         // Emit operation
-                        if ( prefixOperator is FlowScriptPrefixDecrementOperator )
+                        if ( prefixOperator is PrefixDecrementOperator )
                         {
-                            Emit( FlowScriptInstruction.SUB() );
+                            Emit( Instruction.SUB() );
                         }
-                        else if ( prefixOperator is FlowScriptPrefixIncrementOperator )
+                        else if ( prefixOperator is PrefixIncrementOperator )
                         {
-                            Emit( FlowScriptInstruction.ADD() );
+                            Emit( Instruction.ADD() );
                         }
                         else
                         {
@@ -1625,11 +1656,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryEmitBinaryExpression( FlowScriptBinaryExpression binaryExpression, bool isStatement )
+        private bool TryEmitBinaryExpression( BinaryExpression binaryExpression, bool isStatement )
         {
             Trace( binaryExpression, $"Emitting binary expression: {binaryExpression}" );
 
-            if ( binaryExpression is FlowScriptAssignmentOperatorBase assignment )
+            if ( binaryExpression is AssignmentOperatorBase assignment )
             {
                 if ( !TryEmitVariableAssignmentBase( assignment, isStatement ) )
                 {
@@ -1644,10 +1675,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     Error( binaryExpression, "A binary operator is not a valid statement" );
                     return false;
                 }
-                else
-                {
-                    Trace( "Emitting value for binary expression" );
-                }
+                Trace( "Emitting value for binary expression" );
 
                 if ( !TryEmitExpression( binaryExpression.Right, false ) )
                 {
@@ -1663,41 +1691,41 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
                 switch ( binaryExpression )
                 {
-                    case FlowScriptAdditionOperator _:
-                        Emit( FlowScriptInstruction.ADD() );
+                    case AdditionOperator _:
+                        Emit( Instruction.ADD() );
                         break;
-                    case FlowScriptSubtractionOperator _:
-                        Emit( FlowScriptInstruction.SUB() );
+                    case SubtractionOperator _:
+                        Emit( Instruction.SUB() );
                         break;
-                    case FlowScriptMultiplicationOperator _:
-                        Emit( FlowScriptInstruction.MUL() );
+                    case MultiplicationOperator _:
+                        Emit( Instruction.MUL() );
                         break;
-                    case FlowScriptDivisionOperator _:
-                        Emit( FlowScriptInstruction.DIV() );
+                    case DivisionOperator _:
+                        Emit( Instruction.DIV() );
                         break;
-                    case FlowScriptLogicalOrOperator _:
-                        Emit( FlowScriptInstruction.OR() );
+                    case LogicalOrOperator _:
+                        Emit( Instruction.OR() );
                         break;
-                    case FlowScriptLogicalAndOperator _:
-                        Emit( FlowScriptInstruction.AND() );
+                    case LogicalAndOperator _:
+                        Emit( Instruction.AND() );
                         break;
-                    case FlowScriptEqualityOperator _:
-                        Emit( FlowScriptInstruction.EQ() );
+                    case EqualityOperator _:
+                        Emit( Instruction.EQ() );
                         break;
-                    case FlowScriptNonEqualityOperator _:
-                        Emit( FlowScriptInstruction.NEQ() );
+                    case NonEqualityOperator _:
+                        Emit( Instruction.NEQ() );
                         break;
-                    case FlowScriptLessThanOperator _:
-                        Emit( FlowScriptInstruction.S() );
+                    case LessThanOperator _:
+                        Emit( Instruction.S() );
                         break;
-                    case FlowScriptGreaterThanOperator _:
-                        Emit( FlowScriptInstruction.L() );
+                    case GreaterThanOperator _:
+                        Emit( Instruction.L() );
                         break;
-                    case FlowScriptLessThanOrEqualOperator _:
-                        Emit( FlowScriptInstruction.SE() );
+                    case LessThanOrEqualOperator _:
+                        Emit( Instruction.SE() );
                         break;
-                    case FlowScriptGreaterThanOrEqualOperator _:
-                        Emit( FlowScriptInstruction.LE() );
+                    case GreaterThanOrEqualOperator _:
+                        Emit( Instruction.LE() );
                         break;
                     default:
                         Error( binaryExpression, $"Emitting binary expression '{binaryExpression}' not implemented" );
@@ -1708,7 +1736,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryEmitPushVariableValue( FlowScriptIdentifier identifier )
+        private bool TryEmitPushVariableValue( Identifier identifier )
         {
             Trace( identifier, $"Emitting variable reference: {identifier}" );
 
@@ -1718,27 +1746,45 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 return false;
             }
 
-            if ( variable.Declaration.Modifier == null || variable.Declaration.Modifier.ModifierType == FlowScriptModifierType.Local )
+            if ( variable.Declaration.Modifier == null || variable.Declaration.Modifier.Kind == VariableModifierKind.Local )
             {
-                if ( variable.Declaration.Type.ValueType != FlowScriptValueType.Float )
-                    Emit( FlowScriptInstruction.PUSHLIX( variable.Index ) );
+                if ( variable.Declaration.Type.ValueKind != ValueKind.Float )
+                    Emit( Instruction.PUSHLIX( variable.Index ) );
                 else
-                    Emit( FlowScriptInstruction.PUSHLFX( variable.Index ) );
+                    Emit( Instruction.PUSHLFX( variable.Index ) );
             }
-            else if ( variable.Declaration.Modifier.ModifierType == FlowScriptModifierType.Static )
+            else if ( variable.Declaration.Modifier.Kind == VariableModifierKind.Global )
             {
-                if ( variable.Declaration.Type.ValueType != FlowScriptValueType.Float )
-                    Emit( FlowScriptInstruction.PUSHIX( variable.Index ) );
+                if ( variable.Declaration.Type.ValueKind != ValueKind.Float )
+                    Emit( Instruction.PUSHIX( variable.Index ) );
                 else
-                    Emit( FlowScriptInstruction.PUSHIF( variable.Index ) );
+                    Emit( Instruction.PUSHIF( variable.Index ) );
             }
-            else if ( variable.Declaration.Modifier.ModifierType == FlowScriptModifierType.Constant )
+            else if ( variable.Declaration.Modifier.Kind == VariableModifierKind.Constant )
             {
                 if ( !TryEmitExpression( variable.Declaration.Initializer, false ) )
                 {
                     Error( variable.Declaration.Initializer, $"Failed to emit value for constant expression: {variable.Declaration}" );
                     return false;
                 }
+            }
+            else if ( variable.Declaration.Modifier.Kind == VariableModifierKind.AiLocal )
+            {
+                Emit( Instruction.PUSHIS( variable.Index ) );
+                Emit( Instruction.COMM( mInstrinsic.AiGetLocalFunctionIndex ) ); // AI_GET_LOCAL_PARAM
+                Emit( Instruction.PUSHREG() );
+            }
+            else if ( variable.Declaration.Modifier.Kind == VariableModifierKind.AiGlobal )
+            {
+                Emit( Instruction.PUSHIS( variable.Index ) );
+                Emit( Instruction.COMM( mInstrinsic.AiGetGlobalFunctionIndex ) ); // AI_GET_GLOBAL
+                Emit( Instruction.PUSHREG() );
+            }
+            else if ( variable.Declaration.Modifier.Kind == VariableModifierKind.Bit )
+            {
+                Emit( Instruction.PUSHIS( variable.Index ) );
+                Emit( Instruction.COMM( mInstrinsic.BitCheckFunctionIndex ) ); // BIT_CHK
+                Emit( Instruction.PUSHREG() );
             }
             else
             {
@@ -1749,9 +1795,9 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryEmitVariableAssignmentBase( FlowScriptAssignmentOperatorBase assignment, bool isStatement )
+        private bool TryEmitVariableAssignmentBase( AssignmentOperatorBase assignment, bool isStatement )
         {
-            if ( assignment is FlowScriptCompoundAssignmentOperator compoundAssignment )
+            if ( assignment is CompoundAssignmentOperator compoundAssignment )
             {
                 if ( !TryEmitVariableCompoundAssignment( compoundAssignment, isStatement ) )
                 {
@@ -1761,7 +1807,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             }
             else
             {
-                if ( !TryEmitVariableAssignment( ( FlowScriptIdentifier )assignment.Left, assignment.Right, isStatement ) )
+                if ( !TryEmitVariableAssignment( ( Identifier )assignment.Left, assignment.Right, isStatement ) )
                 {
                     Error( assignment, $"Failed to emit assignment: {assignment}" );
                     return false;
@@ -1771,7 +1817,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryEmitVariableCompoundAssignment( FlowScriptCompoundAssignmentOperator compoundAssignment, bool isStatement )
+        private bool TryEmitVariableCompoundAssignment( CompoundAssignmentOperator compoundAssignment, bool isStatement )
         {
             Trace( compoundAssignment, $"Emitting compound assignment: {compoundAssignment}" );
 
@@ -1783,7 +1829,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             }
 
             // Push value of variable
-            var identifier = ( FlowScriptIdentifier )compoundAssignment.Left;
+            var identifier = ( Identifier )compoundAssignment.Left;
             if ( !TryEmitPushVariableValue( identifier ) )
             {
                 Error( identifier, $"Failed to emit variable value for: { identifier }" );
@@ -1793,20 +1839,20 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             // Emit operation
             switch ( compoundAssignment )
             {
-                case FlowScriptAdditionAssignmentOperator _:
-                    Emit( FlowScriptInstruction.ADD() );
+                case AdditionAssignmentOperator _:
+                    Emit( Instruction.ADD() );
                     break;
 
-                case FlowScriptSubtractionAssignmentOperator _:
-                    Emit( FlowScriptInstruction.SUB() );
+                case SubtractionAssignmentOperator _:
+                    Emit( Instruction.SUB() );
                     break;
 
-                case FlowScriptMultiplicationAssignmentOperator _:
-                    Emit( FlowScriptInstruction.MUL() );
+                case MultiplicationAssignmentOperator _:
+                    Emit( Instruction.MUL() );
                     break;
 
-                case FlowScriptDivisionAssignmentOperator _:
-                    Emit( FlowScriptInstruction.DIV() );
+                case DivisionAssignmentOperator _:
+                    Emit( Instruction.DIV() );
                     break;
 
                 default:
@@ -1843,7 +1889,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         /// <param name="identifier"></param>
         /// <param name="expression"></param>
         /// <returns></returns>
-        private bool TryEmitVariableAssignment( FlowScriptIdentifier identifier, FlowScriptExpression expression, bool isStatement )
+        private bool TryEmitVariableAssignment( Identifier identifier, Expression expression, bool isStatement )
         {
             Trace( $"Emitting variable assignment: {identifier} = {expression}" );
 
@@ -1879,7 +1925,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         /// </summary>
         /// <param name="identifier"></param>
         /// <returns></returns>
-        private bool TryEmitVariableAssignment( FlowScriptIdentifier identifier )
+        private bool TryEmitVariableAssignment( Identifier identifier )
         {
             if ( !Scope.TryGetVariable( identifier.Text, out var variable ) )
             {
@@ -1893,27 +1939,62 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryEmitVariableAssignment( FlowScriptVariableDeclaration declaration, short index )
+        private bool TryEmitVariableAssignment( VariableDeclaration declaration, short index )
         {
             // load the value into the variable
-            if ( declaration.Modifier == null || declaration.Modifier.ModifierType == FlowScriptModifierType.Local )
+            if ( declaration.Modifier == null || declaration.Modifier.Kind == VariableModifierKind.Local )
             {
-                if ( declaration.Type.ValueType != FlowScriptValueType.Float )
-                    Emit( FlowScriptInstruction.POPLIX( index ) );
+                if ( declaration.Type.ValueKind != ValueKind.Float )
+                    Emit( Instruction.POPLIX( index ) );
                 else
-                    Emit( FlowScriptInstruction.POPLFX( index ) );
+                    Emit( Instruction.POPLFX( index ) );
             }
-            else if ( declaration.Modifier.ModifierType == FlowScriptModifierType.Static )
+            else if ( declaration.Modifier.Kind == VariableModifierKind.Global )
             {
-                if ( declaration.Type.ValueType != FlowScriptValueType.Float )
-                    Emit( FlowScriptInstruction.POPIX( index ) );
+                if ( declaration.Type.ValueKind != ValueKind.Float )
+                    Emit( Instruction.POPIX( index ) );
                 else
-                    Emit( FlowScriptInstruction.POPFX( index ) );
+                    Emit( Instruction.POPFX( index ) );
             }
-            else if ( declaration.Modifier.ModifierType == FlowScriptModifierType.Constant )
+            else if ( declaration.Modifier.Kind == VariableModifierKind.Constant )
             {
                 Error( declaration.Identifier, "Illegal assignment to constant" );
                 return false;
+            }
+            else if ( declaration.Modifier.Kind == VariableModifierKind.AiLocal )
+            {
+                // implicit pop of value
+                Emit( Instruction.PUSHIS( index ) );
+                Emit( Instruction.COMM( mInstrinsic.AiSetLocalFunctionIndex ) ); // AI_SET_LOCAL_PARAM
+            }
+            else if ( declaration.Modifier.Kind == VariableModifierKind.AiGlobal )
+            {
+                // implicit pop of value
+                Emit( Instruction.PUSHIS( index ) );
+                Emit( Instruction.COMM( mInstrinsic.AiSetGlobalFunctionIndex ) ); // AI_SET_GLOBAL
+            }
+            else if ( declaration.Modifier.Kind == VariableModifierKind.Bit )
+            {
+                var falseLabel = CreateLabel( "BitAssignmentIfFalse" );
+                var endLabel = CreateLabel( "BitAssignmentIfEnd" );
+
+                // implicit pop of value
+                Emit( Instruction.IF( falseLabel.Index ) );
+                {
+                    // Value assigned is true
+                    Emit( Instruction.PUSHIS( index ));
+                    Emit( Instruction.COMM( mInstrinsic.BitOnFunctionIndex ) ); // BIT_ON
+                    Emit( Instruction.GOTO( endLabel.Index ) );
+                }
+                // Else
+                {
+                    // Value assigned is false
+                    ResolveLabel( falseLabel );
+                    Emit( Instruction.PUSHIS( index ) );
+                    Emit( Instruction.COMM( mInstrinsic.BitOffFunctionIndex ) ); // BIT_OFF
+                    Emit( Instruction.GOTO( endLabel.Index ) );
+                }
+                ResolveLabel( endLabel );
             }
             else
             {
@@ -1927,38 +2008,38 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         //
         // Literal values
         //
-        private void EmitPushBoolLiteral( FlowScriptBoolLiteral boolLiteral )
+        private void EmitPushBoolLiteral( BoolLiteral boolLiteral )
         {
             Trace( boolLiteral, $"Pushing bool literal: {boolLiteral}" );
 
             if ( boolLiteral.Value )
-                Emit( FlowScriptInstruction.PUSHIS( 1 ) );
+                Emit( Instruction.PUSHIS( 1 ) );
             else
-                Emit( FlowScriptInstruction.PUSHIS( 0 ) );
+                Emit( Instruction.PUSHIS( 0 ) );
         }
 
-        private void EmitPushIntLiteral( FlowScriptIntLiteral intLiteral )
+        private void EmitPushIntLiteral( IntLiteral intLiteral )
         {
             Trace( intLiteral, $"Pushing int literal: {intLiteral}" );
 
             if ( IntFitsInShort( intLiteral.Value ) )
-                Emit( FlowScriptInstruction.PUSHIS( ( short )intLiteral.Value ) );
+                Emit( Instruction.PUSHIS( ( short )intLiteral.Value ) );
             else
-                Emit( FlowScriptInstruction.PUSHI( intLiteral.Value ) );
+                Emit( Instruction.PUSHI( intLiteral.Value ) );
         }
 
-        private void EmitPushFloatLiteral( FlowScriptFloatLiteral floatLiteral )
+        private void EmitPushFloatLiteral( FloatLiteral floatLiteral )
         {
             Trace( floatLiteral, $"Pushing float literal: {floatLiteral}" );
 
-            Emit( FlowScriptInstruction.PUSHF( floatLiteral.Value ) );
+            Emit( Instruction.PUSHF( floatLiteral.Value ) );
         }
 
-        private void EmitPushStringLiteral( FlowScriptStringLiteral stringLiteral )
+        private void EmitPushStringLiteral( StringLiteral stringLiteral )
         {
             Trace( stringLiteral, $"Pushing string literal: {stringLiteral}" );
 
-            Emit( FlowScriptInstruction.PUSHSTR( stringLiteral.Value ) );
+            Emit( Instruction.PUSHSTR( stringLiteral.Value ) );
         }
 
         private bool IntFitsInShort( int value )
@@ -1969,7 +2050,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         // 
         // If statement
         //
-        private bool TryEmitIfStatement( FlowScriptIfStatement ifStatement )
+        private bool TryEmitIfStatement( IfStatement ifStatement )
         {
             Trace( ifStatement, $"Emitting if statement: '{ifStatement}'" );
 
@@ -1987,12 +2068,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             // emit if instruction that jumps to the label if the condition is false
             if ( ifStatement.ElseBody == null )
             {
-                Emit( FlowScriptInstruction.IF( endLabel.Index ) );
+                Emit( Instruction.IF( endLabel.Index ) );
             }
             else
             {
                 elseLabel = CreateLabel( "IfElseLabel" );
-                Emit( FlowScriptInstruction.IF( elseLabel.Index ) );
+                Emit( Instruction.IF( elseLabel.Index ) );
             }
 
             // compile if body
@@ -2024,7 +2105,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryEmitIfStatementBody( FlowScriptCompoundStatement body, Label endLabel )
+        private bool TryEmitIfStatementBody( CompoundStatement body, Label endLabel )
         {
             Trace( body, "Compiling if statement body" );
             if ( !TryEmitCompoundStatement( body ) )
@@ -2035,7 +2116,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
             // ensure that we end up at the right position after the body
             if ( endLabel != null )
-                Emit( FlowScriptInstruction.GOTO( endLabel.Index ) );
+                Emit( Instruction.GOTO( endLabel.Index ) );
 
             return true;
         }
@@ -2043,7 +2124,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         // 
         // If statement
         //
-        private bool TryEmitForStatement( FlowScriptForStatement forStatement )
+        private bool TryEmitForStatement( ForStatement forStatement )
         {
             Trace( forStatement, $"Emitting for statement: '{forStatement}'" );
 
@@ -2074,7 +2155,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 }
 
                 // Jump to the end of the loop if condition is NOT true
-                Emit( FlowScriptInstruction.IF( endLabel.Index ) );
+                Emit( Instruction.IF( endLabel.Index ) );
             }
 
             // Emit body
@@ -2103,7 +2184,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 }
 
                 // jump to condition check
-                Emit( FlowScriptInstruction.GOTO( conditionLabel.Index ) );
+                Emit( Instruction.GOTO( conditionLabel.Index ) );
             }
 
             // We're at the end of the for loop
@@ -2118,7 +2199,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         // 
         // While statement
         //
-        private bool TryEmitWhileStatement( FlowScriptWhileStatement whileStatement )
+        private bool TryEmitWhileStatement( WhileStatement whileStatement )
         {
             Trace( whileStatement, $"Emitting while statement: '{whileStatement}'" );
 
@@ -2138,7 +2219,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 }
 
                 // Jump to the end of the loop if condition is NOT true
-                Emit( FlowScriptInstruction.IF( endLabel.Index ) );
+                Emit( Instruction.IF( endLabel.Index ) );
             }
 
             // Emit body
@@ -2159,7 +2240,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 }
 
                 // jump to condition check
-                Emit( FlowScriptInstruction.GOTO( conditionLabel.Index ) );
+                Emit( Instruction.GOTO( conditionLabel.Index ) );
 
                 // Exit while body scope
                 PopScope();
@@ -2174,12 +2255,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         //
         // Switch statement
         //
-        private bool TryEmitSwitchStatement( FlowScriptSwitchStatement switchStatement )
+        private bool TryEmitSwitchStatement( SwitchStatement switchStatement )
         {
             Trace( switchStatement, $"Emitting switch statement: '{switchStatement}'" );
             PushScope();
 
-            var defaultLabel = switchStatement.Labels.SingleOrDefault( x => x is FlowScriptDefaultSwitchLabel );
+            var defaultLabel = switchStatement.Labels.SingleOrDefault( x => x is DefaultSwitchLabel );
             if ( switchStatement.Labels.Last() != defaultLabel )
             {
                 switchStatement.Labels.Remove( defaultLabel );
@@ -2190,7 +2271,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             var labelBodyLabels = new List< Label >();
             foreach ( var label in switchStatement.Labels )
             {
-                if ( label is FlowScriptConditionSwitchLabel conditionLabel )
+                if ( label is ConditionSwitchLabel conditionLabel )
                 {
                     // Emit condition expression, which should push a boolean value to the stack
                     if ( !TryEmitExpression( conditionLabel.Condition, false ) )
@@ -2207,13 +2288,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     }
 
                     // emit equality check, but check if it's not equal to jump to the body if it is
-                    Emit( FlowScriptInstruction.NEQ() );
+                    Emit( Instruction.NEQ() );
 
                     // generate label for jump if condition is false
                     var labelBodyLabel = CreateLabel( "SwitchStatementLabelBodyLabel" );
 
                     // emit if instruction that jumps to the body if the condition is met
-                    Emit( FlowScriptInstruction.IF( labelBodyLabel.Index ) );
+                    Emit( Instruction.IF( labelBodyLabel.Index ) );
 
                     labelBodyLabels.Add( labelBodyLabel );
                 }
@@ -2238,7 +2319,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             {
                 var label = switchStatement.Labels[ i ];
 
-                if ( label is FlowScriptConditionSwitchLabel )
+                if ( label is ConditionSwitchLabel )
                 {
                     // Resolve body label
                     var labelBodyLabel = labelBodyLabels[ i ];
@@ -2266,7 +2347,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         //
         // Control statements
         //
-        private bool TryEmitBreakStatement( FlowScriptBreakStatement breakStatement )
+        private bool TryEmitBreakStatement( BreakStatement breakStatement )
         {
             if ( !Scope.TryGetBreakLabel( out var label ) )
             {
@@ -2274,12 +2355,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 return false;
             }
 
-            Emit( FlowScriptInstruction.GOTO( label.Index ) );
+            Emit( Instruction.GOTO( label.Index ) );
 
             return true;
         }
 
-        private bool TryEmitContinueStatement( FlowScriptContinueStatement continueStatement )
+        private bool TryEmitContinueStatement( ContinueStatement continueStatement )
         {
             if ( !Scope.TryGetContinueLabel( out var label ) )
             {
@@ -2287,22 +2368,22 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 return false;
             }
 
-            Emit( FlowScriptInstruction.GOTO( label.Index ) );
+            Emit( Instruction.GOTO( label.Index ) );
 
             return true;
         }
 
-        private bool TryEmitReturnStatement( FlowScriptReturnStatement returnStatement )
+        private bool TryEmitReturnStatement( ReturnStatement returnStatement )
         {
             Trace( returnStatement, $"Emitting return statement: '{returnStatement}'" );
 
             if ( EnableStackCookie )
             {
                 // Check stack cookie
-                Emit( FlowScriptInstruction.PUSHI( mProcedureDeclaration.Identifier.Text.GetHashCode() ) );
-                Emit( FlowScriptInstruction.NEQ() );
+                Emit( Instruction.PUSHI( mProcedureDeclaration.Identifier.Text.GetHashCode() ) );
+                Emit( Instruction.NEQ() );
                 var label = CreateLabel( "IfStackCookieIsValid" );
-                Emit( FlowScriptInstruction.IF( label.Index ) );
+                Emit( Instruction.IF( label.Index ) );
                 EmitTracePrint( "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", false );
                 EmitTracePrint( "!!! Error: Stack cookie is invalid !!!!", false );
                 EmitTracePrint( "!!! This is likely a compiler bug! !!!!", false );
@@ -2318,7 +2399,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             // Save return address in a temporary variable
             if ( returnStatement.Value != null )
             {
-                if ( mProcedureDeclaration.ReturnType.ValueType == FlowScriptValueType.Void )
+                if ( mProcedureDeclaration.ReturnType.ValueKind == ValueKind.Void )
                 {
                     Error( returnStatement, "Procedure with void return type can't return a value" );
                     return false;
@@ -2331,23 +2412,23 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     return false;
                 }
 
-                if ( sTypeToBaseTypeMap[mProcedureDeclaration.ReturnType.ValueType] == FlowScriptValueType.Int )
-                    Emit( FlowScriptInstruction.POPLIX( mIntReturnValueVariable.Index ) );
+                if ( sTypeToBaseTypeMap[mProcedureDeclaration.ReturnType.ValueKind] == ValueKind.Int )
+                    Emit( Instruction.POPLIX( mIntReturnValueVariable.Index ) );
                 else
-                    Emit( FlowScriptInstruction.POPLFX( mFloatReturnValueVariable.Index ) );
+                    Emit( Instruction.POPLFX( mFloatReturnValueVariable.Index ) );
             }
-            else if ( mProcedureDeclaration.ReturnType.ValueType != FlowScriptValueType.Void )
+            else if ( mProcedureDeclaration.ReturnType.ValueKind != ValueKind.Void )
             {
                 Error( returnStatement, "Missing return statement value for procedure with non-void return type" );
                 return false;
             }
 
             // emit end
-            Emit( FlowScriptInstruction.END() );
+            Emit( Instruction.END() );
             return true;
         }
 
-        private bool TryEmitGotoStatement( FlowScriptGotoStatement gotoStatement )
+        private bool TryEmitGotoStatement( GotoStatement gotoStatement )
         {
             Trace( gotoStatement, $"Emitting goto statement: '{gotoStatement}'" );
 
@@ -2358,38 +2439,35 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             }
 
             // emit goto
-            Emit( FlowScriptInstruction.GOTO( label.Index ) );
+            Emit( Instruction.GOTO( label.Index ) );
             return true;
         }
 
         //
         // Helpers
         //
-        private void TraceFunctionCall( FlowScriptFunctionDeclaration declaration )
+        private void TraceFunctionCall( FunctionDeclaration declaration )
         {
             EmitTracePrint( $"Call to function '{ declaration.Identifier }'" );
-            if ( declaration.Parameters.Count > 0 )
+            if ( false && declaration.Parameters.Count > 0 )
             {
                 EmitTracePrint( "Arguments:" );
                 var saves = new Stack< Variable >();
 
                 foreach ( var parameter in declaration.Parameters )
                 {
-                    switch ( parameter.Type.ValueType )
+                    switch ( parameter.Type.ValueKind )
                     {
-                        case FlowScriptValueType.Int:
-                            if ( mPUTFunctionIndex != -1 )
-                                saves.Push( EmitTracePrintIntegerNoPush() );
+                        case ValueKind.Int:
+                            saves.Push( EmitTracePrintIntegerNoPush() );
                             break;
-                        case FlowScriptValueType.Float:
-                            if ( mPUTFFunctionIndex != -1 )
-                                saves.Push( EmitTracePrintFloatNoPush() );
+                        case ValueKind.Float:
+                            saves.Push( EmitTracePrintFloatNoPush() );
                             break;
-                        case FlowScriptValueType.Bool:
-                            if ( mPUTSFunctionIndex != -1 )
-                                saves.Push( EmitTracePrintBoolNoPush() );
+                        case ValueKind.Bool:
+                            saves.Push( EmitTracePrintBoolNoPush() );
                             break;
-                        case FlowScriptValueType.String:
+                        case ValueKind.String:
                             //saves.Push( EmitTracePrintStringNoPush() );
                             break;
                     }
@@ -2399,19 +2477,16 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 while ( saves.Count > 0 )
                 {
                     var variable = saves.Pop();
-                    switch ( variable.Declaration.Type.ValueType )
+                    switch ( variable.Declaration.Type.ValueKind )
                     {
-                        case FlowScriptValueType.Bool:
-                            if ( mPUTSFunctionIndex != -1 )
-                                EmitUnchecked( FlowScriptInstruction.PUSHLIX( variable.Index ) );
+                        case ValueKind.Bool:
+                            EmitUnchecked( Instruction.PUSHLIX( variable.Index ) );
                             break;
-                        case FlowScriptValueType.Int:
-                            if ( mPUTFunctionIndex != -1 )
-                                EmitUnchecked( FlowScriptInstruction.PUSHLIX( variable.Index ) );
+                        case ValueKind.Int:
+                            EmitUnchecked( Instruction.PUSHLIX( variable.Index ) );
                             break;
-                        case FlowScriptValueType.Float:
-                            if ( mPUTFFunctionIndex != -1 )
-                                EmitUnchecked( FlowScriptInstruction.PUSHLFX( variable.Index ) );
+                        case ValueKind.Float:
+                            EmitUnchecked( Instruction.PUSHLFX( variable.Index ) );
                             break;
                     }
                 }
@@ -2420,29 +2495,33 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private Variable EmitTracePrintStringNoPush()
         {
-            var save = Scope.GenerateVariable( FlowScriptValueType.String, mNextIntVariableIndex++ );
+            var save = Scope.GenerateVariable( ValueKind.String, mNextIntVariableIndex++ );
 
             // Pop integer value off stack and save it in a temporary variable
-            EmitUnchecked( FlowScriptInstruction.POPLFX( save.Index ) );
+            EmitUnchecked( Instruction.POPLFX( save.Index ) );
 
             // Print it to log
-            EmitUnchecked( FlowScriptInstruction.PUSHLFX( save.Index ) );
-            EmitUnchecked( FlowScriptInstruction.COMM( (short)mPUTSFunctionIndex ) );
+            EmitUnchecked( Instruction.PUSHLFX( save.Index ) );
+            EmitUnchecked( Instruction.COMM( mInstrinsic.PrintStringFunctionIndex ) );
 
             return save;
         }
 
-        private void TraceFunctionCallReturnValue( FlowScriptFunctionDeclaration declaration )
+        private void TraceFunctionCallReturnValue( FunctionDeclaration declaration )
         {
             EmitTracePrint( $"Call to function '{ declaration.Identifier }' returned:" );
-            EmitTracePrintValue( declaration.ReturnType.ValueType );
+
+            // push return value of function
+            Emit( Instruction.PUSHREG() );
+
+            EmitTracePrintValue( declaration.ReturnType.ValueKind );
         }
 
-        private void TraceProcedureCall( FlowScriptProcedureDeclaration declaration )
+        private void TraceProcedureCall( ProcedureDeclaration declaration )
         {
             EmitTracePrint( $"Call to procedure '{ declaration.Identifier }'" );
 
-            if ( declaration.Parameters.Count > 0 )
+            if ( false && declaration.Parameters.Count > 0 )
             {
                 EmitTracePrint( "Arguments:" );
 
@@ -2451,44 +2530,45 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
                 foreach ( var parameter in declaration.Parameters )
                 {
-                    if ( parameter.Type.ValueType == FlowScriptValueType.Int && mPUTFunctionIndex != -1 )
+                    if ( parameter.Type.ValueKind == ValueKind.Int )
                     {
-                        Emit( FlowScriptInstruction.PUSHLIX( ( short )( mNextIntParameterVariableIndex + intParameterCount ) ) );
+                        Emit( Instruction.PUSHLIX( ( short )( mNextIntParameterVariableIndex + intParameterCount ) ) );
                     }
-                    if ( parameter.Type.ValueType == FlowScriptValueType.Bool && mPUTSFunctionIndex != -1 )
+                    if ( parameter.Type.ValueKind == ValueKind.Bool)
                     {
-                        Emit( FlowScriptInstruction.PUSHLIX( ( short )( mNextIntParameterVariableIndex + intParameterCount ) ) );
+                        Emit( Instruction.PUSHLIX( ( short )( mNextIntParameterVariableIndex + intParameterCount ) ) );
                     }
-                    else if ( mPUTFFunctionIndex != -1 )
-                    {
-                        Emit( FlowScriptInstruction.PUSHLFX( ( short )( mNextFloatParameterVariableIndex + floatParameterCount ) ) );
-                    }
+                    Emit( Instruction.PUSHLFX( ( short )( mNextFloatParameterVariableIndex + floatParameterCount ) ) );
 
-                    EmitTracePrintValue( parameter.Type.ValueType );
+                    EmitTracePrintValue( parameter.Type.ValueKind );
 
-                    if ( parameter.Type.ValueType == FlowScriptValueType.Int && mPUTFunctionIndex != -1 )
+                    if ( parameter.Type.ValueKind == ValueKind.Int)
                     {
-                        Emit( FlowScriptInstruction.POPLIX( ( short )( mNextIntParameterVariableIndex + intParameterCount ) ) );
+                        Emit( Instruction.POPLIX( ( short )( mNextIntParameterVariableIndex + intParameterCount ) ) );
                         ++intParameterCount;
                     }
-                    else if ( parameter.Type.ValueType == FlowScriptValueType.Bool && mPUTSFunctionIndex != -1 )
+                    if ( parameter.Type.ValueKind == ValueKind.Bool)
                     {
-                        Emit( FlowScriptInstruction.POPLIX( ( short )( mNextIntParameterVariableIndex + intParameterCount ) ) );
+                        Emit( Instruction.POPLIX( ( short )( mNextIntParameterVariableIndex + intParameterCount ) ) );
                         ++intParameterCount;
                     }
-                    else if( mPUTFFunctionIndex != -1 )
-                    {
-                        Emit( FlowScriptInstruction.POPLFX( ( short )( mNextFloatParameterVariableIndex + floatParameterCount ) ) );
-                        ++floatParameterCount;
-                    }
+                    Emit( Instruction.POPLFX( ( short )( mNextFloatParameterVariableIndex + floatParameterCount ) ) );
+                    ++floatParameterCount;
                 }
             }
         }
 
-        private void TraceProcedureCallReturnValue( FlowScriptProcedureDeclaration declaration )
+        private void TraceProcedureCallReturnValue( ProcedureDeclaration declaration )
         {
             EmitTracePrint( $"Call to procedure '{ declaration.Identifier }' returned:" );
-            EmitTracePrintValue( declaration.ReturnType.ValueType );
+
+            // Push return value of procedure
+            if ( sTypeToBaseTypeMap[declaration.ReturnType.ValueKind] == ValueKind.Int )
+                Emit( Instruction.PUSHLIX( mIntReturnValueVariable.Index ) );
+            else
+                Emit( Instruction.PUSHLFX( mFloatReturnValueVariable.Index ) );
+
+            EmitTracePrintValue( declaration.ReturnType.ValueKind );
         }
 
         private void TraceProcedureStart()
@@ -2501,31 +2581,31 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             EmitTracePrint( $"Exiting procedure: '{ mProcedureDeclaration.Identifier.Text }'" );
         }
 
-        private void Emit( FlowScriptInstruction instruction )
+        private void Emit( Instruction instruction )
         {
             // Emit instruction
             mInstructions.Add( instruction );
             TraceInstructionStackBehaviour( instruction );
         }
 
-        private void TraceInstructionStackBehaviour( FlowScriptInstruction instruction )
+        private void TraceInstructionStackBehaviour( Instruction instruction )
         {
             switch ( instruction.Opcode )
             {
-                case FlowScriptOpcode.PUSHI:
-                case FlowScriptOpcode.PUSHF:
-                case FlowScriptOpcode.PUSHIX:
-                case FlowScriptOpcode.PUSHIF:
+                case Opcode.PUSHI:
+                case Opcode.PUSHF:
+                case Opcode.PUSHIX:
+                case Opcode.PUSHIF:
                     ++mStackValueCount;
                     break;
-                case FlowScriptOpcode.PUSHREG:
+                case Opcode.PUSHREG:
                     ++mStackValueCount;
                     break;
-                case FlowScriptOpcode.POPIX:
-                case FlowScriptOpcode.POPFX:
+                case Opcode.POPIX:
+                case Opcode.POPFX:
                     --mStackValueCount;
                     break;
-                case FlowScriptOpcode.END:
+                case Opcode.END:
                 {
                     // Log stack value count at procedure end
                     mLogger.Debug( $"{mStackValueCount} values on stack at END" );
@@ -2540,64 +2620,64 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     }
                 }
                     break;
-                case FlowScriptOpcode.ADD:
-                case FlowScriptOpcode.SUB:
-                case FlowScriptOpcode.MUL:
-                case FlowScriptOpcode.DIV:
+                case Opcode.ADD:
+                case Opcode.SUB:
+                case Opcode.MUL:
+                case Opcode.DIV:
                     mStackValueCount -= 2;
                     ++mStackValueCount;
                     break;
-                case FlowScriptOpcode.EQ:
-                case FlowScriptOpcode.NEQ:
-                case FlowScriptOpcode.S:
-                case FlowScriptOpcode.L:
-                case FlowScriptOpcode.SE:
-                case FlowScriptOpcode.LE:
-                case FlowScriptOpcode.IF:
+                case Opcode.EQ:
+                case Opcode.NEQ:
+                case Opcode.S:
+                case Opcode.L:
+                case Opcode.SE:
+                case Opcode.LE:
+                case Opcode.IF:
                     mStackValueCount -= 2;
                     ++mStackValueCount;
                     break;
-                case FlowScriptOpcode.PUSHIS:
-                case FlowScriptOpcode.PUSHLIX:
-                case FlowScriptOpcode.PUSHLFX:
+                case Opcode.PUSHIS:
+                case Opcode.PUSHLIX:
+                case Opcode.PUSHLFX:
                     ++mStackValueCount;
                     break;
-                case FlowScriptOpcode.POPLIX:
-                case FlowScriptOpcode.POPLFX:
+                case Opcode.POPLIX:
+                case Opcode.POPLFX:
                     --mStackValueCount;
                     break;
-                case FlowScriptOpcode.PUSHSTR:
+                case Opcode.PUSHSTR:
                     ++mStackValueCount;
                     break;
-                case FlowScriptOpcode.CALL:
+                case Opcode.CALL:
                     break;
-                case FlowScriptOpcode.COMM:
+                case Opcode.COMM:
                 {
-                    var functionCalled = mRootScope.Functions.Values.Single( x => x.Index == instruction.Operand.GetInt16Value() );
+                    var functionCalled = mRootScope.Functions.Values.Single( x => x.Index == instruction.Operand.Int16Value);
                     mStackValueCount -= functionCalled.Declaration.Parameters.Count;
                 }
                     break;
-                case FlowScriptOpcode.OR:
+                case Opcode.OR:
                     mStackValueCount -= 2;
                     ++mStackValueCount;
                     break;
-                case FlowScriptOpcode.PROC:
+                case Opcode.PROC:
                     break;
-                case FlowScriptOpcode.JUMP:
+                case Opcode.JUMP:
                     break;
-                case FlowScriptOpcode.RUN:
+                case Opcode.RUN:
                     break;
-                case FlowScriptOpcode.GOTO:
+                case Opcode.GOTO:
                     break;
-                case FlowScriptOpcode.MINUS:
+                case Opcode.MINUS:
                     --mStackValueCount;
                     ++mStackValueCount;
                     break;
-                case FlowScriptOpcode.NOT:
+                case Opcode.NOT:
                     --mStackValueCount;
                     ++mStackValueCount;
                     break;
-                case FlowScriptOpcode.AND:
+                case Opcode.AND:
                     mStackValueCount -= 2;
                     ++mStackValueCount;
                     break;
@@ -2608,28 +2688,25 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private void EmitTracePrint( string message, bool prefixTrace = true )
         {
-            if ( mPUTSFunctionIndex == -1 )
-                return;
-
             var messageFormatted = message;
             if ( prefixTrace )
                 messageFormatted = $"Trace: {message}";
 
-            EmitUnchecked( FlowScriptInstruction.PUSHSTR( messageFormatted ) );
-            EmitUnchecked( FlowScriptInstruction.COMM( (short)mPUTSFunctionIndex ) );
+            EmitUnchecked( Instruction.PUSHSTR( messageFormatted ) );
+            EmitUnchecked( Instruction.COMM( mInstrinsic.PrintStringFunctionIndex ) );
         }
 
-        private void EmitTracePrintValue( FlowScriptValueType type )
+        private void EmitTracePrintValue( ValueKind kind )
         {
-            switch ( type )
+            switch ( kind )
             {
-                case FlowScriptValueType.Int:
+                case ValueKind.Int:
                     EmitTracePrintInteger();
                     break;
-                case FlowScriptValueType.Float:
+                case ValueKind.Float:
                     EmitTracePrintFloat();
                     break;
-                case FlowScriptValueType.Bool:
+                case ValueKind.Bool:
                     EmitTracePrintBool();
                     break;
             }
@@ -2637,89 +2714,76 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         private void EmitTracePrintInteger()
         {
-            if ( mPUTFunctionIndex == -1 )
-                return;
-
             var save = EmitTracePrintIntegerNoPush();
 
             // Push the value back to the stack
-            EmitUnchecked( FlowScriptInstruction.PUSHLIX( save.Index ) );
+            EmitUnchecked( Instruction.PUSHLIX( save.Index ) );
         }
 
         private Variable EmitTracePrintIntegerNoPush()
         {
-            System.Diagnostics.Trace.Assert( mPUTFunctionIndex != -1 );
-            var save = Scope.GenerateVariable( FlowScriptValueType.Int, mNextIntVariableIndex++ );
+            var save = Scope.GenerateVariable( ValueKind.Int, mNextIntVariableIndex++ );
 
             // Pop integer value off stack and save it in a temporary variable
-            EmitUnchecked( FlowScriptInstruction.POPLIX( save.Index ) );
+            EmitUnchecked( Instruction.POPLIX( save.Index ) );
 
             // Print it to log
-            EmitUnchecked( FlowScriptInstruction.PUSHLIX( save.Index ) );
-            EmitUnchecked( FlowScriptInstruction.COMM( (short)mPUTFunctionIndex ) );
+            EmitUnchecked( Instruction.PUSHLIX( save.Index ) );
+            EmitUnchecked( Instruction.COMM( mInstrinsic.PrintIntFunctionIndex ) );
 
             return save;
         }
 
         private void EmitTracePrintFloat()
         {
-            if ( mPUTFFunctionIndex == -1 )
-                return;
-
             var save = EmitTracePrintFloatNoPush();
 
             // Push the value back to the stack
-            EmitUnchecked( FlowScriptInstruction.PUSHLFX( save.Index ) );
+            EmitUnchecked( Instruction.PUSHLFX( save.Index ) );
         }
 
         private Variable EmitTracePrintFloatNoPush()
         {
-            System.Diagnostics.Trace.Assert( mPUTFFunctionIndex != -1 );
-            var save = Scope.GenerateVariable( FlowScriptValueType.Float, mNextFloatVariableIndex++ );
+            var save = Scope.GenerateVariable( ValueKind.Float, mNextFloatVariableIndex++ );
 
             // Pop integer value off stack and save it in a temporary variable
-            EmitUnchecked( FlowScriptInstruction.POPLFX( save.Index ) );
+            EmitUnchecked( Instruction.POPLFX( save.Index ) );
 
             // Print it to log
-            EmitUnchecked( FlowScriptInstruction.PUSHLFX( save.Index ) );
-            EmitUnchecked( FlowScriptInstruction.COMM( (short)mPUTFFunctionIndex ) );
+            EmitUnchecked( Instruction.PUSHLFX( save.Index ) );
+            EmitUnchecked( Instruction.COMM( mInstrinsic.PrintFloatFunctionIndex ) );
 
             return save;
         }
 
         private void EmitTracePrintBool()
         {
-            if ( mPUTSFunctionIndex == -1 )
-                return;
-
             var save = EmitTracePrintBoolNoPush();
 
             // Push the value back to the stack
-            EmitUnchecked( FlowScriptInstruction.PUSHLIX( save.Index ) );
+            EmitUnchecked( Instruction.PUSHLIX( save.Index ) );
         }
 
         private Variable EmitTracePrintBoolNoPush()
         {
-            System.Diagnostics.Trace.Assert( mPUTSFunctionIndex != -1 );
-
-            var save = Scope.GenerateVariable( FlowScriptValueType.Int, mNextIntVariableIndex++ );
+            var save = Scope.GenerateVariable( ValueKind.Int, mNextIntVariableIndex++ );
 
             // Pop integer value off stack and save it in a temporary variable
-            EmitUnchecked( FlowScriptInstruction.POPLIX( save.Index ) );
+            EmitUnchecked( Instruction.POPLIX( save.Index ) );
 
             // Print it to log
             var elseLabel = CreateLabel( "IfElseLabel" );
             var endLabel = CreateLabel( "IfEndLabel" );
 
             // if ( x == 1 )
-            EmitUnchecked( FlowScriptInstruction.PUSHIS( 1 ) );
-            EmitUnchecked( FlowScriptInstruction.PUSHLIX( save.Index ) );
-            EmitUnchecked( FlowScriptInstruction.EQ() );
-            EmitUnchecked( FlowScriptInstruction.IF( elseLabel.Index ) );
+            EmitUnchecked( Instruction.PUSHIS( 1 ) );
+            EmitUnchecked( Instruction.PUSHLIX( save.Index ) );
+            EmitUnchecked( Instruction.EQ() );
+            EmitUnchecked( Instruction.IF( elseLabel.Index ) );
             {
                 // PUTS( "true" );
                 EmitTracePrint( "true" );
-                EmitUnchecked( FlowScriptInstruction.GOTO( endLabel.Index ) );
+                EmitUnchecked( Instruction.GOTO( endLabel.Index ) );
             }
             // else
             ResolveLabel( elseLabel );
@@ -2732,7 +2796,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             return save;
         }
 
-        private void EmitUnchecked( FlowScriptInstruction instruction )
+        private void EmitUnchecked( Instruction instruction )
         {
             mInstructions.Add( instruction );
         }
@@ -2773,7 +2837,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         //
         // Logging
         //
-        private void Trace( FlowScriptSyntaxNode node, string message )
+        private void Trace( SyntaxNode node, string message )
         {
             if ( node.SourceInfo != null )
                 Trace( $"({node.SourceInfo.Line:D4}:{node.SourceInfo.Column:D4}) {message}" );
@@ -2786,7 +2850,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             mLogger.Trace( $"{message}" );
         }
 
-        private void Info( FlowScriptSyntaxNode node, string message )
+        private void Info( SyntaxNode node, string message )
         {
             if ( node.SourceInfo != null )
                 Info( $"({node.SourceInfo.Line:D4}:{node.SourceInfo.Column:D4}) {message}" );
@@ -2799,7 +2863,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             mLogger.Info( $"{message}" );
         }
 
-        private void Error( FlowScriptSyntaxNode node, string message )
+        private void Error( SyntaxNode node, string message )
         {
             if ( node.SourceInfo != null )
                 Error( $"({node.SourceInfo.Line:D4}:{node.SourceInfo.Column:D4}) {message}" );
@@ -2815,7 +2879,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             mLogger.Error( $"{message}" );
         }
 
-        private void Warning( FlowScriptSyntaxNode node, string message )
+        private void Warning( SyntaxNode node, string message )
         {
             if ( node.SourceInfo != null )
                 Warning( $"({node.SourceInfo.Line:D4}:{node.SourceInfo.Column:D4}) {message}" );
@@ -2826,282 +2890,6 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         private void Warning( string message )
         {
             mLogger.Warning( $"{message}" );
-        }
-
-        private class Function
-        {
-            public FlowScriptFunctionDeclaration Declaration { get; set; }
-
-            public short Index { get; set; }
-        }
-
-        private class Procedure
-        {
-            public FlowScriptProcedureDeclaration Declaration { get; set; }
-
-            public short Index { get; set; }
-        }
-
-        private class Variable
-        {
-            public FlowScriptVariableDeclaration Declaration { get; set; }
-
-            public short Index { get; set; }
-        }
-
-        private class Label
-        {
-            public string Name { get; set; }
-
-            public short Index { get; set; }
-
-            public short InstructionIndex { get; set; }
-
-            public bool IsResolved { get; set; }
-        }
-
-        private class Enum
-        {
-            public FlowScriptEnumDeclaration Declaration { get; set; }
-
-            public Dictionary<string, FlowScriptExpression> Members { get; set; }
-        }
-
-        private class ScopeContext
-        {
-            public ScopeContext Parent { get; }
-
-            public Dictionary<string, Function> Functions { get; }
-
-            public Dictionary<string, Procedure> Procedures { get; }
-
-            public Dictionary<string, Variable> Variables { get; }
-
-            public Dictionary<string, Enum> Enums { get; }
-
-            public Label BreakLabel { get; set; }
-
-            public Label ContinueLabel { get; set; }
-
-            public ScopeContext( ScopeContext parent )
-            {
-                Parent = parent;
-                Functions = new Dictionary<string, Function>();
-                Procedures = new Dictionary<string, Procedure>();
-                Variables = new Dictionary<string, Variable>();
-                Enums = new Dictionary<string, Enum>();
-            }
-
-            public bool TryGetBreakLabel( out Label label )
-            {
-                if ( BreakLabel != null )
-                {
-                    label = BreakLabel;
-                    return true;
-                }
-
-                if ( Parent != null )
-                    return Parent.TryGetBreakLabel( out label );
-
-                label = null;
-                return false;
-            }
-
-            public bool TryGetContinueLabel( out Label label )
-            {
-                if ( ContinueLabel != null )
-                {
-                    label = ContinueLabel;
-                    return true;
-                }
-
-                if ( Parent != null )
-                    return Parent.TryGetContinueLabel( out label );
-
-                label = null;
-                return false;
-            }
-
-            public bool TryGetFunction( string name, out Function function )
-            {
-                if ( !Functions.TryGetValue( name, out function ) )
-                {
-                    if ( Parent == null )
-                        return false;
-
-                    if ( !Parent.TryGetFunction( name, out function ) )
-                        return false;
-                }
-
-                return true;
-            }
-
-            public bool TryGetProcedure( string name, out Procedure procedure )
-            {
-                if ( !Procedures.TryGetValue( name, out procedure ) )
-                {
-                    if ( Parent == null )
-                        return false;
-
-                    if ( !Parent.TryGetProcedure( name, out procedure ) )
-                        return false;
-                }
-
-                return true;
-            }
-
-            public bool TryGetVariable( string name, out Variable variable )
-            {
-                if ( !Variables.TryGetValue( name, out variable ) )
-                {
-                    if ( Parent == null )
-                        return false;
-
-                    if ( !Parent.TryGetVariable( name, out variable ) )
-                        return false;
-                }
-
-                return true;
-            }
-
-            public bool TryGetEnum( string name, out Enum enumDeclaration )
-            {
-                if ( !Enums.TryGetValue( name, out enumDeclaration ) )
-                {
-                    if ( Parent == null )
-                        return false;
-
-                    if ( !Parent.TryGetEnum( name, out enumDeclaration ) )
-                        return false;
-                }
-
-                return true;
-            }
-
-            public bool TryDeclareFunction( FlowScriptFunctionDeclaration declaration )
-            {
-                if ( TryGetFunction( declaration.Identifier.Text, out _ ) )
-                    return false;
-
-                var function = new Function();
-                function.Declaration = declaration;
-                function.Index = ( short )declaration.Index.Value;
-
-                Functions[declaration.Identifier.Text] = function;
-
-                return true;
-            }
-
-            public bool TryDeclareProcedure( FlowScriptProcedureDeclaration declaration )
-            {
-                if ( TryGetProcedure( declaration.Identifier.Text, out _ ) )
-                    return false;
-
-                var procedure = new Procedure();
-                procedure.Declaration = declaration;
-                procedure.Index = ( short )Procedures.Count;
-
-                Procedures[declaration.Identifier.Text] = procedure;
-
-                return true;
-            }
-
-            public bool TryDeclareVariable( FlowScriptVariableDeclaration declaration )
-            {
-                return TryDeclareVariable( declaration, -1 );
-            }
-
-            public bool TryDeclareVariable( FlowScriptVariableDeclaration declaration, short index )
-            {
-                if ( TryGetVariable( declaration.Identifier.Text, out _ ) )
-                    return false;
-
-                var variable = new Variable();
-                variable.Declaration = declaration;
-                variable.Index = index;
-
-                Variables[declaration.Identifier.Text] = variable;
-
-                return true;
-            }
-
-            public bool TryDeclareEnum( FlowScriptEnumDeclaration declaration )
-            {
-                if ( TryGetEnum( declaration.Identifier.Text, out _ ) )
-                    return false;
-
-                var enumType = new Enum
-                {
-                    Declaration = declaration,
-                    Members = declaration.Values.ToDictionary( x => x.Identifier.Text, y => y.Value )
-                };
-
-                int nextMemberValue = 0;
-                bool anyImplicitValues = false;
-
-                for ( int i = 0; i < enumType.Members.Count; i++ )
-                {
-                    var key = enumType.Members.Keys.ElementAt( i );
-                    var value = enumType.Members[key];
-
-                    if ( value == null )
-                    {
-                        enumType.Members[key] = new FlowScriptIntLiteral( nextMemberValue++ );
-                        anyImplicitValues = true;
-                    }
-                    else
-                    {
-                        if ( !TryGetNextMemberValue( enumType.Members, value, out nextMemberValue ) )
-                        {
-                            // Only error if there are any implicit values
-                            if ( anyImplicitValues )
-                                return false;
-                        }
-                    }
-                }
-
-                Enums[declaration.Identifier.Text] = enumType;
-
-                return true;
-            }
-
-            private bool TryGetNextMemberValue( Dictionary<string, FlowScriptExpression> members, FlowScriptExpression enumValue, out int nextMemberValue )
-            {
-                if ( enumValue is FlowScriptIntLiteral intLiteral )
-                {
-                    nextMemberValue = intLiteral.Value + 1;
-                    return true;
-                }
-                else if ( enumValue is FlowScriptIdentifier identifier )
-                {
-                    if ( members.TryGetValue( identifier.Text, out var value ) )
-                    {
-                        if ( !TryGetNextMemberValue( members, value, out nextMemberValue ) )
-                            return false;
-                    }
-                }
-
-                nextMemberValue = -1;
-                return false;
-            }
-
-            public Variable GenerateVariable( FlowScriptValueType type, short index )
-            {
-                var declaration = new FlowScriptVariableDeclaration(
-                    new FlowScriptVariableModifier( FlowScriptModifierType.Local ),
-                    new FlowScriptTypeIdentifier( type ),
-                    new FlowScriptIdentifier( type, $"<>__CompilerGenerated{type}Variable{index}" ),
-                    null );
-
-                bool result;
-                result = TryDeclareVariable( declaration, index );
-                Debug.Assert( result );
-
-                result = TryGetVariable( declaration.Identifier.Text, out var variable );
-                Debug.Assert( result );
-
-                return variable;
-            }
         }
     }
 }

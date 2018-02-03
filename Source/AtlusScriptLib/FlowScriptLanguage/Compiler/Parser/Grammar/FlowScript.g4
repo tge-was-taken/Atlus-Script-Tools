@@ -78,8 +78,11 @@ labelDeclarationStatement
 	;
 
 variableModifier
-	: Static
+	: Global ('('IntLiteral')')?
 	| Const
+	| AiLocal ('('IntLiteral')')?
+	| AiGlobal ('('IntLiteral')')?
+	| Bit ('('IntLiteral')')
 	;
 
 //
@@ -104,7 +107,7 @@ expression
 	: ';'															# nullExpression
 	| '(' expression ')'											# compoundExpression
 	| Identifier '.' Identifier										# memberAccessExpression
-	| '(' ( PrimitiveTypeIdentifier | Identifier ) ')' '(' expression ')'	# castExpression				// precedence 2
+	| '(' ( PrimitiveTypeIdentifier | Identifier ) ')' '(' expression ')'	# castExpression		// precedence 2
 	| Identifier expressionList										# callExpression				// precedence 2
 	| expression Op=( '--' | '++' )									# unaryPostfixExpression		// precedence 2
 	| Op=( '!' | '-' | '--' | '++' ) expression						# unaryPrefixExpression			// precedence 3
@@ -178,10 +181,19 @@ switchLabel
 ////////////////////
 
 // Keywords
+//	Directives
 Import:		'import';
+
+//	Storage types
 Function:	'function';
-Static:		'static';
+Global:		'global';
 Const:		'const';
+AiLocal:	'ai_local';
+AiGlobal:	'ai_global';
+Bit:		'bit';
+Enum:		'enum';
+
+//	Control flow
 If:			'if';
 Else:		'else';
 For:		'for';
@@ -193,7 +205,6 @@ Goto:		'goto';
 Switch:		'switch';
 Case:		'case';
 Default:	'default';
-Enum:		'enum';
 
 // Literals
 

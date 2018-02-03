@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-
 using AtlusScriptLib.Common.Logging;
 using AtlusScriptLib.Common.Registry;
 using AtlusScriptLib.Common.Text;
@@ -15,26 +13,26 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
     public class FlowScriptDecompiler
     {
         private readonly Logger mLogger;
-        private FlowScriptEvaluationResult mEvaluatedScript;
-        private FlowScriptCompilationUnit mCompilationUnit;
+        private EvaluationResult mEvaluatedScript;
+        private CompilationUnit mCompilationUnit;
         private string mFilePath;
         
         // procedure state
-        private FlowScriptEvaluatedProcedure mEvaluatedProcedure;
+        private EvaluatedProcedure mEvaluatedProcedure;
 
         // compositing state
-        private List<FlowScriptEvaluatedStatement> mOriginalEvaluatedStatements;
-        private List<FlowScriptEvaluatedStatement> mEvaluatedStatements;
-        private Dictionary<FlowScriptStatement, int> mStatementInstructionIndexLookup;
-        private Dictionary<int, List<FlowScriptEvaluatedStatement>> mIfStatementBodyMap;
-        private Dictionary<int, List<FlowScriptEvaluatedStatement>> mIfStatementElseBodyMap;
+        private List<EvaluatedStatement> mOriginalEvaluatedStatements;
+        private List<EvaluatedStatement> mEvaluatedStatements;
+        private Dictionary<Statement, int> mStatementInstructionIndexLookup;
+        private Dictionary<int, List<EvaluatedStatement>> mIfStatementBodyMap;
+        private Dictionary<int, List<EvaluatedStatement>> mIfStatementElseBodyMap;
         private bool mKeepLabelsAndGotos = false;
         private bool mConvertIfStatementsToGotos = false;
 
         /// <summary>
         /// Gets or sets the library registry.
         /// </summary>
-        public LibraryRegistry LibraryRegistry { get; set; }
+        public Library Library { get; set; }
 
         /// <summary>
         /// Gets or sets whether the embedded MessageScript (if it exists) should be decompiled as well.
@@ -64,7 +62,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             listener.Subscribe( mLogger );
         }
 
-        public bool TryDecompile( FlowScript flowScript, out FlowScriptCompilationUnit compilationUnit )
+        public bool TryDecompile( FlowScript flowScript, out CompilationUnit compilationUnit )
         {
             LogInfo( "Start decompiling FlowScript" );
             if ( !TryDecompileScript( flowScript, out compilationUnit ))
@@ -94,16 +92,16 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
             // Write out the decompilation unit
             LogInfo( "Writing decompiled FlowScript to file" );
-            var writer = new FlowScriptCompilationUnitWriter();
+            var writer = new CompilationUnitWriter();
             writer.Write( compilationUnit, filepath );
 
             // Decompile embedded message script
             if ( flowScript.MessageScript != null && DecompileMessageScript )
             {
                 LogInfo( "Writing decompiled MessageScript to file" );
-                using ( var messageScriptDecompiler = new MessageScriptDecompiler( new FileTextWriter( MessageScriptFilePath )) )
+                using ( var messageScriptDecompiler = new MessageScriptDecompiler( new FileTextWriter( MessageScriptFilePath ) ) )
                 {
-                    messageScriptDecompiler.LibraryRegistry = LibraryRegistry;
+                    messageScriptDecompiler.Library = Library;
                     messageScriptDecompiler.Decompile( flowScript.MessageScript );
                 }
             }
@@ -114,13 +112,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
         // 
         // FlowScript Decompilation
         //
-        private void InitializeScriptDecompilationState( FlowScriptEvaluationResult evaluationResult )
+        private void InitializeScriptDecompilationState( EvaluationResult evaluationResult )
         {
             mEvaluatedScript = evaluationResult;
-            mCompilationUnit = new FlowScriptCompilationUnit();
+            mCompilationUnit = new CompilationUnit();
         }
 
-        private bool TryDecompileScript( FlowScript flowScript, out FlowScriptCompilationUnit compilationUnit )
+        private bool TryDecompileScript( FlowScript flowScript, out CompilationUnit compilationUnit )
         {
             // Evaluate script
             if ( !TryEvaluateScript( flowScript, out var evaluationResult ) )
@@ -140,10 +138,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             return true;
         }
 
-        private bool TryEvaluateScript( FlowScript flowScript, out FlowScriptEvaluationResult evaluationResult )
+        private bool TryEvaluateScript( FlowScript flowScript, out EvaluationResult evaluationResult )
         {
-            var evaluator = new FlowScriptEvaluator();
-            evaluator.LibraryRegistry = LibraryRegistry;
+            var evaluator = new Evaluator();
+            evaluator.Library = Library;
             evaluator.AddListener( new LoggerPassthroughListener( mLogger ) );
             if ( !evaluator.TryEvaluateScript( flowScript, out evaluationResult ) )
             {
@@ -155,7 +153,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             return true;
         }
 
-        private bool TryDecompileScriptInternal( FlowScriptEvaluationResult evaluationResult, out FlowScriptCompilationUnit compilationUnit )
+        private bool TryDecompileScriptInternal( EvaluationResult evaluationResult, out CompilationUnit compilationUnit )
         {
             // Initialize decompiler
             InitializeScriptDecompilationState( evaluationResult );
@@ -163,7 +161,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             if ( mEvaluatedScript.FlowScript.MessageScript != null && DecompileMessageScript )
             {
                 var importPath = MessageScriptFilePath.Replace( Path.GetDirectoryName(mFilePath), "" ).TrimStart('\\');
-                mCompilationUnit.Imports.Add( new FlowScriptImport( importPath ) );
+                mCompilationUnit.Imports.Add( new Import( importPath ) );
             }
 
             // Build function declarations and add them to AST
@@ -216,12 +214,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
         //
         // Procedure decompilation
         //
-        private void InitializeProcedureDecompilationState( FlowScriptEvaluatedProcedure procedure )
+        private void InitializeProcedureDecompilationState( EvaluatedProcedure procedure )
         {
             mEvaluatedProcedure = procedure;
         }
 
-        private bool TryDecompileProcedure( FlowScriptEvaluatedProcedure evaluatedProcedure, out FlowScriptProcedureDeclaration declaration )
+        private bool TryDecompileProcedure( EvaluatedProcedure evaluatedProcedure, out ProcedureDeclaration declaration )
         {
             LogInfo( $"Decompiling procedure: {evaluatedProcedure.Procedure.Name}" );
             InitializeProcedureDecompilationState( evaluatedProcedure );
@@ -233,11 +231,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                 return false;
             }
             
-            declaration = new FlowScriptProcedureDeclaration(
-                new FlowScriptTypeIdentifier(evaluatedProcedure.ReturnType),
-                new FlowScriptIdentifier( FlowScriptValueType.Procedure, evaluatedProcedure.Procedure.Name ),
+            declaration = new ProcedureDeclaration(
+                new TypeIdentifier( evaluatedProcedure.ReturnKind),
+                new Identifier( ValueKind.Procedure, evaluatedProcedure.Procedure.Name ),
                 evaluatedProcedure.Parameters,
-                new FlowScriptCompoundStatement( statements ) );
+                new CompoundStatement( statements ) );
 
             return true;
         }
@@ -245,22 +243,22 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
         //
         // Compositing
         //
-        private void InitializeCompositionState( List<FlowScriptEvaluatedStatement> evaluatedStatements )
+        private void InitializeCompositionState( List<EvaluatedStatement> evaluatedStatements )
         {
             mOriginalEvaluatedStatements = evaluatedStatements;
             mEvaluatedStatements = mOriginalEvaluatedStatements.ToList();
 
             // Build lookup
-            mStatementInstructionIndexLookup = new Dictionary<FlowScriptStatement, int>( evaluatedStatements.Count );
+            mStatementInstructionIndexLookup = new Dictionary<Statement, int>( evaluatedStatements.Count );
             foreach ( var evaluatedStatement in evaluatedStatements )
                 mStatementInstructionIndexLookup[evaluatedStatement.Statement] = evaluatedStatement.InstructionIndex;
 
-            mIfStatementBodyMap = new Dictionary<int, List<FlowScriptEvaluatedStatement>>();
-            mIfStatementElseBodyMap = new Dictionary<int, List<FlowScriptEvaluatedStatement>>();
+            mIfStatementBodyMap = new Dictionary<int, List<EvaluatedStatement>>();
+            mIfStatementElseBodyMap = new Dictionary<int, List<EvaluatedStatement>>();
             new Dictionary<int, int>();
         }
 
-        private bool TryCompositeEvaluatedInstructions( List<FlowScriptEvaluatedStatement> evaluatedStatements, out List<FlowScriptStatement> statements )
+        private bool TryCompositeEvaluatedInstructions( List<EvaluatedStatement> evaluatedStatements, out List<Statement> statements )
         {
             InitializeCompositionState( evaluatedStatements );
 
@@ -307,17 +305,17 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
         {
             foreach ( var evaluatedStatement in mEvaluatedStatements )
             {
-                var calls = FlowScriptSyntaxNodeCollector<FlowScriptCallOperator>.Collect( evaluatedStatement.Statement );
+                var calls = SyntaxNodeCollector<CallOperator>.Collect( evaluatedStatement.Statement );
                 if ( calls.Any() )
                 {
                     foreach ( var call in calls )
                     {
                         if ( call.Identifier.Text == "MSG" || call.Identifier.Text == "SEL" )
                         {
-                            if ( call.Arguments[ 0 ] is FlowScriptIntLiteral windowIndexLiteral )
+                            if ( call.Arguments[ 0 ] is IntLiteral windowIndexLiteral )
                             {
-                                call.Arguments[0] = new FlowScriptIdentifier( 
-                                    FlowScriptValueType.Int, 
+                                call.Arguments[0] = new Identifier(
+                                    ValueKind.Int,
                                     mEvaluatedScript.FlowScript.MessageScript.Windows[windowIndexLiteral.Value].Identifier );
                             }                      
                         }
@@ -330,10 +328,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
         {
             foreach ( var evaluatedStatement in mEvaluatedStatements )
             {
-                var calls = FlowScriptSyntaxNodeCollector<FlowScriptCallOperator>.Collect( evaluatedStatement.Statement );
+                var calls = SyntaxNodeCollector<CallOperator>.Collect( evaluatedStatement.Statement );
                 foreach ( var call in calls )
                 {
-                    var libraryFunction = LibraryRegistry.FlowScriptLibraries
+                    var libraryFunction = Library.FlowScriptModules
                                                          .SelectMany( x => x.Functions )
                                                          .SingleOrDefault( x => x.Name == call.Identifier.Text );
 
@@ -345,10 +343,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         var parameter = libraryFunction.Parameters[i];
                         var argument = call.Arguments[i];
 
-                        if ( !( argument is FlowScriptIntLiteral argumentValue ) )
+                        if ( !( argument is IntLiteral argumentValue ) )
                             continue;
 
-                        var libraryEnum = LibraryRegistry.FlowScriptLibraries
+                        var libraryEnum = Library.FlowScriptModules
                                                          .Where( x => x.Enums != null )
                                                          .SelectMany( x => x.Enums )
                                                          .SingleOrDefault( x => x.Name == parameter.Type );
@@ -360,10 +358,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         if ( libraryEnumMember == null )
                             continue;
 
-                        call.Arguments[i] = new FlowScriptMemberAccessExpression()
+                        call.Arguments[i] = new MemberAccessExpression
                         {
-                            Operand = new FlowScriptTypeIdentifier( libraryEnum.Name ),
-                            Member = new FlowScriptIdentifier( libraryEnumMember.Name )
+                            Operand = new TypeIdentifier( libraryEnum.Name ),
+                            Member = new Identifier( libraryEnumMember.Name )
                         };
                     }
                 }
@@ -386,7 +384,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         insertionIndex = i;
                         break;
                     }
-                    else if ( statement.InstructionIndex > label.InstructionIndex )
+                    if ( statement.InstructionIndex > label.InstructionIndex )
                     {
                         if ( statement.InstructionIndex < lowestIndexAfter )
                         {
@@ -418,9 +416,9 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
                 // Insert label declaration
                 mEvaluatedStatements.Insert( insertionIndex,
-                    new FlowScriptEvaluatedStatement(
-                        new FlowScriptLabelDeclaration(
-                            new FlowScriptIdentifier( FlowScriptValueType.Label, label.Name ) ),
+                    new EvaluatedStatement(
+                        new LabelDeclaration(
+                            new Identifier( ValueKind.Label, label.Name ) ),
                         label.InstructionIndex,
                         label ) );
             }
@@ -429,7 +427,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
         private void BuildIfStatementMaps()
         {
             // Build if statement bodies
-            var evaluatedIfStatements = mEvaluatedStatements.Where( x => x.Statement is FlowScriptIfStatement ).ToList();
+            var evaluatedIfStatements = mEvaluatedStatements.Where( x => x.Statement is IfStatement ).ToList();
             foreach ( var evaluatedIfStatement in evaluatedIfStatements )
             {
                 var falseLabel = evaluatedIfStatement.ReferencedLabel;
@@ -437,12 +435,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                 if ( mConvertIfStatementsToGotos )
                 {
                     var index = mEvaluatedStatements.IndexOf( evaluatedIfStatement );
-                    var ifStatement = ( FlowScriptIfStatement ) evaluatedIfStatement.Statement;
+                    var ifStatement = ( IfStatement ) evaluatedIfStatement.Statement;
 
-                    mEvaluatedStatements.Insert( index, new FlowScriptEvaluatedStatement( ifStatement.Condition,
+                    mEvaluatedStatements.Insert( index, new EvaluatedStatement( ifStatement.Condition,
                                                                                           evaluatedIfStatement.InstructionIndex - 1, null ) );
-                    mEvaluatedStatements[ index + 1 ] = new FlowScriptEvaluatedStatement(
-                        new FlowScriptGotoStatement( new FlowScriptIdentifier( falseLabel.Name ) ), evaluatedIfStatement.InstructionIndex, falseLabel );
+                    mEvaluatedStatements[ index + 1 ] = new EvaluatedStatement(
+                        new GotoStatement( new Identifier( falseLabel.Name ) ), evaluatedIfStatement.InstructionIndex, falseLabel );
                 }
                 else
                 {
@@ -456,7 +454,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
                     // Detect else if
                     var evaluatedGotoStatement = bodyEvaluatedStatements.LastOrDefault();
-                    if ( evaluatedGotoStatement != null && evaluatedGotoStatement.Statement is FlowScriptGotoStatement )
+                    if ( evaluatedGotoStatement != null && evaluatedGotoStatement.Statement is GotoStatement )
                     {
                         if ( evaluatedGotoStatement.ReferencedLabel.InstructionIndex !=
                              evaluatedGotoStatement.InstructionIndex + 1 )
@@ -518,7 +516,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
                 // Remove goto to after if statement inside body if it's right after the if statement body
                 var evaluatedGotoStatement = bodyEvaluatedStatements.LastOrDefault();
-                if ( evaluatedGotoStatement != null && evaluatedGotoStatement.Statement is FlowScriptGotoStatement )
+                if ( evaluatedGotoStatement != null && evaluatedGotoStatement.Statement is GotoStatement )
                 {
                     // Likely a single if statement
                     if ( evaluatedGotoStatement.ReferencedLabel.InstructionIndex == evaluatedGotoStatement.InstructionIndex + 1 )
@@ -533,10 +531,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         {
                             bodyEvaluatedStatements.Remove( evaluatedGotoStatement );
 
-                            if ( elseBodyEvaluatedStatements.First().Statement is FlowScriptLabelDeclaration )
+                            if ( elseBodyEvaluatedStatements.First().Statement is LabelDeclaration )
                                 elseBodyEvaluatedStatements.Remove( elseBodyEvaluatedStatements.First() );
 
-                            if ( elseBodyEvaluatedStatements.Any() && elseBodyEvaluatedStatements.Last().Statement is FlowScriptGotoStatement )
+                            if ( elseBodyEvaluatedStatements.Any() && elseBodyEvaluatedStatements.Last().Statement is GotoStatement )
                             {
                                 var elseBodyGotoStatement = elseBodyEvaluatedStatements.Last();
                                 if ( elseBodyGotoStatement.ReferencedLabel.InstructionIndex ==
@@ -557,7 +555,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             CoagulateVariableDeclarationAssignmentsRecursively( mEvaluatedStatements, new HashSet<string>() );
         }
 
-        private void CoagulateVariableDeclarationAssignmentsRecursively( List<FlowScriptEvaluatedStatement> evaluatedStatements, HashSet<string> parentScopeDeclaredVariables )
+        private void CoagulateVariableDeclarationAssignmentsRecursively( List<EvaluatedStatement> evaluatedStatements, HashSet<string> parentScopeDeclaredVariables )
         {
             if ( !evaluatedStatements.Any() )
                 return;
@@ -572,7 +570,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             var allIfStatements = mOriginalEvaluatedStatements
                 .Where( x => x.InstructionIndex >= firstIndex )
                 .Where( x => x.InstructionIndex <= lastIndex )
-                .Where( x => x.Statement is FlowScriptIfStatement )
+                .Where( x => x.Statement is IfStatement )
                 .ToList();
 
             // All referenced variable identifiers in statements, and if statements
@@ -595,7 +593,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                 // Variable hasn't already been declared
                 // Find the index of the statement
                 int evaluatedStatementIndex = evaluatedStatements.FindIndex( x => x.InstructionIndex == firstReferenceInstructionIndex );
-                FlowScriptExpression initializer = null;
+                Expression initializer = null;
                 bool shouldDeclareBeforeIfStatements = false;
                 bool accessedLaterInBody = referencedLocalVariableIdentifier.Any( x => evaluatedStatements.Any( y => y.InstructionIndex == x.InstructionIndex ) );
 
@@ -619,7 +617,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                     foreach ( var ifStatement in allIfStatements )
                     {
                         // Check condition
-                        var conditionIdentifiers = FlowScriptSyntaxNodeCollector<FlowScriptIdentifier>.Collect( ( ( FlowScriptIfStatement ) ifStatement.Statement ).Condition );
+                        var conditionIdentifiers = SyntaxNodeCollector<Identifier>.Collect( ( ( IfStatement ) ifStatement.Statement ).Condition );
                         if ( conditionIdentifiers.Any( x => x.Text == referencedLocalVariableIdentifier.Key ) )
                         {
                             // Really Good Code
@@ -629,7 +627,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
                         // Check if any of instructions in the if body map to any of the instruction indices of the references
                         var body = mIfStatementBodyMap[ ifStatement.InstructionIndex ];
-                        var bodyIdentifiers = body.SelectMany( x => FlowScriptSyntaxNodeCollector<FlowScriptIdentifier>.Collect( x.Statement ) );
+                        var bodyIdentifiers = body.SelectMany( x => SyntaxNodeCollector<Identifier>.Collect( x.Statement ) );
                         if ( bodyIdentifiers.Any( x => x.Text == referencedLocalVariableIdentifier.Key) )
                         {
                             if ( !accessedInIfStatementOnce )
@@ -649,7 +647,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         if ( mIfStatementElseBodyMap.TryGetValue( ifStatement.InstructionIndex, out var elseBody ) )
                         {
                             // Check if any of instructions in the if else body map to any of the instruction indices of the references
-                            var elseBodyIdentifiers = body.SelectMany( x => FlowScriptSyntaxNodeCollector<FlowScriptIdentifier>.Collect( x.Statement ) );
+                            var elseBodyIdentifiers = body.SelectMany( x => SyntaxNodeCollector<Identifier>.Collect( x.Statement ) );
                             if ( elseBodyIdentifiers.Any( x => x.Text == referencedLocalVariableIdentifier.Key ) )
                             {
                                 if ( !accessedInIfStatementOnce )
@@ -673,11 +671,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
                     // Check if the statement is an assignment expression
                     // Which would mean we have an initializer
-                    if ( evaluatedStatement.Statement is FlowScriptAssignmentOperator assignment )
+                    if ( evaluatedStatement.Statement is AssignmentOperator assignment )
                     {
                         // Only match initializers if the target of the operator
                         // Is actually the same identifier
-                        if ( ((FlowScriptIdentifier)assignment.Left).Text == identifierText )
+                        if ( ((Identifier)assignment.Left).Text == identifierText )
                         {
                             initializer = assignment.Right;
                         }
@@ -743,7 +741,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                     if ( insertionIndex == -1 )
                     {
                         // Variable was referenced in both the body and in a nested if statement
-                        insertionIndex = evaluatedStatements.IndexOf( evaluatedStatements.First( x => x.Statement is FlowScriptIfStatement ) );
+                        insertionIndex = evaluatedStatements.IndexOf( evaluatedStatements.First( x => x.Statement is IfStatement ) );
                     }
 
                     if ( insertionIndex != evaluatedStatementIndex )
@@ -753,10 +751,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         // So we insert declaration before if statement in which it was used
 
                         // Just to be safe
-                        declaration.Initializer = new FlowScriptIntLiteral( 0 );
+                        declaration.Initializer = new IntLiteral( 0 );
 
                         evaluatedStatements.Insert( insertionIndex,
-                            new FlowScriptEvaluatedStatement( declaration, instructionIndex, null ) );
+                            new EvaluatedStatement( declaration, instructionIndex, null ) );
                     }
                     else
                     {
@@ -767,12 +765,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         {
                             // Reference to undeclared variable
                             LogInfo( $"Reference to uninitialized variable! Adding 0 initializer: {declaration}" );
-                            initializer = new FlowScriptIntLiteral( 0 );
+                            initializer = new IntLiteral( 0 );
                         }
 
                         // Coagulate assignment with declaration
                         declaration.Initializer = initializer;
-                        evaluatedStatements[ evaluatedStatementIndex ] = new FlowScriptEvaluatedStatement(
+                        evaluatedStatements[ evaluatedStatementIndex ] = new EvaluatedStatement(
                             declaration, instructionIndex, null );
                     }
 
@@ -787,7 +785,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             if ( !mConvertIfStatementsToGotos )
             {
                 var ifStatementsInScope = evaluatedStatements
-                    .Where( x => x.Statement is FlowScriptIfStatement );
+                    .Where( x => x.Statement is IfStatement );
 
                 foreach ( var ifStatement in ifStatementsInScope )
                 {
@@ -803,7 +801,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
         private void RemoveRedundantGotos()
         {
-            foreach ( var evaluatedStatement in mEvaluatedStatements.Where( x => x.Statement is FlowScriptGotoStatement ).ToList() )
+            foreach ( var evaluatedStatement in mEvaluatedStatements.Where( x => x.Statement is GotoStatement ).ToList() )
             {
                 if ( evaluatedStatement.ReferencedLabel.InstructionIndex == evaluatedStatement.InstructionIndex + 1 )
                     mEvaluatedStatements.Remove( evaluatedStatement );
@@ -811,7 +809,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
             foreach ( var body in mIfStatementBodyMap.Values )
             {
-                foreach ( var evaluatedStatement in body.Where( x => x.Statement is FlowScriptGotoStatement ).ToList() )
+                foreach ( var evaluatedStatement in body.Where( x => x.Statement is GotoStatement ).ToList() )
                 {
                     if ( evaluatedStatement.ReferencedLabel.InstructionIndex == evaluatedStatement.InstructionIndex + 1 )
                         mEvaluatedStatements.Remove( evaluatedStatement );
@@ -820,7 +818,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
             foreach ( var body in mIfStatementElseBodyMap.Values )
             {
-                foreach ( var evaluatedStatement in body.Where( x => x.Statement is FlowScriptGotoStatement ).ToList() )
+                foreach ( var evaluatedStatement in body.Where( x => x.Statement is GotoStatement ).ToList() )
                 {
                     if ( evaluatedStatement.ReferencedLabel.InstructionIndex == evaluatedStatement.InstructionIndex + 1 )
                         mEvaluatedStatements.Remove( evaluatedStatement );
@@ -830,7 +828,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
         private void RemoveUnreferencedLabels( )
         {
-            foreach ( var evaluatedStatement in mEvaluatedStatements.Where( x => x.Statement is FlowScriptLabelDeclaration ).ToList() )
+            foreach ( var evaluatedStatement in mEvaluatedStatements.Where( x => x.Statement is LabelDeclaration ).ToList() )
             {
                 if ( !IsLabelReferenced( evaluatedStatement.ReferencedLabel ) )
                     mEvaluatedStatements.Remove( evaluatedStatement );
@@ -838,7 +836,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
             foreach ( var body in mIfStatementBodyMap.Values )
             {
-                foreach ( var evaluatedStatement in body.Where( x => x.Statement is FlowScriptLabelDeclaration ).ToList() )
+                foreach ( var evaluatedStatement in body.Where( x => x.Statement is LabelDeclaration ).ToList() )
                 {
                     if ( !IsLabelReferenced( evaluatedStatement.ReferencedLabel ) )
                         body.Remove( evaluatedStatement );
@@ -847,7 +845,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
             foreach ( var body in mIfStatementElseBodyMap.Values )
             {
-                foreach ( var evaluatedStatement in body.Where( x => x.Statement is FlowScriptLabelDeclaration ).ToList() )
+                foreach ( var evaluatedStatement in body.Where( x => x.Statement is LabelDeclaration ).ToList() )
                 {
                     if ( !IsLabelReferenced( evaluatedStatement.ReferencedLabel ) )
                         body.Remove( evaluatedStatement );
@@ -855,23 +853,23 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             }
         }
 
-        private bool IsLabelReferenced( FlowScriptLabel label )
+        private bool IsLabelReferenced( Label label )
         {
             foreach ( var evaluatedStatement in mEvaluatedStatements )
             {
-                if ( evaluatedStatement.ReferencedLabel == label && evaluatedStatement.Statement is FlowScriptGotoStatement)
+                if ( evaluatedStatement.ReferencedLabel == label && evaluatedStatement.Statement is GotoStatement)
                     return true;
             }
 
             foreach ( var evaluatedStatement in mIfStatementBodyMap.Values.SelectMany( x => x ) )
             {
-                if ( evaluatedStatement.ReferencedLabel == label && evaluatedStatement.Statement is FlowScriptGotoStatement )
+                if ( evaluatedStatement.ReferencedLabel == label && evaluatedStatement.Statement is GotoStatement )
                     return true;
             }
 
             foreach ( var evaluatedStatement in mIfStatementElseBodyMap.Values.SelectMany( x => x ) )
             {
-                if ( evaluatedStatement.ReferencedLabel == label && evaluatedStatement.Statement is FlowScriptGotoStatement )
+                if ( evaluatedStatement.ReferencedLabel == label && evaluatedStatement.Statement is GotoStatement )
                     return true;
             }
 
@@ -880,9 +878,9 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
         private void RemoveDuplicateReturnStatements()
         {
-            void RemoveDuplicateReturnStatements( List<FlowScriptEvaluatedStatement> statements )
+            void RemoveDuplicateReturnStatements( List<EvaluatedStatement> statements )
             {
-                var returnStatements = statements.Where( x => x.Statement is FlowScriptReturnStatement ).ToList();
+                var returnStatements = statements.Where( x => x.Statement is ReturnStatement ).ToList();
                 for ( int i = 0; i < returnStatements.Count; i++ )
                 {
                     if ( i + 1 >= returnStatements.Count )
@@ -904,15 +902,15 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
         private void BuildIfStatements()
         {
-            foreach ( var evaluatedStatement in mOriginalEvaluatedStatements.Where( x => x.Statement is FlowScriptIfStatement ) )
+            foreach ( var evaluatedStatement in mOriginalEvaluatedStatements.Where( x => x.Statement is IfStatement ) )
             {
-                var ifStatement = ( FlowScriptIfStatement )evaluatedStatement.Statement;
+                var ifStatement = ( IfStatement )evaluatedStatement.Statement;
 
                 var body = mIfStatementBodyMap[evaluatedStatement.InstructionIndex];
-                ifStatement.Body = new FlowScriptCompoundStatement( body.Select( x => x.Statement ).ToList() );
+                ifStatement.Body = new CompoundStatement( body.Select( x => x.Statement ).ToList() );
 
                 if ( mIfStatementElseBodyMap.TryGetValue( evaluatedStatement.InstructionIndex, out var elseBody ) )
-                    ifStatement.ElseBody = new FlowScriptCompoundStatement( elseBody.Select( x => x.Statement ).ToList() );
+                    ifStatement.ElseBody = new CompoundStatement( elseBody.Select( x => x.Statement ).ToList() );
             }
         }
 

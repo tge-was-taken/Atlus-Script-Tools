@@ -1,9 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Collections;
-using System.Collections.Generic;
-using System;
 using AtlusScriptLib.FlowScriptLanguage.BinaryModel.IO;
 using AtlusScriptLib.MessageScriptLanguage.BinaryModel;
 
@@ -14,10 +11,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.BinaryModel
     {
         public static FlowScriptBinary FromFile( string path )
         {
-            return FromFile( path, FlowScriptBinaryFormatVersion.Unknown );
+            return FromFile( path, BinaryFormatVersion.Unknown );
         }
 
-        public static FlowScriptBinary FromFile( string path, FlowScriptBinaryFormatVersion version )
+        public static FlowScriptBinary FromFile( string path, BinaryFormatVersion version )
         {
             using ( var fileStream = File.OpenRead( path ) )
                 return FromStream( fileStream, version );
@@ -25,10 +22,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.BinaryModel
 
         public static FlowScriptBinary FromStream( Stream stream, bool leaveOpen = false )
         {
-            return FromStream( stream, FlowScriptBinaryFormatVersion.Unknown, leaveOpen );
+            return FromStream( stream, BinaryFormatVersion.Unknown, leaveOpen );
         }
 
-        public static FlowScriptBinary FromStream( Stream stream, FlowScriptBinaryFormatVersion version, bool leaveOpen = false )
+        public static FlowScriptBinary FromStream( Stream stream, BinaryFormatVersion version, bool leaveOpen = false )
         {
             using ( var reader = new FlowScriptBinaryReader( stream, version, leaveOpen ) )
             {
@@ -37,61 +34,57 @@ namespace AtlusScriptLib.FlowScriptLanguage.BinaryModel
         }
 
         // these fields are internal because they are used by the builder
-        internal FlowScriptBinaryHeader mHeader;
-        internal FlowScriptBinarySectionHeader[] mSectionHeaders;
-        internal FlowScriptBinaryLabel[] mProcedureLabelSection;
-        internal FlowScriptBinaryLabel[] mJumpLabelSection;
-        internal FlowScriptBinaryInstruction[] mTextSection;
+        internal BinaryHeader mHeader;
+        internal BinarySectionHeader[] mSectionHeaders;
+        internal BinaryLabel[] mProcedureLabelSection;
+        internal BinaryLabel[] mJumpLabelSection;
+        internal BinaryInstruction[] mTextSection;
         internal MessageScriptBinary mMessageScriptSection;
         internal byte[] mStringSection;
-        internal FlowScriptBinaryFormatVersion mFormatVersion;
+        internal BinaryFormatVersion mFormatVersion;
 
-        public FlowScriptBinaryHeader Header
+        public BinaryHeader Header
         {
             get { return mHeader; }
         }
 
-        public ReadOnlyCollection<FlowScriptBinarySectionHeader> SectionHeaders
+        public ReadOnlyCollection<BinarySectionHeader> SectionHeaders
         {
             get
             {
                 if ( mSectionHeaders == null )
                     return null;
-                else
-                    return new ReadOnlyCollection<FlowScriptBinarySectionHeader>( mSectionHeaders );
+                return new ReadOnlyCollection<BinarySectionHeader>( mSectionHeaders );
             }
         }
 
-        public ReadOnlyCollection<FlowScriptBinaryLabel> ProcedureLabelSection
+        public ReadOnlyCollection<BinaryLabel> ProcedureLabelSection
         {
             get
             {
                 if ( mProcedureLabelSection == null )
                     return null;
-                else
-                    return new ReadOnlyCollection<FlowScriptBinaryLabel>( mProcedureLabelSection );
+                return new ReadOnlyCollection<BinaryLabel>( mProcedureLabelSection );
             }
         }
 
-        public ReadOnlyCollection<FlowScriptBinaryLabel> JumpLabelSection
+        public ReadOnlyCollection<BinaryLabel> JumpLabelSection
         {
             get
             {
                 if ( mJumpLabelSection == null )
                     return null;
-                else
-                    return new ReadOnlyCollection<FlowScriptBinaryLabel>( mJumpLabelSection );
+                return new ReadOnlyCollection<BinaryLabel>( mJumpLabelSection );
             }
         }
 
-        public ReadOnlyCollection<FlowScriptBinaryInstruction> TextSection
+        public ReadOnlyCollection<BinaryInstruction> TextSection
         {
             get
             {
                 if ( mTextSection == null )
                     return null;
-                else
-                    return new ReadOnlyCollection<FlowScriptBinaryInstruction>( mTextSection );
+                return new ReadOnlyCollection<BinaryInstruction>( mTextSection );
             }
         }
 
@@ -105,7 +98,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.BinaryModel
 
                 if ( sizeDifference != 0 )
                 {
-                    var sectionHeaderIndex = Array.FindIndex( mSectionHeaders, x => x.SectionType == FlowScriptBinarySectionType.MessageScriptSection );
+                    var sectionHeaderIndex = Array.FindIndex( mSectionHeaders, x => x.SectionType == BinarySectionType.MessageScriptSection );
 
                     if ( sectionHeaderIndex != -1 )
                     {
@@ -137,12 +130,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.BinaryModel
             {
                 if ( mStringSection == null )
                     return null;
-                else
-                    return new ReadOnlyCollection<byte>( mStringSection );
+                return new ReadOnlyCollection<byte>( mStringSection );
             }
         }
 
-        public FlowScriptBinaryFormatVersion FormatVersion
+        public BinaryFormatVersion FormatVersion
         {
             get { return mFormatVersion; }
         }

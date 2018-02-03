@@ -1,6 +1,0 @@
-{
-  "Name": "Digital Devil Saga",
-  "ShortName": "dds",
-  "FlowScriptLibraryRegistryPath": "DigitalDevilSaga\\FlowScriptLibraries.json",
-  "MessageScriptLibraryPath": "DigitalDevilSaga\\MessageScriptLibrary.json"
-}

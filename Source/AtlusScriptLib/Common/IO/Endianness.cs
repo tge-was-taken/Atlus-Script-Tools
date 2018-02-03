@@ -17,8 +17,7 @@ namespace AtlusScriptLib.Common.IO
             {
                 if (BitConverter.IsLittleEndian)
                     return Endianness.LittleEndian;
-                else
-                    return Endianness.BigEndian;
+                return Endianness.BigEndian;
             }
         }
 
@@ -88,7 +87,7 @@ namespace AtlusScriptLib.Common.IO
             value = Swap(value);
         }
 
-        public unsafe static float Swap(float value)
+        public static float Swap(float value)
         {
             return Unsafe.ReinterpretCast<uint, float>(
                 Swap(Unsafe.ReinterpretCast<float, uint>(value))
@@ -100,7 +99,7 @@ namespace AtlusScriptLib.Common.IO
             value = Swap(value);
         }
 
-        public unsafe static double Swap(double value)
+        public static double Swap(double value)
         {
             return Unsafe.ReinterpretCast<ulong, double>(
                 Swap(Unsafe.ReinterpretCast<double, ulong>(value))
@@ -142,41 +141,38 @@ namespace AtlusScriptLib.Common.IO
 
                 return array;
             }
-            else if (type.IsClass)
+            if (type.IsClass)
             {
                 Swap(obj, type);
                 return obj;
             }
-            else if (type.IsEnum)
+            if (type.IsEnum)
             {
                 return SwapRecursive(obj, type.GetEnumUnderlyingType());
             }
-            else if (type.IsGenericType)
+            if (type.IsGenericType)
             {
                 throw new NotImplementedException();
             }
-            else if (type.IsInterface)
+            if (type.IsInterface)
             {
                 throw new NotImplementedException();
             }
-            else if (type.IsPointer)
+            if (type.IsPointer)
             {
                 throw new NotImplementedException();
             }
-            else if (type.IsPrimitive)
+            if (type.IsPrimitive)
             {
                 return Swap((dynamic)obj);
                 //return SwapEndiannessPrimitive(type, obj);
             }
-            else if (type.IsValueType)
+            if (type.IsValueType)
             {
                 Swap(obj, type);
                 return obj;
             }
-            else
-            {
-                throw new NotImplementedException();
-            }
+            throw new NotImplementedException();
         }
 
         private static object Swap(object obj, Type type)

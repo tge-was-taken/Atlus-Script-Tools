@@ -11,10 +11,10 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel.IO
         private readonly long mPositionBase;
         private readonly EndianBinaryWriter mWriter;
 
-        public MessageScriptBinaryWriter( Stream stream, MessageScriptBinaryFormatVersion version, bool leaveOpen = false )
+        public MessageScriptBinaryWriter( Stream stream, BinaryFormatVersion version, bool leaveOpen = false )
         {
             mPositionBase = stream.Position;
-            mWriter = new EndianBinaryWriter( stream, Encoding.ASCII, leaveOpen, version.HasFlag( MessageScriptBinaryFormatVersion.BigEndian ) ? Endianness.BigEndian : Endianness.LittleEndian );
+            mWriter = new EndianBinaryWriter( stream, Encoding.ASCII, leaveOpen, version.HasFlag( BinaryFormatVersion.BigEndian ) ? Endianness.BigEndian : Endianness.LittleEndian );
         }
 
         public void Dispose()
@@ -38,7 +38,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel.IO
             WriteRelocationTable( ref binary.mHeader.RelocationTable );
         }
 
-        private void WriteHeader( ref MessageScriptBinaryHeader header )
+        private void WriteHeader( ref BinaryHeader header )
         {
             mWriter.Write( header.FileType );
             mWriter.Write( header.IsCompressed ? ( byte )1 : ( byte )0 );
@@ -53,7 +53,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel.IO
             mWriter.Write( header.Field1E );
         }
 
-        private void WriteMessageHeaders( MessageScriptBinaryWindowHeader[] messageHeaders )
+        private void WriteMessageHeaders( BinaryWindowHeader[] messageHeaders )
         {
             foreach ( var messageHeader in messageHeaders )
             {
@@ -62,7 +62,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel.IO
             }
         }
 
-        private void WriteSpeakerHeader( ref MessageScriptBinarySpeakerTableHeader header )
+        private void WriteSpeakerHeader( ref BinarySpeakerTableHeader header )
         {
             mWriter.Write( header.SpeakerNameArray.Offset );
             mWriter.Write( header.SpeakerCount );
@@ -70,20 +70,20 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel.IO
             mWriter.Write( header.Field0C );
         }
 
-        private void WriteMessages( MessageScriptBinaryWindowHeader[] messageHeaders )
+        private void WriteMessages( BinaryWindowHeader[] messageHeaders )
         {
             foreach ( var messageHeader in messageHeaders )
             {
-                mWriter.SeekBegin( mPositionBase + MessageScriptBinaryHeader.SIZE + messageHeader.Window.Offset );
+                mWriter.SeekBegin( mPositionBase + BinaryHeader.SIZE + messageHeader.Window.Offset );
 
                 switch ( messageHeader.WindowType )
                 {
-                    case MessageScriptBinaryWindowType.Dialogue:
-                        WriteDialogueMessage( ( MessageScriptBinaryDialogueWindow )messageHeader.Window.Value );
+                    case BinaryWindowType.Dialogue:
+                        WriteDialogueMessage( ( BinaryDialogueWindow )messageHeader.Window.Value );
                         break;
 
-                    case MessageScriptBinaryWindowType.Selection:
-                        WriteSelectionMessage( ( MessageScriptBinarySelectionWindow )messageHeader.Window.Value );
+                    case BinaryWindowType.Selection:
+                        WriteSelectionMessage( ( BinarySelectionWindow )messageHeader.Window.Value );
                         break;
 
                     default:
@@ -92,9 +92,9 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel.IO
             }
         }
 
-        private void WriteDialogueMessage( MessageScriptBinaryDialogueWindow dialogue )
+        private void WriteDialogueMessage( BinaryDialogueWindow dialogue )
         {
-            mWriter.Write( dialogue.Identifier, StringBinaryFormat.FixedLength, MessageScriptBinaryDialogueWindow.IDENTIFIER_LENGTH );
+            mWriter.Write( dialogue.Identifier, StringBinaryFormat.FixedLength, BinaryDialogueWindow.IDENTIFIER_LENGTH );
             mWriter.Write( dialogue.LineCount );
             mWriter.Write( dialogue.SpeakerId );
 
@@ -106,9 +106,9 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel.IO
             }
         }
 
-        private void WriteSelectionMessage( MessageScriptBinarySelectionWindow selection )
+        private void WriteSelectionMessage( BinarySelectionWindow selection )
         {
-            mWriter.Write( selection.Identifier, StringBinaryFormat.FixedLength, MessageScriptBinarySelectionWindow.IDENTIFIER_LENGTH );
+            mWriter.Write( selection.Identifier, StringBinaryFormat.FixedLength, BinarySelectionWindow.IDENTIFIER_LENGTH );
             mWriter.Write( selection.Field18 );
             mWriter.Write( selection.OptionCount );
             mWriter.Write( selection.Field1C );
@@ -118,18 +118,18 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel.IO
             mWriter.Write( selection.TextBuffer );
         }
 
-        private void WriteSpeakerNameOffsets( ref MessageScriptBinarySpeakerTableHeader header )
+        private void WriteSpeakerNameOffsets( ref BinarySpeakerTableHeader header )
         {
-            mWriter.SeekBegin( mPositionBase + MessageScriptBinaryHeader.SIZE + header.SpeakerNameArray.Offset );
+            mWriter.SeekBegin( mPositionBase + BinaryHeader.SIZE + header.SpeakerNameArray.Offset );
             foreach ( var speakerName in header.SpeakerNameArray.Value )
                 mWriter.Write( speakerName.Offset );
         }
 
-        private void WriteSpeakerNames( ref MessageScriptBinarySpeakerTableHeader header )
+        private void WriteSpeakerNames( ref BinarySpeakerTableHeader header )
         {
             foreach ( var speakerName in header.SpeakerNameArray.Value )
             {
-                mWriter.SeekBegin( mPositionBase + MessageScriptBinaryHeader.SIZE + speakerName.Offset );
+                mWriter.SeekBegin( mPositionBase + BinaryHeader.SIZE + speakerName.Offset );
                 mWriter.Write( speakerName.Value.ToArray() );
                 mWriter.Write( ( byte )0 );
             }

@@ -27,7 +27,7 @@ namespace AtlusMessageScriptExtractor
         /// </summary>
         Version3,
 
-        Autodetect,
+        Autodetect
     }
 
     public sealed class Archive : IDisposable, IEnumerable<string>
@@ -90,7 +90,7 @@ namespace AtlusMessageScriptExtractor
 
                 // If the name has already been terminated but there's still data in the reserved space,
                 // fail the test
-                if ( nameTerminated == true && testData[i] != 0x00 )
+                if ( nameTerminated && testData[i] != 0x00 )
                     return false;
             }
 
@@ -138,7 +138,7 @@ namespace AtlusMessageScriptExtractor
                     nameTerminated = true;
                 }
 
-                if ( testData[4 + i] != 0x00 && nameTerminated == true )
+                if ( testData[4 + i] != 0x00 && nameTerminated )
                     return false;
             }
 

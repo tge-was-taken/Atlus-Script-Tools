@@ -1,106 +1,106 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using AtlusScriptLib.FlowScriptLanguage.BinaryModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AtlusScriptLib.FlowScriptLanguage.Tests
 {
-    [TestClass()]
+    [TestClass]
     public class FlowScriptTests
     {
-        private FlowScript FromFile_ResultNotNullAndFormatIsEqualToParameter( FlowScriptBinaryFormatVersion version, FlowScriptBinaryFormatVersion actualVersion )
+        private FlowScript FromFile_ResultNotNullAndFormatIsEqualToParameter( BinaryFormatVersion version, BinaryFormatVersion actualVersion )
         {
             var script = FlowScript.FromFile( $"TestResources\\{actualVersion}.bf", null, version );
 
             Assert.IsNotNull( script, "Script object should not be null" );
-            Assert.AreEqual( (FlowScriptFormatVersion)actualVersion, script.FormatVersion );
+            Assert.AreEqual( (FormatVersion)actualVersion, script.FormatVersion );
 
             return script;
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version1WithSameVersionParameter()
         {
-            FromFile_ResultNotNullAndFormatIsEqualToParameter( FlowScriptBinaryFormatVersion.Version1, FlowScriptBinaryFormatVersion.Version1 );
+            FromFile_ResultNotNullAndFormatIsEqualToParameter( BinaryFormatVersion.Version1, BinaryFormatVersion.Version1 );
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version1WithUnknownVersionParameter()
         {
-            FromFile_ResultNotNullAndFormatIsEqualToParameter( FlowScriptBinaryFormatVersion.Unknown, FlowScriptBinaryFormatVersion.Version1 );
+            FromFile_ResultNotNullAndFormatIsEqualToParameter( BinaryFormatVersion.Unknown, BinaryFormatVersion.Version1 );
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version1WithWrongVersionParameter()
         {
-            FromFile_ResultNotNullAndFormatIsEqualToParameter( FlowScriptBinaryFormatVersion.Version3BigEndian, FlowScriptBinaryFormatVersion.Version1 );
+            FromFile_ResultNotNullAndFormatIsEqualToParameter( BinaryFormatVersion.Version3BigEndian, BinaryFormatVersion.Version1 );
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void FromFile_ShouldNotFailIntegrityCheck_Version1()
         {
-            var script = FromFile_ResultNotNullAndFormatIsEqualToParameter( FlowScriptBinaryFormatVersion.Version1, FlowScriptBinaryFormatVersion.Version1 );
+            var script = FromFile_ResultNotNullAndFormatIsEqualToParameter( BinaryFormatVersion.Version1, BinaryFormatVersion.Version1 );
 
             var instructions = script.EnumerateInstructions().ToList();
             Assert.AreEqual( 10061, instructions.Count );
             //Assert.AreEqual( 742, script.JumpLabels.Count );
             //Assert.AreEqual(77521, script.MessageScript);
             Assert.AreEqual( 96, script.Procedures.Count );
-            Assert.AreEqual( FlowScriptOpcode.COMM, instructions[2].Opcode );
-            Assert.AreEqual( 102, instructions[2].Operand.GetInt16Value() );
-            Assert.ThrowsException<InvalidOperationException>( () => instructions[2].Operand.GetInt32Value() );
+            Assert.AreEqual( Opcode.COMM, instructions[2].Opcode );
+            Assert.AreEqual( 102, instructions[2].Operand.Int16Value);
+            Assert.ThrowsException<InvalidOperationException>( () => instructions[2].Operand.Int32Value);
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version2WithSameVersionParameter()
         {
-            FromFile_ResultNotNullAndFormatIsEqualToParameter( FlowScriptBinaryFormatVersion.Version2, FlowScriptBinaryFormatVersion.Version2 );
+            FromFile_ResultNotNullAndFormatIsEqualToParameter( BinaryFormatVersion.Version2, BinaryFormatVersion.Version2 );
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version2WithUnknownVersionParameter()
         {
-            FromFile_ResultNotNullAndFormatIsEqualToParameter( FlowScriptBinaryFormatVersion.Unknown, FlowScriptBinaryFormatVersion.Version2 );
+            FromFile_ResultNotNullAndFormatIsEqualToParameter( BinaryFormatVersion.Unknown, BinaryFormatVersion.Version2 );
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version2WithWrongVersionParameter()
         {
-            FromFile_ResultNotNullAndFormatIsEqualToParameter( FlowScriptBinaryFormatVersion.Version3BigEndian, FlowScriptBinaryFormatVersion.Version2 );
+            FromFile_ResultNotNullAndFormatIsEqualToParameter( BinaryFormatVersion.Version3BigEndian, BinaryFormatVersion.Version2 );
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version3WithSameVersionParameter()
         {
-            FromFile_ResultNotNullAndFormatIsEqualToParameter( FlowScriptBinaryFormatVersion.Version3BigEndian, FlowScriptBinaryFormatVersion.Version3BigEndian );
+            FromFile_ResultNotNullAndFormatIsEqualToParameter( BinaryFormatVersion.Version3BigEndian, BinaryFormatVersion.Version3BigEndian );
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version3WithUnknownVersionParameter()
         {
-            FromFile_ResultNotNullAndFormatIsEqualToParameter( FlowScriptBinaryFormatVersion.Unknown, FlowScriptBinaryFormatVersion.Version3BigEndian );
+            FromFile_ResultNotNullAndFormatIsEqualToParameter( BinaryFormatVersion.Unknown, BinaryFormatVersion.Version3BigEndian );
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version3WithWrongVersionParameter()
         {
-            FromFile_ResultNotNullAndFormatIsEqualToParameter( FlowScriptBinaryFormatVersion.Version1, FlowScriptBinaryFormatVersion.Version3BigEndian );
+            FromFile_ResultNotNullAndFormatIsEqualToParameter( BinaryFormatVersion.Version1, BinaryFormatVersion.Version3BigEndian );
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void FromFile_ShouldThrowInvalidDataException_InvalidFileFormatSmall()
         {
-            Assert.ThrowsException<InvalidDataException>( () => FlowScript.FromFile( "TestResources\\dummy_small.bin", null, FlowScriptBinaryFormatVersion.Unknown ) );
+            Assert.ThrowsException<InvalidDataException>( () => FlowScript.FromFile( "TestResources\\dummy_small.bin", null, BinaryFormatVersion.Unknown ) );
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void FromFile_ShouldThrowInvalidDataException_InvalidFileFormatBig()
         {
-            Assert.ThrowsException<InvalidDataException>( () => FlowScript.FromFile( "TestResources\\dummy_big.bin", null, FlowScriptBinaryFormatVersion.Unknown ) );
+            Assert.ThrowsException<InvalidDataException>( () => FlowScript.FromFile( "TestResources\\dummy_big.bin", null, BinaryFormatVersion.Unknown ) );
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void FromFile_ShouldNotThrow_Batch()
         {
             foreach ( var path in Directory.EnumerateFiles( "TestResources\\Batch\\", "*.bf" ) )
@@ -109,22 +109,22 @@ namespace AtlusScriptLib.FlowScriptLanguage.Tests
             }
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void FromStream_ShouldNotBeNullAndIsSameVersion_Version3BigEndian()
         {
             using ( var fileStream = File.OpenRead( "TestResources\\Version3BigEndian.bf" ) )
             {
-                var script = FlowScript.FromStream( fileStream, null, FlowScriptBinaryFormatVersion.Version3BigEndian, false );
+                var script = FlowScript.FromStream( fileStream, null, BinaryFormatVersion.Version3BigEndian, false );
 
                 Assert.IsNotNull( script );
-                Assert.AreEqual( FlowScriptFormatVersion.Version3BigEndian, script.FormatVersion );
+                Assert.AreEqual( FormatVersion.Version3BigEndian, script.FormatVersion );
             }
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void FromBinary_ContentsShouldMatchThatOfBinary_Version3BigEndian()
         {
-            var binary = FlowScriptBinary.FromFile( "TestResources\\Version3BigEndian.bf", FlowScriptBinaryFormatVersion.Version3BigEndian );
+            var binary = FlowScriptBinary.FromFile( "TestResources\\Version3BigEndian.bf", BinaryFormatVersion.Version3BigEndian );
             var script = FlowScript.FromBinary( binary );
 
             Assert.AreEqual( script.UserId, binary.Header.UserId );
@@ -151,26 +151,26 @@ namespace AtlusScriptLib.FlowScriptLanguage.Tests
 
                 if ( instruction.Operand != null )
                 {
-                    switch ( instruction.Operand.Type )
+                    switch ( instruction.Operand.Kind )
                     {
-                        case FlowScriptInstruction.OperandValue.ValueType.Int16:
-                            if ( instruction.Opcode != FlowScriptOpcode.IF && instruction.Opcode != FlowScriptOpcode.GOTO )
-                                Assert.AreEqual( binaryInstruction.OperandShort, instruction.Operand.GetInt16Value() );
+                        case Operand.ValueKind.Int16:
+                            if ( instruction.Opcode != Opcode.IF && instruction.Opcode != Opcode.GOTO )
+                                Assert.AreEqual( binaryInstruction.OperandShort, instruction.Operand.Int16Value);
                             break;
-                        case FlowScriptInstruction.OperandValue.ValueType.Int32:
-                            Assert.AreEqual( binary.TextSection[binaryIndex++].OperandInt, instruction.Operand.GetInt32Value() );
+                        case Operand.ValueKind.Int32:
+                            Assert.AreEqual( binary.TextSection[binaryIndex++].OperandInt, instruction.Operand.Int32Value);
                             break;
-                        case FlowScriptInstruction.OperandValue.ValueType.Single:
-                            Assert.AreEqual( binary.TextSection[binaryIndex++].OperandFloat, instruction.Operand.GetSingleValue() );
+                        case Operand.ValueKind.Single:
+                            Assert.AreEqual( binary.TextSection[binaryIndex++].OperandFloat, instruction.Operand.SingleValue);
                             break;
-                        case FlowScriptInstruction.OperandValue.ValueType.String:
+                        case Operand.ValueKind.String:
                             break;
                     }
                 }
             }
         }
 
-        [TestMethod()]
+        [TestMethod]
         public void ToBinary_ContentsShouldMatchThatOfSourceBinary_Version3BigEndian()
         {
             var binaryIn = FlowScriptBinary.FromFile( "TestResources\\Version3BigEndian.bf" );
@@ -223,13 +223,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Tests
 
                 Assert.AreEqual( inInstruction.Opcode, outInstruction.Opcode );
 
-                if ( inInstruction.Opcode == FlowScriptOpcode.PUSHI || inInstruction.Opcode == FlowScriptOpcode.PUSHF )
+                if ( inInstruction.Opcode == Opcode.PUSHI || inInstruction.Opcode == Opcode.PUSHF )
                 {
                     ++i;
                     continue;
                 }
 
-                if ( inInstruction.Opcode == FlowScriptOpcode.IF || inInstruction.Opcode == FlowScriptOpcode.GOTO )
+                if ( inInstruction.Opcode == Opcode.IF || inInstruction.Opcode == Opcode.GOTO )
                 {
                     Assert.AreEqual( binaryIn.JumpLabelSection[inInstruction.OperandShort].Name, binaryOut.JumpLabelSection[outInstruction.OperandShort].Name );
                 }

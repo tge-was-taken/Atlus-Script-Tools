@@ -10,12 +10,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.BinaryModel.IO
         private bool mDisposed;
         private long mPositionBase;
         private EndianBinaryWriter mWriter;
-        private FlowScriptBinaryFormatVersion mVersion;
+        private BinaryFormatVersion mVersion;
 
-        public FlowScriptBinaryWriter( Stream stream, FlowScriptBinaryFormatVersion version )
+        public FlowScriptBinaryWriter( Stream stream, BinaryFormatVersion version )
         {
             mPositionBase = stream.Position;
-            mWriter = new EndianBinaryWriter( stream, version.HasFlag( FlowScriptBinaryFormatVersion.BigEndian ) ? Endianness.BigEndian : Endianness.LittleEndian );
+            mWriter = new EndianBinaryWriter( stream, version.HasFlag( BinaryFormatVersion.BigEndian ) ? Endianness.BigEndian : Endianness.LittleEndian );
             mVersion = version;
         }
 
@@ -29,23 +29,23 @@ namespace AtlusScriptLib.FlowScriptLanguage.BinaryModel.IO
 
                 switch ( sectionHeader.SectionType )
                 {
-                    case FlowScriptBinarySectionType.ProcedureLabelSection:
+                    case BinarySectionType.ProcedureLabelSection:
                         WriteLabelSection( ref sectionHeader, binary.mProcedureLabelSection );
                         break;
 
-                    case FlowScriptBinarySectionType.JumpLabelSection:
+                    case BinarySectionType.JumpLabelSection:
                         WriteLabelSection( ref sectionHeader, binary.mJumpLabelSection );
                         break;
 
-                    case FlowScriptBinarySectionType.TextSection:
+                    case BinarySectionType.TextSection:
                         WriteTextSection( ref sectionHeader, binary.mTextSection );
                         break;
 
-                    case FlowScriptBinarySectionType.MessageScriptSection:
+                    case BinarySectionType.MessageScriptSection:
                         WriteMessageScriptSection( ref sectionHeader, binary.mMessageScriptSection );
                         break;
 
-                    case FlowScriptBinarySectionType.StringSection:
+                    case BinarySectionType.StringSection:
                         WriteStringSection( ref sectionHeader, binary.mStringSection );
                         break;
 
@@ -55,26 +55,26 @@ namespace AtlusScriptLib.FlowScriptLanguage.BinaryModel.IO
             }
         }
 
-        public void WriteHeader( ref FlowScriptBinaryHeader header )
+        public void WriteHeader( ref BinaryHeader header )
         {
             mWriter.Write( ref header );
         }
 
-        public void WriteSectionHeaders( FlowScriptBinarySectionHeader[] sectionHeaders )
+        public void WriteSectionHeaders( BinarySectionHeader[] sectionHeaders )
         {
             mWriter.Write( sectionHeaders );
         }
 
-        public void WriteLabelSection( ref FlowScriptBinarySectionHeader sectionHeader, FlowScriptBinaryLabel[] labels )
+        public void WriteLabelSection( ref BinarySectionHeader sectionHeader, BinaryLabel[] labels )
         {
             mWriter.SeekBegin( mPositionBase + sectionHeader.FirstElementAddress );
 
             foreach ( var label in labels )
             {
                 mWriter.Write( label.Name, StringBinaryFormat.FixedLength,
-                    ( mVersion.HasFlag( FlowScriptBinaryFormatVersion.Version1 ) ? FlowScriptBinaryLabel.SIZE_V1 :
-                    mVersion.HasFlag( FlowScriptBinaryFormatVersion.Version2 ) ? FlowScriptBinaryLabel.SIZE_V2 :
-                    mVersion.HasFlag( FlowScriptBinaryFormatVersion.Version3 ) ? FlowScriptBinaryLabel.SIZE_V3 :
+                    ( mVersion.HasFlag( BinaryFormatVersion.Version1 ) ? BinaryLabel.SIZE_V1 :
+                    mVersion.HasFlag( BinaryFormatVersion.Version2 ) ? BinaryLabel.SIZE_V2 :
+                    mVersion.HasFlag( BinaryFormatVersion.Version3 ) ? BinaryLabel.SIZE_V3 :
                     throw new Exception( "Invalid format version" ) ) - ( sizeof( int ) * 2 ) );
 
                 mWriter.Write( label.InstructionIndex );
@@ -82,7 +82,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.BinaryModel.IO
             }
         }
 
-        public void WriteTextSection( ref FlowScriptBinarySectionHeader sectionHeader, FlowScriptBinaryInstruction[] instructions )
+        public void WriteTextSection( ref BinarySectionHeader sectionHeader, BinaryInstruction[] instructions )
         {
             mWriter.SeekBegin( mPositionBase + sectionHeader.FirstElementAddress );
 
@@ -94,12 +94,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.BinaryModel.IO
                 {
                     ref var prevInstruction = ref instructions[i - 1];
 
-                    if ( prevInstruction.Opcode == FlowScriptOpcode.PUSHI && ( prevInstruction.OperandInt == 0 && instruction.OperandInt > 0 ) )
+                    if ( prevInstruction.Opcode == Opcode.PUSHI && ( prevInstruction.OperandInt == 0 && instruction.OperandInt > 0 ) )
                     {
                         mWriter.Write( instruction.OperandInt );
                         continue;
                     }
-                    else if ( prevInstruction.Opcode == FlowScriptOpcode.PUSHF && ( prevInstruction.OperandFloat == 0 && instruction.OperandFloat > 0 ) )
+                    if ( prevInstruction.Opcode == Opcode.PUSHF && ( prevInstruction.OperandFloat == 0 && instruction.OperandFloat > 0 ) )
                     {
                         mWriter.Write( instruction.OperandFloat );
                         continue;
@@ -111,13 +111,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.BinaryModel.IO
             }
         }
 
-        public void WriteMessageScriptSection( ref FlowScriptBinarySectionHeader sectionHeader, MessageScriptBinary messageScript )
+        public void WriteMessageScriptSection( ref BinarySectionHeader sectionHeader, MessageScriptBinary messageScript )
         {
             mWriter.SeekBegin( mPositionBase + sectionHeader.FirstElementAddress );
             messageScript.ToStream( mWriter.BaseStream, true );
         }
 
-        public void WriteStringSection( ref FlowScriptBinarySectionHeader sectionHeader, byte[] stringSection )
+        public void WriteStringSection( ref BinarySectionHeader sectionHeader, byte[] stringSection )
         {
             mWriter.SeekBegin( mPositionBase + sectionHeader.FirstElementAddress );
             mWriter.Write( stringSection );

@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Text;
 using AtlusScriptLib.Common.Logging;
 using AtlusScriptLib.Common.Registry;
-using AtlusScriptLib.Common.Text.Encodings;
 using AtlusScriptLib.Common.Text;
+using AtlusScriptLib.Common.Text.Encodings;
 using AtlusScriptLib.FlowScriptLanguage;
 using AtlusScriptLib.FlowScriptLanguage.BinaryModel;
 using AtlusScriptLib.FlowScriptLanguage.Compiler;
@@ -14,6 +15,7 @@ using AtlusScriptLib.FlowScriptLanguage.Disassembler;
 using AtlusScriptLib.MessageScriptLanguage;
 using AtlusScriptLib.MessageScriptLanguage.Compiler;
 using AtlusScriptLib.MessageScriptLanguage.Decompiler;
+using FormatVersion = AtlusScriptLib.FlowScriptLanguage.FormatVersion;
 
 namespace AtlusScriptCompiler
 {
@@ -173,6 +175,9 @@ namespace AtlusScriptCompiler
             {
                 LogException( "Unhandled exception thrown", e );
                 success = false;
+
+                if ( Debugger.IsAttached )
+                    throw e;
             }
 
             if ( success )
@@ -446,26 +451,26 @@ namespace AtlusScriptCompiler
             Logger.Info( "Compiling FlowScript..." );
 
             // Get format verson
-            FlowScriptFormatVersion version;
+            FormatVersion version;
             switch ( OutputFileFormat )
             {
                 case OutputFileFormat.V1:
-                    version = FlowScriptFormatVersion.Version1;
+                    version = FormatVersion.Version1;
                     break;
                 case OutputFileFormat.V1BE:
-                    version = FlowScriptFormatVersion.Version1BigEndian;
+                    version = FormatVersion.Version1BigEndian;
                     break;
                 case OutputFileFormat.V2:
-                    version = FlowScriptFormatVersion.Version2;
+                    version = FormatVersion.Version2;
                     break;
                 case OutputFileFormat.V2BE:
-                    version = FlowScriptFormatVersion.Version2BigEndian;
+                    version = FormatVersion.Version2BigEndian;
                     break;
                 case OutputFileFormat.V3:
-                    version = FlowScriptFormatVersion.Version3;
+                    version = FormatVersion.Version3;
                     break;
                 case OutputFileFormat.V3BE:
-                    version = FlowScriptFormatVersion.Version3BigEndian;
+                    version = FormatVersion.Version3BigEndian;
                     break;
                 default:
                     Logger.Error( "Invalid FlowScript file format specified" );
@@ -483,7 +488,7 @@ namespace AtlusScriptCompiler
 
             if ( LibraryName != null )
             {
-                var library = LibraryRegistryCache.GetLibraryRegistry( LibraryName );
+                var library = LibraryLookup.GetLibrary( LibraryName );
 
                 if ( library == null )
                 {
@@ -491,7 +496,7 @@ namespace AtlusScriptCompiler
                     return false;
                 }
 
-                compiler.LibraryRegistry = library;
+                compiler.Library = library;
             }
 
             FlowScript flowScript;
@@ -514,15 +519,15 @@ namespace AtlusScriptCompiler
             // Compile source
             Logger.Info( "Compiling MessageScript..." );
 
-            MessageScriptFormatVersion version;
+            AtlusScriptLib.MessageScriptLanguage.FormatVersion version;
 
             if ( OutputFileFormat == OutputFileFormat.V1 )
             {
-                version = MessageScriptFormatVersion.Version1;
+                version = AtlusScriptLib.MessageScriptLanguage.FormatVersion.Version1;
             }
             else if ( OutputFileFormat == OutputFileFormat.V1BE )
             {
-                version = MessageScriptFormatVersion.Version1BigEndian;
+                version = AtlusScriptLib.MessageScriptLanguage.FormatVersion.Version1BigEndian;
             }
             else
             {
@@ -536,7 +541,7 @@ namespace AtlusScriptCompiler
 
             if ( LibraryName != null )
             {
-                var library = LibraryRegistryCache.GetLibraryRegistry( LibraryName );
+                var library = LibraryLookup.GetLibrary( LibraryName );
 
                 if ( library == null )
                 {
@@ -544,7 +549,7 @@ namespace AtlusScriptCompiler
                     return false;
                 }
 
-                compiler.LibraryRegistry = library;
+                compiler.Library = library;
             }
 
             if ( !compiler.TryCompile( File.OpenText( InputFilePath ), out var script ) )
@@ -600,7 +605,7 @@ namespace AtlusScriptCompiler
 
             if ( LibraryName != null )
             {
-                var library = LibraryRegistryCache.GetLibraryRegistry( LibraryName );
+                var library = LibraryLookup.GetLibrary( LibraryName );
 
                 if ( library == null )
                 {
@@ -608,7 +613,7 @@ namespace AtlusScriptCompiler
                     return false;
                 }
 
-                decompiler.LibraryRegistry = library;
+                decompiler.Library = library;
             }
 
             if ( !decompiler.TryDecompile( flowScript, OutputFilePath ) )
@@ -638,14 +643,14 @@ namespace AtlusScriptCompiler
                 {
                     if ( LibraryName != null )
                     {
-                        var library = LibraryRegistryCache.GetLibraryRegistry( LibraryName );
+                        var library = LibraryLookup.GetLibrary( LibraryName );
 
                         if ( library == null )
                         {
                             Logger.Error( "Invalid library name specified" );
                         }
 
-                        decompiler.LibraryRegistry = library;
+                        decompiler.Library = library;
                     }
 
                     decompiler.Decompile( script );
@@ -756,10 +761,10 @@ namespace AtlusScriptCompiler
         private static void LogException( string message, Exception e )
         {
             Logger.Error( message );
-            Logger.Debug( "Exception info:" );
-            Logger.Debug( $"{e.Message}" );
-            Logger.Debug( "Stacktrace:" );
-            Logger.Debug( $"{e.StackTrace}" );
+            Logger.Error( "Exception info:" );
+            Logger.Error( $"{e.Message}" );
+            Logger.Error( "Stacktrace:" );
+            Logger.Error( $"{e.StackTrace}" );
         }
     }
 
@@ -770,7 +775,7 @@ namespace AtlusScriptCompiler
         FlowScriptTextSource,
         FlowScriptAssemblerSource,
         MessageScriptBinary,
-        MessageScriptTextSource,
+        MessageScriptTextSource
     }
 
     public enum OutputFileFormat

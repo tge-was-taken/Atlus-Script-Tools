@@ -11,6 +11,13 @@
 // Generated from D:\Users\smart\Documents\Visual Studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptLib\MessageScriptLanguage\Parser\MessageScriptLexer.g4 by ANTLR 4.6.4
 
 // Unreachable code detected
+
+using System;
+using System.CodeDom.Compiler;
+using Antlr4.Runtime;
+using Antlr4.Runtime.Atn;
+using Antlr4.Runtime.Misc;
+
 #pragma warning disable 0162
 // The variable '...' is assigned but its value is never used
 #pragma warning disable 0219
@@ -20,13 +27,8 @@
 #pragma warning disable 419
 
 namespace AtlusScriptLib.MessageScriptLanguage.Compiler.Parser {
-using Antlr4.Runtime;
-using Antlr4.Runtime.Atn;
-using Antlr4.Runtime.Misc;
-using DFA = Antlr4.Runtime.Dfa.DFA;
-
-[System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.6.4")]
-[System.CLSCompliant(false)]
+    [GeneratedCode("ANTLR", "4.6.4")]
+[CLSCompliant(false)]
 public partial class MessageScriptLexer : Lexer {
 	public const int
 		OpenCode=1, CloseText=2, Text=3, MessageDialogTagId=4, SelectionDialogTagId=5, 
@@ -59,7 +61,7 @@ public partial class MessageScriptLexer : Lexer {
 	};
 	public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);
 
-	[System.Obsolete("Use Vocabulary instead.")]
+	[Obsolete("Use Vocabulary instead.")]
 	public static readonly string[] tokenNames = GenerateTokenNames(DefaultVocabulary, _SymbolicNames.Length);
 
 	private static string[] GenerateTokenNames(IVocabulary vocabulary, int length) {
@@ -78,7 +80,7 @@ public partial class MessageScriptLexer : Lexer {
 		return tokenNames;
 	}
 
-	[System.Obsolete("Use IRecognizer.Vocabulary instead.")]
+	[Obsolete("Use IRecognizer.Vocabulary instead.")]
 	public override string[] TokenNames
 	{
 		get

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AtlusScriptLib.Common.Text.Encodings
+﻿namespace AtlusScriptLib.Common.Text.Encodings
 {
 
     public class Persona5Encoding : AtlusEncoding
@@ -10,8 +8,7 @@ namespace AtlusScriptLib.Common.Text.Encodings
         /// <summary>
         /// All credit goes to Senketsu (鮮尻) and tomas_xc for mapping out this table.
         /// </summary>
-        private static char[] sCharTable = new char[]
-        {
+        private static char[] sCharTable = {
             (char)00, (char)01, (char)02, (char)03, (char)04, (char)05, (char)06, (char)07, (char)08, (char)09, (char)10, (char)11, (char)12, (char)13, (char)14, (char)15,
             (char)16, (char)17, (char)18, (char)19, (char)20, (char)21, (char)22, (char)23, (char)24, (char)25, (char)26, (char)27, (char)28, (char)29, (char)30, (char)31,
             ' ', '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/',
@@ -249,7 +246,7 @@ namespace AtlusScriptLib.Common.Text.Encodings
             '懺', '斃', '簀', '囃', '揶', '揄', '嗟', '眷', '蹂', '躙', '嘔', '焙', '涸', '喩', '譚', '撼',
             '姜', '誂', '壺', '鬨', '荳', '蒄', '齎', '痙', '攣', '勒', '娑', '訶', '羞', '憚', '拮', '檜',
             '蜥', '蜴', '毀', '猥', '隕', '詭', '躊', '躇', '燻', '蝸', '渗', '慟', '哭', '鍼', '彙', '剪',
-            '徘', '徊', '痍', '慇', '懃', '穹',
+            '徘', '徊', '痍', '慇', '懃', '穹'
         };
     }
 }

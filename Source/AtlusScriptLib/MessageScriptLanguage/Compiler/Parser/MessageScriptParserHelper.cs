@@ -5,25 +5,25 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler.Parser
 {
     public static class MessageScriptParserHelper
     {
-        public static MessageScriptParser.CompilationUnitContext ParseCompilationUnit( string input, IAntlrErrorListener<IToken> errorListener = null )
+        public static MessageScriptParser.CompilationUnitContext ParseCompilationUnit( string input, IAntlrErrorListener<Antlr4.Runtime.IToken> errorListener = null )
         {
             var inputStream = new AntlrInputStream( input );
             return ParseCompilationUnit( inputStream, errorListener );
         }
 
-        public static MessageScriptParser.CompilationUnitContext ParseCompilationUnit( TextReader input, IAntlrErrorListener<IToken> errorListener = null )
+        public static MessageScriptParser.CompilationUnitContext ParseCompilationUnit( TextReader input, IAntlrErrorListener<Antlr4.Runtime.IToken> errorListener = null )
         {
             var inputStream = new AntlrInputStream( input );
             return ParseCompilationUnit( inputStream, errorListener );
         }
 
-        public static MessageScriptParser.CompilationUnitContext ParseCompilationUnit( Stream input, IAntlrErrorListener<IToken> errorListener = null )
+        public static MessageScriptParser.CompilationUnitContext ParseCompilationUnit( Stream input, IAntlrErrorListener<Antlr4.Runtime.IToken> errorListener = null )
         {
             var inputStream = new AntlrInputStream( input );
             return ParseCompilationUnit( inputStream, errorListener );
         }
 
-        private static MessageScriptParser.CompilationUnitContext ParseCompilationUnit( AntlrInputStream inputStream, IAntlrErrorListener<IToken> errorListener = null )
+        private static MessageScriptParser.CompilationUnitContext ParseCompilationUnit( AntlrInputStream inputStream, IAntlrErrorListener<Antlr4.Runtime.IToken> errorListener = null )
         {
             var lexer = new MessageScriptLexer( inputStream );
             var tokenStream = new CommonTokenStream( lexer );

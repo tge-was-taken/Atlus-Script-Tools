@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
-using AtlusScriptLib.Common.Logging;
-using AtlusScriptLib.MessageScriptLanguage.Compiler.Parser;
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
-using System.Text;
+using AtlusScriptLib.Common.Logging;
 using AtlusScriptLib.Common.Registry;
-using System.Linq;
+using AtlusScriptLib.MessageScriptLanguage.Compiler.Parser;
 
 namespace AtlusScriptLib.MessageScriptLanguage.Compiler
 {
@@ -23,10 +23,10 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
     public class MessageScriptCompiler
     {
         private readonly Logger mLogger;
-        private readonly MessageScriptFormatVersion mVersion;
+        private readonly FormatVersion mVersion;
         private readonly Encoding mEncoding;
 
-        public LibraryRegistry LibraryRegistry { get; set; }
+        public Library Library { get; set; }
 
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
         /// </summary>
         /// <param name="version">The version of the format to compile the output to.</param>
         /// <param name="encoding">The encoding to use for non-ASCII characters. If not specified, non-ASCII characters will be ignored unless they are stored as [x XX YY] tags.</param>
-        public MessageScriptCompiler( MessageScriptFormatVersion version, Encoding encoding = null )
+        public MessageScriptCompiler( FormatVersion version, Encoding encoding = null )
         {
             mVersion = version;
             mEncoding = encoding;
@@ -166,7 +166,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
 
             foreach ( var messageWindowContext in messageWindowContexts )
             {
-                IMessageScriptWindow messageWindow;
+                IWindow messageWindow;
 
                 if ( TryGet( messageWindowContext, () => messageWindowContext.dialogWindow(), out var dialogWindowContext))
                 {
@@ -200,7 +200,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryCompileDialogWindow( MessageScriptParser.DialogWindowContext context, out MessageScriptDialogWindow dialogWindow )
+        private bool TryCompileDialogWindow( MessageScriptParser.DialogWindowContext context, out DialogWindow dialogWindow )
         {
             LogContextInfo( context );
 
@@ -222,7 +222,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
             //
             // Parse speaker name
             //
-            IMessageScriptSpeaker speaker = null;
+            Speaker speaker = null;
             if ( TryGet( context, context.dialogWindowSpeakerName, out var speakerNameContentContext ) )
             {
                 if ( !TryGetFatal( speakerNameContentContext, () => speakerNameContentContext.tagText(), "Expected dialog window speaker name text", out var speakerNameTagTextContext ) )
@@ -241,17 +241,17 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
                         if ( speakerNameLines.Count > 1 )
                             LogWarning( speakerNameTagTextContext, "More than 1 line for dialog window speaker name. Only the 1st line will be used" );
 
-                        if ( speakerNameLines[0].Tokens[0].Type == MessageScriptTextTokenType.String )
+                        if ( speakerNameLines[0].Tokens[0].Kind == TokenKind.String )
                         {
                             // This is kind of a hack
-                            var text = ( ( MessageScriptStringToken )speakerNameLines[0].Tokens[0] ).Value;
+                            var text = ( ( StringToken )speakerNameLines[0].Tokens[0] ).Value;
                             if ( int.TryParse( text, out int variableIndex ) )
                             {
-                                speaker = new MessageScriptVariableSpeaker( variableIndex );
+                                speaker = new VariableSpeaker( variableIndex );
                             }
                             else
                             {
-                                speaker = new MessageScriptNamedSpeaker( speakerNameLines[0] );
+                                speaker = new NamedSpeaker( speakerNameLines[0] );
                             }
                         }                      
                     }
@@ -261,7 +261,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
             // 
             // Parse text content
             //
-            List<MessageScriptText> lines;
+            List<TokenText> lines;
             {
                 if ( !TryGetFatal( context, context.tagText, "Expected dialog window text", out var tagTextContext ) )
                     return false;
@@ -276,12 +276,12 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
             //
             // Create dialog window
             //
-            dialogWindow = new MessageScriptDialogWindow( identifier, speaker, lines );
+            dialogWindow = new DialogWindow( identifier, speaker, lines );
 
             return true;
         }
 
-        private bool TryCompileSelectionWindow( MessageScriptParser.SelectionWindowContext context, out MessageScriptSelectionWindow selectionWindow )
+        private bool TryCompileSelectionWindow( MessageScriptParser.SelectionWindowContext context, out SelectionWindow selectionWindow )
         {          
             LogContextInfo( context );
 
@@ -303,7 +303,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
             // 
             // Parse text content
             //
-            List<MessageScriptText> lines;
+            List<TokenText> lines;
             {
                 if ( !TryGetFatal( context, context.tagText, "Expected selection window text", out var tagTextContext ) )
                     return false;
@@ -318,21 +318,21 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
             //
             // Create Selection window
             //
-            selectionWindow = new MessageScriptSelectionWindow( identifier, lines );
+            selectionWindow = new SelectionWindow( identifier, lines );
 
             return true;
         }
 
-        private bool TryCompileLines( MessageScriptParser.TagTextContext context, out List<MessageScriptText> lines )
+        private bool TryCompileLines( MessageScriptParser.TagTextContext context, out List<TokenText> lines )
         {
             LogContextInfo( context );
 
-            lines = new List<MessageScriptText>();
-            MessageScriptTextBuilder lineBuilder = null;
+            lines = new List<TokenText>();
+            TextBuilder lineBuilder = null;
 
             foreach ( var node in context.children )
             {
-                IMessageScriptTextToken lineToken;
+                IToken lineToken;
 
                 if ( TryCast<MessageScriptParser.TagContext>( node, out var tagContext ) )
                 {
@@ -356,7 +356,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
                             break;
 
                         case "n":
-                            lineToken = new MessageScriptNewLineToken();
+                            lineToken = new NewLineToken();
                             break;
 
                         case "e":
@@ -364,7 +364,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
                                 if ( lineBuilder == null )
                                 {
                                     LogWarning( context, "Empty line" );
-                                    lines.Add( new MessageScriptText() );
+                                    lines.Add( new TokenText() );
                                 }
                                 else
                                 {
@@ -392,7 +392,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
                                 lineToken = null;
                                 var wasAliasedFunction = false;
 
-                                if ( LibraryRegistry != null )
+                                if ( Library != null )
                                 {
                                     wasAliasedFunction = TryCompileAliasedFunction( tagContext, tagId, out var functionToken );
                                     lineToken = functionToken;
@@ -415,7 +415,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
                     if ( textWithoutNewlines.Length == 0 )
                         continue; // filter out standalone newlines
 
-                    lineToken = new MessageScriptStringToken( textWithoutNewlines );
+                    lineToken = new StringToken( textWithoutNewlines );
                 }
                 else
                 {
@@ -432,7 +432,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
                 }
 
                 if ( lineBuilder == null )
-                    lineBuilder = new MessageScriptTextBuilder();
+                    lineBuilder = new TextBuilder();
 
                 Debug.Assert( lineToken != null, "Line token shouldn't be null" );
 
@@ -447,14 +447,14 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryCompileAliasedFunction( MessageScriptParser.TagContext context, string tagId, out MessageScriptFunctionToken functionToken )
+        private bool TryCompileAliasedFunction( MessageScriptParser.TagContext context, string tagId, out FunctionToken functionToken )
         {
             LogContextInfo( context );
 
-            functionToken = new MessageScriptFunctionToken();
+            functionToken = new FunctionToken();
             var functionWasFound = false;
 
-            foreach ( var library in LibraryRegistry.MessageScriptLibraries )
+            foreach ( var library in Library.MessageScriptLibraries )
             {
                 var function = library.Functions.SingleOrDefault( x => x.Name == tagId );
                 if ( function == null )
@@ -469,7 +469,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
                     arguments.Add( argument );
                 }
 
-                functionToken = new MessageScriptFunctionToken( library.Index, function.Index, arguments );
+                functionToken = new FunctionToken( library.Index, function.Index, arguments );
                 functionWasFound = true;
                 break;
             }
@@ -477,11 +477,11 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
             return functionWasFound;
         }
 
-        private bool TryCompileFunctionToken( MessageScriptParser.TagContext context,  out MessageScriptFunctionToken functionToken )
+        private bool TryCompileFunctionToken( MessageScriptParser.TagContext context,  out FunctionToken functionToken )
         {
             LogContextInfo( context );
 
-            functionToken = new MessageScriptFunctionToken();
+            functionToken = new FunctionToken();
 
             if ( !TryGetFatal( context, () => context.IntLiteral(), "Expected arguments", out var argumentNodes ) )
                 return false;
@@ -503,21 +503,21 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
                     arguments.Add( argument );
                 }
 
-                functionToken = new MessageScriptFunctionToken( functionTableIndex, functionIndex, arguments );
+                functionToken = new FunctionToken( functionTableIndex, functionIndex, arguments );
             }
             else
             {
-                functionToken = new MessageScriptFunctionToken( functionTableIndex, functionIndex );
+                functionToken = new FunctionToken( functionTableIndex, functionIndex );
             }
 
             return true;
         }
 
-        private bool TryCompileCodePointToken( MessageScriptParser.TagContext context, out MessageScriptCodePointToken codePointToken )
+        private bool TryCompileCodePointToken( MessageScriptParser.TagContext context, out CodePointToken codePointToken )
         {
             LogContextInfo( context );
 
-            codePointToken = new MessageScriptCodePointToken();
+            codePointToken = new CodePointToken();
 
             if ( !TryGetFatal( context, () => context.IntLiteral(), "Expected code point surrogate pair", out var argumentNodes ) )
                 return false;
@@ -528,7 +528,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
             if ( !TryParseByteIntLiteral( context, "Expected code point low surrogate", () => argumentNodes[1], out var lowSurrogate ) )
                 return false;
 
-            codePointToken = new MessageScriptCodePointToken( highSurrogate, lowSurrogate );
+            codePointToken = new CodePointToken( highSurrogate, lowSurrogate );
 
             return true;
         }
@@ -643,7 +643,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
             mLogger.Error( $"({context.Start.Line:D4}:{context.Start.Column:D4}) {str}" );
         }
 
-        private void LogError( IToken token, string str )
+        private void LogError( Antlr4.Runtime.IToken token, string str )
         {
             mLogger.Error( $"({token.Line:D4}:{token.Column:D4}) {str}" );
         }
@@ -656,7 +656,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
         /// <summary>
         /// Antlr error listener for catching syntax errors while parsing.
         /// </summary>
-        private class AntlrErrorListener : IAntlrErrorListener<IToken>
+        private class AntlrErrorListener : IAntlrErrorListener<Antlr4.Runtime.IToken>
         {
             private MessageScriptCompiler mCompiler;
 
@@ -665,7 +665,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
                 mCompiler = compiler;
             }
 
-            public void SyntaxError( IRecognizer recognizer, IToken offendingSymbol, int line, int charPositionInLine, string msg, RecognitionException e )
+            public void SyntaxError( IRecognizer recognizer, Antlr4.Runtime.IToken offendingSymbol, int line, int charPositionInLine, string msg, RecognitionException e )
             {
                 mCompiler.mLogger.Error( $"Syntax error: {msg} ({offendingSymbol.Line}:{offendingSymbol.Column})" );
             }
