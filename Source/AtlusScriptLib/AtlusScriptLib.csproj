@@ -47,6 +47,7 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Archive.cs" />
     <Compile Include="Common\Collections\DictionaryExtensions.cs" />
     <Compile Include="Common\Collections\ICollectionExtensions.cs" />
     <Compile Include="Common\Collections\IListExtensions.cs" />
@@ -99,6 +100,9 @@
     <Compile Include="FlowScriptLanguage\Decompiler\Evaluator.cs" />
     <Compile Include="FlowScriptLanguage\Decompiler\EvaluatedScope.cs" />
     <Compile Include="FlowScriptLanguage\Operand.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\CastExpression.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\ModulusAssignmentOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\ModulusOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\SyntaxNode.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\SourceInfo.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\SyntaxNodeCollector.cs" />

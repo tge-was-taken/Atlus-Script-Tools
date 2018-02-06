@@ -2769,7 +2769,7 @@
   {
     "Index": "0x20cc",
     "ReturnType": "bool",
-    "Name": "AI_CHK_NOTMYHOJO",
+    "Name": "AI_CHK_MYHOJO",
     "Description": "",
     "Parameters": [
       {

@@ -160,6 +160,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
             if ( mEvaluatedScript.FlowScript.MessageScript != null && DecompileMessageScript )
             {
+                if ( MessageScriptFilePath == null )
+                {
+                    LogError( "Can't decompile MessageScript; MessageScript file path is not specified." );
+                    compilationUnit = null;
+                    return false;
+                }
+
                 var importPath = MessageScriptFilePath.Replace( Path.GetDirectoryName(mFilePath), "" ).TrimStart('\\');
                 mCompilationUnit.Imports.Add( new Import( importPath ) );
             }
@@ -341,7 +348,17 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                     for ( var i = 0; i < libraryFunction.Parameters.Count; i++ )
                     {
                         var parameter = libraryFunction.Parameters[i];
-                        var argument = call.Arguments[i];
+                        Expression argument;
+
+                        if ( i < call.Arguments.Count )
+                        {
+                            argument = call.Arguments[i];
+                        }
+                        else
+                        {
+                            LogError( $"Missing argument {i} for call expression: {call}" );
+                            continue;
+                        }
 
                         if ( !( argument is IntLiteral argumentValue ) )
                             continue;
@@ -740,8 +757,15 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
                     if ( insertionIndex == -1 )
                     {
-                        // Variable was referenced in both the body and in a nested if statement
-                        insertionIndex = evaluatedStatements.IndexOf( evaluatedStatements.First( x => x.Statement is IfStatement ) );
+                        // Variable was referenced in both the body and in a nested if statement                      
+                        if ( evaluatedStatements.Any( x => x.Statement is IfStatement ) )
+                        {
+                            insertionIndex = evaluatedStatements.IndexOf( evaluatedStatements.First( x => x.Statement is IfStatement ) );
+                        }
+                        else
+                        {
+                            insertionIndex = 0;
+                        }
                     }
 
                     if ( insertionIndex != evaluatedStatementIndex )
@@ -933,7 +957,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
             if ( Debugger.IsAttached )
             {
-                Debugger.Break();
+                //Debugger.Break();
             }
         }
     }

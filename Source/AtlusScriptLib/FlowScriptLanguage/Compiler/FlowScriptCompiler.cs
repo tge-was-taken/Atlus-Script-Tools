@@ -1281,8 +1281,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             {
                 if ( callExpression.Arguments.Count != function.Declaration.Parameters.Count )
                 {
-                    Error( $"Function '{function.Declaration}' expects {function.Declaration.Parameters.Count} arguments but {callExpression.Arguments.Count} are given" );
-                    return false;
+                    // Todo: mark variadic functions
+                    if ( function.Declaration.Identifier.Text != "PUTS" || function.Declaration.Parameters.Count == 0 )
+                    {
+                        Error(
+                            $"Function '{function.Declaration}' expects {function.Declaration.Parameters.Count} arguments but {callExpression.Arguments.Count} are given" );
+                        return false;
+                    }
                 }
 
                 // Check MessageScript function call semantics
@@ -1675,64 +1680,119 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     Error( binaryExpression, "A binary operator is not a valid statement" );
                     return false;
                 }
+
                 Trace( "Emitting value for binary expression" );
 
-                if ( !TryEmitExpression( binaryExpression.Right, false ) )
+                if ( binaryExpression is ModulusOperator modulusOperator )
                 {
-                    Error( binaryExpression.Right, $"Failed to emit right expression: {binaryExpression.Left}" );
-                    return false;
-                }
-
-                if ( !TryEmitExpression( binaryExpression.Left, false ) )
-                {
-                    Error( binaryExpression.Right, $"Failed to emit left expression: {binaryExpression.Right}" );
-                    return false;
-                }
-
-                switch ( binaryExpression )
-                {
-                    case AdditionOperator _:
-                        Emit( Instruction.ADD() );
-                        break;
-                    case SubtractionOperator _:
-                        Emit( Instruction.SUB() );
-                        break;
-                    case MultiplicationOperator _:
-                        Emit( Instruction.MUL() );
-                        break;
-                    case DivisionOperator _:
-                        Emit( Instruction.DIV() );
-                        break;
-                    case LogicalOrOperator _:
-                        Emit( Instruction.OR() );
-                        break;
-                    case LogicalAndOperator _:
-                        Emit( Instruction.AND() );
-                        break;
-                    case EqualityOperator _:
-                        Emit( Instruction.EQ() );
-                        break;
-                    case NonEqualityOperator _:
-                        Emit( Instruction.NEQ() );
-                        break;
-                    case LessThanOperator _:
-                        Emit( Instruction.S() );
-                        break;
-                    case GreaterThanOperator _:
-                        Emit( Instruction.L() );
-                        break;
-                    case LessThanOrEqualOperator _:
-                        Emit( Instruction.SE() );
-                        break;
-                    case GreaterThanOrEqualOperator _:
-                        Emit( Instruction.LE() );
-                        break;
-                    default:
-                        Error( binaryExpression, $"Emitting binary expression '{binaryExpression}' not implemented" );
+                    // This one is special
+                    if ( !TryEmitModulusOperator( modulusOperator ) )
+                    {
+                        Error( binaryExpression.Right, $"Failed to emit modulus expression: {binaryExpression.Left}" );
                         return false;
+                    }
+                }
+                else
+                {
+                    if ( !TryEmitExpression( binaryExpression.Right, false ) )
+                    {
+                        Error( binaryExpression.Right, $"Failed to emit right expression: {binaryExpression.Left}" );
+                        return false;
+                    }
+
+                    if ( !TryEmitExpression( binaryExpression.Left, false ) )
+                    {
+                        Error( binaryExpression.Right, $"Failed to emit left expression: {binaryExpression.Right}" );
+                        return false;
+                    }
+
+                    switch ( binaryExpression )
+                    {
+                        case AdditionOperator _:
+                            Emit( Instruction.ADD() );
+                            break;
+                        case SubtractionOperator _:
+                            Emit( Instruction.SUB() );
+                            break;
+                        case MultiplicationOperator _:
+                            Emit( Instruction.MUL() );
+                            break;
+                        case DivisionOperator _:
+                            Emit( Instruction.DIV() );
+                            break;
+                        case LogicalOrOperator _:
+                            Emit( Instruction.OR() );
+                            break;
+                        case LogicalAndOperator _:
+                            Emit( Instruction.AND() );
+                            break;
+                        case EqualityOperator _:
+                            Emit( Instruction.EQ() );
+                            break;
+                        case NonEqualityOperator _:
+                            Emit( Instruction.NEQ() );
+                            break;
+                        case LessThanOperator _:
+                            Emit( Instruction.S() );
+                            break;
+                        case GreaterThanOperator _:
+                            Emit( Instruction.L() );
+                            break;
+                        case LessThanOrEqualOperator _:
+                            Emit( Instruction.SE() );
+                            break;
+                        case GreaterThanOrEqualOperator _:
+                            Emit( Instruction.LE() );
+                            break;
+                        default:
+                            Error( binaryExpression, $"Emitting binary expression '{binaryExpression}' not implemented" );
+                            return false;
+                    }
                 }
             }
 
+            return true;
+        }
+
+        private bool TryEmitModulusOperator( ModulusOperator modulusOperator )
+        {
+            var value = modulusOperator.Left;
+            var number = modulusOperator.Right;
+
+            if ( !TryEmitModulus( value, number ) )
+                return false;
+
+            return true;
+        }
+
+        private bool TryEmitModulus( Expression value, Expression number )
+        {
+            // value % number turns into
+            // value - ( ( value / number ) * value )
+
+            // push number for multiplication
+            if ( !TryEmitExpression( number, false ) )
+                return false;
+
+            // value / number
+            if ( !TryEmitExpression( number, false ) )
+                return false;
+
+            if ( !TryEmitExpression( value, false ) )
+                return false;
+
+            Emit( Instruction.DIV() );
+
+            // *= number
+            Emit( Instruction.MUL() );
+
+            // value - ( ( value / number ) * number )
+            if ( !TryEmitExpression( value, false ) )
+                return false;
+
+            Emit( Instruction.SUB() );
+
+            // Result value is on stack
             return true;
         }
 
@@ -1821,43 +1881,56 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         {
             Trace( compoundAssignment, $"Emitting compound assignment: {compoundAssignment}" );
 
-            // Push value of right expression
-            if ( !TryEmitExpression( compoundAssignment.Right, false ) )
-            {
-                Error( compoundAssignment.Right, $"Failed to emit expression: { compoundAssignment.Right }" );
-                return false;
-            }
-
-            // Push value of variable
             var identifier = ( Identifier )compoundAssignment.Left;
-            if ( !TryEmitPushVariableValue( identifier ) )
+
+            if ( compoundAssignment is ModulusAssignmentOperator _ )
             {
-                Error( identifier, $"Failed to emit variable value for: { identifier }" );
-                return false;
-            }
-
-            // Emit operation
-            switch ( compoundAssignment )
-            {
-                case AdditionAssignmentOperator _:
-                    Emit( Instruction.ADD() );
-                    break;
-
-                case SubtractionAssignmentOperator _:
-                    Emit( Instruction.SUB() );
-                    break;
-
-                case MultiplicationAssignmentOperator _:
-                    Emit( Instruction.MUL() );
-                    break;
-
-                case DivisionAssignmentOperator _:
-                    Emit( Instruction.DIV() );
-                    break;
-
-                default:
-                    Error( compoundAssignment, $"Unknown compound assignment type: { compoundAssignment }" );
+                // Special treatment because it doesnt have an instruction
+                if ( !TryEmitModulus( compoundAssignment.Left, compoundAssignment.Right ) )
+                {
+                    Error( compoundAssignment, $"Failed to emit modulus assignment operator: {compoundAssignment}" );
                     return false;
+                }
+            }
+            else
+            {
+                // Push value of right expression
+                if ( !TryEmitExpression( compoundAssignment.Right, false ) )
+                {
+                    Error( compoundAssignment.Right, $"Failed to emit expression: { compoundAssignment.Right }" );
+                    return false;
+                }
+
+                // Push value of variable
+                if ( !TryEmitPushVariableValue( identifier ) )
+                {
+                    Error( identifier, $"Failed to emit variable value for: { identifier }" );
+                    return false;
+                }
+
+                // Emit operation
+                switch ( compoundAssignment )
+                {
+                    case AdditionAssignmentOperator _:
+                        Emit( Instruction.ADD() );
+                        break;
+
+                    case SubtractionAssignmentOperator _:
+                        Emit( Instruction.SUB() );
+                        break;
+
+                    case MultiplicationAssignmentOperator _:
+                        Emit( Instruction.MUL() );
+                        break;
+
+                    case DivisionAssignmentOperator _:
+                        Emit( Instruction.DIV() );
+                        break;
+
+                    default:
+                        Error( compoundAssignment, $"Unknown compound assignment type: { compoundAssignment }" );
+                        return false;
+                }
             }
 
             // Assign the value to the variable

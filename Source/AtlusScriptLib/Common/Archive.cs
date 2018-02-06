@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using AtlusScriptLib.Common.IO;
 
-namespace AtlusMessageScriptExtractor
+namespace AtlusScriptLib.Common
 {
     public enum ArchiveVersion
     {
@@ -50,6 +50,12 @@ namespace AtlusMessageScriptExtractor
         public static bool IsValidArchive( Stream stream )
         {
             return DetectVersion( stream ) != ArchiveVersion.Unknown;
+        }
+
+        public static bool TryOpenArchive( string filepath, out Archive archive )
+        {
+            using ( var stream = File.OpenRead( filepath ) )
+                return TryOpenArchive( stream, out archive );
         }
 
         public static bool TryOpenArchive( Stream stream, out Archive archive )

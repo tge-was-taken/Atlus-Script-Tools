@@ -707,6 +707,7 @@ namespace AtlusScriptCompiler
             {
                 var disassembler = new FlowScriptBinaryDisassembler( OutputFilePath );
                 disassembler.Disassemble( script );
+                disassembler.Dispose();
             } ) )
             {
                 return false;

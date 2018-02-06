@@ -1005,6 +1005,9 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
                 case "/":
                     binaryExpression = CreateAstNode< DivisionOperator >( context );
                     break;
+                case "%":
+                    binaryExpression = CreateAstNode< ModulusOperator >( context );
+                    break;
                 default:
                     binaryExpression = null;
                     LogError( context, $"Invalid op for multiplication expression: ${context.Op}" );
@@ -1232,6 +1235,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
                 case "/=":
                     binaryExpression = CreateAstNode<DivisionAssignmentOperator>( context );
+                    break;
+
+                case "%=":
+                    binaryExpression = CreateAstNode< ModulusAssignmentOperator >( context );
                     break;
 
                 default:

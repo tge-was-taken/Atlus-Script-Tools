@@ -1321,7 +1321,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
             if ( Debugger.IsAttached )
             {
-                Debugger.Break();
+                //Debugger.Break();
             }
         }
 

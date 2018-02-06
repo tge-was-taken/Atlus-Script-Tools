@@ -9,7 +9,7 @@
         }
 
         public SubtractionOperator( Expression left, Expression right )
-            : base( ValueKind.Bool, left, right )
+            : base( ValueKind.Unresolved, left, right )
         {
 
         }

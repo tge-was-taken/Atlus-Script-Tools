@@ -35,11 +35,4 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
             return expression;
         }
     }
-
-    public abstract class CastExpression : Expression
-    {
-        protected CastExpression( ValueKind kind ) : base( kind )
-        {
-        }
-    }
 }

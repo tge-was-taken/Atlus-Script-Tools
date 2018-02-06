@@ -11,12 +11,6 @@
 // Generated from ..\..\..\AtlusScriptLib\FlowScriptLanguage\Compiler\Parser\Grammar\FlowScript.g4 by ANTLR 4.6.4
 
 // Unreachable code detected
-
-using System;
-using System.CodeDom.Compiler;
-using Antlr4.Runtime.Misc;
-using Antlr4.Runtime.Tree;
-
 #pragma warning disable 0162
 // The variable '...' is assigned but its value is never used
 #pragma warning disable 0219
@@ -26,13 +20,17 @@ using Antlr4.Runtime.Tree;
 #pragma warning disable 419
 
 namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser.Grammar {
-    /// <summary>
+using Antlr4.Runtime.Misc;
+using Antlr4.Runtime.Tree;
+using IToken = Antlr4.Runtime.IToken;
+
+/// <summary>
 /// This interface defines a complete generic visitor for a parse tree produced
 /// by <see cref="FlowScriptParser"/>.
 /// </summary>
 /// <typeparam name="Result">The return type of the visit operation.</typeparam>
-[GeneratedCode("ANTLR", "4.6.4")]
-[CLSCompliant(false)]
+[System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.6.4")]
+[System.CLSCompliant(false)]
 public interface IFlowScriptVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <summary>
 	/// Visit a parse tree produced by the <c>logicalOrExpression</c>

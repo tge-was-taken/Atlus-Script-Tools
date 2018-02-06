@@ -11,13 +11,6 @@
 // Generated from ..\..\..\AtlusScriptLib\FlowScriptLanguage\Compiler\Parser\Grammar\FlowScript.g4 by ANTLR 4.6.4
 
 // Unreachable code detected
-
-using System;
-using System.CodeDom.Compiler;
-using Antlr4.Runtime;
-using Antlr4.Runtime.Misc;
-using Antlr4.Runtime.Tree;
-
 #pragma warning disable 0162
 // The variable '...' is assigned but its value is never used
 #pragma warning disable 0219
@@ -27,13 +20,20 @@ using Antlr4.Runtime.Tree;
 #pragma warning disable 419
 
 namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser.Grammar {
-    /// <summary>
+
+using Antlr4.Runtime.Misc;
+using IErrorNode = Antlr4.Runtime.Tree.IErrorNode;
+using ITerminalNode = Antlr4.Runtime.Tree.ITerminalNode;
+using IToken = Antlr4.Runtime.IToken;
+using ParserRuleContext = Antlr4.Runtime.ParserRuleContext;
+
+/// <summary>
 /// This class provides an empty implementation of <see cref="IFlowScriptListener"/>,
 /// which can be extended to create a listener which only needs to handle a subset
 /// of the available methods.
 /// </summary>
-[GeneratedCode("ANTLR", "4.6.4")]
-[CLSCompliant(false)]
+[System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.6.4")]
+[System.CLSCompliant(false)]
 public partial class FlowScriptBaseListener : IFlowScriptListener {
 	/// <summary>
 	/// Enter a parse tree produced by the <c>logicalOrExpression</c>

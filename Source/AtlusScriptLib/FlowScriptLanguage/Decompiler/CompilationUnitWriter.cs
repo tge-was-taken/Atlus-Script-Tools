@@ -17,18 +17,28 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             }
         }
 
+        public void Write( CompilationUnit compilationUnit, StreamWriter writer )
+        {
+            using ( var writingVisitor = new WriterVisitor( writer, false ) )
+            {
+                writingVisitor.Visit( compilationUnit );
+            }
+        }
+
         private class WriterVisitor : SyntaxNodeVisitor, IDisposable
         {
             private readonly StreamWriter mWriter;
             private int mTabLevel;
             private bool mInsideLine;
             private ProcedureDeclaration mProcedure;
+            private readonly bool mOwnsWriter;
 
             private readonly Stack<bool> mSuppressIfStatementNewLine;
             private readonly Stack<bool> mSuppressCompoundStatementNewline;
 
-            public WriterVisitor( StreamWriter writer )
+            public WriterVisitor( StreamWriter writer, bool ownsWriter = true )
             {
+                mOwnsWriter = ownsWriter;
                 mWriter = writer;
                 mSuppressIfStatementNewLine = new Stack< bool >();
                 mSuppressCompoundStatementNewline = new Stack< bool >();
@@ -780,7 +790,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
             public void Dispose()
             {
-                ( ( IDisposable )mWriter ).Dispose();
+                if (mOwnsWriter)
+                    mWriter.Dispose();
             }
         }
     }

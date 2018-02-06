@@ -104,21 +104,21 @@ expressionList
 	;
 
 expression
-	: ';'															# nullExpression
-	| '(' expression ')'											# compoundExpression
-	| Identifier '.' Identifier										# memberAccessExpression
+	: ';'																	# nullExpression
+	| '(' expression ')'													# compoundExpression
+	| Identifier '.' Identifier												# memberAccessExpression
 	| '(' ( PrimitiveTypeIdentifier | Identifier ) ')' '(' expression ')'	# castExpression		// precedence 2
-	| Identifier expressionList										# callExpression				// precedence 2
-	| expression Op=( '--' | '++' )									# unaryPostfixExpression		// precedence 2
-	| Op=( '!' | '-' | '--' | '++' ) expression						# unaryPrefixExpression			// precedence 3
-	| expression Op=( '*' | '/' ) expression						# multiplicationExpression		// precedence 5
-	| expression Op=( '+' | '-' ) expression						# additionExpression			// precedence 6
-	| expression Op=( '<' | '>' | '<=' | '>=' ) expression			# relationalExpression			// precedence 8
-	| expression Op=( '==' | '!=' ) expression						# equalityExpression			// precedence 9	
-	| expression '&&' expression									# logicalAndExpression			// precedence 13
-	| expression '||' expression									# logicalOrExpression			// precedence 14
-	| Identifier Op=( '=' | '+=' | '-=' | '*=' | '/=' ) expression	# assignmentExpression			// precedence 15
-	| primary														# primaryExpression
+	| Identifier expressionList												# callExpression				// precedence 2
+	| expression Op=( '--' | '++' )											# unaryPostfixExpression		// precedence 2
+	| Op=( '!' | '-' | '--' | '++' ) expression								# unaryPrefixExpression			// precedence 3
+	| expression Op=( '*' | '/' | '%' ) expression							# multiplicationExpression		// precedence 5
+	| expression Op=( '+' | '-' ) expression								# additionExpression			// precedence 6
+	| expression Op=( '<' | '>' | '<=' | '>=' ) expression					# relationalExpression			// precedence 8
+	| expression Op=( '==' | '!=' ) expression								# equalityExpression			// precedence 9	
+	| expression '&&' expression											# logicalAndExpression			// precedence 13
+	| expression '||' expression											# logicalOrExpression			// precedence 14
+	| Identifier Op=( '=' | '+=' | '-=' | '*=' | '/=' | '%=') expression	# assignmentExpression			// precedence 15
+	| primary																# primaryExpression
 	;
 
 primary
