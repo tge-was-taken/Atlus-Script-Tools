@@ -1,0 +1,54 @@
+
+.set pIntFormatString, 		0xB6394C
+.set pFloatFormatString, 	0xB6397C
+.set pStringFormatString, 	0xB63994
+.set pNewlineString,		0xB91820
+.set pPrintf,				0xAD546C
+.set pPutInt,				0xFFFFFF
+.set pPutFloat,			0xFFFFFF
+.set pPutString,			0xFFFFFF
+
+.ScriptInterpreter_Comm_PUT_Hook:
+// 0x1E9D10
+ba		pPutInt
+
+PutInt:
+// 0x00B44B98
+mr		r4, r3
+lis 	r3, pIntFormatString@h
+addic 	r3, r3, pIntFormatString@l
+bla 	pPrintf
+lis 	r3, pNewlineString@h
+addic 	r3, r3, pNewlineString@l
+bla 	pPrintf
+ba		0x1E9D14
+
+.ScriptInterpreter_Comm_PUTS_Hook:
+// 0x1E9D3C
+ba		pPutString
+
+PutString:
+// 0x00B44BB8
+mr		r4, r3
+lis 	r3, pStringFormatString@h
+addic 	r3, r3, pStringFormatString@l
+bla 	pPrintf
+lis 	r3, pNewlineString@h
+addic 	r3, r3, pNewlineString@l
+bla 	pPrintf
+ba		0x1E9D40
+
+.ScriptInterpreter_Comm_PUTF_Hook:
+// 0x1E9D68
+ba		pPutFloat
+
+PutFloat:
+// 0xB44BA8
+mr		r4, r3
+lis 	r3, pFloatFormatString@h
+addic 	r3, r3, pFloatFormatString@l
+bla 	pPrintf
+lis 	r3, pNewlineString@h
+addic 	r3, r3, pNewlineString@l
+bla 	pPrintf
+ba		0x1E9D6C

@@ -1,0 +1,7 @@
+Disassembly of section .text:
+
+.scratch:
+0x00000000: 48B44BDA ba       0x00B44BD8           08
+0x00000004: 4E800020 blr                           08 PIPE
+
+

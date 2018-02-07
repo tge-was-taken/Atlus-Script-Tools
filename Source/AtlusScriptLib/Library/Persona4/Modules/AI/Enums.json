@@ -4611,5 +4611,31 @@
         "Description": "Generated from table entry: blank"
       }
     ]
+  },
+  {
+    "Name": "SkillElement",
+    "Description": "This enum represents the elements each skill can classify as",
+    "Members": [
+      {
+        "Name": "Fire",
+        "Value": 1,
+        "Description": ""
+      },
+      {
+        "Name": "Ice",
+        "Value": 2,
+        "Description": ""
+      },
+      {
+        "Name": "Electricity",
+        "Value": 3,
+        "Description": ""
+      },
+      {
+        "Name": "Wind",
+        "Value": 4,
+        "Description": ""
+      }
+    ]
   }
 ]

@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "P5ScriptPrintf", "P5ScriptPrintf\P5ScriptPrintf.vcxproj", "{3371D17C-BD7A-41D4-B3BA-D80937EEAEFA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|PS3 = Debug|PS3
+		Release|PS3 = Release|PS3
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3371D17C-BD7A-41D4-B3BA-D80937EEAEFA}.Debug|PS3.ActiveCfg = Debug|PS3
+		{3371D17C-BD7A-41D4-B3BA-D80937EEAEFA}.Debug|PS3.Build.0 = Debug|PS3
+		{3371D17C-BD7A-41D4-B3BA-D80937EEAEFA}.Release|PS3.ActiveCfg = Release|PS3
+		{3371D17C-BD7A-41D4-B3BA-D80937EEAEFA}.Release|PS3.Build.0 = Release|PS3
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

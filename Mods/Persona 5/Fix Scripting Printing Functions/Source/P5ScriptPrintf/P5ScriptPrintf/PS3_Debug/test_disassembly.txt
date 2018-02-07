@@ -1,0 +1,35 @@
+Disassembly of section .text:
+
+test():
+0x00000000: F821FFB1 stdu     r1,-0x50(r1)
+0x00000004: FBE10048 std      r31,0x48(r1)         03 (00000000) REG PIPE LSU
+0x00000008: 7C3F0B78 mr       r31,r1
+0x0000000C: 38000000 li       r0,0x0                PIPE
+0x00000010: 901F0034 stw      r0,0x34(r31)         03 (0000000C) REG LSU
+0x00000014: 801F0034 lwz      r0,0x34(r31)         50 (00000010) PIPE LHS[01]
+0x00000018: 901F0030 stw      r0,0x30(r31)         03 (00000014) REG LSU
+0x0000001C: 813F0034 lwz      r9,0x34(r31)          PIPE
+0x00000020: 38090001 addi     r0,r9,0x1            01 (0000001C) REG
+0x00000024: 901F0034 stw      r0,0x34(r31)         03 (00000020) REG PIPE LSU
+0x00000028: E9610000 ld       r11,0x0(r1)
+0x0000002C: EBEBFFF8 ld       r31,-0x8(r11)        03 (00000028) REG PIPE LSU
+0x00000030: 7D615B78 mr       r1,r11
+0x00000034: 4E800020 blr                           08
+
+test2():
+0x00000038: F821FFB1 stdu     r1,-0x50(r1)
+0x0000003C: FBE10048 std      r31,0x48(r1)         03 (00000038) REG PIPE LSU
+0x00000040: 7C3F0B78 mr       r31,r1
+0x00000044: 3800FFFF li       r0,-0x1               PIPE
+0x00000048: 901F0034 stw      r0,0x34(r31)         03 (00000044) REG LSU
+0x0000004C: 813F0034 lwz      r9,0x34(r31)         50 (00000048) PIPE LHS[01]
+0x00000050: 38090001 addi     r0,r9,0x1            01 (0000004C) REG
+0x00000054: 901F0034 stw      r0,0x34(r31)         03 (00000050) REG PIPE LSU
+0x00000058: 801F0034 lwz      r0,0x34(r31)         50 (00000054) LHS[01]
+0x0000005C: 901F0030 stw      r0,0x30(r31)         03 (00000058) REG PIPE LSU
+0x00000060: E9610000 ld       r11,0x0(r1)
+0x00000064: EBEBFFF8 ld       r31,-0x8(r11)        03 (00000060) REG PIPE LSU
+0x00000068: 7D615B78 mr       r1,r11
+0x0000006C: 4E800020 blr                           08
+
+

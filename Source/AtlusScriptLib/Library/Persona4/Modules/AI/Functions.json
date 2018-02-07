@@ -324,13 +324,13 @@
   },
   {
     "Index": "0x201a",
-    "ReturnType": "int",
-    "Name": "AI_FUNCTION_001A",
+    "ReturnType": "bool",
+    "Name": "AI_CHK_ENHANSYA",
     "Description": "",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "SkillElement",
+        "Name": "element",
         "Description": ""
       }
     ]
@@ -350,13 +350,13 @@
   },
   {
     "Index": "0x201c",
-    "ReturnType": "int",
-    "Name": "AI_FUNCTION_001C",
+    "ReturnType": "bool",
+    "Name": "AI_CHK_ENKYUSYU",
     "Description": "",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleElement",
+        "Name": "element",
         "Description": ""
       }
     ]
@@ -376,13 +376,13 @@
   },
   {
     "Index": "0x201e",
-    "ReturnType": "int",
-    "Name": "AI_FUNCTION_001E",
+    "ReturnType": "bool",
+    "Name": "AI_CHK_ENMUKOU",
     "Description": "",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleElement",
+        "Name": "element",
         "Description": ""
       }
     ]
@@ -576,12 +576,12 @@
   {
     "Index": "0x2030",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_0030",
+    "Name": "AI_TAR_BAD",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "status",
         "Description": ""
       }
     ]
@@ -589,12 +589,12 @@
   {
     "Index": "0x2031",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_0031",
+    "Name": "AI_TAR_NOTBAD",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "status",
         "Description": ""
       }
     ]
@@ -1139,7 +1139,7 @@
   {
     "Index": "0x205e",
     "ReturnType": "bool",
-    "Name": "AI_FUNCTION_005E",
+    "Name": "AI_CHK_FRIDBAD",
     "Description": "",
     "Parameters": [
       {
@@ -2074,8 +2074,8 @@
   },
   {
     "Index": "0x20a1",
-    "ReturnType": "int",
-    "Name": "AI_FUNCTION_00A1",
+    "ReturnType": "bool",
+    "Name": "AI_CHK_ENIDBAD",
     "Description": "",
     "Parameters": [
       {
