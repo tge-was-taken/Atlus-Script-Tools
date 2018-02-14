@@ -152,13 +152,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.BinaryModel
         public Stream ToStream()
         {
             var stream = new MemoryStream();
-            ToStream( stream );
+            ToStream( stream, true );
             return stream;
         }
 
         public void ToStream( Stream stream, bool leaveOpen = false )
         {
-            using ( var writer = new FlowScriptBinaryWriter( stream, mFormatVersion ) )
+            using ( var writer = new FlowScriptBinaryWriter( stream, mFormatVersion, leaveOpen ) )
             {
                 writer.WriteBinary( this );
             }
