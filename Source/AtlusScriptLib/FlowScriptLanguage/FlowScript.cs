@@ -252,7 +252,7 @@ namespace AtlusScriptLib.FlowScriptLanguage
             // assign message script
             if ( binary.MessageScriptSection != null )
             {
-                instance.mMessageScript = MessageScript.FromBinary( binary.MessageScriptSection, encoding );
+                instance.mMessageScript = MessageScript.FromBinary( binary.MessageScriptSection, MessageScriptLanguage.FormatVersion.Detect, encoding );
             }
 
             // strings have already been assigned previously, 

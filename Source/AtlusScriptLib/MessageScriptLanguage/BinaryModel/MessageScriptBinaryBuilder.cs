@@ -221,7 +221,24 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel
         private void ProcessFunctionToken( FunctionToken token, List<byte> bytes )
         {
             // AAAA BBBB where A is a signifier value for a function and B is the encoded argument byte size
-            byte functionSignifier = ( byte )( 0xF0 | ( ( ( token.Arguments.Count * sizeof( short ) ) / 2 ) + 1 ) & 0x0F );
+            byte functionSignifier;
+
+            if ( mFormatVersion.HasFlag( BinaryFormatVersion.Version1 ) )
+            {
+                functionSignifier = ( byte ) ( 0xF0 | ( ( ( token.Arguments.Count * sizeof( short ) ) / 2 ) + 1 ) & 0x0F );
+            }
+            else if ( mFormatVersion == BinaryFormatVersion.Version1DDS )
+            {
+                byte argumentByteCount = ( byte ) ( ( token.Arguments.Count * 2 ) & 0x0F );
+                if ( argumentByteCount == 0 )
+                    argumentByteCount = 1; // tested
+
+                functionSignifier = ( byte ) ( 0xF0 | argumentByteCount );
+            }
+            else
+            {
+                throw new NotImplementedException( mFormatVersion.ToString() );
+            }
 
             // AAAB BBBB where A is the table index and B is the function index
             byte functionId = ( byte )( ( ( token.FunctionTableIndex & 0x07 ) << 5 ) | token.FunctionIndex & 0x1F );

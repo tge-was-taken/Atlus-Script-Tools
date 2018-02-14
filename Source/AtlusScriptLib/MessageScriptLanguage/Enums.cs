@@ -33,7 +33,9 @@ namespace AtlusScriptLib.MessageScriptLanguage
 
     public enum FormatVersion : uint
     {
+        Detect,
         Version1 = BinaryFormatVersion.Version1,
+        Version1DDS = BinaryFormatVersion.Version1DDS,
         Version1BigEndian = BinaryFormatVersion.Version1BigEndian
     }
 }

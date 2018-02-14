@@ -632,7 +632,7 @@ namespace AtlusScriptCompiler
             MessageScript script = null;
             var encoding = GetEncoding();
 
-            if ( !TryPerformAction( "Failed to load message script from file.", () => script = MessageScript.FromFile( InputFilePath, encoding ) ) )
+            if ( !TryPerformAction( "Failed to load message script from file.", () => script = MessageScript.FromFile( InputFilePath, AtlusScriptLib.MessageScriptLanguage.FormatVersion.Detect, encoding ) ) )
                 return false;
 
             Logger.Info( "Decompiling MessageScript..." );

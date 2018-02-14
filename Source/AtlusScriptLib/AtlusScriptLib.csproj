@@ -231,6 +231,8 @@
     <Compile Include="MessageScriptLanguage\BinaryModel\MessageScriptBinary.cs" />
     <Compile Include="MessageScriptLanguage\BinaryModel\Enums.cs" />
     <Compile Include="MessageScriptLanguage\BinaryModel\Structs.cs" />
+    <Compile Include="PMScriptLanguage\BinaryModel\Enums.cs" />
+    <Compile Include="PMScriptLanguage\BinaryModel\PMScriptBinary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MessageScriptLanguage\BinaryModel\IO\RelocationTableEncoding.cs" />
     <Compile Include="Common\Registry\LibraryLookup.cs" />

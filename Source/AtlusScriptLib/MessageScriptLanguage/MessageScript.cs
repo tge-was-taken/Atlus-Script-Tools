@@ -16,7 +16,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
         /// <summary>
         /// Creates a <see cref="MessageScript"/> from a <see cref="MessageScriptBinary"/>.
         /// </summary>
-        public static MessageScript FromBinary( MessageScriptBinary binary, Encoding encoding = null )
+        public static MessageScript FromBinary( MessageScriptBinary binary, FormatVersion version = FormatVersion.Detect, Encoding encoding = null )
         {
             if ( binary == null )
                 throw new ArgumentNullException( nameof( binary ) );
@@ -28,7 +28,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
             var instance = new MessageScript
             {
                 Id = binary.Header.UserId,
-                FormatVersion = (FormatVersion)binary.FormatVersion,
+                FormatVersion = version == FormatVersion.Detect ? ( FormatVersion)binary.FormatVersion : version,
                 Encoding = encoding
             };
 
@@ -68,7 +68,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
                                 if ( binaryMessage.SpeakerId < binary.SpeakerTableHeader.SpeakerCount )
                                 {
                                     speakerName = ParseSpeakerLine( binary.SpeakerTableHeader.SpeakerNameArray
-                                        .Value[binaryMessage.SpeakerId].Value, encoding == null ? Encoding.ASCII : encoding );
+                                        .Value[binaryMessage.SpeakerId].Value, instance.FormatVersion, encoding == null ? Encoding.ASCII : encoding );
                                 }
 
                                 message = new DialogWindow( binaryMessage.Identifier, new NamedSpeaker( speakerName ) );
@@ -94,7 +94,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
                 if ( lineCount != 0 )
                 {
                     // Parse the line data
-                    ParseLines( message, lineStartAddresses, buffer, encoding == null ? Encoding.ASCII : encoding );
+                    ParseLines( message, lineStartAddresses, buffer, instance.FormatVersion, encoding == null ? Encoding.ASCII : encoding );
                 }
 
                 // Add it to the message list
@@ -107,30 +107,30 @@ namespace AtlusScriptLib.MessageScriptLanguage
         /// <summary>
         /// Deserializes and creates a <see cref="MessageScript"/> from a file.
         /// </summary>
-        public static MessageScript FromFile( string path, Encoding encoding = null )
+        public static MessageScript FromFile( string path, FormatVersion version = FormatVersion.Version1, Encoding encoding = null )
         {
             if ( path == null )
                 throw new ArgumentNullException( nameof( path ) );
 
             var binary = MessageScriptBinary.FromFile( path );
 
-            return FromBinary( binary, encoding );
+            return FromBinary( binary, version, encoding );
         }
 
         /// <summary>
         /// Deserializes and creates a <see cref="MessageScript"/> from a stream.
         /// </summary>
-        public static MessageScript FromStream( Stream stream, Encoding encoding = null, bool leaveOpen = false )
+        public static MessageScript FromStream( Stream stream, FormatVersion version = FormatVersion.Version1, Encoding encoding = null, bool leaveOpen = false )
         {
             if ( stream == null )
                 throw new ArgumentNullException( nameof( stream ) );
 
             var binary = MessageScriptBinary.FromStream( stream, leaveOpen );
 
-            return FromBinary( binary, encoding );
+            return FromBinary( binary, version, encoding );
         }
 
-        private static void ParseLines( IWindow message, IReadOnlyList<int> lineStartAddresses, IReadOnlyList<byte> buffer, Encoding encoding )
+        private static void ParseLines( IWindow message, IReadOnlyList<int> lineStartAddresses, IReadOnlyList<byte> buffer, FormatVersion version, Encoding encoding )
         {
             if ( lineStartAddresses.Count == 0 || buffer.Count == 0 )
                 return;
@@ -157,7 +157,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
                 // Loop over the buffer until we find a 0 byte or have reached the end index
                 while ( bufferIndex < lineEndIndex )
                 {
-                    if ( !TryParseTokens( buffer, ref bufferIndex, out var tokens, encoding ) )
+                    if ( !TryParseTokens( buffer, ref bufferIndex, out var tokens, version, encoding ) )
                         break;
 
                     line.Tokens.AddRange( tokens );
@@ -168,7 +168,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
             }
         }
 
-        private static TokenText ParseSpeakerLine( IReadOnlyList<byte> bytes, Encoding encoding )
+        private static TokenText ParseSpeakerLine( IReadOnlyList<byte> bytes, FormatVersion version, Encoding encoding )
         {
             var line = new TokenText();
 
@@ -176,7 +176,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
 
             while ( bufferIndex < bytes.Count )
             {
-                if ( !TryParseTokens( bytes, ref bufferIndex, out var tokens, encoding ) )
+                if ( !TryParseTokens( bytes, ref bufferIndex, out var tokens, version, encoding ) )
                     break;
 
                 line.Tokens.AddRange( tokens );
@@ -185,7 +185,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
             return line;
         }
 
-        private static bool TryParseTokens( IReadOnlyList<byte> buffer, ref int bufferIndex, out List<IToken> tokens, Encoding encoding )
+        private static bool TryParseTokens( IReadOnlyList<byte> buffer, ref int bufferIndex, out List<IToken> tokens, FormatVersion version, Encoding encoding )
         {
             byte b = buffer[bufferIndex++];
             tokens = new List<IToken>();
@@ -202,7 +202,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
             }
             else if ( ( b & 0xF0 ) == 0xF0 )
             {
-                tokens.Add( ParseFunctionToken( b, buffer, ref bufferIndex ) );
+                tokens.Add( ParseFunctionToken( b, buffer, ref bufferIndex, version ) );
             }
             else
             {
@@ -212,12 +212,26 @@ namespace AtlusScriptLib.MessageScriptLanguage
             return true;
         }
 
-        private static FunctionToken ParseFunctionToken( byte b, IReadOnlyList<byte> buffer, ref int bufferIndex )
+        private static FunctionToken ParseFunctionToken( byte b, IReadOnlyList<byte> buffer, ref int bufferIndex, FormatVersion version )
         {
             int functionId = ( b << 8 ) | buffer[bufferIndex++];
             int functionTableIndex = ( functionId & 0xE0 ) >> 5;
             int functionIndex = ( functionId & 0x1F );
-            int functionArgumentByteCount = ( ( ( functionId >> 8 ) & 0xF ) - 1 ) * 2;
+
+            int functionArgumentByteCount;
+            if ( version == FormatVersion.Version1 || version == FormatVersion.Version1BigEndian )
+            {
+                functionArgumentByteCount = ( ( ( ( functionId >> 8 ) & 0xF ) - 1 ) * 2 );
+            }
+            else if ( version == FormatVersion.Version1DDS )
+            {
+                functionArgumentByteCount = ( ( functionId >> 8 ) & 0xF );
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException( nameof( version ) );
+            }
+
             short[] functionArguments = new short[functionArgumentByteCount / 2];
 
             for ( int i = 0; i < functionArguments.Length; i++ )
