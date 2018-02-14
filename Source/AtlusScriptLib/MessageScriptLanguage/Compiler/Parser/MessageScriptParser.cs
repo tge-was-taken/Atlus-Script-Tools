@@ -42,7 +42,7 @@ public partial class MessageScriptParser : Parser {
 	};
 
 	private static readonly string[] _LiteralNames = {
-		null, null, null, null, "'dlg'", "'sel'"
+		null, null, null, null, null, "'sel'"
 	};
 	private static readonly string[] _SymbolicNames = {
 		null, "OpenCode", "CloseText", "Text", "MessageDialogTagId", "SelectionDialogTagId", 
