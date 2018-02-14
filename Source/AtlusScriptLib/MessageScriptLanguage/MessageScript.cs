@@ -21,7 +21,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
             if ( binary == null )
                 throw new ArgumentNullException( nameof( binary ) );
 
-            if ( binary.WindowHeaders == null )
+            if ( binary.DialogHeaders == null )
                 throw new ArgumentNullException( nameof( binary ) );
 
             // Create new script instance & set user id, format version
@@ -33,31 +33,31 @@ namespace AtlusScriptLib.MessageScriptLanguage
             };
 
             // Convert the binary messages to their counterpart
-            foreach ( var messageHeader in binary.WindowHeaders )
+            foreach ( var messageHeader in binary.DialogHeaders )
             {
-                IWindow message;
-                IReadOnlyList<int> lineStartAddresses;
+                IDialog message;
+                IReadOnlyList<int> pageStartAddresses;
                 IReadOnlyList<byte> buffer;
-                int lineCount;
+                int pageCount;
 
-                switch ( messageHeader.WindowType )
+                switch ( messageHeader.DialogKind )
                 {
-                    case BinaryWindowType.Dialogue:
+                    case BinaryDialogKind.Message:
                         {
-                            var binaryMessage = ( BinaryDialogueWindow )messageHeader.Window.Value;
-                            lineStartAddresses = binaryMessage.LineStartAddresses;
+                            var binaryMessage = ( BinaryMessageDialog )messageHeader.Dialog.Value;
+                            pageStartAddresses = binaryMessage.PageStartAddresses;
                             buffer = binaryMessage.TextBuffer;
-                            lineCount = binaryMessage.LineCount;
+                            pageCount = binaryMessage.PageCount;
 
                             if ( binaryMessage.SpeakerId == 0xFFFF )
                             {
-                                message = new DialogWindow( binaryMessage.Identifier );
+                                message = new MessageDialog( binaryMessage.Name );
                             }
                             else if ( ( binaryMessage.SpeakerId & 0x8000 ) == 0x8000 )
                             {
                                 Trace.WriteLine( binaryMessage.SpeakerId.ToString( "X4" ) );
 
-                                message = new DialogWindow( binaryMessage.Identifier, new VariableSpeaker( binaryMessage.SpeakerId & 0x0FFF ) );
+                                message = new MessageDialog( binaryMessage.Name, new VariableSpeaker( binaryMessage.SpeakerId & 0x0FFF ) );
                             }
                             else
                             {
@@ -67,23 +67,23 @@ namespace AtlusScriptLib.MessageScriptLanguage
                                 TokenText speakerName = null;
                                 if ( binaryMessage.SpeakerId < binary.SpeakerTableHeader.SpeakerCount )
                                 {
-                                    speakerName = ParseSpeakerLine( binary.SpeakerTableHeader.SpeakerNameArray
+                                    speakerName = ParseSpeakerText( binary.SpeakerTableHeader.SpeakerNameArray
                                         .Value[binaryMessage.SpeakerId].Value, instance.FormatVersion, encoding == null ? Encoding.ASCII : encoding );
                                 }
 
-                                message = new DialogWindow( binaryMessage.Identifier, new NamedSpeaker( speakerName ) );
+                                message = new MessageDialog( binaryMessage.Name, new NamedSpeaker( speakerName ) );
                             }
                         }
                         break;
 
-                    case BinaryWindowType.Selection:
+                    case BinaryDialogKind.Selection:
                         {
-                            var binaryMessage = ( BinarySelectionWindow )messageHeader.Window.Value;
-                            lineStartAddresses = binaryMessage.OptionStartAddresses;
+                            var binaryMessage = ( BinarySelectionDialog )messageHeader.Dialog.Value;
+                            pageStartAddresses = binaryMessage.OptionStartAddresses;
                             buffer = binaryMessage.TextBuffer;
-                            lineCount = binaryMessage.OptionCount;
+                            pageCount = binaryMessage.OptionCount;
 
-                            message = new SelectionWindow( ( string )binaryMessage.Identifier.Clone() );
+                            message = new SelectionDialog( ( string )binaryMessage.Name.Clone() );
                         }
                         break;
 
@@ -91,14 +91,14 @@ namespace AtlusScriptLib.MessageScriptLanguage
                         throw new InvalidDataException( "Unknown message type" );
                 }
 
-                if ( lineCount != 0 )
+                if ( pageCount != 0 )
                 {
                     // Parse the line data
-                    ParseLines( message, lineStartAddresses, buffer, instance.FormatVersion, encoding == null ? Encoding.ASCII : encoding );
+                    ParsePages( message, pageStartAddresses, buffer, instance.FormatVersion, encoding == null ? Encoding.ASCII : encoding );
                 }
 
                 // Add it to the message list
-                instance.Windows.Add( message );
+                instance.Dialogs.Add( message );
             }
 
             return instance;
@@ -130,7 +130,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
             return FromBinary( binary, version, encoding );
         }
 
-        private static void ParseLines( IWindow message, IReadOnlyList<int> lineStartAddresses, IReadOnlyList<byte> buffer, FormatVersion version, Encoding encoding )
+        private static void ParsePages( IDialog message, IReadOnlyList<int> lineStartAddresses, IReadOnlyList<byte> buffer, FormatVersion version, Encoding encoding )
         {
             if ( lineStartAddresses.Count == 0 || buffer.Count == 0 )
                 return;
@@ -168,7 +168,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
             }
         }
 
-        private static TokenText ParseSpeakerLine( IReadOnlyList<byte> bytes, FormatVersion version, Encoding encoding )
+        private static TokenText ParseSpeakerText( IReadOnlyList<byte> bytes, FormatVersion version, Encoding encoding )
         {
             var line = new TokenText();
 
@@ -361,9 +361,9 @@ namespace AtlusScriptLib.MessageScriptLanguage
         public Encoding Encoding { get; set; }
 
         /// <summary>
-        /// Gets the list of <see cref="IWindow"/> in this script.
+        /// Gets the list of <see cref="IDialog"/> in this script.
         /// </summary>
-        public List<IWindow> Windows { get; }
+        public List<IDialog> Dialogs { get; }
 
         /// <summary>
         /// Creates a new instance of <see cref="MessageScript"/> initialized with default values.
@@ -373,7 +373,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
             Id = 0;
             FormatVersion = FormatVersion.Version1;
             Encoding = null;
-            Windows = new List<IWindow>();
+            Dialogs = new List<IDialog>();
         }
 
         /// <summary>
@@ -384,7 +384,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
             Id = 0;
             FormatVersion = version;
             Encoding = encoding;
-            Windows = new List<IWindow>();
+            Dialogs = new List<IDialog>();
         }
 
         /// <summary>
@@ -398,19 +398,19 @@ namespace AtlusScriptLib.MessageScriptLanguage
             builder.SetUserId( Id );
             builder.SetEncoding( Encoding );
 
-            foreach ( var message in Windows )
+            foreach ( var dialog in Dialogs )
             {
-                switch ( message.Type )
+                switch ( dialog.Kind )
                 {
-                    case WindowType.Dialogue:
-                        builder.AddWindow( ( DialogWindow )message );
+                    case DialogKind.Message:
+                        builder.AddDialog( ( MessageDialog )dialog );
                         break;
-                    case WindowType.Selection:
-                        builder.AddWindow( ( SelectionWindow )message );
+                    case DialogKind.Selection:
+                        builder.AddDialog( ( SelectionDialog )dialog );
                         break;
 
                     default:
-                        throw new NotImplementedException( message.Type.ToString() );
+                        throw new NotImplementedException( dialog.Kind.ToString() );
                 }
             }
 

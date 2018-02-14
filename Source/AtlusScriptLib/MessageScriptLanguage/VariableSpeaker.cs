@@ -1,6 +1,6 @@
 ﻿namespace AtlusScriptLib.MessageScriptLanguage
 {
-    public sealed class VariableSpeaker : Speaker
+    public sealed class VariableSpeaker : ISpeaker
     {
         /// <summary>
         /// Gets the index of the speaker name variable.
@@ -28,6 +28,6 @@
         /// <summary>
         /// Gets the speaker type.
         /// </summary>
-        SpeakerType Speaker.Type => SpeakerType.Variable;
+        SpeakerKind ISpeaker.Kind => SpeakerKind.Variable;
     }
 }

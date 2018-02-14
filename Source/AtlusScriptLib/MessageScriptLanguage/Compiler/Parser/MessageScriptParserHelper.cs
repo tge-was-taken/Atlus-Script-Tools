@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using Antlr4.Runtime;
+using AtlusScriptLib.FlowScriptLanguage.Compiler.Parser;
 
 namespace AtlusScriptLib.MessageScriptLanguage.Compiler.Parser
 {

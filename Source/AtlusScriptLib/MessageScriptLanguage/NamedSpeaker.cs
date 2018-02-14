@@ -1,9 +1,12 @@
-﻿namespace AtlusScriptLib.MessageScriptLanguage
+﻿using System.Collections;
+using System.Collections.Generic;
+
+namespace AtlusScriptLib.MessageScriptLanguage
 {
     /// <summary>
     /// Represents a named dialogue message speaker.
     /// </summary>
-    public sealed class NamedSpeaker : Speaker
+    public sealed class NamedSpeaker : ISpeaker, IEnumerable<IToken>
     {
         /// <summary>
         /// Gets the name of the speaker.
@@ -21,7 +24,7 @@
 
         public NamedSpeaker( string name )
         {
-            Name = new TextBuilder()
+            Name = new TokenTextBuilder()
                 .AddString( name )
                 .Build();
         }
@@ -43,9 +46,19 @@
             return str;
         }
 
+        public IEnumerator<IToken> GetEnumerator()
+        {
+            return ( ( IEnumerable<IToken> )Name ).GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return ( ( IEnumerable<IToken> )Name ).GetEnumerator();
+        }
+
         /// <summary>
         /// Gets the speaker type.
         /// </summary>
-        SpeakerType Speaker.Type => SpeakerType.Named;
+        SpeakerKind ISpeaker.Kind => SpeakerKind.Named;
     }
 }

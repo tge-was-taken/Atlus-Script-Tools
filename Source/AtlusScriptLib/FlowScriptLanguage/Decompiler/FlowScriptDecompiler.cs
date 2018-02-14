@@ -323,7 +323,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                             {
                                 call.Arguments[0] = new Identifier(
                                     ValueKind.Int,
-                                    mEvaluatedScript.FlowScript.MessageScript.Windows[windowIndexLiteral.Value].Identifier );
+                                    mEvaluatedScript.FlowScript.MessageScript.Dialogs[windowIndexLiteral.Value].Name );
                             }                      
                         }
                     }

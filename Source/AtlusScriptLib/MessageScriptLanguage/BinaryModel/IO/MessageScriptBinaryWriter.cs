@@ -30,9 +30,9 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel.IO
         public void WriteBinary( MessageScriptBinary binary )
         {
             WriteHeader( ref binary.mHeader );
-            WriteMessageHeaders( binary.mWindowHeaders );
+            WriteDialogHeaders( binary.mDialogHeaders );
             WriteSpeakerHeader( ref binary.mSpeakerTableHeader );
-            WriteMessages( binary.mWindowHeaders );
+            WriteDialogs( binary.mDialogHeaders );
             WriteSpeakerNameOffsets( ref binary.mSpeakerTableHeader );
             WriteSpeakerNames( ref binary.mSpeakerTableHeader );
             WriteRelocationTable( ref binary.mHeader.RelocationTable );
@@ -48,17 +48,17 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel.IO
             mWriter.Write( header.Field0C );
             mWriter.Write( header.RelocationTable.Offset );
             mWriter.Write( header.RelocationTableSize );
-            mWriter.Write( header.WindowCount );
+            mWriter.Write( header.DialogCount );
             mWriter.Write( header.IsRelocated ? ( short )1 : ( short )0 );
             mWriter.Write( header.Field1E );
         }
 
-        private void WriteMessageHeaders( BinaryWindowHeader[] messageHeaders )
+        private void WriteDialogHeaders( BinaryDialogHeader[] headers )
         {
-            foreach ( var messageHeader in messageHeaders )
+            foreach ( var header in headers )
             {
-                mWriter.Write( ( int )messageHeader.WindowType );
-                mWriter.Write( messageHeader.Window.Offset );
+                mWriter.Write( ( int )header.DialogKind );
+                mWriter.Write( header.Dialog.Offset );
             }
         }
 
@@ -70,45 +70,45 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel.IO
             mWriter.Write( header.Field0C );
         }
 
-        private void WriteMessages( BinaryWindowHeader[] messageHeaders )
+        private void WriteDialogs( BinaryDialogHeader[] headers )
         {
-            foreach ( var messageHeader in messageHeaders )
+            foreach ( var header in headers )
             {
-                mWriter.SeekBegin( mPositionBase + BinaryHeader.SIZE + messageHeader.Window.Offset );
+                mWriter.SeekBegin( mPositionBase + BinaryHeader.SIZE + header.Dialog.Offset );
 
-                switch ( messageHeader.WindowType )
+                switch ( header.DialogKind )
                 {
-                    case BinaryWindowType.Dialogue:
-                        WriteDialogueMessage( ( BinaryDialogueWindow )messageHeader.Window.Value );
+                    case BinaryDialogKind.Message:
+                        WriteMessageDialog( ( BinaryMessageDialog )header.Dialog.Value );
                         break;
 
-                    case BinaryWindowType.Selection:
-                        WriteSelectionMessage( ( BinarySelectionWindow )messageHeader.Window.Value );
+                    case BinaryDialogKind.Selection:
+                        WriteSelectionDialog( ( BinarySelectionDialog )header.Dialog.Value );
                         break;
 
                     default:
-                        throw new NotImplementedException( messageHeader.WindowType.ToString() );
+                        throw new NotImplementedException( header.DialogKind.ToString() );
                 }
             }
         }
 
-        private void WriteDialogueMessage( BinaryDialogueWindow dialogue )
+        private void WriteMessageDialog( BinaryMessageDialog dialogue )
         {
-            mWriter.Write( dialogue.Identifier, StringBinaryFormat.FixedLength, BinaryDialogueWindow.IDENTIFIER_LENGTH );
-            mWriter.Write( dialogue.LineCount );
+            mWriter.Write( dialogue.Name, StringBinaryFormat.FixedLength, BinaryMessageDialog.IDENTIFIER_LENGTH );
+            mWriter.Write( dialogue.PageCount );
             mWriter.Write( dialogue.SpeakerId );
 
-            if ( dialogue.LineCount > 0 )
+            if ( dialogue.PageCount > 0 )
             {
-                mWriter.Write( dialogue.LineStartAddresses );
+                mWriter.Write( dialogue.PageStartAddresses );
                 mWriter.Write( dialogue.TextBufferSize );
                 mWriter.Write( dialogue.TextBuffer );
             }
         }
 
-        private void WriteSelectionMessage( BinarySelectionWindow selection )
+        private void WriteSelectionDialog( BinarySelectionDialog selection )
         {
-            mWriter.Write( selection.Identifier, StringBinaryFormat.FixedLength, BinarySelectionWindow.IDENTIFIER_LENGTH );
+            mWriter.Write( selection.Name, StringBinaryFormat.FixedLength, BinarySelectionDialog.IDENTIFIER_LENGTH );
             mWriter.Write( selection.Field18 );
             mWriter.Write( selection.OptionCount );
             mWriter.Write( selection.Field1C );

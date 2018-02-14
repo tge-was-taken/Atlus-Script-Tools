@@ -8,15 +8,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from D:\Users\smart\Documents\Visual Studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptLib\MessageScriptLanguage\Parser\MessageScriptParser.g4 by ANTLR 4.6.4
+// Generated from ..\..\..\AtlusScriptLib\MessageScriptLanguage\Compiler\Parser\MessageScriptParser.g4 by ANTLR 4.6.4
 
 // Unreachable code detected
-
-using System;
-using System.CodeDom.Compiler;
-using Antlr4.Runtime.Misc;
-using Antlr4.Runtime.Tree;
-
 #pragma warning disable 0162
 // The variable '...' is assigned but its value is never used
 #pragma warning disable 0219
@@ -25,14 +19,18 @@ using Antlr4.Runtime.Tree;
 // Ambiguous reference in cref attribute
 #pragma warning disable 419
 
-namespace AtlusScriptLib.MessageScriptLanguage.Compiler.Parser {
-    /// <summary>
+namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser {
+using Antlr4.Runtime.Misc;
+using Antlr4.Runtime.Tree;
+using IToken = Antlr4.Runtime.IToken;
+
+/// <summary>
 /// This interface defines a complete generic visitor for a parse tree produced
 /// by <see cref="MessageScriptParser"/>.
 /// </summary>
 /// <typeparam name="Result">The return type of the visit operation.</typeparam>
-[GeneratedCode("ANTLR", "4.6.4")]
-[CLSCompliant(false)]
+[System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.6.4")]
+[System.CLSCompliant(false)]
 public interface IMessageScriptParserVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="MessageScriptParser.compilationUnit"/>.
@@ -42,45 +40,45 @@ public interface IMessageScriptParserVisitor<Result> : IParseTreeVisitor<Result>
 	Result VisitCompilationUnit([NotNull] MessageScriptParser.CompilationUnitContext context);
 
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="MessageScriptParser.messageWindow"/>.
+	/// Visit a parse tree produced by <see cref="MessageScriptParser.dialog"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitMessageWindow([NotNull] MessageScriptParser.MessageWindowContext context);
+	Result VisitDialog([NotNull] MessageScriptParser.DialogContext context);
 
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="MessageScriptParser.dialogWindow"/>.
+	/// Visit a parse tree produced by <see cref="MessageScriptParser.messageDialog"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitDialogWindow([NotNull] MessageScriptParser.DialogWindowContext context);
+	Result VisitMessageDialog([NotNull] MessageScriptParser.MessageDialogContext context);
 
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="MessageScriptParser.dialogWindowSpeakerName"/>.
+	/// Visit a parse tree produced by <see cref="MessageScriptParser.speakerName"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitDialogWindowSpeakerName([NotNull] MessageScriptParser.DialogWindowSpeakerNameContext context);
+	Result VisitSpeakerName([NotNull] MessageScriptParser.SpeakerNameContext context);
 
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="MessageScriptParser.selectionWindow"/>.
+	/// Visit a parse tree produced by <see cref="MessageScriptParser.selectionDialog"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitSelectionWindow([NotNull] MessageScriptParser.SelectionWindowContext context);
+	Result VisitSelectionDialog([NotNull] MessageScriptParser.SelectionDialogContext context);
 
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="MessageScriptParser.tagText"/>.
+	/// Visit a parse tree produced by <see cref="MessageScriptParser.tokenText"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitTagText([NotNull] MessageScriptParser.TagTextContext context);
+	Result VisitTokenText([NotNull] MessageScriptParser.TokenTextContext context);
 
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="MessageScriptParser.tag"/>.
+	/// Visit a parse tree produced by <see cref="MessageScriptParser.token"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitTag([NotNull] MessageScriptParser.TagContext context);
+	Result VisitToken([NotNull] MessageScriptParser.TokenContext context);
 }
-} // namespace AtlusScriptLib.MessageScriptLanguage.Compiler.Parser
+} // namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser

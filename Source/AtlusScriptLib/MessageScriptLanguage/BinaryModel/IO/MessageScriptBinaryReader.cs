@@ -11,8 +11,8 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel.IO
     public sealed class MessageScriptBinaryReader : IDisposable
     {
         private bool mDisposed;
-        private long mPositionBase;
-        private EndianBinaryReader mReader;
+        private readonly long mPositionBase;
+        private readonly EndianBinaryReader mReader;
         private BinaryFormatVersion mVersion;
 
         public MessageScriptBinaryReader( Stream stream, BinaryFormatVersion version, bool leaveOpen = false )
@@ -29,7 +29,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel.IO
                 mHeader = ReadHeader()
             };
 
-            binary.mWindowHeaders = ReadMessageHeaders( binary.mHeader.WindowCount );
+            binary.mDialogHeaders = ReadDialogHeaders( binary.mHeader.DialogCount );
             binary.mSpeakerTableHeader = ReadSpeakerTableHeader();
             binary.mFormatVersion = mVersion;
 
@@ -38,13 +38,14 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel.IO
 
         public BinaryHeader ReadHeader()
         {
-            BinaryHeader header = new BinaryHeader();
+            var header = new BinaryHeader();
 
             // Check if the stream isn't too small to be a proper file
             if ( mReader.BaseStreamLength < BinaryHeader.SIZE )
             {
                 throw new InvalidDataException( "Stream is too small to be valid" );
             }
+
             header.FileType = mReader.ReadByte();
             header.IsCompressed = mReader.ReadByte() != 0;
             header.UserId = mReader.ReadInt16();
@@ -53,7 +54,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel.IO
             header.Field0C = mReader.ReadInt32();
             header.RelocationTable.Offset = mReader.ReadInt32();
             header.RelocationTableSize = mReader.ReadInt32();
-            header.WindowCount = mReader.ReadInt32();
+            header.DialogCount = mReader.ReadInt32();
             header.IsRelocated = mReader.ReadInt16() != 0;
             header.Field1E = mReader.ReadInt16();
 
@@ -100,25 +101,25 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel.IO
             EndiannessHelper.Swap( ref header.Field0C );
             EndiannessHelper.Swap( ref header.RelocationTable.Offset );
             EndiannessHelper.Swap( ref header.RelocationTableSize );
-            EndiannessHelper.Swap( ref header.WindowCount );
+            EndiannessHelper.Swap( ref header.DialogCount );
             EndiannessHelper.Swap( ref header.Field1E );
         }
 
-        public BinaryWindowHeader[] ReadMessageHeaders( int count )
+        public BinaryDialogHeader[] ReadDialogHeaders( int count )
         {
-            BinaryWindowHeader[] messageHeaders = new BinaryWindowHeader[count];
+            BinaryDialogHeader[] headers = new BinaryDialogHeader[count];
 
-            for ( int i = 0; i < messageHeaders.Length; i++ )
+            for ( int i = 0; i < headers.Length; i++ )
             {
-                ref var messageHeader = ref messageHeaders[i];
-                messageHeader.WindowType = ( BinaryWindowType )mReader.ReadInt32();
-                messageHeader.Window.Offset = mReader.ReadInt32();
+                ref var header = ref headers[i];
+                header.DialogKind = ( BinaryDialogKind )mReader.ReadInt32();
+                header.Dialog.Offset = mReader.ReadInt32();
 
-                if ( messageHeader.Window.Offset != 0 )
-                    messageHeader.Window.Value = ReadMessage( messageHeader.WindowType, messageHeader.Window.Offset );
+                if ( header.Dialog.Offset != 0 )
+                    header.Dialog.Value = ReadDialog( header.DialogKind, header.Dialog.Offset );
             }
 
-            return messageHeaders;
+            return headers;
         }
 
         public BinarySpeakerTableHeader ReadSpeakerTableHeader()
@@ -172,20 +173,20 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel.IO
             return speakerNames;
         }
 
-        private object ReadMessage( BinaryWindowType type, int address )
+        private object ReadDialog( BinaryDialogKind type, int address )
         {
-            object message;
+            object dialog;
 
             mReader.EnqueuePositionAndSeekBegin( mPositionBase + BinaryHeader.SIZE + address );
 
             switch ( type )
             {
-                case BinaryWindowType.Dialogue:
-                    message = ReadDialogueMessage();
+                case BinaryDialogKind.Message:
+                    dialog = ReadMessageDialog();
                     break;
 
-                case BinaryWindowType.Selection:
-                    message = ReadSelectionMessage();
+                case BinaryDialogKind.Selection:
+                    dialog = ReadSelectionDialog();
                     break;
 
                 default:
@@ -194,26 +195,26 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel.IO
 
             mReader.SeekBeginToDequedPosition();
 
-            return message;
+            return dialog;
         }
 
-        public BinaryDialogueWindow ReadDialogueMessage()
+        public BinaryMessageDialog ReadMessageDialog()
         {
-            BinaryDialogueWindow message;
+            BinaryMessageDialog message;
 
-            message.Identifier = mReader.ReadString( StringBinaryFormat.FixedLength, BinaryDialogueWindow.IDENTIFIER_LENGTH );
-            message.LineCount = mReader.ReadInt16();
+            message.Name = mReader.ReadString( StringBinaryFormat.FixedLength, BinaryMessageDialog.IDENTIFIER_LENGTH );
+            message.PageCount = mReader.ReadInt16();
             message.SpeakerId = mReader.ReadUInt16();
 
-            if ( message.LineCount > 0 )
+            if ( message.PageCount > 0 )
             {
-                message.LineStartAddresses = mReader.ReadInt32s( message.LineCount );
+                message.PageStartAddresses = mReader.ReadInt32s( message.PageCount );
                 message.TextBufferSize = mReader.ReadInt32();
                 message.TextBuffer = mReader.ReadBytes( message.TextBufferSize );
             }
             else
             {
-                message.LineStartAddresses = null;
+                message.PageStartAddresses = null;
                 message.TextBufferSize = 0;
                 message.TextBuffer = null;
             }
@@ -221,11 +222,11 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel.IO
             return message;
         }
 
-        public BinarySelectionWindow ReadSelectionMessage()
+        public BinarySelectionDialog ReadSelectionDialog()
         {
-            BinarySelectionWindow message;
+            BinarySelectionDialog message;
 
-            message.Identifier = mReader.ReadString( StringBinaryFormat.FixedLength, BinaryDialogueWindow.IDENTIFIER_LENGTH );
+            message.Name = mReader.ReadString( StringBinaryFormat.FixedLength, BinaryMessageDialog.IDENTIFIER_LENGTH );
             message.Field18 = mReader.ReadInt16();
             message.OptionCount = mReader.ReadInt16();
             message.Field1C = mReader.ReadInt16();
@@ -235,13 +236,13 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel.IO
             message.TextBuffer = mReader.ReadBytes( message.TextBufferSize );
 
             if ( message.Field18 != 0 )
-                Debug.WriteLine( $"{nameof( BinarySelectionWindow )}.{nameof( message.Field18 )} = {message.Field18}" );
+                Debug.WriteLine( $"{nameof( BinarySelectionDialog )}.{nameof( message.Field18 )} = {message.Field18}" );
 
             if ( message.Field1C != 0 )
-                Debug.WriteLine( $"{nameof( BinarySelectionWindow )}.{nameof( message.Field1C )} = {message.Field1C}" );
+                Debug.WriteLine( $"{nameof( BinarySelectionDialog )}.{nameof( message.Field1C )} = {message.Field1C}" );
 
             if ( message.Field1E != 0 )
-                Debug.WriteLine( $"{nameof( BinarySelectionWindow )}.{nameof( message.Field1E )} = {message.Field1E}" );
+                Debug.WriteLine( $"{nameof( BinarySelectionDialog )}.{nameof( message.Field1E )} = {message.Field1E}" );
 
             return message;
         }

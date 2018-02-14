@@ -400,9 +400,9 @@ namespace AtlusMessageScriptExtractor
         {
             Writer.WriteLine( name );
 
-            for ( var i = 0; i < script.Windows.Count; i++ )
+            for ( var i = 0; i < script.Dialogs.Count; i++ )
             {
-                var window = script.Windows[ i ];
+                var window = script.Dialogs[ i ];
                 Writer.WriteLine( $"Id: {i}" );
                 WriteWindow( window );
             }
@@ -420,13 +420,13 @@ namespace AtlusMessageScriptExtractor
             Writer.Flush();
         }
 
-        static void WriteWindow( IWindow window )
+        static void WriteWindow( IDialog window )
         {
-            Writer.WriteLine( window.Identifier );
+            Writer.WriteLine( window.Name );
 
-            if ( window.Type == WindowType.Dialogue )
+            if ( window.Kind == DialogKind.Message )
             {
-                WriteDialogWindowSpeaker( ( DialogWindow )window );
+                WriteDialogWindowSpeaker( ( MessageDialog )window );
             }
 
             foreach ( var line in window.Lines )
@@ -438,15 +438,15 @@ namespace AtlusMessageScriptExtractor
             Writer.WriteLine();
         }
 
-        static void WriteDialogWindowSpeaker( DialogWindow window )
+        static void WriteDialogWindowSpeaker( MessageDialog window )
         {
             if ( window.Speaker != null )
             {
-                if ( window.Speaker.Type == SpeakerType.Named )
+                if ( window.Speaker.Kind == SpeakerKind.Named )
                 {
                     WriteLine( ( ( NamedSpeaker )window.Speaker ).Name, false );
                 }
-                else if ( window.Speaker.Type == SpeakerType.Variable )
+                else if ( window.Speaker.Kind == SpeakerKind.Variable )
                 {
                     Writer.Write( $"var({( ( VariableSpeaker )window.Speaker ).Index})" );
                 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,32 +8,34 @@ namespace AtlusScriptLib.MessageScriptLanguage
     /// <summary>
     /// Represents a dialog window in a message script.
     /// </summary>
-    public sealed class DialogWindow : IWindow
+    public sealed class MessageDialog : IDialog
     {
         /// <summary>
         /// Gets the text identifier of this dialog window.
         /// </summary>
-        public string Identifier { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the speaker of this dialog window.
         /// </summary>
-        public Speaker Speaker { get; set; }
+        public ISpeaker Speaker { get; set; }
 
         /// <summary>
-        /// Gets the lines contained in this message.
+        /// Gets the pages contained in this dialog window.
         /// </summary>
-        public List<TokenText> Lines { get; }
+        public List<TokenText> Pages { get; }
+
+        List< TokenText > IDialog.Lines => Pages;
 
         /// <summary>
         /// Constructs a new dialog window with just an identifier.
         /// </summary>
         /// <param name="identifier">The identifier of the window.</param>
-        public DialogWindow( string identifier )
+        public MessageDialog( string identifier )
         {
-            Identifier = identifier ?? throw new ArgumentNullException( nameof( identifier ) );
+            Name = identifier ?? throw new ArgumentNullException( nameof( identifier ) );
             Speaker = null;
-            Lines = new List<TokenText>();
+            Pages = new List<TokenText>();
         }
 
         /// <summary>
@@ -40,11 +43,11 @@ namespace AtlusScriptLib.MessageScriptLanguage
         /// </summary>
         /// <param name="identifier">The identifier of the window.</param>
         /// <param name="speaker">The speaker of the window.</param>
-        public DialogWindow( string identifier, Speaker speaker )
+        public MessageDialog( string identifier, ISpeaker speaker )
         {
-            Identifier = identifier ?? throw new ArgumentNullException( nameof( identifier ) );
+            Name = identifier ?? throw new ArgumentNullException( nameof( identifier ) );
             Speaker = speaker;
-            Lines = new List<TokenText>();
+            Pages = new List<TokenText>();
         }
 
         /// <summary>
@@ -53,23 +56,23 @@ namespace AtlusScriptLib.MessageScriptLanguage
         /// <param name="identifier">The identifier of the window.</param>
         /// <param name="speaker">The speaker of the window.</param>
         /// <param name="lines">The list of lines of the window.</param>
-        public DialogWindow( string identifier, Speaker speaker, List<TokenText> lines )
+        public MessageDialog( string identifier, ISpeaker speaker, List<TokenText> lines )
         {
-            Identifier = identifier ?? throw new ArgumentNullException( nameof( identifier ) );
+            Name = identifier ?? throw new ArgumentNullException( nameof( identifier ) );
             Speaker = speaker;
-            Lines = lines ?? throw new ArgumentNullException( nameof( lines ) );
+            Pages = lines ?? throw new ArgumentNullException( nameof( lines ) );
         }
 
         /// <summary>
         /// Constructs a new dialog window with an identifier and a list of lines.
         /// </summary>
         /// <param name="identifier">The identifier of the window.</param>
-        /// <param name="lines">The list of lines of the window.</param>
-        public DialogWindow( string identifier, List<TokenText> lines )
+        /// <param name="pages">The list of lines of the window.</param>
+        public MessageDialog( string identifier, List<TokenText> pages )
         {
-            Identifier = identifier ?? throw new ArgumentNullException( nameof( identifier ) );
+            Name = identifier ?? throw new ArgumentNullException( nameof( identifier ) );
             Speaker = null;
-            Lines = lines;
+            Pages = pages;
         }
 
         /// <summary>
@@ -78,11 +81,11 @@ namespace AtlusScriptLib.MessageScriptLanguage
         /// <param name="identifier">The identifier of the window.</param>
         /// <param name="speaker">The speaker of the window.</param>
         /// <param name="lines">The list of lines of the window.</param>
-        public DialogWindow( string identifier, Speaker speaker, params TokenText[] lines )
+        public MessageDialog( string identifier, ISpeaker speaker, params TokenText[] lines )
         {
-            Identifier = identifier ?? throw new ArgumentNullException( nameof( identifier ) );
+            Name = identifier ?? throw new ArgumentNullException( nameof( identifier ) );
             Speaker = speaker;
-            Lines = lines.ToList();
+            Pages = lines.ToList();
         }
 
         /// <summary>
@@ -90,11 +93,11 @@ namespace AtlusScriptLib.MessageScriptLanguage
         /// </summary>
         /// <param name="identifier">The identifier of the window.</param>
         /// <param name="lines">The list of lines of the window.</param>
-        public DialogWindow( string identifier, params TokenText[] lines )
+        public MessageDialog( string identifier, params TokenText[] lines )
         {
-            Identifier = identifier ?? throw new ArgumentNullException( nameof( identifier ) );
+            Name = identifier ?? throw new ArgumentNullException( nameof( identifier ) );
             Speaker = null;
-            Lines = lines.ToList();
+            Pages = lines.ToList();
         }
 
         /// <summary>
@@ -103,12 +106,22 @@ namespace AtlusScriptLib.MessageScriptLanguage
         /// <returns></returns>
         public override string ToString()
         {
-            return $"dlg {Identifier} {Speaker}";
+            return $"dlg {Name} {Speaker}";
         }
 
         /// <summary>
         /// Gets the message type of this window.
         /// </summary>
-        WindowType IWindow.Type => WindowType.Dialogue;
+        DialogKind IDialog.Kind => DialogKind.Message;
+
+        public IEnumerator<TokenText> GetEnumerator()
+        {
+            return Pages.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 }

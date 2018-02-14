@@ -59,7 +59,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Tests
 
             Assert.AreEqual( 0, script.Id );
             Assert.AreEqual( FormatVersion.Version1, script.FormatVersion );
-            Assert.AreEqual( 0, script.Windows.Count );
+            Assert.AreEqual( 0, script.Dialogs.Count );
         }
 
         [TestMethod]
@@ -94,42 +94,42 @@ namespace AtlusScriptLib.MessageScriptLanguage.Tests
             Assert.AreEqual( binary.Header.RelocationTable.Offset, newBinary.Header.RelocationTable.Offset );
             CollectionAssert.AreEqual( binary.Header.RelocationTable.Value, newBinary.Header.RelocationTable.Value );
             Assert.AreEqual( binary.Header.RelocationTableSize, newBinary.Header.RelocationTableSize );
-            Assert.AreEqual( binary.Header.WindowCount, newBinary.Header.WindowCount );
+            Assert.AreEqual( binary.Header.DialogCount, newBinary.Header.DialogCount );
             Assert.AreEqual( binary.Header.IsRelocated, newBinary.Header.IsRelocated );
             Assert.AreEqual( binary.Header.Field1E, newBinary.Header.Field1E );
 
-            for ( var index = 0; index < binary.WindowHeaders.Count; index++ )
+            for ( var index = 0; index < binary.DialogHeaders.Count; index++ )
             {
-                var header = binary.WindowHeaders[index];
-                var newHeader = newBinary.WindowHeaders[index];
+                var header = binary.DialogHeaders[index];
+                var newHeader = newBinary.DialogHeaders[index];
 
                 // compare message headers
-                Assert.AreEqual( header.WindowType, newHeader.WindowType );
-                Assert.AreEqual( header.Window.Offset, newHeader.Window.Offset );
+                Assert.AreEqual( header.DialogKind, newHeader.DialogKind );
+                Assert.AreEqual( header.Dialog.Offset, newHeader.Dialog.Offset );
 
                 // compare message data
-                switch ( header.WindowType )
+                switch ( header.DialogKind )
                 {
-                    case BinaryWindowType.Dialogue:
+                    case BinaryDialogKind.Message:
                         {
-                            var dialogue = ( BinaryDialogueWindow )header.Window.Value;
-                            var newDialogue = ( BinaryDialogueWindow )newHeader.Window.Value;
+                            var dialogue = ( BinaryMessageDialog )header.Dialog.Value;
+                            var newDialogue = ( BinaryMessageDialog )newHeader.Dialog.Value;
 
-                            Assert.AreEqual( dialogue.Identifier, newDialogue.Identifier );
-                            Assert.AreEqual( dialogue.LineCount, newDialogue.LineCount );
+                            Assert.AreEqual( dialogue.Name, newDialogue.Name );
+                            Assert.AreEqual( dialogue.PageCount, newDialogue.PageCount );
                             Assert.AreEqual( dialogue.SpeakerId, newDialogue.SpeakerId );
-                            CollectionAssert.AreEqual( dialogue.LineStartAddresses, newDialogue.LineStartAddresses );
+                            CollectionAssert.AreEqual( dialogue.PageStartAddresses, newDialogue.PageStartAddresses );
                             Assert.AreEqual( dialogue.TextBufferSize, newDialogue.TextBufferSize );
                             CollectionAssert.AreEqual( dialogue.TextBuffer, newDialogue.TextBuffer );
                         }
                         break;
 
-                    case BinaryWindowType.Selection:
+                    case BinaryDialogKind.Selection:
                         {
-                            var selection = ( BinarySelectionWindow )header.Window.Value;
-                            var newSelection = ( BinarySelectionWindow )newHeader.Window.Value;
+                            var selection = ( BinarySelectionDialog )header.Dialog.Value;
+                            var newSelection = ( BinarySelectionDialog )newHeader.Dialog.Value;
 
-                            Assert.AreEqual( selection.Identifier, newSelection.Identifier );
+                            Assert.AreEqual( selection.Name, newSelection.Name );
                             Assert.AreEqual( selection.Field18, newSelection.Field18 );
                             Assert.AreEqual( selection.OptionCount, newSelection.OptionCount );
                             Assert.AreEqual( selection.Field1C, newSelection.Field1C );
@@ -141,7 +141,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Tests
                         break;
 
                     default:
-                        throw new NotImplementedException( header.WindowType.ToString() );
+                        throw new NotImplementedException( header.DialogKind.ToString() );
                 }
             }
 

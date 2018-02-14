@@ -1,8 +1,8 @@
 ﻿namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel
 {
-    public enum BinaryWindowType
+    public enum BinaryDialogKind
     {
-        Dialogue,
+        Message,
         Selection
     }
 

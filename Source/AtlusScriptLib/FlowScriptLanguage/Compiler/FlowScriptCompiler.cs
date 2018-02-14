@@ -366,7 +366,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 // Merge message scripts
                 for ( int i = startIndex; i < importedMessageScripts.Count; i++ )
                 {
-                    mScript.MessageScript.Windows.AddRange( importedMessageScripts[i].Windows );
+                    mScript.MessageScript.Dialogs.AddRange( importedMessageScripts[i].Dialogs );
                 }
             }
 
@@ -557,21 +557,21 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             if ( mScript.MessageScript != null )
             {
                 Info( "Inserting MessageScript window identifier constants" );
-                for ( int i = 0; i < mScript.MessageScript.Windows.Count; i++ )
+                for ( int i = 0; i < mScript.MessageScript.Dialogs.Count; i++ )
                 {
-                    var window = mScript.MessageScript.Windows[i];
+                    var dialog = mScript.MessageScript.Dialogs[i];
 
                     var declaration = new VariableDeclaration
                     (
                         new VariableModifier( VariableModifierKind.Constant ),
                         new TypeIdentifier( ValueKind.Int ),
-                        new Identifier( ValueKind.Int, window.Identifier ),
+                        new Identifier( ValueKind.Int, dialog.Name ),
                         new IntLiteral( i )
                     );
 
                     if ( !Scope.TryDeclareVariable( declaration ) )
                     {
-                        Error( declaration, $"Compiler generated constant for MessageScript window {window.Identifier} conflicts with another variable" );
+                        Error( declaration, $"Compiler generated constant for MessageScript dialog {dialog.Name} conflicts with another variable" );
                     }
                     else
                     {
@@ -1303,20 +1303,20 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                                 if ( firstArgument is IntLiteral firstArgumentInt )
                                 {
                                     var index = firstArgumentInt.Value;
-                                    if ( index < 0 || index >= mScript.MessageScript.Windows.Count )
+                                    if ( index < 0 || index >= mScript.MessageScript.Dialogs.Count )
                                     {
-                                        Error( $"Function call to {callExpression.Identifier.Text} references message that doesn't exist (index: {index})" );
+                                        Error( $"Function call to {callExpression.Identifier.Text} references dialog that doesn't exist (index: {index})" );
                                         return false;
                                     }
 
-                                    var expectedWindowType = callExpression.Identifier.Text == "MSG"
-                                        ? WindowType.Dialogue
-                                        : WindowType.Selection;
+                                    var expectedDialogKind = callExpression.Identifier.Text == "MSG"
+                                        ? DialogKind.Message
+                                        : DialogKind.Selection;
 
-                                    var window = mScript.MessageScript.Windows[index];
-                                    if ( window.Type != expectedWindowType )
+                                    var dialog = mScript.MessageScript.Dialogs[index];
+                                    if ( dialog.Kind != expectedDialogKind )
                                     {
-                                        Error( $"Function call to {callExpression.Identifier.Text} doesn't reference a {expectedWindowType} message, got message of type: {window.Type} index: {index}" );
+                                        Error( $"Function call to {callExpression.Identifier.Text} doesn't reference a {expectedDialogKind} dialog, got dialog of type: {dialog.Kind} index: {index}" );
                                         return false;
                                     }
                                 }

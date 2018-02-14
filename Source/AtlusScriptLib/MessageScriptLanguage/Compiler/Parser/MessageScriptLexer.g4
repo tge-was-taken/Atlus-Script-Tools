@@ -24,7 +24,8 @@ Text
 mode MessageScriptCode;
 
 MessageDialogTagId
-	: 'dlg';
+	: 'dlg'
+	| 'msg';
 
 SelectionDialogTagId
 	: 'sel';

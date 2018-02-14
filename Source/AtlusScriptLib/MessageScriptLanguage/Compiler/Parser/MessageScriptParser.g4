@@ -12,31 +12,31 @@ options
 ////////////////////
 
 compilationUnit
-	: messageWindow* EOF
+	: dialog* EOF
 	;
 	
-messageWindow
-	: dialogWindow | selectionWindow
+dialog
+	: messageDialog | selectionDialog
 	;
 
-	// [ dlg DialogName [SpeakerName] ] text...
-dialogWindow
-	: OpenCode MessageDialogTagId Identifier dialogWindowSpeakerName? CloseCode tagText
+	// [ msg DialogName [SpeakerName] ] text...
+messageDialog
+	: OpenCode MessageDialogTagId Identifier speakerName? CloseCode tokenText
 	;
 
-dialogWindowSpeakerName
-	: OpenText tagText CloseText
+speakerName
+	: OpenText tokenText CloseText
 	;
 
 	// [ sel SelectionName ] text...
-selectionWindow
-	: OpenCode SelectionDialogTagId Identifier CloseCode tagText
+selectionDialog
+	: OpenCode SelectionDialogTagId Identifier CloseCode tokenText
 	;
 
-tagText
-	: ( tag | Text )*
+tokenText
+	: ( token | Text )*
 	;
 
-tag
+token
 	: OpenCode Identifier IntLiteral* CloseCode
 	;

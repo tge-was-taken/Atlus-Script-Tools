@@ -5,10 +5,10 @@ namespace AtlusScriptLib.MessageScriptLanguage
     /// <summary>
     /// Represents the message script message types.
     /// </summary>
-    public enum WindowType
+    public enum DialogKind
     {
-        Dialogue = BinaryWindowType.Dialogue,
-        Selection = BinaryWindowType.Selection
+        Message = BinaryDialogKind.Message,
+        Selection = BinaryDialogKind.Selection
     }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
     /// <summary>
     /// Represents the dialogue message speaker types.
     /// </summary>
-    public enum SpeakerType
+    public enum SpeakerKind
     {
         Named,
         Variable

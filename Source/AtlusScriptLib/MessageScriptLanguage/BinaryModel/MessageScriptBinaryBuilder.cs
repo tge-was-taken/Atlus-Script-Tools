@@ -15,7 +15,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel
         // optional
         private short mUserId;
         private Encoding mEncoding;
-        private List<Tuple<BinaryWindowType, object>> mWindows;
+        private List<Tuple<BinaryDialogKind, object>> mDialogs;
 
         // temporary storage
         private readonly List<int> mAddressLocations;   // for generating the relocation table
@@ -28,7 +28,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel
             mAddressLocations = new List<int>();
             mSpeakerNames = new List<byte[]>();
             mPosition = BinaryHeader.SIZE;
-            mWindows = new List<Tuple<BinaryWindowType, object>>();
+            mDialogs = new List<Tuple<BinaryDialogKind, object>>();
         }
 
         public void SetUserId( short value )
@@ -41,21 +41,21 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel
             mEncoding = encoding;
         }
 
-        public void AddWindow( DialogWindow message )
+        public void AddDialog( MessageDialog message )
         {
-            if ( mWindows == null )
-                mWindows = new List<Tuple<BinaryWindowType, object>>();
+            if ( mDialogs == null )
+                mDialogs = new List<Tuple<BinaryDialogKind, object>>();
 
-            BinaryDialogueWindow binary;
+            BinaryMessageDialog binary;
 
-            binary.Identifier = message.Identifier;
-            binary.LineCount = ( short )message.Lines.Count;
+            binary.Name = message.Name;
+            binary.PageCount = ( short )message.Pages.Count;
 
             if ( message.Speaker != null )
             {
-                switch ( message.Speaker.Type )
+                switch ( message.Speaker.Kind )
                 {
-                    case SpeakerType.Named:
+                    case SpeakerKind.Named:
                         {
                             var speakerName = ProcessLine( ( ( NamedSpeaker )message.Speaker ).Name );
                             if ( !mSpeakerNames.Any( x => x.SequenceEqual( speakerName ) ) )
@@ -65,7 +65,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel
                         }
                         break;
 
-                    case SpeakerType.Variable:
+                    case SpeakerKind.Variable:
                         {
                             binary.SpeakerId = ( ushort )( 0x8000u | ( ( VariableSpeaker )message.Speaker ).Index );
                         }
@@ -80,17 +80,17 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel
                 binary.SpeakerId = 0xFFFF;
             }
 
-            binary.LineStartAddresses = new int[message.Lines.Count];
+            binary.PageStartAddresses = new int[message.Pages.Count];
 
             var textBuffer = new List<byte>();
             {
-                int lineStartAddress = 0x1C + ( binary.LineCount * 4 ) + 4;
+                int lineStartAddress = 0x1C + ( binary.PageCount * 4 ) + 4;
 
-                for ( int i = 0; i < message.Lines.Count; i++ )
+                for ( int i = 0; i < message.Pages.Count; i++ )
                 {
-                    binary.LineStartAddresses[i] = lineStartAddress;
+                    binary.PageStartAddresses[i] = lineStartAddress;
 
-                    var lineBytes = ProcessLine( message.Lines[i] );
+                    var lineBytes = ProcessLine( message.Pages[i] );
                     textBuffer.AddRange( lineBytes );
 
                     lineStartAddress += lineBytes.Count;
@@ -102,29 +102,29 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel
             binary.TextBuffer = textBuffer.ToArray();
             binary.TextBufferSize = binary.TextBuffer.Length;
 
-            mWindows.Add( new Tuple<BinaryWindowType, object>( BinaryWindowType.Dialogue, binary ) );
+            mDialogs.Add( new Tuple<BinaryDialogKind, object>( BinaryDialogKind.Message, binary ) );
         }
 
-        public void AddWindow( SelectionWindow message )
+        public void AddDialog( SelectionDialog message )
         {
-            if ( mWindows == null )
-                mWindows = new List<Tuple<BinaryWindowType, object>>();
+            if ( mDialogs == null )
+                mDialogs = new List<Tuple<BinaryDialogKind, object>>();
 
-            BinarySelectionWindow binary;
+            BinarySelectionDialog binary;
 
-            binary.Identifier = message.Identifier;
+            binary.Name = message.Name;
             binary.Field18 = binary.Field1C = binary.Field1E = 0;
-            binary.OptionCount = ( short )message.Lines.Count;
-            binary.OptionStartAddresses = new int[message.Lines.Count];
+            binary.OptionCount = ( short )message.Options.Count;
+            binary.OptionStartAddresses = new int[message.Options.Count];
 
             var textBuffer = new List<byte>();
             {
                 int lineStartAddress = 0x20 + ( binary.OptionCount * 4 ) + 4;
-                for ( int i = 0; i < message.Lines.Count; i++ )
+                for ( int i = 0; i < message.Options.Count; i++ )
                 {
                     binary.OptionStartAddresses[i] = lineStartAddress;
 
-                    var lineBytes = ProcessLine( message.Lines[i] );
+                    var lineBytes = ProcessLine( message.Options[i] );
                     lineBytes.Add( 0 ); // intentional
 
                     textBuffer.AddRange( lineBytes );
@@ -138,7 +138,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel
             binary.TextBuffer = textBuffer.ToArray();
             binary.TextBufferSize = binary.TextBuffer.Length;
 
-            mWindows.Add( new Tuple<BinaryWindowType, object>( BinaryWindowType.Selection, binary ) );
+            mDialogs.Add( new Tuple<BinaryDialogKind, object>( BinaryDialogKind.Selection, binary ) );
         }
 
         public MessageScriptBinary Build()
@@ -151,13 +151,13 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel
             // note: DONT CHANGE THE ORDER
             BuildHeaderFirstPass( ref binary.mHeader );
 
-            if ( mWindows != null )
+            if ( mDialogs != null )
             {
-                BuildWindowHeadersFirstPass( ref binary.mWindowHeaders );
+                BuildWindowHeadersFirstPass( ref binary.mDialogHeaders );
 
                 BuildSpeakerTableHeaderFirstPass( ref binary.mSpeakerTableHeader );
 
-                BuildWindowHeadersFinalPass( ref binary.mWindowHeaders );
+                BuildWindowHeadersFinalPass( ref binary.mDialogHeaders );
 
                 BuildSpeakerTableHeaderSecondPass( ref binary.mSpeakerTableHeader );
 
@@ -276,17 +276,17 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel
                 ? BinaryHeader.MAGIC_V1_BE
                 : BinaryHeader.MAGIC_V1;
             header.Field0C = 0;
-            header.WindowCount = mWindows?.Count ?? 0;
+            header.DialogCount = mDialogs?.Count ?? 0;
             header.IsRelocated = false;
             header.Field1E = 2;
         }
 
-        private void BuildWindowHeadersFirstPass( ref BinaryWindowHeader[] messageHeaders )
+        private void BuildWindowHeadersFirstPass( ref BinaryDialogHeader[] headers )
         {
-            messageHeaders = new BinaryWindowHeader[mWindows.Count];
-            for ( int i = 0; i < messageHeaders.Length; i++ )
+            headers = new BinaryDialogHeader[mDialogs.Count];
+            for ( int i = 0; i < headers.Length; i++ )
             {
-                messageHeaders[i].WindowType = mWindows[i].Item1;
+                headers[i].DialogKind = mDialogs[i].Item1;
                 MoveToNextIntPosition();
 
                 AddAddressLocation();
@@ -309,12 +309,12 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel
             MoveToNextIntPosition();
         }
 
-        private void BuildWindowHeadersFinalPass( ref BinaryWindowHeader[] messageHeaders )
+        private void BuildWindowHeadersFinalPass( ref BinaryDialogHeader[] headers )
         {
-            for ( int i = 0; i < messageHeaders.Length; i++ )
+            for ( int i = 0; i < headers.Length; i++ )
             {
-                messageHeaders[i].Window.Offset = GetAlignedAddress();
-                messageHeaders[i].Window.Value = UpdateWindowAddressBase( mWindows[i].Item2 );
+                headers[i].Dialog.Offset = GetAlignedAddress();
+                headers[i].Dialog.Value = UpdateDialogAddressBase( mDialogs[i].Item2 );
             }
         }
 
@@ -352,20 +352,20 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel
             header.FileSize = mPosition;
         }
 
-        private object UpdateWindowAddressBase( object message )
+        private object UpdateDialogAddressBase( object dialog )
         {
-            int messageAddress = GetAddress();
+            int dialogAddress = GetAddress();
 
-            switch ( message )
+            switch ( dialog )
             {
-                case BinaryDialogueWindow dialogue:
+                case BinaryMessageDialog dialogue:
                     {
                         mPosition += 0x1C;
 
-                        for ( int i = 0; i < dialogue.LineStartAddresses.Length; i++ )
+                        for ( int i = 0; i < dialogue.PageStartAddresses.Length; i++ )
                         {
                             AddAddressLocation();
-                            dialogue.LineStartAddresses[i] += messageAddress;
+                            dialogue.PageStartAddresses[i] += dialogAddress;
                             mPosition += 4;
                         }
 
@@ -373,14 +373,14 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel
                     }
                     break;
 
-                case BinarySelectionWindow selection:
+                case BinarySelectionDialog selection:
                     {
                         mPosition += 0x20;
 
                         for ( int i = 0; i < selection.OptionStartAddresses.Length; i++ )
                         {
                             AddAddressLocation();
-                            selection.OptionStartAddresses[i] += messageAddress;
+                            selection.OptionStartAddresses[i] += dialogAddress;
                             mPosition += 4;
                         }
 
@@ -389,10 +389,10 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel
                     break;
 
                 default:
-                    throw new NotImplementedException( message.GetType().ToString() );
+                    throw new NotImplementedException( dialog.GetType().ToString() );
             }
 
-            return message;
+            return dialog;
         }
 
         private void MoveToNextIntPosition()

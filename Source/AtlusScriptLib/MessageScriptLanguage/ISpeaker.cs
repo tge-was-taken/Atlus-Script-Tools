@@ -3,11 +3,11 @@
     /// <summary>
     /// Common interface for dialogue message speakers.
     /// </summary>
-    public interface Speaker
+    public interface ISpeaker
     {
         /// <summary>
         /// Gets the speaker type.
         /// </summary>
-        SpeakerType Type { get; }
+        SpeakerKind Kind { get; }
     }
 }

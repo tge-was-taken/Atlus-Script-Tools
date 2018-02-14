@@ -8,15 +8,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from D:\Users\smart\Documents\Visual Studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptLib\MessageScriptLanguage\Parser\MessageScriptParser.g4 by ANTLR 4.6.4
+// Generated from ..\..\..\AtlusScriptLib\MessageScriptLanguage\Compiler\Parser\MessageScriptParser.g4 by ANTLR 4.6.4
 
 // Unreachable code detected
-
-using System;
-using System.CodeDom.Compiler;
-using Antlr4.Runtime.Misc;
-using Antlr4.Runtime.Tree;
-
 #pragma warning disable 0162
 // The variable '...' is assigned but its value is never used
 #pragma warning disable 0219
@@ -25,13 +19,17 @@ using Antlr4.Runtime.Tree;
 // Ambiguous reference in cref attribute
 #pragma warning disable 419
 
-namespace AtlusScriptLib.MessageScriptLanguage.Compiler.Parser {
-    /// <summary>
+namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser {
+using Antlr4.Runtime.Misc;
+using IParseTreeListener = Antlr4.Runtime.Tree.IParseTreeListener;
+using IToken = Antlr4.Runtime.IToken;
+
+/// <summary>
 /// This interface defines a complete listener for a parse tree produced by
 /// <see cref="MessageScriptParser"/>.
 /// </summary>
-[GeneratedCode("ANTLR", "4.6.4")]
-[CLSCompliant(false)]
+[System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.6.4")]
+[System.CLSCompliant(false)]
 public interface IMessageScriptParserListener : IParseTreeListener {
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="MessageScriptParser.compilationUnit"/>.
@@ -45,69 +43,69 @@ public interface IMessageScriptParserListener : IParseTreeListener {
 	void ExitCompilationUnit([NotNull] MessageScriptParser.CompilationUnitContext context);
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="MessageScriptParser.messageWindow"/>.
+	/// Enter a parse tree produced by <see cref="MessageScriptParser.dialog"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterMessageWindow([NotNull] MessageScriptParser.MessageWindowContext context);
+	void EnterDialog([NotNull] MessageScriptParser.DialogContext context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="MessageScriptParser.messageWindow"/>.
+	/// Exit a parse tree produced by <see cref="MessageScriptParser.dialog"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitMessageWindow([NotNull] MessageScriptParser.MessageWindowContext context);
+	void ExitDialog([NotNull] MessageScriptParser.DialogContext context);
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="MessageScriptParser.dialogWindow"/>.
+	/// Enter a parse tree produced by <see cref="MessageScriptParser.messageDialog"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterDialogWindow([NotNull] MessageScriptParser.DialogWindowContext context);
+	void EnterMessageDialog([NotNull] MessageScriptParser.MessageDialogContext context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="MessageScriptParser.dialogWindow"/>.
+	/// Exit a parse tree produced by <see cref="MessageScriptParser.messageDialog"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitDialogWindow([NotNull] MessageScriptParser.DialogWindowContext context);
+	void ExitMessageDialog([NotNull] MessageScriptParser.MessageDialogContext context);
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="MessageScriptParser.dialogWindowSpeakerName"/>.
+	/// Enter a parse tree produced by <see cref="MessageScriptParser.speakerName"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterDialogWindowSpeakerName([NotNull] MessageScriptParser.DialogWindowSpeakerNameContext context);
+	void EnterSpeakerName([NotNull] MessageScriptParser.SpeakerNameContext context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="MessageScriptParser.dialogWindowSpeakerName"/>.
+	/// Exit a parse tree produced by <see cref="MessageScriptParser.speakerName"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitDialogWindowSpeakerName([NotNull] MessageScriptParser.DialogWindowSpeakerNameContext context);
+	void ExitSpeakerName([NotNull] MessageScriptParser.SpeakerNameContext context);
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="MessageScriptParser.selectionWindow"/>.
+	/// Enter a parse tree produced by <see cref="MessageScriptParser.selectionDialog"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterSelectionWindow([NotNull] MessageScriptParser.SelectionWindowContext context);
+	void EnterSelectionDialog([NotNull] MessageScriptParser.SelectionDialogContext context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="MessageScriptParser.selectionWindow"/>.
+	/// Exit a parse tree produced by <see cref="MessageScriptParser.selectionDialog"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitSelectionWindow([NotNull] MessageScriptParser.SelectionWindowContext context);
+	void ExitSelectionDialog([NotNull] MessageScriptParser.SelectionDialogContext context);
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="MessageScriptParser.tagText"/>.
+	/// Enter a parse tree produced by <see cref="MessageScriptParser.tokenText"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterTagText([NotNull] MessageScriptParser.TagTextContext context);
+	void EnterTokenText([NotNull] MessageScriptParser.TokenTextContext context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="MessageScriptParser.tagText"/>.
+	/// Exit a parse tree produced by <see cref="MessageScriptParser.tokenText"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitTagText([NotNull] MessageScriptParser.TagTextContext context);
+	void ExitTokenText([NotNull] MessageScriptParser.TokenTextContext context);
 
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="MessageScriptParser.tag"/>.
+	/// Enter a parse tree produced by <see cref="MessageScriptParser.token"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void EnterTag([NotNull] MessageScriptParser.TagContext context);
+	void EnterToken([NotNull] MessageScriptParser.TokenContext context);
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="MessageScriptParser.tag"/>.
+	/// Exit a parse tree produced by <see cref="MessageScriptParser.token"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	void ExitTag([NotNull] MessageScriptParser.TagContext context);
+	void ExitToken([NotNull] MessageScriptParser.TokenContext context);
 }
-} // namespace AtlusScriptLib.MessageScriptLanguage.Compiler.Parser
+} // namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser

@@ -20,39 +20,39 @@ namespace AtlusScriptLib.MessageScriptLanguage.Decompiler
 
         public void Decompile( MessageScript script )
         {
-            foreach ( var message in script.Windows )
+            foreach ( var message in script.Dialogs )
             {
                 Decompile( message );
                 mWriter.WriteLine();
             }
         }
 
-        public void Decompile( IWindow message )
+        public void Decompile( IDialog message )
         {
-            switch ( message.Type )
+            switch ( message.Kind )
             {
-                case WindowType.Dialogue:
-                    Decompile( ( DialogWindow )message );
+                case DialogKind.Message:
+                    Decompile( ( MessageDialog )message );
                     break;
-                case WindowType.Selection:
-                    Decompile( ( SelectionWindow )message );
+                case DialogKind.Selection:
+                    Decompile( ( SelectionDialog )message );
                     break;
 
                 default:
-                    throw new NotImplementedException( message.Type.ToString() );
+                    throw new NotImplementedException( message.Kind.ToString() );
             }
         }
 
-        public void Decompile( DialogWindow message )
+        public void Decompile( MessageDialog message )
         {
             if ( message.Speaker != null )
             {
-                switch ( message.Speaker.Type )
+                switch ( message.Speaker.Kind )
                 {
-                    case SpeakerType.Named:
+                    case SpeakerKind.Named:
                         {
-                            WriteOpenTag( "dlg" );
-                            WriteTagArgument( message.Identifier );
+                            WriteOpenTag( "msg" );
+                            WriteTagArgument( message.Name );
                             {
                                 mWriter.Write( " " );
 
@@ -68,10 +68,10 @@ namespace AtlusScriptLib.MessageScriptLanguage.Decompiler
                         }
                         break;
 
-                    case SpeakerType.Variable:
+                    case SpeakerKind.Variable:
                         {
-                            WriteOpenTag( "dlg" );
-                            WriteTagArgument( message.Identifier );
+                            WriteOpenTag( "msg" );
+                            WriteTagArgument( message.Name );
                             {
                                 mWriter.Write( " " );
                                 WriteOpenTag();
@@ -85,24 +85,24 @@ namespace AtlusScriptLib.MessageScriptLanguage.Decompiler
             }
             else
             {
-                WriteTag( "dlg", message.Identifier );
+                WriteTag( "msg", message.Name );
             }
 
             mWriter.WriteLine();
 
-            foreach ( var line in message.Lines )
+            foreach ( var line in message.Pages )
             {
                 Decompile( line );
                 mWriter.WriteLine();
             }
         }
 
-        public void Decompile( SelectionWindow message )
+        public void Decompile( SelectionDialog message )
         {
-            WriteTag( "sel", message.Identifier );
+            WriteTag( "sel", message.Name );
             mWriter.WriteLine();
 
-            foreach ( var line in message.Lines )
+            foreach ( var line in message.Options )
             {
                 Decompile( line );
                 mWriter.WriteLine();

@@ -43,7 +43,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel
         public int RelocationTableSize;
 
         // 18
-        public int WindowCount;
+        public int DialogCount;
 
         // 1C
         public bool IsRelocated;
@@ -52,15 +52,15 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel
         public short Field1E;
     }
 
-    public struct BinaryWindowHeader
+    public struct BinaryDialogHeader
     {
         public const int SIZE = 8;
 
         // 00
-        public BinaryWindowType WindowType;
+        public BinaryDialogKind DialogKind;
 
         // 04
-        public OffsetTo<object> Window;
+        public OffsetTo<object> Dialog;
     }
 
     public struct BinarySpeakerTableHeader
@@ -81,21 +81,21 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel
     }
 
     // Variable length
-    public struct BinaryDialogueWindow
+    public struct BinaryMessageDialog
     {
         public const int IDENTIFIER_LENGTH = 24;
 
         // 0x00 
-        public string Identifier;
+        public string Name;
 
         // 0x18
-        public short LineCount;
+        public short PageCount;
 
         // 0x1A
         public ushort SpeakerId;
 
         // 0x1C
-        public int[] LineStartAddresses;
+        public int[] PageStartAddresses;
 
         // 0x1C + LineCount * 4
         public int TextBufferSize;
@@ -105,12 +105,12 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel
     }
 
     // Variable length
-    public struct BinarySelectionWindow
+    public struct BinarySelectionDialog
     {
         public const int IDENTIFIER_LENGTH = 24;
 
         // 0x00
-        public string Identifier;
+        public string Name;
 
         // 0x18
         public short Field18;

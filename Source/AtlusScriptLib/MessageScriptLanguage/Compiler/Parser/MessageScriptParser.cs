@@ -8,17 +8,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from D:\Users\smart\Documents\Visual Studio 2017\Projects\AtlusScriptToolchain\Source\AtlusScriptLib\MessageScriptLanguage\Parser\MessageScriptParser.g4 by ANTLR 4.6.4
+// Generated from ..\..\..\AtlusScriptLib\MessageScriptLanguage\Compiler\Parser\MessageScriptParser.g4 by ANTLR 4.6.4
 
 // Unreachable code detected
-
-using System;
-using System.CodeDom.Compiler;
-using Antlr4.Runtime;
-using Antlr4.Runtime.Atn;
-using Antlr4.Runtime.Misc;
-using Antlr4.Runtime.Tree;
-
 #pragma warning disable 0162
 // The variable '...' is assigned but its value is never used
 #pragma warning disable 0219
@@ -27,20 +19,26 @@ using Antlr4.Runtime.Tree;
 // Ambiguous reference in cref attribute
 #pragma warning disable 419
 
-namespace AtlusScriptLib.MessageScriptLanguage.Compiler.Parser {
-    [GeneratedCode("ANTLR", "4.6.4")]
-[CLSCompliant(false)]
-public partial class MessageScriptParser : Antlr4.Runtime.Parser {
+namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser {
+using Antlr4.Runtime;
+using Antlr4.Runtime.Atn;
+using Antlr4.Runtime.Misc;
+using Antlr4.Runtime.Tree;
+using System.Collections.Generic;
+using DFA = Antlr4.Runtime.Dfa.DFA;
+
+[System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.6.4")]
+[System.CLSCompliant(false)]
+public partial class MessageScriptParser : Parser {
 	public const int
 		OpenCode=1, CloseText=2, Text=3, MessageDialogTagId=4, SelectionDialogTagId=5, 
 		CloseCode=6, OpenText=7, IntLiteral=8, Identifier=9, Whitespace=10;
 	public const int
-		RULE_compilationUnit = 0, RULE_messageWindow = 1, RULE_dialogWindow = 2, 
-		RULE_dialogWindowSpeakerName = 3, RULE_selectionWindow = 4, RULE_tagText = 5, 
-		RULE_tag = 6;
+		RULE_compilationUnit = 0, RULE_dialog = 1, RULE_messageDialog = 2, RULE_speakerName = 3, 
+		RULE_selectionDialog = 4, RULE_tokenText = 5, RULE_token = 6;
 	public static readonly string[] ruleNames = {
-		"compilationUnit", "messageWindow", "dialogWindow", "dialogWindowSpeakerName", 
-		"selectionWindow", "tagText", "tag"
+		"compilationUnit", "dialog", "messageDialog", "speakerName", "selectionDialog", 
+		"tokenText", "token"
 	};
 
 	private static readonly string[] _LiteralNames = {
@@ -52,7 +50,7 @@ public partial class MessageScriptParser : Antlr4.Runtime.Parser {
 	};
 	public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);
 
-	[Obsolete("Use Vocabulary instead.")]
+	[System.Obsolete("Use Vocabulary instead.")]
 	public static readonly string[] tokenNames = GenerateTokenNames(DefaultVocabulary, _SymbolicNames.Length);
 
 	private static string[] GenerateTokenNames(IVocabulary vocabulary, int length) {
@@ -71,7 +69,7 @@ public partial class MessageScriptParser : Antlr4.Runtime.Parser {
 		return tokenNames;
 	}
 
-	[Obsolete("Use IRecognizer.Vocabulary instead.")]
+	[System.Obsolete("Use IRecognizer.Vocabulary instead.")]
 	public override string[] TokenNames
 	{
 		get
@@ -102,11 +100,11 @@ public partial class MessageScriptParser : Antlr4.Runtime.Parser {
 	}
 	public partial class CompilationUnitContext : ParserRuleContext {
 		public ITerminalNode Eof() { return GetToken(MessageScriptParser.Eof, 0); }
-		public MessageWindowContext[] messageWindow() {
-			return GetRuleContexts<MessageWindowContext>();
+		public DialogContext[] dialog() {
+			return GetRuleContexts<DialogContext>();
 		}
-		public MessageWindowContext messageWindow(int i) {
-			return GetRuleContext<MessageWindowContext>(i);
+		public DialogContext dialog(int i) {
+			return GetRuleContext<DialogContext>(i);
 		}
 		public CompilationUnitContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -142,7 +140,7 @@ public partial class MessageScriptParser : Antlr4.Runtime.Parser {
 			while (_la==OpenCode) {
 				{
 				{
-				State = 14; messageWindow();
+				State = 14; dialog();
 				}
 				}
 				State = 19;
@@ -163,37 +161,37 @@ public partial class MessageScriptParser : Antlr4.Runtime.Parser {
 		return _localctx;
 	}
 
-	public partial class MessageWindowContext : ParserRuleContext {
-		public DialogWindowContext dialogWindow() {
-			return GetRuleContext<DialogWindowContext>(0);
+	public partial class DialogContext : ParserRuleContext {
+		public MessageDialogContext messageDialog() {
+			return GetRuleContext<MessageDialogContext>(0);
 		}
-		public SelectionWindowContext selectionWindow() {
-			return GetRuleContext<SelectionWindowContext>(0);
+		public SelectionDialogContext selectionDialog() {
+			return GetRuleContext<SelectionDialogContext>(0);
 		}
-		public MessageWindowContext(ParserRuleContext parent, int invokingState)
+		public DialogContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_messageWindow; } }
+		public override int RuleIndex { get { return RULE_dialog; } }
 		public override void EnterRule(IParseTreeListener listener) {
 			IMessageScriptParserListener typedListener = listener as IMessageScriptParserListener;
-			if (typedListener != null) typedListener.EnterMessageWindow(this);
+			if (typedListener != null) typedListener.EnterDialog(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
 			IMessageScriptParserListener typedListener = listener as IMessageScriptParserListener;
-			if (typedListener != null) typedListener.ExitMessageWindow(this);
+			if (typedListener != null) typedListener.ExitDialog(this);
 		}
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			IMessageScriptParserVisitor<TResult> typedVisitor = visitor as IMessageScriptParserVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitMessageWindow(this);
+			if (typedVisitor != null) return typedVisitor.VisitDialog(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public MessageWindowContext messageWindow() {
-		MessageWindowContext _localctx = new MessageWindowContext(_ctx, State);
-		EnterRule(_localctx, 2, RULE_messageWindow);
+	public DialogContext dialog() {
+		DialogContext _localctx = new DialogContext(_ctx, State);
+		EnterRule(_localctx, 2, RULE_dialog);
 		try {
 			State = 24;
 			_errHandler.Sync(this);
@@ -201,14 +199,14 @@ public partial class MessageScriptParser : Antlr4.Runtime.Parser {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 22; dialogWindow();
+				State = 22; messageDialog();
 				}
 				break;
 
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 23; selectionWindow();
+				State = 23; selectionDialog();
 				}
 				break;
 			}
@@ -224,41 +222,41 @@ public partial class MessageScriptParser : Antlr4.Runtime.Parser {
 		return _localctx;
 	}
 
-	public partial class DialogWindowContext : ParserRuleContext {
+	public partial class MessageDialogContext : ParserRuleContext {
 		public ITerminalNode OpenCode() { return GetToken(MessageScriptParser.OpenCode, 0); }
 		public ITerminalNode MessageDialogTagId() { return GetToken(MessageScriptParser.MessageDialogTagId, 0); }
 		public ITerminalNode Identifier() { return GetToken(MessageScriptParser.Identifier, 0); }
 		public ITerminalNode CloseCode() { return GetToken(MessageScriptParser.CloseCode, 0); }
-		public TagTextContext tagText() {
-			return GetRuleContext<TagTextContext>(0);
+		public TokenTextContext tokenText() {
+			return GetRuleContext<TokenTextContext>(0);
 		}
-		public DialogWindowSpeakerNameContext dialogWindowSpeakerName() {
-			return GetRuleContext<DialogWindowSpeakerNameContext>(0);
+		public SpeakerNameContext speakerName() {
+			return GetRuleContext<SpeakerNameContext>(0);
 		}
-		public DialogWindowContext(ParserRuleContext parent, int invokingState)
+		public MessageDialogContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_dialogWindow; } }
+		public override int RuleIndex { get { return RULE_messageDialog; } }
 		public override void EnterRule(IParseTreeListener listener) {
 			IMessageScriptParserListener typedListener = listener as IMessageScriptParserListener;
-			if (typedListener != null) typedListener.EnterDialogWindow(this);
+			if (typedListener != null) typedListener.EnterMessageDialog(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
 			IMessageScriptParserListener typedListener = listener as IMessageScriptParserListener;
-			if (typedListener != null) typedListener.ExitDialogWindow(this);
+			if (typedListener != null) typedListener.ExitMessageDialog(this);
 		}
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			IMessageScriptParserVisitor<TResult> typedVisitor = visitor as IMessageScriptParserVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitDialogWindow(this);
+			if (typedVisitor != null) return typedVisitor.VisitMessageDialog(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public DialogWindowContext dialogWindow() {
-		DialogWindowContext _localctx = new DialogWindowContext(_ctx, State);
-		EnterRule(_localctx, 4, RULE_dialogWindow);
+	public MessageDialogContext messageDialog() {
+		MessageDialogContext _localctx = new MessageDialogContext(_ctx, State);
+		EnterRule(_localctx, 4, RULE_messageDialog);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
@@ -271,12 +269,12 @@ public partial class MessageScriptParser : Antlr4.Runtime.Parser {
 			_la = _input.La(1);
 			if (_la==OpenText) {
 				{
-				State = 29; dialogWindowSpeakerName();
+				State = 29; speakerName();
 				}
 			}
 
 			State = 32; Match(CloseCode);
-			State = 33; tagText();
+			State = 33; tokenText();
 			}
 		}
 		catch (RecognitionException re) {
@@ -290,41 +288,41 @@ public partial class MessageScriptParser : Antlr4.Runtime.Parser {
 		return _localctx;
 	}
 
-	public partial class DialogWindowSpeakerNameContext : ParserRuleContext {
+	public partial class SpeakerNameContext : ParserRuleContext {
 		public ITerminalNode OpenText() { return GetToken(MessageScriptParser.OpenText, 0); }
-		public TagTextContext tagText() {
-			return GetRuleContext<TagTextContext>(0);
+		public TokenTextContext tokenText() {
+			return GetRuleContext<TokenTextContext>(0);
 		}
 		public ITerminalNode CloseText() { return GetToken(MessageScriptParser.CloseText, 0); }
-		public DialogWindowSpeakerNameContext(ParserRuleContext parent, int invokingState)
+		public SpeakerNameContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_dialogWindowSpeakerName; } }
+		public override int RuleIndex { get { return RULE_speakerName; } }
 		public override void EnterRule(IParseTreeListener listener) {
 			IMessageScriptParserListener typedListener = listener as IMessageScriptParserListener;
-			if (typedListener != null) typedListener.EnterDialogWindowSpeakerName(this);
+			if (typedListener != null) typedListener.EnterSpeakerName(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
 			IMessageScriptParserListener typedListener = listener as IMessageScriptParserListener;
-			if (typedListener != null) typedListener.ExitDialogWindowSpeakerName(this);
+			if (typedListener != null) typedListener.ExitSpeakerName(this);
 		}
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			IMessageScriptParserVisitor<TResult> typedVisitor = visitor as IMessageScriptParserVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitDialogWindowSpeakerName(this);
+			if (typedVisitor != null) return typedVisitor.VisitSpeakerName(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public DialogWindowSpeakerNameContext dialogWindowSpeakerName() {
-		DialogWindowSpeakerNameContext _localctx = new DialogWindowSpeakerNameContext(_ctx, State);
-		EnterRule(_localctx, 6, RULE_dialogWindowSpeakerName);
+	public SpeakerNameContext speakerName() {
+		SpeakerNameContext _localctx = new SpeakerNameContext(_ctx, State);
+		EnterRule(_localctx, 6, RULE_speakerName);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 35; Match(OpenText);
-			State = 36; tagText();
+			State = 36; tokenText();
 			State = 37; Match(CloseText);
 			}
 		}
@@ -339,38 +337,38 @@ public partial class MessageScriptParser : Antlr4.Runtime.Parser {
 		return _localctx;
 	}
 
-	public partial class SelectionWindowContext : ParserRuleContext {
+	public partial class SelectionDialogContext : ParserRuleContext {
 		public ITerminalNode OpenCode() { return GetToken(MessageScriptParser.OpenCode, 0); }
 		public ITerminalNode SelectionDialogTagId() { return GetToken(MessageScriptParser.SelectionDialogTagId, 0); }
 		public ITerminalNode Identifier() { return GetToken(MessageScriptParser.Identifier, 0); }
 		public ITerminalNode CloseCode() { return GetToken(MessageScriptParser.CloseCode, 0); }
-		public TagTextContext tagText() {
-			return GetRuleContext<TagTextContext>(0);
+		public TokenTextContext tokenText() {
+			return GetRuleContext<TokenTextContext>(0);
 		}
-		public SelectionWindowContext(ParserRuleContext parent, int invokingState)
+		public SelectionDialogContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_selectionWindow; } }
+		public override int RuleIndex { get { return RULE_selectionDialog; } }
 		public override void EnterRule(IParseTreeListener listener) {
 			IMessageScriptParserListener typedListener = listener as IMessageScriptParserListener;
-			if (typedListener != null) typedListener.EnterSelectionWindow(this);
+			if (typedListener != null) typedListener.EnterSelectionDialog(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
 			IMessageScriptParserListener typedListener = listener as IMessageScriptParserListener;
-			if (typedListener != null) typedListener.ExitSelectionWindow(this);
+			if (typedListener != null) typedListener.ExitSelectionDialog(this);
 		}
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			IMessageScriptParserVisitor<TResult> typedVisitor = visitor as IMessageScriptParserVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitSelectionWindow(this);
+			if (typedVisitor != null) return typedVisitor.VisitSelectionDialog(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public SelectionWindowContext selectionWindow() {
-		SelectionWindowContext _localctx = new SelectionWindowContext(_ctx, State);
-		EnterRule(_localctx, 8, RULE_selectionWindow);
+	public SelectionDialogContext selectionDialog() {
+		SelectionDialogContext _localctx = new SelectionDialogContext(_ctx, State);
+		EnterRule(_localctx, 8, RULE_selectionDialog);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
@@ -378,7 +376,7 @@ public partial class MessageScriptParser : Antlr4.Runtime.Parser {
 			State = 40; Match(SelectionDialogTagId);
 			State = 41; Match(Identifier);
 			State = 42; Match(CloseCode);
-			State = 43; tagText();
+			State = 43; tokenText();
 			}
 		}
 		catch (RecognitionException re) {
@@ -392,41 +390,41 @@ public partial class MessageScriptParser : Antlr4.Runtime.Parser {
 		return _localctx;
 	}
 
-	public partial class TagTextContext : ParserRuleContext {
-		public TagContext[] tag() {
-			return GetRuleContexts<TagContext>();
+	public partial class TokenTextContext : ParserRuleContext {
+		public TokenContext[] token() {
+			return GetRuleContexts<TokenContext>();
 		}
-		public TagContext tag(int i) {
-			return GetRuleContext<TagContext>(i);
+		public TokenContext token(int i) {
+			return GetRuleContext<TokenContext>(i);
 		}
 		public ITerminalNode[] Text() { return GetTokens(MessageScriptParser.Text); }
 		public ITerminalNode Text(int i) {
 			return GetToken(MessageScriptParser.Text, i);
 		}
-		public TagTextContext(ParserRuleContext parent, int invokingState)
+		public TokenTextContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_tagText; } }
+		public override int RuleIndex { get { return RULE_tokenText; } }
 		public override void EnterRule(IParseTreeListener listener) {
 			IMessageScriptParserListener typedListener = listener as IMessageScriptParserListener;
-			if (typedListener != null) typedListener.EnterTagText(this);
+			if (typedListener != null) typedListener.EnterTokenText(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
 			IMessageScriptParserListener typedListener = listener as IMessageScriptParserListener;
-			if (typedListener != null) typedListener.ExitTagText(this);
+			if (typedListener != null) typedListener.ExitTokenText(this);
 		}
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			IMessageScriptParserVisitor<TResult> typedVisitor = visitor as IMessageScriptParserVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitTagText(this);
+			if (typedVisitor != null) return typedVisitor.VisitTokenText(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public TagTextContext tagText() {
-		TagTextContext _localctx = new TagTextContext(_ctx, State);
-		EnterRule(_localctx, 10, RULE_tagText);
+	public TokenTextContext tokenText() {
+		TokenTextContext _localctx = new TokenTextContext(_ctx, State);
+		EnterRule(_localctx, 10, RULE_tokenText);
 		try {
 			int _alt;
 			EnterOuterAlt(_localctx, 1);
@@ -434,7 +432,7 @@ public partial class MessageScriptParser : Antlr4.Runtime.Parser {
 			State = 49;
 			_errHandler.Sync(this);
 			_alt = Interpreter.AdaptivePredict(_input,4,_ctx);
-			while ( _alt!=2 && _alt!=ATN.InvalidAltNumber ) {
+			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.InvalidAltNumber ) {
 				if ( _alt==1 ) {
 					{
 					State = 47;
@@ -442,7 +440,7 @@ public partial class MessageScriptParser : Antlr4.Runtime.Parser {
 					switch (_input.La(1)) {
 					case OpenCode:
 						{
-						State = 45; tag();
+						State = 45; token();
 						}
 						break;
 					case Text:
@@ -472,7 +470,7 @@ public partial class MessageScriptParser : Antlr4.Runtime.Parser {
 		return _localctx;
 	}
 
-	public partial class TagContext : ParserRuleContext {
+	public partial class TokenContext : ParserRuleContext {
 		public ITerminalNode OpenCode() { return GetToken(MessageScriptParser.OpenCode, 0); }
 		public ITerminalNode Identifier() { return GetToken(MessageScriptParser.Identifier, 0); }
 		public ITerminalNode CloseCode() { return GetToken(MessageScriptParser.CloseCode, 0); }
@@ -480,30 +478,30 @@ public partial class MessageScriptParser : Antlr4.Runtime.Parser {
 		public ITerminalNode IntLiteral(int i) {
 			return GetToken(MessageScriptParser.IntLiteral, i);
 		}
-		public TagContext(ParserRuleContext parent, int invokingState)
+		public TokenContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_tag; } }
+		public override int RuleIndex { get { return RULE_token; } }
 		public override void EnterRule(IParseTreeListener listener) {
 			IMessageScriptParserListener typedListener = listener as IMessageScriptParserListener;
-			if (typedListener != null) typedListener.EnterTag(this);
+			if (typedListener != null) typedListener.EnterToken(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
 			IMessageScriptParserListener typedListener = listener as IMessageScriptParserListener;
-			if (typedListener != null) typedListener.ExitTag(this);
+			if (typedListener != null) typedListener.ExitToken(this);
 		}
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			IMessageScriptParserVisitor<TResult> typedVisitor = visitor as IMessageScriptParserVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitTag(this);
+			if (typedVisitor != null) return typedVisitor.VisitToken(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public TagContext tag() {
-		TagContext _localctx = new TagContext(_ctx, State);
-		EnterRule(_localctx, 12, RULE_tag);
+	public TokenContext token() {
+		TokenContext _localctx = new TokenContext(_ctx, State);
+		EnterRule(_localctx, 12, RULE_token);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
@@ -563,4 +561,4 @@ public partial class MessageScriptParser : Antlr4.Runtime.Parser {
 	public static readonly ATN _ATN =
 		new ATNDeserializer().Deserialize(_serializedATN.ToCharArray());
 }
-} // namespace AtlusScriptLib.MessageScriptLanguage.Compiler.Parser
+} // namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser

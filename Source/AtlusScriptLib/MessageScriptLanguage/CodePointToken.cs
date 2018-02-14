@@ -1,7 +1,7 @@
 ﻿namespace AtlusScriptLib.MessageScriptLanguage
 {
     /// <summary>
-    /// Represents a code point token. This maps a glyph on the game's font.
+    /// Represents a code point token. This maps to a glyph on the game's font.
     /// </summary>
     public struct CodePointToken : IToken
     {

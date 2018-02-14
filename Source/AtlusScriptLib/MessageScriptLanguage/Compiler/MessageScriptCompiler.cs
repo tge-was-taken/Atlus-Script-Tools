@@ -10,6 +10,7 @@ using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 using AtlusScriptLib.Common.Logging;
 using AtlusScriptLib.Common.Registry;
+using AtlusScriptLib.FlowScriptLanguage.Compiler.Parser;
 using AtlusScriptLib.MessageScriptLanguage.Compiler.Parser;
 
 namespace AtlusScriptLib.MessageScriptLanguage.Compiler
@@ -157,54 +158,54 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
 
             script = null;
 
-            if ( !TryGetFatal( context, context.messageWindow, "Expected message dialog window", out var messageWindowContexts))
+            if ( !TryGetFatal( context, context.dialog, "Expected message dialog window", out var dialogContexts))
             {
                 return false;
             }
 
             script = new MessageScript( mVersion, mEncoding );
 
-            foreach ( var messageWindowContext in messageWindowContexts )
+            foreach ( var dialogContext in dialogContexts )
             {
-                IWindow messageWindow;
+                IDialog dialog;
 
-                if ( TryGet( messageWindowContext, () => messageWindowContext.dialogWindow(), out var dialogWindowContext))
+                if ( TryGet( dialogContext, () => dialogContext.messageDialog(), out var messageDialogContext))
                 {
-                    if ( !TryCompileDialogWindow( dialogWindowContext, out var dialogWindow ) )
+                    if ( !TryCompileMessageDialog( messageDialogContext, out var dialogWindow ) )
                     {
-                        LogError( dialogWindowContext, "Failed to compile dialog window" );
+                        LogError( messageDialogContext, "Failed to compile dialog window" );
                         return false;
                     }
 
-                    messageWindow = dialogWindow;
+                    dialog = dialogWindow;
                 }
-                else if ( TryGet( messageWindowContext, () => messageWindowContext.selectionWindow(), out var selectionWindowContext ) )
+                else if ( TryGet( dialogContext, () => dialogContext.selectionDialog(), out var selectionDialogContext ) )
                 {
-                    if ( !TryCompileSelectionWindow( selectionWindowContext, out var selectionWindow ) )
+                    if ( !TryCompileSelectionDialog( selectionDialogContext, out var selectionWindow ) )
                     {
-                        LogError( selectionWindowContext, "Failed to compile selection window" );
+                        LogError( selectionDialogContext, "Failed to compile selection window" );
                         return false;
                     }
 
-                    messageWindow = selectionWindow;
+                    dialog = selectionWindow;
                 }
                 else
                 {
-                    LogError( messageWindowContext, "Expected dialog or selection window" );
+                    LogError( dialogContext, "Expected dialog or selection window" );
                     return false;
                 }
 
-                script.Windows.Add( messageWindow );
+                script.Dialogs.Add( dialog );
             }
 
             return true;
         }
 
-        private bool TryCompileDialogWindow( MessageScriptParser.DialogWindowContext context, out DialogWindow dialogWindow )
+        private bool TryCompileMessageDialog( MessageScriptParser.MessageDialogContext context, out MessageDialog messageDialog )
         {
             LogContextInfo( context );
 
-            dialogWindow = null;
+            messageDialog = null;
 
             //
             // Parse identifier
@@ -222,15 +223,15 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
             //
             // Parse speaker name
             //
-            Speaker speaker = null;
-            if ( TryGet( context, context.dialogWindowSpeakerName, out var speakerNameContentContext ) )
+            ISpeaker speaker = null;
+            if ( TryGet( context, context.speakerName, out var speakerNameContentContext ) )
             {
-                if ( !TryGetFatal( speakerNameContentContext, () => speakerNameContentContext.tagText(), "Expected dialog window speaker name text", out var speakerNameTagTextContext ) )
+                if ( !TryGetFatal( speakerNameContentContext, () => speakerNameContentContext.tokenText(), "Expected dialog window speaker name text", out var speakerNameTagTextContext ) )
                     return false;
 
                 if ( speakerNameTagTextContext.ChildCount != 0 )
                 {
-                    if ( !TryCompileLines( speakerNameTagTextContext, out var speakerNameLines ) )
+                    if ( !TryCompileTokenText( speakerNameTagTextContext, out var speakerNameLines ) )
                     {
                         LogError( speakerNameContentContext, "Failed to compile dialog window speaker name" );
                         return false;
@@ -261,14 +262,14 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
             // 
             // Parse text content
             //
-            List<TokenText> lines;
+            List<TokenText> pages;
             {
-                if ( !TryGetFatal( context, context.tagText, "Expected dialog window text", out var tagTextContext ) )
+                if ( !TryGetFatal( context, context.tokenText, "Expected dialog window text", out var tokenTextContext ) )
                     return false;
 
-                if ( !TryCompileLines( tagTextContext, out lines ) )
+                if ( !TryCompileTokenText( tokenTextContext, out pages ) )
                 {
-                    LogError( tagTextContext, "Failed to compile dialog window text" );
+                    LogError( tokenTextContext, "Failed to compile dialog window text" );
                     return false;
                 }
             }
@@ -276,12 +277,12 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
             //
             // Create dialog window
             //
-            dialogWindow = new DialogWindow( identifier, speaker, lines );
+            messageDialog = new MessageDialog( identifier, speaker, pages );
 
             return true;
         }
 
-        private bool TryCompileSelectionWindow( MessageScriptParser.SelectionWindowContext context, out SelectionWindow selectionWindow )
+        private bool TryCompileSelectionDialog( MessageScriptParser.SelectionDialogContext context, out SelectionDialog selectionWindow )
         {          
             LogContextInfo( context );
 
@@ -303,12 +304,12 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
             // 
             // Parse text content
             //
-            List<TokenText> lines;
+            List<TokenText> options;
             {
-                if ( !TryGetFatal( context, context.tagText, "Expected selection window text", out var tagTextContext ) )
+                if ( !TryGetFatal( context, context.tokenText, "Expected selection window text", out var tagTextContext ) )
                     return false;
 
-                if ( !TryCompileLines( tagTextContext, out lines ) )
+                if ( !TryCompileTokenText( tagTextContext, out options ) )
                 {
                     LogError( tagTextContext, "Failed to compile selection window text" );
                     return false;
@@ -318,23 +319,23 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
             //
             // Create Selection window
             //
-            selectionWindow = new SelectionWindow( identifier, lines );
+            selectionWindow = new SelectionDialog( identifier, options );
 
             return true;
         }
 
-        private bool TryCompileLines( MessageScriptParser.TagTextContext context, out List<TokenText> lines )
+        private bool TryCompileTokenText( MessageScriptParser.TokenTextContext context, out List<TokenText> lines )
         {
             LogContextInfo( context );
 
             lines = new List<TokenText>();
-            TextBuilder lineBuilder = null;
+            TokenTextBuilder lineBuilder = null;
 
             foreach ( var node in context.children )
             {
                 IToken lineToken;
 
-                if ( TryCast<MessageScriptParser.TagContext>( node, out var tagContext ) )
+                if ( TryCast<MessageScriptParser.TokenContext>( node, out var tagContext ) )
                 {
                     if ( !TryGetFatal( context, () => tagContext.Identifier(), "Expected tag id", out var tagIdNode ) )
                         return false;
@@ -432,7 +433,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
                 }
 
                 if ( lineBuilder == null )
-                    lineBuilder = new TextBuilder();
+                    lineBuilder = new TokenTextBuilder();
 
                 Debug.Assert( lineToken != null, "Line token shouldn't be null" );
 
@@ -447,7 +448,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryCompileAliasedFunction( MessageScriptParser.TagContext context, string tagId, out FunctionToken functionToken )
+        private bool TryCompileAliasedFunction( MessageScriptParser.TokenContext context, string tagId, out FunctionToken functionToken )
         {
             LogContextInfo( context );
 
@@ -477,13 +478,13 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
             return functionWasFound;
         }
 
-        private bool TryCompileFunctionToken( MessageScriptParser.TagContext context,  out FunctionToken functionToken )
+        private bool TryCompileFunctionToken( MessageScriptParser.TokenContext context,  out FunctionToken functionToken )
         {
             LogContextInfo( context );
 
             functionToken = new FunctionToken();
 
-            if ( !TryGetFatal( context, () => context.IntLiteral(), "Expected arguments", out var argumentNodes ) )
+            if ( !TryGetFatal( context, context.IntLiteral, "Expected arguments", out var argumentNodes ) )
                 return false;
 
             if ( !TryParseShortIntLiteral( context, "Expected function table index", () => argumentNodes[0], out var functionTableIndex ) )
@@ -494,7 +495,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
 
             if ( argumentNodes.Length > 2 )
             {
-                List<short> arguments = new List<short>( argumentNodes.Length - 2 );
+                var arguments = new List<short>( argumentNodes.Length - 2 );
                 for ( int i = 2; i < argumentNodes.Length; i++ )
                 {
                     if ( !TryParseShortIntLiteral( context, "Expected function argument", () => argumentNodes[i], out var argument ) )
@@ -513,13 +514,13 @@ namespace AtlusScriptLib.MessageScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryCompileCodePointToken( MessageScriptParser.TagContext context, out CodePointToken codePointToken )
+        private bool TryCompileCodePointToken( MessageScriptParser.TokenContext context, out CodePointToken codePointToken )
         {
             LogContextInfo( context );
 
             codePointToken = new CodePointToken();
 
-            if ( !TryGetFatal( context, () => context.IntLiteral(), "Expected code point surrogate pair", out var argumentNodes ) )
+            if ( !TryGetFatal( context, context.IntLiteral, "Expected code point surrogate pair", out var argumentNodes ) )
                 return false;
 
             if ( !TryParseByteIntLiteral( context, "Expected code point high surrogate", () => argumentNodes[0], out var highSurrogate ) )
