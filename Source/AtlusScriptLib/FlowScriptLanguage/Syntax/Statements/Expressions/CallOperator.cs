@@ -8,28 +8,28 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
     {
         public Identifier Identifier { get; set; }
 
-        public List<Expression> Arguments { get; set; }
+        public List<Argument> Arguments { get; set; }
 
         public int Precedence => 2;
 
         public CallOperator() : base( ValueKind.Unresolved )
         {
-            Arguments = new List<Expression>();
+            Arguments = new List<Argument>();
         }
 
-        public CallOperator( Identifier identifier, List<Expression> arguments ) : base( ValueKind.Unresolved )
+        public CallOperator( Identifier identifier, List<Argument> arguments ) : base( ValueKind.Unresolved )
         {
             Identifier = identifier;
             Arguments = arguments;
         }
 
-        public CallOperator( ValueKind valueKind, Identifier identifier, List<Expression> arguments ) : base( valueKind )
+        public CallOperator( ValueKind valueKind, Identifier identifier, List<Argument> arguments ) : base( valueKind )
         {
             Identifier = identifier;
             Arguments = arguments;
         }
 
-        public CallOperator( Identifier identifier, params Expression[] arguments ) : base( ValueKind.Unresolved )
+        public CallOperator( Identifier identifier, params Argument[] arguments ) : base( ValueKind.Unresolved )
         {
             Identifier = identifier;
             Arguments = arguments.ToList();
@@ -37,7 +37,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
 
         public override string ToString()
         {
-            StringBuilder builder = new StringBuilder();
+            var builder = new StringBuilder();
             builder.Append( Identifier );
             builder.Append( "(" );
 

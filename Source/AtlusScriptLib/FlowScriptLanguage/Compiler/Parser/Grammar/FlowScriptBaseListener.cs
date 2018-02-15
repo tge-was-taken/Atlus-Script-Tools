@@ -499,6 +499,32 @@ public partial class FlowScriptBaseListener : IFlowScriptListener {
 	public virtual void ExitParameter([NotNull] FlowScriptParser.ParameterContext context) { }
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="FlowScriptParser.argumentList"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterArgumentList([NotNull] FlowScriptParser.ArgumentListContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="FlowScriptParser.argumentList"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitArgumentList([NotNull] FlowScriptParser.ArgumentListContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="FlowScriptParser.argument"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterArgument([NotNull] FlowScriptParser.ArgumentContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="FlowScriptParser.argument"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitArgument([NotNull] FlowScriptParser.ArgumentContext context) { }
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="FlowScriptParser.expressionList"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>

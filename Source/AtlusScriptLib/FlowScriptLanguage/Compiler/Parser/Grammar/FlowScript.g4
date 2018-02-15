@@ -93,7 +93,19 @@ parameterList
 	;
 
 parameter
-	: ( PrimitiveTypeIdentifier | Identifier ) Identifier
+	: Out? ( PrimitiveTypeIdentifier | Identifier ) Identifier
+	;
+
+//
+// Arguments
+//
+argumentList
+	: '(' argument? (',' argument)* ')'
+	;
+
+argument
+	: expression
+	| Out Identifier
 	;
 
 //
@@ -108,7 +120,7 @@ expression
 	| '(' expression ')'													# compoundExpression
 	| Identifier '.' Identifier												# memberAccessExpression
 	| '(' ( PrimitiveTypeIdentifier | Identifier ) ')' '(' expression ')'	# castExpression		// precedence 2
-	| Identifier expressionList												# callExpression				// precedence 2
+	| Identifier argumentList												# callExpression				// precedence 2
 	| expression Op=( '--' | '++' )											# unaryPostfixExpression		// precedence 2
 	| Op=( '!' | '-' | '--' | '++' ) expression								# unaryPrefixExpression			// precedence 3
 	| expression Op=( '*' | '/' | '%' ) expression							# multiplicationExpression		// precedence 5
@@ -192,6 +204,7 @@ AiLocal:	'ai_local';
 AiGlobal:	'ai_global';
 Bit:		'bit';
 Enum:		'enum';
+Out:		'out';
 
 //	Control flow
 If:			'if';

@@ -738,6 +738,9 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         {
             Trace( declaration.Body, $"Emitting procedure body for {declaration}" );
 
+            var startIntParameterVariableIndex = mNextIntParameterVariableIndex;
+            var startFloatParameterVariableIndex = mNextFloatParameterVariableIndex;
+
             // Initialize some state
             InitializeProcedureCompilationState( declaration );
 
@@ -747,9 +750,6 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
             if ( EnableProcedureTracing )
                 TraceProcedureStart();
-
-            // To mimick the official compiler
-            //mNextLabelIndex++;
 
             if ( EnableStackCookie )
             {
@@ -776,11 +776,13 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 }
             }
 
-            // Add implicit return
-            if ( declaration.Body.Statements.Count == 0 || !( declaration.Body.Last() is ReturnStatement ) )
+            ReturnStatement returnStatement = new ReturnStatement();
+
+            // Remove last return statement
+            if ( declaration.Body.Statements.Count != 0 && declaration.Body.Statements.Last() is ReturnStatement )
             {
-                Trace( declaration.Body, "Adding implicit return statement" );
-                declaration.Body.Statements.Add( new ReturnStatement() );
+                returnStatement = ( ReturnStatement ) declaration.Body.Last();
+                declaration.Body.Statements.Remove( returnStatement );
             }
 
             // Emit procedure body
@@ -788,6 +790,44 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             if ( !TryEmitCompoundStatement( declaration.Body ) )
             {
                 Error( declaration.Body, "Failed to emit procedure body" );
+                return false;
+            }
+
+            // Assign out parameters
+            if ( declaration.Parameters.Count > 0 )
+            {
+                var intVariableCount = 0;
+                var floatVariableCount = 0;
+
+                foreach ( var parameter in declaration.Parameters )
+                {
+                    Scope.TryGetVariable( parameter.Identifier.Text, out var variable );
+
+                    if ( sTypeToBaseTypeMap[ parameter.Type.ValueKind ] == ValueKind.Int )
+                    {
+                        if ( parameter.Modifier == ParameterModifier.Out )
+                        {
+                            Emit( Instruction.PUSHLIX( variable.Index ) );
+                            Emit( Instruction.POPLIX( ( short )( startIntParameterVariableIndex + intVariableCount ) ) );
+                        }
+
+                        ++intVariableCount;
+                    }
+                    else
+                    {
+                        if ( parameter.Modifier == ParameterModifier.Out )
+                        {
+                            Emit( Instruction.PUSHLFX( variable.Index ) );
+                            Emit( Instruction.POPLFX( ( short )( startFloatParameterVariableIndex + floatVariableCount ) ) );
+                        }
+
+                        ++floatVariableCount;
+                    }   
+                }
+            }
+
+            if ( !TryEmitReturnStatement( returnStatement ) )
+            {
                 return false;
             }
 
@@ -819,18 +859,27 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                 // Push parameter value
                 if ( sTypeToBaseTypeMap[declaration.Type.ValueKind] == ValueKind.Int )
                 {
-                    Emit( Instruction.PUSHLIX( mNextIntParameterVariableIndex++ ) );
+                    if ( parameter.Modifier != ParameterModifier.Out )
+                        Emit( Instruction.PUSHLIX( mNextIntParameterVariableIndex ) );
+
+                    ++mNextIntParameterVariableIndex;
                     ++intParameterCount;
                 }
                 else
                 {
-                    Emit( Instruction.PUSHLFX( mNextFloatParameterVariableIndex++ ) );
+                    if ( parameter.Modifier != ParameterModifier.Out )
+                        Emit( Instruction.PUSHLFX( mNextFloatParameterVariableIndex ) );
+
+                    ++mNextFloatParameterVariableIndex;
                     ++floatParameterCount;
                 }
 
-                // Assign it with parameter value
-                if ( !TryEmitVariableAssignment( declaration.Identifier ) )
-                    return false;
+                if ( parameter.Modifier != ParameterModifier.Out )
+                {
+                    // Assign it with parameter value
+                    if ( !TryEmitVariableAssignment( declaration.Identifier ) )
+                        return false;
+                }
             }
 
             // Reset parameter indices
@@ -1300,7 +1349,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                         case "SEL":
                             {
                                 var firstArgument = callExpression.Arguments[ 0 ];
-                                if ( firstArgument is IntLiteral firstArgumentInt )
+                                if ( firstArgument.Expression is IntLiteral firstArgumentInt )
                                 {
                                     var index = firstArgumentInt.Value;
                                     if ( index < 0 || index >= mScript.MessageScript.Dialogs.Count )
@@ -1366,15 +1415,39 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
                     TraceProcedureCall( procedure.Declaration );
                 }
 
-                if ( procedure.Declaration.Parameters.Count > 0 )
-                {
-                    if ( !TryEmitParameterCallArguments( callExpression, procedure.Declaration ) )
-                        return false;
-                }
+                if ( !TryEmitParameterCallArguments( callExpression, procedure.Declaration, out var parameterIndices ) )
+                    return false;
 
                 // call procedure
                 Emit( Instruction.CALL( procedure.Index ) );
 
+                // Emit out parameter assignments
+                for ( int i = 0; i < procedure.Declaration.Parameters.Count; i++ )
+                {
+                    var parameter = procedure.Declaration.Parameters[ i ];
+                    if ( parameter.Modifier != ParameterModifier.Out )
+                        continue;
+
+                    // Copy value of local variable copy of out parameter to actual out parameter
+                    var index = parameterIndices[ i ];
+                    var identifier = ( Identifier ) callExpression.Arguments[ i ].Expression;
+                    if ( !Scope.TryGetVariable( identifier.Text, out var variable ) )
+                        return false;
+
+                    if ( sTypeToBaseTypeMap[ variable.Declaration.Type.ValueKind ] == ValueKind.Int )
+                    {
+                        Emit( Instruction.PUSHLIX( index ) );
+                        Emit( Instruction.POPLIX( variable.Index ) );
+                    }
+                    else
+                    {
+                        Emit( Instruction.PUSHLFX( index ) );
+                        Emit( Instruction.POPLFX( variable.Index ) );
+                    }
+                       
+                }
+
+                // Emit return value
                 if ( !isStatement && procedure.Declaration.ReturnType.ValueKind != ValueKind.Void )
                 {
                     if ( !EnableProcedureCallTracing )
@@ -1407,7 +1480,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             // Compile expressions backwards so they are pushed to the stack in the right order
             for ( int i = callExpression.Arguments.Count - 1; i >= 0; i-- )
             {
-                if ( !TryEmitExpression( callExpression.Arguments[i], false ) )
+                if ( !TryEmitExpression( callExpression.Arguments[i].Expression, false ) )
                 {
                     Error( callExpression.Arguments[i], $"Failed to compile function call argument: {callExpression.Arguments[i]}" );
                     return false;
@@ -1417,30 +1490,46 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryEmitParameterCallArguments( CallOperator callExpression, ProcedureDeclaration declaration )
+        private bool TryEmitParameterCallArguments( CallOperator callExpression, ProcedureDeclaration declaration, out List<short> parameterIndices )
         {
             Trace( "Emitting parameter call arguments" );
 
             int intParameterCount = 0;
             int floatParameterCount = 0;
+            parameterIndices = new List< short >();
 
             for ( int i = 0; i < callExpression.Arguments.Count; i++ )
             {
-                if ( !TryEmitExpression( callExpression.Arguments[i], false ) )
+                var argument = callExpression.Arguments[ i ];
+
+                if ( argument.Modifier != ArgumentModifier.Out )
                 {
-                    Error( callExpression.Arguments[i], $"Failed to compile function call argument: {callExpression.Arguments[i]}" );
-                    return false;
+                    if ( !TryEmitExpression( argument.Expression, false ) )
+                    {
+                        Error( callExpression.Arguments[i], $"Failed to compile function call argument: {argument}" );
+                        return false;
+                    }
                 }
 
                 // Assign each required parameter variable
                 if ( sTypeToBaseTypeMap[declaration.Parameters[i].Type.ValueKind] == ValueKind.Int )
                 {
-                    Emit( Instruction.POPLIX( mNextIntParameterVariableIndex++ ) );
+                    if ( argument.Modifier != ArgumentModifier.Out )
+                        Emit( Instruction.POPLIX( mNextIntParameterVariableIndex ) );
+
+                    parameterIndices.Add( mNextIntParameterVariableIndex );
+
+                    ++mNextIntParameterVariableIndex;
                     ++intParameterCount;
                 }
                 else
                 {
-                    Emit( Instruction.POPLFX( mNextFloatParameterVariableIndex++ ) );
+                    if ( argument.Modifier != ArgumentModifier.Out )
+                        Emit( Instruction.POPLFX( mNextFloatParameterVariableIndex ) );
+
+                    parameterIndices.Add( mNextFloatParameterVariableIndex );
+
+                    ++mNextFloatParameterVariableIndex;
                     ++floatParameterCount;
                 }
             }

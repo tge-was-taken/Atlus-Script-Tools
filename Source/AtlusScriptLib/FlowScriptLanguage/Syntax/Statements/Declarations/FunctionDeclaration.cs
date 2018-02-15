@@ -58,6 +58,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Syntax
             foreach ( var libraryFunctionParameter in libraryFunction.Parameters )
             {
                 functionParameters.Add( new Parameter(
+                                             ParameterModifier.None,
                                             new TypeIdentifier( libraryFunctionParameter.Type ),
                                             new Identifier( libraryFunctionParameter.Name ) ) );
             }

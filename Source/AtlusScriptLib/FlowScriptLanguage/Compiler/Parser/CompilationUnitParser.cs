@@ -894,7 +894,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
             callExpression = CreateAstNode<CallOperator>( context );
 
-            if ( !TryGet( context, "Expected function or procedure identifier", () => context.Identifier(), out var identifierNode ) )
+            if ( !TryGet( context, "Expected function or procedure identifier", context.Identifier, out var identifierNode ) )
                 return false;
 
             Identifier identifier = null;
@@ -905,18 +905,18 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
             LogTrace( $"Parsing call expression: {identifier}( ... )" );
 
-            if ( TryGet( context, context.expressionList, out var expressionListContext ) )
+            if ( TryGet( context, context.argumentList, out var argumentListContext ) )
             {
-                if ( !TryGet( expressionListContext, "Expected expression(s)", () => expressionListContext.expression(), out var expressionContexts ) )
+                if ( !TryGet( argumentListContext, "Expected arguments(s)", () => argumentListContext.argument(), out var argumentContexts ) )
                     return false;
 
-                foreach ( var expressionContext in expressionContexts )
+                foreach ( var argumentContext in argumentContexts )
                 {
-                    Expression expression = null;
-                    if ( !TryFunc( expressionContext, "Failed to parse expression", () => TryParseExpression( expressionContext, out expression ) ) )
+                    Argument argument = null;
+                    if ( !TryFunc( argumentContext, "Failed to parse argument", () => TryParseArgument( argumentContext, out argument ) ) )
                         return false;
 
-                    callExpression.Arguments.Add( expression );
+                    callExpression.Arguments.Add( argument );
                 }
             }
 
@@ -1492,6 +1492,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
 
             parameter = CreateAstNode<Parameter>( context );
 
+            if ( context.Out() != null )
+            {
+                parameter.Modifier = ParameterModifier.Out;
+            }
+
             // Parse type identifier
             int identifierIndex = 0;
             if (!TryGet(context, context.PrimitiveTypeIdentifier, out var typeIdentifierNode))
@@ -1523,6 +1528,34 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
             parameter.Identifier = identifier;
 
             LogTrace( $"Parsed parameter: {parameter}" );
+
+            return true;
+        }
+
+        private bool TryParseArgument( FlowScriptParser.ArgumentContext context, out Argument argument )
+        {
+            LogContextInfo( context );
+
+            argument = CreateAstNode< Argument >( context );
+
+            if ( context.expression() != null )
+            {
+                Expression expression = null;
+                if ( !TryFunc( context, "Failed to parse expression", () => TryParseExpression( context.expression(), out expression ) ) )
+                    return false;
+
+                argument.Expression = expression;
+            }
+            else
+            {
+                Identifier identifier = null;
+                if ( !TryFunc( context, "Failed to parse expression", () => TryParseIdentifier( context.Identifier(), out identifier ) ) )
+                    return false;
+
+                argument.Expression = identifier;
+                if ( context.Out() != null )
+                    argument.Modifier = ArgumentModifier.Out;
+            }
 
             return true;
         }

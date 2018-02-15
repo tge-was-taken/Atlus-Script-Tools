@@ -807,7 +807,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                             return false;
                         }
 
-                        var arguments = new List<Expression>();
+                        var arguments = new List<Argument>();
                         foreach ( var parameter in function.Parameters )
                         {
                             if ( !TryPopExpression( out var argument ) )
@@ -817,7 +817,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                             }
 
                             --mRealStackCount;
-                            arguments.Add( argument );
+                            arguments.Add( new Argument(argument) );
                         }
 
                         var callOperator = new CallOperator( 
@@ -885,7 +885,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
                         var procedure = mScript.Procedures[index];
                         int parameterCount;
-                        var arguments = new List<Expression>();
+                        var arguments = new List<Argument>();
                         if ( mProcedures.TryGetValue( index, out var declaration ) )
                         {
                             parameterCount = declaration.Parameters.Count;
@@ -898,7 +898,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                             parameterCount = 0;
                             var parameters = new List< Parameter >();
                             for ( int i = 0; i < parameterCount; i++ )
-                                parameters.Add( new Parameter( new TypeIdentifier( ValueKind.Int ), new Identifier( $"param{i + 1}" ) ) );
+                                parameters.Add( new Parameter( ParameterModifier.None, new TypeIdentifier( ValueKind.Int ), new Identifier( $"param{i + 1}" ) ) );
 
                             declaration = new ProcedureDeclaration(
                                 new TypeIdentifier( ValueKind.Void ),
@@ -917,7 +917,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                                 return false;
                             }
 
-                            arguments.Add( expression );
+                            arguments.Add( new Argument(expression) );
                             --mRealStackCount;
                         }
 

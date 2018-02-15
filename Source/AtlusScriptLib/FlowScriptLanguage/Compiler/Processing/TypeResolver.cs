@@ -433,7 +433,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
 
             foreach ( var arg in callExpression.Arguments )
             {
-                if ( !TryResolveTypesInExpression( arg ) )
+                if ( !TryResolveTypesInExpression( arg.Expression ) )
                     return false;
             }
 

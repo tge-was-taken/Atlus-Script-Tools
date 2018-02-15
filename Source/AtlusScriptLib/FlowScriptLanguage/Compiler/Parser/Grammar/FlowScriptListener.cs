@@ -429,6 +429,28 @@ public interface IFlowScriptListener : IParseTreeListener {
 	void ExitParameter([NotNull] FlowScriptParser.ParameterContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="FlowScriptParser.argumentList"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterArgumentList([NotNull] FlowScriptParser.ArgumentListContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="FlowScriptParser.argumentList"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitArgumentList([NotNull] FlowScriptParser.ArgumentListContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="FlowScriptParser.argument"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterArgument([NotNull] FlowScriptParser.ArgumentContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="FlowScriptParser.argument"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitArgument([NotNull] FlowScriptParser.ArgumentContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="FlowScriptParser.expressionList"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

@@ -40,6 +40,9 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
         public IntrinsicSupport( Library registry )
         {
+            if ( registry == null )
+                return;
+
             var functions = registry.FlowScriptModules.SelectMany( x => x.Functions )
                                     .ToDictionary( x => x.Name, StringComparer.InvariantCultureIgnoreCase );
 

@@ -319,9 +319,9 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                     {
                         if ( call.Identifier.Text == "MSG" || call.Identifier.Text == "SEL" )
                         {
-                            if ( call.Arguments[ 0 ] is IntLiteral windowIndexLiteral )
+                            if ( call.Arguments[ 0 ].Expression is IntLiteral windowIndexLiteral )
                             {
-                                call.Arguments[0] = new Identifier(
+                                call.Arguments[0].Expression = new Identifier(
                                     ValueKind.Int,
                                     mEvaluatedScript.FlowScript.MessageScript.Dialogs[windowIndexLiteral.Value].Name );
                             }                      
@@ -352,7 +352,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
 
                         if ( i < call.Arguments.Count )
                         {
-                            argument = call.Arguments[i];
+                            argument = call.Arguments[i].Expression;
                         }
                         else
                         {
@@ -375,7 +375,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         if ( libraryEnumMember == null )
                             continue;
 
-                        call.Arguments[i] = new MemberAccessExpression
+                        call.Arguments[i].Expression = new MemberAccessExpression
                         {
                             Operand = new TypeIdentifier( libraryEnum.Name ),
                             Member = new Identifier( libraryEnumMember.Name )

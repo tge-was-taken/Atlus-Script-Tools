@@ -281,6 +281,20 @@ public interface IFlowScriptVisitor<Result> : IParseTreeVisitor<Result> {
 	Result VisitParameter([NotNull] FlowScriptParser.ParameterContext context);
 
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="FlowScriptParser.argumentList"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitArgumentList([NotNull] FlowScriptParser.ArgumentListContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="FlowScriptParser.argument"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitArgument([NotNull] FlowScriptParser.ArgumentContext context);
+
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="FlowScriptParser.expressionList"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
