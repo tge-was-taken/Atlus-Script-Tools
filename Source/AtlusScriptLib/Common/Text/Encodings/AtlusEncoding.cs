@@ -73,11 +73,11 @@ namespace AtlusScriptLib.Common.Text.Encodings
         public override int GetCharCount( byte[] bytes, int index, int count )
         {
             int charCount = 0;
-            for ( ; index < count; index++, charCount++ )
+            for ( ; index < count; ++index, ++charCount )
             {
                 if ( ( bytes[index] & GLYPH_TABLE_INDEX_MARKER ) == GLYPH_TABLE_INDEX_MARKER )
                 {
-                    index += 2;
+                    ++index;
                 }
             }
 

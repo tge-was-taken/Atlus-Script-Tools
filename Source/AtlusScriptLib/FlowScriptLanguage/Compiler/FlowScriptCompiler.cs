@@ -787,7 +787,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
 
             // Emit procedure body
             Trace( declaration.Body, "Emitting code for procedure body" );
-            if ( !TryEmitCompoundStatement( declaration.Body ) )
+            if ( !TryEmitStatements( declaration.Body ) )
             {
                 Error( declaration.Body, "Failed to emit procedure body" );
                 return false;
@@ -3039,6 +3039,9 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler
         private void Error( string message )
         {
             mLogger.Error( $"{message}" );
+
+            if ( Debugger.IsAttached )
+                Debugger.Break();
         }
 
         private void Warning( SyntaxNode node, string message )

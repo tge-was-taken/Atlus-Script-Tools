@@ -60,14 +60,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Interpreter
         public void Run()
         {
             while ( mInstructionIndex < Procedure.Instructions.Count )
-            {
                 Step();
-            }
 
             if ( mStack.Count > 1 )
-            {
                 throw new StackInbalanceException();
-            }
         }
 
         public void Step()
@@ -346,9 +342,9 @@ namespace AtlusScriptLib.FlowScriptLanguage.Interpreter
             if ( returnIndexValue.Kind != StackValueKind.ReturnIndex )
                 throw new InvalidStackValueTypeException( StackValueKind.ReturnIndex, returnIndexValue.Kind );
 
-            var returnIndex = ( int ) returnIndexValue.Value;
-            instance.ProcedureIndex = returnIndex >> 16;
-            instance.InstructionIndex = ( returnIndex & 0xFFFF ) + 1;
+            var returnIndex = ( long ) returnIndexValue.Value;
+            instance.ProcedureIndex = ( int ) ( returnIndex >> 32 );
+            instance.InstructionIndex = ( int )returnIndex + 1;
         }
 
         private static void JUMP( FlowScriptInterpreter instance )
@@ -359,7 +355,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Interpreter
 
         private static void CALL( FlowScriptInterpreter instance )
         {
-            instance.PushValue( StackValueKind.ReturnIndex, ( instance.ProcedureIndex << 16 ) | instance.InstructionIndex );
+            instance.PushValue( StackValueKind.ReturnIndex, ( ( long )instance.ProcedureIndex << 32 ) | ( long )instance.InstructionIndex );
             instance.ProcedureIndex = instance.Instruction.Operand.Int16Value;
             instance.InstructionIndex = 0;
         }
