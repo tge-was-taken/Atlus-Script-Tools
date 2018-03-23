@@ -169,6 +169,11 @@
             }
         }
 
+        public virtual void Visit( Argument argument )
+        {
+            Visit( argument.Expression );
+        }
+
         public virtual void Visit( Identifier identifier )
         {
             if ( identifier is TypeIdentifier )
