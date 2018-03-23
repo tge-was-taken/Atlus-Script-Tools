@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using AtlusScriptLib.Common.IO;
 using AtlusScriptLib.MessageScriptLanguage.BinaryModel.IO;
 
 namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel
@@ -86,7 +87,7 @@ namespace AtlusScriptLib.MessageScriptLanguage.BinaryModel
             if ( string.IsNullOrEmpty( path ) )
                 throw new ArgumentException( "Value cannot be null or empty.", nameof( path ) );
 
-            using ( var stream = File.Create( path ) )
+            using ( var stream = FileUtils.Create( path ) )
                 ToStream( stream );
         }
 

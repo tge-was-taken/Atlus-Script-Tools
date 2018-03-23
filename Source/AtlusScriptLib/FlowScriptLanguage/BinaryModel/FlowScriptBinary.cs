@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using AtlusScriptLib.Common.IO;
 using AtlusScriptLib.FlowScriptLanguage.BinaryModel.IO;
 using AtlusScriptLib.MessageScriptLanguage.BinaryModel;
 
@@ -146,7 +147,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.BinaryModel
 
         public void ToFile( string path )
         {
-            ToStream( File.Create( path ) );
+            ToStream( FileUtils.Create( path ) );
         }
 
         public Stream ToStream()

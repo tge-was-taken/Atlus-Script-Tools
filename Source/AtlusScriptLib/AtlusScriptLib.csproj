@@ -52,6 +52,7 @@
     <Compile Include="Common\Collections\ICollectionExtensions.cs" />
     <Compile Include="Common\Collections\IListExtensions.cs" />
     <Compile Include="Common\IO\AlignmentHelper.cs" />
+    <Compile Include="Common\IO\FileUtils.cs" />
     <Compile Include="Common\IO\StreamView.cs" />
     <Compile Include="Common\Logging\ConsoleLogListener.cs" />
     <Compile Include="Common\Logging\LogEventArgs.cs" />

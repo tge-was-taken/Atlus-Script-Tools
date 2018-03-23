@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using AtlusScriptLib.Common.IO;
 using AtlusScriptLib.MessageScriptLanguage.BinaryModel;
 
 namespace AtlusScriptLib.MessageScriptLanguage
@@ -429,7 +430,7 @@ namespace AtlusScriptLib.MessageScriptLanguage
             if ( string.IsNullOrEmpty( path ) )
                 throw new ArgumentException( "Value cannot be null or empty.", nameof( path ) );
 
-            using ( var stream = File.Create( path ) )
+            using ( var stream = FileUtils.Create( path ) )
                 ToStream( stream );
         }
 

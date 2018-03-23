@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using AtlusScriptLib.Common.IO;
 using AtlusScriptLib.Common.Logging;
 
 namespace AtlusScriptCompiler
@@ -12,13 +13,13 @@ namespace AtlusScriptCompiler
 
         public FileAndConsoleLogListener( bool useColors, LogLevel filter ) : base( useColors, LogLevel.All )
         {
-            mFileWriter = File.CreateText( Program.AssemblyName.Name + ".log" );
+            mFileWriter = FileUtils.CreateText( Program.AssemblyName.Name + ".log" );
             mConsoleLogFilter = filter;
         }
 
         public FileAndConsoleLogListener( string channelName, bool useColors ) : base( channelName, useColors )
         {
-            mFileWriter = File.CreateText( Program.AssemblyName.Name + ".log" );
+            mFileWriter = FileUtils.CreateText( Program.AssemblyName.Name + ".log" );
         }
 
         protected override void OnLogCore( object sender, LogEventArgs e )

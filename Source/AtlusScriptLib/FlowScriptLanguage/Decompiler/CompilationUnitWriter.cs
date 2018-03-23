@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using AtlusScriptLib.Common.IO;
 using AtlusScriptLib.FlowScriptLanguage.Syntax;
 
 namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
@@ -11,7 +12,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
     {
         public void Write( CompilationUnit compilationUnit, string path )
         {
-            using ( var writingVisitor = new WriterVisitor( File.CreateText( path ) ) )
+            using ( var writingVisitor = new WriterVisitor( FileUtils.CreateText( path ) ) )
             {
                 writingVisitor.Visit( compilationUnit );
             }

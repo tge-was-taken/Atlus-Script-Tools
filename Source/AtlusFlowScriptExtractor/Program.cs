@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using AtlusScriptLib.Common;
+using AtlusScriptLib.Common.IO;
 using AtlusScriptLib.Common.Logging;
 using AtlusScriptLib.Common.Registry;
 using AtlusScriptLib.Common.Text.Encodings;
@@ -28,7 +29,7 @@ namespace AtlusFlowScriptExtractor
             var listener = new ConsoleLogListener( true, LogLevel.All );
             listener.Subscribe( logger );
 
-            using ( var streamWriter = File.CreateText( "AtlusFlowScriptExtractorOutput.txt" ) )
+            using ( var streamWriter = FileUtils.CreateText( "AtlusFlowScriptExtractorOutput.txt" ) )
             {
                 foreach ( var file in Directory.EnumerateFiles( directoryPath, "*", SearchOption.AllDirectories ) )
                 {

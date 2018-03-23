@@ -242,7 +242,7 @@ namespace AtlusScriptLib.Common
 
         public void Save( string filePath )
         {
-            using ( var fileStream = File.Create( filePath ) )
+            using ( var fileStream = FileUtils.Create( filePath ) )
             {
                 Stream.Position = 0;
                 Stream.CopyTo( fileStream );
