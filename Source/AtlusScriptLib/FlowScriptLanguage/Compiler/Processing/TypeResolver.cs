@@ -81,7 +81,11 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
             {
                 // Special case: forward declared declarations on top level
                 if ( Scope.Parent != null )
+                {
+                    Scope.TryGetDeclaration( declaration.Identifier, out var existingDeclaration );
+                    LogError( $"Identifier {declaration.Identifier} already defined as: {existingDeclaration}" );
                     return false;
+                }
             }
 
             return true;
@@ -165,6 +169,10 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
                 if ( !TryResolveTypesInSwitchStatement( switchStatement ) )
                     return false;
             }
+            else if ( statement is BreakStatement )
+            {
+                // Not an expression
+            }
             else
             {
                 LogWarning( $"No types resolved in statement '{statement}'" );
@@ -228,7 +236,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
         {
             LogTrace( expression, $"Resolving expression {expression}" );
 
-            if ( expression is MemberAccessExpression memberAccessExpression )
+            if ( expression is MemberAccessExpression )
             {
                 expression.ExpressionValueKind = ValueKind.Int; // enum
             }
@@ -442,16 +450,18 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
 
         private bool TryResolveTypesInIdentifier( Identifier identifier )
         {
+            bool isUndeclared = false;
             if ( !Scope.TryGetDeclaration( identifier, out var declaration ) )
             {
-                LogWarning( identifier, $"Identifiers references undeclared identifier '{identifier.Text}'" );
+                LogWarning( identifier, $"Identifiers references undeclared identifier '{identifier.Text}'. Is this a compile time variable?" );
+                isUndeclared = true;
             }
 
-            if ( declaration is FunctionDeclaration functionDeclaration )
+            if ( declaration is FunctionDeclaration )
             {
                 identifier.ExpressionValueKind = ValueKind.Function;
             }
-            else if ( declaration is ProcedureDeclaration procedureDeclaration )
+            else if ( declaration is ProcedureDeclaration )
             {
                 identifier.ExpressionValueKind = ValueKind.Procedure;
             }
@@ -459,11 +469,15 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
             {
                 identifier.ExpressionValueKind = variableDeclaration.Type.ValueKind;
             }
-            else if ( declaration is LabelDeclaration labelDeclaration )
+            else if ( declaration is LabelDeclaration )
             {
                 identifier.ExpressionValueKind = ValueKind.Label;
             }
-            else
+            else if ( declaration is EnumDeclaration )
+            {
+                identifier.ExpressionValueKind = ValueKind.Void;
+            }
+            else if ( !isUndeclared )
             {
                 LogWarning( identifier, "Expected function, procedure, variable or label identifier" );
             }
