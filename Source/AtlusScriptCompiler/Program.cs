@@ -61,7 +61,7 @@ namespace AtlusScriptCompiler
 
         private static void DisplayUsage()
         {
-            Console.WriteLine( $"AtlusScriptCompiler {Version.Major}.{Version.Minor} by TGE (2017)" );
+            Console.WriteLine( $"AtlusScriptCompiler {Version.Major}.{Version.Minor}-{ThisAssembly.Git.Commit} by TGE (2017)" );
             Console.WriteLine( "" );
             Console.WriteLine( "Parameter overview:" );
             Console.WriteLine( "    General:" );
