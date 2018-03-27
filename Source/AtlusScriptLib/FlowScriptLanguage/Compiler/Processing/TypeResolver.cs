@@ -38,6 +38,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
         /// <returns></returns>
         public bool TryResolveTypes( CompilationUnit compilationUnit )
         {
+            LogTrace( $"{nameof( TryResolveTypes )}( {nameof( compilationUnit )} = {compilationUnit})" );
             LogInfo( "Resolving types in compilation unit" );
 
             if ( !TryResolveTypesInCompilationUnit( compilationUnit ) )
@@ -77,6 +78,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
 
         private bool TryRegisterDeclaration( Declaration declaration )
         {
+            LogTrace( $"{nameof( TryRegisterDeclaration )}( declaration = {declaration})" );
+
             if ( !Scope.TryRegisterDeclaration( declaration ) )
             {
                 // Special case: forward declared declarations on top level
@@ -96,6 +99,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
         //
         private bool TryResolveTypesInCompilationUnit( CompilationUnit compilationUnit )
         {
+            LogTrace( $"{nameof( TryResolveTypesInCompilationUnit )}( compilationUnit = {compilationUnit})" );
+
             // Enter compilation unit scope
             PushScope();
 
@@ -119,6 +124,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
         // Statements
         private bool TryResolveTypesInStatement( Statement statement )
         {
+            LogTrace( $"{nameof( TryResolveTypesInStatement )}( statement = {statement})" );
+
             if ( statement is CompoundStatement compoundStatement )
             {
                 if ( !TryResolveTypesInCompoundStatement( compoundStatement ) )
@@ -184,6 +191,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
 
         private bool TryResolveTypesInCompoundStatement( CompoundStatement compoundStatement )
         {
+            LogTrace( $"{nameof( TryResolveTypesInCompoundStatement )}( statement = {compoundStatement})" );
+
             PushScope();
 
             foreach ( var statement in compoundStatement )
@@ -199,6 +208,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
 
         private bool TryResolveTypesInDeclaration( Declaration declaration )
         {
+            LogTrace( $"{nameof( TryResolveTypesInDeclaration )}( declaration = {declaration})" );
+
             if ( declaration.DeclarationType != DeclarationType.Label )
             {
                 if ( !TryResolveTypesInIdentifier( declaration.Identifier ) )
@@ -234,7 +245,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
 
         internal bool TryResolveTypesInExpression( Expression expression )
         {
-            LogTrace( expression, $"Resolving expression {expression}" );
+            LogTrace( $"{nameof( TryResolveTypesInExpression )}( expression = {expression})" );
 
             if ( expression is MemberAccessExpression )
             {
@@ -289,6 +300,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
 
         private bool TryResolveTypesInIfStatement( IfStatement ifStatement )
         {
+            LogTrace( $"{nameof( TryResolveTypesInIfStatement )}( ifStatement = {ifStatement})" );
+
             if ( !TryResolveTypesInExpression( ifStatement.Condition ) )
                 return false;
 
@@ -306,6 +319,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
 
         private bool TryResolveTypesInForStatement( ForStatement forStatement )
         {
+            LogTrace( $"{nameof( TryResolveTypesInForStatement )}( forStatement = {forStatement})" );
+
             // Enter for scope
             PushScope();
 
@@ -333,6 +348,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
 
         private bool TryResolveTypesInWhileStatement( WhileStatement whileStatement )
         {
+            LogTrace( $"{nameof( TryResolveTypesInWhileStatement )}( whileStatement = {whileStatement})" );
+
             // Resolve types in while statement condition
             if ( !TryResolveTypesInExpression( whileStatement.Condition ) )
                 return false;
@@ -346,6 +363,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
 
         private bool TryResolveTypesInSwitchStatement( SwitchStatement switchStatement )
         {
+            LogTrace( $"{nameof( TryResolveTypesInSwitchStatement )}( switchStatement = {switchStatement})" );
+
             if ( !TryResolveTypesInExpression( switchStatement.SwitchOn ) )
                 return false;
 
@@ -370,6 +389,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
         // Declarations
         private bool TryResolveTypesInProcedureDeclaration( ProcedureDeclaration declaration )
         {
+            LogTrace( $"{nameof( TryResolveTypesInProcedureDeclaration )}( {nameof( declaration )} = {declaration})" );
             LogInfo( declaration, $"Resolving types in procedure '{declaration.Identifier.Text}'" );
 
             // Nothing to resolve if there's no body
@@ -405,6 +425,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
 
         private bool TryResolveTypesInVariableDeclaration( VariableDeclaration declaration )
         {
+            LogTrace( $"{nameof( TryResolveTypesInVariableDeclaration )}( {nameof( declaration )} = {declaration})" );
+
             // Nothing to resolve if there's no initializer
             if ( declaration.Initializer == null )
                 return true;
@@ -422,6 +444,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
 
         private bool TryResolveTypesInCallExpression( CallOperator callExpression )
         {
+            LogTrace( $"{nameof( TryResolveTypesInCallExpression )}( {nameof( callExpression )} = {callExpression})" );
+
             if ( !Scope.TryGetDeclaration( callExpression.Identifier, out var declaration ) )
             {
                 // Disable for now because we import functions at compile time
@@ -450,6 +474,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Processing
 
         private bool TryResolveTypesInIdentifier( Identifier identifier )
         {
+            LogTrace( $"{nameof( TryResolveTypesInIdentifier )}( {nameof( identifier )} = {identifier})" );
+
             bool isUndeclared = false;
             if ( !Scope.TryGetDeclaration( identifier, out var declaration ) )
             {
