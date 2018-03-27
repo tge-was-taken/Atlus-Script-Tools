@@ -12,7 +12,7 @@ All of the code is written in C# and licensed under the GNU GPL.
 ### Source ###
 * This is the source code directory of the project. This is where the main solution and its projects are.
 
-#### AtlusScriptLib ####
+#### AtlusScriptLibrary ####
 * This is the main class library of the project. All of the core functionality will be implemented here, with the other programs serving as a front-end.
 
 #### AtlusScriptCompiler ####
@@ -28,10 +28,16 @@ All of the code is written in C# and licensed under the GNU GPL.
 	* Evaluating compiled or uncompiled message scripts (.bf & .flow) and providing statistics
 
 ### Utilities ###
-* This is where utility programs using the library will be stored. Also serves as a reference for anyone wanting to use the library.
+* This is where misc utility programs using the library will be stored. Also serves as a reference for anyone wanting to use the library.
 
 #### AtlusMessageScriptExtractor ####
 * This application is can batch extract the text from message scripts from within various binary files. Use this is if you want a quick dump of the text from a game.
+
+#### AtlusFlowScriptExtractor ####
+* Similar to the previous program, it can batch extract scripts from within various binary files. Use this is if you want a quick reference of all the scripts used in a game.
+
+#### AtlusFlowScriptInterpreter ####
+* WIP interpreter for flow scripts. Not suitable for use yet.
 
 #### packages ####
 * Nuget packages.
