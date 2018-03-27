@@ -1,4 +1,4 @@
-namespace AtlusScriptLib.Common.Registry
+namespace AtlusScriptLib.Common.Libraries
 {
     public class FlowScriptModuleEnumMember
     {

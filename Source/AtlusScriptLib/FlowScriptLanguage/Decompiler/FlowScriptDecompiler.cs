@@ -2,8 +2,8 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using AtlusScriptLib.Common.Libraries;
 using AtlusScriptLib.Common.Logging;
-using AtlusScriptLib.Common.Registry;
 using AtlusScriptLib.Common.Text;
 using AtlusScriptLib.FlowScriptLanguage.Syntax;
 using AtlusScriptLib.MessageScriptLanguage.Decompiler;

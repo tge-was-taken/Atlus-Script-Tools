@@ -2,7 +2,7 @@ using System;
 using System.Globalization;
 using Newtonsoft.Json;
 
-namespace AtlusScriptLib.Common.Registry.Serialization
+namespace AtlusScriptLib.Common.Libraries.Serialization
 {
     internal class HexIntStringJsonConverter : JsonConverter
     {

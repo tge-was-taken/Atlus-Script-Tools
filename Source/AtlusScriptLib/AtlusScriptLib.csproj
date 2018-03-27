@@ -63,18 +63,18 @@
     <Compile Include="Common\Logging\TraceLogListener.cs" />
     <Compile Include="Common\Reflection\MemberInfoExtensions.cs" />
     <Compile Include="Common\Reflection\TypeExtensions.cs" />
-    <Compile Include="Common\Registry\Serialization\ExternalJsonPathConverter.cs" />
-    <Compile Include="Common\Registry\FlowScriptModule.cs" />
-    <Compile Include="Common\Registry\FlowScriptModuleConstant.cs" />
-    <Compile Include="Common\Registry\FlowScriptModuleEnum.cs" />
-    <Compile Include="Common\Registry\FlowScriptModuleEnumMember.cs" />
-    <Compile Include="Common\Registry\FlowScriptModuleFunction.cs" />
-    <Compile Include="Common\Registry\FlowScriptModuleParameter.cs" />
-    <Compile Include="Common\Registry\Serialization\HexIntStringJsonConverter.cs" />
-    <Compile Include="Common\Registry\Library.cs" />
-    <Compile Include="Common\Registry\MessageScriptLibrary.cs" />
-    <Compile Include="Common\Registry\MessageScriptLibraryFunction.cs" />
-    <Compile Include="Common\Registry\MessageScriptLibraryParameter.cs" />
+    <Compile Include="Common\Libraries\Serialization\ExternalJsonPathConverter.cs" />
+    <Compile Include="Common\Libraries\FlowScriptModule.cs" />
+    <Compile Include="Common\Libraries\FlowScriptModuleConstant.cs" />
+    <Compile Include="Common\Libraries\FlowScriptModuleEnum.cs" />
+    <Compile Include="Common\Libraries\FlowScriptModuleEnumMember.cs" />
+    <Compile Include="Common\Libraries\FlowScriptModuleFunction.cs" />
+    <Compile Include="Common\Libraries\FlowScriptModuleParameter.cs" />
+    <Compile Include="Common\Libraries\Serialization\HexIntStringJsonConverter.cs" />
+    <Compile Include="Common\Libraries\Library.cs" />
+    <Compile Include="Common\Libraries\MessageScriptLibrary.cs" />
+    <Compile Include="Common\Libraries\MessageScriptLibraryFunction.cs" />
+    <Compile Include="Common\Libraries\MessageScriptLibraryParameter.cs" />
     <Compile Include="Common\Text\Encodings\AtlusEncoding.cs" />
     <Compile Include="Common\Text\Encodings\CodePoint.cs" />
     <Compile Include="Common\Text\Encodings\Persona3Encoding.cs" />
@@ -246,101 +246,101 @@
     <Compile Include="PMScriptLanguage\BinaryModel\PMScriptBinary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MessageScriptLanguage\BinaryModel\IO\RelocationTableEncoding.cs" />
-    <Compile Include="Common\Registry\LibraryLookup.cs" />
+    <Compile Include="Common\Libraries\LibraryLookup.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScript.g4" />
     <None Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScript.tokens" />
     <None Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScriptLexer.tokens" />
     <None Include="FlowScriptLanguage\GenerateGrammarParserAndLexer.bat" />
-    <Content Include="Library\Persona5.json">
+    <Content Include="Libraries\Persona5.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Persona5\FlowScriptModules.json">
+    <Content Include="Libraries\Persona5\FlowScriptModules.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Persona5\Modules\AI\Functions.json">
+    <Content Include="Libraries\Persona5\Modules\AI\Functions.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Persona5\Modules\Common\Enums.json">
+    <Content Include="Libraries\Persona5\Modules\Common\Enums.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Persona5\Modules\Common\Functions.json">
+    <Content Include="Libraries\Persona5\Modules\Common\Functions.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Persona5\Modules\Facility\Functions.json">
+    <Content Include="Libraries\Persona5\Modules\Facility\Functions.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Persona5\Modules\Field\Enums.json">
+    <Content Include="Libraries\Persona5\Modules\Field\Enums.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Persona5\Modules\Field\Functions.json">
+    <Content Include="Libraries\Persona5\Modules\Field\Functions.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Persona5\Modules\Net\Functions.json">
+    <Content Include="Libraries\Persona5\Modules\Net\Functions.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Persona5\Modules\Social\Functions.json">
+    <Content Include="Libraries\Persona5\Modules\Social\Functions.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Persona5\MessageScriptLibrary.json">
+    <Content Include="Libraries\Persona5\MessageScriptLibrary.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Persona5\Modules\AI\Enums.json">
+    <Content Include="Libraries\Persona5\Modules\AI\Enums.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\DigitalDevilSaga.json">
+    <Content Include="Libraries\DigitalDevilSaga.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\DigitalDevilSaga\FlowScriptModules.json">
+    <Content Include="Libraries\DigitalDevilSaga\FlowScriptModules.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\DigitalDevilSaga\Modules\Common\Functions.json">
+    <Content Include="Libraries\DigitalDevilSaga\Modules\Common\Functions.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\DigitalDevilSaga\MessageScriptLibrary.json">
+    <Content Include="Libraries\DigitalDevilSaga\MessageScriptLibrary.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Nocturne.json">
+    <Content Include="Libraries\Nocturne.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Nocturne\Modules\Common\Functions.json">
+    <Content Include="Libraries\Nocturne\Modules\Common\Functions.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Nocturne\FlowScriptModules.json">
+    <Content Include="Libraries\Nocturne\FlowScriptModules.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Nocturne\MessageScriptLibrary.json">
+    <Content Include="Libraries\Nocturne\MessageScriptLibrary.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\Nocturne\Modules\Common\Enums.json">
+    <Content Include="Libraries\Nocturne\Modules\Common\Enums.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Library\DigitalDevilSaga\Modules\Common\Enums.json">
+    <Content Include="Libraries\DigitalDevilSaga\Modules\Common\Enums.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Library\Persona4.json">
+    <None Include="Libraries\Persona4.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Library\Persona4\FlowScriptModules.json">
+    <None Include="Libraries\Persona4\FlowScriptModules.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Library\Persona4\Modules\AI\Enums.json">
+    <None Include="Libraries\Persona4\Modules\AI\Enums.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Library\Persona4\Modules\AI\Functions.json">
+    <None Include="Libraries\Persona4\Modules\AI\Functions.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Library\Persona4\Modules\Common\Functions.json">
+    <None Include="Libraries\Persona4\Modules\Common\Functions.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Library\Persona4\Modules\Event\Functions.json">
+    <None Include="Libraries\Persona4\Modules\Event\Functions.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Library\Persona4\Modules\Field\Functions.json">
+    <None Include="Libraries\Persona4\Modules\Field\Functions.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Library\Persona4\MessageScriptLibrary.json">
+    <None Include="Libraries\Persona4\MessageScriptLibrary.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptLexer.g4" />

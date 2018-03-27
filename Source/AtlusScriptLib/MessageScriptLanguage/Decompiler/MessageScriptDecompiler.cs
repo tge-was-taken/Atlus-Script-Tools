@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using AtlusScriptLib.Common.Registry;
+using AtlusScriptLib.Common.Libraries;
 
 namespace AtlusScriptLib.MessageScriptLanguage.Decompiler
 {

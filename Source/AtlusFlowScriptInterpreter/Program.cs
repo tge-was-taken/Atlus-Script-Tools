@@ -1,6 +1,6 @@
 ﻿using System;
 using AtlusScriptLib.Common.Logging;
-using AtlusScriptLib.Common.Registry;
+using AtlusScriptLib.Common.Libraries;
 using AtlusScriptLib.FlowScriptLanguage;
 using AtlusScriptLib.FlowScriptLanguage.Compiler;
 using AtlusScriptLib.FlowScriptLanguage.Disassembler;

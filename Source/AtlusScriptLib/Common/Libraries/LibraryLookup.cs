@@ -4,11 +4,11 @@ using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
 
-namespace AtlusScriptLib.Common.Registry
+namespace AtlusScriptLib.Common.Libraries
 {
     public static class LibraryLookup
     {
-        internal static readonly string LibraryDirectoryPath = Path.Combine( AppDomain.CurrentDomain.BaseDirectory, "Library" );
+        internal static readonly string LibraryBaseDirectoryPath = Path.Combine( AppDomain.CurrentDomain.BaseDirectory, "Libraries" );
         private static readonly List<Library> sLibraries;
         private static readonly Dictionary< string, Library > sLibrariesByShortName;
         private static readonly Dictionary<string, Library> sLibrariesByFullName;
@@ -19,7 +19,7 @@ namespace AtlusScriptLib.Common.Registry
         static LibraryLookup()
         {
             sLibraries = new List< Library >();
-            foreach ( var path in Directory.EnumerateFiles( LibraryDirectoryPath, "*.json" ) )
+            foreach ( var path in Directory.EnumerateFiles( LibraryBaseDirectoryPath, "*.json" ) )
             {
                 var library = ParseLibrary( path );
                 sLibraries.Add( library );

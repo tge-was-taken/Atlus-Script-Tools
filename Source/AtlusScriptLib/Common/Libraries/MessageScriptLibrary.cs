@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace AtlusScriptLib.Common.Registry
+namespace AtlusScriptLib.Common.Libraries
 {
     public class MessageScriptLibrary
     {

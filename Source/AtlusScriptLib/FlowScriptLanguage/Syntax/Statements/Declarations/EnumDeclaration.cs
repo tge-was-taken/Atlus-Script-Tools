@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using AtlusScriptLib.Common.Registry;
+using AtlusScriptLib.Common.Libraries;
 
 namespace AtlusScriptLib.FlowScriptLanguage.Syntax
 {

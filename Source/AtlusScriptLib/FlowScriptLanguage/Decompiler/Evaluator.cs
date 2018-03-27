@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using AtlusScriptLib.Common.Logging;
-using AtlusScriptLib.Common.Registry;
+using AtlusScriptLib.Common.Libraries;
 using AtlusScriptLib.FlowScriptLanguage.Syntax;
 
 namespace AtlusScriptLib.FlowScriptLanguage.Decompiler

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using AtlusScriptLib.Common.Logging;
-using AtlusScriptLib.Common.Registry;
+using AtlusScriptLib.Common.Libraries;
 using AtlusScriptLib.FlowScriptLanguage.Compiler.Parser;
 using AtlusScriptLib.FlowScriptLanguage.Compiler.Processing;
 using AtlusScriptLib.FlowScriptLanguage.Syntax;

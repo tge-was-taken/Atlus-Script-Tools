@@ -8,8 +8,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
+using AtlusScriptLib.Common.Libraries;
 using AtlusScriptLib.Common.Logging;
-using AtlusScriptLib.Common.Registry;
 using AtlusScriptLib.FlowScriptLanguage.Compiler.Parser;
 using AtlusScriptLib.MessageScriptLanguage.Compiler.Parser;
 

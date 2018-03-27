@@ -4,7 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using AtlusScriptLib.Common.Logging;
-using AtlusScriptLib.Common.Registry;
+using AtlusScriptLib.Common.Libraries;
 using AtlusScriptLib.Common.Text;
 using AtlusScriptLib.Common.Text.Encodings;
 using AtlusScriptLib.FlowScriptLanguage;
@@ -150,7 +150,9 @@ namespace AtlusScriptCompiler
 
             bool success;
 
+#if !DEBUG
             try
+#endif
             {
                 if ( DoCompile )
                 {
@@ -171,14 +173,16 @@ namespace AtlusScriptCompiler
                     return;
                 }
             }
+#if !DEBUG
             catch ( Exception e )
             {
                 LogException( "Unhandled exception thrown", e );
                 success = false;
 
                 if ( Debugger.IsAttached )
-                    throw e;
+                    throw;
             }
+#endif
 
             if ( success )
                 Logger.Info( "Task completed successfully!" );

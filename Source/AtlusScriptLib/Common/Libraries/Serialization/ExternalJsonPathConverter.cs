@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using Newtonsoft.Json;
 
-namespace AtlusScriptLib.Common.Registry.Serialization
+namespace AtlusScriptLib.Common.Libraries.Serialization
 {
     internal class ExternalJsonPathConverter : JsonConverter
     {
@@ -16,7 +16,7 @@ namespace AtlusScriptLib.Common.Registry.Serialization
             if ( string.IsNullOrEmpty( path ) )
                 return null;
 
-            var fullPath = Path.Combine( LibraryLookup.LibraryDirectoryPath, path );
+            var fullPath = Path.Combine( LibraryLookup.LibraryBaseDirectoryPath, path );
             var jsonString = File.ReadAllText( fullPath );
             var obj = JsonConvert.DeserializeObject( jsonString, objectType );
 

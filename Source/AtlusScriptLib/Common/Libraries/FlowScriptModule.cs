@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using AtlusScriptLib.Common.Registry.Serialization;
+using AtlusScriptLib.Common.Libraries.Serialization;
 using Newtonsoft.Json;
 
-namespace AtlusScriptLib.Common.Registry
+namespace AtlusScriptLib.Common.Libraries
 {
     public class FlowScriptModule
     {
