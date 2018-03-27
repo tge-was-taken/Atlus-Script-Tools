@@ -61,8 +61,10 @@ namespace AtlusScriptCompiler
 
         private static void DisplayUsage()
         {
-            Console.WriteLine( $"AtlusScriptCompiler {Version.Major}.{Version.Minor}-{ThisAssembly.Git.Commit} by TGE (2017)" );
-            Console.WriteLine( "" );
+            Console.WriteLine( $"AtlusScriptCompiler {Version.Major}.{Version.Minor}-{ThisAssembly.Git.Commit} by TGE (2018)" );
+            Console.WriteLine();
+            Console.WriteLine( "Note: If you encounter any issues, please report it & include the AtlusScriptCompiler.log file. Thank you." );
+            Console.WriteLine();
             Console.WriteLine( "Parameter overview:" );
             Console.WriteLine( "    General:" );
             Console.WriteLine( "        -In                     <path to file>      Provides an input file source to the compiler. If no input source is explicitly specified, " );
@@ -85,7 +87,7 @@ namespace AtlusScriptCompiler
             Console.WriteLine( "        -TraceProcedureCalls                       Enables procedure call tracing. Only applies to compiler." );
             Console.WriteLine( "        -TraceFunctionCalls                        Enables function call tracing. Only applies to compiler." );
             Console.WriteLine( "        -StackCookie                               Enables stack cookie. Used for debugging stack corruptions." );
-            Console.WriteLine( "" );
+            Console.WriteLine();
             Console.WriteLine( "Parameter detailed info:" );
             Console.WriteLine( "    MessageScript:" );
             Console.WriteLine( "        -OutFormat" );
@@ -102,10 +104,10 @@ namespace AtlusScriptCompiler
             Console.WriteLine( "            P5                  Persona 5's custom encoding" );
             Console.WriteLine();
             Console.WriteLine( "        -Library" );
-            Console.WriteLine( "            For MessageScripts the library definition registry is used for the compiler and decompiler to emit the proper [f] tags for each aliased function." );
+            Console.WriteLine( "            For MessageScripts the libraries used for the compiler and decompiler to emit the proper [f] tags for each aliased function." );
             Console.WriteLine( "            If you don't use any aliased functions, you don't need to specify this, but if you do without specifying it, you'll get a compiler error." );
             Console.WriteLine( "            Not specifying a library definition registry means that the decompiler will not try to look up aliases for functions." );
-            Console.WriteLine( "            Library registries can be found in the Library\\Registry directory" );
+            Console.WriteLine( "            Libraries can be found in the Libraries directory" );
             Console.WriteLine();
             Console.WriteLine( "    FlowScript:" );
             Console.WriteLine( "        -OutFormat" );
@@ -117,10 +119,9 @@ namespace AtlusScriptCompiler
             Console.WriteLine( "            V3BE            Used by Persona 5 PS3" );
             Console.WriteLine();
             Console.WriteLine( "        -Library" );
-            Console.WriteLine( "            For FlowScripts the library definition registry is used for the decompiler to decompile binary scripts, but it is also used to generate documentation." );
+            Console.WriteLine( "            For FlowScripts the libraries is used for the decompiler to decompile binary scripts, but it is also used to generate documentation." );
             Console.WriteLine( "            Without a specified registry you cannot decompile scripts." );
-            Console.WriteLine( "            Library registries can be found in the Library\\Registry directory" );
-            Console.ReadKey();
+            Console.WriteLine( "            Libraryies can be found in the Libraries directory" );
         }
 
         public static void Main( string[] args )
