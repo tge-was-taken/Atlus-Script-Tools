@@ -1,7 +1,7 @@
 using System;
 using System.IO;
-using AtlusScriptLib.Common.IO;
-using AtlusScriptLib.Common.Logging;
+using AtlusScriptLibrary.Common.IO;
+using AtlusScriptLibrary.Common.Logging;
 
 namespace AtlusScriptCompiler
 {

@@ -5,9 +5,9 @@ VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9D00138B-D2D2-499F-9E19-F8E83D74B563}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtlusScriptLib", "AtlusScriptLib\AtlusScriptLib.csproj", "{62EE486F-AE33-4DBB-AC4C-409A22CB04AD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtlusScriptLibrary", "AtlusScriptLibrary\AtlusScriptLibrary.csproj", "{62EE486F-AE33-4DBB-AC4C-409A22CB04AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtlusScriptLibTests", "AtlusScriptLibTests\AtlusScriptLibTests.csproj", "{0A43F5ED-1628-43E8-9572-511A7E4AC5BC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtlusScriptLibraryTests", "AtlusScriptLibraryTests\AtlusScriptLibraryTests.csproj", "{0A43F5ED-1628-43E8-9572-511A7E4AC5BC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtlusScriptCompiler", "AtlusScriptCompiler\AtlusScriptCompiler.csproj", "{58E13E8A-EA32-4627-A798-58E4648D812E}"
 EndProject
@@ -15,9 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilities", "Utilities", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtlusMessageScriptExtractor", "Utilities\AtlusMessageScriptExtractor\AtlusMessageScriptExtractor.csproj", "{94101A4C-6C79-4FCB-AB3F-51059A0CCE02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtlusFlowScriptExtractor", "AtlusFlowScriptExtractor\AtlusFlowScriptExtractor.csproj", "{E1ADF5EA-ED9E-46D1-B5EF-4746AEC99BC3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtlusFlowScriptExtractor", "Utilities\AtlusFlowScriptExtractor\AtlusFlowScriptExtractor.csproj", "{E1ADF5EA-ED9E-46D1-B5EF-4746AEC99BC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtlusFlowScriptInterpreter", "AtlusFlowScriptInterpreter\AtlusFlowScriptInterpreter.csproj", "{7C7882AA-A4AD-4E34-82FE-8014C45CB5C0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtlusFlowScriptInterpreter", "Utilities\AtlusFlowScriptInterpreter\AtlusFlowScriptInterpreter.csproj", "{7C7882AA-A4AD-4E34-82FE-8014C45CB5C0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{249B6C2E-CB94-4B95-90B4-CC3498A6536E}"
 	ProjectSection(SolutionItems) = preProject

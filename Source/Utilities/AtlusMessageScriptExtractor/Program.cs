@@ -7,13 +7,13 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using AtlusScriptLib.Common;
-using AtlusScriptLib.Common.IO;
-using AtlusScriptLib.FlowScriptLanguage.BinaryModel;
-using AtlusScriptLib.MessageScriptLanguage;
-using AtlusScriptLib.MessageScriptLanguage.BinaryModel;
-using AtlusScriptLib.MessageScriptLanguage.Decompiler;
-using BinaryHeader = AtlusScriptLib.MessageScriptLanguage.BinaryModel.BinaryHeader;
+using AtlusScriptLibrary.Common;
+using AtlusScriptLibrary.Common.IO;
+using AtlusScriptLibrary.FlowScriptLanguage.BinaryModel;
+using AtlusScriptLibrary.MessageScriptLanguage;
+using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel;
+using AtlusScriptLibrary.MessageScriptLanguage.Decompiler;
+using BinaryHeader = AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.BinaryHeader;
 
 namespace AtlusMessageScriptExtractor
 {

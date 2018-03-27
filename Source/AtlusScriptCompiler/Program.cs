@@ -3,19 +3,19 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using AtlusScriptLib.Common.Logging;
-using AtlusScriptLib.Common.Libraries;
-using AtlusScriptLib.Common.Text;
-using AtlusScriptLib.Common.Text.Encodings;
-using AtlusScriptLib.FlowScriptLanguage;
-using AtlusScriptLib.FlowScriptLanguage.BinaryModel;
-using AtlusScriptLib.FlowScriptLanguage.Compiler;
-using AtlusScriptLib.FlowScriptLanguage.Decompiler;
-using AtlusScriptLib.FlowScriptLanguage.Disassembler;
-using AtlusScriptLib.MessageScriptLanguage;
-using AtlusScriptLib.MessageScriptLanguage.Compiler;
-using AtlusScriptLib.MessageScriptLanguage.Decompiler;
-using FormatVersion = AtlusScriptLib.FlowScriptLanguage.FormatVersion;
+using AtlusScriptLibrary.Common.Logging;
+using AtlusScriptLibrary.Common.Libraries;
+using AtlusScriptLibrary.Common.Text;
+using AtlusScriptLibrary.Common.Text.Encodings;
+using AtlusScriptLibrary.FlowScriptLanguage;
+using AtlusScriptLibrary.FlowScriptLanguage.BinaryModel;
+using AtlusScriptLibrary.FlowScriptLanguage.Compiler;
+using AtlusScriptLibrary.FlowScriptLanguage.Decompiler;
+using AtlusScriptLibrary.FlowScriptLanguage.Disassembler;
+using AtlusScriptLibrary.MessageScriptLanguage;
+using AtlusScriptLibrary.MessageScriptLanguage.Compiler;
+using AtlusScriptLibrary.MessageScriptLanguage.Decompiler;
+using FormatVersion = AtlusScriptLibrary.FlowScriptLanguage.FormatVersion;
 
 namespace AtlusScriptCompiler
 {
@@ -523,15 +523,15 @@ namespace AtlusScriptCompiler
             // Compile source
             Logger.Info( "Compiling MessageScript..." );
 
-            AtlusScriptLib.MessageScriptLanguage.FormatVersion version;
+            AtlusScriptLibrary.MessageScriptLanguage.FormatVersion version;
 
             if ( OutputFileFormat == OutputFileFormat.V1 )
             {
-                version = AtlusScriptLib.MessageScriptLanguage.FormatVersion.Version1;
+                version = AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Version1;
             }
             else if ( OutputFileFormat == OutputFileFormat.V1BE )
             {
-                version = AtlusScriptLib.MessageScriptLanguage.FormatVersion.Version1BigEndian;
+                version = AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Version1BigEndian;
             }
             else
             {
@@ -636,7 +636,7 @@ namespace AtlusScriptCompiler
             MessageScript script = null;
             var encoding = GetEncoding();
 
-            if ( !TryPerformAction( "Failed to load message script from file.", () => script = MessageScript.FromFile( InputFilePath, AtlusScriptLib.MessageScriptLanguage.FormatVersion.Detect, encoding ) ) )
+            if ( !TryPerformAction( "Failed to load message script from file.", () => script = MessageScript.FromFile( InputFilePath, AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Detect, encoding ) ) )
                 return false;
 
             Logger.Info( "Decompiling MessageScript..." );

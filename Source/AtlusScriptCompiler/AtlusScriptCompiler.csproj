@@ -56,9 +56,9 @@
     <None Include="Resources\Include\p5.flow" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AtlusScriptLib\AtlusScriptLib.csproj">
+    <ProjectReference Include="..\AtlusScriptLibrary\AtlusScriptLibrary.csproj">
       <Project>{62ee486f-ae33-4dbb-ac4c-409a22cb04ad}</Project>
-      <Name>AtlusScriptLib</Name>
+      <Name>AtlusScriptLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
