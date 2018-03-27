@@ -142,9 +142,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             mScopeStack.Push( mScopeStack.Pop() );
         }
 
-        private bool TryDeclareVariable( VariableModifierKind modifierKind, ValueKind valueKind, short index, out VariableDeclaration declaration )
+        private bool TryDeclareVariable( VariableModifierKind modifierKind, ValueKind valueKind, short index, VariableIndexKind indexKind, out VariableDeclaration declaration )
         {
-            var modifier = new VariableModifier( modifierKind );
+            var modifier = indexKind == VariableIndexKind.Implicit
+                ? new VariableModifier( modifierKind )
+                : new VariableModifier( modifierKind, new IntLiteral(index) );
+
             var type = new TypeIdentifier( valueKind );
             var identifier = new Identifier( valueKind, GenerateVariableName( modifierKind, valueKind, index, Scope.Parent == null ) );
             declaration = new VariableDeclaration( modifier, type, identifier, null );
@@ -273,6 +276,8 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             return null;
         }
 
+        private enum VariableIndexKind { Implicit, Explicit }
+
         private void RegisterTopLevelVariables()
         {
             LogInfo( "Registering top level variables" );
@@ -280,12 +285,12 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
             var foundIntVariables = new Dictionary<int, (Procedure Procedure, VariableModifierKind Modifier, ValueKind Type)>();
             var foundFloatVariables = new Dictionary<int, (Procedure Procedure, VariableModifierKind Modifier, ValueKind Type)>();
 
-            void DeclareVariableIfNotDeclared( (Procedure Procedure, VariableModifierKind Modifier, ValueKind Type) context, short index )
+            void DeclareVariableIfNotDeclared( (Procedure Procedure, VariableModifierKind Modifier, ValueKind Type) context, short index, VariableIndexKind indexKind )
             {
                 // If the procedures are different, then this variable can't be local to the scope of the procedure
                 if ( !IsVariableDeclared( context.Modifier, context.Type, index ) )
                 {
-                    var result = TryDeclareVariable( context.Modifier, context.Type, index, out _ );
+                    var result = TryDeclareVariable( context.Modifier, context.Type, index, indexKind, out _ );
                     Debug.Assert( result );
                 }
             }
@@ -331,7 +336,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                                     if ( procedure != context.Procedure )
                                     {
                                         // If the procedures are different, then this variable can't be local to the scope of the procedure
-                                        DeclareVariableIfNotDeclared( context, index );
+                                        DeclareVariableIfNotDeclared( context, index, VariableIndexKind.Implicit );
                                     }
                                 }
                                 else if ( modifier != VariableModifierKind.Global && type == ValueKind.Float && foundFloatVariables.TryGetValue( index, out context ) )
@@ -340,7 +345,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                                     if ( procedure != context.Procedure )
                                     {
                                         // If the procedures are different, then this variable can't be local to the scope of the procedure
-                                        DeclareVariableIfNotDeclared( context, index );
+                                        DeclareVariableIfNotDeclared( context, index, VariableIndexKind.Implicit );
                                     }
                                 }
                                 else
@@ -350,7 +355,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                                     if ( modifier == VariableModifierKind.Global )
                                     {
                                         // If it's a global, declare it anyway
-                                        DeclareVariableIfNotDeclared( context, index );
+                                        DeclareVariableIfNotDeclared( context, index, VariableIndexKind.Explicit );
                                     }
 
                                     if ( type == ValueKind.Int )
@@ -693,7 +698,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                             LogError( $"Referenced undeclared global int variable: '{index}'" );
                             //return false;
 
-                            if ( !TryDeclareVariable( VariableModifierKind.Global, ValueKind.Int, index, out declaration ) )
+                            if ( !TryDeclareVariable( VariableModifierKind.Global, ValueKind.Int, index, VariableIndexKind.Explicit, out declaration ) )
                             {
                                 LogError( "Failed to declare global int variable for PUSHIX" );
                                 return false;
@@ -714,7 +719,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                             LogError( $"Referenced undeclared global float variable: '{index}'" );
                             //return false;
 
-                            if ( !TryDeclareVariable( VariableModifierKind.Global, ValueKind.Float, index, out declaration ) )
+                            if ( !TryDeclareVariable( VariableModifierKind.Global, ValueKind.Float, index, VariableIndexKind.Explicit, out declaration ) )
                             {
                                 LogError( "Failed to declare global float variable for PUSHIF" );
                                 return false;
@@ -748,7 +753,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         if ( !Scope.TryGetGlobalIntVariable( index, out var declaration ) )
                         {
                             // variable hasn't been declared yet
-                            if ( !TryDeclareVariable( VariableModifierKind.Global, ValueKind.Int, index, out declaration ) )
+                            if ( !TryDeclareVariable( VariableModifierKind.Global, ValueKind.Int, index, VariableIndexKind.Explicit, out declaration ) )
                             {
                                 LogError( "Failed to declare global int variable for POPIX" );
                                 return false;
@@ -774,7 +779,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         if ( !Scope.TryGetGlobalFloatVariable( index, out var declaration ) )
                         {
                             // variable hasn't been declared yet
-                            if ( !TryDeclareVariable( VariableModifierKind.Global, ValueKind.Float, index, out declaration ) )
+                            if ( !TryDeclareVariable( VariableModifierKind.Global, ValueKind.Float, index, VariableIndexKind.Explicit, out declaration ) )
                             {
                                 LogError( "Failed to declare global float variable for POPIX" );
                                 return false;
@@ -1098,7 +1103,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                             LogInfo( $"Referenced undeclared local int variable: '{index}'" );
                             //return false;
 
-                            if ( !TryDeclareVariable( VariableModifierKind.Local, ValueKind.Int, index, out declaration ) )
+                            if ( !TryDeclareVariable( VariableModifierKind.Local, ValueKind.Int, index, VariableIndexKind.Implicit, out declaration ) )
                             {
                                 LogError( "Failed to declare local float variable for PUSHLIX" );
                                 return false;
@@ -1117,7 +1122,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                             LogInfo( $"Referenced undeclared local float variable: '{index}'" );
                             //return false;
 
-                            if ( !TryDeclareVariable( VariableModifierKind.Local, ValueKind.Float, index, out declaration ) )
+                            if ( !TryDeclareVariable( VariableModifierKind.Local, ValueKind.Float, index, VariableIndexKind.Implicit, out declaration ) )
                             {
                                 LogError( "Failed to declare local int variable for PUSHLFX" );
                                 return false;
@@ -1135,7 +1140,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         if ( !Scope.TryGetLocalIntVariable( index, out var declaration ) )
                         {
                             // variable hasn't been declared yet
-                            if ( !TryDeclareVariable( VariableModifierKind.Local, ValueKind.Int, index, out declaration ) )
+                            if ( !TryDeclareVariable( VariableModifierKind.Local, ValueKind.Int, index, VariableIndexKind.Implicit, out declaration ) )
                             {
                                 LogError( "Failed to declare variable for POPLIX" );
                                 return false;
@@ -1159,7 +1164,7 @@ namespace AtlusScriptLib.FlowScriptLanguage.Decompiler
                         if ( !Scope.TryGetLocalFloatVariable( index, out var declaration ) )
                         {
                             // variable hasn't been declared yet
-                            if ( !TryDeclareVariable( VariableModifierKind.Local, ValueKind.Float, index, out declaration ) )
+                            if ( !TryDeclareVariable( VariableModifierKind.Local, ValueKind.Float, index, VariableIndexKind.Implicit, out declaration ) )
                             {
                                 LogError( "Failed to declare variable for POPLFX" );
                                 return false;
