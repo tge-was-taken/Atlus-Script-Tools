@@ -11,12 +11,12 @@
     "Index": "0x0001",
     "ReturnType": "void",
     "Name": "WAIT",
-    "Description": "",
+    "Description": "Stalls execution of the script for the specified amount of frames.",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "frameCount",
+        "Description": "The number of frames to wait for."
       }
     ]
   },
@@ -24,12 +24,12 @@
     "Index": "0x0002",
     "ReturnType": "void",
     "Name": "PUT",
-    "Description": "",
+    "Description": "Prints integer to TTY log.",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "value",
+        "Description": "Value to print."
       }
     ]
   },
@@ -37,12 +37,12 @@
     "Index": "0x0003",
     "ReturnType": "void",
     "Name": "PUTS",
-    "Description": "",
+    "Description": "Prints string to TTY log.",
     "Parameters": [
       {
         "Type": "string",
-        "Name": "param1",
-        "Description": ""
+        "Name": "value",
+        "Description": "Value to print."
       }
     ]
   },
@@ -63,12 +63,12 @@
     "Index": "0x0005",
     "ReturnType": "void",
     "Name": "MSG",
-    "Description": "",
+    "Description": "Displays a specified dialog message to the opened dialog window.",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "messageId",
+        "Description": "Id of the message to display."
       },
       {
         "Type": "int",
@@ -164,12 +164,12 @@
     "Index": "0x000c",
     "ReturnType": "bool",
     "Name": "BIT_CHK",
-    "Description": "",
+    "Description": "Returns if the specified bit id is set.",
     "Parameters": [
       {
         "Type": "int",
         "Name": "bitId",
-        "Description": ""
+        "Description": "The bit id to check."
       }
     ]
   },
@@ -177,12 +177,12 @@
     "Index": "0x000d",
     "ReturnType": "void",
     "Name": "BIT_ON",
-    "Description": "",
+    "Description": "Sets the specified bit to on.",
     "Parameters": [
       {
         "Type": "int",
         "Name": "bitId",
-        "Description": ""
+        "Description": "The bit id to toggle on."
       }
     ]
   },
@@ -190,12 +190,12 @@
     "Index": "0x000e",
     "ReturnType": "void",
     "Name": "BIT_OFF",
-    "Description": "",
+    "Description": "Sets the specified bit to off.",
     "Parameters": [
       {
         "Type": "int",
         "Name": "bitId",
-        "Description": ""
+        "Description": "The bit id to toggle off."
       }
     ]
   },
@@ -490,7 +490,7 @@
     "Index": "0x0022",
     "ReturnType": "void",
     "Name": "MSG_WND_DSP",
-    "Description": "",
+    "Description": "Display the message window.",
     "Parameters": [
     ]
   },
@@ -498,7 +498,7 @@
     "Index": "0x0023",
     "ReturnType": "void",
     "Name": "MSG_WND_CLS",
-    "Description": "",
+    "Description": "Close dialog window.",
     "Parameters": [
     ]
   },
@@ -506,11 +506,11 @@
     "Index": "0x0024",
     "ReturnType": "int",
     "Name": "SEL",
-    "Description": "",
+    "Description": "Initiates a dialog option selection sequenc.e",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "messageId",
         "Description": ""
       }
     ]
@@ -1379,12 +1379,12 @@
     "Index": "0x005c",
     "ReturnType": "void",
     "Name": "BGM",
-    "Description": "",
+    "Description": "Plays a specified bgm. Maps directly to the ids from the OST gamerip.",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "bgmId",
+        "Description": "The id of the bgm to play."
       }
     ]
   },
@@ -1418,11 +1418,11 @@
     "Index": "0x005f",
     "ReturnType": "int",
     "Name": "MSG_SELECT",
-    "Description": "",
+    "Description": "Opens a large select option menu.",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "messageId",
         "Description": ""
       },
       {
@@ -1807,14 +1807,14 @@
   },
   {
     "Index": "0x007a",
-    "ReturnType": "int",
+    "ReturnType": "bool",
     "Name": "PAD_CHK_PRESS",
-    "Description": "",
+    "Description": "Returns if the specified button is pressed.",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Type": "PadButton",
+        "Name": "button",
+        "Description": "The button to check for."
       }
     ]
   },

@@ -3,21 +3,21 @@
     "Index": "0x1000",
     "ReturnType": "void",
     "Name": "CALL_FIELD",
-    "Description": "",
+    "Description": "Calls for a specified field to be loaded.",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "majorId",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "minorId",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param3",
+        "Name": "subId",
         "Description": ""
       },
       {
@@ -29,9 +29,9 @@
   },
   {
     "Index": "0x1001",
-    "ReturnType": "int",
+    "ReturnType": "FieldScriptTiming",
     "Name": "FLD_GET_SCRIPT_TIMING",
-    "Description": "",
+    "Description": "Gets a value indicating at which stage (timing) of loading the script is called.",
     "Parameters": [
     ]
   },
@@ -47,12 +47,12 @@
     "Index": "0x1003",
     "ReturnType": "int",
     "Name": "FLD_PC_GET_RESHND",
-    "Description": "",
+    "Description": "Get the resource handle of a player character.",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "pcId",
+        "Description": "Id of the playable character."
       }
     ]
   },
@@ -1982,27 +1982,27 @@
     "Index": "0x108f",
     "ReturnType": "void",
     "Name": "FLD_MODEL_SET_TRANSLATE",
-    "Description": "",
+    "Description": "Sets the translation of a model.",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "modelHandle",
+        "Description": "Handle to a model."
       },
       {
         "Type": "float",
-        "Name": "param2",
-        "Description": ""
+        "Name": "x",
+        "Description": "Translation on the X axis."
       },
       {
         "Type": "float",
-        "Name": "param3",
-        "Description": ""
+        "Name": "y",
+        "Description": "Translation on the Y axis."
       },
       {
         "Type": "float",
-        "Name": "param4",
-        "Description": ""
+        "Name": "z",
+        "Description": "Translation on the Z axis."
       },
       {
         "Type": "int",
@@ -2982,12 +2982,12 @@
     "Index": "0x10d0",
     "ReturnType": "void",
     "Name": "FLD_START_BOSS",
-    "Description": "",
+    "Description": "Initialize a boss fight. The id maps to a procedure in field/script/boss.bf.",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "bossId",
+        "Description": "The id of the boss fight to load."
       }
     ]
   },
@@ -11320,17 +11320,17 @@
     "Index": "0x1301",
     "ReturnType": "void",
     "Name": "FLD_MODEL_SET_SCALE",
-    "Description": "",
+    "Description": "Sets the scale of a model.",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "modelHandle",
+        "Description": "Handle to a model."
       },
       {
         "Type": "float",
-        "Name": "param2",
-        "Description": ""
+        "Name": "scale",
+        "Description": "Scale to apply to all axes."
       }
     ]
   },
