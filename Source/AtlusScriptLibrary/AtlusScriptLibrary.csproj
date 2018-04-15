@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Archive.cs" />
+    <Compile Include="Common\CLI\ArgumentIterator.cs" />
     <Compile Include="Common\Collections\DictionaryExtensions.cs" />
     <Compile Include="Common\Collections\ICollectionExtensions.cs" />
     <Compile Include="Common\Collections\IListExtensions.cs" />
@@ -201,7 +202,7 @@
     <Compile Include="MessageScriptLanguage\Compiler\Parser\MessageScriptParserListener.cs" />
     <Compile Include="MessageScriptLanguage\Compiler\Parser\MessageScriptParserVisitor.cs" />
     <Compile Include="MessageScriptLanguage\Decompiler\MessageScriptDecompiler.cs" />
-    <Compile Include="Common\Text\FileSimpleTextWriter.cs" />
+    <Compile Include="Common\Text\FileTextWriter.cs" />
     <Compile Include="Common\Text\Encodings\Persona5Encoding.cs" />
     <Compile Include="FlowScriptLanguage\BinaryModel\FlowScriptBinary.cs" />
     <Compile Include="FlowScriptLanguage\BinaryModel\FlowScriptBinaryBuilder.cs" />
