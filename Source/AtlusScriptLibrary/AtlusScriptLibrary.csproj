@@ -80,6 +80,7 @@
     <Compile Include="Common\Text\Encodings\CodePoint.cs" />
     <Compile Include="Common\Text\Encodings\Persona3Encoding.cs" />
     <Compile Include="Common\Text\Encodings\Persona4Encoding.cs" />
+    <Compile Include="Common\Text\Encodings\Persona5ChiEncoding.cs" />
     <Compile Include="FlowScriptLanguage\Compiler\FlowScriptCompiler.cs" />
     <Compile Include="FlowScriptLanguage\Compiler\Enum.cs" />
     <Compile Include="FlowScriptLanguage\Compiler\Function.cs" />

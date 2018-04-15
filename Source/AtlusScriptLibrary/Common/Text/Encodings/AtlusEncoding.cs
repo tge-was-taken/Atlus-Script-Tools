@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace AtlusScriptLibrary.Common.Text.Encodings
@@ -30,6 +31,45 @@ namespace AtlusScriptLibrary.Common.Text.Encodings
         private static Dictionary<char, CodePoint> sCharToCodePoint;
 
         private static Dictionary<CodePoint, char> sCodePointToChar;
+
+        // Ease of use accessors
+        private static Persona3Encoding sPersona3;
+        private static Persona4Encoding sPersona4;
+        private static Persona5Encoding sPersona5;
+        private static Persona5ChiEncoding sPersona5Chi;
+
+        public static AtlusEncoding Persona3 => sPersona3 ?? ( sPersona3 = new Persona3Encoding() );
+        public static AtlusEncoding Persona4 => sPersona4 ?? ( sPersona4 = new Persona4Encoding() );
+        public static AtlusEncoding Persona5 => sPersona5 ?? ( sPersona5 = new Persona5Encoding() );
+        public static AtlusEncoding Persona5Chi => sPersona5Chi ?? ( sPersona5Chi = new Persona5ChiEncoding() );
+
+        public static AtlusEncoding GetByName( string name )
+        {
+            // Normalize name
+            name = name.ToLowerInvariant().Replace( " ", "" );
+
+            switch ( name )
+            {
+                case "p3":
+                case "persona3":
+                    return Persona3;
+
+                case "p4":
+                case "persona4":
+                    return Persona4;
+
+                case "p5":
+                case "persona5":
+                    return Persona5;
+
+                case "p5chi":
+                case "persona5chi":
+                    return Persona5Chi;
+
+                default:
+                    throw new ArgumentException( nameof( name ) );
+            }
+        }
 
         public override int GetByteCount( char[] chars, int index, int count )
         {

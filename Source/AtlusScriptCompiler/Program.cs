@@ -744,21 +744,23 @@ namespace AtlusScriptCompiler
         {
             Encoding encoding = null;
 
-            if ( MessageScriptTextEncoding == MessageScriptTextEncoding.SJ )
+            switch ( MessageScriptTextEncoding )
             {
-                encoding = Encoding.GetEncoding( 932 );
-            }
-            else if ( MessageScriptTextEncoding == MessageScriptTextEncoding.P3 )
-            {
-                encoding = new Persona3Encoding();
-            }
-            else if ( MessageScriptTextEncoding == MessageScriptTextEncoding.P4 )
-            {
-                encoding = new Persona4Encoding();
-            }
-            else if ( MessageScriptTextEncoding == MessageScriptTextEncoding.P5 )
-            {
-                encoding = new Persona5Encoding();
+                case MessageScriptTextEncoding.SJ:
+                    encoding = Encoding.GetEncoding( 932 );
+                    break;
+                case MessageScriptTextEncoding.P3:
+                    encoding = AtlusEncoding.Persona3;
+                    break;
+                case MessageScriptTextEncoding.P4:
+                    encoding = AtlusEncoding.Persona4;
+                    break;
+                case MessageScriptTextEncoding.P5:
+                    encoding = AtlusEncoding.Persona5;
+                    break;
+                case MessageScriptTextEncoding.P5CHI:
+                    encoding = AtlusEncoding.Persona5Chi;
+                    break;
             }
 
             return encoding;
@@ -801,6 +803,7 @@ namespace AtlusScriptCompiler
         SJ,
         P3,
         P4,
-        P5
+        P5,
+        P5CHI,
     }
 }
