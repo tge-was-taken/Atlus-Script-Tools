@@ -92,6 +92,7 @@ namespace AtlusScriptCompiler
             Console.WriteLine( "    MessageScript:" );
             Console.WriteLine( "        -OutFormat" );
             Console.WriteLine( "            V1              Used by Persona 3, 4, 5 PS4" );
+            Console.WriteLine( "            V1DDS           Used by Digital Devil Saga 1 & 2" );
             Console.WriteLine( "            V1BE            Used by Persona 5 PS3" );
             Console.WriteLine();
             Console.WriteLine( "        -Encoding" );
@@ -112,6 +113,7 @@ namespace AtlusScriptCompiler
             Console.WriteLine( "    FlowScript:" );
             Console.WriteLine( "        -OutFormat" );
             Console.WriteLine( "            V1              Used by Persona 3 and 4" );
+            Console.WriteLine( "            V1DDS           Used by Digital Devil Saga 1 & 2" );
             Console.WriteLine( "            V1BE            " );
             Console.WriteLine( "            V2              Used by Persona 4 Dancing All Night" );
             Console.WriteLine( "            V2BE            " );
@@ -456,30 +458,11 @@ namespace AtlusScriptCompiler
             Logger.Info( "Compiling FlowScript..." );
 
             // Get format verson
-            FormatVersion version;
-            switch ( OutputFileFormat )
+            var version = GetFlowScriptFormatVersion();
+            if ( version == FormatVersion.Unknown )
             {
-                case OutputFileFormat.V1:
-                    version = FormatVersion.Version1;
-                    break;
-                case OutputFileFormat.V1BE:
-                    version = FormatVersion.Version1BigEndian;
-                    break;
-                case OutputFileFormat.V2:
-                    version = FormatVersion.Version2;
-                    break;
-                case OutputFileFormat.V2BE:
-                    version = FormatVersion.Version2BigEndian;
-                    break;
-                case OutputFileFormat.V3:
-                    version = FormatVersion.Version3;
-                    break;
-                case OutputFileFormat.V3BE:
-                    version = FormatVersion.Version3BigEndian;
-                    break;
-                default:
-                    Logger.Error( "Invalid FlowScript file format specified" );
-                    return false;
+                Logger.Error( "Invalid FlowScript file format specified" );
+                return false;
             }
 
             // Compile source
@@ -519,29 +502,54 @@ namespace AtlusScriptCompiler
             return TryPerformAction( "An error occured while saving the file.", () => flowScript.ToFile( OutputFilePath ) );
         }
 
+        private static FormatVersion GetFlowScriptFormatVersion()
+        {
+            FormatVersion version;
+            switch ( OutputFileFormat )
+            {
+                case OutputFileFormat.V1:
+                    version = FormatVersion.Version1;
+                    break;
+                case OutputFileFormat.V1BE:
+                    version = FormatVersion.Version1BigEndian;
+                    break;
+                case OutputFileFormat.V1DDS:
+                    version = FormatVersion.Version1; // TODO: relay proper MessageScript version to FlowScript loader
+                    break;
+                case OutputFileFormat.V2:
+                    version = FormatVersion.Version2;
+                    break;
+                case OutputFileFormat.V2BE:
+                    version = FormatVersion.Version2BigEndian;
+                    break;
+                case OutputFileFormat.V3:
+                    version = FormatVersion.Version3;
+                    break;
+                case OutputFileFormat.V3BE:
+                    version = FormatVersion.Version3BigEndian;
+                    break;
+                default:
+                    version = FormatVersion.Unknown;
+                    break;
+            }
+
+            return version;
+        }
+
         private static bool TryDoMessageScriptCompilation()
         {
             // Compile source
             Logger.Info( "Compiling MessageScript..." );
 
-            AtlusScriptLibrary.MessageScriptLanguage.FormatVersion version;
-
-            if ( OutputFileFormat == OutputFileFormat.V1 )
-            {
-                version = AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Version1;
-            }
-            else if ( OutputFileFormat == OutputFileFormat.V1BE )
-            {
-                version = AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Version1BigEndian;
-            }
-            else
+            var version = GetMessageScriptFormatVersion();
+            if ( version == AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Detect )
             {
                 Logger.Error( "Invalid MessageScript file format" );
                 return false;
             }
 
             var encoding = GetEncoding();
-            var compiler = new MessageScriptCompiler( version, encoding );
+            var compiler = new MessageScriptCompiler( GetMessageScriptFormatVersion(), encoding );
             compiler.AddListener( Listener );
 
             if ( LibraryName != null )
@@ -569,6 +577,29 @@ namespace AtlusScriptCompiler
                 return false;
 
             return true;
+        }
+
+        private static AtlusScriptLibrary.MessageScriptLanguage.FormatVersion GetMessageScriptFormatVersion()
+        {
+            AtlusScriptLibrary.MessageScriptLanguage.FormatVersion version;
+
+            switch ( OutputFileFormat )
+            {
+                case OutputFileFormat.V1:
+                    version = AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Version1;
+                    break;
+                case OutputFileFormat.V1DDS:
+                    version = AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Version1DDS;
+                    break;
+                case OutputFileFormat.V1BE:
+                    version = AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Version1BigEndian;
+                    break;
+                default:
+                    version = AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Detect;
+                    break;
+            }
+
+            return version;
         }
 
         private static bool TryDoDecompilation()
@@ -599,8 +630,9 @@ namespace AtlusScriptCompiler
             Logger.Info( "Loading binary FlowScript file..." );
             FlowScript flowScript = null;
             var encoding = GetEncoding();
+            var format = GetFlowScriptFormatVersion();
 
-            if ( !TryPerformAction( "Failed to load flow script from file", () => flowScript = FlowScript.FromFile( InputFilePath, encoding ) ) )
+            if ( !TryPerformAction( "Failed to load flow script from file", () => flowScript = FlowScript.FromFile( InputFilePath, encoding, format ) ) )
                 return false;
 
             Logger.Info( "Decompiling FlowScript..." );
@@ -636,8 +668,9 @@ namespace AtlusScriptCompiler
             Logger.Info( "Loading binary MessageScript file..." );
             MessageScript script = null;
             var encoding = GetEncoding();
+            var format = GetMessageScriptFormatVersion();
 
-            if ( !TryPerformAction( "Failed to load message script from file.", () => script = MessageScript.FromFile( InputFilePath, AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Detect, encoding ) ) )
+            if ( !TryPerformAction( "Failed to load message script from file.", () => script = MessageScript.FromFile( InputFilePath, format, encoding ) ) )
                 return false;
 
             Logger.Info( "Decompiling MessageScript..." );
@@ -695,13 +728,13 @@ namespace AtlusScriptCompiler
         {
             // load binary file
             Logger.Info( "Loading binary FlowScript file..." );
-
-            
+           
             FlowScriptBinary script = null;
+            var format = GetFlowScriptFormatVersion();
 
             if ( !TryPerformAction( "Failed to load flow script from file.", () =>
             {
-                script = FlowScriptBinary.FromFile( InputFilePath );
+                script = FlowScriptBinary.FromFile( InputFilePath, (BinaryFormatVersion)format );
             } ) )
             {
                 return false;
@@ -790,6 +823,7 @@ namespace AtlusScriptCompiler
     {
         None,
         V1,
+        V1DDS,
         V1BE,
         V2,
         V2BE,

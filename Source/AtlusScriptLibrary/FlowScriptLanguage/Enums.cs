@@ -185,11 +185,12 @@ namespace AtlusScriptLibrary.FlowScriptLanguage
 
     public enum FormatVersion : uint
     {
+        Unknown = BinaryFormatVersion.Unknown,
         Version1 = BinaryFormatVersion.Version1,
         Version1BigEndian = BinaryFormatVersion.Version1BigEndian,
         Version2 = BinaryFormatVersion.Version2,
         Version2BigEndian = BinaryFormatVersion.Version2BigEndian,
         Version3 = BinaryFormatVersion.Version3,
-        Version3BigEndian = BinaryFormatVersion.Version3BigEndian
+        Version3BigEndian = BinaryFormatVersion.Version3BigEndian,
     }
 }

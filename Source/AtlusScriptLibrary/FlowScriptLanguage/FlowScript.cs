@@ -26,7 +26,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage
         /// <returns>A <see cref="FlowScript"/> instance.</returns>
         public static FlowScript FromFile( string path, Encoding encoding = null )
         {
-            return FromFile( path, encoding, BinaryFormatVersion.Unknown );
+            return FromFile( path, encoding, FormatVersion.Unknown );
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage
         /// <param name="path">Path to the file to load.</param>
         /// <param name="version">Format version the loader should use.</param>
         /// <returns>A <see cref="FlowScript"/> instance.</returns>
-        public static FlowScript FromFile( string path, Encoding encoding, BinaryFormatVersion version )
+        public static FlowScript FromFile( string path, Encoding encoding, FormatVersion version )
         {
             using ( var stream = File.OpenRead( path ) )
                 return FromStream( stream, encoding, version, false );
@@ -49,7 +49,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage
         /// <returns>A <see cref="FlowScript"/> instance.</returns>
         public static FlowScript FromStream( Stream stream, Encoding encoding = null, bool leaveOpen = false )
         {
-            return FromStream( stream, encoding, BinaryFormatVersion.Unknown, leaveOpen );
+            return FromStream( stream, encoding, FormatVersion.Unknown, leaveOpen );
         }
 
         /// <summary>
@@ -58,9 +58,9 @@ namespace AtlusScriptLibrary.FlowScriptLanguage
         /// <param name="stream">Data stream.</param>
         /// <param name="version">Format version the loader should use.</param>
         /// <returns>A <see cref="FlowScript"/> instance.</returns>
-        public static FlowScript FromStream( Stream stream, Encoding encoding, BinaryFormatVersion version, bool leaveOpen )
+        public static FlowScript FromStream( Stream stream, Encoding encoding, FormatVersion version, bool leaveOpen )
         {
-            FlowScriptBinary binary = FlowScriptBinary.FromStream( stream, version, leaveOpen );
+            FlowScriptBinary binary = FlowScriptBinary.FromStream( stream, (BinaryFormatVersion)version, leaveOpen );
 
             return FromBinary( binary, encoding );
         }

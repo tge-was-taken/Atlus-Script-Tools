@@ -9,7 +9,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Tests
     [TestClass]
     public class FlowScriptTests
     {
-        private FlowScript FromFile_ResultNotNullAndFormatIsEqualToParameter( BinaryFormatVersion version, BinaryFormatVersion actualVersion )
+        private FlowScript FromFile_ResultNotNullAndFormatIsEqualToParameter( FormatVersion version, FormatVersion actualVersion )
         {
             var script = FlowScript.FromFile( $"TestResources\\{actualVersion}.bf", null, version );
 
@@ -22,25 +22,25 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Tests
         [TestMethod]
         public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version1WithSameVersionParameter()
         {
-            FromFile_ResultNotNullAndFormatIsEqualToParameter( BinaryFormatVersion.Version1, BinaryFormatVersion.Version1 );
+            FromFile_ResultNotNullAndFormatIsEqualToParameter( FormatVersion.Version1, FormatVersion.Version1 );
         }
 
         [TestMethod]
         public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version1WithUnknownVersionParameter()
         {
-            FromFile_ResultNotNullAndFormatIsEqualToParameter( BinaryFormatVersion.Unknown, BinaryFormatVersion.Version1 );
+            FromFile_ResultNotNullAndFormatIsEqualToParameter( FormatVersion.Unknown, FormatVersion.Version1 );
         }
 
         [TestMethod]
         public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version1WithWrongVersionParameter()
         {
-            FromFile_ResultNotNullAndFormatIsEqualToParameter( BinaryFormatVersion.Version3BigEndian, BinaryFormatVersion.Version1 );
+            FromFile_ResultNotNullAndFormatIsEqualToParameter( FormatVersion.Version3BigEndian, FormatVersion.Version1 );
         }
 
         [TestMethod]
         public void FromFile_ShouldNotFailIntegrityCheck_Version1()
         {
-            var script = FromFile_ResultNotNullAndFormatIsEqualToParameter( BinaryFormatVersion.Version1, BinaryFormatVersion.Version1 );
+            var script = FromFile_ResultNotNullAndFormatIsEqualToParameter( FormatVersion.Version1, FormatVersion.Version1 );
 
             var instructions = script.EnumerateInstructions().ToList();
             Assert.AreEqual( 10061, instructions.Count );
@@ -55,49 +55,49 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Tests
         [TestMethod]
         public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version2WithSameVersionParameter()
         {
-            FromFile_ResultNotNullAndFormatIsEqualToParameter( BinaryFormatVersion.Version2, BinaryFormatVersion.Version2 );
+            FromFile_ResultNotNullAndFormatIsEqualToParameter( FormatVersion.Version2, FormatVersion.Version2 );
         }
 
         [TestMethod]
         public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version2WithUnknownVersionParameter()
         {
-            FromFile_ResultNotNullAndFormatIsEqualToParameter( BinaryFormatVersion.Unknown, BinaryFormatVersion.Version2 );
+            FromFile_ResultNotNullAndFormatIsEqualToParameter( FormatVersion.Unknown, FormatVersion.Version2 );
         }
 
         [TestMethod]
         public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version2WithWrongVersionParameter()
         {
-            FromFile_ResultNotNullAndFormatIsEqualToParameter( BinaryFormatVersion.Version3BigEndian, BinaryFormatVersion.Version2 );
+            FromFile_ResultNotNullAndFormatIsEqualToParameter( FormatVersion.Version3BigEndian, FormatVersion.Version2 );
         }
 
         [TestMethod]
         public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version3WithSameVersionParameter()
         {
-            FromFile_ResultNotNullAndFormatIsEqualToParameter( BinaryFormatVersion.Version3BigEndian, BinaryFormatVersion.Version3BigEndian );
+            FromFile_ResultNotNullAndFormatIsEqualToParameter( FormatVersion.Version3BigEndian, FormatVersion.Version3BigEndian );
         }
 
         [TestMethod]
         public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version3WithUnknownVersionParameter()
         {
-            FromFile_ResultNotNullAndFormatIsEqualToParameter( BinaryFormatVersion.Unknown, BinaryFormatVersion.Version3BigEndian );
+            FromFile_ResultNotNullAndFormatIsEqualToParameter( FormatVersion.Unknown, FormatVersion.Version3BigEndian );
         }
 
         [TestMethod]
         public void FromFile_ResultNotNullAndFormatIsEqualToParameter_Version3WithWrongVersionParameter()
         {
-            FromFile_ResultNotNullAndFormatIsEqualToParameter( BinaryFormatVersion.Version1, BinaryFormatVersion.Version3BigEndian );
+            FromFile_ResultNotNullAndFormatIsEqualToParameter( FormatVersion.Version1, FormatVersion.Version3BigEndian );
         }
 
         [TestMethod]
         public void FromFile_ShouldThrowInvalidDataException_InvalidFileFormatSmall()
         {
-            Assert.ThrowsException<InvalidDataException>( () => FlowScript.FromFile( "TestResources\\dummy_small.bin", null, BinaryFormatVersion.Unknown ) );
+            Assert.ThrowsException<InvalidDataException>( () => FlowScript.FromFile( "TestResources\\dummy_small.bin", null, FormatVersion.Unknown ) );
         }
 
         [TestMethod]
         public void FromFile_ShouldThrowInvalidDataException_InvalidFileFormatBig()
         {
-            Assert.ThrowsException<InvalidDataException>( () => FlowScript.FromFile( "TestResources\\dummy_big.bin", null, BinaryFormatVersion.Unknown ) );
+            Assert.ThrowsException<InvalidDataException>( () => FlowScript.FromFile( "TestResources\\dummy_big.bin", null, FormatVersion.Unknown ) );
         }
 
         [TestMethod]
@@ -114,7 +114,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Tests
         {
             using ( var fileStream = File.OpenRead( "TestResources\\Version3BigEndian.bf" ) )
             {
-                var script = FlowScript.FromStream( fileStream, null, BinaryFormatVersion.Version3BigEndian, false );
+                var script = FlowScript.FromStream( fileStream, null, FormatVersion.Version3BigEndian, false );
 
                 Assert.IsNotNull( script );
                 Assert.AreEqual( FormatVersion.Version3BigEndian, script.FormatVersion );
