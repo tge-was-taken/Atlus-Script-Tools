@@ -57,4 +57,28 @@
         /// </summary>
         String
     }
+
+    public static class ValueKindExtensions
+    {
+        /// <summary>
+        /// Get the underlying base value kind.
+        /// </summary>
+        /// <param name="valueKind"></param>
+        /// <returns></returns>
+        public static ValueKind GetBaseKind( this ValueKind valueKind )
+        {
+            switch ( valueKind )
+            {
+                case ValueKind.Bool:
+                case ValueKind.Int:
+                case ValueKind.String: // index of string in string table
+                    return ValueKind.Int;
+
+                case ValueKind.Float:
+                    return ValueKind.Float;
+            }
+
+            return valueKind;
+        }
+    }
 }

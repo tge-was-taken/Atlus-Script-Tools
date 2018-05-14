@@ -20,16 +20,8 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
     /// </summary>
     public class FlowScriptCompiler
     {
-        private static readonly Dictionary<ValueKind, ValueKind> sTypeToBaseTypeMap = new Dictionary<ValueKind, ValueKind>
-        {
-            { ValueKind.Bool, ValueKind.Int },
-            { ValueKind.Int, ValueKind.Int },
-            { ValueKind.Float, ValueKind.Float },
-            { ValueKind.String, ValueKind.Int }
-        };
-
         //
-        // compiler state state
+        // compiler state
         //
         private readonly Logger mLogger;
         private readonly FormatVersion mFormatVersion;
@@ -614,7 +606,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
 
                             if ( procedureDeclaration.ReturnType.ValueKind != ValueKind.Void )
                             {
-                                if ( sTypeToBaseTypeMap[procedureDeclaration.ReturnType.ValueKind] == ValueKind.Int )
+                                if ( procedureDeclaration.ReturnType.ValueKind.GetBaseKind() == ValueKind.Int )
                                 {
                                     hasIntReturnValue = true;
                                 }
@@ -624,8 +616,8 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                                 }
                             }
 
-                            short intParameterCount = ( short )procedureDeclaration.Parameters.Count( x => sTypeToBaseTypeMap[x.Type.ValueKind] == ValueKind.Int );
-                            short floatParameterCount = ( short )procedureDeclaration.Parameters.Count( x => sTypeToBaseTypeMap[x.Type.ValueKind] == ValueKind.Float );
+                            short intParameterCount = ( short )procedureDeclaration.Parameters.Count( x => x.Type.ValueKind.GetBaseKind() == ValueKind.Int );
+                            short floatParameterCount = ( short )procedureDeclaration.Parameters.Count( x => x.Type.ValueKind.GetBaseKind() == ValueKind.Float );
                             maxIntParameterCount = Math.Max( intParameterCount, maxIntParameterCount );
                             maxFloatParameterCount = Math.Max( floatParameterCount, maxFloatParameterCount );
                         }
@@ -803,7 +795,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                 {
                     Scope.TryGetVariable( parameter.Identifier.Text, out var variable );
 
-                    if ( sTypeToBaseTypeMap[ parameter.Type.ValueKind ] == ValueKind.Int )
+                    if ( parameter.Type.ValueKind.GetBaseKind() == ValueKind.Int )
                     {
                         if ( parameter.Modifier == ParameterModifier.Out )
                         {
@@ -857,7 +849,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                     return false;
 
                 // Push parameter value
-                if ( sTypeToBaseTypeMap[declaration.Type.ValueKind] == ValueKind.Int )
+                if ( declaration.Type.ValueKind.GetBaseKind() == ValueKind.Int )
                 {
                     if ( parameter.Modifier != ParameterModifier.Out )
                         Emit( Instruction.PUSHLIX( mNextIntParameterVariableIndex ) );
@@ -1434,7 +1426,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                     if ( !Scope.TryGetVariable( identifier.Text, out var variable ) )
                         return false;
 
-                    if ( sTypeToBaseTypeMap[ variable.Declaration.Type.ValueKind ] == ValueKind.Int )
+                    if ( variable.Declaration.Type.ValueKind.GetBaseKind() == ValueKind.Int )
                     {
                         Emit( Instruction.PUSHLIX( index ) );
                         Emit( Instruction.POPLIX( variable.Index ) );
@@ -1453,7 +1445,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                     if ( !EnableProcedureCallTracing )
                     {
                         // Push return value of procedure
-                        if ( sTypeToBaseTypeMap[ procedure.Declaration.ReturnType.ValueKind ] == ValueKind.Int )
+                        if ( procedure.Declaration.ReturnType.ValueKind.GetBaseKind() == ValueKind.Int )
                             Emit( Instruction.PUSHLIX( mIntReturnValueVariable.Index ) );
                         else
                             Emit( Instruction.PUSHLFX( mFloatReturnValueVariable.Index ) );
@@ -1512,7 +1504,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                 }
 
                 // Assign each required parameter variable
-                if ( sTypeToBaseTypeMap[declaration.Parameters[i].Type.ValueKind] == ValueKind.Int )
+                if ( declaration.Parameters[i].Type.ValueKind.GetBaseKind() == ValueKind.Int )
                 {
                     if ( argument.Modifier != ArgumentModifier.Out )
                         Emit( Instruction.POPLIX( mNextIntParameterVariableIndex ) );
@@ -2574,7 +2566,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                     return false;
                 }
 
-                if ( sTypeToBaseTypeMap[mProcedureDeclaration.ReturnType.ValueKind] == ValueKind.Int )
+                if ( mProcedureDeclaration.ReturnType.ValueKind.GetBaseKind() == ValueKind.Int )
                     Emit( Instruction.POPLIX( mIntReturnValueVariable.Index ) );
                 else
                     Emit( Instruction.POPLFX( mFloatReturnValueVariable.Index ) );
@@ -2725,7 +2717,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             EmitTracePrint( $"Call to procedure '{ declaration.Identifier }' returned:" );
 
             // Push return value of procedure
-            if ( sTypeToBaseTypeMap[declaration.ReturnType.ValueKind] == ValueKind.Int )
+            if ( declaration.ReturnType.ValueKind.GetBaseKind() == ValueKind.Int )
                 Emit( Instruction.PUSHLIX( mIntReturnValueVariable.Index ) );
             else
                 Emit( Instruction.PUSHLFX( mFloatReturnValueVariable.Index ) );
