@@ -270,9 +270,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
             InitializeCompositionState( evaluatedStatements );
 
             if ( mEvaluatedScript.FlowScript.MessageScript != null && DecompileMessageScript )
-            {
-                ApplyMessageScriptConstants();
-            }
+                ReplaceUnnamedMessageScriptConstants();
 
             InsertFunctionCallEnumParameterValues();
 
@@ -308,7 +306,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
             return true;
         }
 
-        private void ApplyMessageScriptConstants()
+        private void ReplaceUnnamedMessageScriptConstants()
         {
             foreach ( var evaluatedStatement in mEvaluatedStatements )
             {
@@ -317,13 +315,16 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
                 {
                     foreach ( var call in calls )
                     {
-                        if ( call.Identifier.Text == "MSG" || call.Identifier.Text == "SEL" )
+                        if ( call.Identifier.Text == "MSG" || 
+                             call.Identifier.Text == "SEL" ||
+                             call.Identifier.Text == "FLD_SIMPLE_SYS_MSG" ||
+                             call.Identifier.Text == "MSG_SYSTEM" )
                         {
-                            if ( call.Arguments[ 0 ].Expression is IntLiteral windowIndexLiteral )
+                            if ( call.Arguments[ 0 ].Expression is IntLiteral dialogIndex )
                             {
                                 call.Arguments[0].Expression = new Identifier(
                                     ValueKind.Int,
-                                    mEvaluatedScript.FlowScript.MessageScript.Dialogs[windowIndexLiteral.Value].Name );
+                                    mEvaluatedScript.FlowScript.MessageScript.Dialogs[dialogIndex.Value].Name );
                             }                      
                         }
                     }
