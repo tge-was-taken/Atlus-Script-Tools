@@ -15,7 +15,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
         /// <summary>
         /// Gets the name of this dialog.
         /// </summary>
-        string Name { get; }
+        string Name { get; set; }
 
         /// <summary>
         /// Gets the list of lines contained in this dialog.

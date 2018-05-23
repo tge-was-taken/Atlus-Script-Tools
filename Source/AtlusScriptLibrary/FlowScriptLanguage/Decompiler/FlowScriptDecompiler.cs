@@ -6,6 +6,7 @@ using AtlusScriptLibrary.Common.Libraries;
 using AtlusScriptLibrary.Common.Logging;
 using AtlusScriptLibrary.Common.Text;
 using AtlusScriptLibrary.FlowScriptLanguage.Syntax;
+using AtlusScriptLibrary.MessageScriptLanguage;
 using AtlusScriptLibrary.MessageScriptLanguage.Decompiler;
 
 namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
@@ -80,11 +81,26 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
             LogInfo( $"FlowScript output path set to {mFilePath}" );
 
             if ( MessageScriptFilePath == null )
-            {
                 MessageScriptFilePath = Path.ChangeExtension( mFilePath, "msg" );
-            }
 
             LogInfo( $"MessageScript output path set to {MessageScriptFilePath}" );
+
+            if ( flowScript.MessageScript != null )
+            {
+                // Disambiguate message script dialog names so that the decompilation won't fail
+                DisambiguateMessageScriptDialogNames( flowScript.MessageScript );
+
+                if ( DecompileMessageScript )
+                {
+                    // Decompile embedded message script
+                    LogInfo( "Writing decompiled MessageScript to file" );
+                    using ( var messageScriptDecompiler = new MessageScriptDecompiler( new FileTextWriter( MessageScriptFilePath ) ) )
+                    {
+                        messageScriptDecompiler.Library = Library;
+                        messageScriptDecompiler.Decompile( flowScript.MessageScript );
+                    }
+                }
+            }
 
             // Decompile to decompilation unit
             if ( !TryDecompile( flowScript, out var compilationUnit ))
@@ -94,17 +110,6 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
             LogInfo( "Writing decompiled FlowScript to file" );
             var writer = new CompilationUnitWriter();
             writer.Write( compilationUnit, filepath );
-
-            // Decompile embedded message script
-            if ( flowScript.MessageScript != null && DecompileMessageScript )
-            {
-                LogInfo( "Writing decompiled MessageScript to file" );
-                using ( var messageScriptDecompiler = new MessageScriptDecompiler( new FileTextWriter( MessageScriptFilePath ) ) )
-                {
-                    messageScriptDecompiler.Library = Library;
-                    messageScriptDecompiler.Decompile( flowScript.MessageScript );
-                }
-            }
 
             return true;
         }
@@ -315,6 +320,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
                 {
                     foreach ( var call in calls )
                     {
+                        // TODO: Add this meta info to the library function definition somehow 
                         if ( call.Identifier.Text == "MSG" || 
                              call.Identifier.Text == "SEL" ||
                              call.Identifier.Text == "FLD_SIMPLE_SYS_MSG" ||
@@ -322,12 +328,33 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
                         {
                             if ( call.Arguments[ 0 ].Expression is IntLiteral dialogIndex )
                             {
-                                call.Arguments[0].Expression = new Identifier(
+                                call.Arguments[ 0 ].Expression = new Identifier(
                                     ValueKind.Int,
-                                    mEvaluatedScript.FlowScript.MessageScript.Dialogs[dialogIndex.Value].Name );
+                                    mEvaluatedScript.FlowScript.MessageScript.Dialogs[dialogIndex.Value].Name);
                             }                      
                         }
                     }
+                }
+            }
+        }
+
+        private void DisambiguateMessageScriptDialogNames( MessageScript script )
+        {
+            var usedNames = new Dictionary<string, int>();
+            for ( int i = 0; i < script.Dialogs.Count; i++ )
+            {
+                var dialog = script.Dialogs[ i ];
+                if ( usedNames.TryGetValue( dialog.Name, out var occurences ) )
+                {
+                    // Name already used, disambiguate it by appending a number (starting with 2).
+                    // DuplicateName2, DuplicateName3...
+                    usedNames[dialog.Name] = ++occurences;
+                    dialog.Name += occurences;
+                }
+                else
+                {
+                    // Name previously unused. Initialize occurence counter to 1.
+                    usedNames[ dialog.Name ] = 1;
                 }
             }
         }
