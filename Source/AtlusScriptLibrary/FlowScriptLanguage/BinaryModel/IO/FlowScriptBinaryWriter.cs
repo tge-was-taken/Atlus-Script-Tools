@@ -72,12 +72,13 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel.IO
 
             foreach ( var label in labels )
             {
-                mWriter.Write( label.Name, StringBinaryFormat.FixedLength,
-                    ( mVersion.HasFlag( BinaryFormatVersion.Version1 ) ? BinaryLabel.SIZE_V1 :
-                    mVersion.HasFlag( BinaryFormatVersion.Version2 ) ? BinaryLabel.SIZE_V2 :
-                    mVersion.HasFlag( BinaryFormatVersion.Version3 ) ? BinaryLabel.SIZE_V3 :
-                    throw new Exception( "Invalid format version" ) ) - ( sizeof( int ) * 2 ) );
+                int labelLength = ( mVersion.HasFlag( BinaryFormatVersion.Version1 ) ? BinaryLabel.SIZE_V1 :
+                                    mVersion.HasFlag( BinaryFormatVersion.Version2 ) ? BinaryLabel.SIZE_V2 :
+                                    mVersion.HasFlag( BinaryFormatVersion.Version3 ) ? BinaryLabel.SIZE_V3 :
+                                    throw new Exception( "Invalid format version" ) ) - ( sizeof( int ) * 2 );
 
+                mWriter.Write( label.Name.Substring( 0, Math.Min( label.Name.Length, labelLength ) ), 
+                    StringBinaryFormat.FixedLength, labelLength );
                 mWriter.Write( label.InstructionIndex );
                 mWriter.Write( label.Reserved );
             }

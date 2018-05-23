@@ -94,7 +94,8 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.IO
 
         private void WriteMessageDialog( BinaryMessageDialog dialogue )
         {
-            mWriter.Write( dialogue.Name, StringBinaryFormat.FixedLength, BinaryMessageDialog.IDENTIFIER_LENGTH );
+            mWriter.Write( dialogue.Name.Substring( 0, Math.Min( dialogue.Name.Length, BinaryMessageDialog.IDENTIFIER_LENGTH ) ),
+                           StringBinaryFormat.FixedLength, BinaryMessageDialog.IDENTIFIER_LENGTH );
             mWriter.Write( dialogue.PageCount );
             mWriter.Write( dialogue.SpeakerId );
 
@@ -108,7 +109,8 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.IO
 
         private void WriteSelectionDialog( BinarySelectionDialog selection )
         {
-            mWriter.Write( selection.Name, StringBinaryFormat.FixedLength, BinarySelectionDialog.IDENTIFIER_LENGTH );
+            mWriter.Write( selection.Name.Substring( 0, Math.Min( selection.Name.Length, BinarySelectionDialog.IDENTIFIER_LENGTH ) ),
+                           StringBinaryFormat.FixedLength, BinaryMessageDialog.IDENTIFIER_LENGTH );
             mWriter.Write( selection.Field18 );
             mWriter.Write( selection.OptionCount );
             mWriter.Write( selection.Field1C );
