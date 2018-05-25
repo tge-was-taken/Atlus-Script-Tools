@@ -7,5 +7,17 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
         public VariableDeclaration Declaration { get; set; }
 
         public short Index { get; set; }
+
+        public int Size { get; set; } = 1;
+
+        public bool IsArray => Size > 1;
+
+        public short GetArrayElementIndex( int index )
+        {
+            if ( Declaration.Modifier.Kind != VariableModifierKind.Global )
+                return (short)(Index + index);
+            else
+                return (short)(Index - index);
+        }
     }
 }

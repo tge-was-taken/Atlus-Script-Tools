@@ -537,7 +537,11 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser
             LogTrace( "Parsing variable declaration" );
             LogContextInfo( context );
 
-            variableDeclaration = CreateAstNode<VariableDeclaration>( context );
+            bool isArray = context.arraySignifier() != null;
+            if ( !isArray )
+                variableDeclaration = CreateAstNode<VariableDeclaration>( context );
+            else
+                variableDeclaration = CreateAstNode<ArrayVariableDeclaration>( context );
 
             // Parse modifier(s)
             if ( TryGet( context, context.variableModifier, out var variableModifierContext ) )
@@ -595,6 +599,25 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser
                     return false;
 
                 variableDeclaration.Initializer = initializer;
+            }
+
+            if ( isArray )
+            {
+                // Parse size
+                var sizeLiteral = context.arraySignifier().IntLiteral();
+                if ( !(sizeLiteral != null && TryParseIntLiteral( sizeLiteral, out var size ) ) )
+                {
+                    var arrayInitializer = variableDeclaration.Initializer as InitializerList;
+                    if ( arrayInitializer == null )
+                    {
+                        LogError( context, "Expected initializer list" );
+                        return false;
+                    }
+
+                    size = arrayInitializer.Expressions.Count;
+                }
+
+                ( ( ArrayVariableDeclaration )variableDeclaration ).Size = size;
             }
 
             LogTrace( $"Done parsing variable declaration: { variableDeclaration }" );
@@ -756,6 +779,37 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser
             {
                 if ( !TryParseExpression( compoundExpressionContext.expression(), out expression ) )
                     return false;
+            }
+            else if ( TryCast<FlowScriptParser.InitializerListExpressionContext>( context, out var initializerListContext ) )
+            {
+                var initializerList = CreateAstNode<InitializerList>( initializerListContext );
+                foreach ( var expressionContext in initializerListContext.expression() )
+                {
+                    if ( !TryParseExpression( expressionContext, out var expr ) )
+                        return false;
+
+                    initializerList.Expressions.Add( expr );
+                }
+
+                expression = initializerList;
+            }
+            else if ( TryCast<FlowScriptParser.SubscriptExpressionContext>( context, out var subscriptExpressionContext ) )
+            {
+                var subscriptOperator = CreateAstNode<SubscriptOperator>( subscriptExpressionContext );
+                if ( !TryParseIdentifier( subscriptExpressionContext.Identifier(), out var operand ) )
+                {
+                    return false;
+                }
+
+                subscriptOperator.Operand = operand;
+
+                if ( !TryParseExpression( subscriptExpressionContext.expression(), out var indexExpression ) )
+                {
+                    return false;
+                }
+
+                subscriptOperator.Index = indexExpression;
+                expression = subscriptOperator;
             }
             else if ( TryCast<FlowScriptParser.CastExpressionContext>( context, out var castExpressionContext ) )
             {
@@ -1249,7 +1303,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser
 
             // Left
             {
-                if ( !TryParseIdentifier( context.Identifier(), out var leftExpression ) )
+                if ( !TryParseExpression( context.expression(0), out var leftExpression ) )
                     return false;
 
                 binaryExpression.Left = leftExpression;
@@ -1257,7 +1311,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser
 
             // Right
             {
-                if ( !TryParseExpression( context.expression(), out var rightExpression ) )
+                if ( !TryParseExpression( context.expression(1), out var rightExpression ) )
                     return false;
 
                 binaryExpression.Right = rightExpression;
@@ -1490,7 +1544,11 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser
         {
             LogContextInfo( context );
 
-            parameter = CreateAstNode<Parameter>( context );
+            var isArray = context.arraySignifier() != null;
+            if ( !isArray )
+                parameter = CreateAstNode<Parameter>( context );
+            else
+                parameter = CreateAstNode<ArrayParameter>( context );
 
             if ( context.Out() != null )
             {
@@ -1523,9 +1581,23 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser
             if ( !TryFunc( identifierNode, "Failed to parse parameter identifier", () => TryParseIdentifier( identifierNode, out identifier ) ) )
                 return false;
 
-            identifier.ExpressionValueKind = parameter.Type.ValueKind;
-
             parameter.Identifier = identifier;
+
+            if ( !isArray )
+            {
+                identifier.ExpressionValueKind = parameter.Type.ValueKind;
+            }
+            else
+            {
+                var sizeLiteral = context.arraySignifier().IntLiteral();
+                if ( !( sizeLiteral != null && TryParseIntLiteral( sizeLiteral, out var size ) ) )
+                {
+                    LogError( context, "Array parameter must have array size specified" );
+                    return false;
+                }
+
+                ( ( ArrayParameter ) parameter ).Size = size;
+            } 
 
             LogTrace( $"Parsed parameter: {parameter}" );
 

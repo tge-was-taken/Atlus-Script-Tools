@@ -18,8 +18,8 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Interpreter
         };
 
         // Static
-        private static readonly int[] sGlobalIntVariablePool = new int[255];
-        private static readonly float[] sGlobalFloatVariablePool = new float[255];
+        private static readonly int[] sGlobalIntVariablePool = new int[256];
+        private static readonly float[] sGlobalFloatVariablePool = new float[256];
 
         // Instance
         private readonly FlowScript mScript;
@@ -193,7 +193,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Interpreter
 
         private bool PopBooleanValue()
         {
-            return PopIntValue() == 1;
+            return PopIntValue() != 0;
         }
 
         // COMM pop/push stuff

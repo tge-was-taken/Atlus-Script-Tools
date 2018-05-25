@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from ..\..\..\AtlusScriptLib\FlowScriptLanguage\Compiler\Parser\Grammar\FlowScript.g4 by ANTLR 4.6.4
+// Generated from ..\..\..\AtlusScriptLibrary\FlowScriptLanguage\Compiler\Parser\Grammar\FlowScript.g4 by ANTLR 4.6.4
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -33,44 +33,12 @@ using IToken = Antlr4.Runtime.IToken;
 [System.CLSCompliant(false)]
 public interface IFlowScriptVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <summary>
-	/// Visit a parse tree produced by the <c>logicalOrExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitLogicalOrExpression([NotNull] FlowScriptParser.LogicalOrExpressionContext context);
-
-	/// <summary>
-	/// Visit a parse tree produced by the <c>equalityExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitEqualityExpression([NotNull] FlowScriptParser.EqualityExpressionContext context);
-
-	/// <summary>
 	/// Visit a parse tree produced by the <c>assignmentExpression</c>
 	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitAssignmentExpression([NotNull] FlowScriptParser.AssignmentExpressionContext context);
-
-	/// <summary>
-	/// Visit a parse tree produced by the <c>castExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitCastExpression([NotNull] FlowScriptParser.CastExpressionContext context);
-
-	/// <summary>
-	/// Visit a parse tree produced by the <c>relationalExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitRelationalExpression([NotNull] FlowScriptParser.RelationalExpressionContext context);
 
 	/// <summary>
 	/// Visit a parse tree produced by the <c>additionExpression</c>
@@ -81,52 +49,12 @@ public interface IFlowScriptVisitor<Result> : IParseTreeVisitor<Result> {
 	Result VisitAdditionExpression([NotNull] FlowScriptParser.AdditionExpressionContext context);
 
 	/// <summary>
-	/// Visit a parse tree produced by the <c>compoundExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitCompoundExpression([NotNull] FlowScriptParser.CompoundExpressionContext context);
-
-	/// <summary>
-	/// Visit a parse tree produced by the <c>nullExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitNullExpression([NotNull] FlowScriptParser.NullExpressionContext context);
-
-	/// <summary>
-	/// Visit a parse tree produced by the <c>unaryPrefixExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitUnaryPrefixExpression([NotNull] FlowScriptParser.UnaryPrefixExpressionContext context);
-
-	/// <summary>
-	/// Visit a parse tree produced by the <c>memberAccessExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitMemberAccessExpression([NotNull] FlowScriptParser.MemberAccessExpressionContext context);
-
-	/// <summary>
 	/// Visit a parse tree produced by the <c>logicalAndExpression</c>
 	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitLogicalAndExpression([NotNull] FlowScriptParser.LogicalAndExpressionContext context);
-
-	/// <summary>
-	/// Visit a parse tree produced by the <c>multiplicationExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitMultiplicationExpression([NotNull] FlowScriptParser.MultiplicationExpressionContext context);
 
 	/// <summary>
 	/// Visit a parse tree produced by the <c>callExpression</c>
@@ -151,6 +79,94 @@ public interface IFlowScriptVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitUnaryPostfixExpression([NotNull] FlowScriptParser.UnaryPostfixExpressionContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by the <c>logicalOrExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitLogicalOrExpression([NotNull] FlowScriptParser.LogicalOrExpressionContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by the <c>equalityExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitEqualityExpression([NotNull] FlowScriptParser.EqualityExpressionContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by the <c>initializerListExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitInitializerListExpression([NotNull] FlowScriptParser.InitializerListExpressionContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by the <c>subscriptExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitSubscriptExpression([NotNull] FlowScriptParser.SubscriptExpressionContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by the <c>castExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitCastExpression([NotNull] FlowScriptParser.CastExpressionContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by the <c>relationalExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitRelationalExpression([NotNull] FlowScriptParser.RelationalExpressionContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by the <c>nullExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNullExpression([NotNull] FlowScriptParser.NullExpressionContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by the <c>compoundExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitCompoundExpression([NotNull] FlowScriptParser.CompoundExpressionContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by the <c>memberAccessExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitMemberAccessExpression([NotNull] FlowScriptParser.MemberAccessExpressionContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by the <c>unaryPrefixExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitUnaryPrefixExpression([NotNull] FlowScriptParser.UnaryPrefixExpressionContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by the <c>multiplicationExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitMultiplicationExpression([NotNull] FlowScriptParser.MultiplicationExpressionContext context);
 
 	/// <summary>
 	/// Visit a parse tree produced by the <c>identifierExpression</c>
@@ -230,6 +246,13 @@ public interface IFlowScriptVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitVariableDeclarationStatement([NotNull] FlowScriptParser.VariableDeclarationStatementContext context);
+
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="FlowScriptParser.arraySignifier"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitArraySignifier([NotNull] FlowScriptParser.ArraySignifierContext context);
 
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="FlowScriptParser.enumTypeDeclarationStatement"/>.
@@ -385,4 +408,4 @@ public interface IFlowScriptVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitSwitchLabel([NotNull] FlowScriptParser.SwitchLabelContext context);
 }
-} // namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser.Grammar
+} // namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser.Grammar

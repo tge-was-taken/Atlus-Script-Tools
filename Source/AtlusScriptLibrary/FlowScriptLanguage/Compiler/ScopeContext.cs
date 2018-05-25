@@ -149,7 +149,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             return TryDeclareVariable( declaration, -1 );
         }
 
-        public bool TryDeclareVariable( VariableDeclaration declaration, short index )
+        public bool TryDeclareVariable( VariableDeclaration declaration, short index, int size = 1 )
         {
             if ( TryGetVariable( declaration.Identifier.Text, out _ ) )
                 return false;
@@ -157,6 +157,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             var variable = new Variable();
             variable.Declaration = declaration;
             variable.Index = index;
+            variable.Size = size;
 
             Variables[declaration.Identifier.Text] = variable;
 

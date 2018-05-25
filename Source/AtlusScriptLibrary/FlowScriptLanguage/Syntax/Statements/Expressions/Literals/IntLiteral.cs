@@ -9,5 +9,7 @@
         public IntLiteral( int value ) : base( ValueKind.Int, value )
         {
         }
+
+        public static implicit operator IntLiteral( int value ) => new IntLiteral( value );
     }
 }

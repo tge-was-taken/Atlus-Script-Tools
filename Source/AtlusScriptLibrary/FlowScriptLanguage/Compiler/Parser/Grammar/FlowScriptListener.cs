@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from ..\..\..\AtlusScriptLib\FlowScriptLanguage\Compiler\Parser\Grammar\FlowScript.g4 by ANTLR 4.6.4
+// Generated from ..\..\..\AtlusScriptLibrary\FlowScriptLanguage\Compiler\Parser\Grammar\FlowScript.g4 by ANTLR 4.6.4
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -32,32 +32,6 @@ using IToken = Antlr4.Runtime.IToken;
 [System.CLSCompliant(false)]
 public interface IFlowScriptListener : IParseTreeListener {
 	/// <summary>
-	/// Enter a parse tree produced by the <c>logicalOrExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterLogicalOrExpression([NotNull] FlowScriptParser.LogicalOrExpressionContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>logicalOrExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitLogicalOrExpression([NotNull] FlowScriptParser.LogicalOrExpressionContext context);
-
-	/// <summary>
-	/// Enter a parse tree produced by the <c>equalityExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterEqualityExpression([NotNull] FlowScriptParser.EqualityExpressionContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>equalityExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitEqualityExpression([NotNull] FlowScriptParser.EqualityExpressionContext context);
-
-	/// <summary>
 	/// Enter a parse tree produced by the <c>assignmentExpression</c>
 	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
 	/// </summary>
@@ -69,32 +43,6 @@ public interface IFlowScriptListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitAssignmentExpression([NotNull] FlowScriptParser.AssignmentExpressionContext context);
-
-	/// <summary>
-	/// Enter a parse tree produced by the <c>castExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterCastExpression([NotNull] FlowScriptParser.CastExpressionContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>castExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitCastExpression([NotNull] FlowScriptParser.CastExpressionContext context);
-
-	/// <summary>
-	/// Enter a parse tree produced by the <c>relationalExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterRelationalExpression([NotNull] FlowScriptParser.RelationalExpressionContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>relationalExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitRelationalExpression([NotNull] FlowScriptParser.RelationalExpressionContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by the <c>additionExpression</c>
@@ -110,58 +58,6 @@ public interface IFlowScriptListener : IParseTreeListener {
 	void ExitAdditionExpression([NotNull] FlowScriptParser.AdditionExpressionContext context);
 
 	/// <summary>
-	/// Enter a parse tree produced by the <c>compoundExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterCompoundExpression([NotNull] FlowScriptParser.CompoundExpressionContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>compoundExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitCompoundExpression([NotNull] FlowScriptParser.CompoundExpressionContext context);
-
-	/// <summary>
-	/// Enter a parse tree produced by the <c>nullExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterNullExpression([NotNull] FlowScriptParser.NullExpressionContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>nullExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitNullExpression([NotNull] FlowScriptParser.NullExpressionContext context);
-
-	/// <summary>
-	/// Enter a parse tree produced by the <c>unaryPrefixExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterUnaryPrefixExpression([NotNull] FlowScriptParser.UnaryPrefixExpressionContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>unaryPrefixExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitUnaryPrefixExpression([NotNull] FlowScriptParser.UnaryPrefixExpressionContext context);
-
-	/// <summary>
-	/// Enter a parse tree produced by the <c>memberAccessExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterMemberAccessExpression([NotNull] FlowScriptParser.MemberAccessExpressionContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>memberAccessExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitMemberAccessExpression([NotNull] FlowScriptParser.MemberAccessExpressionContext context);
-
-	/// <summary>
 	/// Enter a parse tree produced by the <c>logicalAndExpression</c>
 	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
 	/// </summary>
@@ -173,19 +69,6 @@ public interface IFlowScriptListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitLogicalAndExpression([NotNull] FlowScriptParser.LogicalAndExpressionContext context);
-
-	/// <summary>
-	/// Enter a parse tree produced by the <c>multiplicationExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterMultiplicationExpression([NotNull] FlowScriptParser.MultiplicationExpressionContext context);
-	/// <summary>
-	/// Exit a parse tree produced by the <c>multiplicationExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitMultiplicationExpression([NotNull] FlowScriptParser.MultiplicationExpressionContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by the <c>callExpression</c>
@@ -225,6 +108,149 @@ public interface IFlowScriptListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitUnaryPostfixExpression([NotNull] FlowScriptParser.UnaryPostfixExpressionContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>logicalOrExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterLogicalOrExpression([NotNull] FlowScriptParser.LogicalOrExpressionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>logicalOrExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitLogicalOrExpression([NotNull] FlowScriptParser.LogicalOrExpressionContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>equalityExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterEqualityExpression([NotNull] FlowScriptParser.EqualityExpressionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>equalityExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitEqualityExpression([NotNull] FlowScriptParser.EqualityExpressionContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>initializerListExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterInitializerListExpression([NotNull] FlowScriptParser.InitializerListExpressionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>initializerListExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitInitializerListExpression([NotNull] FlowScriptParser.InitializerListExpressionContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>subscriptExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSubscriptExpression([NotNull] FlowScriptParser.SubscriptExpressionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>subscriptExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSubscriptExpression([NotNull] FlowScriptParser.SubscriptExpressionContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>castExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterCastExpression([NotNull] FlowScriptParser.CastExpressionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>castExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitCastExpression([NotNull] FlowScriptParser.CastExpressionContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>relationalExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRelationalExpression([NotNull] FlowScriptParser.RelationalExpressionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>relationalExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRelationalExpression([NotNull] FlowScriptParser.RelationalExpressionContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>nullExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterNullExpression([NotNull] FlowScriptParser.NullExpressionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>nullExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitNullExpression([NotNull] FlowScriptParser.NullExpressionContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>compoundExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterCompoundExpression([NotNull] FlowScriptParser.CompoundExpressionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>compoundExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitCompoundExpression([NotNull] FlowScriptParser.CompoundExpressionContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>memberAccessExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMemberAccessExpression([NotNull] FlowScriptParser.MemberAccessExpressionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>memberAccessExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMemberAccessExpression([NotNull] FlowScriptParser.MemberAccessExpressionContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>unaryPrefixExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterUnaryPrefixExpression([NotNull] FlowScriptParser.UnaryPrefixExpressionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>unaryPrefixExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitUnaryPrefixExpression([NotNull] FlowScriptParser.UnaryPrefixExpressionContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>multiplicationExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterMultiplicationExpression([NotNull] FlowScriptParser.MultiplicationExpressionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>multiplicationExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitMultiplicationExpression([NotNull] FlowScriptParser.MultiplicationExpressionContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by the <c>identifierExpression</c>
@@ -350,6 +376,17 @@ public interface IFlowScriptListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitVariableDeclarationStatement([NotNull] FlowScriptParser.VariableDeclarationStatementContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="FlowScriptParser.arraySignifier"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterArraySignifier([NotNull] FlowScriptParser.ArraySignifierContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="FlowScriptParser.arraySignifier"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitArraySignifier([NotNull] FlowScriptParser.ArraySignifierContext context);
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="FlowScriptParser.enumTypeDeclarationStatement"/>.
@@ -593,4 +630,4 @@ public interface IFlowScriptListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitSwitchLabel([NotNull] FlowScriptParser.SwitchLabelContext context);
 }
-} // namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser.Grammar
+} // namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser.Grammar

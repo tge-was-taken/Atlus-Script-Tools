@@ -58,7 +58,11 @@ procedureDeclarationStatement
 	;
 
 variableDeclarationStatement
-	: variableModifier? ( PrimitiveTypeIdentifier | Identifier ) Identifier ('=' expression)? ';'
+	: variableModifier? ( PrimitiveTypeIdentifier | Identifier ) Identifier arraySignifier? ('=' expression)? ';'
+	;
+
+arraySignifier
+	: ('[' IntLiteral? ']')
 	;
 
 enumTypeDeclarationStatement
@@ -93,7 +97,7 @@ parameterList
 	;
 
 parameter
-	: Out? ( PrimitiveTypeIdentifier | Identifier ) Identifier
+	: Out? ( PrimitiveTypeIdentifier | Identifier ) Identifier arraySignifier?
 	;
 
 //
@@ -118,8 +122,10 @@ expressionList
 expression
 	: ';'																	# nullExpression
 	| '(' expression ')'													# compoundExpression
+	| '{' (expression)? (',' expression)* '}'								# initializerListExpression
+	| Identifier '[' expression ']'											# subscriptExpression
 	| Identifier '.' Identifier												# memberAccessExpression
-	| '(' ( PrimitiveTypeIdentifier | Identifier ) ')' '(' expression ')'	# castExpression		// precedence 2
+	| '(' ( PrimitiveTypeIdentifier | Identifier ) ')' '(' expression ')'	# castExpression				// precedence 2
 	| Identifier argumentList												# callExpression				// precedence 2
 	| expression Op=( '--' | '++' )											# unaryPostfixExpression		// precedence 2
 	| Op=( '!' | '-' | '--' | '++' ) expression								# unaryPrefixExpression			// precedence 3
@@ -129,7 +135,7 @@ expression
 	| expression Op=( '==' | '!=' ) expression								# equalityExpression			// precedence 9	
 	| expression '&&' expression											# logicalAndExpression			// precedence 13
 	| expression '||' expression											# logicalOrExpression			// precedence 14
-	| Identifier Op=( '=' | '+=' | '-=' | '*=' | '/=' | '%=') expression	# assignmentExpression			// precedence 15
+	| expression Op=( '=' | '+=' | '-=' | '*=' | '/=' | '%=') expression	# assignmentExpression			// precedence 15
 	| primary																# primaryExpression
 	;
 

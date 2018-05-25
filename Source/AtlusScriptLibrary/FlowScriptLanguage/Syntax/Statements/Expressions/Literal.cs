@@ -13,6 +13,8 @@
             Value = value;
         }
 
+        public static implicit operator T(Literal<T> value) => value.Value;
+
         public override string ToString()
         {
             return Value.ToString();

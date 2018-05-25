@@ -39,10 +39,10 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
         // variable indices
         private short mNextIntVariableIndex;
         private short mNextFloatVariableIndex;
-        private short mNextStaticIntVariableIndex = 255;   // We count the indices for the static variables *down* to
-        private short mNextStaticFloatVariableIndex = 255; // reduce the chance of conflict with the game's original scripts
-        private short mNextIntParameterVariableIndex;
-        private short mNextFloatParameterVariableIndex;
+        private short mNextGlobalIntVariableIndex = 255;   // We count the indices for the static variables *down* to
+        private short mNextGlobalFloatVariableIndex = 255; // reduce the chance of conflict with the game's original scripts
+        private short mNextIntArgumentVariableIndex;
+        private short mNextFloatArgumentVariableIndex;
         private short mNextAiLocalVariableIndex;
         private short mNextAiGlobalVariableIndex;
 
@@ -616,8 +616,22 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                                 }
                             }
 
-                            short intParameterCount = ( short )procedureDeclaration.Parameters.Count( x => x.Type.ValueKind.GetBaseKind() == ValueKind.Int );
-                            short floatParameterCount = ( short )procedureDeclaration.Parameters.Count( x => x.Type.ValueKind.GetBaseKind() == ValueKind.Float );
+                            // Count parameter by type.
+                            short intParameterCount = 0;
+                            short floatParameterCount = 0;
+
+                            foreach ( var parameter in procedureDeclaration.Parameters )
+                            {
+                                short count = 1;
+                                if ( parameter.IsArray )
+                                    count = ( short ) ( ( ( ArrayParameter ) parameter ).Size );
+
+                                if ( parameter.Type.ValueKind.GetBaseKind() == ValueKind.Int )
+                                    intParameterCount += count;
+                                else
+                                    floatParameterCount += count;
+                            }
+
                             maxIntParameterCount = Math.Max( intParameterCount, maxIntParameterCount );
                             maxFloatParameterCount = Math.Max( floatParameterCount, maxFloatParameterCount );
                         }
@@ -625,7 +639,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
 
                     case VariableDeclaration variableDeclaration:
                         {
-                            if ( !TryRegisterVariableDeclaration( variableDeclaration ) )
+                            if ( !TryRegisterVariableDeclaration( variableDeclaration, out _, out _ ) )
                             {
                                 Error( variableDeclaration, $"Duplicate variable declaration: {variableDeclaration}" );
                                 return false;
@@ -685,10 +699,10 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
 
 
             // Set up indices
-            mNextIntParameterVariableIndex = mNextIntVariableIndex;
+            mNextIntArgumentVariableIndex = mNextIntVariableIndex;
             mNextIntVariableIndex += maxIntParameterCount;
 
-            mNextFloatParameterVariableIndex = mNextFloatVariableIndex;
+            mNextFloatArgumentVariableIndex = mNextFloatVariableIndex;
             mNextFloatVariableIndex += maxFloatParameterCount;
 
             return true;
@@ -730,8 +744,8 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
         {
             Trace( declaration.Body, $"Emitting procedure body for {declaration}" );
 
-            var startIntParameterVariableIndex = mNextIntParameterVariableIndex;
-            var startFloatParameterVariableIndex = mNextFloatParameterVariableIndex;
+            var startIntArgumentVariableIndex = mNextIntArgumentVariableIndex;
+            var startFloatArgumentVariableIndex = mNextFloatArgumentVariableIndex;
 
             // Initialize some state
             InitializeProcedureCompilationState( declaration );
@@ -800,7 +814,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                         if ( parameter.Modifier == ParameterModifier.Out )
                         {
                             Emit( Instruction.PUSHLIX( variable.Index ) );
-                            Emit( Instruction.POPLIX( ( short )( startIntParameterVariableIndex + intVariableCount ) ) );
+                            Emit( Instruction.POPLIX( ( short )( startIntArgumentVariableIndex + intVariableCount ) ) );
                         }
 
                         ++intVariableCount;
@@ -810,7 +824,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                         if ( parameter.Modifier == ParameterModifier.Out )
                         {
                             Emit( Instruction.PUSHLFX( variable.Index ) );
-                            Emit( Instruction.POPLFX( ( short )( startFloatParameterVariableIndex + floatVariableCount ) ) );
+                            Emit( Instruction.POPLFX( ( short )( startFloatArgumentVariableIndex + floatVariableCount ) ) );
                         }
 
                         ++floatVariableCount;
@@ -830,53 +844,73 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
 
         private bool TryEmitProcedureParameters( List<Parameter> parameters )
         {
-            int intParameterCount = 0;
-            int floatParameterCount = 0;
+            int intArgumentCount = 0;
+            int floatArgumentCount = 0;
 
             foreach ( var parameter in parameters )
             {
                 Trace( parameter, $"Emitting parameter: {parameter}" );
 
                 // Create declaration
-                var declaration = new VariableDeclaration(
-                    new VariableModifier( VariableModifierKind.Local ),
-                    parameter.Type,
-                    parameter.Identifier,
-                    null );
+                VariableDeclaration declaration;
+                int count = 1;
 
-                // Declare variable
-                if ( !TryEmitVariableDeclaration( declaration ) )
-                    return false;
-
-                // Push parameter value
-                if ( declaration.Type.ValueKind.GetBaseKind() == ValueKind.Int )
+                if ( !parameter.IsArray )
                 {
-                    if ( parameter.Modifier != ParameterModifier.Out )
-                        Emit( Instruction.PUSHLIX( mNextIntParameterVariableIndex ) );
-
-                    ++mNextIntParameterVariableIndex;
-                    ++intParameterCount;
+                    declaration = new VariableDeclaration(
+                        new VariableModifier( VariableModifierKind.Local ),
+                        parameter.Type,
+                        parameter.Identifier,
+                        null );
                 }
                 else
                 {
-                    if ( parameter.Modifier != ParameterModifier.Out )
-                        Emit( Instruction.PUSHLFX( mNextFloatParameterVariableIndex ) );
+                    count = ( ( ArrayParameter ) parameter ).Size;
 
-                    ++mNextFloatParameterVariableIndex;
-                    ++floatParameterCount;
+                    declaration = new ArrayVariableDeclaration(
+                        new VariableModifier( VariableModifierKind.Local ),
+                        parameter.Type,
+                        parameter.Identifier,
+                        count,
+                        null );
                 }
 
-                if ( parameter.Modifier != ParameterModifier.Out )
+                // Declare variable
+                if ( !TryEmitVariableDeclaration( declaration, out var index ) )
+                    return false;
+
+                // Push argument value
+                for ( int i = 0; i < count; i++ )
                 {
-                    // Assign it with parameter value
-                    if ( !TryEmitVariableAssignment( declaration.Identifier ) )
-                        return false;
+                    if ( declaration.Type.ValueKind.GetBaseKind() == ValueKind.Int )
+                    {
+                        if ( parameter.Modifier != ParameterModifier.Out )
+                            Emit( Instruction.PUSHLIX( mNextIntArgumentVariableIndex ) );
+
+                        ++mNextIntArgumentVariableIndex;
+                        ++intArgumentCount;
+                    }
+                    else
+                    {
+                        if ( parameter.Modifier != ParameterModifier.Out )
+                            Emit( Instruction.PUSHLFX( mNextFloatArgumentVariableIndex ) );
+
+                        ++mNextFloatArgumentVariableIndex;
+                        ++floatArgumentCount;
+                    }
+
+                    if ( parameter.Modifier != ParameterModifier.Out )
+                    {
+                        // Assign parameter with argument value
+                        if ( !TryEmitVariableAssignment( declaration, (short)(index + i) ) )
+                            return false;
+                    }
                 }
             }
 
             // Reset parameter indices
-            mNextIntParameterVariableIndex -= ( short )intParameterCount;
-            mNextFloatParameterVariableIndex -= ( short )floatParameterCount;
+            mNextIntArgumentVariableIndex -= ( short )intArgumentCount;
+            mNextFloatArgumentVariableIndex -= ( short )floatArgumentCount;
 
             return true;
         }
@@ -973,7 +1007,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                     {
                         if ( statement is VariableDeclaration variableDeclaration )
                         {
-                            if ( !TryEmitVariableDeclaration( variableDeclaration ) )
+                            if ( !TryEmitVariableDeclaration( variableDeclaration, out _ ) )
                                 return false;
                         }
                         else if ( statement is LabelDeclaration labelDeclaration )
@@ -1048,19 +1082,25 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
 
         //
         // Variable stuff
-        //
+        //        
         private bool TryGetVariableIndex( VariableDeclaration declaration, out short variableIndex )
         {
+            short count = 1;
+            if ( declaration.IsArray )
+                count = ( short ) ( ( ( ArrayVariableDeclaration ) declaration ).Size );
+
             if ( declaration.Modifier == null || declaration.Modifier.Kind == VariableModifierKind.Local )
             {
                 // Local variable
                 if ( declaration.Type.ValueKind == ValueKind.Float )
                 {
-                    variableIndex = mNextFloatVariableIndex++;
+                    variableIndex = mNextFloatVariableIndex;
+                    mNextFloatVariableIndex += count;
                 }
                 else
                 {
-                    variableIndex = mNextIntVariableIndex++;
+                    variableIndex = mNextIntVariableIndex;
+                    mNextIntVariableIndex += count;
                 }
             }
             else if ( declaration.Modifier.Kind == VariableModifierKind.Global )
@@ -1072,11 +1112,13 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                     // to reduce the chance we conflict with the game's original scripts
                     if ( declaration.Type.ValueKind == ValueKind.Float )
                     {
-                        variableIndex = mNextStaticFloatVariableIndex--;
+                        variableIndex = mNextGlobalFloatVariableIndex;
+                        mNextGlobalFloatVariableIndex -= count;
                     }
                     else
                     {
-                        variableIndex = mNextStaticIntVariableIndex--;
+                        variableIndex = mNextGlobalIntVariableIndex;
+                        mNextGlobalIntVariableIndex -= count;
                     }
                 }
                 else
@@ -1099,9 +1141,14 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                 }
 
                 if ( declaration.Modifier.Index == null )
-                    variableIndex = mNextAiLocalVariableIndex++;
+                {
+                    variableIndex = mNextAiLocalVariableIndex;
+                    mNextAiLocalVariableIndex += count;
+                }
                 else
+                {
                     variableIndex = ( short ) declaration.Modifier.Index.Value;
+                }
             }
             else if ( declaration.Modifier.Kind == VariableModifierKind.AiGlobal )
             {
@@ -1113,9 +1160,14 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                 }
 
                 if ( declaration.Modifier.Index == null )
-                    variableIndex = mNextAiGlobalVariableIndex++;
+                {
+                    variableIndex = mNextAiGlobalVariableIndex;
+                    mNextAiGlobalVariableIndex += count;
+                }
                 else
+                {
                     variableIndex = ( short ) declaration.Modifier.Index.Value;
+                }
             }
             else if ( declaration.Modifier.Kind == VariableModifierKind.Bit )
             {
@@ -1138,19 +1190,38 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryRegisterVariableDeclaration( VariableDeclaration declaration )
+        private bool TryRegisterVariableDeclaration( VariableDeclaration declaration, out short index, out bool byReference )
         {
             Trace( declaration, $"Registering variable declaration: {declaration}" );
 
-            // Get variable idnex
-            if ( !TryGetVariableIndex( declaration, out var variableIndex ) )
+            // Get variable index
+            byReference = false;
+            index = -1;
+            if ( declaration.IsArray && declaration.Initializer != null )
             {
-                Error( declaration, $"Failed to get index for variable '{declaration}'" );
-                return false;
+                var identifier = declaration.Initializer as Identifier;
+                if ( identifier != null && Scope.TryGetVariable(identifier.Text, out var variable) && variable.IsArray )
+                {
+                    byReference = true;
+                    index = variable.Index;
+                }
+            }
+
+            if ( !byReference )
+            {
+                if ( !TryGetVariableIndex( declaration, out index ) )
+                {
+                    Error( declaration, $"Failed to get index for variable '{declaration}'" );
+                    return false;
+                }
             }
 
             // Declare variable in scope
-            if ( !Scope.TryDeclareVariable( declaration, variableIndex ) )
+            short size = 1;
+            if ( declaration.IsArray )
+                size = ( short )( ( ( ArrayVariableDeclaration )declaration ).Size );
+
+            if ( !Scope.TryDeclareVariable( declaration, index, size ) )
             {
                 Error( declaration, $"Variable '{declaration}' has already been declared" );
                 return false;
@@ -1159,29 +1230,34 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryEmitVariableDeclaration( VariableDeclaration declaration )
+        private bool TryEmitVariableDeclaration( VariableDeclaration declaration, out short index )
         {
             Trace( declaration, $"Emitting variable declaration: {declaration}" );
 
             // Register variable
-            if ( !TryRegisterVariableDeclaration( declaration ) )
+            if ( !TryRegisterVariableDeclaration( declaration, out index, out var byReference ) )
             {
                 Error( declaration, "Failed to register variable declaration" );
+                index = -1;
                 return false;
             }
 
             // Nothing to emit for constants
             if ( declaration.Modifier.Kind == VariableModifierKind.Constant )
+            {
+                index = -1;
                 return true;
+            }
 
             // Emit the variable initializer if it has one         
-            if ( declaration.Initializer != null )
+            if ( !byReference && declaration.Initializer != null )
             {
                 Trace( declaration.Initializer, "Emitting variable initializer" );
 
                 if ( !TryEmitVariableAssignment( declaration.Identifier, declaration.Initializer, true ) )
                 {
                     Error( declaration.Initializer, "Failed to emit code for variable initializer" );
+                    index = -1;
                     return false;
                 }
             }
@@ -1212,10 +1288,23 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
         {
             switch ( expression )
             {
+                case SubscriptOperator subscriptOperator:
+                    {
+                        if ( isStatement )
+                        {
+                            Error( subscriptOperator, "A subscript is an invalid statement" );
+                            return false;
+                        }
+
+                        if ( !TryEmitSubscriptOperator( subscriptOperator ) )
+                            return false;
+                    }
+                    break;
+
                 case MemberAccessExpression memberAccessExpression:
                     if ( isStatement )
                     {
-                        Error( memberAccessExpression, "An identifier is an invalid statement" );
+                        Error( memberAccessExpression, "A member access is an invalid statement" );
                         return false;
                     }
 
@@ -1284,6 +1373,89 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                 default:
                     Error( expression, $"Compiling expression '{expression}' not implemented" );
                     return false;
+            }
+
+            return true;
+        }
+
+        private bool TryEmitSubscriptOperator( SubscriptOperator subscriptOperator )
+        {
+            Trace( subscriptOperator, $"Emitting subscript '{subscriptOperator}'" );
+
+            if ( !Scope.TryGetVariable( subscriptOperator.Operand.Text, out var variable ) )
+            {
+                Error( $"Referenced undeclared variable '{subscriptOperator.Operand.Text}'" );
+                return false;
+            }
+
+            if ( !variable.IsArray )
+            {
+                Error( $"Subscript operator is not valid for non-array variables: '{subscriptOperator}'" );
+                return false;
+            }
+
+            InitializerList arrayInitializer = variable.Declaration.Initializer as InitializerList;
+
+            if ( subscriptOperator.Index is IntLiteral intLiteral )
+            {
+                // Known index
+                Expression initializer = null;
+                if ( arrayInitializer != null )
+                    initializer = arrayInitializer.Expressions[ intLiteral ];
+
+                if ( !TryEmitPushVariableValue( variable.Declaration.Modifier, variable.Declaration.Type.ValueKind,
+                                                variable.GetArrayElementIndex( intLiteral ),
+                                                initializer ) )
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                // Unknown index
+                // Start emitting subscript code
+                var endLabel = CreateLabel( $"SubscriptEndLabel" );
+                for ( int i = 0; i < variable.Size; i++ )
+                {
+                    var falseLabel = CreateLabel( $"SubscriptIfNot{i}" );
+
+                    // Emit current index
+                    EmitPushIntLiteral( i );
+
+                    // Emit index expression
+                    if ( !TryEmitExpression( subscriptOperator.Index, false ) )
+                        return false;
+
+                    // Emit equals instruction (index == i)
+                    Emit( Instruction.EQ() );
+
+                    // Check if index == i
+                    Emit( Instruction.IF( falseLabel.Index ) );
+                    {
+                        // Fetch initializer from array initializer if one was supplied
+                        Expression initializer = null;
+                        if ( arrayInitializer != null )
+                        {
+                            initializer = arrayInitializer.Expressions[i];
+                        }
+
+                        // Push the value of array[index]
+                        if ( !TryEmitPushVariableValue( variable.Declaration.Modifier, variable.Declaration.Type.ValueKind, variable.GetArrayElementIndex(i),
+                                                        initializer ) )
+                        {
+                            return false;
+                        }
+
+                        // Jump to the end of the subscript code
+                        Emit( Instruction.GOTO( endLabel.Index ) );
+                    }
+
+                    // Resolve the label for when the condition is not met
+                    ResolveLabel( falseLabel );
+                }
+
+                // Resolve the end of the subscript code label
+                ResolveLabel( endLabel );
             }
 
             return true;
@@ -1482,53 +1654,116 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryEmitParameterCallArguments( CallOperator callExpression, ProcedureDeclaration declaration, out List<short> parameterIndices )
+        private bool TryEmitParameterCallArguments( CallOperator callExpression, ProcedureDeclaration declaration, out List<short> argumentIndices )
         {
             Trace( "Emitting parameter call arguments" );
 
-            int intParameterCount = 0;
-            int floatParameterCount = 0;
-            parameterIndices = new List< short >();
+            int intArgumentCount = 0;
+            int floatArgumentCount = 0;
+            argumentIndices = new List< short >();
 
             for ( int i = 0; i < callExpression.Arguments.Count; i++ )
             {
                 var argument = callExpression.Arguments[ i ];
+                var parameter = declaration.Parameters[i];
 
-                if ( argument.Modifier != ArgumentModifier.Out )
-                {
-                    if ( !TryEmitExpression( argument.Expression, false ) )
-                    {
-                        Error( callExpression.Arguments[i], $"Failed to compile function call argument: {argument}" );
-                        return false;
-                    }
-                }
-
-                // Assign each required parameter variable
-                if ( declaration.Parameters[i].Type.ValueKind.GetBaseKind() == ValueKind.Int )
+                if ( !parameter.IsArray )
                 {
                     if ( argument.Modifier != ArgumentModifier.Out )
-                        Emit( Instruction.POPLIX( mNextIntParameterVariableIndex ) );
+                    {
+                        if ( !TryEmitExpression( argument.Expression, false ) )
+                        {
+                            Error( callExpression.Arguments[i], $"Failed to compile function call argument: {argument}" );
+                            return false;
+                        }
+                    }
 
-                    parameterIndices.Add( mNextIntParameterVariableIndex );
+                    // Assign each required argument variable
+                    if ( parameter.Type.ValueKind.GetBaseKind() == ValueKind.Int )
+                    {
+                        if ( argument.Modifier != ArgumentModifier.Out )
+                            Emit( Instruction.POPLIX( mNextIntArgumentVariableIndex ) );
 
-                    ++mNextIntParameterVariableIndex;
-                    ++intParameterCount;
+                        argumentIndices.Add( mNextIntArgumentVariableIndex );
+
+                        ++mNextIntArgumentVariableIndex;
+                        ++intArgumentCount;
+                    }
+                    else
+                    {
+                        if ( argument.Modifier != ArgumentModifier.Out )
+                            Emit( Instruction.POPLFX( mNextFloatArgumentVariableIndex ) );
+
+                         argumentIndices.Add( mNextFloatArgumentVariableIndex );
+
+                        ++mNextFloatArgumentVariableIndex;
+                        ++floatArgumentCount;
+                    }
                 }
                 else
                 {
-                    if ( argument.Modifier != ArgumentModifier.Out )
-                        Emit( Instruction.POPLFX( mNextFloatParameterVariableIndex ) );
+                    var identifier = argument.Expression as Identifier;
+                    if ( identifier == null )
+                    {
+                        Error( argument, "Expected array variable identifier" );
+                        return false;
+                    }
 
-                    parameterIndices.Add( mNextFloatParameterVariableIndex );
+                    if ( !Scope.TryGetVariable( identifier.Text, out var variable ) )
+                    {
+                        Error( argument, $"Referenced undefined variable: {variable}" );
+                        return false;
+                    }
 
-                    ++mNextFloatParameterVariableIndex;
-                    ++floatParameterCount;
+                    if ( !variable.IsArray )
+                    {
+                        Error( argument, "Expected array variable" );
+                        return false;
+                    }
+
+                    // Copy array
+                    var count = ( ( ArrayParameter )parameter ).Size;
+                    for ( int j = 0; j < count; j++ )
+                    {
+                        if ( argument.Modifier != ArgumentModifier.Out )
+                        {
+                            if ( !TryEmitPushVariableValue( variable.Declaration.Modifier, variable.Declaration.Type.ValueKind, variable.GetArrayElementIndex(j), null ) )
+                            {
+                                Error( callExpression.Arguments[i], $"Failed to compile function call argument: {argument}" );
+                                return false;
+                            }
+                        }
+
+                        // Assign each required argument array variable, essentially copying the entire array
+                        if ( parameter.Type.ValueKind.GetBaseKind() == ValueKind.Int )
+                        {
+                            if ( argument.Modifier != ArgumentModifier.Out )
+                                Emit( Instruction.POPLIX( mNextIntArgumentVariableIndex ) );
+
+                            if (j == 0)
+                                argumentIndices.Add( mNextIntArgumentVariableIndex );
+
+                            ++mNextIntArgumentVariableIndex;
+                            ++intArgumentCount;
+                        }
+                        else
+                        {
+                            if ( argument.Modifier != ArgumentModifier.Out )
+                                Emit( Instruction.POPLFX( mNextFloatArgumentVariableIndex ) );
+
+                            if ( j == 0 )
+                                argumentIndices.Add( mNextFloatArgumentVariableIndex );
+
+                            ++mNextFloatArgumentVariableIndex;
+                            ++floatArgumentCount;
+                        }
+                    }
                 }
             }
 
             // Reset the parameter variable indices
-            mNextIntParameterVariableIndex -= ( short )intParameterCount;
-            mNextFloatParameterVariableIndex -= ( short )floatParameterCount;
+            mNextIntArgumentVariableIndex -= ( short )intArgumentCount;
+            mNextFloatArgumentVariableIndex -= ( short )floatArgumentCount;
 
             return true;
         }
@@ -1887,49 +2122,60 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                 return false;
             }
 
-            if ( variable.Declaration.Modifier == null || variable.Declaration.Modifier.Kind == VariableModifierKind.Local )
+            if ( !TryEmitPushVariableValue( variable.Declaration.Modifier, variable.Declaration.Type.ValueKind, variable.Index,
+                                            variable.Declaration.Initializer ) )
             {
-                if ( variable.Declaration.Type.ValueKind != ValueKind.Float )
-                    Emit( Instruction.PUSHLIX( variable.Index ) );
-                else
-                    Emit( Instruction.PUSHLFX( variable.Index ) );
+                return false;
             }
-            else if ( variable.Declaration.Modifier.Kind == VariableModifierKind.Global )
+
+            return true;
+        }
+
+        private bool TryEmitPushVariableValue( VariableModifier modifier, ValueKind valueKind, short index, Expression initializer )
+        {
+            if ( modifier == null || modifier.Kind == VariableModifierKind.Local )
             {
-                if ( variable.Declaration.Type.ValueKind != ValueKind.Float )
-                    Emit( Instruction.PUSHIX( variable.Index ) );
+                if ( valueKind != ValueKind.Float )
+                    Emit( Instruction.PUSHLIX( index ) );
                 else
-                    Emit( Instruction.PUSHIF( variable.Index ) );
+                    Emit( Instruction.PUSHLFX( index ) );
             }
-            else if ( variable.Declaration.Modifier.Kind == VariableModifierKind.Constant )
+            else if ( modifier.Kind == VariableModifierKind.Global )
             {
-                if ( !TryEmitExpression( variable.Declaration.Initializer, false ) )
+                if ( valueKind != ValueKind.Float )
+                    Emit( Instruction.PUSHIX( index ) );
+                else
+                    Emit( Instruction.PUSHIF( index ) );
+            }
+            else if ( modifier.Kind == VariableModifierKind.Constant )
+            {
+                if ( !TryEmitExpression( initializer, false ) )
                 {
-                    Error( variable.Declaration.Initializer, $"Failed to emit value for constant expression: {variable.Declaration}" );
+                    Error( initializer, $"Failed to emit value for constant expression: {initializer}" );
                     return false;
                 }
             }
-            else if ( variable.Declaration.Modifier.Kind == VariableModifierKind.AiLocal )
+            else if ( modifier.Kind == VariableModifierKind.AiLocal )
             {
-                Emit( Instruction.PUSHIS( variable.Index ) );
+                Emit( Instruction.PUSHIS( index ) );
                 Emit( Instruction.COMM( mInstrinsic.AiGetLocalFunctionIndex ) ); // AI_GET_LOCAL_PARAM
                 Emit( Instruction.PUSHREG() );
             }
-            else if ( variable.Declaration.Modifier.Kind == VariableModifierKind.AiGlobal )
+            else if ( modifier.Kind == VariableModifierKind.AiGlobal )
             {
-                Emit( Instruction.PUSHIS( variable.Index ) );
+                Emit( Instruction.PUSHIS( index ) );
                 Emit( Instruction.COMM( mInstrinsic.AiGetGlobalFunctionIndex ) ); // AI_GET_GLOBAL
                 Emit( Instruction.PUSHREG() );
             }
-            else if ( variable.Declaration.Modifier.Kind == VariableModifierKind.Bit )
+            else if ( modifier.Kind == VariableModifierKind.Bit )
             {
-                Emit( Instruction.PUSHIS( variable.Index ) );
+                Emit( Instruction.PUSHIS( index ) );
                 Emit( Instruction.COMM( mInstrinsic.BitCheckFunctionIndex ) ); // BIT_CHK
                 Emit( Instruction.PUSHREG() );
             }
             else
             {
-                Error( variable.Declaration, "Unsupported variable modifier type" );
+                Error( modifier, "Unsupported variable modifier type" );
                 return false;
             }
 
@@ -1948,7 +2194,23 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             }
             else
             {
-                if ( !TryEmitVariableAssignment( ( Identifier )assignment.Left, assignment.Right, isStatement ) )
+                if ( assignment.Left is Identifier identifier )
+                {
+                    if ( !TryEmitVariableAssignment( identifier, assignment.Right, isStatement ) )
+                    {
+                        Error( assignment, $"Failed to emit assignment: {assignment}" );
+                        return false;
+                    }
+                }
+                else if ( assignment.Left is SubscriptOperator subscriptOperator )
+                {
+                    if ( !TryEmitSubscriptAssignment( assignment, isStatement ) )
+                    {
+                        Error( subscriptOperator, $"Failed to emit subscript: {subscriptOperator}" );
+                        return false;
+                    }
+                }
+                else
                 {
                     Error( assignment, $"Failed to emit assignment: {assignment}" );
                     return false;
@@ -1958,11 +2220,81 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             return true;
         }
 
+        private bool TryEmitSubscriptAssignment( AssignmentOperatorBase assignmentOperator, bool isStatement )
+        {
+            var subscriptOperator = assignmentOperator.Left as SubscriptOperator;
+            if ( !Scope.TryGetVariable( subscriptOperator.Operand.Text, out var variable ) )
+            {
+                Error( assignmentOperator, $"Reference to undefined variable '{subscriptOperator.Operand.Text}'" );
+                return false;
+            }
+
+            if ( !TryEmitExpression( assignmentOperator.Right, false ) )
+            {
+                Error( assignmentOperator, "Invalid expression" );
+                return false;
+            }
+
+            if ( subscriptOperator.Index is IntLiteral intLiteral )
+            {
+                // Known index
+                if ( !TryEmitVariableAssignment( variable.Declaration, variable.GetArrayElementIndex(intLiteral) ) )
+                    return false;
+            }
+            else
+            {
+                // Unknown index
+                // Start emitting subscript code
+                var endLabel = CreateLabel( $"SubscriptAssignmentEndLabel" );
+                for ( int i = 0; i < variable.Size; i++ )
+                {
+                    var falseLabel = CreateLabel( $"SubscriptAssignmentIfNot{i}" );
+
+                    // Emit current index
+                    EmitPushIntLiteral( i );
+
+                    // Emit index expression
+                    if ( !TryEmitExpression( subscriptOperator.Index, false ) )
+                        return false;
+
+                    // Emit equals instruction (index == i)
+                    Emit( Instruction.EQ() );
+
+                    // Check if index == i
+                    Emit( Instruction.IF( falseLabel.Index ) );
+                    {
+                        // Assign value
+                        if ( !TryEmitVariableAssignment( variable.Declaration, variable.GetArrayElementIndex(i) ) )
+                            return false;
+
+                        // Jump to the end of the subscript code
+                        Emit( Instruction.GOTO( endLabel.Index ) );
+                    }
+
+                    // Resolve the label for when the condition is not met
+                    ResolveLabel( falseLabel );
+                }
+
+                // Resolve the end of the subscript code label
+                ResolveLabel( endLabel );
+            }
+
+            if ( !isStatement )
+                TryEmitExpression( assignmentOperator.Right, false );
+
+            return true;
+        }
+
         private bool TryEmitVariableCompoundAssignment( CompoundAssignmentOperator compoundAssignment, bool isStatement )
         {
             Trace( compoundAssignment, $"Emitting compound assignment: {compoundAssignment}" );
 
-            var identifier = ( Identifier )compoundAssignment.Left;
+            var identifier = compoundAssignment.Left as Identifier;
+            if ( identifier == null )
+            {
+                Error( compoundAssignment, $"Expected assignment to variable: {compoundAssignment}" );
+                return false;
+            }
 
             if ( compoundAssignment is ModulusAssignmentOperator _ )
             {
@@ -2047,27 +2379,63 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
         {
             Trace( $"Emitting variable assignment: {identifier} = {expression}" );
 
-            if ( !TryEmitExpression( expression, false ) )
+            if ( expression is InitializerList initializerList )
             {
-                Error( expression, "Failed to emit code for assigment value expression" );
-                return false;
-            }
-
-            if ( !TryEmitVariableAssignment( identifier ) )
-            {
-                Error( identifier, "Failed to emit code for value assignment to variable" );
-                return false;
-            }
-
-            if ( !isStatement )
-            {
-                // Push value of variable
-                Trace( identifier, $"Pushing variable value: {identifier}" );
-
-                if ( !TryEmitPushVariableValue( identifier ) )
-                {
-                    Error( identifier, $"Failed to emit variable value for: { identifier }" );
+                if ( !Scope.TryGetVariable( identifier.Text, out var variable ) )
                     return false;
+
+                if ( !variable.Declaration.IsArray )
+                    return false;
+
+                if ( initializerList.Expressions.Count != variable.Size )
+                {
+                    Error( initializerList, "Size of initializer list does not match size of declaration" );
+                    return false;
+                }
+
+                // Assign each array element with its value
+                for ( int i = 0; i < initializerList.Expressions.Count; i++ )
+                {
+                    var expr = initializerList.Expressions[ i ];
+                    var index = variable.GetArrayElementIndex(i);
+
+                    if ( !TryEmitExpression( expr, false ) )
+                    {
+                        Error( expression, "Failed to emit code for assigment value expression" );
+                        return false;
+                    }
+
+                    if ( !TryEmitVariableAssignment( variable.Declaration, index ) )
+                    {
+                        Error( identifier, "Failed to emit code for value assignment to variable" );
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                if ( !TryEmitExpression( expression, false ) )
+                {
+                    Error( expression, "Failed to emit code for assigment value expression" );
+                    return false;
+                }
+
+                if ( !TryEmitVariableAssignment( identifier ) )
+                {
+                    Error( identifier, "Failed to emit code for value assignment to variable" );
+                    return false;
+                }
+
+                if ( !isStatement )
+                {
+                    // Push value of variable
+                    Trace( identifier, $"Pushing variable value: {identifier}" );
+
+                    if ( !TryEmitPushVariableValue( identifier ) )
+                    {
+                        Error( identifier, $"Failed to emit variable value for: {identifier}" );
+                        return false;
+                    }
                 }
             }
 
@@ -2686,27 +3054,27 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                 {
                     if ( parameter.Type.ValueKind == ValueKind.Int )
                     {
-                        Emit( Instruction.PUSHLIX( ( short )( mNextIntParameterVariableIndex + intParameterCount ) ) );
+                        Emit( Instruction.PUSHLIX( ( short )( mNextIntArgumentVariableIndex + intParameterCount ) ) );
                     }
                     if ( parameter.Type.ValueKind == ValueKind.Bool)
                     {
-                        Emit( Instruction.PUSHLIX( ( short )( mNextIntParameterVariableIndex + intParameterCount ) ) );
+                        Emit( Instruction.PUSHLIX( ( short )( mNextIntArgumentVariableIndex + intParameterCount ) ) );
                     }
-                    Emit( Instruction.PUSHLFX( ( short )( mNextFloatParameterVariableIndex + floatParameterCount ) ) );
+                    Emit( Instruction.PUSHLFX( ( short )( mNextFloatArgumentVariableIndex + floatParameterCount ) ) );
 
                     EmitTracePrintValue( parameter.Type.ValueKind );
 
                     if ( parameter.Type.ValueKind == ValueKind.Int)
                     {
-                        Emit( Instruction.POPLIX( ( short )( mNextIntParameterVariableIndex + intParameterCount ) ) );
+                        Emit( Instruction.POPLIX( ( short )( mNextIntArgumentVariableIndex + intParameterCount ) ) );
                         ++intParameterCount;
                     }
                     if ( parameter.Type.ValueKind == ValueKind.Bool)
                     {
-                        Emit( Instruction.POPLIX( ( short )( mNextIntParameterVariableIndex + intParameterCount ) ) );
+                        Emit( Instruction.POPLIX( ( short )( mNextIntArgumentVariableIndex + intParameterCount ) ) );
                         ++intParameterCount;
                     }
-                    Emit( Instruction.POPLFX( ( short )( mNextFloatParameterVariableIndex + floatParameterCount ) ) );
+                    Emit( Instruction.POPLFX( ( short )( mNextFloatArgumentVariableIndex + floatParameterCount ) ) );
                     ++floatParameterCount;
                 }
             }

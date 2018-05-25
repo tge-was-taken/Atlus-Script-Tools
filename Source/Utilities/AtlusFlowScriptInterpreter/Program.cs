@@ -14,137 +14,40 @@ namespace AtlusFlowScriptInterpreter
         private static void Main( string[] args )
         {
             var source = @"
+const int constArray[] = { 1, 2, 3, 4, 5 };     // arrays can be const which allows them to be defined outside of procedures
+
 void Main()
 {
-    float x = DegreesToRadians( 0 );
-    float y = DegreesToRadians( 45 );
-    float z = DegreesToRadians( 0 );
-    
-    PUTS( ""x = %f y = %f z = %f"", x, y, z );
+    int array[5]; 								// All initialized to zero
+    array[0] = 1; 								// array[0] is now 1
+    int array2[] = { 1, 2, 3, 4, 5 }; 			// supports initializer lists
+    int array3[5] = array;						// array2 references array. no copying done.
+    TakesArrayParameter( array3 );	            // array3 is copied due to format limitations.
 
-    CreateQuaternion( x, y, z );
+    int array5[5];
+    TakesOutArrayParameter( out array5 );
 
-    PUTS( ""x = %f y = %f z = %f w = %f"", quaternionX, quaternionY, quaternionZ, quaternionW );
+    global int globalArray[] = { 10, 20, 30, 40, 50 };
+
+    PUTS( ""array[0] = %d"", array[0] ); 
+    PUTS( ""array5[0] = %d"", array5[0] );
+    PUTS( ""constArray[0] = %d"", constArray[0] );
+    PUTS( ""globalArray[0] = %d"", globalArray[0] ); 
+
+    array5 = { 6, 7, 8, 9, 10 };
+    PUTS( ""array5[0] = %d"", array5[0] );
 }
 
-float quaternionX;
-float quaternionY;
-float quaternionZ;
-float quaternionW;
-
-// Construct a new Quaternion from given Euler angles in radians. 
-// The rotations will get applied in following order:
-// 1. around X axis, 2. around Y axis, 3. around Z axis
-// Result is stored in quaternionX/Y/Z/W
-void CreateQuaternion(float rotationX, float rotationY, float rotationZ)
+void TakesArrayParameter(int array[5])
 {
-    rotationX *= 0.5f;
-    rotationY *= 0.5f;
-    rotationZ *= 0.5f;
-
-    float c1 = COS(rotationX);
-    float c2 = COS(rotationY);
-    float c3 = COS(rotationZ);
-    float s1 = SIN(rotationX);
-    float s2 = SIN(rotationY);
-    float s3 = SIN(rotationZ);
-
-    quaternionW = c1 * c2 * c3 - s1 * s2 * s3;
-    quaternionX = s1 * c2 * c3 + c1 * s2 * s3;
-    quaternionY = c1 * s2 * c3 - s1 * c2 * s3;
-    quaternionZ = c1 * c2 * s3 + s1 * s2 * c3;
+    PUTS( ""array[0] = %d"", array[0] );
 }
 
-const float PI = 3.14159265358979323846f;
-float DegreesToRadians( float degrees )
+void TakesOutArrayParameter( out int array[5] )
 {
-    return degrees * PI / 180f;
+    array[0] = 5;
 }
 ";
-
-            source = @"
-void Main()
-{
-    float qX;
-    float qY;
-    float qZ;
-    float qW;
-    QuatFromEulerDegrees( 0, 45, 0, out qX, out qY, out qZ, out qW );
-
-    PUTS( ""x = %f y = %f z = %f w = %f"", qX, qY, qZ, qW );
-}
-
-void QuatFromEulerDegrees( float x, float y, float z, out float qX, out float qY, out float qZ, out float qW )
-{
-	x = DegreesToRadians( x );
-	y = DegreesToRadians( y );
-	z = DegreesToRadians( z );
-	
-	QuatFromEuler( x, y, z, out qX, out qY, out qZ, out qW );
-}
-
-void QuatFromEuler( float x, float y, float z, out float qX, out float qY, out float qZ, out float qW )
-{
-    x *= 0.5f;
-    y *= 0.5f;
-    z *= 0.5f;
-
-    float c1 = COS( x );
-    float c2 = COS( y );
-    float c3 = COS( z );
-    float s1 = SIN( x );
-    float s2 = SIN( y );
-    float s3 = SIN( z );
-
-    qW = c1 * c2 * c3 - s1 * s2 * s3;
-    qX = s1 * c2 * c3 + c1 * s2 * s3;
-    qY = c1 * s2 * c3 - s1 * c2 * s3;
-    qZ = c1 * c2 * s3 + s1 * s2 * c3;
-}
-
-const float PI = 3.14159265358979323846f;
-float DegreesToRadians( float degrees )
-{
-    return degrees * PI / 180f;
-}
-";
-//            source = @"
-//void Main()
-//{
-//    int test = 69;
-
-//    Test( 0, out test );
-
-//    if ( test == 1 )
-//    {
-//        PUTS( ""Success!!"" );
-//    }
-//}
-
-//void Test( int a, out int test )
-//{
-//    test = 1;
-//}";
-
-            source = @"
-void Main()
-{
-    int x = 2;
-    int n = 4;
-    PUTS( ""Pow( %d, %d ) = %d"", x, n, Pow( x, n ) );
-}
-
-int Pow( int x, int n )
-{
-    int i; /* Variable used in loop counter */
-    int number = 1;
-
-    for ( i = 0; i < n; ++i )
-        number *= x;
-
-    return number;
-}";
-
 
             var compiler = new FlowScriptCompiler( FormatVersion.Version3BigEndian );
             compiler.Library = LibraryLookup.GetLibrary( "p5" );

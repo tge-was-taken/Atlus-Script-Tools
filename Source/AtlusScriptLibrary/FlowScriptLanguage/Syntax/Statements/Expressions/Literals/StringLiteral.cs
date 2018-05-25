@@ -10,6 +10,8 @@
         {
         }
 
+        public static implicit operator StringLiteral( string value ) => new StringLiteral( value );
+
         public override string ToString()
         {
             return $"\"{Value}\"";

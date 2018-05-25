@@ -12,6 +12,8 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax
 
         public Expression Initializer { get; set; }
 
+        public virtual bool IsArray => false;
+
         public VariableDeclaration() : base( DeclarationType.Variable )
         {
             Modifier = new VariableModifier();
@@ -48,6 +50,38 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax
             var initializer = Expression.FromText( libraryConstant.Value );
 
             return new VariableDeclaration( modifier, type, identifier, initializer );
+        }
+    }
+
+    public class ArrayVariableDeclaration : VariableDeclaration
+    {
+        public IntLiteral Size { get; set; }
+
+        public override bool IsArray => true;
+
+        public ArrayVariableDeclaration()
+        {
+        }
+
+        public ArrayVariableDeclaration( VariableModifier modifier, TypeIdentifier type, Identifier identifier, IntLiteral size, Expression initializer )
+            : base( modifier, type, identifier, initializer )
+        {
+            Size = size;
+        }
+
+        public override string ToString()
+        {
+            var builder = new StringBuilder();
+
+            builder.Append( $"{Modifier} " );
+
+            builder.Append( $"{Type} {Identifier}[{Size}]" );
+            if ( Initializer != null )
+            {
+                builder.Append( $" = {Initializer}" );
+            }
+
+            return builder.ToString();
         }
     }
 }

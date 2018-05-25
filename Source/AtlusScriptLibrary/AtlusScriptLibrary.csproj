@@ -116,6 +116,8 @@
     <Compile Include="FlowScriptLanguage\Syntax\ArgumentModifier.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\ModulusAssignmentOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\ModulusOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\InitializerList.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\SubscriptOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\SyntaxNode.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\SourceInfo.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\SyntaxNodeCollector.cs" />

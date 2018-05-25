@@ -9,5 +9,7 @@
         public BoolLiteral( bool value ) : base( ValueKind.Bool, value )
         {
         }
+
+        public static implicit operator BoolLiteral( bool value ) => new BoolLiteral( value );
     }
 }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from ..\..\..\AtlusScriptLib\FlowScriptLanguage\Compiler\Parser\Grammar\FlowScript.g4 by ANTLR 4.6.4
+// Generated from ..\..\..\AtlusScriptLibrary\FlowScriptLanguage\Compiler\Parser\Grammar\FlowScript.g4 by ANTLR 4.6.4
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -36,36 +36,6 @@ using ParserRuleContext = Antlr4.Runtime.ParserRuleContext;
 [System.CLSCompliant(false)]
 public partial class FlowScriptBaseListener : IFlowScriptListener {
 	/// <summary>
-	/// Enter a parse tree produced by the <c>logicalOrExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterLogicalOrExpression([NotNull] FlowScriptParser.LogicalOrExpressionContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by the <c>logicalOrExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitLogicalOrExpression([NotNull] FlowScriptParser.LogicalOrExpressionContext context) { }
-
-	/// <summary>
-	/// Enter a parse tree produced by the <c>equalityExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterEqualityExpression([NotNull] FlowScriptParser.EqualityExpressionContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by the <c>equalityExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitEqualityExpression([NotNull] FlowScriptParser.EqualityExpressionContext context) { }
-
-	/// <summary>
 	/// Enter a parse tree produced by the <c>assignmentExpression</c>
 	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -79,36 +49,6 @@ public partial class FlowScriptBaseListener : IFlowScriptListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitAssignmentExpression([NotNull] FlowScriptParser.AssignmentExpressionContext context) { }
-
-	/// <summary>
-	/// Enter a parse tree produced by the <c>castExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterCastExpression([NotNull] FlowScriptParser.CastExpressionContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by the <c>castExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitCastExpression([NotNull] FlowScriptParser.CastExpressionContext context) { }
-
-	/// <summary>
-	/// Enter a parse tree produced by the <c>relationalExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterRelationalExpression([NotNull] FlowScriptParser.RelationalExpressionContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by the <c>relationalExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitRelationalExpression([NotNull] FlowScriptParser.RelationalExpressionContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by the <c>additionExpression</c>
@@ -126,66 +66,6 @@ public partial class FlowScriptBaseListener : IFlowScriptListener {
 	public virtual void ExitAdditionExpression([NotNull] FlowScriptParser.AdditionExpressionContext context) { }
 
 	/// <summary>
-	/// Enter a parse tree produced by the <c>compoundExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterCompoundExpression([NotNull] FlowScriptParser.CompoundExpressionContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by the <c>compoundExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitCompoundExpression([NotNull] FlowScriptParser.CompoundExpressionContext context) { }
-
-	/// <summary>
-	/// Enter a parse tree produced by the <c>nullExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterNullExpression([NotNull] FlowScriptParser.NullExpressionContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by the <c>nullExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitNullExpression([NotNull] FlowScriptParser.NullExpressionContext context) { }
-
-	/// <summary>
-	/// Enter a parse tree produced by the <c>unaryPrefixExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterUnaryPrefixExpression([NotNull] FlowScriptParser.UnaryPrefixExpressionContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by the <c>unaryPrefixExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitUnaryPrefixExpression([NotNull] FlowScriptParser.UnaryPrefixExpressionContext context) { }
-
-	/// <summary>
-	/// Enter a parse tree produced by the <c>memberAccessExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterMemberAccessExpression([NotNull] FlowScriptParser.MemberAccessExpressionContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by the <c>memberAccessExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitMemberAccessExpression([NotNull] FlowScriptParser.MemberAccessExpressionContext context) { }
-
-	/// <summary>
 	/// Enter a parse tree produced by the <c>logicalAndExpression</c>
 	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -199,21 +79,6 @@ public partial class FlowScriptBaseListener : IFlowScriptListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitLogicalAndExpression([NotNull] FlowScriptParser.LogicalAndExpressionContext context) { }
-
-	/// <summary>
-	/// Enter a parse tree produced by the <c>multiplicationExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterMultiplicationExpression([NotNull] FlowScriptParser.MultiplicationExpressionContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by the <c>multiplicationExpression</c>
-	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitMultiplicationExpression([NotNull] FlowScriptParser.MultiplicationExpressionContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by the <c>callExpression</c>
@@ -259,6 +124,171 @@ public partial class FlowScriptBaseListener : IFlowScriptListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitUnaryPostfixExpression([NotNull] FlowScriptParser.UnaryPostfixExpressionContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>logicalOrExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterLogicalOrExpression([NotNull] FlowScriptParser.LogicalOrExpressionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>logicalOrExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitLogicalOrExpression([NotNull] FlowScriptParser.LogicalOrExpressionContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>equalityExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterEqualityExpression([NotNull] FlowScriptParser.EqualityExpressionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>equalityExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitEqualityExpression([NotNull] FlowScriptParser.EqualityExpressionContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>initializerListExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterInitializerListExpression([NotNull] FlowScriptParser.InitializerListExpressionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>initializerListExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitInitializerListExpression([NotNull] FlowScriptParser.InitializerListExpressionContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>subscriptExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSubscriptExpression([NotNull] FlowScriptParser.SubscriptExpressionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>subscriptExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSubscriptExpression([NotNull] FlowScriptParser.SubscriptExpressionContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>castExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCastExpression([NotNull] FlowScriptParser.CastExpressionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>castExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCastExpression([NotNull] FlowScriptParser.CastExpressionContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>relationalExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterRelationalExpression([NotNull] FlowScriptParser.RelationalExpressionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>relationalExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitRelationalExpression([NotNull] FlowScriptParser.RelationalExpressionContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>nullExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterNullExpression([NotNull] FlowScriptParser.NullExpressionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>nullExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitNullExpression([NotNull] FlowScriptParser.NullExpressionContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>compoundExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCompoundExpression([NotNull] FlowScriptParser.CompoundExpressionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>compoundExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCompoundExpression([NotNull] FlowScriptParser.CompoundExpressionContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>memberAccessExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterMemberAccessExpression([NotNull] FlowScriptParser.MemberAccessExpressionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>memberAccessExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitMemberAccessExpression([NotNull] FlowScriptParser.MemberAccessExpressionContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>unaryPrefixExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterUnaryPrefixExpression([NotNull] FlowScriptParser.UnaryPrefixExpressionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>unaryPrefixExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitUnaryPrefixExpression([NotNull] FlowScriptParser.UnaryPrefixExpressionContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by the <c>multiplicationExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterMultiplicationExpression([NotNull] FlowScriptParser.MultiplicationExpressionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>multiplicationExpression</c>
+	/// labeled alternative in <see cref="FlowScriptParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitMultiplicationExpression([NotNull] FlowScriptParser.MultiplicationExpressionContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by the <c>identifierExpression</c>
@@ -406,6 +436,19 @@ public partial class FlowScriptBaseListener : IFlowScriptListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitVariableDeclarationStatement([NotNull] FlowScriptParser.VariableDeclarationStatementContext context) { }
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="FlowScriptParser.arraySignifier"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterArraySignifier([NotNull] FlowScriptParser.ArraySignifierContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="FlowScriptParser.arraySignifier"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitArraySignifier([NotNull] FlowScriptParser.ArraySignifierContext context) { }
 
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="FlowScriptParser.enumTypeDeclarationStatement"/>.
@@ -706,4 +749,4 @@ public partial class FlowScriptBaseListener : IFlowScriptListener {
 	/// <remarks>The default implementation does nothing.</remarks>
 	public virtual void VisitErrorNode([NotNull] IErrorNode node) { }
 }
-} // namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser.Grammar
+} // namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser.Grammar

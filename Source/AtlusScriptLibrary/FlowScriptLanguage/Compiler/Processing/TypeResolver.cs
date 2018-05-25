@@ -247,7 +247,21 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Processing
         {
             LogTrace( $"{nameof( TryResolveTypesInExpression )}( expression = {expression})" );
 
-            if ( expression is MemberAccessExpression )
+            if ( expression is InitializerList initializerList )
+            {
+                foreach ( var expr in initializerList.Expressions )
+                {
+                    if ( !TryResolveTypesInExpression( expr ) )
+                        return false;
+                }
+            }
+            else if ( expression is SubscriptOperator subscriptOperator )
+            {
+                expression.ExpressionValueKind = subscriptOperator.Operand.ExpressionValueKind;
+                if ( !TryResolveTypesInExpression( subscriptOperator.Index ) )
+                    return false;
+            }
+            else if ( expression is MemberAccessExpression )
             {
                 expression.ExpressionValueKind = ValueKind.Int; // enum
             }
@@ -436,6 +450,11 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Processing
                 LogError( declaration.Initializer, $"Failed to resolve types in variable initializer expression: {declaration.Initializer}" );
                 return false;
             }
+
+            //if ( declaration.IsArray && declaration.Initializer is InitializerList initializerList )
+            //{
+            //    initializerList.ExpressionValueKind = ValueKind.Array;
+            //}
 
             return true;
         }
