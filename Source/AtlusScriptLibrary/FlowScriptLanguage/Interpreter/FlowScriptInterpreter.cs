@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.IO;
 
 namespace AtlusScriptLibrary.FlowScriptLanguage.Interpreter
 {
@@ -46,6 +46,8 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Interpreter
 
         private Instruction Instruction => Procedure.Instructions[ mInstructionIndex ];
 
+        public TextWriter TextOutput { get; set; }
+
         public FlowScriptInterpreter( FlowScript flowScript )
         {
             mScript = flowScript;
@@ -55,6 +57,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Interpreter
             mCommReturnValue = new StackValue( StackValueKind.Int, 0 );
             mLocalIntVariablePool = new int[100];
             mLocalFloatVariablePool = new float[100];
+            TextOutput = Console.Out;
         }
 
         public void Run()
@@ -268,66 +271,81 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Interpreter
             var index = instance.Instruction.Operand.Int16Value;
 
             // TODO
-            if ( index == 0x0003 )
+            switch ( index )
             {
+                // PUT
+                case 0x0002:
+                    instance.TextOutput?.WriteLine( instance.PopIntValue() );
+                    break;
+
                 // PUTS
-                var format = instance.PopStringValue();
-
-                for ( int i = 0; i < format.Length; i++ )
-                {
-                    var c = format[ i ];
-
-                    if ( c == '%' && ++i < format.Length )
+                case 0x0003:
                     {
-                        var next = format[ i ];
+                        var format = instance.PopStringValue();
 
-                        switch ( next )
+                        for ( int i = 0; i < format.Length; i++ )
                         {
-                            case 'c':
-                            case 's':
-                                Console.Write( instance.PopStringValue() );
-                                break;
+                            var c = format[i];
 
-                            case 'd':
-                            case 'i':
-                            case 'o':
-                            case 'x':
-                            case 'X':
-                            case 'u':
-                                Console.Write( instance.PopIntValue() );
-                                break;
+                            if ( c == '%' && ++i < format.Length )
+                            {
+                                var next = format[i];
 
-                            case 'f':
-                            case 'F':
-                            case 'e':
-                            case 'E':
-                            case 'a':
-                            case 'A':
-                            case 'g':
-                            case 'G':
-                                Console.Write( instance.PopFloatValue() );
-                                break;
+                                switch ( next )
+                                {
+                                    case 'c':
+                                    case 's':
+                                        instance.TextOutput?.Write( instance.PopStringValue() );
+                                        break;
+
+                                    case 'd':
+                                    case 'i':
+                                    case 'o':
+                                    case 'x':
+                                    case 'X':
+                                    case 'u':
+                                        instance.TextOutput?.Write( instance.PopIntValue() );
+                                        break;
+
+                                    case 'f':
+                                    case 'F':
+                                    case 'e':
+                                    case 'E':
+                                    case 'a':
+                                    case 'A':
+                                    case 'g':
+                                    case 'G':
+                                        instance.TextOutput?.Write( instance.PopFloatValue() );
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                instance.TextOutput?.Write( c );
+                            }
                         }
-                    }
-                    else
-                    {
-                        Console.Write( c );
-                    }
-                }
 
-                Console.Write( '\n' );
-            }
-            else if ( index == 0x00B6 )
-            {
-                instance.SetFloatReturnValue( ( float ) Math.Sin( instance.PopFloatValue() ) );
-            }
-            else if ( index == 0x00B7 )
-            {
-                instance.SetFloatReturnValue( ( float ) Math.Cos( instance.PopFloatValue() ) );
-            }
-            else
-            {
-                throw new NotImplementedException( $"COMM function: {index:X8}" );
+                        instance.TextOutput?.Write( '\n' );
+                        break;
+                    }
+
+                // PUTF
+                case 0x0004:
+                    instance.TextOutput?.WriteLine( instance.PopFloatValue() );
+                    break;
+
+                // SIN
+                case 0x00B6:
+                    instance.SetFloatReturnValue( ( float )Math.Sin( instance.PopFloatValue() ) );
+                    break;
+
+                // COS
+                case 0x00B7:
+                    instance.SetFloatReturnValue( ( float )Math.Cos( instance.PopFloatValue() ) );
+                    break;
+
+                default:
+                    throw new NotImplementedException( $"COMM function: {index:X8}" );
             }
         }
 
