@@ -76,7 +76,7 @@
 
         public virtual void Visit( GotoStatement gotoStatement )
         {
-            Visit( gotoStatement.LabelIdentifier );
+            Visit( gotoStatement.Label );
         }
 
         public virtual void Visit( IfStatement ifStatement )

@@ -18,7 +18,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
             }
         }
 
-        public void Write( CompilationUnit compilationUnit, StreamWriter writer )
+        public void Write( CompilationUnit compilationUnit, TextWriter writer )
         {
             using ( var writingVisitor = new WriterVisitor( writer, false ) )
             {
@@ -28,7 +28,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
 
         private class WriterVisitor : SyntaxNodeVisitor, IDisposable
         {
-            private readonly StreamWriter mWriter;
+            private readonly TextWriter mWriter;
             private int mTabLevel;
             private bool mInsideLine;
             private ProcedureDeclaration mProcedure;
@@ -37,7 +37,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
             private readonly Stack<bool> mSuppressIfStatementNewLine;
             private readonly Stack<bool> mSuppressCompoundStatementNewline;
 
-            public WriterVisitor( StreamWriter writer, bool ownsWriter = true )
+            public WriterVisitor( TextWriter writer, bool ownsWriter = true )
             {
                 mOwnsWriter = ownsWriter;
                 mWriter = writer;
@@ -326,7 +326,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
             public override void Visit( GotoStatement gotoStatement )
             {
                 WriteWithSeperator( "goto" );
-                Write( gotoStatement.LabelIdentifier.Text );
+                Visit( gotoStatement.Label );
             }
 
             public override void Visit( IfStatement ifStatement )

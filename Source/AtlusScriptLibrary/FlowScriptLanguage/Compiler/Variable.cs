@@ -10,8 +10,6 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
 
         public int Size { get; set; } = 1;
 
-        public bool IsArray => Size > 1;
-
         public short GetArrayElementIndex( int index )
         {
             if ( Declaration.Modifier.Kind != VariableModifierKind.Global )

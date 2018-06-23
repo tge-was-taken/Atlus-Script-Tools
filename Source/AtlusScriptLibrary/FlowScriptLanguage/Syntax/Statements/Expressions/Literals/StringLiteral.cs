@@ -1,6 +1,8 @@
-﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax
+﻿using System;
+
+namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax
 {
-    public class StringLiteral : Literal<string>
+    public class StringLiteral : Literal<string>, IEquatable<StringLiteral>
     {
         public StringLiteral() : base( ValueKind.String )
         {
@@ -15,6 +17,11 @@
         public override string ToString()
         {
             return $"\"{Value}\"";
+        }
+
+        public bool Equals( StringLiteral other )
+        {
+            return Value == other?.Value;
         }
     }
 }

@@ -21,6 +21,8 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
 
         public Label ContinueLabel { get; set; }
 
+        public Dictionary<Expression, Label> SwitchLabels { get; set; }
+
         public ScopeContext( ScopeContext parent )
         {
             Parent = parent;
@@ -110,6 +112,23 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                     return false;
 
                 if ( !Parent.TryGetEnum( name, out enumDeclaration ) )
+                    return false;
+            }
+
+            return true;
+        }
+
+        public bool TryGetLabel( Expression expression, out Label label )
+        {
+            if ( SwitchLabels == null || ( label = SwitchLabels.SingleOrDefault( x => x.Key.GetHashCode() == expression.GetHashCode() ).Value ) == null )
+            {
+                if ( Parent == null )
+                {
+                    label = null;
+                    return false;
+                }
+
+                if ( !Parent.TryGetLabel( expression, out label ) )
                     return false;
             }
 

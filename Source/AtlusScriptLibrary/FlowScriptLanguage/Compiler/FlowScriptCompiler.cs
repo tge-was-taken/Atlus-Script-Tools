@@ -1200,7 +1200,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             if ( declaration.IsArray && declaration.Initializer != null )
             {
                 var identifier = declaration.Initializer as Identifier;
-                if ( identifier != null && Scope.TryGetVariable(identifier.Text, out var variable) && variable.IsArray )
+                if ( identifier != null && Scope.TryGetVariable(identifier.Text, out var variable) && variable.Declaration.IsArray )
                 {
                     byReference = true;
                     index = variable.Index;
@@ -1388,7 +1388,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                 return false;
             }
 
-            if ( !variable.IsArray )
+            if ( !variable.Declaration.IsArray )
             {
                 Error( $"Subscript operator is not valid for non-array variables: '{subscriptOperator}'" );
                 return false;
@@ -1715,7 +1715,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                         return false;
                     }
 
-                    if ( !variable.IsArray )
+                    if ( !variable.Declaration.IsArray )
                     {
                         Error( argument, "Expected array variable" );
                         return false;
@@ -2789,10 +2789,21 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                 switchStatement.Labels.Add( defaultLabel );
             }
 
+            // Set up switch labels in the context for gotos
+            Scope.SwitchLabels = switchStatement.Labels
+                                                .Where( x => x is ConditionSwitchLabel )
+                                                .Select( x => ( ( ConditionSwitchLabel ) x ).Condition )
+                                                .ToDictionary( x => x, y => CreateLabel( "SwitchConditionCaseBody" ) );
+
+            var conditionCaseBodyLabels = Scope.SwitchLabels.Values.ToList();
+
+            var defaultCaseBodyLabel = defaultLabel != null ? CreateLabel( "SwitchDefaultCaseBody" ) : null;
+            Scope.SwitchLabels.Add( new NullExpression(), defaultCaseBodyLabel );
+
             var switchEndLabel = CreateLabel( "SwitchStatementEndLabel" );
-            var labelBodyLabels = new List< Label >();
-            foreach ( var label in switchStatement.Labels )
+            for ( var i = 0; i < switchStatement.Labels.Count; i++ )
             {
+                var label = switchStatement.Labels[ i ];
                 if ( label is ConditionSwitchLabel conditionLabel )
                 {
                     // Emit condition expression, which should push a boolean value to the stack
@@ -2813,12 +2824,10 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                     Emit( Instruction.NEQ() );
 
                     // generate label for jump if condition is false
-                    var labelBodyLabel = CreateLabel( "SwitchStatementLabelBodyLabel" );
+                    var labelBodyLabel = conditionCaseBodyLabels[ i ];
 
                     // emit if instruction that jumps to the body if the condition is met
                     Emit( Instruction.IF( labelBodyLabel.Index ) );
-
-                    labelBodyLabels.Add( labelBodyLabel );
                 }
             }
 
@@ -2826,6 +2835,9 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             {
                 // Emit body of default case first
                 Scope.BreakLabel = switchEndLabel;
+
+                // Resolve label that jumps to the default case body
+                ResolveLabel( defaultCaseBodyLabel );
 
                 // Emit default case body
                 Trace( "Compiling switch statement label body" );
@@ -2844,7 +2856,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                 if ( label is ConditionSwitchLabel )
                 {
                     // Resolve body label
-                    var labelBodyLabel = labelBodyLabels[ i ];
+                    var labelBodyLabel = conditionCaseBodyLabels[ i ];
                     ResolveLabel( labelBodyLabel );
 
                     // Break jumps to end of switch
@@ -2954,10 +2966,28 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
         {
             Trace( gotoStatement, $"Emitting goto statement: '{gotoStatement}'" );
 
-            if ( !mLabels.TryGetValue( gotoStatement.LabelIdentifier.Text, out var label ) )
+            Label label = null;
+
+            switch ( gotoStatement.Label )
             {
-                Error( gotoStatement.LabelIdentifier, $"Goto statement referenced undeclared label: {gotoStatement.LabelIdentifier}" );
-                return false;
+                case Identifier identifier:
+                    if ( !mLabels.TryGetValue( identifier.Text, out label ) )
+                    {
+                        if ( !Scope.TryGetLabel( identifier, out label ) )
+                        {
+                            Error( gotoStatement.Label, $"Goto statement referenced undeclared label: {identifier}" );
+                            return false;
+                        }
+                    }
+                    break;
+
+                case Expression expression:
+                    if ( !Scope.TryGetLabel(expression, out label) )
+                    {
+                        Error( gotoStatement.Label, $"Goto statement referenced undeclared label: {expression}" );
+                        return false;
+                    }
+                    break;
             }
 
             // emit goto

@@ -122,7 +122,7 @@ expressionList
 expression
 	: ';'																	# nullExpression
 	| '(' expression ')'													# compoundExpression
-	| '{' (expression)? (',' expression)* '}'								# initializerListExpression
+	| '{' (expression)? (',' expression)* (',')? '}'						# initializerListExpression
 	| Identifier '[' expression ']'											# subscriptExpression
 	| Identifier '.' Identifier												# memberAccessExpression
 	| '(' ( PrimitiveTypeIdentifier | Identifier ) ')' '(' expression ')'	# castExpression				// precedence 2
@@ -181,6 +181,8 @@ returnStatement
 
 gotoStatement
 	: Goto Identifier ';'
+	| Goto Case expression ';'
+	| Goto Case Default ';'
 	;
 
 switchStatement

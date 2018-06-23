@@ -1834,19 +1834,41 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser
 
             gotoStatement = CreateAstNode<GotoStatement>( context );
 
-            if ( !TryGet( context, context.Identifier, out var identifier ) )
+            if ( context.Case() != null )
             {
-                LogError( context, "Expected goto label identifier" );
-                return false;
+                if ( context.Default() == null )
+                {
+                    if ( !TryParseExpression( context.expression(), out var expression ) )
+                    {
+                        LogError( context, "Failed to parse goto label identifier" );
+                        return false;
+                    }
+
+                    gotoStatement.Label = expression;
+                }
+                else
+                {
+                    // TODO: fix this hack
+                    gotoStatement.Label = new NullExpression();
+                }
+            }
+            else
+            {
+                if ( !TryGet( context, context.Identifier, out var identifier ) )
+                {
+                    LogError( context, "Expected goto label identifier" );
+                    return false;
+                }
+
+                if ( !TryParseIdentifier( identifier, out var target ) )
+                {
+                    LogError( context, "Failed to parse goto label identifier" );
+                    return false;
+                }
+
+                gotoStatement.Label = target;
             }
 
-            if ( !TryParseIdentifier( identifier, out var target ) )
-            {
-                LogError( context, "Failed to parse goto label identifier" );
-                return false;
-            }
-
-            gotoStatement.LabelIdentifier = target;
 
             LogTrace( $"Parsed goto statement: {gotoStatement}" );
 

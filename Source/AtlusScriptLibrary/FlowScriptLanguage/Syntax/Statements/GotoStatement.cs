@@ -2,20 +2,20 @@
 {
     public class GotoStatement : Statement
     {
-        public Identifier LabelIdentifier { get; set; }
+        public Expression Label { get; set; }
 
         public GotoStatement()
         {
         }
 
-        public GotoStatement( Identifier labelIdentifier )
+        public GotoStatement( Expression label )
         {
-            LabelIdentifier = labelIdentifier;
+            Label = label;
         }
 
         public override string ToString()
         {
-            return $"goto {LabelIdentifier}";
+            return $"goto {Label}";
         }
     }
 }

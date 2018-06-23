@@ -144,5 +144,101 @@ void Main()
 
             RunP5Test( source );
         }
+
+        [ TestMethod ]
+        public void array_initializer_with_one_element()
+        {
+            string source = @"
+const int a[] = { 1 };
+
+void Test()
+{
+    PUT( a[0] );
+}";
+
+            RunP5Test( source, "1\r\n" );
+        }
+
+        [TestMethod]
+        public void array_initializer_where_last_element_has_a_comma()
+        {
+            string source = @"
+const int a[] = { 1, 2, };
+
+void Test()
+{
+    PUT( a[0] );
+}";
+
+            RunP5Test( source, "1\r\n" );
+        }
+
+        [ TestMethod ]
+        public void array_test2()
+        {
+            var source = @"
+const int a[] = { 1, 2 };
+const int b[] = { 3, 4 };
+
+void Test()
+{
+    PUT( GetArrayValue( 0, 0 ) );
+}
+
+int GetArrayValue(int arrayIndex, int elementIndex)
+{
+    switch ( arrayIndex )
+    {
+        case 0: return a[ elementIndex ];
+        case 1: return b[ elementIndex ];
+    }
+
+    return 0;
+}";
+
+            RunP5Test( source, "1\r\n" );
+        }
+
+        [ TestMethod ]
+        public void goto_to_switch_case_label()
+        {
+            var source = @"
+void Test()
+{
+    switch ( 0 )
+    {
+        case 0:
+            goto case 1;
+            break;
+
+        case 1:
+            PUTS( ""Passed"" );
+            break;
+    }
+}
+";
+            RunP5Test( source, "Passed\n" );
+        }
+
+        [TestMethod]
+        public void goto_to_default_switch_case_label()
+        {
+            var source = @"
+void Test()
+{
+    switch ( 0 )
+    {
+        case 0:
+            goto case default;
+            break;
+
+        default:
+            PUTS( ""Passed"" );
+            break;
+    }
+}
+";
+            RunP5Test( source, "Passed\n" );
+        }
     }
 }

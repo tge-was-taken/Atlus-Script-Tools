@@ -55,7 +55,12 @@
         /// <summary>
         /// String primitive value type. Not a valid type for a variable, but can be used as the type for a parameter to a function (but not a procedure).
         /// </summary>
-        String
+        String,
+
+        /// <summary>
+        /// Null value type. Special type.
+        /// </summary>
+        Null
     }
 
     public static class ValueKindExtensions

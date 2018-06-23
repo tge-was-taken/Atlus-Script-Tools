@@ -26,5 +26,10 @@
         {
             return Text;
         }
+
+        public override int GetHashCode()
+        {
+            return Text.GetHashCode();
+        }
     }
 }

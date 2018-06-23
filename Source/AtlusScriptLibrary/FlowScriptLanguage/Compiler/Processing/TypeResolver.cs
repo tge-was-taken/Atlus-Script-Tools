@@ -169,7 +169,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Processing
             }
             else if ( statement is GotoStatement gotoStatement )
             {
-                gotoStatement.LabelIdentifier.ExpressionValueKind = ValueKind.Label;
+                gotoStatement.Label.ExpressionValueKind = ValueKind.Label;
             }
             else if ( statement is SwitchStatement switchStatement )
             {
