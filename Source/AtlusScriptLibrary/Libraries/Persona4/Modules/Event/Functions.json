@@ -2,7 +2,7 @@
   {
     "Index": "0x3000",
     "ReturnType": "void",
-    "Name": "EVT_FUNCTION_0000",
+    "Name": "EVT_NPC_MODEL_LOAD",
     "Description": "",
     "Parameters": [
       {
@@ -32,13 +32,13 @@
   },
   {
     "Index": "0x3002",
-    "ReturnType": "int",
-    "Name": "EVT_FUNCTION_0002",
+    "ReturnType": "bool",
+    "Name": "CMM_EXIST",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "cmmId",
         "Description": ""
       }
     ]
@@ -46,12 +46,12 @@
   {
     "Index": "0x3003",
     "ReturnType": "int",
-    "Name": "EVT_FUNCTION_0003",
+    "Name": "CMM_GET_LV",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "cmmId",
         "Description": ""
       }
     ]
@@ -183,13 +183,13 @@
   },
   {
     "Index": "0x300e",
-    "ReturnType": "int",
-    "Name": "EVT_FUNCTION_000E",
+    "ReturnType": "bool",
+    "Name": "CMM_CHK_LVUP",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "cmmId",
         "Description": ""
       }
     ]
@@ -223,17 +223,17 @@
   {
     "Index": "0x3011",
     "ReturnType": "void",
-    "Name": "EVT_FUNCTION_0011",
+    "Name": "CMM_SET_REVERSE",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "cmmId",
         "Description": ""
       },
       {
-        "Type": "int",
-        "Name": "param2",
+        "Type": "bool",
+        "Name": "value",
         "Description": ""
       }
     ]
@@ -241,17 +241,17 @@
   {
     "Index": "0x3012",
     "ReturnType": "void",
-    "Name": "EVT_FUNCTION_0012",
+    "Name": "CMM_SET_BROKEN",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "cmmId",
         "Description": ""
       },
       {
-        "Type": "int",
-        "Name": "param2",
+        "Type": "bool",
+        "Name": "value",
         "Description": ""
       }
     ]
@@ -559,17 +559,17 @@
   {
     "Index": "0x302c",
     "ReturnType": "void",
-    "Name": "EVT_FUNCTION_002C",
+    "Name": "CMM_RANKUP",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "cmmId",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "rank",
         "Description": ""
       },
       {
@@ -654,12 +654,12 @@
   {
     "Index": "0x3031",
     "ReturnType": "void",
-    "Name": "EVT_FUNCTION_0031",
+    "Name": "CMM_ADD_POINT_ID",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "cmmId",
         "Description": ""
       },
       {
@@ -733,12 +733,12 @@
   {
     "Index": "0x3039",
     "ReturnType": "void",
-    "Name": "EVT_FUNCTION_0039",
+    "Name": "NPC_QUEST_START",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "questId",
         "Description": ""
       }
     ]
@@ -746,12 +746,12 @@
   {
     "Index": "0x303a",
     "ReturnType": "void",
-    "Name": "EVT_FUNCTION_003A",
+    "Name": "NPC_QUEST_END",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "questId",
         "Description": ""
       }
     ]

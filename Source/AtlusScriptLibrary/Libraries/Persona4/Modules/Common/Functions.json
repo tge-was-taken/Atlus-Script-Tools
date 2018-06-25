@@ -31,13 +31,13 @@
   {
     "Index": "0x0003",
     "ReturnType": "int",
-    "Name": "FUNCTION_0003",
+    "Name": "SEL",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "selId",
+        "Description": "Id of selection dialog."
       }
     ]
   },
@@ -60,7 +60,7 @@
   {
     "Index": "0x0006",
     "ReturnType": "void",
-    "Name": "FUNCTION_0006",
+    "Name": "SET_MSG_VAR",
     "Description": "",
     "Parameters": [
       {
@@ -114,12 +114,12 @@
   {
     "Index": "0x0009",
     "ReturnType": "void",
-    "Name": "FUNCTION_0009",
+    "Name": "MSG_SYSTEM",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "msgId",
         "Description": ""
       }
     ]
@@ -200,12 +200,12 @@
   {
     "Index": "0x0010",
     "ReturnType": "void",
-    "Name": "FUNCTION_0010",
+    "Name": "WAIT",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "time",
         "Description": ""
       }
     ]
@@ -239,12 +239,12 @@
   {
     "Index": "0x0013",
     "ReturnType": "void",
-    "Name": "FUNCTION_0013",
+    "Name": "PUT",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "value",
         "Description": ""
       }
     ]
@@ -252,12 +252,12 @@
   {
     "Index": "0x0014",
     "ReturnType": "void",
-    "Name": "FUNCTION_0014",
+    "Name": "PUTS",
     "Description": "",
     "Parameters": [
       {
         "Type": "string",
-        "Name": "param1",
+        "Name": "value",
         "Description": ""
       }
     ]
@@ -265,7 +265,7 @@
   {
     "Index": "0x0015",
     "ReturnType": "void",
-    "Name": "FUNCTION_0015",
+    "Name": "FADEIN",
     "Description": "",
     "Parameters": [
       {
@@ -278,7 +278,7 @@
   {
     "Index": "0x0016",
     "ReturnType": "void",
-    "Name": "FUNCTION_0016",
+    "Name": "FADEOUT",
     "Description": "",
     "Parameters": [
       {
@@ -352,7 +352,7 @@
   {
     "Index": "0x0019",
     "ReturnType": "int",
-    "Name": "FUNCTION_0019",
+    "Name": "SCR_RUN",
     "Description": "",
     "Parameters": [
       {
@@ -548,22 +548,22 @@
   {
     "Index": "0x0025",
     "ReturnType": "int",
-    "Name": "FUNCTION_0025",
+    "Name": "SEL_PROMPT",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "msgId",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "selId",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param3",
+        "Name": "mask",
         "Description": ""
       }
     ]
@@ -721,22 +721,22 @@
   {
     "Index": "0x0030",
     "ReturnType": "void",
-    "Name": "FUNCTION_0030",
+    "Name": "CALL_FIELD",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "major",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "minor",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param3",
+        "Name": "sub",
         "Description": ""
       },
       {
@@ -777,22 +777,22 @@
   {
     "Index": "0x0032",
     "ReturnType": "void",
-    "Name": "FUNCTION_0032",
+    "Name": "CALL_EVENT",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "major",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "minor",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param3",
+        "Name": "sub",
         "Description": ""
       }
     ]
@@ -832,17 +832,17 @@
   {
     "Index": "0x0037",
     "ReturnType": "int",
-    "Name": "FUNCTION_0037",
+    "Name": "CHK_DAYS",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "month",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "day",
         "Description": ""
       }
     ]
@@ -850,12 +850,12 @@
   {
     "Index": "0x0038",
     "ReturnType": "void",
-    "Name": "FUNCTION_0038",
+    "Name": "PARTY_IN",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "charId",
         "Description": ""
       }
     ]
@@ -863,12 +863,12 @@
   {
     "Index": "0x0039",
     "ReturnType": "void",
-    "Name": "FUNCTION_0039",
+    "Name": "PARTY_OUT",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "charId",
         "Description": ""
       }
     ]
@@ -884,7 +884,7 @@
   {
     "Index": "0x003b",
     "ReturnType": "void",
-    "Name": "FUNCTION_003B",
+    "Name": "CALL_LMAP",
     "Description": "",
     "Parameters": [
       {
@@ -897,7 +897,7 @@
   {
     "Index": "0x003c",
     "ReturnType": "void",
-    "Name": "FUNCTION_003C",
+    "Name": "CALL_TV",
     "Description": "",
     "Parameters": [
     ]
@@ -941,17 +941,17 @@
   {
     "Index": "0x003f",
     "ReturnType": "void",
-    "Name": "FUNCTION_003F",
+    "Name": "CALL_DNG_FLOOR",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "dungeonId",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "floor",
         "Description": ""
       }
     ]
@@ -987,17 +987,17 @@
   {
     "Index": "0x0041",
     "ReturnType": "void",
-    "Name": "FUNCTION_0041",
+    "Name": "MDL_EMOTE_ANIM",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "charId",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "effectId",
         "Description": ""
       }
     ]
@@ -1005,17 +1005,17 @@
   {
     "Index": "0x0042",
     "ReturnType": "int",
-    "Name": "FUNCTION_0042",
+    "Name": "SET_PC_PARAM",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "paramId",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "value",
         "Description": ""
       }
     ]
@@ -1041,12 +1041,12 @@
   {
     "Index": "0x0044",
     "ReturnType": "int",
-    "Name": "FUNCTION_0044",
+    "Name": "GET_PC_PARAM",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "paramId",
         "Description": ""
       }
     ]
@@ -1126,7 +1126,7 @@
   {
     "Index": "0x0049",
     "ReturnType": "void",
-    "Name": "FUNCTION_0049",
+    "Name": "CALL_WEAPON_SHOP",
     "Description": "",
     "Parameters": [
     ]
@@ -1134,7 +1134,7 @@
   {
     "Index": "0x004a",
     "ReturnType": "void",
-    "Name": "FUNCTION_004A",
+    "Name": "CALL_ITEM_SHOP",
     "Description": "",
     "Parameters": [
     ]
@@ -1142,7 +1142,7 @@
   {
     "Index": "0x004b",
     "ReturnType": "void",
-    "Name": "FUNCTION_004B",
+    "Name": "CALL_COMBINE_SHOP",
     "Description": "",
     "Parameters": [
     ]
@@ -1174,7 +1174,7 @@
   {
     "Index": "0x004f",
     "ReturnType": "void",
-    "Name": "FUNCTION_004F",
+    "Name": "CALL_TITLE",
     "Description": "",
     "Parameters": [
     ]
@@ -1182,12 +1182,12 @@
   {
     "Index": "0x0050",
     "ReturnType": "int",
-    "Name": "FUNCTION_0050",
+    "Name": "ADD_PC_MONEY",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "amount",
         "Description": ""
       }
     ]
@@ -1195,7 +1195,7 @@
   {
     "Index": "0x0051",
     "ReturnType": "void",
-    "Name": "FUNCTION_0051",
+    "Name": "CALL_NAME_ENTRY",
     "Description": "",
     "Parameters": [
     ]
@@ -1203,12 +1203,12 @@
   {
     "Index": "0x0052",
     "ReturnType": "int",
-    "Name": "FUNCTION_0052",
+    "Name": "SET_ITEM_NUM",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "amount",
         "Description": ""
       }
     ]
@@ -1462,12 +1462,12 @@
   {
     "Index": "0x0064",
     "ReturnType": "void",
-    "Name": "FUNCTION_0064",
+    "Name": "MOVIE_PLAY",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "movieId",
         "Description": ""
       }
     ]
@@ -1483,12 +1483,12 @@
   {
     "Index": "0x0066",
     "ReturnType": "void",
-    "Name": "FUNCTION_0066",
+    "Name": "DATE_DISP",
     "Description": "",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "bool",
+        "Name": "isOn",
         "Description": ""
       }
     ]
@@ -1496,7 +1496,7 @@
   {
     "Index": "0x0067",
     "ReturnType": "void",
-    "Name": "FUNCTION_0067",
+    "Name": "CALL_CLEAR_SAVE",
     "Description": "",
     "Parameters": [
     ]
@@ -1512,7 +1512,7 @@
   {
     "Index": "0x0069",
     "ReturnType": "void",
-    "Name": "FUNCTION_0069",
+    "Name": "CALL_FOOD_COURT",
     "Description": "",
     "Parameters": [
     ]
@@ -1520,7 +1520,7 @@
   {
     "Index": "0x006a",
     "ReturnType": "void",
-    "Name": "FUNCTION_006A",
+    "Name": "CALL_STAFF_ROLL",
     "Description": "",
     "Parameters": [
     ]
@@ -1575,12 +1575,12 @@
   {
     "Index": "0x006f",
     "ReturnType": "void",
-    "Name": "FUNCTION_006F",
+    "Name": "BGM",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "bgmId",
         "Description": ""
       }
     ]
@@ -1588,7 +1588,7 @@
   {
     "Index": "0x0070",
     "ReturnType": "void",
-    "Name": "FUNCTION_0070",
+    "Name": "BGM_STOP",
     "Description": "",
     "Parameters": [
       {
@@ -1601,7 +1601,7 @@
   {
     "Index": "0x0071",
     "ReturnType": "void",
-    "Name": "FUNCTION_0071",
+    "Name": "EVT_SE_PLAY",
     "Description": "",
     "Parameters": [
       {
@@ -1614,7 +1614,7 @@
   {
     "Index": "0x0072",
     "ReturnType": "void",
-    "Name": "FUNCTION_0072",
+    "Name": "EVT_SE_STOP",
     "Description": "",
     "Parameters": [
       {
@@ -1627,7 +1627,7 @@
   {
     "Index": "0x0073",
     "ReturnType": "void",
-    "Name": "FUNCTION_0073",
+    "Name": "EVT_SE_PLAY2",
     "Description": "",
     "Parameters": [
       {
@@ -1640,7 +1640,7 @@
   {
     "Index": "0x0074",
     "ReturnType": "void",
-    "Name": "FUNCTION_0074",
+    "Name": "EVT_SE_STOP2",
     "Description": "",
     "Parameters": [
       {

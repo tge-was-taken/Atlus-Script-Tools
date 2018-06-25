@@ -191,17 +191,17 @@
   {
     "Index": "0x100d",
     "ReturnType": "int",
-    "Name": "FLD_FUNCTION_000D",
+    "Name": "FLD_NPC_MODEL_LOAD",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "major",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "minor",
         "Description": ""
       }
     ]
@@ -328,12 +328,12 @@
   {
     "Index": "0x1016",
     "ReturnType": "int",
-    "Name": "FLD_FUNCTION_0016",
+    "Name": "CALL_BATTLE",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "encounterId",
         "Description": ""
       },
       {
@@ -346,17 +346,17 @@
   {
     "Index": "0x1017",
     "ReturnType": "void",
-    "Name": "FLD_FUNCTION_0017",
+    "Name": "FLD_CAMERA_ROTATE",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "degrees",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "speed",
         "Description": ""
       }
     ]
@@ -364,17 +364,17 @@
   {
     "Index": "0x1018",
     "ReturnType": "void",
-    "Name": "FLD_FUNCTION_0018",
+    "Name": "FLD_CAMERA_ROTATE_BEHIND",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "degrees",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "speed",
         "Description": ""
       }
     ]
@@ -522,7 +522,7 @@
   {
     "Index": "0x1028",
     "ReturnType": "void",
-    "Name": "FLD_FUNCTION_0028",
+    "Name": "FLD_EFFECT_TRAESTO_START",
     "Description": "",
     "Parameters": [
     ]
