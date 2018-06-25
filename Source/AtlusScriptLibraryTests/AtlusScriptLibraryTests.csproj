@@ -63,7 +63,7 @@
     <Compile Include="FlowScriptLanguage\Disassembler\FlowScriptDisassemblerTests.cs" />
     <Compile Include="FlowScriptLanguage\BinaryModel\FlowScriptBinaryTests.cs" />
     <Compile Include="FlowScriptLanguage\FlowScriptTests.cs" />
-    <Compile Include="FlowScriptLanguage\Interpreter\FlowScriptInterpreterTest.cs" />
+    <Compile Include="FlowScriptLanguage\Interpreter\FlowScriptInterpreterTests.cs" />
     <Compile Include="MessageScriptLanguage\BinaryModel\MessageScriptBinaryTests.cs" />
     <Compile Include="MessageScriptLanguage\Compiler\MessageScriptCompilerTests.cs" />
     <Compile Include="MessageScriptLanguage\MessageScriptTests.cs" />

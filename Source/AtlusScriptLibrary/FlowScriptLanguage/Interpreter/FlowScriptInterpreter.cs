@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace AtlusScriptLibrary.FlowScriptLanguage.Interpreter
 {
@@ -55,9 +56,20 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Interpreter
             mInstructionIndex = 0;
             mStack = new Stack< StackValue >();
             mCommReturnValue = new StackValue( StackValueKind.Int, 0 );
-            mLocalIntVariablePool = new int[100];
-            mLocalFloatVariablePool = new float[100];
+            mLocalIntVariablePool = new int[CalculateLocalCount( mScript, true )];
+            mLocalFloatVariablePool = new float[CalculateLocalCount( mScript, false )];
             TextOutput = Console.Out;
+        }
+
+        private static int CalculateLocalCount( FlowScript script, bool isInt )
+        {
+            int highestIndex = script.Procedures.SelectMany( x => x.Instructions )
+                                     .Where( x => isInt
+                                                 ? x.Opcode == Opcode.PUSHLIX || x.Opcode == Opcode.POPLIX
+                                                 : x.Opcode == Opcode.PUSHLFX || x.Opcode == Opcode.POPLFX )
+                                     .Aggregate( -1, ( current, instruction ) => Math.Max( current, instruction.Operand.Int16Value ) );
+
+            return highestIndex + 1;
         }
 
         public void Run()
@@ -275,7 +287,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Interpreter
             {
                 // PUT
                 case 0x0002:
-                    instance.TextOutput?.WriteLine( instance.PopIntValue() );
+                    instance.TextOutput?.Write( instance.PopIntValue() + "\n" );
                     break;
 
                 // PUTS
@@ -331,7 +343,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Interpreter
 
                 // PUTF
                 case 0x0004:
-                    instance.TextOutput?.WriteLine( instance.PopFloatValue() );
+                    instance.TextOutput?.Write( instance.PopFloatValue() + "\n" );
                     break;
 
                 // SIN

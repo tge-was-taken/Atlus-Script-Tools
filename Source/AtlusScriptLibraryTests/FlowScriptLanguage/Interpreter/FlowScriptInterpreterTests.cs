@@ -10,7 +10,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace AtlusScriptLibraryTests.FlowScriptLanguage.Interpreter
 {
     [ TestClass ]
-    public class FlowScriptInterpreterTest
+    public class FlowScriptInterpreterTests
     {
         public string RunTest( FormatVersion version, string library, string source )
         {
@@ -156,7 +156,7 @@ void Test()
     PUT( a[0] );
 }";
 
-            RunP5Test( source, "1\r\n" );
+            RunP5Test( source, "1\n" );
         }
 
         [TestMethod]
@@ -170,7 +170,7 @@ void Test()
     PUT( a[0] );
 }";
 
-            RunP5Test( source, "1\r\n" );
+            RunP5Test( source, "1\n" );
         }
 
         [ TestMethod ]
@@ -196,7 +196,7 @@ int GetArrayValue(int arrayIndex, int elementIndex)
     return 0;
 }";
 
-            RunP5Test( source, "1\r\n" );
+            RunP5Test( source, "1\n" );
         }
 
         [ TestMethod ]
