@@ -374,7 +374,7 @@ namespace AtlusScriptLibrary.Common
                         long entryStartPosition = Reader.Position;
                         if ( entryStartPosition == Reader.BaseStreamLength )
                         {
-                            yield break;
+                            break;
                         }
 
                         // read entry name
@@ -393,7 +393,7 @@ namespace AtlusScriptLibrary.Common
 
                         if ( fileName.Length == 0 || length <= 0 || length > 1024 * 1024 * 100 )
                         {
-                            yield break;
+                            break;
                         }
 
                         // make an entry
@@ -412,6 +412,8 @@ namespace AtlusScriptLibrary.Common
 
                         yield return entry;
                     }
+
+                    yield break;
                 }
             }
         }
