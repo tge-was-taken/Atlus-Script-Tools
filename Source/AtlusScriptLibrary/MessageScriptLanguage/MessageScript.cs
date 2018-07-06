@@ -291,6 +291,22 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
             var accumulatedTextBuffer = accumulatedText.ToArray();
             var stringBuilder = new StringBuilder();
 
+            void FlushStringBuilder()
+            {
+                // There was some proper text previously, so make sure we add it first
+                if ( stringBuilder.Length != 0 )
+                {
+                    tokens.Add( new StringToken( stringBuilder.ToString() ) );
+                    stringBuilder.Clear();
+                }
+            }
+
+            void AddToken( CodePointToken token )
+            {
+                FlushStringBuilder();
+                tokens.Add( token );
+            }
+
             for ( int i = 0; i < accumulatedTextBuffer.Length; i++ )
             {
                 byte high = accumulatedTextBuffer[i];
@@ -304,30 +320,25 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
                         charBytes[0] = high;
                         charBytes[1] = low;
 
-                        var chars = encoding.GetChars( charBytes );
-                        Debug.Assert( chars.Length == 1 );
-
                         // Check if it's an unmapped character -> make it a code point
-                        char c = encoding.GetChars( charBytes )[0];
-                        if ( c == 0 )
-                        {
-                            // There was some proper text previously, so make sure we add it
-                            if ( stringBuilder.Length != 0 )
-                            {
-                                tokens.Add( new StringToken( stringBuilder.ToString() ) );
-                                stringBuilder.Clear();
-                            }
+                        var chars = encoding.GetChars( charBytes );
+                        Trace.Assert( chars.Length > 0 );
 
-                            tokens.Add( new CodePointToken( high, low ) );
+                        if ( chars[0] == 0 )
+                        {
+                            AddToken( new CodePointToken( high, low ) );
                         }
                         else
                         {
-                            stringBuilder.Append( c );
+                            foreach ( char c in chars )
+                            {
+                                stringBuilder.Append( c );
+                            }
                         }
                     }
                     else
                     {
-                        tokens.Add( new CodePointToken( high, low ) );
+                        AddToken( new CodePointToken( high, low ) );
                     }
                 }
                 else
@@ -336,12 +347,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
                 }
             }
 
-            // There was some proper text previously, so make sure we add it
-            if ( stringBuilder.Length != 0 )
-            {
-                tokens.Add( new StringToken( stringBuilder.ToString() ) );
-                stringBuilder.Clear();
-            }
+            FlushStringBuilder();
 
             return tokens;
         }
