@@ -3,6 +3,8 @@
 
     public class Persona5ChiEncoding : AtlusEncoding
     {
+        public override string EncodingName => "Persona 5 (Chinese)";
+
         protected override char[] CharTable => sCharTable;
 
         /// <summary>

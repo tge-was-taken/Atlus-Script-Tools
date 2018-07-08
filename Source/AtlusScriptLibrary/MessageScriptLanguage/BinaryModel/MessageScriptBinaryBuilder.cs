@@ -210,9 +210,13 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel
         {
             byte[] textBytes;
             if ( mEncoding != null )
+            {
                 textBytes = mEncoding.GetBytes( token.Value );
+            }
             else
+            {
                 textBytes = Encoding.ASCII.GetBytes( token.Value );
+            }
 
             // simple add to the list of bytes
             bytes.AddRange( textBytes );

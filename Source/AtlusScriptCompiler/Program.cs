@@ -565,7 +565,19 @@ namespace AtlusScriptCompiler
                 compiler.Library = library;
             }
 
-            if ( !compiler.TryCompile( File.OpenText( InputFilePath ), out var script ) )
+            bool success = false;
+            MessageScript script = null;
+
+            try
+            {
+                success = compiler.TryCompile( File.OpenText( InputFilePath ), out script );
+            }
+            catch ( UnsupportedCharacterException e )
+            {
+                Logger.Error( $"Character '{e.Character}' not supported by encoding '{e.EncodingName}'" );
+            }
+
+            if ( !success )
             {
                 Logger.Error( "One or more errors occured during compilation!" );
                 return false;

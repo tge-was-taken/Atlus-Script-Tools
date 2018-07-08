@@ -91,7 +91,17 @@ namespace AtlusScriptLibrary.Common.Text.Encodings
 
             for ( ; charIndex < charCount; charIndex++ )
             {
-                var codePoint = sCharToCodePoint[chars[charIndex]];
+                CodePoint codePoint;
+                var c = chars[ charIndex ];
+
+                try
+                {
+                    codePoint = sCharToCodePoint[c];
+                }
+                catch ( KeyNotFoundException )
+                {
+                    throw new UnsupportedCharacterException( EncodingName, c );
+                }
 
                 if ( codePoint.HighSurrogate == 0 )
                 {

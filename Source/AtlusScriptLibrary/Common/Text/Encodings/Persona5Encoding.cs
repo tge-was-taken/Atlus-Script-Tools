@@ -3,6 +3,8 @@
 
     public class Persona5Encoding : AtlusEncoding
     {
+        public override string EncodingName => "Persona 5";
+
         protected override char[] CharTable => sCharTable;
 
         /// <summary>
