@@ -4,6 +4,8 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax
 {
     public class TypeIdentifier : Identifier
     {
+        public static TypeIdentifier Void { get; } = new TypeIdentifier( ValueKind.Void );
+
         public ValueKind ValueKind { get; set; }
 
         public TypeIdentifier() : base( ValueKind.Type )

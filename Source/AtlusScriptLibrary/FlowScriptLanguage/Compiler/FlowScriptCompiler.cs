@@ -89,6 +89,11 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
         public bool EnableStackCookie { get; set; }
 
         /// <summary>
+        /// Gets or sets whether the compiler should generate hooks for all procedures imported from existing scripts.
+        /// </summary>
+        public bool HookImportedProcedures { get; set; }
+
+        /// <summary>
         /// Initializes a FlowScript compiler with the given format version.
         /// </summary>
         /// <param name="version"></param>
@@ -212,7 +217,6 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
         //
         private void InitializeCompilationState()
         {
-            // todo: imports?
             mScript = new FlowScript( mFormatVersion );
             mNextLabelIndex = 0;
 
@@ -308,58 +312,89 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
 
             var importedMessageScripts = new List<MessageScript>();
             var importedFlowScripts = new List<CompilationUnit>();
+            var importedCompiledFlowScripts = new List<FlowScript>();
 
             foreach ( var import in compilationUnit.Imports )
             {
-                if ( import.CompilationUnitFileName.EndsWith( ".msg" ) )
-                {
-                    // MessageScript
-                    if ( !TryResolveMessageScriptImport( import, out var messageScript ) )
-                    {
-                        Error( import, $"Failed to resolve MessageScript import: { import.CompilationUnitFileName }" );
-                        return false;
-                    }
+                var ext = Path.GetExtension( import.CompilationUnitFileName ).ToLowerInvariant();
 
-                    // Will be null if it was already imported before
-                    if ( messageScript != null )
-                        importedMessageScripts.Add( messageScript );
-                }
-                else if ( import.CompilationUnitFileName.EndsWith( ".flow" ) )
+                switch ( ext )
                 {
-                    // FlowScript
-                    if ( !TryResolveFlowScriptImport( import, out var importedCompilationUnit ) )
-                    {
-                        Error( import, $"Failed to resolve FlowScript import: { import.CompilationUnitFileName }" );
-                        return false;
-                    }
+                    case ".msg":
+                        {
+                            // MessageScript
+                            if ( !TryResolveMessageScriptImport( import, out var messageScript ) )
+                            {
+                                Error( import, $"Failed to resolve MessageScript import: { import.CompilationUnitFileName }" );
+                                return false;
+                            }
 
-                    // Will be null if it was already imported before
-                    if ( importedCompilationUnit != null )
-                        importedFlowScripts.Add( importedCompilationUnit );
+                            // Will be null if it was already imported before
+                            if ( messageScript != null )
+                                importedMessageScripts.Add( messageScript );
+                        }
+                        break;
+
+                    case ".flow":
+                        {
+                            // FlowScript
+                            if ( !TryResolveFlowScriptImport( import, out var importedCompilationUnit ) )
+                            {
+                                Error( import, $"Failed to resolve FlowScript import: { import.CompilationUnitFileName }" );
+                                return false;
+                            }
+
+                            // Will be null if it was already imported before
+                            if ( importedCompilationUnit != null )
+                                importedFlowScripts.Add( importedCompilationUnit );
+                        }
+                        break;
+
+                    case ".bf":
+                        {
+                            if ( !TryResolveCompiledFlowScriptImport( import, out var importedScript ) )
+                            {
+                                Error( import, $"Failed to resolve compiled FlowScript import: {import.CompilationUnitFileName}" );
+                                return false;
+                            }
+
+                            importedCompiledFlowScripts.Add( importedScript );
+                        }
+                        break;
+
+                    default:
+                        // Unknown
+                        Error( import, $"Unknown import file type: {import.CompilationUnitFileName}" );
+                        return false;
+
                 }
-                else
+            }
+
+            // Resolve compiled FlowScript imports
+            foreach ( var compiledFlowScript in importedCompiledFlowScripts )
+            {
+                for ( var i = 0; i < compiledFlowScript.Procedures.Count; i++ )
                 {
-                    // Unknown
-                    Error( import, $"Unknown import file type: {import.CompilationUnitFileName}" );
-                    return false;
+                    // Add a declaration for the imported procedure
+                    var procedure = compiledFlowScript.Procedures[i];
+                    var procedureDecl = new ProcedureDeclaration( new IntLiteral( i ), TypeIdentifier.Void,
+                                                                  new Identifier( procedure.Name ),
+                                                                  new List<Parameter>(), null );
+
+                    Debug.Assert( mScript.Procedures.Count == i, "Imported procedure index mismatch" );
+                    mScript.Procedures.Add( procedure );
+                    if ( !Scope.TryDeclareProcedure( procedureDecl ) )
+                        Debug.Assert( false );
                 }
+
+                if ( compiledFlowScript.MessageScript != null )
+                    MergeMessageScript( compiledFlowScript.MessageScript );
             }
 
             // Resolve MessageScripts imports
             if ( importedMessageScripts.Count > 0 )
             {
-                int startIndex = 0;
-                if ( mScript.MessageScript == null )
-                {
-                    mScript.MessageScript = importedMessageScripts[ 0 ];
-                    startIndex = 1;
-                }
-
-                // Merge message scripts
-                for ( int i = startIndex; i < importedMessageScripts.Count; i++ )
-                {
-                    mScript.MessageScript.Dialogs.AddRange( importedMessageScripts[i].Dialogs );
-                }
+                MergeMessageScripts( importedMessageScripts );
             }
 
             // Resolve FlowScript imports
@@ -388,6 +423,57 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             return true;
         }
 
+        private void MergeMessageScripts( List<MessageScript> messageScripts )
+        {
+            int startIndex = 0;
+            if ( mScript.MessageScript == null )
+            {
+                mScript.MessageScript = messageScripts[0];
+                startIndex            = 1;
+            }
+
+            // Merge message scripts
+            for ( int i = startIndex; i < messageScripts.Count; i++ )
+            {
+                MergeMessageScript( messageScripts[ i ] );
+            }
+        }
+
+        private void MergeMessageScript( MessageScript messageScript )
+        {
+            mScript.MessageScript.Dialogs.AddRange( messageScript.Dialogs );
+        }
+
+        private bool TryGetFullImportPath( Import import, out string path )
+        {
+            var compilationUnitFilePath = import.CompilationUnitFileName;
+
+            if ( !File.Exists( compilationUnitFilePath ) )
+            {
+                // Retry as relative path if we have a filename
+                if ( mFilePath != null )
+                {
+                    compilationUnitFilePath = Path.Combine( Path.GetDirectoryName( mFilePath ), compilationUnitFilePath );
+
+                    if ( !File.Exists( compilationUnitFilePath ) )
+                    {
+                        Error( import, $"File to import does not exist: {import.CompilationUnitFileName}" );
+                        path = null;
+                        return false;
+                    }
+                }
+                else
+                {
+                    Error( import, $"File to import does not exist: {import.CompilationUnitFileName}" );
+                    path = null;
+                    return false;
+                }
+            }
+
+            path = compilationUnitFilePath;
+            return true;
+        }
+
         private bool TryResolveMessageScriptImport( Import import, out MessageScript messageScript )
         {
             Info( $"Resolving MessageScript import '{import.CompilationUnitFileName}'" );
@@ -396,28 +482,10 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             messageScriptCompiler.AddListener( new LoggerPassthroughListener( mLogger ) );
             messageScriptCompiler.Library = Library;
 
-            string compilationUnitFilePath = import.CompilationUnitFileName;
-
-            if ( !File.Exists( compilationUnitFilePath ) )
+            if ( !TryGetFullImportPath( import, out var compilationUnitFilePath ) )
             {
-                // Retry as relative path if we have a filename
-                if ( mFilePath != null )
-                {
-                    compilationUnitFilePath = Path.Combine( mCurrentBaseDirectory, compilationUnitFilePath );
-
-                    if ( !File.Exists( compilationUnitFilePath ) )
-                    {
-                        Error( import, $"MessageScript file to import does not exist: {import.CompilationUnitFileName}" );
-                        messageScript = null;
-                        return false;
-                    }
-                }
-                else
-                {
-                    Error( import, $"MessageScript file to import does not exist: {import.CompilationUnitFileName}" );
-                    messageScript = null;
-                    return false;
-                }
+                messageScript = null;
+                return false;
             }
 
             Info( $"Importing MessageScript from file '{compilationUnitFilePath}'" );
@@ -458,29 +526,12 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
 
         private bool TryResolveFlowScriptImport( Import import, out CompilationUnit importedCompilationUnit )
         {
-            string compilationUnitFilePath = import.CompilationUnitFileName;
-            Info( $"Resolving FlowScript import '{compilationUnitFilePath}'" );
+            Info( $"Resolving FlowScript import '{import.CompilationUnitFileName}'" );
 
-            if ( !File.Exists( compilationUnitFilePath ) )
+            if ( !TryGetFullImportPath( import, out var compilationUnitFilePath ) )
             {
-                // Retry as relative path if we have a filename
-                if ( mFilePath != null )
-                {
-                    compilationUnitFilePath = Path.Combine( Path.GetDirectoryName(mFilePath), compilationUnitFilePath );
-
-                    if ( !File.Exists( compilationUnitFilePath ) )
-                    {
-                        Error( import, $"FlowScript file to import does not exist: {import.CompilationUnitFileName}" );
-                        importedCompilationUnit = null;
-                        return false;
-                    }
-                }
-                else
-                {
-                    Error( import, $"FlowScript file to import does not exist: {import.CompilationUnitFileName}" );
-                    importedCompilationUnit = null;
-                    return false;
-                }
+                importedCompilationUnit = null;
+                return false;
             }
 
             Info( $"Importing FlowScript from file '{compilationUnitFilePath}'" );
@@ -521,6 +572,31 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             {
                 Warning( $"FlowScript file '{compilationUnitFilePath}' was already included once! Skipping!" );
                 importedCompilationUnit = null;
+            }
+
+            return true;
+        }
+
+        private bool TryResolveCompiledFlowScriptImport( Import import, out FlowScript script )
+        {
+            Info( $"Resolving compiled FlowScript import '{import.CompilationUnitFileName}'" );
+
+            if ( !TryGetFullImportPath( import, out var compilationUnitFilePath ) )
+            {
+                script = null;
+                return false;
+            }
+
+            Info( $"Importing compiled FlowScript from file '{compilationUnitFilePath}'" );
+            try
+            {
+                script = FlowScript.FromStream( File.Open( compilationUnitFilePath, FileMode.Open, FileAccess.Read, FileShare.Read ), Encoding );
+            }
+            catch ( Exception )
+            {
+                Error( import, $"Can't open compiled FlowScript file to import: {import.CompilationUnitFileName}" );
+                script = null;
+                return false;
             }
 
             return true;
@@ -602,7 +678,23 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                                 Error( procedureDeclaration, $"Duplicate procedure declaration: {procedureDeclaration}" );
                                 return false;
                             }
+
                             Trace( $"Registered procedure declaration '{procedureDeclaration}'" );
+
+                            if ( HookImportedProcedures )
+                            {
+                                var importedProcedureToHook =
+                                    mScript.Procedures.FirstOrDefault( x => x.Name + "_hook" == procedureDeclaration.Identifier.Text );
+
+                                if ( importedProcedureToHook != null )
+                                {
+                                    Info( $"Registering {procedureDeclaration.Identifier.Text} as hook for {importedProcedureToHook.Name}" );
+                                    importedProcedureToHook.Instructions.Insert( 1, Instruction.CALL( Scope
+                                                                                                .Procedures[ procedureDeclaration.Identifier.Text ]
+                                                                                                .Index ) );
+                                    importedProcedureToHook.Instructions.Insert( 2, Instruction.END() );
+                                }
+                            }
 
                             if ( procedureDeclaration.ReturnType.ValueKind != ValueKind.Void )
                             {

@@ -5,6 +5,8 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax
 {
     public class ProcedureDeclaration : Declaration
     {
+        public IntLiteral Index { get; set; }
+
         public TypeIdentifier ReturnType { get; set; }
 
         public List<Parameter> Parameters { get; set; }
@@ -21,6 +23,14 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax
             ReturnType = returnType;
             Parameters = parameters;
             Body = body;
+        }
+
+        public ProcedureDeclaration( IntLiteral index, TypeIdentifier returnType, Identifier identifier, List<Parameter> parameters, CompoundStatement body ) : base( DeclarationType.Procedure, identifier )
+        {
+            Index = index;
+            ReturnType = returnType;
+            Parameters = parameters;
+            Body       = body;
         }
 
         public override string ToString()

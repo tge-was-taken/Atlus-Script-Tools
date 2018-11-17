@@ -156,7 +156,8 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
 
             var procedure = new Procedure();
             procedure.Declaration = declaration;
-            procedure.Index = ( short )Procedures.Count;
+            procedure.Index = declaration.Index == null ? ( short ) Procedures.Count : ( short ) declaration.Index.Value;
+            Debug.Assert( Procedures.All( x => x.Value.Index != procedure.Index ), "Same procedure index used by multiple procedures" );
 
             Procedures[declaration.Identifier.Text] = procedure;
 

@@ -22,42 +22,25 @@ namespace AtlusScriptCompiler
     internal class Program
     {
         public static AssemblyName AssemblyName = Assembly.GetExecutingAssembly().GetName();
-
         public static Version Version = AssemblyName.Version;
-
         public static Logger Logger = new Logger(nameof(AtlusScriptCompiler));
-
         public static LogListener Listener = new FileAndConsoleLogListener( true, LogLevel.Info | LogLevel.Warning | LogLevel.Error | LogLevel.Fatal );
-
         public static string InputFilePath;
-
         public static string OutputFilePath;
-
         public static bool IsActionAssigned;
-
         public static bool DoCompile;
-
         public static bool DoDecompile;
-
         public static bool DoDisassemble;
-
         public static InputFileFormat InputFileFormat;
-
         public static OutputFileFormat OutputFileFormat;
-
         public static MessageScriptTextEncoding MessageScriptTextEncoding;
-
         public static string LibraryName;
-
         public static bool LogTrace;
-
         public static bool FlowScriptEnableProcedureTracing;
-
         public static bool FlowScriptEnableProcedureCallTracing;
-
         public static bool FlowScriptEnableFunctionCallTracing;
-
         public static bool FlowScriptEnableStackCookie;
+        public static bool FlowScriptEnableProcedureHook;
 
         private static void DisplayUsage()
         {
@@ -87,6 +70,7 @@ namespace AtlusScriptCompiler
             Console.WriteLine( "        -TraceProcedureCalls                       Enables procedure call tracing. Only applies to compiler." );
             Console.WriteLine( "        -TraceFunctionCalls                        Enables function call tracing. Only applies to compiler." );
             Console.WriteLine( "        -StackCookie                               Enables stack cookie. Used for debugging stack corruptions." );
+            Console.WriteLine( "        -Hook                                      Enables hooking of procedures. Used to modify scripts without recompiling them entirely." );
             Console.WriteLine();
             Console.WriteLine( "Parameter detailed info:" );
             Console.WriteLine( "    MessageScript:" );
@@ -342,6 +326,10 @@ namespace AtlusScriptCompiler
                     case "-StackCookie":
                         FlowScriptEnableStackCookie = true;
                         break;
+
+                    case "-Hook":
+                        FlowScriptEnableProcedureHook = true;
+                        break;
                 }
             }
 
@@ -473,6 +461,7 @@ namespace AtlusScriptCompiler
             compiler.EnableProcedureCallTracing = FlowScriptEnableProcedureCallTracing;
             compiler.EnableFunctionCallTracing = FlowScriptEnableFunctionCallTracing;
             compiler.EnableStackCookie = FlowScriptEnableStackCookie;
+            compiler.HookImportedProcedures = FlowScriptEnableProcedureHook;
 
             if ( LibraryName != null )
             {
@@ -487,10 +476,20 @@ namespace AtlusScriptCompiler
                 compiler.Library = library;
             }
 
-            FlowScript flowScript;
+            FlowScript flowScript = null;
+            var success = false;
             using ( var file = File.Open( InputFilePath, FileMode.Open, FileAccess.Read, FileShare.Read ) )
             {
-                if ( !compiler.TryCompile( file, out flowScript ) )
+                try
+                {
+                    success = compiler.TryCompile( file, out flowScript );
+                }
+                catch ( UnsupportedCharacterException e )
+                {
+                    Logger.Error( $"Character '{e.Character}' not supported by encoding '{e.EncodingName}'" );
+                }
+
+                if ( !success )
                 {
                     Logger.Error( "One or more errors occured during compilation!" );
                     return false;
