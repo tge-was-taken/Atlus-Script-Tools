@@ -425,23 +425,23 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
 
         private void MergeMessageScripts( List<MessageScript> messageScripts )
         {
-            int startIndex = 0;
-            if ( mScript.MessageScript == null )
-            {
-                mScript.MessageScript = messageScripts[0];
-                startIndex            = 1;
-            }
-
             // Merge message scripts
-            for ( int i = startIndex; i < messageScripts.Count; i++ )
+            foreach ( var messageScript in messageScripts )
             {
-                MergeMessageScript( messageScripts[ i ] );
+                if ( messageScript != null )
+                    MergeMessageScript( messageScript );
             }
         }
 
         private void MergeMessageScript( MessageScript messageScript )
         {
-            mScript.MessageScript.Dialogs.AddRange( messageScript.Dialogs );
+            if ( messageScript == null )
+                throw new ArgumentNullException( nameof( messageScript ) );
+
+            if ( mScript.MessageScript == null )
+                mScript.MessageScript = messageScript;
+            else
+                mScript.MessageScript.Dialogs.AddRange( messageScript.Dialogs );
         }
 
         private bool TryGetFullImportPath( Import import, out string path )
