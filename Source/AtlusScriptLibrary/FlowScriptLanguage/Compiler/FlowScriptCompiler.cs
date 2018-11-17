@@ -358,7 +358,8 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                                 return false;
                             }
 
-                            importedCompiledFlowScripts.Add( importedScript );
+                            if ( importedScript != null )
+                                importedCompiledFlowScripts.Add( importedScript );
                         }
                         break;
 
@@ -588,15 +589,42 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             }
 
             Info( $"Importing compiled FlowScript from file '{compilationUnitFilePath}'" );
+            FileStream flowScriptFileStream;
             try
             {
-                script = FlowScript.FromStream( File.Open( compilationUnitFilePath, FileMode.Open, FileAccess.Read, FileShare.Read ), Encoding );
+                flowScriptFileStream = File.Open( compilationUnitFilePath, FileMode.Open, FileAccess.Read, FileShare.Read );
             }
             catch ( Exception )
             {
                 Error( import, $"Can't open compiled FlowScript file to import: {import.CompilationUnitFileName}" );
                 script = null;
                 return false;
+            }
+
+            var hashAlgo             = new MD5CryptoServiceProvider();
+            var hashBytes            = hashAlgo.ComputeHash( flowScriptFileStream );
+            int flowScriptSourceHash = BitConverter.ToInt32( hashBytes, 0 );
+            flowScriptFileStream.Position = 0;
+
+            if ( !mImportedFileHashSet.Contains( flowScriptSourceHash ) )
+            {       
+                try
+                {
+                    script = script = FlowScript.FromStream( flowScriptFileStream, Encoding );
+                }
+                catch ( Exception )
+                {
+                    Error( import, $"Can't open compiled FlowScript file to import: {import.CompilationUnitFileName}" );
+                    script = null;
+                    return false;
+                }
+
+                mImportedFileHashSet.Add( flowScriptSourceHash );
+            }
+            else
+            {
+                Warning( $"Compiled FlowScript file '{compilationUnitFilePath}' was already included once! Skipping!" );
+                script = null;
             }
 
             return true;
