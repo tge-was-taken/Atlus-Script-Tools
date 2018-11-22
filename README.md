@@ -7,9 +7,8 @@ WIP set of tools developed for handling Atlus' script formats including
 
 All of the code is written in C# and licensed under the GNU GPL.
 
-Latest build (click on Artifacts):
-
-https://ci.appveyor.com/project/TGEnigma/atlusscripttoolchain
+Latest build:
+* https://ci.appveyor.com/project/TGEnigma/atlusscripttoolchain/build/artifacts
 
 ## Overview of repository structure ##
 
