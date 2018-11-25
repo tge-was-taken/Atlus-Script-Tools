@@ -45,10 +45,12 @@
     <Compile Include="DocumentationFormat.cs" />
     <Compile Include="Exceptions\InvalidDocumentationFormatException.cs" />
     <Compile Include="Exceptions\InvalidLibraryException.cs" />
+    <Compile Include="Generators\SweetScape010EditorEnumGenerator.cs" />
     <Compile Include="LibraryDocumentationGenerator.cs" />
     <Compile Include="LibraryDocumentationGeneratorFactory.cs" />
     <Compile Include="Exceptions\MissingArgumentValueException.cs" />
     <Compile Include="Generators\NppLibraryDocumentationGenerator.cs" />
+    <Compile Include="Exceptions\MissingMandatoryArgumentException.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

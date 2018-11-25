@@ -30,7 +30,7 @@ namespace AtlusScriptLibrary.Common.CLI
             return true;
         }
 
-        public bool TryGetNextArg( out string arg )
+        public bool TryGetNextArgument( out string arg )
         {
             if ( !MoveNext() )
             {
