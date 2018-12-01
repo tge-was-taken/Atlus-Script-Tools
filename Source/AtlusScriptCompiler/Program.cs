@@ -83,7 +83,7 @@ namespace AtlusScriptCompiler
             Console.WriteLine( "            Below is a list of different available encodings." );
             Console.WriteLine( "            Note that ASCII characters don't really differ from the standard, so this mostly applies to special characters and japanese characters." );
             Console.WriteLine();
-            Console.WriteLine( "            SJ                  Shift-Jis encoding (CP932). Used by Persona Q" );
+            Console.WriteLine( "            SJ                  Shift-JIS encoding (CP932). Used by Persona Q(2)" );
             Console.WriteLine( "            P3                  Persona 3's custom encoding" );
             Console.WriteLine( "            P4                  Persona 4's custom encoding" );
             Console.WriteLine( "            P5                  Persona 5's custom encoding" );
@@ -791,7 +791,7 @@ namespace AtlusScriptCompiler
             switch ( MessageScriptTextEncoding )
             {
                 case MessageScriptTextEncoding.SJ:
-                    encoding = Encoding.GetEncoding( 932 );
+                    encoding = ShiftJISEncoding.Instance;
                     break;
                 case MessageScriptTextEncoding.P3:
                     encoding = AtlusEncoding.Persona3;

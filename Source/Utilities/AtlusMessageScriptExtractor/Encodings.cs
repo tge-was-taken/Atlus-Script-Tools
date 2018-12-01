@@ -6,7 +6,7 @@ namespace AtlusMessageScriptExtractor
 {
     public static class Encodings
     {
-        public static Encoding ShiftJisEncoding = Encoding.GetEncoding( 932 );
+        public static Encoding ShiftJisEncoding = ShiftJISEncoding.Instance;
 
         public static Encoding P3Encoding = new Persona3Encoding();
 

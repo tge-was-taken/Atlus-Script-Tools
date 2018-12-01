@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using AtlusScriptLibrary.Common.IO;
+using AtlusScriptLibrary.Common.Text.Encodings;
 using AtlusScriptLibrary.FlowScriptLanguage.BinaryModel;
 using AtlusScriptLibrary.MessageScriptLanguage;
 
@@ -87,23 +88,23 @@ namespace AtlusScriptLibrary.FlowScriptLanguage
             if ( binary.StringSection != null )
             {
                 short curStringBinaryIndex = 0;
-                string curString = string.Empty;
+                var curStringBytes = new List<byte>();
 
                 for ( short i = 0; i < binary.StringSection.Count; i++ )
                 {
                     // check for string terminator or end of string section
                     if ( binary.StringSection[i] == 0 || i + 1 == binary.StringSection.Count )
                     {
-                        strings.Add( curString );
+                        strings.Add( ShiftJISEncoding.Instance.GetString( curStringBytes.ToArray() ) );
                         stringBinaryIndexToListIndexMap[curStringBinaryIndex] = ( short )( strings.Count - 1 );
 
                         // next string will start at the next byte if there are any left
                         curStringBinaryIndex = ( short )( i + 1 );
-                        curString = string.Empty;
+                        curStringBytes = new List<byte>();
                     }
                     else
                     {
-                        curString += ( char )binary.StringSection[i];
+                        curStringBytes.Add( binary.StringSection[ i ] );
                     }
                 }
             }

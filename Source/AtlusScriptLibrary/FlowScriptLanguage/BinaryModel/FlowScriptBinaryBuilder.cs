@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AtlusScriptLibrary.Common.Text.Encodings;
 using AtlusScriptLibrary.MessageScriptLanguage;
 using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel;
 
@@ -98,7 +99,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel
 
             index = mStringSection.Count;
 
-            var bytes = Encoding.GetEncoding( 932 ).GetBytes( value );
+            var bytes = ShiftJISEncoding.Instance.GetBytes( value );
 
             foreach ( byte b in bytes )
                 mStringSection.Add( b );
