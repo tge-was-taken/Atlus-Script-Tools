@@ -366,12 +366,20 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
                 var calls = SyntaxNodeCollector<CallOperator>.Collect( evaluatedStatement.Statement );
                 foreach ( var call in calls )
                 {
-                    var libraryFunction = Library.FlowScriptModules
-                                                         .SelectMany( x => x.Functions )
-                                                         .SingleOrDefault( x => x.Name == call.Identifier.Text );
+                    var libraryFunctions = Library.FlowScriptModules
+                                                  .SelectMany( x => x.Functions )
+                                                  .Where( x => x.Name == call.Identifier.Text )
+                                                  .ToList();
 
-                    if ( libraryFunction == null )
+                    if ( libraryFunctions.Count == 0 )
                         continue;
+
+                    if ( libraryFunctions.Count != 1 )
+                    {
+                        LogError( $"More than one library function defined with the name '{call.Identifier.Text}' exit; using first definition..." );
+                    }
+
+                    var libraryFunction = libraryFunctions[ 0 ];
 
                     for ( var i = 0; i < libraryFunction.Parameters.Count; i++ )
                     {
@@ -394,7 +402,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
                         var libraryEnum = Library.FlowScriptModules
                                                          .Where( x => x.Enums != null )
                                                          .SelectMany( x => x.Enums )
-                                                         .SingleOrDefault( x => x.Name == parameter.Type );
+                                                         .FirstOrDefault( x => x.Name == parameter.Type );
 
                         if ( libraryEnum == null )
                             continue;
