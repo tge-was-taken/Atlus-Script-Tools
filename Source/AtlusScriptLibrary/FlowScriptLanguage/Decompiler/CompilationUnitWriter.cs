@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -775,7 +776,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
             // Float literal
             private void WriteFloatLiteral( FloatLiteral floatLiteral )
             {
-                Write( $"{floatLiteral}f" );
+                Write($"{floatLiteral.Value.ToString("0.00#####", CultureInfo.InvariantCulture)}f");
             }
 
             // String literal
