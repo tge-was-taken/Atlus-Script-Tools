@@ -12,6 +12,11 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax
         {
         }
 
+        public override string ToString()
+        {
+            return FormattableString.Invariant($"{Value:0.00#####}");
+        }
+
         public bool Equals( FloatLiteral other )
         {
             return Value == other?.Value;
