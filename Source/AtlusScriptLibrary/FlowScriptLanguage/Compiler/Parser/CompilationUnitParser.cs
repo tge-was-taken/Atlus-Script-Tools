@@ -1495,7 +1495,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser
                 floatString = floatString.Substring( 0, floatString.Length - 1 );
             }
 
-            if ( !float.TryParse( floatString, out float value ) )
+            if ( !float.TryParse( floatString, NumberStyles.Float, CultureInfo.InvariantCulture, out float value ) )
             {
                 LogError( node.Symbol, "Invalid float value" );
                 return false;
