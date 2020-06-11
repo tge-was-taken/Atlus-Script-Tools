@@ -1,5 +1,5 @@
 ﻿
-# AtlusScriptToolchain #
+# Atlus Script Tools #
 
 WIP set of tools developed for handling Atlus' script formats including
 * flow script files (.bf)
