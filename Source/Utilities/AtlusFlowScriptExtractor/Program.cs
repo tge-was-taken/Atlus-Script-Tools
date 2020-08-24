@@ -14,7 +14,7 @@ namespace AtlusFlowScriptExtractor
 {
     internal static class Program
     {
-        private static readonly Encoding sEncoding = new Persona5Encoding();
+        private static readonly Encoding sEncoding = AtlusEncoding.Persona5;
 
         private static void Main( string[] args )
         {

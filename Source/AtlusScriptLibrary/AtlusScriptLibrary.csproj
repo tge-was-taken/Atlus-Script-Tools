@@ -78,9 +78,6 @@
     <Compile Include="Common\Libraries\MessageScriptLibraryParameter.cs" />
     <Compile Include="Common\Text\Encodings\AtlusEncoding.cs" />
     <Compile Include="Common\Text\Encodings\CodePoint.cs" />
-    <Compile Include="Common\Text\Encodings\Persona3Encoding.cs" />
-    <Compile Include="Common\Text\Encodings\Persona4Encoding.cs" />
-    <Compile Include="Common\Text\Encodings\Persona5ChiEncoding.cs" />
     <Compile Include="Common\Text\Encodings\ShiftJISEncoding.cs" />
     <Compile Include="Common\Text\Encodings\UnsupportedCharacterException.cs" />
     <Compile Include="FlowScriptLanguage\Compiler\FlowScriptCompiler.cs" />
@@ -208,7 +205,6 @@
     <Compile Include="MessageScriptLanguage\Compiler\Parser\MessageScriptParserVisitor.cs" />
     <Compile Include="MessageScriptLanguage\Decompiler\MessageScriptDecompiler.cs" />
     <Compile Include="Common\Text\FileTextWriter.cs" />
-    <Compile Include="Common\Text\Encodings\Persona5Encoding.cs" />
     <Compile Include="FlowScriptLanguage\BinaryModel\FlowScriptBinary.cs" />
     <Compile Include="FlowScriptLanguage\BinaryModel\FlowScriptBinaryBuilder.cs" />
     <Compile Include="FlowScriptLanguage\BinaryModel\IO\FlowScriptBinaryReader.cs" />
@@ -255,6 +251,18 @@
     <Compile Include="Common\Libraries\LibraryLookup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Charsets\P3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Charsets\P4.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Charsets\P5.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Charsets\P5Chinese.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScript.g4" />
     <None Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScript.tokens" />
     <None Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScriptLexer.tokens" />

@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
 using System.Text;
 
 namespace AtlusScriptLibrary.Common.Text.Encodings
 {
-    public abstract class AtlusEncoding : Encoding
+    public class AtlusEncoding : Encoding
     {
         /// <summary>
         /// Offset from start of glyph range to start of the char table.
@@ -26,29 +29,23 @@ namespace AtlusScriptLibrary.Common.Text.Encodings
         /// </summary>
         private const int GLYPH_TABLE_INDEX_MARKER = 0x80;
 
-        private static bool sIsInitialized;
-
-        private static Dictionary<char, CodePoint> sCharToCodePoint;
-
-        private static Dictionary<CodePoint, char> sCodePointToChar;
-
         // Ease of use accessors
-        private static Persona3Encoding sPersona3;
-        private static Persona4Encoding sPersona4;
-        private static Persona5Encoding sPersona5;
-        private static Persona5ChiEncoding sPersona5Chi;
+        private static AtlusEncoding sPersona3;
+        private static AtlusEncoding sPersona4;
+        private static AtlusEncoding sPersona5;
+        private static AtlusEncoding sPersona5Chinese;
 
-        public static AtlusEncoding Persona3 => sPersona3 ?? ( sPersona3 = new Persona3Encoding() );
-        public static AtlusEncoding Persona4 => sPersona4 ?? ( sPersona4 = new Persona4Encoding() );
-        public static AtlusEncoding Persona5 => sPersona5 ?? ( sPersona5 = new Persona5Encoding() );
-        public static AtlusEncoding Persona5Chi => sPersona5Chi ?? ( sPersona5Chi = new Persona5ChiEncoding() );
+        public static AtlusEncoding Persona3 => sPersona3 ?? ( sPersona3 = new AtlusEncoding( "Charsets/P3.tsv" ) );
+        public static AtlusEncoding Persona4 => sPersona4 ?? ( sPersona4 = new AtlusEncoding( "Charsets/P4.tsv" ) );
+        public static AtlusEncoding Persona5 => sPersona5 ?? ( sPersona5 = new AtlusEncoding( "Charsets/P5.tsv" ) );
+        public static AtlusEncoding Persona5Chinese => sPersona5Chinese ?? ( sPersona5Chinese = new AtlusEncoding( "Charsets/P5Chinese.tsv" ) );
 
         public static AtlusEncoding GetByName( string name )
         {
             // Normalize name
-            name = name.ToLowerInvariant().Replace( " ", "" );
+            var nameNormalized = name.ToLowerInvariant().Replace(" ", "");
 
-            switch ( name )
+            switch ( nameNormalized )
             {
                 case "p3":
                 case "persona3":
@@ -63,13 +60,25 @@ namespace AtlusScriptLibrary.Common.Text.Encodings
                     return Persona5;
 
                 case "p5chi":
+                case "p5chinese":
                 case "persona5chi":
-                    return Persona5Chi;
+                case "persona5chinese":
+                    return Persona5Chinese;
 
                 default:
-                    throw new ArgumentException( nameof( name ) );
+                    {
+                        // Try load from charsets directory
+                        var tableFilePath = $"Charsets/{name}.tsv";
+                        if (!File.Exists(tableFilePath))
+                            throw new ArgumentException($"Unknown encoding: {name}", nameof(name));
+
+                        return new AtlusEncoding(tableFilePath);
+                    }
             }
         }
+
+        private Dictionary<string, CodePoint> mCharToCodePoint;
+        private Dictionary<CodePoint, string> mCodePointToChar;
 
         public override int GetByteCount( char[] chars, int index, int count )
         {
@@ -92,11 +101,13 @@ namespace AtlusScriptLibrary.Common.Text.Encodings
             for ( ; charIndex < charCount; charIndex++ )
             {
                 CodePoint codePoint;
-                var c = chars[ charIndex ];
+                var c = chars[charIndex].ToString();
+                if (char.IsControl(c[0]))
+                    c += chars[++charIndex].ToString(); ;
 
                 try
                 {
-                    codePoint = sCharToCodePoint[c];
+                    codePoint = mCharToCodePoint[c];
                 }
                 catch ( KeyNotFoundException )
                 {
@@ -158,11 +169,14 @@ namespace AtlusScriptLibrary.Common.Text.Encodings
 
                 cp.LowSurrogate = bytes[byteIndex];
 
-                if ( !sCodePointToChar.TryGetValue( cp, out var c ) || c == '\0' )
+                if ( !mCodePointToChar.TryGetValue( cp, out var c ) )
                     hasUndefinedChars = true;
 
-                chars[charIndex++] = c;
-                charCount++;
+                for (int i = 0; i < c.Length; i++)
+                {
+                    chars[charIndex++] = c[i];
+                    charCount++;
+                }
             }
 
             return charCount;
@@ -175,7 +189,7 @@ namespace AtlusScriptLibrary.Common.Text.Encodings
 
         public override int GetMaxCharCount( int byteCount )
         {
-            return byteCount;
+            return byteCount * 2;
         }
 
         public bool TryGetString( byte[] bytes, out string value )
@@ -193,54 +207,84 @@ namespace AtlusScriptLibrary.Common.Text.Encodings
             return true;
         }
 
-        protected abstract char[] CharTable { get; }
-
-        protected AtlusEncoding()
+        public AtlusEncoding( string tableFilePath )
         {
-            if ( sIsInitialized )
-                return;
+            var charTable = ReadCharsetFile(tableFilePath);
 
             // build character to codepoint table
-            sCharToCodePoint = new Dictionary<char, CodePoint>( CharTable.Length );
+            mCharToCodePoint = new Dictionary<string, CodePoint>(charTable.Count);
 
             // add the ascii range seperately
-            for ( int charIndex = 0; charIndex < ASCII_RANGE + 1; charIndex++ )
+            for (int charIndex = 0; charIndex < ASCII_RANGE + 1; charIndex++)
             {
-                if ( !sCharToCodePoint.ContainsKey( CharTable[charIndex] ) )
-                    sCharToCodePoint[CharTable[charIndex]] = new CodePoint( 0, ( byte )charIndex );
+                if (!mCharToCodePoint.ContainsKey(charTable[charIndex]))
+                    mCharToCodePoint[charTable[charIndex]] = new CodePoint(0, (byte)charIndex);
             }
 
             // add extended characters, but don't re-include the ascii range
-            for ( int charIndex = ASCII_RANGE + 1; charIndex < CharTable.Length; charIndex++ )
+            for (int charIndex = ASCII_RANGE + 1; charIndex < charTable.Count; charIndex++)
             {
                 int glyphIndex = charIndex + CHAR_TO_GLYPH_INDEX_OFFSET;
-                int tableIndex = ( glyphIndex / GLYPH_TABLE_SIZE ) - 1;
-                int tableRelativeIndex = glyphIndex - ( tableIndex * GLYPH_TABLE_SIZE );
+                int tableIndex = (glyphIndex / GLYPH_TABLE_SIZE) - 1;
+                int tableRelativeIndex = glyphIndex - (tableIndex * GLYPH_TABLE_SIZE);
 
-                if ( !sCharToCodePoint.ContainsKey( CharTable[charIndex] ) )
-                    sCharToCodePoint[CharTable[charIndex]] = new CodePoint( ( byte )( GLYPH_TABLE_INDEX_MARKER | tableIndex ), ( byte )( tableRelativeIndex ) );
+                if (!mCharToCodePoint.ContainsKey(charTable[charIndex]))
+                    mCharToCodePoint[charTable[charIndex]] = new CodePoint((byte)(GLYPH_TABLE_INDEX_MARKER | tableIndex), (byte)(tableRelativeIndex));
             }
 
             // build code point to character lookup table
-            sCodePointToChar = new Dictionary<CodePoint, char>( CharTable.Length );
+            mCodePointToChar = new Dictionary<CodePoint, string>(charTable.Count);
 
             // add the ascii range seperately
-            for ( int charIndex = 0; charIndex < ASCII_RANGE + 1; charIndex++ )
+            for (int charIndex = 0; charIndex < ASCII_RANGE + 1; charIndex++)
             {
-                sCodePointToChar[new CodePoint( 0, ( byte )charIndex )] = CharTable[charIndex];
+                mCodePointToChar[new CodePoint(0, (byte)charIndex)] = charTable[charIndex];
             }
 
             // add extended characters, and make sure to include the ascii range again due to overlap
-            for ( int charIndex = 0x20; charIndex < CharTable.Length; charIndex++ )
+            for (int charIndex = 0x20; charIndex < charTable.Count; charIndex++)
             {
                 int glyphIndex = charIndex + CHAR_TO_GLYPH_INDEX_OFFSET;
-                int tableIndex = ( glyphIndex / GLYPH_TABLE_SIZE ) - 1;
-                int tableRelativeIndex = glyphIndex - ( tableIndex * GLYPH_TABLE_SIZE );
+                int tableIndex = (glyphIndex / GLYPH_TABLE_SIZE) - 1;
+                int tableRelativeIndex = glyphIndex - (tableIndex * GLYPH_TABLE_SIZE);
 
-                sCodePointToChar[new CodePoint( ( byte )( GLYPH_TABLE_INDEX_MARKER | tableIndex ), ( byte )( tableRelativeIndex ) )] = CharTable[charIndex];
+                mCodePointToChar[new CodePoint((byte)(GLYPH_TABLE_INDEX_MARKER | tableIndex), (byte)(tableRelativeIndex))] = charTable[charIndex];
+            }
+        }
+
+        private static List<string> ReadCharsetFile(string tableFilePath)
+        {
+            var charTable = new List<string>();
+            using (var reader = File.OpenText(tableFilePath))
+            {
+                var lineNr = 1;
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    var charStrings = line.Split('\t');
+                    for (int i = 0; i < charStrings.Length; i++)
+                    {
+                        var charString = charStrings[i];
+                        if (charString.StartsWith("\\u"))
+                        {
+                            // Escaped unicode character
+                            var charId = int.Parse(charString.Substring(2), NumberStyles.HexNumber, CultureInfo.InvariantCulture);
+                            charTable.Add(((char)charId).ToString());
+                        }
+                        else
+                        {
+                            if ( charString.Length > 1 )
+                                Debug.WriteLine($"WARNING: Character in charset with more than 1 UTF16 character at line {lineNr}: {charString}");
+
+                            charTable.Add(charString);
+                        }
+                    }
+
+                    ++lineNr;
+                }
             }
 
-            sIsInitialized = true;
+            return charTable;
         }
     }
 }

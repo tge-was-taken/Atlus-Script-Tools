@@ -33,7 +33,8 @@ namespace AtlusScriptCompiler
         public static bool DoDisassemble;
         public static InputFileFormat InputFileFormat;
         public static OutputFileFormat OutputFileFormat;
-        public static MessageScriptTextEncoding MessageScriptTextEncoding;
+        public static string MessageScriptTextEncodingName;
+        public static Encoding MessageScriptEncoding;
         public static string LibraryName;
         public static bool LogTrace;
         public static bool FlowScriptEnableProcedureTracing;
@@ -80,13 +81,14 @@ namespace AtlusScriptCompiler
             Console.WriteLine( "            V1BE            Used by Persona 5 PS3" );
             Console.WriteLine();
             Console.WriteLine( "        -Encoding" );
-            Console.WriteLine( "            Below is a list of different available encodings." );
+            Console.WriteLine( "            Below is a list of different available standard encodings." );
             Console.WriteLine( "            Note that ASCII characters don't really differ from the standard, so this mostly applies to special characters and japanese characters." );
             Console.WriteLine();
             Console.WriteLine( "            SJ                  Shift-JIS encoding (CP932). Used by Persona Q(2)" );
             Console.WriteLine( "            P3                  Persona 3's custom encoding" );
             Console.WriteLine( "            P4                  Persona 4's custom encoding" );
             Console.WriteLine( "            P5                  Persona 5's custom encoding" );
+            Console.WriteLine( "            <charset file name> Custom encodings can be used by placing them in the charset folder. The TSV files are tab separated.");
             Console.WriteLine();
             Console.WriteLine( "        -Library" );
             Console.WriteLine( "            For MessageScripts the libraries used for the compiler and decompiler to emit the proper [f] tags for each aliased function." );
@@ -302,13 +304,29 @@ namespace AtlusScriptCompiler
                             return false;
                         }
 
-                        if ( !Enum.TryParse( args[++i], true, out MessageScriptTextEncoding ) )
+                        MessageScriptTextEncodingName = args[++i];
+
+                        switch ( MessageScriptTextEncodingName.ToLower() )
                         {
-                            Logger.Error( "Invalid output file encoding specified" );
-                            return false;
+                            case "sj":
+                            case "shiftjis":
+                            case "shift-jis":
+                                MessageScriptEncoding = ShiftJISEncoding.Instance;
+                                break;
+                            default:
+                                try
+                                {
+                                    MessageScriptEncoding = AtlusEncoding.GetByName( MessageScriptTextEncodingName );
+                                }
+                                catch ( ArgumentException )
+                                {
+                                    Logger.Error( $"Unknown encoding: {MessageScriptTextEncodingName}" );
+                                    return false;
+                                }
+                                break;
                         }
 
-                        Logger.Info( $"Using {MessageScriptTextEncoding} encoding" );
+                        Logger.Info( $"Using {MessageScriptTextEncodingName} encoding" );
                         break;
 
                     case "-TraceProcedure":
@@ -342,7 +360,7 @@ namespace AtlusScriptCompiler
             {
                 Logger.Error( $"Specified input file doesn't exist! ({InputFilePath})" );
                 return false;
-            }
+            } 
 
             if ( InputFileFormat == InputFileFormat.None )
             {
@@ -372,6 +390,26 @@ namespace AtlusScriptCompiler
 
                     default:
                         Logger.Error( "Unable to detect input file format" );
+                        return false;
+                }
+            }
+
+
+            if ( !IsActionAssigned )
+            {
+                // Decide on default action based on input file format
+                switch ( InputFileFormat )
+                {
+                    case InputFileFormat.FlowScriptBinary:
+                    case InputFileFormat.MessageScriptBinary:
+                        DoDecompile = true;
+                        break;
+                    case InputFileFormat.FlowScriptTextSource:
+                    case InputFileFormat.MessageScriptTextSource:
+                        DoCompile = true;
+                        break;
+                    default:
+                        Logger.Error( "No compilation, decompilation or disassemble instruction given!" );
                         return false;
                 }
             }
@@ -456,7 +494,7 @@ namespace AtlusScriptCompiler
             // Compile source
             var compiler = new FlowScriptCompiler( version );
             compiler.AddListener( Listener );
-            compiler.Encoding = GetEncoding();
+            compiler.Encoding = MessageScriptEncoding;
             compiler.EnableProcedureTracing = FlowScriptEnableProcedureTracing;
             compiler.EnableProcedureCallTracing = FlowScriptEnableProcedureCallTracing;
             compiler.EnableFunctionCallTracing = FlowScriptEnableFunctionCallTracing;
@@ -547,8 +585,7 @@ namespace AtlusScriptCompiler
                 return false;
             }
 
-            var encoding = GetEncoding();
-            var compiler = new MessageScriptCompiler( GetMessageScriptFormatVersion(), encoding );
+            var compiler = new MessageScriptCompiler( GetMessageScriptFormatVersion(), MessageScriptEncoding );
             compiler.AddListener( Listener );
 
             if ( LibraryName != null )
@@ -640,7 +677,7 @@ namespace AtlusScriptCompiler
             // Load binary file
             Logger.Info( "Loading binary FlowScript file..." );
             FlowScript flowScript = null;
-            var encoding = GetEncoding();
+            var encoding = MessageScriptEncoding;
             var format = GetFlowScriptFormatVersion();
 
             if ( !TryPerformAction( "Failed to load flow script from file", () => flowScript = FlowScript.FromFile( InputFilePath, encoding, format ) ) )
@@ -678,7 +715,7 @@ namespace AtlusScriptCompiler
             // load binary file
             Logger.Info( "Loading binary MessageScript file..." );
             MessageScript script = null;
-            var encoding = GetEncoding();
+            var encoding = MessageScriptEncoding;
             var format = GetMessageScriptFormatVersion();
 
             if ( !TryPerformAction( "Failed to load message script from file.", () => script = MessageScript.FromFile( InputFilePath, format, encoding ) ) )
@@ -784,32 +821,6 @@ namespace AtlusScriptCompiler
             return true;
         }
 
-        private static Encoding GetEncoding( )
-        {
-            Encoding encoding = null;
-
-            switch ( MessageScriptTextEncoding )
-            {
-                case MessageScriptTextEncoding.SJ:
-                    encoding = ShiftJISEncoding.Instance;
-                    break;
-                case MessageScriptTextEncoding.P3:
-                    encoding = AtlusEncoding.Persona3;
-                    break;
-                case MessageScriptTextEncoding.P4:
-                    encoding = AtlusEncoding.Persona4;
-                    break;
-                case MessageScriptTextEncoding.P5:
-                    encoding = AtlusEncoding.Persona5;
-                    break;
-                case MessageScriptTextEncoding.P5CHI:
-                    encoding = AtlusEncoding.Persona5Chi;
-                    break;
-            }
-
-            return encoding;
-        }
-
         private static void LogException( string message, Exception e )
         {
             Logger.Error( message );
@@ -840,15 +851,5 @@ namespace AtlusScriptCompiler
         V2BE,
         V3,
         V3BE
-    }
-
-    public enum MessageScriptTextEncoding
-    {
-        None,
-        SJ,
-        P3,
-        P4,
-        P5,
-        P5CHI,
     }
 }
