@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace AtlusScriptLibrary.Common.Logging
 {
@@ -9,11 +10,24 @@ namespace AtlusScriptLibrary.Common.Logging
         public ConsoleLogListener( bool useColors, LogLevel filter ) : base( filter )
         {
             UseColors = useColors;
+            TrySetConsoleEncoding();
         }
 
         public ConsoleLogListener( string channelName, bool useColors ) : base( channelName )
         {
             UseColors = useColors;
+            TrySetConsoleEncoding();
+        }
+
+        private static void TrySetConsoleEncoding()
+        {
+            try
+            {
+                Console.OutputEncoding = Encoding.Unicode;
+            }
+            catch (Exception)
+            {
+            }
         }
 
         protected override void OnLogCore( object sender, LogEventArgs e )

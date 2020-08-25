@@ -102,7 +102,7 @@ namespace AtlusScriptLibrary.Common.Text.Encodings
             {
                 CodePoint codePoint;
                 var c = chars[charIndex].ToString();
-                if (char.IsControl(c[0]))
+                if (char.IsHighSurrogate(c[0]))
                     c += chars[++charIndex].ToString(); ;
 
                 try
