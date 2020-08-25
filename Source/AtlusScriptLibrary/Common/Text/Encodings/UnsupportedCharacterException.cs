@@ -9,6 +9,7 @@ namespace AtlusScriptLibrary.Common.Text.Encodings
         public string Character { get; }
 
         public UnsupportedCharacterException( string encodingName, string c )
+            : base( $"Encoding {encodingName} does not support character: {c}" )
         {
             EncodingName = encodingName;
             Character    = c;
