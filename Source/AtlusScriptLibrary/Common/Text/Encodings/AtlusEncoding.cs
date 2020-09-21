@@ -30,15 +30,16 @@ namespace AtlusScriptLibrary.Common.Text.Encodings
         private const int GLYPH_TABLE_INDEX_MARKER = 0x80;
 
         // Ease of use accessors
+        private static readonly string sCharsetsBaseDirectoryPath = Path.Combine( AppDomain.CurrentDomain.BaseDirectory, "Charsets" );
         private static AtlusEncoding sPersona3;
         private static AtlusEncoding sPersona4;
         private static AtlusEncoding sPersona5;
         private static AtlusEncoding sPersona5Chinese;
 
-        public static AtlusEncoding Persona3 => sPersona3 ?? ( sPersona3 = new AtlusEncoding( "Charsets/P3.tsv" ) );
-        public static AtlusEncoding Persona4 => sPersona4 ?? ( sPersona4 = new AtlusEncoding( "Charsets/P4.tsv" ) );
-        public static AtlusEncoding Persona5 => sPersona5 ?? ( sPersona5 = new AtlusEncoding( "Charsets/P5.tsv" ) );
-        public static AtlusEncoding Persona5Chinese => sPersona5Chinese ?? ( sPersona5Chinese = new AtlusEncoding( "Charsets/P5Chinese.tsv" ) );
+        public static AtlusEncoding Persona3 => sPersona3 ?? ( sPersona3 = new AtlusEncoding( "P3" ) );
+        public static AtlusEncoding Persona4 => sPersona4 ?? ( sPersona4 = new AtlusEncoding( "P4" ) );
+        public static AtlusEncoding Persona5 => sPersona5 ?? ( sPersona5 = new AtlusEncoding( "P5" ) );
+        public static AtlusEncoding Persona5Chinese => sPersona5Chinese ?? ( sPersona5Chinese = new AtlusEncoding( "P5Chinese" ) );
 
         public static AtlusEncoding GetByName( string name )
         {
@@ -68,11 +69,7 @@ namespace AtlusScriptLibrary.Common.Text.Encodings
                 default:
                     {
                         // Try load from charsets directory
-                        var tableFilePath = $"Charsets/{name}.tsv";
-                        if (!File.Exists(tableFilePath))
-                            throw new ArgumentException($"Unknown encoding: {name}", nameof(name));
-
-                        return new AtlusEncoding(tableFilePath);
+                        return new AtlusEncoding( name );
                     }
             }
         }
@@ -207,8 +204,12 @@ namespace AtlusScriptLibrary.Common.Text.Encodings
             return true;
         }
 
-        public AtlusEncoding( string tableFilePath )
+        public AtlusEncoding( string tableName )
         {
+            var tableFilePath = Path.Combine(sCharsetsBaseDirectoryPath, $"{tableName}.tsv");
+            if (!File.Exists(tableFilePath))
+                throw new ArgumentException($"Unknown encoding: {tableName} ({tableFilePath})", nameof(tableName));
+
             var charTable = ReadCharsetFile(tableFilePath);
 
             // build character to codepoint table
