@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 
@@ -327,7 +328,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Interpreter
                                     case 'A':
                                     case 'g':
                                     case 'G':
-                                        instance.TextOutput?.Write( instance.PopFloatValue() );
+                                        instance.TextOutput?.Write( instance.PopFloatValue().ToString( CultureInfo.InvariantCulture ) );
                                         break;
                                 }
                             }

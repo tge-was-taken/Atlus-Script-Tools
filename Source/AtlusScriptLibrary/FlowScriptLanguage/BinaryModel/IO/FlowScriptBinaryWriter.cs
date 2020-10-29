@@ -96,12 +96,12 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel.IO
                 {
                     ref var prevInstruction = ref instructions[i - 1];
 
-                    if ( prevInstruction.Opcode == Opcode.PUSHI && ( prevInstruction.OperandInt == 0 && instruction.OperandInt > 0 ) )
+                    if ( prevInstruction.Opcode == Opcode.PUSHI && prevInstruction.OperandInt == 0 )
                     {
                         mWriter.Write( instruction.OperandInt );
                         continue;
                     }
-                    if ( prevInstruction.Opcode == Opcode.PUSHF && ( prevInstruction.OperandFloat == 0 && instruction.OperandFloat > 0 ) )
+                    if ( prevInstruction.Opcode == Opcode.PUSHF && prevInstruction.OperandFloat == 0 )
                     {
                         mWriter.Write( instruction.OperandFloat );
                         continue;

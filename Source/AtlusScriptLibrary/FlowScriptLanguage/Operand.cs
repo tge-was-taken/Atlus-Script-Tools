@@ -5,7 +5,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage
     /// <summary>
     /// Represents an instruction operand value.
     /// </summary>
-    public class Operand
+    public class Operand : IEquatable<Operand>
     {
         private short mShortValue;
         private int mIntValue;
@@ -222,6 +222,33 @@ namespace AtlusScriptLibrary.FlowScriptLanguage
         public override string ToString()
         {
             return Value.ToString();
+        }
+
+        public bool Equals(Operand other)
+        {
+            if (Kind != other.Kind)
+                return false;
+
+            switch (Kind)
+            {
+                case ValueKind.None:
+                    return true;
+
+                case ValueKind.Int16:
+                    return mShortValue == other.mShortValue;
+
+                case ValueKind.Int32:
+                    return mIntValue == other.mIntValue;
+
+                case ValueKind.Single:
+                    return mFloatValue == other.mFloatValue;
+
+                case ValueKind.String:
+                    return mStringValue == other.mStringValue;
+
+                default:
+                    throw new Exception("Invalid value type");
+            }
         }
     }
 }

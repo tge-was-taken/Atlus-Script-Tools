@@ -8,7 +8,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage
     /// <summary>
     /// Represents a single instruction in a <see cref="FlowScript"/>.
     /// </summary>
-    public class Instruction
+    public class Instruction : IEquatable<Instruction>
     {
         /// <summary>
         /// Gets the opcode of this instruction.
@@ -542,6 +542,11 @@ namespace AtlusScriptLibrary.FlowScriptLanguage
         public override string ToString()
         {
             return $"{Opcode} {Operand}";
+        }
+
+        public bool Equals(Instruction other)
+        {
+            return Opcode == other.Opcode && (Operand == other.Operand || Operand.Equals(other.Operand));
         }
     }
 }

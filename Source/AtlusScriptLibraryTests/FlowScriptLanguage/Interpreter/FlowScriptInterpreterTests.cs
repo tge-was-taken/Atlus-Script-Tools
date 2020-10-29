@@ -240,5 +240,18 @@ void Test()
 ";
             RunP5Test( source, "Passed\n" );
         }
+
+        [TestMethod]
+        public void negative_floats()
+        {
+            var source = @"
+void Test()
+{
+    PUTS(""%f"", -420.69);
+}
+";
+
+            RunP5Test(source, "-420.69\n");
+        }
     }
 }

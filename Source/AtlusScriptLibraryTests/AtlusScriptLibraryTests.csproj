@@ -60,6 +60,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="FlowScriptLanguage\Compiler\FlowScriptCompilerTests.cs" />
     <Compile Include="FlowScriptLanguage\Disassembler\FlowScriptDisassemblerTests.cs" />
     <Compile Include="FlowScriptLanguage\BinaryModel\FlowScriptBinaryTests.cs" />
     <Compile Include="FlowScriptLanguage\FlowScriptTests.cs" />
