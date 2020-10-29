@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using AtlusScriptLibrary.Common.IO;
@@ -92,24 +93,20 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel.IO
             {
                 ref var instruction = ref instructions[i];
 
-                if ( i != 0 )
-                {
-                    ref var prevInstruction = ref instructions[i - 1];
-
-                    if ( prevInstruction.Opcode == Opcode.PUSHI && prevInstruction.OperandInt == 0 )
-                    {
-                        mWriter.Write( instruction.OperandInt );
-                        continue;
-                    }
-                    if ( prevInstruction.Opcode == Opcode.PUSHF && prevInstruction.OperandFloat == 0 )
-                    {
-                        mWriter.Write( instruction.OperandFloat );
-                        continue;
-                    }
-                }
-
                 mWriter.Write( ( short )instruction.Opcode );
                 mWriter.Write( instruction.OperandShort );
+                
+                // Write large operands immediately afterwards
+                if ( instruction.Opcode == Opcode.PUSHI )
+                {
+                    Trace.Assert( i + 1 < instructions.Length, "Missing operand value for PUSHI" );
+                    mWriter.Write( instructions[++i].OperandInt );
+                }
+                else if ( instruction.Opcode == Opcode.PUSHF )
+                {
+                    Trace.Assert( i + 1 < instructions.Length, "Missing operand value for PUSHF" );
+                    mWriter.Write( instructions[++i].OperandFloat );
+                }
             }
         }
 
