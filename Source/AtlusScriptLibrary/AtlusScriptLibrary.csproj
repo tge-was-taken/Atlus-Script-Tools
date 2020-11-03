@@ -257,13 +257,16 @@
     <None Include="Charsets\P4.tsv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Charsets\P4Spanish.tsv">
+    <None Include="Charsets\P4_Spanish.tsv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Charsets\P5.tsv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Charsets\P5Chinese.tsv">
+    <None Include="Charsets\P5R_EFIGS.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Charsets\P5_Chinese.tsv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScript.g4" />

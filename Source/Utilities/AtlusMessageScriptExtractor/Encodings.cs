@@ -14,12 +14,15 @@ namespace AtlusMessageScriptExtractor
 
         public static Encoding P5Encoding = AtlusEncoding.Persona5;
 
+        public static Encoding P5REncoding = AtlusEncoding.Persona5RoyalEFIGS;
+
         public static Dictionary<string, Encoding> EncodingByName = new Dictionary<string, Encoding>
         {
             { "sj", ShiftJisEncoding },
             { "p3", P3Encoding },
             { "p4", P4Encoding },
-            { "p5", P5Encoding }
+            { "p5", P5Encoding },
+            { "p5r", P5REncoding }
         };
     }
 }
