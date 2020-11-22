@@ -149,7 +149,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
                 : new VariableModifier( modifierKind, new IntLiteral(index) );
 
             var type = new TypeIdentifier( valueKind );
-            var identifier = new Identifier( valueKind, GenerateVariableName( modifierKind, valueKind, index, Scope.Parent == null ) );
+            var identifier = new Identifier( valueKind, NameFormatter.GenerateVariableName( modifierKind, valueKind, index, Scope.Parent == null ) );
             declaration = new VariableDeclaration( modifier, type, identifier, null );
 
             switch ( modifierKind )
@@ -232,48 +232,6 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
             }
 
             return false;
-        }
-
-        private string GenerateVariableName( VariableModifierKind modifier, ValueKind kind, short index, bool isTopLevel )
-        {
-            switch ( kind )
-            {
-                case ValueKind.Int:
-                    switch ( modifier )
-                    {
-                        case VariableModifierKind.Local:
-                            return isTopLevel ? $"variable{index}" : $"localVariable{index}";
-                        case VariableModifierKind.Global:
-                            return isTopLevel ? $"gVariable{index}" : $"gLocalVariable{index}";
-                    }
-                    break;
-                case ValueKind.Float:
-                    switch ( modifier )
-                    {
-                        case VariableModifierKind.Local:
-                            return isTopLevel ? $"floatVariable{index}" : $"localFloatVariable{index}";
-                        case VariableModifierKind.Global:
-                            return isTopLevel ? $"gFloatVariable{index}" : $"gLocalFloatVariable{index}";
-                    }
-                    break;
-            }
-
-            Debug.Assert( false );
-            return null;
-        }
-
-        private string GenerateParameterName( ValueKind kind, int index )
-        {
-            switch ( kind )
-            {
-                case ValueKind.Int:
-                    return $"param{index}";
-                case ValueKind.Float:
-                    return $"floatParam{index}";
-            }
-
-            Debug.Assert( false );
-            return null;
         }
 
         private enum VariableIndexKind { Implicit, Explicit }

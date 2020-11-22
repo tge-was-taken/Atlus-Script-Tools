@@ -9,6 +9,7 @@ using AtlusScriptLibrary.Common.Libraries;
 using AtlusScriptLibrary.Common.Logging;
 using AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser;
 using AtlusScriptLibrary.FlowScriptLanguage.Compiler.Processing;
+using AtlusScriptLibrary.FlowScriptLanguage.Decompiler;
 using AtlusScriptLibrary.FlowScriptLanguage.Syntax;
 using AtlusScriptLibrary.MessageScriptLanguage;
 using AtlusScriptLibrary.MessageScriptLanguage.Compiler;
@@ -312,7 +313,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
 
             var importedMessageScripts = new List<MessageScript>();
             var importedFlowScripts = new List<CompilationUnit>();
-            var importedCompiledFlowScripts = new List<FlowScript>();
+            var importedCompiledFlowScripts = new List<(Import Import, FlowScript Script)>();
 
             foreach ( var import in compilationUnit.Imports )
             {
@@ -359,7 +360,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                             }
 
                             if ( importedScript != null )
-                                importedCompiledFlowScripts.Add( importedScript );
+                                importedCompiledFlowScripts.Add( (import, importedScript) );
                         }
                         break;
 
@@ -371,25 +372,17 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                 }
             }
 
-            // Resolve compiled FlowScript imports
-            foreach ( var compiledFlowScript in importedCompiledFlowScripts )
+            // process compiled FlowScript imports
+            foreach ( var compiledFlowScriptImport in importedCompiledFlowScripts )
             {
-                for ( var i = 0; i < compiledFlowScript.Procedures.Count; i++ )
+                var script = compiledFlowScriptImport.Script;
+                var import = compiledFlowScriptImport.Import;
+
+                if ( !TryProcessCompiledFlowScriptImport( script ) )
                 {
-                    // Add a declaration for the imported procedure
-                    var procedure = compiledFlowScript.Procedures[i];
-                    var procedureDecl = new ProcedureDeclaration( new IntLiteral( i ), TypeIdentifier.Void,
-                                                                  new Identifier( procedure.Name ),
-                                                                  new List<Parameter>(), null );
-
-                    Debug.Assert( mScript.Procedures.Count == i, "Imported procedure index mismatch" );
-                    mScript.Procedures.Add( procedure );
-                    if ( !Scope.TryDeclareProcedure( procedureDecl ) )
-                        Debug.Assert( false );
+                    Error( import, $"Failed to resolve compiled FlowScript import: {import.CompilationUnitFileName}" );
+                    return false;
                 }
-
-                if ( compiledFlowScript.MessageScript != null )
-                    MergeMessageScript( compiledFlowScript.MessageScript );
             }
 
             // Resolve MessageScripts imports
@@ -420,6 +413,87 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
 
             if ( !mReresolveImports )
                 Info( compilationUnit, "Done resolving imports" );
+
+            return true;
+        }
+
+        private bool TryProcessCompiledFlowScriptImport( FlowScript compiledFlowScript )
+        {
+            // Register declarations for procedures declared in the imported script
+            for ( var i = 0; i < compiledFlowScript.Procedures.Count; i++ )
+            {
+                // Add a declaration for the imported procedure
+                var procedure = compiledFlowScript.Procedures[ i ];
+                var procedureDecl = new ProcedureDeclaration( new IntLiteral( i ), TypeIdentifier.Void,
+                                                              new Identifier( procedure.Name ),
+                                                              new List<Parameter>(), null );
+
+                Debug.Assert( mScript.Procedures.Count == i, "Imported procedure index mismatch" );
+                mScript.Procedures.Add( procedure );
+                if ( !Scope.TryDeclareProcedure( procedureDecl ) )
+                    Debug.Assert( false );
+            }
+
+            // Add declarations for top-level/global variables
+            // TODO: this logic doesn't really belong here
+            var varProcedureAccessesMap = new Dictionary<(VariableModifierKind, ValueKind, int), HashSet<FlowScriptLanguage.Procedure>>();
+            foreach ( var proc in compiledFlowScript.Procedures )
+            {
+                foreach ( var inst in proc.Instructions )
+                {
+                    (VariableModifierKind, ValueKind, int) key;
+                    switch ( inst.Opcode )
+                    {
+                        case Opcode.PUSHIX:
+                        case Opcode.POPIX:
+                            key = (VariableModifierKind.Global, ValueKind.Int, inst.Operand.Int16Value);
+                            break;
+                        case Opcode.PUSHIF:
+                        case Opcode.POPFX:
+                            key = (VariableModifierKind.Global, ValueKind.Float, inst.Operand.Int16Value);
+                            break;
+                        case Opcode.PUSHLIX:
+                        case Opcode.POPLIX:
+                            key = (VariableModifierKind.Local, ValueKind.Int, inst.Operand.Int16Value);
+                            break;
+                        case Opcode.PUSHLFX:
+                        case Opcode.POPLFX:
+                            key = (VariableModifierKind.Local, ValueKind.Float, inst.Operand.Int16Value);
+                            break;
+                        default:
+                            continue;
+                    }
+
+                    if ( !varProcedureAccessesMap.ContainsKey( key ) ) varProcedureAccessesMap[ key ] = new HashSet<FlowScriptLanguage.Procedure>();
+                    varProcedureAccessesMap[ key ].Add( proc );
+                }
+            }
+
+            foreach ( var kvp in varProcedureAccessesMap )
+            {
+                (VariableModifierKind modifier, ValueKind valueKind, int index) = kvp.Key;
+                if ( modifier == VariableModifierKind.Local && kvp.Value.Count <= 1 )
+                {
+                    // Only add a declaration for local variables if they're referenced by multiple procedures
+                    continue;
+                }
+
+                // Add variable declaration to script
+                var decl = new VariableDeclaration( new VariableModifier( modifier, new IntLiteral( index ) ),
+                    new TypeIdentifier( valueKind ),
+                    new Identifier( valueKind, NameFormatter.GenerateVariableName( modifier, valueKind, (short)index, true ) ),
+                    null );
+
+                if ( !TryRegisterVariableDeclaration( decl, out _, out _ ) )
+                {
+                    Error( decl, $"Duplicate variable declaration: {decl}" );
+                    return false;
+                }
+                Trace( $"Registered imported variable declaration '{decl}'" );
+            }
+
+            if ( compiledFlowScript.MessageScript != null )
+                MergeMessageScript( compiledFlowScript.MessageScript );
 
             return true;
         }

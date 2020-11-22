@@ -101,6 +101,7 @@
     <Compile Include="FlowScriptLanguage\Decompiler\EvaluationResult.cs" />
     <Compile Include="FlowScriptLanguage\Decompiler\Evaluator.cs" />
     <Compile Include="FlowScriptLanguage\Decompiler\EvaluatedScope.cs" />
+    <Compile Include="FlowScriptLanguage\Decompiler\NameFormatter.cs" />
     <Compile Include="FlowScriptLanguage\Interpreter\FlowScriptInterpreter.cs" />
     <Compile Include="FlowScriptLanguage\Interpreter\Module.cs" />
     <Compile Include="FlowScriptLanguage\Interpreter\StackInbalanceException.cs" />
