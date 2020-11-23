@@ -492,6 +492,23 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                 Trace( $"Registered imported variable declaration '{decl}'" );
             }
 
+            // Set next variable index to past the max. variable indices of the imported scripts
+            var maxIntVarIdx = varProcedureAccessesMap.Where( x => x.Key.Item1 == VariableModifierKind.Local && x.Key.Item2 == ValueKind.Int ).MaxOrDefault( x => x.Key.Item3, -1 );
+            var maxFloatVarIdx = varProcedureAccessesMap.Where( x => x.Key.Item1 == VariableModifierKind.Local && x.Key.Item2 == ValueKind.Float ).MaxOrDefault( x => x.Key.Item3, -1 );
+            var maxAiGlobalVarIdx = varProcedureAccessesMap.Where( x => x.Key.Item1 == VariableModifierKind.AiGlobal ).MaxOrDefault( x => x.Key.Item3, -1 );
+            var maxAiLocalVarIdx = varProcedureAccessesMap.Where( x => x.Key.Item1 == VariableModifierKind.AiLocal ).MaxOrDefault( x => x.Key.Item3, -1 );
+            var maxGlobalIntVarIdx = varProcedureAccessesMap.Where( x => x.Key.Item1 == VariableModifierKind.Global && x.Key.Item2 == ValueKind.Int ).MaxOrDefault( x => x.Key.Item3, -1 );
+            var maxGlobalFloatVarIdx = varProcedureAccessesMap.Where( x => x.Key.Item1 == VariableModifierKind.Global && x.Key.Item2 == ValueKind.Float ).MaxOrDefault( x => x.Key.Item3, -1 );
+            var maxLabelIdx = compiledFlowScript.EnumerateInstructions().Where( x => x.Opcode == Opcode.GOTO ).MaxOrDefault( x => x.Operand.Int16Value, -1 );
+
+            mNextIntVariableIndex = Math.Max( mNextIntVariableIndex, (short)( maxIntVarIdx + 1 ) );
+            mNextFloatVariableIndex = Math.Max( mNextFloatVariableIndex, (short)( maxFloatVarIdx + 1 ) );
+            mNextAiGlobalVariableIndex = Math.Max( mNextAiGlobalVariableIndex, (short)( maxAiGlobalVarIdx + 1 ) );
+            mNextAiLocalVariableIndex = Math.Max( mNextAiLocalVariableIndex, (short)( maxAiLocalVarIdx + 1 ) );
+            mNextGlobalIntVariableIndex = Math.Max( mNextGlobalIntVariableIndex, (short)( maxGlobalIntVarIdx + 1 ) );
+            mNextGlobalFloatVariableIndex = Math.Max( mNextGlobalFloatVariableIndex, (short)( maxGlobalFloatVarIdx + 1 ) );
+            mNextLabelIndex = Math.Max( mNextLabelIndex, maxLabelIdx + 1 );
+
             if ( compiledFlowScript.MessageScript != null )
                 MergeMessageScript( compiledFlowScript.MessageScript );
 
@@ -1285,16 +1302,23 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
 
             if ( declaration.Modifier == null || declaration.Modifier.Kind == VariableModifierKind.Local )
             {
-                // Local variable
-                if ( declaration.Type.ValueKind == ValueKind.Float )
+                if ( declaration.Modifier?.Index == null )
                 {
-                    variableIndex = mNextFloatVariableIndex;
-                    mNextFloatVariableIndex += count;
+                    // Local variable
+                    if ( declaration.Type.ValueKind == ValueKind.Float )
+                    {
+                        variableIndex = mNextFloatVariableIndex;
+                        mNextFloatVariableIndex += count;
+                    }
+                    else
+                    {
+                        variableIndex = mNextIntVariableIndex;
+                        mNextIntVariableIndex += count;
+                    }
                 }
                 else
                 {
-                    variableIndex = mNextIntVariableIndex;
-                    mNextIntVariableIndex += count;
+                    variableIndex = (short)declaration.Modifier.Index.Value;
                 }
             }
             else if ( declaration.Modifier.Kind == VariableModifierKind.Global )
