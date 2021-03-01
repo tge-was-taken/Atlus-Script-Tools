@@ -187,7 +187,7 @@
       },
       {
         "Index": 4,
-        "Name": "msvar",
+        "Name": "var",
         "Description": "Loads name previously defined by SET_MSG_VAR",
         "Parameters": [
           {
@@ -475,8 +475,8 @@
       },
       {
         "Index": 26,
-        "Name": "dlref",
-        "Description": "References the caption message (dlg)",
+        "Name": "ref",
+        "Description": "References the caption message",
         "Parameters": [
           {
             "Name": "RelativeID",
