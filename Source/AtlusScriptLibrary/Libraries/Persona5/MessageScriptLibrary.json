@@ -187,9 +187,13 @@
       },
       {
         "Index": 4,
-        "Name": "",
-        "Description": "",
+        "Name": "var",
+        "Description": "Loads name previously defined by SET_MSG_VAR",
         "Parameters": [
+          {
+            "Name": "VariableID",
+            "Description": "The ID of the variable set by SET_MSG_VAR function."
+          }
         ]
       },
       {
@@ -471,9 +475,17 @@
       },
       {
         "Index": 26,
-        "Name": "",
-        "Description": "",
+        "Name": "ref",
+        "Description": "References the caption message",
         "Parameters": [
+          {
+            "Name": "RelativeID",
+            "Description": "This just seems to be a relative ID of the caption message"
+          },
+          {
+            "Name": "GlobalID",
+            "Description": "And this is the actual ID of it (GENERIC_HELP_<this>)."
+          }
         ]
       },
       {
