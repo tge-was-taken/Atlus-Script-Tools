@@ -467,6 +467,33 @@
     <Content Include="Libraries\Persona3\Modules\Common\Functions.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Libraries\Persona5Royal.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Libraries\Persona5Royal\MessageScriptLibrary.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Libraries\Persona5Royal\Modules\AI\Functions.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Libraries\Persona5Royal\Modules\Common\Functions.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Libraries\Persona5Royal\Modules\Facility\Functions.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Libraries\Persona5Royal\Modules\Field\Functions.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Libraries\Persona5Royal\Modules\Net\Functions.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Libraries\Persona5Royal\Modules\Social\Functions.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Libraries\Persona5Royal\FlowScriptModules.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptLexer.g4" />
     <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptLexer.tokens" />
     <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptParser.g4" />
