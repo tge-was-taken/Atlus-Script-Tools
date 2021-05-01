@@ -56,6 +56,8 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
 
         public Library Library { get; set; }
 
+        public bool StrictMode { get; set; }
+
         public Evaluator()
         {
             mLogger = new Logger( nameof( Evaluator ) );
@@ -346,7 +348,19 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
                 if ( function == null )
                 {
                     LogError( $"Referenced unknown function: '{index}'" );
-                    return false;
+
+                    if ( StrictMode )
+                        return false;
+
+                    // Attempt to recover
+                    function = new FlowScriptModuleFunction()
+                    {
+                        Index = index,
+                        Name = $"UNKNOWN_FUNCTION_{index}",
+                        ReturnType = "int",
+                        Description = $"Unknown referenced function {index}",
+                        Parameters = new List<FlowScriptModuleParameter>(),
+                    };
                 }
 
                 mFunctions[index] = FunctionDeclaration.FromLibraryFunction( function );
@@ -694,11 +708,16 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
                     {
                         if ( mLastFunctionCall == null )
                         {
+                            // P3P does this
+                            // Compiler bug?
                             LogError( "PUSHREG before a function call!" );
-                            return false;
+                            PushExpression( new IntLiteral( 0 ) );
+                        }
+                        else
+                        {
+                            PushStatement( mLastFunctionCall );
                         }
 
-                        PushStatement( mLastFunctionCall );
                         ++mRealStackCount;
                     }
                     break;
@@ -776,7 +795,11 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
                             if ( !TryPopExpression( out var argument ) )
                             {
                                 LogError( $"Failed to pop argument off stack for parameter: { parameter } of function: { function }" );
-                                return false;
+                                if ( StrictMode )
+                                    return false;
+
+                                // Try to recover
+                                argument = new Identifier( "MISSING_ARGUMENT" );
                             }
 
                             --mRealStackCount;
