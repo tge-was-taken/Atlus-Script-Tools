@@ -811,6 +811,8 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
                             function.Identifier,
                             arguments );
 
+                        mLastFunctionCall = callOperator;
+
                         if ( function.ReturnType.ValueKind == ValueKind.Void )
                         {
                             PushStatement( callOperator );
@@ -836,7 +838,6 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
                             }
 
                             // Otherwise let PUSHREG push the call operator
-                            mLastFunctionCall = callOperator;
                         }
                     }
                     break;
