@@ -16,5 +16,7 @@
         {
             return $"{Operand}.{Member}";
         }
+
+        public override int GetDepth() => 1 + Operand.GetDepth() + Member.GetDepth();
     }
 }

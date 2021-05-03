@@ -16,7 +16,7 @@ compilationUnit
 	;
 	
 dialog
-	: messageDialog | selectionDialog
+	: Text*? ( messageDialog | selectionDialog )
 	;
 
 	// [ msg DialogName [SpeakerName] ] text...
@@ -38,5 +38,10 @@ tokenText
 	;
 
 token
-	: OpenCode Identifier IntLiteral* CloseCode
+	: OpenCode Identifier expression* CloseCode
+	;
+
+expression
+	: IntLiteral
+	| Identifier
 	;

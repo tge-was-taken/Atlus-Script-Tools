@@ -1459,7 +1459,18 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser
             literal = CreateAstNode<IntLiteral>( node );
 
             int value = 0;
+            int sign = 1;
             string intString = node.Symbol.Text;
+            if ( intString.StartsWith( "-" ) )
+            {
+                sign = -1;
+                intString = intString.Substring( 1 );
+            }
+            else if ( intString.StartsWith( "+" ) )
+            {
+                sign = 1;
+                intString = intString.Substring( 1 );
+            }
 
             if ( intString.StartsWith( "0x", StringComparison.InvariantCultureIgnoreCase ) )
             {
@@ -1480,7 +1491,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser
                 }
             }
 
-            literal.Value = value;
+            literal.Value = value * sign;
 
             return true;
         }

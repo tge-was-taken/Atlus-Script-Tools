@@ -26,6 +26,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
         private readonly Logger mLogger;
         private readonly FormatVersion mVersion;
         private readonly Encoding mEncoding;
+        private readonly Dictionary<string, int> mVariables;
 
         public Library Library { get; set; }
 
@@ -40,6 +41,8 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
             mVersion = version;
             mEncoding = encoding;
             mLogger = new Logger( nameof( MessageScriptCompiler ) );
+            mVariables = new Dictionary<string, int>();
+
             LoggerManager.RegisterLogger( mLogger );
         }
 
@@ -195,6 +198,8 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
                     return false;
                 }
 
+                // Declare variable for dialog name referring to index
+                mVariables[ dialog.Name ] = script.Dialogs.Count;
                 script.Dialogs.Add( dialog );
             }
 
@@ -464,7 +469,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
                 var arguments = new List<short>();
                 for ( var i = 0; i < function.Parameters.Count; i++ )
                 {
-                    if ( !TryParseShortIntLiteral( context, "Expected function argument", () => context.IntLiteral( i ), out var argument ) )
+                    if ( !TryParseShortIntExpression( context, "Expected function argument", () => context.expression( i ), out var argument ) )
                         return false;
 
                     arguments.Add( argument );
@@ -484,13 +489,13 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
 
             functionToken = new FunctionToken();
 
-            if ( !TryGetFatal( context, context.IntLiteral, "Expected arguments", out var argumentNodes ) )
+            if ( !TryGetFatal( context, context.expression, "Expected arguments", out var argumentNodes ) )
                 return false;
 
-            if ( !TryParseShortIntLiteral( context, "Expected function table index", () => argumentNodes[0], out var functionTableIndex ) )
+            if ( !TryParseShortIntExpression( context, "Expected function table index", () => argumentNodes[0], out var functionTableIndex ) )
                 return false;
 
-            if ( !TryParseShortIntLiteral( context, "Expected function index", () => argumentNodes[1], out var functionIndex ) )
+            if ( !TryParseShortIntExpression( context, "Expected function index", () => argumentNodes[1], out var functionIndex ) )
                 return false;
 
             if ( argumentNodes.Length > 2 )
@@ -498,7 +503,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
                 var arguments = new List<short>( argumentNodes.Length - 2 );
                 for ( int i = 2; i < argumentNodes.Length; i++ )
                 {
-                    if ( !TryParseShortIntLiteral( context, "Expected function argument", () => argumentNodes[i], out var argument ) )
+                    if ( !TryParseShortIntExpression( context, "Expected function argument", () => argumentNodes[i], out var argument ) )
                         return false;
 
                     arguments.Add( argument );
@@ -520,13 +525,13 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
 
             codePointToken = new CodePointToken();
 
-            if ( !TryGetFatal( context, context.IntLiteral, "Expected code point surrogate pair", out var argumentNodes ) )
+            if ( !TryGetFatal( context, context.expression, "Expected code point surrogate pair", out var argumentNodes ) )
                 return false;
 
-            if ( !TryParseByteIntLiteral( context, "Expected code point high surrogate", () => argumentNodes[0], out var highSurrogate ) )
+            if ( !TryParseByteIntLiteral( context, "Expected code point high surrogate", () => argumentNodes[0].IntLiteral(), out var highSurrogate ) )
                 return false;
 
-            if ( !TryParseByteIntLiteral( context, "Expected code point low surrogate", () => argumentNodes[1], out var lowSurrogate ) )
+            if ( !TryParseByteIntLiteral( context, "Expected code point low surrogate", () => argumentNodes[1].IntLiteral(), out var lowSurrogate ) )
                 return false;
 
             codePointToken = new CodePointToken( highSurrogate, lowSurrogate );
@@ -567,6 +572,66 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
         {
             value = obj as T;
             return value != null;
+        }
+
+        // Expression parsing
+        private bool TryParseShortIntExpression( ParserRuleContext context, string failureText, Func<MessageScriptParser.ExpressionContext> getFunc, out short value )
+        {
+            value = -1;
+
+            if ( !TryGetFatal( context, getFunc, failureText, out var expressionContext ) )
+                return false;
+
+            int intValue = 0;
+            if ( TryGet( expressionContext, expressionContext.IntLiteral, out var node ) )
+            {
+                if ( !TryParseIntLiteral( node, out intValue ) )
+                    return false;
+            }
+            else if ( TryGet( expressionContext, expressionContext.Identifier, out var identifier ))
+            {
+                if ( mVariables.TryGetValue( identifier.Symbol.Text, out intValue ) )
+                    return false;
+            }
+            else
+            {
+                return false;
+            }
+
+            if ( intValue < short.MinValue || intValue > short.MaxValue )
+            {
+                LogError( expressionContext, "Value out of range" );
+                return false;
+            }
+
+            // Todo: range checking?
+            value = (short)intValue;
+            return true;
+        }
+
+        private bool TryParseIntegerExpression( ParserRuleContext context, string failureText, Func<MessageScriptParser.ExpressionContext> getFunc, out int value )
+        {
+            value = -1;
+
+            if ( !TryGetFatal( context, getFunc, failureText, out var expressionContext ) )
+                return false;
+
+            if ( TryGet( expressionContext, expressionContext.IntLiteral, out var node ) )
+            {
+                if ( !TryParseIntLiteral( node, out value ) )
+                    return false;
+            }
+            else if ( TryGet( expressionContext, expressionContext.Identifier, out var identifier ) )
+            {
+                if ( mVariables.TryGetValue( identifier.Symbol.Text, out value ) )
+                    return false;
+            }
+            else
+            {
+                return false;
+            }
+
+            return true;
         }
 
         // Int literal parsing

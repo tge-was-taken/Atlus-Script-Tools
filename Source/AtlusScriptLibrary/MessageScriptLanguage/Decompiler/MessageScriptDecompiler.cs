@@ -20,8 +20,13 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Decompiler
 
         public void Decompile( MessageScript script )
         {
-            foreach ( var message in script.Dialogs )
+            mWriter.WriteLine( "// Decompiled by Atlus Script Tools (2017-2021) © TGE" );
+            mWriter.WriteLine();
+
+            for ( var i = 0; i < script.Dialogs.Count; i++ )
             {
+                var message = script.Dialogs[ i ];
+                mWriter.WriteLine( $"// index {i}" );
                 Decompile( message );
                 mWriter.WriteLine();
             }

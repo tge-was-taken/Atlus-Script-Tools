@@ -112,13 +112,14 @@
     <Compile Include="FlowScriptLanguage\Interpreter\StackValueKind.cs" />
     <Compile Include="FlowScriptLanguage\Operand.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\ParameterModifier.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\CastExpression.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\CastExpression.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Argument.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\ArgumentModifier.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\ModulusAssignmentOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\ModulusOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\InitializerList.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\SubscriptOperator.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\NullExpression.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\SyntaxNode.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\SourceInfo.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\SyntaxNodeCollector.cs" />
@@ -159,7 +160,7 @@
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\PrefixIncrementOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Unary\PrefixOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\BreakStatement.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\ConditionSwitchLabel.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\ConditionSwitchLabel.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\ContinueStatement.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\DeclarationType.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\CallOperator.cs" />
@@ -167,7 +168,7 @@
     <Compile Include="FlowScriptLanguage\Syntax\CompilationUnit.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\CompoundStatement.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Declaration.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\DefaultSwitchLabel.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\DefaultSwitchLabel.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expression.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Literals\FloatLiteral.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Declarations\FunctionDeclaration.cs" />
@@ -194,7 +195,7 @@
     <Compile Include="FlowScriptLanguage\Syntax\Statements\IfStatement.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\NullStatement.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\ReturnStatement.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\SwitchLabel.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\SwitchLabel.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\SwitchStatement.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\WhileStatement.cs" />
     <Compile Include="MessageScriptLanguage\Compiler\MessageScriptCompiler.cs" />
@@ -497,7 +498,7 @@
     <None Include="Libraries\Persona3Portable\Modules\AI\Functions.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Libraries\Persona3Portable\Modules\Calendar\Functions.json">
+    <None Include="Libraries\Persona3Portable\Modules\Call\Functions.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Libraries\Persona3Portable\Modules\Event\Functions.json">

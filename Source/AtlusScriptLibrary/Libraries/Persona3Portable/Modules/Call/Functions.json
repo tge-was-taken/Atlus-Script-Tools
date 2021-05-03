@@ -3,7 +3,7 @@
     {
         "Index": "0x4000",
         "ReturnType": "void",
-        "Name": "CLD_FUNCTION_0000",
+        "Name": "CALL_FUNCTION_0000",
         "Description": "Address: 0x08991DA4",
         "Parameters": [
             {
@@ -21,7 +21,7 @@
     {
         "Index": "0x4001",
         "ReturnType": "void",
-        "Name": "CLD_FUNCTION_0001",
+        "Name": "CALL_FUNCTION_0001",
         "Description": "Address: 0x08994EF0",
         "Parameters": [
             {
@@ -49,14 +49,14 @@
     {
         "Index": "0x4002",
         "ReturnType": "void",
-        "Name": "CLD_FUNCTION_0002",
+        "Name": "CALL_FUNCTION_0002",
         "Description": "Address: 0x08995024",
         "Parameters": []
     },
     {
         "Index": "0x4003",
         "ReturnType": "void",
-        "Name": "CLD_FUNCTION_0003",
+        "Name": "CALL_FUNCTION_0003",
         "Description": "Address: 0x089660EC",
         "Parameters": [
             {
@@ -69,7 +69,7 @@
     {
         "Index": "0x4004",
         "ReturnType": "void",
-        "Name": "CLD_FUNCTION_0004",
+        "Name": "CALL_FUNCTION_0004",
         "Description": "Address: 0x088C14B0",
         "Parameters": [
             {
@@ -82,7 +82,7 @@
     {
         "Index": "0x4005",
         "ReturnType": "void",
-        "Name": "CLD_FUNCTION_0005",
+        "Name": "CALL_FUNCTION_0005",
         "Description": "Address: 0x088C1568",
         "Parameters": [
             {
@@ -100,84 +100,84 @@
     {
         "Index": "0x4006",
         "ReturnType": "void",
-        "Name": "CLD_FUNCTION_0006",
+        "Name": "CALL_FUNCTION_0006",
         "Description": "Address: 0x089733BC",
         "Parameters": []
     },
     {
         "Index": "0x4007",
         "ReturnType": "void",
-        "Name": "CLD_FUNCTION_0007",
+        "Name": "CALL_FUNCTION_0007",
         "Description": "Address: 0x089733FC",
         "Parameters": []
     },
     {
         "Index": "0x4008",
         "ReturnType": "void",
-        "Name": "CLD_FUNCTION_0008",
+        "Name": "CALL_FUNCTION_0008",
         "Description": "Address: 0x08973740",
         "Parameters": []
     },
     {
         "Index": "0x4009",
         "ReturnType": "void",
-        "Name": "CLD_FUNCTION_0009",
+        "Name": "CALL_FUNCTION_0009",
         "Description": "Address: 0x089737A8",
         "Parameters": []
     },
     {
         "Index": "0x400a",
         "ReturnType": "void",
-        "Name": "CLD_FUNCTION_000A",
+        "Name": "CALL_FUNCTION_000A",
         "Description": "Address: 0x08973810",
         "Parameters": []
     },
     {
         "Index": "0x400b",
         "ReturnType": "void",
-        "Name": "CLD_FUNCTION_000B",
+        "Name": "CALL_FUNCTION_000B",
         "Description": "Address: 0x08A63E5C",
         "Parameters": []
     },
     {
         "Index": "0x400c",
         "ReturnType": "void",
-        "Name": "CLD_FUNCTION_000C",
+        "Name": "CALL_FUNCTION_000C",
         "Description": "Address: 0x08A63E84",
         "Parameters": []
     },
     {
         "Index": "0x400d",
         "ReturnType": "void",
-        "Name": "CLD_FUNCTION_000D",
+        "Name": "CALL_FUNCTION_000D",
         "Description": "Address: 0x0896F390",
         "Parameters": []
     },
     {
         "Index": "0x400e",
         "ReturnType": "void",
-        "Name": "CLD_FUNCTION_000E",
+        "Name": "CALL_FUNCTION_000E",
         "Description": "Address: 0x0887262C",
         "Parameters": []
     },
     {
         "Index": "0x400f",
         "ReturnType": "void",
-        "Name": "CLD_FUNCTION_000F",
+        "Name": "CALL_FUNCTION_000F",
         "Description": "Address: 0x08872674",
         "Parameters": []
     },
     {
         "Index": "0x4010",
         "ReturnType": "void",
-        "Name": "CLD_FUNCTION_0010",
+        "Name": "CALL_FUNCTION_0010",
         "Description": "Address: 0x08872704",
         "Parameters": []
     },
     {
         "Index": "0x4011",
         "ReturnType": "void",
-        "Name": "CLD_FUNCTION_0011",
+        "Name": "CALL_FUNCTION_0011",
         "Description": "Address: 0x089B9DDC",
         "Parameters": [
             {
@@ -190,28 +190,28 @@
     {
         "Index": "0x4012",
         "ReturnType": "void",
-        "Name": "CLD_FUNCTION_0012",
+        "Name": "CALL_FUNCTION_0012",
         "Description": "Address: 0x089BA858",
         "Parameters": []
     },
     {
         "Index": "0x4013",
         "ReturnType": "void",
-        "Name": "CLD_FUNCTION_0013",
+        "Name": "CALL_FUNCTION_0013",
         "Description": "Address: 0x088726BC",
         "Parameters": []
     },
     {
         "Index": "0x4014",
         "ReturnType": "void",
-        "Name": "CLD_FUNCTION_0014",
+        "Name": "CALL_FUNCTION_0014",
         "Description": "Address: 0x0887274C",
         "Parameters": []
     },
     {
         "Index": "0x4015",
         "ReturnType": "void",
-        "Name": "CLD_FUNCTION_0015",
+        "Name": "CALL_FUNCTION_0015",
         "Description": "Address: 0x088C1218",
         "Parameters": [
             {
@@ -239,49 +239,49 @@
     {
         "Index": "0x4016",
         "ReturnType": "void",
-        "Name": "CLD_FUNCTION_0016",
+        "Name": "CALL_FUNCTION_0016",
         "Description": "Address: 0x08973D98",
         "Parameters": []
     },
     {
         "Index": "0x4017",
         "ReturnType": "void",
-        "Name": "CLD_FUNCTION_0017",
+        "Name": "CALL_FUNCTION_0017",
         "Description": "Address: 0x08973DB8",
         "Parameters": []
     },
     {
         "Index": "0x4018",
         "ReturnType": "void",
-        "Name": "CLD_FUNCTION_0018",
+        "Name": "CALL_FUNCTION_0018",
         "Description": "Address: 0x08973DD8",
         "Parameters": []
     },
     {
         "Index": "0x4019",
         "ReturnType": "void",
-        "Name": "CLD_FUNCTION_0019",
+        "Name": "CALL_FUNCTION_0019",
         "Description": "Address: 0x08973E54",
         "Parameters": []
     },
     {
         "Index": "0x401a",
         "ReturnType": "void",
-        "Name": "CLD_FUNCTION_001A",
+        "Name": "CALL_FUNCTION_001A",
         "Description": "Address: 0x08878C80",
         "Parameters": []
     },
     {
         "Index": "0x401b",
         "ReturnType": "int",
-        "Name": "CLD_FUNCTION_001B",
+        "Name": "CALL_FUNCTION_001B",
         "Description": "Address: 0x08973E20",
         "Parameters": []
     },
     {
         "Index": "0x401c",
         "ReturnType": "void",
-        "Name": "CLD_FUNCTION_001C",
+        "Name": "CALL_FUNCTION_001C",
         "Description": "Address: 0x08991EB4",
         "Parameters": [
             {
@@ -299,7 +299,7 @@
     {
         "Index": "0x401d",
         "ReturnType": "void",
-        "Name": "CLD_FUNCTION_001D",
+        "Name": "CALL_FUNCTION_001D",
         "Description": "Address: 0x089B9E0C",
         "Parameters": [
             {
@@ -311,8 +311,8 @@
     },
     {
         "Index": "0x401e",
-        "ReturnType": "void",
-        "Name": "CLD_FUNCTION_001E",
+        "ReturnType": "int",
+        "Name": "CALL_FUNCTION_001E",
         "Description": "Address: 0x089BA79C",
         "Parameters": []
     }

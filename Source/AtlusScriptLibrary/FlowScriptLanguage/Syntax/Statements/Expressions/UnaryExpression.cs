@@ -12,5 +12,10 @@
         {
             Operand = operand;
         }
+
+        public override int GetDepth()
+        {
+            return 1 + Operand.GetDepth();
+        }
     }
 }

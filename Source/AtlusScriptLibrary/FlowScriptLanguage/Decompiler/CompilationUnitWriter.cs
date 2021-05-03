@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -336,9 +337,12 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
 
                 // Write 'if ( <cond> )
                 WriteWithSeperator( "if" );
-                WriteOpenParenthesis();
+
+                // Remove double parens in if statement conditions by checking for a binary expression beforehand
+                var parens = !( ifStatement.Condition is BinaryExpression ) || ( ifStatement.Condition is AssignmentOperatorBase );
+                if ( parens ) WriteOpenParenthesis();
                 Visit( ifStatement.Condition );
-                WriteCloseParenthesis();
+                if ( parens ) WriteCloseParenthesis();
 
                 if ( ifStatement.ElseBody == null )
                 {
@@ -417,147 +421,99 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
             }
 
             // Binary operators
+            private void WriteBinaryExpression( BinaryExpression binaryExpression, string operatorString )
+            {
+                var parens = !( binaryExpression is AssignmentOperatorBase );
+                if ( parens ) WriteOpenParenthesis();
+                Visit( binaryExpression.Left );
+                Write( $" {operatorString} " );
+                Visit( binaryExpression.Right );
+                if ( parens ) WriteCloseParenthesis();
+            }
+
             public override void Visit( AdditionOperator binaryOperator )
             {
-                WriteOpenParenthesis();
-                Visit( binaryOperator.Left );
-                Write( " + " );
-                Visit( binaryOperator.Right );
-                WriteCloseParenthesis();
+                WriteBinaryExpression( binaryOperator, "+" );
             }
 
             public override void Visit( AssignmentOperator binaryOperator )
             {
-                Visit( binaryOperator.Left );
-                Write( " = " );
-                Visit( binaryOperator.Right );
+                WriteBinaryExpression( binaryOperator, "=" );
             }
 
             public override void Visit( DivisionOperator binaryOperator )
             {
-                WriteOpenParenthesis();
-                Visit( binaryOperator.Left );
-                Write( " / " );
-                Visit( binaryOperator.Right );
-                WriteCloseParenthesis();
+                WriteBinaryExpression( binaryOperator, "/" );
             }
 
             public override void Visit( EqualityOperator binaryOperator )
             {
-                WriteOpenParenthesis();
-                Visit( binaryOperator.Left );
-                Write( " == " );
-                Visit( binaryOperator.Right );
-                WriteCloseParenthesis();
+                WriteBinaryExpression( binaryOperator, "==" );
             }
 
             public override void Visit( GreaterThanOperator binaryOperator )
             {
-                WriteOpenParenthesis();
-                Visit( binaryOperator.Left );
-                Write( " > " );
-                Visit( binaryOperator.Right );
-                WriteCloseParenthesis();
+                WriteBinaryExpression( binaryOperator, ">" );
             }
 
             public override void Visit( GreaterThanOrEqualOperator binaryOperator )
             {
-                WriteOpenParenthesis();
-                Visit( binaryOperator.Left );
-                Write( " >= " );
-                Visit( binaryOperator.Right );
-                WriteCloseParenthesis();
+                WriteBinaryExpression( binaryOperator, ">=" );
             }
 
             public override void Visit( LessThanOperator binaryOperator )
             {
-                WriteOpenParenthesis();
-                Visit( binaryOperator.Left );
-                Write( " < " );
-                Visit( binaryOperator.Right );
-                WriteCloseParenthesis();
+                WriteBinaryExpression( binaryOperator, "<" );
             }
 
             public override void Visit( LessThanOrEqualOperator binaryOperator )
             {
-                WriteOpenParenthesis();
-                Visit( binaryOperator.Left );
-                Write( " <= " );
-                Visit( binaryOperator.Right );
-                WriteCloseParenthesis();
+                WriteBinaryExpression( binaryOperator, "<=" );
             }
 
             public override void Visit( LogicalAndOperator binaryOperator )
             {
-                WriteOpenParenthesis();
-                Visit( binaryOperator.Left );
-                Write( " && " );
-                Visit( binaryOperator.Right );
-                WriteCloseParenthesis();
+                WriteBinaryExpression( binaryOperator, "&&" );
             }
 
             public override void Visit( LogicalOrOperator binaryOperator )
             {
-                WriteOpenParenthesis();
-                Visit( binaryOperator.Left );
-                Write( " || " );
-                Visit( binaryOperator.Right );
-                WriteCloseParenthesis();
+                WriteBinaryExpression( binaryOperator, "||" );
             }
 
             public override void Visit( MultiplicationOperator binaryOperator )
             {
-                WriteOpenParenthesis();
-                Visit( binaryOperator.Left );
-                Write( " * " );
-                Visit( binaryOperator.Right );
-                WriteCloseParenthesis();
+                WriteBinaryExpression( binaryOperator, "*" );
             }
 
             public override void Visit( NonEqualityOperator binaryOperator )
             {
-                WriteOpenParenthesis();
-                Visit( binaryOperator.Left );
-                Write( " != " );
-                Visit( binaryOperator.Right );
-                WriteCloseParenthesis();
+                WriteBinaryExpression( binaryOperator, "!=" );
             }
 
             public override void Visit( SubtractionOperator binaryOperator )
             {
-                WriteOpenParenthesis();
-                Visit( binaryOperator.Left );
-                Write( " - " );
-                Visit( binaryOperator.Right );
-                WriteCloseParenthesis();
+                WriteBinaryExpression( binaryOperator, "-" );
             }
 
             public override void Visit( AdditionAssignmentOperator binaryOperator )
             {
-                Visit( binaryOperator.Left );
-                Write( " += " );
-                Visit( binaryOperator.Right );
+                WriteBinaryExpression( binaryOperator, "+=" );
             }
 
             public override void Visit( DivisionAssignmentOperator binaryOperator )
             {
-                Visit( binaryOperator.Left );
-                Write( " /= " );
-                Visit( binaryOperator.Right );
+                WriteBinaryExpression( binaryOperator, "/=" );
             }
 
             public override void Visit( MultiplicationAssignmentOperator binaryOperator )
             {
-                Visit( binaryOperator.Left );
-                Write( " *= " );
-                Visit( binaryOperator.Right );
+                WriteBinaryExpression( binaryOperator, "*=" );
             }
 
             public override void Visit( SubtractionAssignmentOperator binaryOperator )
             {
-                Visit( binaryOperator.Left );
-                Write( " -= " );
-                Visit( binaryOperator.Right );
+                WriteBinaryExpression( binaryOperator, "-=" );
             }
 
             // Identifiers

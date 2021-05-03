@@ -28,7 +28,7 @@
     },
     {
         "Index": "0x0003",
-        "ReturnType": "void",
+        "ReturnType": "int",
         "Name": "FUNCTION_0003",
         "Description": "Address: 0x08984D1C",
         "Parameters": [
@@ -347,7 +347,7 @@
     },
     {
         "Index": "0x0018",
-        "ReturnType": "void",
+        "ReturnType": "int",
         "Name": "FUNCTION_0018",
         "Description": "Address: 0x089790C8",
         "Parameters": [
@@ -1160,7 +1160,7 @@
     },
     {
         "Index": "0x0056",
-        "ReturnType": "void",
+        "ReturnType": "int",
         "Name": "FUNCTION_0056",
         "Description": "Address: 0x08986734",
         "Parameters": [

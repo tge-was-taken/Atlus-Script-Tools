@@ -9,6 +9,7 @@ lexer grammar MessageScriptLexer;
 //
 // Text lexer rules
 //
+
 OpenCode
 	: '[' -> pushMode( MessageScriptCode );
 
@@ -16,7 +17,7 @@ CloseText
 	: ']' -> pushMode( MessageScriptCode );  // close tag is used for closing inline text inside tag
 
 Text
-	: ~( '[' | ']' )+;
+	: ~( '[' | ']' )+?;
 
 //
 // Code lexer rules
@@ -46,7 +47,7 @@ IntLiteral
 	: ( DecIntLiteral | HexIntLiteral );
 
 Identifier
-	: ( Letter | Digit | '_' )+;
+	: ( Letter | Digit | '_' | '-' )+;
 
 fragment
 DecIntLiteral
@@ -58,7 +59,23 @@ HexIntLiteral
 
 fragment
 Letter
-	: [a-zA-Z];
+	: ( [a-zA-Z] | JapaneseCharacter );
+
+fragment
+JapaneseCharacter
+	: ( KanjiCharacter | HiraganaCharacter | KatakanaCharacter | '\u3001' | '\u30FC' | '\u3005' | '\u3006' | '\u3024' | '\uFF1C' | '\uFF1E' );
+
+fragment
+KanjiCharacter
+	: [\u4E00-\u9FA0];
+
+fragment
+HiraganaCharacter
+	: [\u3041-\u30F4];
+
+fragment
+KatakanaCharacter
+	: [\u30A1-\u30F4];
 
 fragment
 Digit

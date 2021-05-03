@@ -294,7 +294,7 @@ StringHexEscape
 // Identifiers
 
 Identifier
-	: LetterOrUnderscore LetterOrUnderscoreOrDigit*;
+	: LetterOrUnderscoreOrDigit LetterOrUnderscoreOrDigit*;
  
 PrimitiveTypeIdentifier
 	: 'bool'

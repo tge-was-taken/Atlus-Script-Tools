@@ -13,6 +13,7 @@ namespace AtlusScriptLibrary.Common.IO
         private bool mSwap;
         private Encoding mEncoding;
         private Queue<long> mPosQueue;
+        private List<byte> mByteBuffer;
 
         public Endianness Endianness
         {
@@ -68,6 +69,7 @@ namespace AtlusScriptLibrary.Common.IO
             mEncoding = encoding;
             mPosQueue = new Queue<long>();
             Endianness = endianness;
+            mByteBuffer = new List<byte>( 128 );
         }
 
         public void Seek(long offset, SeekOrigin origin)
@@ -298,7 +300,7 @@ namespace AtlusScriptLibrary.Common.IO
 
         public string ReadString(StringBinaryFormat format, int fixedLength = -1)
         {
-            mStringBuilder.Clear();
+            mByteBuffer.Clear();
 
             switch (format)
             {
@@ -306,7 +308,7 @@ namespace AtlusScriptLibrary.Common.IO
                     {
                         byte b;
                         while ((b = ReadByte()) != 0)
-                            mStringBuilder.Append((char)b);
+                            mByteBuffer.Add(b);
                     }
                     break;
 
@@ -320,7 +322,7 @@ namespace AtlusScriptLibrary.Common.IO
                         {
                             b = ReadByte();
                             if (b != 0)
-                                mStringBuilder.Append((char)b);
+                                mByteBuffer.Add(b);
                         }
                     }
                     break;
@@ -329,7 +331,7 @@ namespace AtlusScriptLibrary.Common.IO
                     {
                         byte length = ReadByte();
                         for (int i = 0; i < length; i++)
-                            mStringBuilder.Append((char)ReadByte());
+                            mByteBuffer.Add(ReadByte());
                     }
                     break;
 
@@ -337,7 +339,7 @@ namespace AtlusScriptLibrary.Common.IO
                     {
                         ushort length = ReadUInt16();
                         for (int i = 0; i < length; i++)
-                            mStringBuilder.Append((char)ReadByte());
+                            mByteBuffer.Add(ReadByte());
                     }
                     break;
 
@@ -345,7 +347,7 @@ namespace AtlusScriptLibrary.Common.IO
                     {
                         uint length = ReadUInt32();
                         for (int i = 0; i < length; i++)
-                            mStringBuilder.Append((char)ReadByte());
+                            mByteBuffer.Add(ReadByte());
                     }
                     break;
 
@@ -353,7 +355,7 @@ namespace AtlusScriptLibrary.Common.IO
                     throw new ArgumentException("Unknown string format", nameof(format));
             }
 
-            return mStringBuilder.ToString();
+            return mEncoding.GetString( mByteBuffer.ToArray() );
         }
 
         public string[] ReadStrings(int count, StringBinaryFormat format, int fixedLength = -1)

@@ -137,6 +137,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                 return false;
             }
 
+            mCurrentBaseDirectory = "";
             return TryCompile( compilationUnit, out flowScript );
         }
 
@@ -232,7 +233,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             mInstrinsic = new IntrinsicSupport( Library );
             if ( !mInstrinsic.SupportsTrace )
             {
-                Warning( "Tracing is not supported by the specified library; it will be disabled for the current compilation" );
+                Info( "Tracing is not supported by the specified library; it will be disabled for the current compilation" );
                 EnableFunctionCallTracing = EnableProcedureCallTracing = EnableProcedureTracing = EnableStackCookie = false;
             }
         }
@@ -309,7 +310,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
         {
             Info( compilationUnit, "Resolving imports" );
 
-            ExpandImportStatementsPaths( compilationUnit, Path.GetDirectoryName( mFilePath ) );
+            ExpandImportStatementsPaths( compilationUnit, mCurrentBaseDirectory );
 
             var importedMessageScripts = new List<MessageScript>();
             var importedFlowScripts = new List<CompilationUnit>();
@@ -1770,8 +1771,14 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                 // call function
                 Emit( Instruction.COMM( function.Index ) );
 
-                if ( !isStatement && function.Declaration.ReturnType.ValueKind != ValueKind.Void )
+                if ( !isStatement )
                 {
+                    if ( function.Declaration.ReturnType.ValueKind == ValueKind.Void )
+                    {
+                        Error( callExpression, $"Void-returning function '{function.Declaration}' used in expression" );
+                        return false;
+                    }
+
                     if ( !EnableFunctionCallTracing )
                     {
                         // push return value of function
@@ -1830,8 +1837,14 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                 }
 
                 // Emit return value
-                if ( !isStatement && procedure.Declaration.ReturnType.ValueKind != ValueKind.Void )
+                if ( !isStatement )
                 {
+                    if ( procedure.Declaration.ReturnType.ValueKind == ValueKind.Void )
+                    {
+                        Error( $"Void-returning procedure '{procedure.Declaration}' used in expression" );
+                        return false;
+                    }
+
                     if ( !EnableProcedureCallTracing )
                     {
                         // Push return value of procedure
@@ -3640,16 +3653,16 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             else
                 Error( message );
 
-            if ( Debugger.IsAttached )
-                Debugger.Break();
+            //if ( Debugger.IsAttached )
+            //    Debugger.Break();
         }
 
         private void Error( string message )
         {
             mLogger.Error( $"{message}" );
 
-            if ( Debugger.IsAttached )
-                Debugger.Break();
+            //if ( Debugger.IsAttached )
+            //    Debugger.Break();
         }
 
         private void Warning( SyntaxNode node, string message )

@@ -24,5 +24,7 @@
         {
             return Value.GetHashCode();
         }
+
+        public override int GetDepth() => 1;
     }
 }

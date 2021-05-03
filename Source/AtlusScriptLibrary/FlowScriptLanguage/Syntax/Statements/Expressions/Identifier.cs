@@ -31,5 +31,7 @@
         {
             return Text.GetHashCode();
         }
+
+        public override int GetDepth() => 1;
     }
 }

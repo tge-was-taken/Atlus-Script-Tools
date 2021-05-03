@@ -1,2 +1,2 @@
 cd "..\..\packages\Antlr4.CodeGenerator.4.6.4\tools"
-ikvm.exe -jar antlr4-csharp-4.6.4-complete.jar -lib "..\..\..\AtlusScriptLib\MessageScriptLanguage\Compiler\Parser" -listener -visitor -package AtlusScriptLib.FlowScriptLanguage.Compiler.Parser -Dlanguage=CSharp_v4_5 "..\..\..\AtlusScriptLib\MessageScriptLanguage\Compiler\Parser\MessageScriptLexer.g4"
+ikvm.exe -jar antlr4-csharp-4.6.4-complete.jar -lib "..\..\..\AtlusScriptLibrary\MessageScriptLanguage\Compiler\Parser" -listener -visitor -package AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser -Dlanguage=CSharp_v4_5 "..\..\..\AtlusScriptLibrary\MessageScriptLanguage\Compiler\Parser\MessageScriptLexer.g4"

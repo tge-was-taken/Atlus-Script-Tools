@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from ..\..\..\AtlusScriptLib\MessageScriptLanguage\Compiler\Parser\MessageScriptParser.g4 by ANTLR 4.6.4
+// Generated from ..\..\..\AtlusScriptLibrary\MessageScriptLanguage\Compiler\Parser\MessageScriptParser.g4 by ANTLR 4.6.4
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -126,6 +126,19 @@ public partial class MessageScriptParserBaseListener : IMessageScriptParserListe
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitToken([NotNull] MessageScriptParser.TokenContext context) { }
 
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="MessageScriptParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterExpression([NotNull] MessageScriptParser.ExpressionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MessageScriptParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitExpression([NotNull] MessageScriptParser.ExpressionContext context) { }
+
 	/// <inheritdoc/>
 	/// <remarks>The default implementation does nothing.</remarks>
 	public virtual void EnterEveryRule([NotNull] ParserRuleContext context) { }
@@ -139,4 +152,4 @@ public partial class MessageScriptParserBaseListener : IMessageScriptParserListe
 	/// <remarks>The default implementation does nothing.</remarks>
 	public virtual void VisitErrorNode([NotNull] IErrorNode node) { }
 }
-} // namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
+} // namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser

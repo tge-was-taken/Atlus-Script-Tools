@@ -715,6 +715,11 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
                         }
                         else
                         {
+                            if ( mLastFunctionCall.ExpressionValueKind == ValueKind.Void )
+                            {
+                                LogError( $"Result of void-returning function '{mLastFunctionCall.Identifier}' was used" );
+                            }
+
                             PushStatement( mLastFunctionCall );
                         }
 
@@ -813,32 +818,25 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
 
                         mLastFunctionCall = callOperator;
 
-                        if ( function.ReturnType.ValueKind == ValueKind.Void )
+                        // Check if PUSHREG doesn't come next next
+                        int nextCommIndex = mInstructions
+                            .GetRange( mEvaluatedInstructionIndex + 1, mInstructions.Count - ( mEvaluatedInstructionIndex + 1 ) )
+                            .FindIndex( x => x.Opcode == Opcode.COMM );
+
+                        if ( nextCommIndex == -1 )
+                            nextCommIndex = mInstructions.Count - 1;
+                        else
+                            nextCommIndex += mEvaluatedInstructionIndex + 1;
+
+                        // Check if PUSHREG comes up between this and the next COMM instruction
+                        // ReSharper disable once SimplifyLinqExpression
+                        if ( !mInstructions.GetRange( mEvaluatedInstructionIndex, nextCommIndex - mEvaluatedInstructionIndex ).Any( x => x.Opcode == Opcode.PUSHREG ) )
                         {
+                            // If PUSHREG doesn't come before another COMM then the return value is unused
                             PushStatement( callOperator );
                         }
-                        else
-                        {
-                            // Check if PUSHREG doesn't come next next
-                            int nextCommIndex = mInstructions
-                                .GetRange( mEvaluatedInstructionIndex + 1, mInstructions.Count - ( mEvaluatedInstructionIndex + 1 ) )
-                                .FindIndex( x => x.Opcode == Opcode.COMM );
 
-                            if ( nextCommIndex == -1 )
-                                nextCommIndex = mInstructions.Count - 1;
-                            else
-                                nextCommIndex += mEvaluatedInstructionIndex + 1;
-
-                            // Check if PUSHREG comes up between this and the next COMM instruction
-                            // ReSharper disable once SimplifyLinqExpression
-                            if ( !mInstructions.GetRange( mEvaluatedInstructionIndex, nextCommIndex - mEvaluatedInstructionIndex ).Any( x => x.Opcode == Opcode.PUSHREG ))
-                            {
-                                // If PUSHREG doesn't come before another COMM then the return value is unused
-                                PushStatement( callOperator );
-                            }
-
-                            // Otherwise let PUSHREG push the call operator
-                        }
+                        // Otherwise let PUSHREG push the call operator
                     }
                     break;
 
@@ -1192,7 +1190,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
 
         private bool TryPopStatement( out Statement statement )
         {
-            if ( mEvaluationStatementStack.Count == 0 )
+            if ( mEvaluationStatementStack.Count == 1 /* return address */ )
             {
                 statement = null;
                 return false;

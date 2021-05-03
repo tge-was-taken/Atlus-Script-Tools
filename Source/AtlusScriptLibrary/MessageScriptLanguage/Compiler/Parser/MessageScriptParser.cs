@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from ..\..\..\AtlusScriptLib\MessageScriptLanguage\Compiler\Parser\MessageScriptParser.g4 by ANTLR 4.6.4
+// Generated from ..\..\..\AtlusScriptLibrary\MessageScriptLanguage\Compiler\Parser\MessageScriptParser.g4 by ANTLR 4.6.4
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -35,10 +35,10 @@ public partial class MessageScriptParser : Parser {
 		CloseCode=6, OpenText=7, IntLiteral=8, Identifier=9, Whitespace=10;
 	public const int
 		RULE_compilationUnit = 0, RULE_dialog = 1, RULE_messageDialog = 2, RULE_speakerName = 3, 
-		RULE_selectionDialog = 4, RULE_tokenText = 5, RULE_token = 6;
+		RULE_selectionDialog = 4, RULE_tokenText = 5, RULE_token = 6, RULE_expression = 7;
 	public static readonly string[] ruleNames = {
 		"compilationUnit", "dialog", "messageDialog", "speakerName", "selectionDialog", 
-		"tokenText", "token"
+		"tokenText", "token", "expression"
 	};
 
 	private static readonly string[] _LiteralNames = {
@@ -134,20 +134,20 @@ public partial class MessageScriptParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 17;
+			State = 19;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
-			while (_la==OpenCode) {
+			while (_la==OpenCode || _la==Text) {
 				{
 				{
-				State = 14; dialog();
+				State = 16; dialog();
 				}
 				}
-				State = 19;
+				State = 21;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
 			}
-			State = 20; Match(Eof);
+			State = 22; Match(Eof);
 			}
 		}
 		catch (RecognitionException re) {
@@ -167,6 +167,10 @@ public partial class MessageScriptParser : Parser {
 		}
 		public SelectionDialogContext selectionDialog() {
 			return GetRuleContext<SelectionDialogContext>(0);
+		}
+		public ITerminalNode[] Text() { return GetTokens(MessageScriptParser.Text); }
+		public ITerminalNode Text(int i) {
+			return GetToken(MessageScriptParser.Text, i);
 		}
 		public DialogContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -193,22 +197,39 @@ public partial class MessageScriptParser : Parser {
 		DialogContext _localctx = new DialogContext(_ctx, State);
 		EnterRule(_localctx, 2, RULE_dialog);
 		try {
-			State = 24;
+			int _alt;
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 27;
 			_errHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(_input,1,_ctx) ) {
+			_alt = Interpreter.AdaptivePredict(_input,1,_ctx);
+			while ( _alt!=1 && _alt!=global::Antlr4.Runtime.Atn.ATN.InvalidAltNumber ) {
+				if ( _alt==1+1 ) {
+					{
+					{
+					State = 24; Match(Text);
+					}
+					} 
+				}
+				State = 29;
+				_errHandler.Sync(this);
+				_alt = Interpreter.AdaptivePredict(_input,1,_ctx);
+			}
+			State = 32;
+			_errHandler.Sync(this);
+			switch ( Interpreter.AdaptivePredict(_input,2,_ctx) ) {
 			case 1:
-				EnterOuterAlt(_localctx, 1);
 				{
-				State = 22; messageDialog();
+				State = 30; messageDialog();
 				}
 				break;
 
 			case 2:
-				EnterOuterAlt(_localctx, 2);
 				{
-				State = 23; selectionDialog();
+				State = 31; selectionDialog();
 				}
 				break;
+			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -261,20 +282,20 @@ public partial class MessageScriptParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 26; Match(OpenCode);
-			State = 27; Match(MessageDialogTagId);
-			State = 28; Match(Identifier);
-			State = 30;
+			State = 34; Match(OpenCode);
+			State = 35; Match(MessageDialogTagId);
+			State = 36; Match(Identifier);
+			State = 38;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
 			if (_la==OpenText) {
 				{
-				State = 29; speakerName();
+				State = 37; speakerName();
 				}
 			}
 
-			State = 32; Match(CloseCode);
-			State = 33; tokenText();
+			State = 40; Match(CloseCode);
+			State = 41; tokenText();
 			}
 		}
 		catch (RecognitionException re) {
@@ -321,9 +342,9 @@ public partial class MessageScriptParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 35; Match(OpenText);
-			State = 36; tokenText();
-			State = 37; Match(CloseText);
+			State = 43; Match(OpenText);
+			State = 44; tokenText();
+			State = 45; Match(CloseText);
 			}
 		}
 		catch (RecognitionException re) {
@@ -372,11 +393,11 @@ public partial class MessageScriptParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 39; Match(OpenCode);
-			State = 40; Match(SelectionDialogTagId);
-			State = 41; Match(Identifier);
-			State = 42; Match(CloseCode);
-			State = 43; tokenText();
+			State = 47; Match(OpenCode);
+			State = 48; Match(SelectionDialogTagId);
+			State = 49; Match(Identifier);
+			State = 50; Match(CloseCode);
+			State = 51; tokenText();
 			}
 		}
 		catch (RecognitionException re) {
@@ -429,23 +450,23 @@ public partial class MessageScriptParser : Parser {
 			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 49;
+			State = 57;
 			_errHandler.Sync(this);
-			_alt = Interpreter.AdaptivePredict(_input,4,_ctx);
+			_alt = Interpreter.AdaptivePredict(_input,5,_ctx);
 			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.InvalidAltNumber ) {
 				if ( _alt==1 ) {
 					{
-					State = 47;
+					State = 55;
 					_errHandler.Sync(this);
 					switch (_input.La(1)) {
 					case OpenCode:
 						{
-						State = 45; token();
+						State = 53; token();
 						}
 						break;
 					case Text:
 						{
-						State = 46; Match(Text);
+						State = 54; Match(Text);
 						}
 						break;
 					default:
@@ -453,9 +474,9 @@ public partial class MessageScriptParser : Parser {
 					}
 					} 
 				}
-				State = 51;
+				State = 59;
 				_errHandler.Sync(this);
-				_alt = Interpreter.AdaptivePredict(_input,4,_ctx);
+				_alt = Interpreter.AdaptivePredict(_input,5,_ctx);
 			}
 			}
 		}
@@ -474,9 +495,11 @@ public partial class MessageScriptParser : Parser {
 		public ITerminalNode OpenCode() { return GetToken(MessageScriptParser.OpenCode, 0); }
 		public ITerminalNode Identifier() { return GetToken(MessageScriptParser.Identifier, 0); }
 		public ITerminalNode CloseCode() { return GetToken(MessageScriptParser.CloseCode, 0); }
-		public ITerminalNode[] IntLiteral() { return GetTokens(MessageScriptParser.IntLiteral); }
-		public ITerminalNode IntLiteral(int i) {
-			return GetToken(MessageScriptParser.IntLiteral, i);
+		public ExpressionContext[] expression() {
+			return GetRuleContexts<ExpressionContext>();
+		}
+		public ExpressionContext expression(int i) {
+			return GetRuleContext<ExpressionContext>(i);
 		}
 		public TokenContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -506,22 +529,78 @@ public partial class MessageScriptParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 52; Match(OpenCode);
-			State = 53; Match(Identifier);
-			State = 57;
+			State = 60; Match(OpenCode);
+			State = 61; Match(Identifier);
+			State = 65;
 			_errHandler.Sync(this);
 			_la = _input.La(1);
-			while (_la==IntLiteral) {
+			while (_la==IntLiteral || _la==Identifier) {
 				{
 				{
-				State = 54; Match(IntLiteral);
+				State = 62; expression();
 				}
 				}
-				State = 59;
+				State = 67;
 				_errHandler.Sync(this);
 				_la = _input.La(1);
 			}
-			State = 60; Match(CloseCode);
+			State = 68; Match(CloseCode);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.ReportError(this, re);
+			_errHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class ExpressionContext : ParserRuleContext {
+		public ITerminalNode IntLiteral() { return GetToken(MessageScriptParser.IntLiteral, 0); }
+		public ITerminalNode Identifier() { return GetToken(MessageScriptParser.Identifier, 0); }
+		public ExpressionContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_expression; } }
+		public override void EnterRule(IParseTreeListener listener) {
+			IMessageScriptParserListener typedListener = listener as IMessageScriptParserListener;
+			if (typedListener != null) typedListener.EnterExpression(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			IMessageScriptParserListener typedListener = listener as IMessageScriptParserListener;
+			if (typedListener != null) typedListener.ExitExpression(this);
+		}
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IMessageScriptParserVisitor<TResult> typedVisitor = visitor as IMessageScriptParserVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitExpression(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public ExpressionContext expression() {
+		ExpressionContext _localctx = new ExpressionContext(_ctx, State);
+		EnterRule(_localctx, 14, RULE_expression);
+		int _la;
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 70;
+			_la = _input.La(1);
+			if ( !(_la==IntLiteral || _la==Identifier) ) {
+			_errHandler.RecoverInline(this);
+			} else {
+				if (_input.La(1) == TokenConstants.Eof) {
+					matchedEOF = true;
+				}
+
+				_errHandler.ReportMatch(this);
+				Consume();
+			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -536,29 +615,33 @@ public partial class MessageScriptParser : Parser {
 	}
 
 	public static readonly string _serializedATN =
-		"\x3\xAF6F\x8320\x479D\xB75C\x4880\x1605\x191C\xAB37\x3\f\x41\x4\x2\t\x2"+
-		"\x4\x3\t\x3\x4\x4\t\x4\x4\x5\t\x5\x4\x6\t\x6\x4\a\t\a\x4\b\t\b\x3\x2\a"+
-		"\x2\x12\n\x2\f\x2\xE\x2\x15\v\x2\x3\x2\x3\x2\x3\x3\x3\x3\x5\x3\x1B\n\x3"+
-		"\x3\x4\x3\x4\x3\x4\x3\x4\x5\x4!\n\x4\x3\x4\x3\x4\x3\x4\x3\x5\x3\x5\x3"+
-		"\x5\x3\x5\x3\x6\x3\x6\x3\x6\x3\x6\x3\x6\x3\x6\x3\a\x3\a\a\a\x32\n\a\f"+
-		"\a\xE\a\x35\v\a\x3\b\x3\b\x3\b\a\b:\n\b\f\b\xE\b=\v\b\x3\b\x3\b\x3\b\x2"+
-		"\x2\x2\t\x2\x2\x4\x2\x6\x2\b\x2\n\x2\f\x2\xE\x2\x2\x2?\x2\x13\x3\x2\x2"+
-		"\x2\x4\x1A\x3\x2\x2\x2\x6\x1C\x3\x2\x2\x2\b%\x3\x2\x2\x2\n)\x3\x2\x2\x2"+
-		"\f\x33\x3\x2\x2\x2\xE\x36\x3\x2\x2\x2\x10\x12\x5\x4\x3\x2\x11\x10\x3\x2"+
-		"\x2\x2\x12\x15\x3\x2\x2\x2\x13\x11\x3\x2\x2\x2\x13\x14\x3\x2\x2\x2\x14"+
-		"\x16\x3\x2\x2\x2\x15\x13\x3\x2\x2\x2\x16\x17\a\x2\x2\x3\x17\x3\x3\x2\x2"+
-		"\x2\x18\x1B\x5\x6\x4\x2\x19\x1B\x5\n\x6\x2\x1A\x18\x3\x2\x2\x2\x1A\x19"+
-		"\x3\x2\x2\x2\x1B\x5\x3\x2\x2\x2\x1C\x1D\a\x3\x2\x2\x1D\x1E\a\x6\x2\x2"+
-		"\x1E \a\v\x2\x2\x1F!\x5\b\x5\x2 \x1F\x3\x2\x2\x2 !\x3\x2\x2\x2!\"\x3\x2"+
-		"\x2\x2\"#\a\b\x2\x2#$\x5\f\a\x2$\a\x3\x2\x2\x2%&\a\t\x2\x2&\'\x5\f\a\x2"+
-		"\'(\a\x4\x2\x2(\t\x3\x2\x2\x2)*\a\x3\x2\x2*+\a\a\x2\x2+,\a\v\x2\x2,-\a"+
-		"\b\x2\x2-.\x5\f\a\x2.\v\x3\x2\x2\x2/\x32\x5\xE\b\x2\x30\x32\a\x5\x2\x2"+
-		"\x31/\x3\x2\x2\x2\x31\x30\x3\x2\x2\x2\x32\x35\x3\x2\x2\x2\x33\x31\x3\x2"+
-		"\x2\x2\x33\x34\x3\x2\x2\x2\x34\r\x3\x2\x2\x2\x35\x33\x3\x2\x2\x2\x36\x37"+
-		"\a\x3\x2\x2\x37;\a\v\x2\x2\x38:\a\n\x2\x2\x39\x38\x3\x2\x2\x2:=\x3\x2"+
-		"\x2\x2;\x39\x3\x2\x2\x2;<\x3\x2\x2\x2<>\x3\x2\x2\x2=;\x3\x2\x2\x2>?\a"+
-		"\b\x2\x2?\xF\x3\x2\x2\x2\b\x13\x1A \x31\x33;";
+		"\x3\xAF6F\x8320\x479D\xB75C\x4880\x1605\x191C\xAB37\x3\fK\x4\x2\t\x2\x4"+
+		"\x3\t\x3\x4\x4\t\x4\x4\x5\t\x5\x4\x6\t\x6\x4\a\t\a\x4\b\t\b\x4\t\t\t\x3"+
+		"\x2\a\x2\x14\n\x2\f\x2\xE\x2\x17\v\x2\x3\x2\x3\x2\x3\x3\a\x3\x1C\n\x3"+
+		"\f\x3\xE\x3\x1F\v\x3\x3\x3\x3\x3\x5\x3#\n\x3\x3\x4\x3\x4\x3\x4\x3\x4\x5"+
+		"\x4)\n\x4\x3\x4\x3\x4\x3\x4\x3\x5\x3\x5\x3\x5\x3\x5\x3\x6\x3\x6\x3\x6"+
+		"\x3\x6\x3\x6\x3\x6\x3\a\x3\a\a\a:\n\a\f\a\xE\a=\v\a\x3\b\x3\b\x3\b\a\b"+
+		"\x42\n\b\f\b\xE\b\x45\v\b\x3\b\x3\b\x3\t\x3\t\x3\t\x3\x1D\x2\x2\n\x2\x2"+
+		"\x4\x2\x6\x2\b\x2\n\x2\f\x2\xE\x2\x10\x2\x2\x3\x3\x2\n\vI\x2\x15\x3\x2"+
+		"\x2\x2\x4\x1D\x3\x2\x2\x2\x6$\x3\x2\x2\x2\b-\x3\x2\x2\x2\n\x31\x3\x2\x2"+
+		"\x2\f;\x3\x2\x2\x2\xE>\x3\x2\x2\x2\x10H\x3\x2\x2\x2\x12\x14\x5\x4\x3\x2"+
+		"\x13\x12\x3\x2\x2\x2\x14\x17\x3\x2\x2\x2\x15\x13\x3\x2\x2\x2\x15\x16\x3"+
+		"\x2\x2\x2\x16\x18\x3\x2\x2\x2\x17\x15\x3\x2\x2\x2\x18\x19\a\x2\x2\x3\x19"+
+		"\x3\x3\x2\x2\x2\x1A\x1C\a\x5\x2\x2\x1B\x1A\x3\x2\x2\x2\x1C\x1F\x3\x2\x2"+
+		"\x2\x1D\x1E\x3\x2\x2\x2\x1D\x1B\x3\x2\x2\x2\x1E\"\x3\x2\x2\x2\x1F\x1D"+
+		"\x3\x2\x2\x2 #\x5\x6\x4\x2!#\x5\n\x6\x2\" \x3\x2\x2\x2\"!\x3\x2\x2\x2"+
+		"#\x5\x3\x2\x2\x2$%\a\x3\x2\x2%&\a\x6\x2\x2&(\a\v\x2\x2\')\x5\b\x5\x2("+
+		"\'\x3\x2\x2\x2()\x3\x2\x2\x2)*\x3\x2\x2\x2*+\a\b\x2\x2+,\x5\f\a\x2,\a"+
+		"\x3\x2\x2\x2-.\a\t\x2\x2./\x5\f\a\x2/\x30\a\x4\x2\x2\x30\t\x3\x2\x2\x2"+
+		"\x31\x32\a\x3\x2\x2\x32\x33\a\a\x2\x2\x33\x34\a\v\x2\x2\x34\x35\a\b\x2"+
+		"\x2\x35\x36\x5\f\a\x2\x36\v\x3\x2\x2\x2\x37:\x5\xE\b\x2\x38:\a\x5\x2\x2"+
+		"\x39\x37\x3\x2\x2\x2\x39\x38\x3\x2\x2\x2:=\x3\x2\x2\x2;\x39\x3\x2\x2\x2"+
+		";<\x3\x2\x2\x2<\r\x3\x2\x2\x2=;\x3\x2\x2\x2>?\a\x3\x2\x2?\x43\a\v\x2\x2"+
+		"@\x42\x5\x10\t\x2\x41@\x3\x2\x2\x2\x42\x45\x3\x2\x2\x2\x43\x41\x3\x2\x2"+
+		"\x2\x43\x44\x3\x2\x2\x2\x44\x46\x3\x2\x2\x2\x45\x43\x3\x2\x2\x2\x46G\a"+
+		"\b\x2\x2G\xF\x3\x2\x2\x2HI\t\x2\x2\x2I\x11\x3\x2\x2\x2\t\x15\x1D\"(\x39"+
+		";\x43";
 	public static readonly ATN _ATN =
 		new ATNDeserializer().Deserialize(_serializedATN.ToCharArray());
 }
-} // namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
+} // namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser

@@ -53,5 +53,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax
 
             return builder.ToString();
         }
+
+        public override int GetDepth() => 1;
     }
 }

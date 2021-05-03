@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from ..\..\..\AtlusScriptLib\MessageScriptLanguage\Compiler\Parser\MessageScriptParser.g4 by ANTLR 4.6.4
+// Generated from ..\..\..\AtlusScriptLibrary\MessageScriptLanguage\Compiler\Parser\MessageScriptParser.g4 by ANTLR 4.6.4
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -107,5 +107,16 @@ public interface IMessageScriptParserListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitToken([NotNull] MessageScriptParser.TokenContext context);
+
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="MessageScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterExpression([NotNull] MessageScriptParser.ExpressionContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MessageScriptParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitExpression([NotNull] MessageScriptParser.ExpressionContext context);
 }
-} // namespace AtlusScriptLib.FlowScriptLanguage.Compiler.Parser
+} // namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser

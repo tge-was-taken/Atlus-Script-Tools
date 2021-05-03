@@ -34,17 +34,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax
 
             return expression;
         }
-    }
 
-    public class NullExpression : Expression
-    {
-        public NullExpression() : base( ValueKind.Null )
-        {
-        }
-
-        public override int GetHashCode()
-        {
-            return 11 * 33 ^ 3;
-        }
+        public abstract int GetDepth();
     }
 }

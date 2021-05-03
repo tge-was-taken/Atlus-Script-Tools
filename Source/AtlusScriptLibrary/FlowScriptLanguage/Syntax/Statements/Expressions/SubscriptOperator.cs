@@ -16,5 +16,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax
         {
             return $"{Operand}[ {Index} ]";
         }
+
+        public override int GetDepth() => 1 + Operand.GetDepth() + Index.GetDepth();
     }
 }
