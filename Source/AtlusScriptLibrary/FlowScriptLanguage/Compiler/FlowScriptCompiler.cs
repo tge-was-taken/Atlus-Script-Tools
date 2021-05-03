@@ -94,6 +94,8 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
         /// </summary>
         public bool HookImportedProcedures { get; set; }
 
+        public bool Matching { get; set; } = true;
+
         /// <summary>
         /// Initializes a FlowScript compiler with the given format version.
         /// </summary>
@@ -2814,9 +2816,13 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                 return false;
             }
 
+            // create else label
+            Label elseLabel = null;
+            if ( ifStatement.ElseBody != null || Matching )
+                elseLabel = CreateLabel( "IfElseLabel" );
+
             // generate label for jump if condition is false
             var endLabel = CreateLabel( "IfEndLabel" );
-            Label elseLabel = null;
 
             // emit if instruction that jumps to the label if the condition is false
             if ( ifStatement.ElseBody == null )
@@ -2825,12 +2831,11 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             }
             else
             {
-                elseLabel = CreateLabel( "IfElseLabel" );
                 Emit( Instruction.IF( elseLabel.Index ) );
             }
 
             // compile if body
-            if ( ifStatement.ElseBody == null )
+            if ( ifStatement.ElseBody == null && !Matching )
             {
                 // If there's no else, then the end of the body will line up with the end label
                 if ( !TryEmitIfStatementBody( ifStatement.Body, null ) )
@@ -2849,7 +2854,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
 
                 // compile if else body
                 // The else body will always line up with the end label
-                if ( !TryEmitIfStatementBody( ifStatement.ElseBody, null ) )
+                if ( !TryEmitIfStatementBody( ifStatement.ElseBody, Matching ? endLabel : null ) )
                     return false;
             }
 

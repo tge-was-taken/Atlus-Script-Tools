@@ -12,6 +12,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel
     {
         // required
         private readonly BinaryFormatVersion mFormatVersion;
+        private readonly bool mMatching;
 
         // optional
         private short mUserId;
@@ -21,13 +22,23 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel
         private MessageScriptBinary mMessageScriptSection;
         private IList<byte> mStringSection;
 
-        public FlowScriptBinaryBuilder( BinaryFormatVersion version )
+        public FlowScriptBinaryBuilder( BinaryFormatVersion version, bool matching = true )
         {
             if ( !Enum.IsDefined( typeof( BinaryFormatVersion ), version ) )
                 throw new ArgumentOutOfRangeException( nameof( version ),
                     $"Value should be defined in the {nameof( BinaryFormatVersion )} enum." );
 
             mFormatVersion = version;
+            mMatching = matching;
+
+            if ( mMatching )
+            {
+                // if matching then all sections are present regardless of being empty
+                mProcedureLabelSection = new List<BinaryLabel>();
+                mJumpLabelSection = new List<BinaryLabel>();
+                mTextSection = new List<BinaryInstruction>();
+                mStringSection = new List<byte>();
+            }
         }
 
         public void SetUserId( short value )
@@ -116,6 +127,16 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel
                     mStringSection.Add( 0 );
             }
 
+            if ( mMatching )
+            {
+                // add return instruction at end
+                mTextSection.Add( new BinaryInstruction() { Opcode = Opcode.END } );
+
+                // apply string section padding
+                while ( mStringSection.Count < 0xF0 )
+                    mStringSection.Add( 0 );
+            }
+
             var binary = new FlowScriptBinary
             {
                 mHeader = BuildHeader(),
@@ -171,35 +192,35 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel
             int currentSectionHeaderIndex = 0;
             BinarySectionHeader sectionHeader;
 
-            if ( mProcedureLabelSection != null )
+            if ( mMatching || mProcedureLabelSection != null )
             {
                 sectionHeader = BuildSectionHeader( BinarySectionType.ProcedureLabelSection, CalculateLabelSize(), mProcedureLabelSection.Count, nextFirstElementAddress );
                 sectionHeaders[currentSectionHeaderIndex++] = sectionHeader;
                 nextFirstElementAddress += ( sectionHeader.ElementCount * sectionHeader.ElementSize );
             }
 
-            if ( mJumpLabelSection != null )
+            if ( mMatching || mJumpLabelSection != null )
             {
                 sectionHeader = BuildSectionHeader( BinarySectionType.JumpLabelSection, CalculateLabelSize(), mJumpLabelSection.Count, nextFirstElementAddress );
                 sectionHeaders[currentSectionHeaderIndex++] = sectionHeader;
                 nextFirstElementAddress += ( sectionHeader.ElementCount * sectionHeader.ElementSize );
             }
 
-            if ( mTextSection != null )
+            if ( mMatching || mTextSection != null )
             {
                 sectionHeader = BuildSectionHeader( BinarySectionType.TextSection, BinaryInstruction.SIZE, mTextSection.Count, nextFirstElementAddress );
                 sectionHeaders[currentSectionHeaderIndex++] = sectionHeader;
                 nextFirstElementAddress += ( sectionHeader.ElementCount * sectionHeader.ElementSize );
             }
 
-            if ( mMessageScriptSection != null )
+            if ( mMatching || mMessageScriptSection != null )
             {
                 sectionHeader = BuildSectionHeader( BinarySectionType.MessageScriptSection, sizeof( byte ), mMessageScriptSection.Header.FileSize, nextFirstElementAddress );
                 sectionHeaders[currentSectionHeaderIndex++] = sectionHeader;
                 nextFirstElementAddress += ( sectionHeader.ElementCount * sectionHeader.ElementSize );
             }
 
-            if ( mStringSection != null )
+            if ( mMatching || mStringSection != null )
             {
                 sectionHeader = BuildSectionHeader( BinarySectionType.StringSection, sizeof( byte ), mStringSection.Count, nextFirstElementAddress );
                 sectionHeaders[currentSectionHeaderIndex] = sectionHeader;
@@ -245,7 +266,12 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel
                 size += ( BinarySectionHeader.SIZE + ( mMessageScriptSection.Header.FileSize * sizeof( byte ) ) );
 
             if ( mStringSection != null )
-                size += ( BinarySectionHeader.SIZE + ( mStringSection.Count * sizeof( byte ) ) );
+            {
+                size += BinarySectionHeader.SIZE;
+
+                if ( !mMatching || ( mStringSection.Any( x => x != 0 ) ) )
+                    size += ( mStringSection.Count * sizeof( byte ) );
+            }
 
             return size;
         }
@@ -253,19 +279,19 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel
         private int CalculateSectionCount()
         {
             int sectionCount = 0;
-            if ( mProcedureLabelSection != null )
+            if ( mMatching || mProcedureLabelSection != null )
                 sectionCount++;
 
-            if ( mJumpLabelSection != null )
+            if ( mMatching || mJumpLabelSection != null )
                 sectionCount++;
 
-            if ( mTextSection != null )
+            if ( mMatching || mTextSection != null )
                 sectionCount++;
 
-            if ( mMessageScriptSection != null )
+            if ( mMatching || mMessageScriptSection != null )
                 sectionCount++;
 
-            if ( mStringSection != null )
+            if ( mMatching || mStringSection != null )
                 sectionCount++;
 
             return sectionCount;

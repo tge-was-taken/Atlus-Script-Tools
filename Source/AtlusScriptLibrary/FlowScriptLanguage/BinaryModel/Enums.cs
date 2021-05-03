@@ -4,11 +4,11 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel
 {
     public enum BinarySectionType : uint
     {
-        ProcedureLabelSection,
-        JumpLabelSection,
-        TextSection,
-        MessageScriptSection,
-        StringSection
+        ProcedureLabelSection = 0,
+        JumpLabelSection = 1,
+        TextSection = 2,
+        MessageScriptSection = 3,
+        StringSection = 4,
     }
 
     [Flags]

@@ -259,7 +259,11 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
                             {
                                 speaker = new NamedSpeaker( speakerNameLines[0] );
                             }
-                        }                      
+                        }
+                        else
+                        {
+                            speaker = new NamedSpeaker( speakerNameLines[ 0 ] );
+                        }
                     }
                 }
             }
