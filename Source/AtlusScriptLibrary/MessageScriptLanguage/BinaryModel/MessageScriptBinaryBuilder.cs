@@ -215,7 +215,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel
             }
             else
             {
-                textBytes = Encoding.ASCII.GetBytes( token.Value );
+                textBytes = Encoding.GetEncoding( 932 ).GetBytes( token.Value );
             }
 
             // simple add to the list of bytes

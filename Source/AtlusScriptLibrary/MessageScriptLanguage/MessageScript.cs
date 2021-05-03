@@ -34,6 +34,22 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
             };
 
             // Convert the binary messages to their counterpart
+            var labelOccurences = new Dictionary<string, int>();
+            static string ResolveName( Dictionary<string, int> labelOccurences, string name )
+            {
+                if ( labelOccurences.ContainsKey( name ) )
+                {
+                    labelOccurences[ name ] += 1;
+                    name = name + "_" + labelOccurences[ name ];
+                }
+                else
+                {
+                    labelOccurences[ name ] = 1;
+                }
+
+                return name;
+            }
+
             foreach ( var messageHeader in binary.DialogHeaders )
             {
                 IDialog message;
@@ -45,20 +61,23 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
                 {
                     case BinaryDialogKind.Message:
                         {
-                            var binaryMessage = ( BinaryMessageDialog )messageHeader.Dialog.Value;
+                            var binaryMessage = (BinaryMessageDialog)messageHeader.Dialog.Value;
                             pageStartAddresses = binaryMessage.PageStartAddresses;
                             buffer = binaryMessage.TextBuffer;
                             pageCount = binaryMessage.PageCount;
 
+                            // check for duplicates
+                            var name = ResolveName( labelOccurences, binaryMessage.Name );
+
                             if ( binaryMessage.SpeakerId == 0xFFFF )
                             {
-                                message = new MessageDialog( binaryMessage.Name );
+                                message = new MessageDialog( name );
                             }
                             else if ( ( binaryMessage.SpeakerId & 0x8000 ) == 0x8000 )
                             {
                                 Trace.WriteLine( binaryMessage.SpeakerId.ToString( "X4" ) );
 
-                                message = new MessageDialog( binaryMessage.Name, new VariableSpeaker( binaryMessage.SpeakerId & 0x0FFF ) );
+                                message = new MessageDialog( name, new VariableSpeaker( binaryMessage.SpeakerId & 0x0FFF ) );
                             }
                             else
                             {
@@ -69,10 +88,10 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
                                 if ( binaryMessage.SpeakerId < binary.SpeakerTableHeader.SpeakerCount )
                                 {
                                     speakerName = ParseSpeakerText( binary.SpeakerTableHeader.SpeakerNameArray
-                                        .Value[binaryMessage.SpeakerId].Value, instance.FormatVersion, encoding == null ? Encoding.ASCII : encoding );
+                                        .Value[ binaryMessage.SpeakerId ].Value, instance.FormatVersion, encoding == null ? Encoding.GetEncoding( 932 ) : encoding );
                                 }
 
-                                message = new MessageDialog( binaryMessage.Name, new NamedSpeaker( speakerName ) );
+                                message = new MessageDialog( name, new NamedSpeaker( speakerName ) );
                             }
                         }
                         break;
@@ -83,8 +102,8 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
                             pageStartAddresses = binaryMessage.OptionStartAddresses;
                             buffer = binaryMessage.TextBuffer;
                             pageCount = binaryMessage.OptionCount;
-
-                            message = new SelectionDialog( ( string )binaryMessage.Name.Clone() );
+                            var name = ResolveName( labelOccurences, binaryMessage.Name );
+                            message = new SelectionDialog( name );
                         }
                         break;
 
@@ -95,7 +114,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
                 if ( pageCount != 0 )
                 {
                     // Parse the line data
-                    ParsePages( message, pageStartAddresses, buffer, instance.FormatVersion, encoding == null ? Encoding.ASCII : encoding );
+                    ParsePages( message, pageStartAddresses, buffer, instance.FormatVersion, encoding == null ? Encoding.GetEncoding( 932 ) : encoding );
                 }
 
                 // Add it to the message list

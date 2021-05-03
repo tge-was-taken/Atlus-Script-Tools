@@ -302,7 +302,7 @@ namespace AtlusScriptLibrary.Common
 
         public ArchiveReader( Stream stream, ArchiveVersion version, bool leaveOpen = false )
         {
-            Reader = new EndianBinaryReader( stream, Encoding.ASCII, leaveOpen, Endianness.LittleEndian );
+            Reader = new EndianBinaryReader( stream, Encoding.GetEncoding( 932 ), leaveOpen, Endianness.LittleEndian );
             StringBuilder = new StringBuilder();
             Version = version;
         }

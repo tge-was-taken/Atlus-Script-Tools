@@ -14,7 +14,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.IO
         public MessageScriptBinaryWriter( Stream stream, BinaryFormatVersion version, bool leaveOpen = false )
         {
             mPositionBase = stream.Position;
-            mWriter = new EndianBinaryWriter( stream, Encoding.ASCII, leaveOpen, version.HasFlag( BinaryFormatVersion.BigEndian ) ? Endianness.BigEndian : Endianness.LittleEndian );
+            mWriter = new EndianBinaryWriter( stream, Encoding.GetEncoding( 932 ), leaveOpen, version.HasFlag( BinaryFormatVersion.BigEndian ) ? Endianness.BigEndian : Endianness.LittleEndian );
         }
 
         public void Dispose()
