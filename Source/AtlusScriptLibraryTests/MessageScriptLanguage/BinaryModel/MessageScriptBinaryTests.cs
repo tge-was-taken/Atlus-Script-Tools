@@ -78,11 +78,11 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.Tests
 
                 PrintSpeakerIdsIfHigherThanTotalSpeakers( script );
 
-                if ( script.SpeakerTableHeader.Field08 != 0 )
-                    Trace.WriteLine( $"{nameof( MessageScriptBinary )}.{nameof( script.SpeakerTableHeader )}.{nameof( script.SpeakerTableHeader.Field08 )} = {script.SpeakerTableHeader.Field08}" );
+                if ( script.SpeakerTableHeader.ExtDataOffset != 0 )
+                    Trace.WriteLine( $"{nameof( MessageScriptBinary )}.{nameof( script.SpeakerTableHeader )}.{nameof( script.SpeakerTableHeader.ExtDataOffset )} = {script.SpeakerTableHeader.ExtDataOffset}" );
 
-                if ( script.SpeakerTableHeader.Field0C != 0 )
-                    Trace.WriteLine( $"{nameof( MessageScriptBinary )}.{nameof( script.SpeakerTableHeader )}.{nameof( script.SpeakerTableHeader.Field0C )} = {script.SpeakerTableHeader.Field0C}" );
+                if ( script.SpeakerTableHeader.Reserved != 0 )
+                    Trace.WriteLine( $"{nameof( MessageScriptBinary )}.{nameof( script.SpeakerTableHeader )}.{nameof( script.SpeakerTableHeader.Reserved )} = {script.SpeakerTableHeader.Reserved}" );
             }
         }
 
@@ -157,10 +157,10 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.Tests
         {
             foreach ( var messageHeader in script.DialogHeaders )
             {
-                if ( messageHeader.DialogKind != BinaryDialogKind.Message )
+                if ( messageHeader.Kind != BinaryDialogKind.Message )
                     continue;
 
-                var message = ( BinaryMessageDialog )messageHeader.Dialog.Value;
+                var message = ( BinaryMessageDialog )messageHeader.Data.Value;
 
                 if ( message.SpeakerId > ( script.SpeakerTableHeader.SpeakerCount - 1 ) )
                 {
@@ -175,46 +175,46 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.Tests
 
             // header checks
             Assert.AreEqual( 7, script.Header.FileType );
-            Assert.AreEqual( false, script.Header.IsCompressed );
+            Assert.AreEqual( false, script.Header.Format );
             Assert.AreEqual( 0, script.Header.UserId );
             Assert.AreEqual( 0x987A, script.Header.FileSize );
             Assert.IsTrue( script.Header.Magic.SequenceEqual( BinaryHeader.MAGIC_V1 ) );
-            Assert.AreEqual( 0, script.Header.Field0C );
+            Assert.AreEqual( 0, script.Header.ExtSize );
             Assert.AreEqual( 0x96EC, script.Header.RelocationTable.Offset );
             Assert.AreEqual( 0x018E, script.Header.RelocationTable.Value.Length );
             Assert.AreEqual( 0x018E, script.Header.RelocationTableSize );
             Assert.AreEqual( 0x9B, script.Header.DialogCount );
             Assert.AreEqual( 0x9B, script.DialogHeaders.Count );
             Assert.AreEqual( false, script.Header.IsRelocated );
-            Assert.AreEqual( 2, script.Header.Field1E );
+            Assert.AreEqual( 2, script.Header.Version );
 
             // check some message headers
-            Assert.AreEqual( BinaryDialogKind.Selection, script.DialogHeaders[0].DialogKind );
-            Assert.AreEqual( 0x04E8, script.DialogHeaders[0].Dialog.Offset );
+            Assert.AreEqual( BinaryDialogKind.Selection, script.DialogHeaders[0].Kind );
+            Assert.AreEqual( 0x04E8, script.DialogHeaders[0].Data.Offset );
 
-            Assert.AreEqual( BinaryDialogKind.Message, script.DialogHeaders[26].DialogKind );
-            Assert.AreEqual( 0x1B68, script.DialogHeaders[26].Dialog.Offset );
+            Assert.AreEqual( BinaryDialogKind.Message, script.DialogHeaders[26].Kind );
+            Assert.AreEqual( 0x1B68, script.DialogHeaders[26].Data.Offset );
 
             // check some messages
-            Assert.AreEqual( "combine_sel", ( ( BinarySelectionDialog )script.DialogHeaders[0].Dialog.Value ).Name );
-            Assert.AreEqual( 0, ( ( BinarySelectionDialog )script.DialogHeaders[0].Dialog.Value ).Field18 );
-            Assert.AreEqual( 2, ( ( BinarySelectionDialog )script.DialogHeaders[0].Dialog.Value ).OptionCount );
-            Assert.AreEqual( 0, ( ( BinarySelectionDialog )script.DialogHeaders[0].Dialog.Value ).Field1C );
-            Assert.AreEqual( 0, ( ( BinarySelectionDialog )script.DialogHeaders[0].Dialog.Value ).Field1E );
-            Assert.AreEqual( 2, ( ( BinarySelectionDialog )script.DialogHeaders[0].Dialog.Value ).OptionStartAddresses.Length );
-            Assert.AreEqual( 0x0514, ( ( BinarySelectionDialog )script.DialogHeaders[0].Dialog.Value ).OptionStartAddresses[0] );
-            Assert.AreEqual( 0x051E, ( ( BinarySelectionDialog )script.DialogHeaders[0].Dialog.Value ).OptionStartAddresses[1] );
-            Assert.AreEqual( 0x14, ( ( BinarySelectionDialog )script.DialogHeaders[0].Dialog.Value ).TextBufferSize );
-            Assert.AreEqual( 0x14, ( ( BinarySelectionDialog )script.DialogHeaders[0].Dialog.Value ).TextBuffer.Length );
+            Assert.AreEqual( "combine_sel", ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).Name );
+            Assert.AreEqual( 0, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).Ext );
+            Assert.AreEqual( 2, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).OptionCount );
+            Assert.AreEqual( 0, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).Pattern );
+            Assert.AreEqual( 0, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).Reserved );
+            Assert.AreEqual( 2, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).OptionStartAddresses.Length );
+            Assert.AreEqual( 0x0514, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).OptionStartAddresses[0] );
+            Assert.AreEqual( 0x051E, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).OptionStartAddresses[1] );
+            Assert.AreEqual( 0x14, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).TextBufferSize );
+            Assert.AreEqual( 0x14, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).TextBuffer.Length );
 
-            Assert.AreEqual( "book_bonus004", ( ( BinaryMessageDialog )script.DialogHeaders[26].Dialog.Value ).Name );
-            Assert.AreEqual( 0x0A, ( ( BinaryMessageDialog )script.DialogHeaders[26].Dialog.Value ).PageCount );
-            Assert.AreEqual( 0x01, ( ( BinaryMessageDialog )script.DialogHeaders[26].Dialog.Value ).SpeakerId );
-            Assert.AreEqual( 0x0A, ( ( BinaryMessageDialog )script.DialogHeaders[26].Dialog.Value ).PageStartAddresses.Length );
-            Assert.AreEqual( 0x1BB0, ( ( BinaryMessageDialog )script.DialogHeaders[26].Dialog.Value ).PageStartAddresses[0] );
-            Assert.AreEqual( 0x1C1C, ( ( BinaryMessageDialog )script.DialogHeaders[26].Dialog.Value ).PageStartAddresses[1] );
-            Assert.AreEqual( 0x02CE, ( ( BinaryMessageDialog )script.DialogHeaders[26].Dialog.Value ).TextBufferSize );
-            Assert.AreEqual( 0x02CE, ( ( BinaryMessageDialog )script.DialogHeaders[26].Dialog.Value ).TextBuffer.Length );
+            Assert.AreEqual( "book_bonus004", ( ( BinaryMessageDialog )script.DialogHeaders[26].Data.Value ).Name );
+            Assert.AreEqual( 0x0A, ( ( BinaryMessageDialog )script.DialogHeaders[26].Data.Value ).PageCount );
+            Assert.AreEqual( 0x01, ( ( BinaryMessageDialog )script.DialogHeaders[26].Data.Value ).SpeakerId );
+            Assert.AreEqual( 0x0A, ( ( BinaryMessageDialog )script.DialogHeaders[26].Data.Value ).PageStartAddresses.Length );
+            Assert.AreEqual( 0x1BB0, ( ( BinaryMessageDialog )script.DialogHeaders[26].Data.Value ).PageStartAddresses[0] );
+            Assert.AreEqual( 0x1C1C, ( ( BinaryMessageDialog )script.DialogHeaders[26].Data.Value ).PageStartAddresses[1] );
+            Assert.AreEqual( 0x02CE, ( ( BinaryMessageDialog )script.DialogHeaders[26].Data.Value ).TextBufferSize );
+            Assert.AreEqual( 0x02CE, ( ( BinaryMessageDialog )script.DialogHeaders[26].Data.Value ).TextBuffer.Length );
         }
 
         private void PerformIntegrityCheckForVersion1BigEndian( MessageScriptBinary script )
@@ -223,45 +223,45 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.Tests
 
             // header checks
             Assert.AreEqual( 7, script.Header.FileType );
-            Assert.AreEqual( false, script.Header.IsCompressed );
+            Assert.AreEqual( false, script.Header.Format );
             Assert.AreEqual( 0, script.Header.UserId );
             Assert.AreEqual( 0x6F89, script.Header.FileSize );
             Assert.IsTrue( script.Header.Magic.SequenceEqual( BinaryHeader.MAGIC_V1_BE ) );
-            Assert.AreEqual( 0, script.Header.Field0C );
+            Assert.AreEqual( 0, script.Header.ExtSize );
             Assert.AreEqual( 0x6E50, script.Header.RelocationTable.Offset );
             Assert.AreEqual( 0x0139, script.Header.RelocationTableSize );
             Assert.AreEqual( script.Header.RelocationTableSize, script.Header.RelocationTable.Value.Length );
             Assert.AreEqual( 0x76, script.Header.DialogCount );
             Assert.AreEqual( script.Header.DialogCount, script.DialogHeaders.Count );
             Assert.AreEqual( false, script.Header.IsRelocated );
-            Assert.AreEqual( 2, script.Header.Field1E );
+            Assert.AreEqual( 2, script.Header.Format );
 
             // check some message headers
-            Assert.AreEqual( BinaryDialogKind.Selection, script.DialogHeaders[0].DialogKind );
-            Assert.AreEqual( 0x03C0, script.DialogHeaders[0].Dialog.Offset );
+            Assert.AreEqual( BinaryDialogKind.Selection, script.DialogHeaders[0].Kind );
+            Assert.AreEqual( 0x03C0, script.DialogHeaders[0].Data.Offset );
 
-            Assert.AreEqual( BinaryDialogKind.Message, script.DialogHeaders[26].DialogKind );
-            Assert.AreEqual( 0x0F24, script.DialogHeaders[26].Dialog.Offset );
+            Assert.AreEqual( BinaryDialogKind.Message, script.DialogHeaders[26].Kind );
+            Assert.AreEqual( 0x0F24, script.DialogHeaders[26].Data.Offset );
 
             // check some messages
-            Assert.AreEqual( "FCL_MSG_COMBINE_SELECT", ( ( BinarySelectionDialog )script.DialogHeaders[0].Dialog.Value ).Name );
-            Assert.AreEqual( 0, ( ( BinarySelectionDialog )script.DialogHeaders[0].Dialog.Value ).Field18 );
-            Assert.AreEqual( 2, ( ( BinarySelectionDialog )script.DialogHeaders[0].Dialog.Value ).OptionCount );
-            Assert.AreEqual( 0, ( ( BinarySelectionDialog )script.DialogHeaders[0].Dialog.Value ).Field1C );
-            Assert.AreEqual( 0, ( ( BinarySelectionDialog )script.DialogHeaders[0].Dialog.Value ).Field1E );
-            Assert.AreEqual( 2, ( ( BinarySelectionDialog )script.DialogHeaders[0].Dialog.Value ).OptionStartAddresses.Length );
-            Assert.AreEqual( 0x03EC, ( ( BinarySelectionDialog )script.DialogHeaders[0].Dialog.Value ).OptionStartAddresses[0] );
-            Assert.AreEqual( 0x03FC, ( ( BinarySelectionDialog )script.DialogHeaders[0].Dialog.Value ).OptionStartAddresses[1] );
-            Assert.AreEqual( 0x23, ( ( BinarySelectionDialog )script.DialogHeaders[0].Dialog.Value ).TextBufferSize );
-            Assert.AreEqual( 0x23, ( ( BinarySelectionDialog )script.DialogHeaders[0].Dialog.Value ).TextBuffer.Length );
+            Assert.AreEqual( "FCL_MSG_COMBINE_SELECT", ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).Name );
+            Assert.AreEqual( 0, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).Ext );
+            Assert.AreEqual( 2, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).OptionCount );
+            Assert.AreEqual( 0, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).Pattern );
+            Assert.AreEqual( 0, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).Pattern );
+            Assert.AreEqual( 2, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).OptionStartAddresses.Length );
+            Assert.AreEqual( 0x03EC, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).OptionStartAddresses[0] );
+            Assert.AreEqual( 0x03FC, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).OptionStartAddresses[1] );
+            Assert.AreEqual( 0x23, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).TextBufferSize );
+            Assert.AreEqual( 0x23, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).TextBuffer.Length );
 
-            Assert.AreEqual( "FCL_MSG_COMBINE_CELL_HOU", ( ( BinaryMessageDialog )script.DialogHeaders[26].Dialog.Value ).Name );
-            Assert.AreEqual( 0x01, ( ( BinaryMessageDialog )script.DialogHeaders[26].Dialog.Value ).PageCount );
-            Assert.AreEqual( 0x01, ( ( BinaryMessageDialog )script.DialogHeaders[26].Dialog.Value ).SpeakerId );
-            Assert.AreEqual( 0x01, ( ( BinaryMessageDialog )script.DialogHeaders[26].Dialog.Value ).PageStartAddresses.Length );
-            Assert.AreEqual( 0x0F48, ( ( BinaryMessageDialog )script.DialogHeaders[26].Dialog.Value ).PageStartAddresses[0] );
-            Assert.AreEqual( 0x40, ( ( BinaryMessageDialog )script.DialogHeaders[26].Dialog.Value ).TextBufferSize );
-            Assert.AreEqual( 0x40, ( ( BinaryMessageDialog )script.DialogHeaders[26].Dialog.Value ).TextBuffer.Length );
+            Assert.AreEqual( "FCL_MSG_COMBINE_CELL_HOU", ( ( BinaryMessageDialog )script.DialogHeaders[26].Data.Value ).Name );
+            Assert.AreEqual( 0x01, ( ( BinaryMessageDialog )script.DialogHeaders[26].Data.Value ).PageCount );
+            Assert.AreEqual( 0x01, ( ( BinaryMessageDialog )script.DialogHeaders[26].Data.Value ).SpeakerId );
+            Assert.AreEqual( 0x01, ( ( BinaryMessageDialog )script.DialogHeaders[26].Data.Value ).PageStartAddresses.Length );
+            Assert.AreEqual( 0x0F48, ( ( BinaryMessageDialog )script.DialogHeaders[26].Data.Value ).PageStartAddresses[0] );
+            Assert.AreEqual( 0x40, ( ( BinaryMessageDialog )script.DialogHeaders[26].Data.Value ).TextBufferSize );
+            Assert.AreEqual( 0x40, ( ( BinaryMessageDialog )script.DialogHeaders[26].Data.Value ).TextBuffer.Length );
         }
     }
 }

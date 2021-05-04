@@ -86,17 +86,17 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Tests
         {
             // compare headers
             Assert.AreEqual( binary.Header.FileType, newBinary.Header.FileType );
-            Assert.AreEqual( binary.Header.IsCompressed, newBinary.Header.IsCompressed );
+            Assert.AreEqual( binary.Header.Format, newBinary.Header.Format );
             Assert.AreEqual( binary.Header.UserId, newBinary.Header.UserId );
             Assert.AreEqual( binary.Header.FileSize, newBinary.Header.FileSize );
             CollectionAssert.AreEqual( binary.Header.Magic, newBinary.Header.Magic );
-            Assert.AreEqual( binary.Header.Field0C, newBinary.Header.Field0C );
+            Assert.AreEqual( binary.Header.ExtSize, newBinary.Header.ExtSize );
             Assert.AreEqual( binary.Header.RelocationTable.Offset, newBinary.Header.RelocationTable.Offset );
             CollectionAssert.AreEqual( binary.Header.RelocationTable.Value, newBinary.Header.RelocationTable.Value );
             Assert.AreEqual( binary.Header.RelocationTableSize, newBinary.Header.RelocationTableSize );
             Assert.AreEqual( binary.Header.DialogCount, newBinary.Header.DialogCount );
             Assert.AreEqual( binary.Header.IsRelocated, newBinary.Header.IsRelocated );
-            Assert.AreEqual( binary.Header.Field1E, newBinary.Header.Field1E );
+            Assert.AreEqual( binary.Header.Version, newBinary.Header.Version );
 
             for ( var index = 0; index < binary.DialogHeaders.Count; index++ )
             {
@@ -104,16 +104,16 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Tests
                 var newHeader = newBinary.DialogHeaders[index];
 
                 // compare message headers
-                Assert.AreEqual( header.DialogKind, newHeader.DialogKind );
-                Assert.AreEqual( header.Dialog.Offset, newHeader.Dialog.Offset );
+                Assert.AreEqual( header.Kind, newHeader.Kind );
+                Assert.AreEqual( header.Data.Offset, newHeader.Data.Offset );
 
                 // compare message data
-                switch ( header.DialogKind )
+                switch ( header.Kind )
                 {
                     case BinaryDialogKind.Message:
                         {
-                            var dialogue = ( BinaryMessageDialog )header.Dialog.Value;
-                            var newDialogue = ( BinaryMessageDialog )newHeader.Dialog.Value;
+                            var dialogue = ( BinaryMessageDialog )header.Data.Value;
+                            var newDialogue = ( BinaryMessageDialog )newHeader.Data.Value;
 
                             Assert.AreEqual( dialogue.Name, newDialogue.Name );
                             Assert.AreEqual( dialogue.PageCount, newDialogue.PageCount );
@@ -126,14 +126,14 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Tests
 
                     case BinaryDialogKind.Selection:
                         {
-                            var selection = ( BinarySelectionDialog )header.Dialog.Value;
-                            var newSelection = ( BinarySelectionDialog )newHeader.Dialog.Value;
+                            var selection = ( BinarySelectionDialog )header.Data.Value;
+                            var newSelection = ( BinarySelectionDialog )newHeader.Data.Value;
 
                             Assert.AreEqual( selection.Name, newSelection.Name );
-                            Assert.AreEqual( selection.Field18, newSelection.Field18 );
+                            Assert.AreEqual( selection.Ext, newSelection.Ext );
                             Assert.AreEqual( selection.OptionCount, newSelection.OptionCount );
-                            Assert.AreEqual( selection.Field1C, newSelection.Field1C );
-                            Assert.AreEqual( selection.Field1E, newSelection.Field1E );
+                            Assert.AreEqual( selection.Pattern, newSelection.Pattern );
+                            Assert.AreEqual( selection.Reserved, newSelection.Reserved );
                             CollectionAssert.AreEqual( selection.OptionStartAddresses, newSelection.OptionStartAddresses );
                             Assert.AreEqual( selection.TextBufferSize, newSelection.TextBufferSize );
                             CollectionAssert.AreEqual( selection.TextBuffer, newSelection.TextBuffer );
@@ -141,15 +141,15 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Tests
                         break;
 
                     default:
-                        throw new NotImplementedException( header.DialogKind.ToString() );
+                        throw new NotImplementedException( header.Kind.ToString() );
                 }
             }
 
             // compare speaker table header
             Assert.AreEqual( binary.SpeakerTableHeader.SpeakerNameArray.Offset, newBinary.SpeakerTableHeader.SpeakerNameArray.Offset );
             Assert.AreEqual( binary.SpeakerTableHeader.SpeakerCount, newBinary.SpeakerTableHeader.SpeakerCount );
-            Assert.AreEqual( binary.SpeakerTableHeader.Field08, newBinary.SpeakerTableHeader.Field08 );
-            Assert.AreEqual( binary.SpeakerTableHeader.Field0C, newBinary.SpeakerTableHeader.Field0C );
+            Assert.AreEqual( binary.SpeakerTableHeader.ExtDataOffset, newBinary.SpeakerTableHeader.ExtDataOffset );
+            Assert.AreEqual( binary.SpeakerTableHeader.Reserved, newBinary.SpeakerTableHeader.Reserved );
 
             for ( int i = 0; i < binary.SpeakerTableHeader.SpeakerNameArray.Value.Length; i++ )
             {
