@@ -347,9 +347,16 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
                         }
 
                         var arg = call.Arguments[ i ];
+
+                        // only handle add expressions
                         if ( !( arg.Expression is AdditionOperator ) )
                             continue;
 
+                        // exclude any expressions with identifiers in them
+                        if ( SyntaxNodeCollector<Identifier>.Collect( arg.Expression ).Count > 0 )
+                            continue;
+
+                        // sum literals
                         var literals = SyntaxNodeCollector<IntLiteral>.Collect( arg.Expression );
                         var sum = 0;
                         foreach ( var literal in literals )
