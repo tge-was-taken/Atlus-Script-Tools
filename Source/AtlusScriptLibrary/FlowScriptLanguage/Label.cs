@@ -1,4 +1,6 @@
-﻿namespace AtlusScriptLibrary.FlowScriptLanguage
+﻿using System;
+
+namespace AtlusScriptLibrary.FlowScriptLanguage
 {
     /// <summary>
     /// Represents a single named label in a flow script.
@@ -29,6 +31,11 @@
         public override string ToString()
         {
             return $"{Name} at {InstructionIndex}";
+        }
+
+        public Label Clone()
+        {
+            return new Label( Name, InstructionIndex );
         }
     }
 }

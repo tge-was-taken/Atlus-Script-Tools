@@ -70,6 +70,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.Tests
         }
 
         [TestMethod]
+        [Ignore]
         public void FromFile_NoException_Batch()
         {
             foreach ( var path in Directory.EnumerateFiles( "TestResources\\Batch\\", "*.bmd" ) )
@@ -199,7 +200,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.Tests
             Assert.AreEqual( "combine_sel", ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).Name );
             Assert.AreEqual( 0, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).Ext );
             Assert.AreEqual( 2, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).OptionCount );
-            Assert.AreEqual( 0, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).Pattern );
+            Assert.AreEqual( BinarySelectionDialogPattern.Top, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).Pattern );
             Assert.AreEqual( 0, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).Reserved );
             Assert.AreEqual( 2, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).OptionStartAddresses.Length );
             Assert.AreEqual( 0x0514, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).OptionStartAddresses[0] );
@@ -223,7 +224,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.Tests
 
             // header checks
             Assert.AreEqual( 7, script.Header.FileType );
-            Assert.AreEqual( false, script.Header.Format );
+            Assert.AreEqual( 0, script.Header.Format );
             Assert.AreEqual( 0, script.Header.UserId );
             Assert.AreEqual( 0x6F89, script.Header.FileSize );
             Assert.IsTrue( script.Header.Magic.SequenceEqual( BinaryHeader.MAGIC_V1_BE ) );
@@ -234,7 +235,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.Tests
             Assert.AreEqual( 0x76, script.Header.DialogCount );
             Assert.AreEqual( script.Header.DialogCount, script.DialogHeaders.Count );
             Assert.AreEqual( false, script.Header.IsRelocated );
-            Assert.AreEqual( 2, script.Header.Format );
+            Assert.AreEqual( 2, script.Header.Version );
 
             // check some message headers
             Assert.AreEqual( BinaryDialogKind.Selection, script.DialogHeaders[0].Kind );
@@ -247,8 +248,8 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.Tests
             Assert.AreEqual( "FCL_MSG_COMBINE_SELECT", ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).Name );
             Assert.AreEqual( 0, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).Ext );
             Assert.AreEqual( 2, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).OptionCount );
-            Assert.AreEqual( 0, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).Pattern );
-            Assert.AreEqual( 0, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).Pattern );
+            Assert.AreEqual( BinarySelectionDialogPattern.Top, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).Pattern );
+            Assert.AreEqual( BinarySelectionDialogPattern.Top, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).Pattern );
             Assert.AreEqual( 2, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).OptionStartAddresses.Length );
             Assert.AreEqual( 0x03EC, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).OptionStartAddresses[0] );
             Assert.AreEqual( 0x03FC, ( ( BinarySelectionDialog )script.DialogHeaders[0].Data.Value ).OptionStartAddresses[1] );

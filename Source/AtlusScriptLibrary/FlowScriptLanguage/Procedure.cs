@@ -35,5 +35,17 @@ namespace AtlusScriptLibrary.FlowScriptLanguage
         {
             return $"{Name} with {Instructions.Count} instructions";
         }
+
+        public Procedure Clone()
+        {
+            var p = new Procedure( Name );
+            foreach ( var i in Instructions )
+                p.Instructions.Add( i.Clone() );
+
+            foreach ( var l in Labels )
+                p.Labels.Add( l.Clone() );
+
+            return p;
+        }
     }
 }

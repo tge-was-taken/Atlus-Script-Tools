@@ -41,7 +41,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.IO
         private void WriteHeader( ref BinaryHeader header )
         {
             mWriter.Write( header.FileType );
-            mWriter.Write( header.Format ? ( byte )1 : ( byte )0 );
+            mWriter.Write( header.Format );
             mWriter.Write( header.UserId );
             mWriter.Write( header.FileSize );
             mWriter.Write( header.Magic );

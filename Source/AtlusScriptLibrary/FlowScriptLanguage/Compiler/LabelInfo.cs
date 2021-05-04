@@ -1,6 +1,6 @@
 namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
 {
-    internal class Label
+    internal class LabelInfo
     {
         public string Name { get; set; }
 

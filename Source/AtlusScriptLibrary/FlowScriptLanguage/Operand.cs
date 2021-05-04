@@ -250,5 +250,22 @@ namespace AtlusScriptLibrary.FlowScriptLanguage
                     throw new Exception("Invalid value type");
             }
         }
+
+        public Operand Clone()
+        {
+            switch ( Kind )
+            {
+                case ValueKind.Int16:
+                    return new Operand( mShortValue );
+                case ValueKind.Int32:
+                    return new Operand( mIntValue );
+                case ValueKind.Single:
+                    return new Operand( mFloatValue );
+                case ValueKind.String:
+                    return new Operand( mStringValue );
+                default:
+                    throw new InvalidOperationException();
+            }
+        }
     }
 }

@@ -34,8 +34,9 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
         private int mNextLabelIndex;
         private Stack<ScopeContext> mScopeStack;
         private ScopeContext mRootScope;
-        private Variable mIntReturnValueVariable;
-        private Variable mFloatReturnValueVariable;
+        private VariableInfo mIntReturnValueVariable;
+        private VariableInfo mFloatReturnValueVariable;
+        private Dictionary<string, List<Instruction>> mProcedureInstructionCache;
 
         // variable indices
         private short mNextIntVariableIndex;
@@ -53,7 +54,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
         //
         private ProcedureDeclaration mProcedureDeclaration;
         private List<Instruction> mInstructions;
-        private Dictionary<string, Label> mLabels;
+        private Dictionary<string, LabelInfo> mLabels;
 
         private int mStackValueCount; // for debugging
         private IntrinsicSupport mInstrinsic;
@@ -239,6 +240,8 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                 Info( "Tracing is not supported by the specified library; it will be disabled for the current compilation" );
                 EnableFunctionCallTracing = EnableProcedureCallTracing = EnableProcedureTracing = EnableStackCookie = false;
             }
+
+            mProcedureInstructionCache = new Dictionary<string, List<Instruction>>();
         }
 
         private bool TryCompileCompilationUnit( CompilationUnit compilationUnit )
@@ -265,6 +268,12 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             if ( !TryEvaluateCompilationUnitBeforeCompilation( compilationUnit ) )
                 return false;
 
+            if ( ProcedureHookMode == ProcedureHookMode.ImportedOnly )
+            {
+                foreach ( var proc in mScript.Procedures )
+                    TryHookProcedure( proc.Name );
+            }
+
             // Compile compilation unit body
             foreach ( var statement in compilationUnit.Declarations )
             {
@@ -275,7 +284,8 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                         if ( !TryCompileProcedure( procedureDeclaration, out var procedure ) )
                             return false;
 
-                        mScript.Procedures.Add( procedure );
+                        // Add compiled procedure
+                        AddCompiledProcedure( procedure );
                     }
                 }
                 else if ( statement is VariableDeclaration variableDeclaration )
@@ -296,7 +306,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             if ( ProcedureHookMode == ProcedureHookMode.All )
             {
                 foreach ( var proc in mScript.Procedures )
-                    MaybeHookProcedure( proc.Name );
+                    TryHookProcedure( proc.Name );
             }
 
             Info( "Done compiling compilation unit" );
@@ -439,9 +449,12 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                                                               new List<Parameter>(), null );
 
                 Debug.Assert( mScript.Procedures.Count == i, "Imported procedure index mismatch" );
-                mScript.Procedures.Add( procedure );
-                if ( !Scope.TryDeclareProcedure( procedureDecl ) )
+
+                // Add compiled procedure
+                if ( !Scope.TryDeclareProcedure( procedureDecl, procedure, out var procedureInfo ) )
                     Debug.Assert( false );
+
+                AddCompiledProcedure( procedureInfo, procedure );
             }
 
             // Add declarations for top-level/global variables
@@ -804,18 +817,13 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                         break;
                     case ProcedureDeclaration procedureDeclaration:
                         {
-                            if ( !Scope.TryDeclareProcedure( procedureDeclaration ) )
+                            if ( !Scope.TryDeclareProcedure( procedureDeclaration, out _ ) )
                             {
                                 Error( procedureDeclaration, $"Duplicate procedure declaration: {procedureDeclaration}" );
                                 return false;
                             }
 
                             Trace( $"Registered procedure declaration '{procedureDeclaration}'" );
-
-                            if ( ProcedureHookMode == ProcedureHookMode.ImportedOnly )
-                            {
-                                MaybeHookProcedure( procedureDeclaration.Identifier.Text );
-                            }
 
                             if ( procedureDeclaration.ReturnType.ValueKind != ValueKind.Void )
                             {
@@ -847,6 +855,11 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
 
                             maxIntParameterCount = Math.Max( intParameterCount, maxIntParameterCount );
                             maxFloatParameterCount = Math.Max( floatParameterCount, maxFloatParameterCount );
+
+                            //if ( ProcedureHookMode == ProcedureHookMode.ImportedOnly )
+                            //{
+                            //    TryHookProcedure( procedureDeclaration.Identifier.Text );
+                            //}
                         }
                         break;
 
@@ -921,47 +934,61 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private void MaybeHookProcedure( string name )
+        private void TryHookProcedure( string name )
         {
-            var importedProcedureToHook =
-                mScript.Procedures.FirstOrDefault( x => x.Name + "_hook" == name );
+            if ( !mRootScope.TryGetProcedure( name, out var procedureInfo ) ||
+                 procedureInfo.Compiled == null )
+                return;
 
-            if ( importedProcedureToHook != null )
+            if ( mRootScope.TryGetProcedure( name + "_hook", out var hookProcedureInfo ) )
             {
-                Info( $"Registering {name} as hook for {importedProcedureToHook.Name}" );
-                importedProcedureToHook.Instructions.Insert( 1, Instruction.CALL( Scope
-                                                                            .Procedures[ name ]
-                                                                            .Index ) );
-                importedProcedureToHook.Instructions.Insert( 2, Instruction.END() );
+                Info( $"Registering {hookProcedureInfo.Declaration.Identifier.Text} as hook for {name}" );
+                BackupCompiledProcedure( procedureInfo );
+
+                if ( procedureInfo.Compiled.Instructions.Count >= 2 )
+                {
+                    // overwrite original 2 instructions as to not shift
+                    procedureInfo.Compiled.Instructions[ 0 ] = Instruction.CALL( hookProcedureInfo.Index );
+                    procedureInfo.Compiled.Instructions[ 1 ] = Instruction.END();
+                    for ( int i = 2; i < procedureInfo.Compiled.Instructions.Count; i++ )
+                        procedureInfo.Compiled.Instructions[ i ] = Instruction.END();
+                }
+                else
+                {
+                    procedureInfo.Compiled.Instructions.Insert( 0, Instruction.CALL( hookProcedureInfo.Index ) );
+                    procedureInfo.Compiled.Instructions.Insert( 1, Instruction.END() );
+                }
             }
 
-            if ( importedProcedureToHook == null &&
-                ( importedProcedureToHook = mScript.Procedures.FirstOrDefault( x => x.Name + "_hookafter" == name ) ) != null )
+            if ( mRootScope.TryGetProcedure( name + "_hookafter", out hookProcedureInfo ) )
             {
-                Info( $"Registering {name} as hook (after) for {importedProcedureToHook.Name}" );
+                Info( $"Registering {hookProcedureInfo.Declaration.Identifier.Text} as hook (after) for {name}" );
+                BackupCompiledProcedure( procedureInfo );
 
                 // Insert call to hook at every return
-                for ( int i = 0; i < importedProcedureToHook.Instructions.Count; i++ )
+                for ( int i = 0; i < procedureInfo.Compiled.Instructions.Count; i++ )
                 {
-                    if ( importedProcedureToHook.Instructions[ i ].Opcode == Opcode.END )
+                    if ( procedureInfo.Compiled.Instructions[ i ].Opcode == Opcode.END )
                     {
-                        importedProcedureToHook.Instructions.Insert( i, Instruction.CALL( Scope
-                                        .Procedures[ name ]
-                                        .Index ) );
+                        procedureInfo.Compiled.Instructions.Insert( i, Instruction.CALL( hookProcedureInfo.Index ) );
                         i++;
                     }
                 }
             }
 
-            if ( importedProcedureToHook == null &&
-                ( importedProcedureToHook = mScript.Procedures.FirstOrDefault( x => x.Name + "_softhook" == name ) ) != null )
+            if ( mRootScope.TryGetProcedure( name + "_softhook", out hookProcedureInfo ) )
             {
-                Info( $"Registering {name} as hook (soft) for {importedProcedureToHook.Name}" );
+                Info( $"Registering {hookProcedureInfo.Declaration.Identifier.Text} as hook (after) for {name}" );
+                BackupCompiledProcedure( procedureInfo );
 
                 // Insert call to hook at start of the procedure without a return
-                importedProcedureToHook.Instructions.Insert( 1, Instruction.CALL( Scope
-                                                                            .Procedures[ name ]
-                                                                            .Index ) );
+                procedureInfo.Compiled.Instructions.Insert( 1, Instruction.CALL( hookProcedureInfo.Index ) );
+            }
+
+            static void BackupCompiledProcedure( ProcedureInfo procedureInfo )
+            {
+                if ( procedureInfo.OriginalCompiled == null )
+                    procedureInfo.OriginalCompiled = procedureInfo.Compiled.Clone();
             }
         }
 
@@ -972,7 +999,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
         {
             mProcedureDeclaration = declaration;
             mInstructions = new List<Instruction>();
-            mLabels = new Dictionary<string, Label>();
+            mLabels = new Dictionary<string, LabelInfo>();
             mStackValueCount = 1;
         }
 
@@ -1856,6 +1883,37 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                 if ( !TryEmitProcedureCall( callExpression, isStatement, procedure ) )
                     return false;
             }
+            else if ( ProcedureHookMode != ProcedureHookMode.None && 
+                mRootScope.TryGetProcedure( callExpression.Identifier.Text.Substring(0, 
+                    callExpression.Identifier.Text.IndexOf("_unhooked") ), out procedure ))
+            {
+                // copy compiled procedure
+                if ( procedure.OriginalCompiled == null )
+                    procedure.OriginalCompiled = procedure.Compiled.Clone();
+
+                var procedureCopy = new Procedure( callExpression.Identifier.Text,
+                    procedure.OriginalCompiled.Instructions,
+                    procedure.OriginalCompiled.Labels );
+
+                // copy declaration
+                var procedureCopyDecl = new ProcedureDeclaration(
+                    null,
+                    procedure.Declaration.ReturnType,
+                    new Identifier( ValueKind.Procedure, procedureCopy.Name ),
+                    procedure.Declaration.Parameters,
+                    procedure.Declaration.Body );
+
+                // declare copy
+                if ( !mRootScope.TryDeclareProcedure( procedureCopyDecl, procedureCopy, out procedure ) )
+                    return false;
+
+                // add to compiled script
+                AddCompiledProcedure( procedure, procedureCopy );
+
+                // call copy
+                if ( !TryEmitProcedureCall( callExpression, isStatement, procedure ) )
+                    return false;
+            }
             else
             {
                 Error( callExpression, $"Invalid call expression. Expected function or procedure identifier, got: {callExpression.Identifier}" );
@@ -1865,7 +1923,22 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryEmitProcedureCall( CallOperator callExpression, bool isStatement, Procedure procedure )
+        private void AddCompiledProcedure( Procedure compiledProcedure )
+        {
+            mRootScope.TryGetProcedure( compiledProcedure.Name, out var procedureInfo );
+            AddCompiledProcedure( procedureInfo, compiledProcedure );
+        }
+
+        private void AddCompiledProcedure( ProcedureInfo procedure, Procedure compiledProcedure )
+        {
+            while ( procedure.Index >= mScript.Procedures.Count )
+                mScript.Procedures.Add( null );
+
+            mScript.Procedures[ procedure.Index ] = compiledProcedure;
+            procedure.Compiled = compiledProcedure;
+        }
+
+        private bool TryEmitProcedureCall( CallOperator callExpression, bool isStatement, ProcedureInfo procedure )
         {
             if ( callExpression.Arguments.Count != procedure.Declaration.Parameters.Count )
             {
@@ -2116,7 +2189,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                 index = mNextFloatVariableIndex++;
             }
 
-            Variable copy = null;
+            VariableInfo copy = null;
             if ( !isStatement )
             {
                 // Make copy of variable
@@ -2895,7 +2968,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             }
 
             // create else label
-            Label elseLabel = null;
+            LabelInfo elseLabel = null;
             if ( ifStatement.ElseBody != null  )
                 elseLabel = CreateLabel( "IfElseLabel" );
 
@@ -2941,7 +3014,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryEmitIfStatementBody( CompoundStatement body, Label endLabel )
+        private bool TryEmitIfStatementBody( CompoundStatement body, LabelInfo endLabel )
         {
             Trace( body, "Compiling if statement body" );
             if ( !TryEmitCompoundStatement( body ) )
@@ -3280,7 +3353,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
         {
             Trace( gotoStatement, $"Emitting goto statement: '{gotoStatement}'" );
 
-            Label label = null;
+            LabelInfo label = null;
 
             switch ( gotoStatement.Label )
             {
@@ -3318,7 +3391,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             if ( false && declaration.Parameters.Count > 0 )
             {
                 EmitTracePrint( "Arguments:" );
-                var saves = new Stack< Variable >();
+                var saves = new Stack< VariableInfo >();
 
                 foreach ( var parameter in declaration.Parameters )
                 {
@@ -3359,7 +3432,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             }
         }
 
-        private Variable EmitTracePrintStringNoPush()
+        private VariableInfo EmitTracePrintStringNoPush()
         {
             var save = Scope.GenerateVariable( ValueKind.String, mNextIntVariableIndex++ );
 
@@ -3586,7 +3659,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             EmitUnchecked( Instruction.PUSHLIX( save.Index ) );
         }
 
-        private Variable EmitTracePrintIntegerNoPush()
+        private VariableInfo EmitTracePrintIntegerNoPush()
         {
             var save = Scope.GenerateVariable( ValueKind.Int, mNextIntVariableIndex++ );
 
@@ -3608,7 +3681,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             EmitUnchecked( Instruction.PUSHLFX( save.Index ) );
         }
 
-        private Variable EmitTracePrintFloatNoPush()
+        private VariableInfo EmitTracePrintFloatNoPush()
         {
             var save = Scope.GenerateVariable( ValueKind.Float, mNextFloatVariableIndex++ );
 
@@ -3630,7 +3703,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             EmitUnchecked( Instruction.PUSHLIX( save.Index ) );
         }
 
-        private Variable EmitTracePrintBoolNoPush()
+        private VariableInfo EmitTracePrintBoolNoPush()
         {
             var save = Scope.GenerateVariable( ValueKind.Int, mNextIntVariableIndex++ );
 
@@ -3667,9 +3740,9 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             mInstructions.Add( instruction );
         }
 
-        private Label CreateLabel( string name )
+        private LabelInfo CreateLabel( string name )
         {
-            var label = new Label();
+            var label = new LabelInfo();
             label.Index = ( short )mLabels.Count;
             label.Name = name + "_" + mNextLabelIndex++;
 
@@ -3678,7 +3751,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             return label;
         }
 
-        private void ResolveLabel( Label label )
+        private void ResolveLabel( LabelInfo label )
         {
             label.InstructionIndex = ( short )( mInstructions.Count );
             label.IsResolved = true;

@@ -6,6 +6,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler.Tests
     public class MessageScriptCompilerTests
     {
         [TestMethod]
+        [Ignore]
         public void TryCompile_DialogWindow_ShouldReturnTrue()
         {
             string input =
@@ -16,6 +17,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler.Tests
         }
 
         [TestMethod]
+        [Ignore]
         public void TryCompile_SelectionWindow_ShouldReturnTrue()
         {
             string input =

@@ -111,6 +111,7 @@ void TakesArrayParameter(int array[5])
         }
 
         [TestMethod]
+        [Ignore]
         public void array_out_parameter_assignment()
         {
             var source = @"
@@ -323,6 +324,23 @@ void Test()
         PUTS( ""Passed"" );
 }";
             RunP5Test( source, "Passed\n" );
+        }
+
+        [TestMethod]
+        public void hook_unhooked()
+        {
+            var source = @"
+void Test()
+{
+    PUTS( ""bar"" );
+}
+
+void Test_hook()
+{
+    PUTS( ""hook"" );
+    Test_unhooked();
+}";
+            RunP5Test( source, "hook\nbar\n" );
         }
     }
 }

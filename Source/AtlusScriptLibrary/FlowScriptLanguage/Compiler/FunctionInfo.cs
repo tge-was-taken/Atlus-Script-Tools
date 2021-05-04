@@ -2,7 +2,7 @@
 
 namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
 {
-    internal class Function
+    internal class FunctionInfo
     {
         public FunctionDeclaration Declaration { get; set; }
 

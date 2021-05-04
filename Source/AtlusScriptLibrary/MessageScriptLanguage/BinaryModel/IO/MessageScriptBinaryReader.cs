@@ -47,7 +47,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.IO
             }
 
             header.FileType = mReader.ReadByte();
-            header.Format = mReader.ReadByte() != 0;
+            header.Format = mReader.ReadByte();
             header.UserId = mReader.ReadInt16();
             header.FileSize = mReader.ReadInt32();
             header.Magic = mReader.ReadBytes( 4 );

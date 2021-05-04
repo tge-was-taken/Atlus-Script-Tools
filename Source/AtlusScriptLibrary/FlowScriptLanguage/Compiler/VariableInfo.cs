@@ -2,7 +2,7 @@ using AtlusScriptLibrary.FlowScriptLanguage.Syntax;
 
 namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
 {
-    internal class Variable
+    internal class VariableInfo
     {
         public VariableDeclaration Declaration { get; set; }
 

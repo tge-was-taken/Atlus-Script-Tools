@@ -48,7 +48,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel
 
             BinaryMessageDialog binary;
 
-            binary.Name = message.Name;
+            binary.Name = message.Name.Substring( 0, Math.Min( message.Name.Length, BinaryMessageDialog.IDENTIFIER_LENGTH ) );
             binary.PageCount = ( short )message.Pages.Count;
 
             if ( message.Speaker != null )
@@ -112,7 +112,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel
 
             BinarySelectionDialog binary;
 
-            binary.Name = message.Name;
+            binary.Name = message.Name.Substring( 0, Math.Min( message.Name.Length, BinarySelectionDialog.IDENTIFIER_LENGTH ) );
             binary.Pattern = ( BinarySelectionDialogPattern )message.Pattern;
             binary.Ext = binary.Reserved = 0;
             binary.OptionCount = ( short )message.Options.Count;
@@ -275,7 +275,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel
         private void BuildHeaderFirstPass( ref BinaryHeader header )
         {
             header.FileType = BinaryHeader.FILE_TYPE;
-            header.Format = false;
+            header.Format = 0;
             header.UserId = mUserId;
             header.Magic = mFormatVersion.HasFlag( BinaryFormatVersion.BigEndian )
                 ? BinaryHeader.MAGIC_V1_BE

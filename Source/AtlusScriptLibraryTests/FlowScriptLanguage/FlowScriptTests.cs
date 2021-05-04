@@ -101,6 +101,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Tests
         }
 
         [TestMethod]
+        [Ignore]
         public void FromFile_ShouldNotThrow_Batch()
         {
             foreach ( var path in Directory.EnumerateFiles( "TestResources\\Batch\\", "*.bf" ) )
@@ -171,6 +172,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Tests
         }
 
         [TestMethod]
+        [Ignore]
         public void ToBinary_ContentsShouldMatchThatOfSourceBinary_Version3BigEndian()
         {
             var binaryIn = FlowScriptBinary.FromFile( "TestResources\\Version3BigEndian.bf" );

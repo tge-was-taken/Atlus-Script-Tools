@@ -36,6 +36,16 @@ namespace AtlusScriptLibrary.FlowScriptLanguage
         }
 
         /// <summary>
+        /// Constructs a new instruction with a specified opcode with no operand.
+        /// </summary>
+        /// <param name="opcode">The opcode of the instruction.</param>
+        private Instruction( Opcode opcode, Operand operand )
+        {
+            Opcode = opcode;
+            Operand = operand;
+        }
+
+        /// <summary>
         /// Constructs a new instruction with a specified opcode with a short operand.
         /// </summary>
         /// <param name="opcode">The opcode of the instruction.</param>
@@ -547,6 +557,11 @@ namespace AtlusScriptLibrary.FlowScriptLanguage
         public bool Equals(Instruction other)
         {
             return Opcode == other.Opcode && (Operand == other.Operand || Operand.Equals(other.Operand));
+        }
+
+        public Instruction Clone()
+        {
+            return new Instruction( Opcode, Operand?.Clone() );
         }
     }
 }

@@ -22,7 +22,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel
         public byte FileType;
 
         // 01
-        public bool Format;
+        public byte Format;
 
         // 02
         public short UserId;

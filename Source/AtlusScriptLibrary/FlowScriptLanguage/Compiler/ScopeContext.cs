@@ -9,30 +9,30 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
     {
         public ScopeContext Parent { get; }
 
-        public Dictionary<string, Function> Functions { get; }
+        public Dictionary<string, FunctionInfo> Functions { get; }
 
-        public Dictionary<string, Procedure> Procedures { get; }
+        public Dictionary<string, ProcedureInfo> Procedures { get; }
 
-        public Dictionary<string, Variable> Variables { get; }
+        public Dictionary<string, VariableInfo> Variables { get; }
 
         public Dictionary<string, Enum> Enums { get; }
 
-        public Label BreakLabel { get; set; }
+        public LabelInfo BreakLabel { get; set; }
 
-        public Label ContinueLabel { get; set; }
+        public LabelInfo ContinueLabel { get; set; }
 
-        public Dictionary<Expression, Label> SwitchLabels { get; set; }
+        public Dictionary<Expression, LabelInfo> SwitchLabels { get; set; }
 
         public ScopeContext( ScopeContext parent )
         {
             Parent = parent;
-            Functions = new Dictionary<string, Function>();
-            Procedures = new Dictionary<string, Procedure>();
-            Variables = new Dictionary<string, Variable>();
+            Functions = new Dictionary<string, FunctionInfo>();
+            Procedures = new Dictionary<string, ProcedureInfo>();
+            Variables = new Dictionary<string, VariableInfo>();
             Enums = new Dictionary<string, Enum>();
         }
 
-        public bool TryGetBreakLabel( out Label label )
+        public bool TryGetBreakLabel( out LabelInfo label )
         {
             if ( BreakLabel != null )
             {
@@ -47,7 +47,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             return false;
         }
 
-        public bool TryGetContinueLabel( out Label label )
+        public bool TryGetContinueLabel( out LabelInfo label )
         {
             if ( ContinueLabel != null )
             {
@@ -62,7 +62,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             return false;
         }
 
-        public bool TryGetFunction( string name, out Function function )
+        public bool TryGetFunction( string name, out FunctionInfo function )
         {
             if ( !Functions.TryGetValue( name, out function ) )
             {
@@ -76,7 +76,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             return true;
         }
 
-        public bool TryGetProcedure( string name, out Procedure procedure )
+        public bool TryGetProcedure( string name, out ProcedureInfo procedure )
         {
             if ( !Procedures.TryGetValue( name, out procedure ) )
             {
@@ -90,7 +90,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             return true;
         }
 
-        public bool TryGetVariable( string name, out Variable variable )
+        public bool TryGetVariable( string name, out VariableInfo variable )
         {
             if ( !Variables.TryGetValue( name, out variable ) )
             {
@@ -118,7 +118,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             return true;
         }
 
-        public bool TryGetLabel( Expression expression, out Label label )
+        public bool TryGetLabel( Expression expression, out LabelInfo label )
         {
             if ( SwitchLabels == null || ( label = SwitchLabels.SingleOrDefault( x => x.Key.GetHashCode() == expression.GetHashCode() ).Value ) == null )
             {
@@ -140,7 +140,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             if ( TryGetFunction( declaration.Identifier.Text, out _ ) )
                 return false;
 
-            var function = new Function();
+            var function = new FunctionInfo();
             function.Declaration = declaration;
             function.Index = ( short )declaration.Index.Value;
 
@@ -149,18 +149,28 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             return true;
         }
 
-        public bool TryDeclareProcedure( ProcedureDeclaration declaration )
+        public bool TryDeclareProcedure( ProcedureDeclaration declaration, out ProcedureInfo procedure )
         {
-            if ( TryGetProcedure( declaration.Identifier.Text, out _ ) )
+            if ( TryGetProcedure( declaration.Identifier.Text, out procedure ) )
+            {
+                return false;
+            }
+
+            var p = new ProcedureInfo();
+            p.Declaration = declaration;
+            p.Index = declaration.Index == null ? ( short ) Procedures.Count : ( short ) declaration.Index.Value;
+            Debug.Assert( Procedures.All( x => x.Value.Index != p.Index ), "Same procedure index used by multiple procedures" );
+            Procedures[ declaration.Identifier.Text ] = procedure = p;
+            return true;
+        }
+
+        public bool TryDeclareProcedure( ProcedureDeclaration declaration, Procedure compiled, out ProcedureInfo procedure )
+        {
+            if ( !TryDeclareProcedure( declaration, out procedure ) )
                 return false;
 
-            var procedure = new Procedure();
-            procedure.Declaration = declaration;
-            procedure.Index = declaration.Index == null ? ( short ) Procedures.Count : ( short ) declaration.Index.Value;
-            Debug.Assert( Procedures.All( x => x.Value.Index != procedure.Index ), "Same procedure index used by multiple procedures" );
-
-            Procedures[declaration.Identifier.Text] = procedure;
-
+            procedure.Compiled = compiled;
+            procedure.OriginalCompiled = compiled.Clone();
             return true;
         }
 
@@ -174,7 +184,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             if ( TryGetVariable( declaration.Identifier.Text, out _ ) )
                 return false;
 
-            var variable = new Variable();
+            var variable = new VariableInfo();
             variable.Declaration = declaration;
             variable.Index = index;
             variable.Size = size;
@@ -244,7 +254,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             return false;
         }
 
-        public Variable GenerateVariable( ValueKind kind, short index )
+        public VariableInfo GenerateVariable( ValueKind kind, short index )
         {
             var declaration = new VariableDeclaration(
                 new VariableModifier( VariableModifierKind.Local ),

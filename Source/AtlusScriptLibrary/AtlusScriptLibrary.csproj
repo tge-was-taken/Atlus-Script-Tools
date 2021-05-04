@@ -84,13 +84,13 @@
     <Compile Include="FlowScriptLanguage\Compiler\EnumerableExtensions.cs" />
     <Compile Include="FlowScriptLanguage\Compiler\FlowScriptCompiler.cs" />
     <Compile Include="FlowScriptLanguage\Compiler\Enum.cs" />
-    <Compile Include="FlowScriptLanguage\Compiler\Function.cs" />
+    <Compile Include="FlowScriptLanguage\Compiler\FunctionInfo.cs" />
     <Compile Include="FlowScriptLanguage\Compiler\IntrinsicSupport.cs" />
-    <Compile Include="FlowScriptLanguage\Compiler\Label.cs" />
-    <Compile Include="FlowScriptLanguage\Compiler\Procedure.cs" />
+    <Compile Include="FlowScriptLanguage\Compiler\LabelInfo.cs" />
+    <Compile Include="FlowScriptLanguage\Compiler\ProcedureInfo.cs" />
     <Compile Include="FlowScriptLanguage\Compiler\ProcedureHookMode.cs" />
     <Compile Include="FlowScriptLanguage\Compiler\ScopeContext.cs" />
-    <Compile Include="FlowScriptLanguage\Compiler\Variable.cs" />
+    <Compile Include="FlowScriptLanguage\Compiler\VariableInfo.cs" />
     <Compile Include="FlowScriptLanguage\Compiler\Parser\CompilationUnitParser.cs" />
     <Compile Include="FlowScriptLanguage\Compiler\Parser\CompilationUnitParserFailureException.cs" />
     <Compile Include="FlowScriptLanguage\Compiler\Processing\DeclarationScope.cs" />
