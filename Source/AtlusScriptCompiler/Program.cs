@@ -43,6 +43,8 @@ namespace AtlusScriptCompiler
         public static bool FlowScriptEnableStackCookie;
         public static bool FlowScriptEnableProcedureHook;
 
+        public static bool FlowScriptSumBits { get; private set; }
+
         private static void DisplayUsage()
         {
             Console.WriteLine( $"AtlusScriptCompiler {Version.Major}.{Version.Minor}-{ThisAssembly.Git.Commit} by TGE (2018)" );
@@ -72,6 +74,7 @@ namespace AtlusScriptCompiler
             Console.WriteLine( "        -TraceFunctionCalls                        Enables function call tracing. Only applies to compiler." );
             Console.WriteLine( "        -StackCookie                               Enables stack cookie. Used for debugging stack corruptions." );
             Console.WriteLine( "        -Hook                                      Enables hooking of procedures. Used to modify scripts without recompiling them entirely." );
+            Console.WriteLine( "        -SumBits                                   Sums the bit id values passed to BIT_* function" );
             Console.WriteLine();
             Console.WriteLine( "Parameter detailed info:" );
             Console.WriteLine( "    MessageScript:" );
@@ -347,6 +350,10 @@ namespace AtlusScriptCompiler
 
                     case "-Hook":
                         FlowScriptEnableProcedureHook = true;
+                        break;
+
+                    case "-SumBits":
+                        FlowScriptSumBits = true;
                         break;
                 }
             }
@@ -686,6 +693,7 @@ namespace AtlusScriptCompiler
             Logger.Info( "Decompiling FlowScript..." );
 
             var decompiler = new FlowScriptDecompiler();
+            decompiler.SumBits = FlowScriptSumBits;
             decompiler.AddListener( Listener );
 
             if ( LibraryName != null )

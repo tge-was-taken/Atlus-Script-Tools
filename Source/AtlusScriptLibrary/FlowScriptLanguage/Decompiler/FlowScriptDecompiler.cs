@@ -13,6 +13,8 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
 {
     public class FlowScriptDecompiler
     {
+        private static readonly int[] sRoyalBits = { 0, 3072, 6144, 11264, 11776, 12288 };
+
         private readonly Logger mLogger;
         private EvaluationResult mEvaluatedScript;
         private CompilationUnit mCompilationUnit;
@@ -45,6 +47,11 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
         /// Gets or sets the file path for the decompiled MessageScript.
         /// </summary>
         public string MessageScriptFilePath { get; set; }
+
+        /// <summary>
+        /// Sum bit values together
+        /// </summary>
+        public bool SumBits { get; set; }
 
         /// <summary>
         /// Initializes a FlowScript decompiler.
@@ -340,13 +347,26 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
                         }
 
                         var arg = call.Arguments[ i ];
-                        var literals = SyntaxNodeCollector<IntLiteral>.Collect( arg );
+                        if ( !( arg.Expression is AdditionOperator ) )
+                            continue;
+
+                        var literals = SyntaxNodeCollector<IntLiteral>.Collect( arg.Expression );
                         var sum = 0;
                         foreach ( var literal in literals )
                             sum += literal.Value;
 
-                        // insert comment with bit value sum before usage of value
-                        mEvaluatedStatements.Insert( j++, new EvaluatedStatement( new Comment( $"bit id {arg.Expression} = {sum}", false ), -1, null ) );
+                        sum = sRoyalBits[ sum >> 28 ] + sum & 0x0fffffff;
+
+                        if ( SumBits )
+                        {
+                            // Replace expression with sum of the expression
+                            arg.Expression = new IntLiteral( sum );
+                        }
+                        else
+                        {
+                            // insert comment with bit value sum before usage of value
+                            mEvaluatedStatements.Insert( j++, new EvaluatedStatement( new Comment( $"bit id {arg.Expression} = {sum}", false ), -1, null ) );
+                        }
                     }
                 }
             }
