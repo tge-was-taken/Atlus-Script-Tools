@@ -87,6 +87,8 @@ variableModifier
 	| AiLocal ('('IntLiteral')')?
 	| AiGlobal ('('IntLiteral')')?
 	| Bit ('('IntLiteral')')
+	| Count ('('IntLiteral')')?
+	| Local ('('IntLiteral')')?
 	;
 
 //
@@ -213,6 +215,8 @@ AiGlobal:	'ai_global';
 Bit:		'bit';
 Enum:		'enum';
 Out:		'out';
+Local:		'local';
+Count:		'count';
 
 //	Control flow
 If:			'if';

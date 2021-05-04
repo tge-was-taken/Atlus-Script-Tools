@@ -37,6 +37,7 @@
         Constant,
         AiLocal,
         AiGlobal,
-        Bit
+        Bit,
+        Count
     }
 }

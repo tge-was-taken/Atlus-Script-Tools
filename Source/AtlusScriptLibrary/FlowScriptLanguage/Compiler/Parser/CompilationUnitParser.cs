@@ -651,6 +651,11 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser
                 modifier = CreateAstNode<VariableModifier>( bitNode );
                 modifier.Kind = VariableModifierKind.Bit;
             }
+            else if ( TryGet( context, context.Count, out var countNode ))
+            {
+                modifier = CreateAstNode<VariableModifier>( countNode );
+                modifier.Kind = VariableModifierKind.Count;
+            }
             else
             {
                 LogError( context, "Invalid variable modifier" );

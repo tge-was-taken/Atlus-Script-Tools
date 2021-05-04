@@ -28,6 +28,9 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
 
         public short BitOffFunctionIndex { get; }
 
+        public short GetCountFunctionIndex { get; }
+        public short SetCountFunctionIndex { get; }
+
         // Support flags
         public bool SupportsTrace { get; }
 
@@ -36,7 +39,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
         public bool SupportsAiGlobal { get; }
 
         public bool SupportsBit { get; }
-
+        public bool SupportsCount { get; }
 
         public IntrinsicSupport( Library registry )
         {
@@ -63,6 +66,10 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             BitOnFunctionIndex = GetIndex( functions, "BIT_ON" );
             BitOffFunctionIndex = GetIndex( functions, "BIT_OFF" );
             SupportsBit = BitCheckFunctionIndex != -1 && BitOnFunctionIndex != -1 && BitOffFunctionIndex != -1;
+
+            GetCountFunctionIndex = GetIndex( functions, "GET_COUNT" );
+            SetCountFunctionIndex = GetIndex( functions, "SET_COUNT" );
+            SupportsCount = GetCountFunctionIndex != -1 && SetCountFunctionIndex != -1;
         }
 
         private static short GetIndex( Dictionary< string, FlowScriptModuleFunction > dictionary, string name )

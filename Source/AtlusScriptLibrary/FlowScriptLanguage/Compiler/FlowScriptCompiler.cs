@@ -53,6 +53,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
         private short mNextFloatArgumentVariableIndex;
         private short mNextAiLocalVariableIndex;
         private short mNextAiGlobalVariableIndex;
+        private short mNextCounterVariableIndex;
 
         //
         // procedure state
@@ -513,6 +514,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             var maxFloatVarIdx = varProcedureAccessesMap.Where( x => x.Key.Item1 == VariableModifierKind.Local && x.Key.Item2 == ValueKind.Float ).MaxOrDefault( x => x.Key.Item3, -1 );
             var maxAiGlobalVarIdx = varProcedureAccessesMap.Where( x => x.Key.Item1 == VariableModifierKind.AiGlobal ).MaxOrDefault( x => x.Key.Item3, -1 );
             var maxAiLocalVarIdx = varProcedureAccessesMap.Where( x => x.Key.Item1 == VariableModifierKind.AiLocal ).MaxOrDefault( x => x.Key.Item3, -1 );
+            var maxCountVarIdx = varProcedureAccessesMap.Where( x => x.Key.Item1 == VariableModifierKind.Count ).MaxOrDefault( x => x.Key.Item3, -1 );
             var maxGlobalIntVarIdx = varProcedureAccessesMap.Where( x => x.Key.Item1 == VariableModifierKind.Global && x.Key.Item2 == ValueKind.Int ).MaxOrDefault( x => x.Key.Item3, -1 );
             var maxGlobalFloatVarIdx = varProcedureAccessesMap.Where( x => x.Key.Item1 == VariableModifierKind.Global && x.Key.Item2 == ValueKind.Float ).MaxOrDefault( x => x.Key.Item3, -1 );
             var maxLabelIdx = compiledFlowScript.EnumerateInstructions().Where( x => x.Opcode == Opcode.GOTO ).MaxOrDefault( x => x.Operand.Int16Value, -1 );
@@ -521,6 +523,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             mNextFloatVariableIndex = Math.Max( mNextFloatVariableIndex, (short)( maxFloatVarIdx + 1 ) );
             mNextAiGlobalVariableIndex = Math.Max( mNextAiGlobalVariableIndex, (short)( maxAiGlobalVarIdx + 1 ) );
             mNextAiLocalVariableIndex = Math.Max( mNextAiLocalVariableIndex, (short)( maxAiLocalVarIdx + 1 ) );
+            mNextCounterVariableIndex = Math.Max( mNextCounterVariableIndex, (short)( maxCountVarIdx + 1 ) );
             mNextGlobalIntVariableIndex = Math.Max( mNextGlobalIntVariableIndex, (short)( maxGlobalIntVarIdx + 1 ) );
             mNextGlobalFloatVariableIndex = Math.Max( mNextGlobalFloatVariableIndex, (short)( maxGlobalFloatVarIdx + 1 ) );
             mNextLabelIndex = Math.Max( mNextLabelIndex, maxLabelIdx + 1 );
@@ -1448,6 +1451,17 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
 
                 variableIndex = ( short )declaration.Modifier.Index.Value;
             }
+            else if ( declaration.Modifier.Kind == VariableModifierKind.Count )
+            {
+                if ( !mInstrinsic.SupportsCount )
+                {
+                    Error( declaration.Modifier, "count modifier is not supported by the specified library" );
+                    variableIndex = -1;
+                    return false;
+                }
+
+                variableIndex = (short)declaration.Modifier.Index.Value;
+            }
             else
             {
                 Error( declaration.Modifier, $"Unexpected variable modifier: {declaration.Modifier}" );
@@ -1842,76 +1856,84 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             }
             else if ( mRootScope.TryGetProcedure( callExpression.Identifier.Text, out var procedure ) )
             {
-                if ( callExpression.Arguments.Count != procedure.Declaration.Parameters.Count )
-                {
-                    Error( $"Procedure '{procedure.Declaration}' expects {procedure.Declaration.Parameters.Count} arguments but {callExpression.Arguments.Count} are given" );
+                if ( !TryEmitProcedureCall( callExpression, isStatement, procedure ) )
                     return false;
-                }
-
-                if ( EnableProcedureCallTracing )
-                {
-                    TraceProcedureCall( procedure.Declaration );
-                }
-
-                if ( !TryEmitParameterCallArguments( callExpression, procedure.Declaration, out var parameterIndices ) )
-                    return false;
-
-                // call procedure
-                Emit( Instruction.CALL( procedure.Index ) );
-
-                // Emit out parameter assignments
-                for ( int i = 0; i < procedure.Declaration.Parameters.Count; i++ )
-                {
-                    var parameter = procedure.Declaration.Parameters[ i ];
-                    if ( parameter.Modifier != ParameterModifier.Out )
-                        continue;
-
-                    // Copy value of local variable copy of out parameter to actual out parameter
-                    var index = parameterIndices[ i ];
-                    var identifier = ( Identifier ) callExpression.Arguments[ i ].Expression;
-                    if ( !Scope.TryGetVariable( identifier.Text, out var variable ) )
-                        return false;
-
-                    if ( variable.Declaration.Type.ValueKind.GetBaseKind() == ValueKind.Int )
-                    {
-                        Emit( Instruction.PUSHLIX( index ) );
-                        Emit( Instruction.POPLIX( variable.Index ) );
-                    }
-                    else
-                    {
-                        Emit( Instruction.PUSHLFX( index ) );
-                        Emit( Instruction.POPLFX( variable.Index ) );
-                    }
-                       
-                }
-
-                // Emit return value
-                if ( !isStatement )
-                {
-                    if ( procedure.Declaration.ReturnType.ValueKind == ValueKind.Void )
-                    {
-                        Error( $"Void-returning procedure '{procedure.Declaration}' used in expression" );
-                        return false;
-                    }
-
-                    if ( !EnableProcedureCallTracing )
-                    {
-                        // Push return value of procedure
-                        if ( procedure.Declaration.ReturnType.ValueKind.GetBaseKind() == ValueKind.Int )
-                            Emit( Instruction.PUSHLIX( mIntReturnValueVariable.Index ) );
-                        else
-                            Emit( Instruction.PUSHLFX( mFloatReturnValueVariable.Index ) );
-                    }
-                    else
-                    {
-                        TraceProcedureCallReturnValue( procedure.Declaration );
-                    }
-                }
             }
             else
             {
                 Error( callExpression, $"Invalid call expression. Expected function or procedure identifier, got: {callExpression.Identifier}" );
                 return false;
+            }
+
+            return true;
+        }
+
+        private bool TryEmitProcedureCall( CallOperator callExpression, bool isStatement, Procedure procedure )
+        {
+            if ( callExpression.Arguments.Count != procedure.Declaration.Parameters.Count )
+            {
+                Error( $"Procedure '{procedure.Declaration}' expects {procedure.Declaration.Parameters.Count} arguments but {callExpression.Arguments.Count} are given" );
+                return false;
+            }
+
+            if ( EnableProcedureCallTracing )
+            {
+                TraceProcedureCall( procedure.Declaration );
+            }
+
+            if ( !TryEmitParameterCallArguments( callExpression, procedure.Declaration, out var parameterIndices ) )
+                return false;
+
+            // call procedure
+            Emit( Instruction.CALL( procedure.Index ) );
+
+            // Emit out parameter assignments
+            for ( int i = 0; i < procedure.Declaration.Parameters.Count; i++ )
+            {
+                var parameter = procedure.Declaration.Parameters[ i ];
+                if ( parameter.Modifier != ParameterModifier.Out )
+                    continue;
+
+                // Copy value of local variable copy of out parameter to actual out parameter
+                var index = parameterIndices[ i ];
+                var identifier = (Identifier)callExpression.Arguments[ i ].Expression;
+                if ( !Scope.TryGetVariable( identifier.Text, out var variable ) )
+                    return false;
+
+                if ( variable.Declaration.Type.ValueKind.GetBaseKind() == ValueKind.Int )
+                {
+                    Emit( Instruction.PUSHLIX( index ) );
+                    Emit( Instruction.POPLIX( variable.Index ) );
+                }
+                else
+                {
+                    Emit( Instruction.PUSHLFX( index ) );
+                    Emit( Instruction.POPLFX( variable.Index ) );
+                }
+
+            }
+
+            // Emit return value
+            if ( !isStatement )
+            {
+                if ( procedure.Declaration.ReturnType.ValueKind == ValueKind.Void )
+                {
+                    Error( $"Void-returning procedure '{procedure.Declaration}' used in expression" );
+                    return false;
+                }
+
+                if ( !EnableProcedureCallTracing )
+                {
+                    // Push return value of procedure
+                    if ( procedure.Declaration.ReturnType.ValueKind.GetBaseKind() == ValueKind.Int )
+                        Emit( Instruction.PUSHLIX( mIntReturnValueVariable.Index ) );
+                    else
+                        Emit( Instruction.PUSHLFX( mFloatReturnValueVariable.Index ) );
+                }
+                else
+                {
+                    TraceProcedureCallReturnValue( procedure.Declaration );
+                }
             }
 
             return true;
@@ -2453,6 +2475,12 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                 Emit( Instruction.COMM( mInstrinsic.BitCheckFunctionIndex ) ); // BIT_CHK
                 Emit( Instruction.PUSHREG() );
             }
+            else if ( modifier.Kind == VariableModifierKind.Count )
+            {
+                Emit( Instruction.PUSHIS( index ) );
+                Emit( Instruction.COMM( mInstrinsic.GetCountFunctionIndex ) ); // GET_COUNT
+                Emit( Instruction.PUSHREG() );
+            }
             else
             {
                 Error( modifier, "Unsupported variable modifier type" );
@@ -2797,6 +2825,12 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                     Emit( Instruction.GOTO( endLabel.Index ) );
                 }
                 ResolveLabel( endLabel );
+            }
+            else if ( declaration.Modifier.Kind == VariableModifierKind.Count )
+            {
+                // implicit pop of value
+                Emit( Instruction.PUSHIS( index ) );
+                Emit( Instruction.COMM( mInstrinsic.SetCountFunctionIndex ) ); // SET_COUNT
             }
             else
             {

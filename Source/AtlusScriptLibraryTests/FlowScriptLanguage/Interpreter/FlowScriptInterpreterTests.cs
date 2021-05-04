@@ -309,5 +309,20 @@ void Test_softhook()
 }";
             RunP5Test( source, "hook\nbar\n" );
         }
+
+        [TestMethod]
+        public void count()
+        {
+            var source = @"
+count(1) int foo;
+
+void Test()
+{
+    foo = 1;
+    if ( foo )
+        PUTS( ""Passed"" );
+}";
+            RunP5Test( source, "Passed\n" );
+        }
     }
 }

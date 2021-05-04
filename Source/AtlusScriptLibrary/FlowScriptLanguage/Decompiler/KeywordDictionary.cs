@@ -23,7 +23,8 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
             { VariableModifierKind.Constant, "const" },
             { VariableModifierKind.AiLocal, "ai_local"},
             { VariableModifierKind.AiGlobal, "ai_global" },
-            { VariableModifierKind.Bit, "bit" }
+            { VariableModifierKind.Bit, "bit" },
+            { VariableModifierKind.Count, "count" },
         };
 
         public static Dictionary< string, VariableModifierKind > KeywordToModifierType { get; } = ModifierTypeToKeyword.Reverse();

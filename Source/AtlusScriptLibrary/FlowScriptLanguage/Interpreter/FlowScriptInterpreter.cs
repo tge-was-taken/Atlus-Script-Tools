@@ -20,8 +20,8 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Interpreter
         };
 
         // Static
-        private static readonly int[] sGlobalIntVariablePool = new int[256];
-        private static readonly float[] sGlobalFloatVariablePool = new float[256];
+        public static readonly int[] GlobalIntVariablePool = new int[256];
+        public static readonly float[] GlobalFloatVariablePool = new float[256];
 
         // Instance
         private readonly FlowScript mScript;
@@ -49,6 +49,12 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Interpreter
         private Instruction Instruction => Procedure.Instructions[ mInstructionIndex ];
 
         public TextWriter TextOutput { get; set; }
+
+        public int[] CountValues { get; } = new int[ 1024 ];
+
+        public int[] LocalIntVariables => mLocalIntVariablePool;
+
+        public float[] LocalFloatVariables => mLocalFloatVariablePool;
 
         public FlowScriptInterpreter( FlowScript flowScript )
         {
@@ -169,10 +175,10 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Interpreter
                     return ( int )( float )value.Value;
 
                 case StackValueKind.GlobalIntVariable:
-                    return sGlobalIntVariablePool[( int )value.Value];
+                    return GlobalIntVariablePool[( int )value.Value];
 
                 case StackValueKind.GlobalFloatVariable:
-                    return ( int )sGlobalFloatVariablePool[ ( int ) value.Value ];
+                    return ( int )GlobalFloatVariablePool[ ( int ) value.Value ];
 
                 default:
                     throw new InvalidStackValueTypeException( StackValueKind.Int, value.Kind );
@@ -192,10 +198,10 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Interpreter
                     return ( float )value.Value;
 
                 case StackValueKind.GlobalIntVariable:
-                    return ( float )sGlobalIntVariablePool[( int )value.Value];
+                    return ( float )GlobalIntVariablePool[( int )value.Value];
 
                 case StackValueKind.GlobalFloatVariable:
-                    return sGlobalFloatVariablePool[( int )value.Value];
+                    return GlobalFloatVariablePool[( int )value.Value];
 
                 default:
                     throw new InvalidStackValueTypeException( StackValueKind.Float, value.Kind );
@@ -259,13 +265,13 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Interpreter
 
         private static bool PUSHIX( FlowScriptInterpreter instance )
         {
-            instance.PushValue( sGlobalIntVariablePool[instance.Instruction.Operand.Int16Value] );
+            instance.PushValue( GlobalIntVariablePool[instance.Instruction.Operand.Int16Value] );
             return true;
         }
 
         private static bool PUSHIF( FlowScriptInterpreter instance )
         {
-            instance.PushValue( sGlobalFloatVariablePool[instance.Instruction.Operand.Int16Value] );
+            instance.PushValue( GlobalFloatVariablePool[instance.Instruction.Operand.Int16Value] );
             return true;
         }
 
@@ -277,13 +283,13 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Interpreter
 
         private static bool POPIX( FlowScriptInterpreter instance )
         {
-            sGlobalIntVariablePool[ instance.Instruction.Operand.Int16Value ] = instance.PopIntValue();
+            GlobalIntVariablePool[ instance.Instruction.Operand.Int16Value ] = instance.PopIntValue();
             return true;
         }
 
         private static bool POPFX( FlowScriptInterpreter instance )
         {
-            sGlobalFloatVariablePool[instance.Instruction.Operand.Int16Value] = instance.PopFloatValue();
+            GlobalFloatVariablePool[instance.Instruction.Operand.Int16Value] = instance.PopFloatValue();
             return true;
         }
 
@@ -369,6 +375,16 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Interpreter
                 // COS
                 case 0x00B7:
                     instance.SetFloatReturnValue( ( float )Math.Cos( instance.PopFloatValue() ) );
+                    break;
+
+                // GET_COUNT
+                case 0x000f:
+                    instance.SetIntReturnValue( instance.CountValues[ instance.PopIntValue() ] );
+                    break;
+
+                // SET_COUNT
+                case 0x0010:
+                    instance.CountValues[ instance.PopIntValue() ] = instance.PopIntValue();
                     break;
 
                 default:
@@ -555,7 +571,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Interpreter
         private static bool PUSHLIX( FlowScriptInterpreter instance )
         {
             var index = instance.Instruction.Operand.Int16Value;
-            var value = instance.mLocalIntVariablePool[ index ];
+            var value = instance.LocalIntVariables[ index ];
             instance.PushValue( value );
             return true;
         }
@@ -563,7 +579,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Interpreter
         private static bool PUSHLFX( FlowScriptInterpreter instance )
         {
             var index = instance.Instruction.Operand.Int16Value;
-            var value = instance.mLocalFloatVariablePool[index];
+            var value = instance.LocalFloatVariables[index];
             instance.PushValue( value );
             return true;
         }
@@ -571,14 +587,14 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Interpreter
         private static bool POPLIX( FlowScriptInterpreter instance )
         {
             var index = instance.Instruction.Operand.Int16Value;
-            instance.mLocalIntVariablePool[index] = instance.PopIntValue();
+            instance.LocalIntVariables[index] = instance.PopIntValue();
             return true;
         }
 
         private static bool POPLFX( FlowScriptInterpreter instance )
         {
             var index = instance.Instruction.Operand.Int16Value;
-            instance.mLocalFloatVariablePool[ index ] = instance.PopFloatValue();
+            instance.LocalFloatVariables[ index ] = instance.PopFloatValue();
             return true;
         }
 
