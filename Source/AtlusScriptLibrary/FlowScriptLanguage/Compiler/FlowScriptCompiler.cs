@@ -945,19 +945,10 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                 Info( $"Registering {hookProcedureInfo.Declaration.Identifier.Text} as hook for {name}" );
                 BackupCompiledProcedure( procedureInfo );
 
-                if ( procedureInfo.Compiled.Instructions.Count >= 2 )
-                {
-                    // overwrite original 2 instructions as to not shift
-                    procedureInfo.Compiled.Instructions[ 0 ] = Instruction.CALL( hookProcedureInfo.Index );
-                    procedureInfo.Compiled.Instructions[ 1 ] = Instruction.END();
-                    for ( int i = 2; i < procedureInfo.Compiled.Instructions.Count; i++ )
-                        procedureInfo.Compiled.Instructions[ i ] = Instruction.END();
-                }
-                else
-                {
-                    procedureInfo.Compiled.Instructions.Insert( 0, Instruction.CALL( hookProcedureInfo.Index ) );
-                    procedureInfo.Compiled.Instructions.Insert( 1, Instruction.END() );
-                }
+                procedureInfo.Compiled.Instructions.Clear();
+                procedureInfo.Compiled.Instructions.Add( Instruction.PROC( procedureInfo.Index ) );
+                procedureInfo.Compiled.Instructions.Add( Instruction.CALL( hookProcedureInfo.Index ) );
+                procedureInfo.Compiled.Instructions.Add( Instruction.END() );
             }
 
             if ( mRootScope.TryGetProcedure( name + "_hookafter", out hookProcedureInfo ) )
