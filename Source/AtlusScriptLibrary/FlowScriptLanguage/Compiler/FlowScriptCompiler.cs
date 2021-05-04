@@ -985,10 +985,10 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                 procedureInfo.Compiled.Instructions.Insert( 1, Instruction.CALL( hookProcedureInfo.Index ) );
             }
 
-            static void BackupCompiledProcedure( ProcedureInfo procedureInfo )
+            void BackupCompiledProcedure( ProcedureInfo _procedureInfo )
             {
-                if ( procedureInfo.OriginalCompiled == null )
-                    procedureInfo.OriginalCompiled = procedureInfo.Compiled.Clone();
+                if ( _procedureInfo.OriginalCompiled == null )
+                    _procedureInfo.OriginalCompiled = _procedureInfo.Compiled.Clone();
             }
         }
 
