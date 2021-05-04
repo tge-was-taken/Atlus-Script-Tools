@@ -35,21 +35,6 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
 
             // Convert the binary messages to their counterpart
             var labelOccurences = new Dictionary<string, int>();
-            string ResolveName( Dictionary<string, int> labelOccurences, string name )
-            {
-                if ( labelOccurences.ContainsKey( name ) )
-                {
-                    labelOccurences[ name ] += 1;
-                    name = name + "_" + labelOccurences[ name ];
-                }
-                else
-                {
-                    labelOccurences[ name ] = 1;
-                }
-
-                return name;
-            }
-
             foreach ( var messageHeader in binary.DialogHeaders )
             {
                 IDialog message;
@@ -148,6 +133,21 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
             var binary = MessageScriptBinary.FromStream( stream, leaveOpen );
 
             return FromBinary( binary, version, encoding );
+        }
+
+        private static string ResolveName( Dictionary<string, int> labelOccurences, string name )
+        {
+            if ( labelOccurences.ContainsKey( name ) )
+            {
+                labelOccurences[ name ] += 1;
+                name = name + "_" + labelOccurences[ name ];
+            }
+            else
+            {
+                labelOccurences[ name ] = 1;
+            }
+
+            return name;
         }
 
         private static void ParsePages( IDialog message, IReadOnlyList<int> lineStartAddresses, IReadOnlyList<byte> buffer, FormatVersion version, Encoding encoding )
