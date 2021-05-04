@@ -38,6 +38,7 @@
     "ReturnType": "void",
     "Name": "PUTS",
     "Description": "Prints string to TTY log.",
+    "Semantic": "Variadic",
     "Parameters": [
       {
         "Type": "string",
@@ -169,7 +170,8 @@
       {
         "Type": "int",
         "Name": "bitId",
-        "Description": "The bit id to check."
+        "Description": "The bit id to check.",
+        "Semantic": "BitId"
       }
     ]
   },
@@ -182,7 +184,8 @@
       {
         "Type": "int",
         "Name": "bitId",
-        "Description": "The bit id to toggle on."
+        "Description": "The bit id to toggle on.",
+        "Semantic": "BitId"
       }
     ]
   },
@@ -195,7 +198,8 @@
       {
         "Type": "int",
         "Name": "bitId",
-        "Description": "The bit id to toggle off."
+        "Description": "The bit id to toggle off.",
+        "Semantic": "BitId"
       }
     ]
   },
@@ -506,12 +510,13 @@
     "Index": "0x0024",
     "ReturnType": "int",
     "Name": "SEL",
-    "Description": "Initiates a dialog option selection sequenc.e",
+    "Description": "Initiates a dialog option selection sequence",
     "Parameters": [
       {
         "Type": "int",
         "Name": "messageId",
-        "Description": ""
+        "Description": "",
+        "Semantic": "SelId"
       }
     ]
   },
@@ -594,7 +599,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "MsgId"
       }
     ]
   },
@@ -1423,7 +1429,8 @@
       {
         "Type": "int",
         "Name": "messageId",
-        "Description": ""
+        "Description": "",
+        "Semantic": "MsgId"
       },
       {
         "Type": "int",
@@ -1446,7 +1453,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "MsgId"
       },
       {
         "Type": "int",
@@ -1977,7 +1985,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "MsgId"
       }
     ]
   },
@@ -1990,7 +1999,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "MsgId"
       },
       {
         "Type": "int",
@@ -3174,7 +3184,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "BitId"
       }
     ]
   },
@@ -3701,7 +3712,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "BitId"
       }
     ]
   },
@@ -3714,7 +3726,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "BitId"
       }
     ]
   },
@@ -3727,7 +3740,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "BitId"
       }
     ]
   },
@@ -4668,7 +4682,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "MsgId"
       }
     ]
   },
@@ -5223,7 +5238,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "MsgId"
       }
     ]
   },

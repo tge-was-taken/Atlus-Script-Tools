@@ -15,6 +15,11 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
         public string Name { get; set; }
 
         /// <summary>
+        /// Gets or sets the selection pattern of the dialog.
+        /// </summary>
+        public SelectionDialogPattern Pattern { get; set; }
+
+        /// <summary>
         /// Gets the options contained in this selection dialog.
         /// </summary>
         public List<TokenText> Options { get; }
@@ -25,9 +30,10 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
         /// Constructs a new selection dialog with just an identifier.
         /// </summary>
         /// <param name="identifier">The text identifier of the window.</param>
-        public SelectionDialog( string identifier )
+        public SelectionDialog( string identifier, SelectionDialogPattern pattern = SelectionDialogPattern.Top )
         {
             Name = identifier;
+            Pattern = pattern;
             Options = new List<TokenText>();
         }
 
@@ -36,9 +42,10 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
         /// </summary>
         /// <param name="identifier">The text identifier of the dialog.</param>
         /// <param name="pages">The list of lines in the dialog.</param>
-        public SelectionDialog( string identifier, List<TokenText> pages )
+        public SelectionDialog( string identifier, SelectionDialogPattern pattern, List<TokenText> pages )
         {
             Name = identifier;
+            Pattern = pattern;
             Options = pages;
         }
 
@@ -47,9 +54,10 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
         /// </summary>
         /// <param name="identifier">The text identifier of the dialog.</param>
         /// <param name="pages">The list of lines in the dialog.</param>
-        public SelectionDialog( string identifier, params TokenText[] pages )
+        public SelectionDialog( string identifier, SelectionDialogPattern pattern, params TokenText[] pages )
         {
             Name = identifier;
+            Pattern = pattern;
             Options = pages.ToList();
         }
 

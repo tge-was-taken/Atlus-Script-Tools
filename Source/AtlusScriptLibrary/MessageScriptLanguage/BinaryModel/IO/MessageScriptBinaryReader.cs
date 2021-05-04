@@ -47,16 +47,16 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.IO
             }
 
             header.FileType = mReader.ReadByte();
-            header.IsCompressed = mReader.ReadByte() != 0;
+            header.Format = mReader.ReadByte() != 0;
             header.UserId = mReader.ReadInt16();
             header.FileSize = mReader.ReadInt32();
             header.Magic = mReader.ReadBytes( 4 );
-            header.Field0C = mReader.ReadInt32();
+            header.ExtSize = mReader.ReadInt32();
             header.RelocationTable.Offset = mReader.ReadInt32();
             header.RelocationTableSize = mReader.ReadInt32();
             header.DialogCount = mReader.ReadInt32();
             header.IsRelocated = mReader.ReadInt16() != 0;
-            header.Field1E = mReader.ReadInt16();
+            header.Version = mReader.ReadInt16();
 
             // swap endianness
             if ( header.Magic.SequenceEqual( BinaryHeader.MAGIC_V1 ) || header.Magic.SequenceEqual( BinaryHeader.MAGIC_V0 ) )
@@ -98,11 +98,11 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.IO
         {
             EndiannessHelper.Swap( ref header.UserId );
             EndiannessHelper.Swap( ref header.FileSize );
-            EndiannessHelper.Swap( ref header.Field0C );
+            EndiannessHelper.Swap( ref header.ExtSize );
             EndiannessHelper.Swap( ref header.RelocationTable.Offset );
             EndiannessHelper.Swap( ref header.RelocationTableSize );
             EndiannessHelper.Swap( ref header.DialogCount );
-            EndiannessHelper.Swap( ref header.Field1E );
+            EndiannessHelper.Swap( ref header.Version );
         }
 
         public BinaryDialogHeader[] ReadDialogHeaders( int count )
@@ -112,11 +112,11 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.IO
             for ( int i = 0; i < headers.Length; i++ )
             {
                 ref var header = ref headers[i];
-                header.DialogKind = ( BinaryDialogKind )mReader.ReadInt32();
-                header.Dialog.Offset = mReader.ReadInt32();
+                header.Kind = ( BinaryDialogKind )mReader.ReadInt32();
+                header.Data.Offset = mReader.ReadInt32();
 
-                if ( header.Dialog.Offset != 0 )
-                    header.Dialog.Value = ReadDialog( header.DialogKind, header.Dialog.Offset );
+                if ( header.Data.Offset != 0 )
+                    header.Data.Value = ReadDialog( header.Kind, header.Data.Offset );
             }
 
             return headers;
@@ -128,19 +128,19 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.IO
 
             header.SpeakerNameArray.Offset = mReader.ReadInt32();
             header.SpeakerCount = mReader.ReadInt32();
-            header.Field08 = mReader.ReadInt32();
-            header.Field0C = mReader.ReadInt32();
+            header.ExtDataOffset = mReader.ReadInt32();
+            header.Reserved = mReader.ReadInt32();
 
             if ( header.SpeakerNameArray.Offset != 0 )
                 header.SpeakerNameArray.Value = ReadSpeakerNames( header.SpeakerNameArray.Offset, header.SpeakerCount );
             else
                 header.SpeakerNameArray.Value = null;
 
-            if ( header.Field08 != 0 )
-                Debug.WriteLine( $"{nameof( BinarySpeakerTableHeader )}.{nameof( header.Field08 )} = {header.Field08}" );
+            if ( header.ExtDataOffset != 0 )
+                Debug.WriteLine( $"{nameof( BinarySpeakerTableHeader )}.{nameof( header.ExtDataOffset )} = {header.ExtDataOffset}" );
 
-            if ( header.Field0C != 0 )
-                Debug.WriteLine( $"{nameof( BinarySpeakerTableHeader )}.{nameof( header.Field0C )} = {header.Field0C}" );
+            if ( header.Reserved != 0 )
+                Debug.WriteLine( $"{nameof( BinarySpeakerTableHeader )}.{nameof( header.Reserved )} = {header.Reserved}" );
 
             return header;
         }
@@ -227,22 +227,22 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.IO
             BinarySelectionDialog message;
 
             message.Name = mReader.ReadString( StringBinaryFormat.FixedLength, BinaryMessageDialog.IDENTIFIER_LENGTH );
-            message.Field18 = mReader.ReadInt16();
+            message.Ext = mReader.ReadInt16();
             message.OptionCount = mReader.ReadInt16();
-            message.Field1C = mReader.ReadInt16();
-            message.Field1E = mReader.ReadInt16();
+            message.Pattern = ( BinarySelectionDialogPattern )mReader.ReadInt16();
+            message.Reserved = mReader.ReadInt16();
             message.OptionStartAddresses = mReader.ReadInt32s( message.OptionCount );
             message.TextBufferSize = mReader.ReadInt32();
             message.TextBuffer = mReader.ReadBytes( message.TextBufferSize );
 
-            if ( message.Field18 != 0 )
-                Debug.WriteLine( $"{nameof( BinarySelectionDialog )}.{nameof( message.Field18 )} = {message.Field18}" );
+            if ( message.Ext != 0 )
+                Debug.WriteLine( $"{nameof( BinarySelectionDialog )}.{nameof( message.Ext )} = {message.Ext}" );
 
-            if ( message.Field1C != 0 )
-                Debug.WriteLine( $"{nameof( BinarySelectionDialog )}.{nameof( message.Field1C )} = {message.Field1C}" );
+            if ( message.Pattern != 0 )
+                Debug.WriteLine( $"{nameof( BinarySelectionDialog )}.{nameof( message.Pattern )} = {message.Pattern}" );
 
-            if ( message.Field1E != 0 )
-                Debug.WriteLine( $"{nameof( BinarySelectionDialog )}.{nameof( message.Field1E )} = {message.Field1E}" );
+            if ( message.Reserved != 0 )
+                Debug.WriteLine( $"{nameof( BinarySelectionDialog )}.{nameof( message.Reserved )} = {message.Reserved}" );
 
             return message;
         }

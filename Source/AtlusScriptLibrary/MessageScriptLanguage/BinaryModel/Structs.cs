@@ -22,7 +22,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel
         public byte FileType;
 
         // 01
-        public bool IsCompressed;
+        public bool Format;
 
         // 02
         public short UserId;
@@ -34,7 +34,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel
         public byte[] Magic;
 
         // 0C
-        public int Field0C;
+        public int ExtSize;
 
         // 10
         public OffsetTo<byte[]> RelocationTable;
@@ -48,8 +48,11 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel
         // 1C
         public bool IsRelocated;
 
+        // 1D
+        public byte Reserved;
+
         // 1E
-        public short Field1E;
+        public short Version;
     }
 
     public struct BinaryDialogHeader
@@ -57,10 +60,10 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel
         public const int SIZE = 8;
 
         // 00
-        public BinaryDialogKind DialogKind;
+        public BinaryDialogKind Kind;
 
         // 04
-        public OffsetTo<object> Dialog;
+        public OffsetTo<object> Data;
     }
 
     public struct BinarySpeakerTableHeader
@@ -74,10 +77,10 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel
         public int SpeakerCount;
 
         // 08
-        public int Field08;
+        public int ExtDataOffset;
 
         // 0C
-        public int Field0C;
+        public int Reserved;
     }
 
     // Variable length
@@ -113,16 +116,16 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel
         public string Name;
 
         // 0x18
-        public short Field18;
+        public short Ext;
 
         // 0x1A
         public short OptionCount;
 
         // 0x1C
-        public short Field1C;
+        public BinarySelectionDialogPattern Pattern;
 
         // 0x1E
-        public short Field1E;
+        public short Reserved;
 
         // 0x20
         public int[] OptionStartAddresses;

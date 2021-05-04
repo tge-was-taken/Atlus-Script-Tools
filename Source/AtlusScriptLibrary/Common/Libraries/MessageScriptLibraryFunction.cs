@@ -1,3 +1,6 @@
+using AtlusScriptLibrary.Common.Libraries.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System.Collections.Generic;
 
 namespace AtlusScriptLibrary.Common.Libraries
@@ -10,6 +13,15 @@ namespace AtlusScriptLibrary.Common.Libraries
 
         public string Description { get; set; }
 
+        [JsonConverter( typeof( CustomStringEnumConverter ) )]
+        public MessageScriptLibraryFunctionSemantic Semantic { get; set; }
+
         public List<MessageScriptLibraryParameter> Parameters { get; set; }
+    }
+
+    public enum MessageScriptLibraryFunctionSemantic
+    {
+        Normal,
+        Unused
     }
 }

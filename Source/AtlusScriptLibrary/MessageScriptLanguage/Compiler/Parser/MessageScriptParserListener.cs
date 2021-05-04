@@ -87,6 +87,17 @@ public interface IMessageScriptParserListener : IParseTreeListener {
 	void ExitSelectionDialog([NotNull] MessageScriptParser.SelectionDialogContext context);
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="MessageScriptParser.selectionDialogPattern"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSelectionDialogPattern([NotNull] MessageScriptParser.SelectionDialogPatternContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MessageScriptParser.selectionDialogPattern"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSelectionDialogPattern([NotNull] MessageScriptParser.SelectionDialogPatternContext context);
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="MessageScriptParser.tokenText"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

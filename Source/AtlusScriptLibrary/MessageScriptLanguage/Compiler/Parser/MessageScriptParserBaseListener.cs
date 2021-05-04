@@ -101,6 +101,19 @@ public partial class MessageScriptParserBaseListener : IMessageScriptParserListe
 	public virtual void ExitSelectionDialog([NotNull] MessageScriptParser.SelectionDialogContext context) { }
 
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="MessageScriptParser.selectionDialogPattern"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSelectionDialogPattern([NotNull] MessageScriptParser.SelectionDialogPatternContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="MessageScriptParser.selectionDialogPattern"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSelectionDialogPattern([NotNull] MessageScriptParser.SelectionDialogPatternContext context) { }
+
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="MessageScriptParser.tokenText"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>

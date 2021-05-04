@@ -17,7 +17,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel.IO
         public FlowScriptBinaryWriter( Stream stream, BinaryFormatVersion version, bool leaveOpen = false )
         {
             mPositionBase = stream.Position;
-            mWriter = new EndianBinaryWriter( stream, Encoding.Default, leaveOpen, version.HasFlag( BinaryFormatVersion.BigEndian ) ? Endianness.BigEndian : Endianness.LittleEndian );
+            mWriter = new EndianBinaryWriter( stream, Encoding.GetEncoding( 932 ), leaveOpen, version.HasFlag( BinaryFormatVersion.BigEndian ) ? Endianness.BigEndian : Endianness.LittleEndian );
             mVersion = version;
         }
 
@@ -29,26 +29,32 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel.IO
             {
                 ref var sectionHeader = ref binary.mSectionHeaders[i];
 
+                // section can be null if it has a section header without data
                 switch ( sectionHeader.SectionType )
                 {
                     case BinarySectionType.ProcedureLabelSection:
-                        WriteLabelSection( ref sectionHeader, binary.mProcedureLabelSection );
+                        if ( binary.mProcedureLabelSection != null )
+                            WriteLabelSection( ref sectionHeader, binary.mProcedureLabelSection );
                         break;
 
                     case BinarySectionType.JumpLabelSection:
-                        WriteLabelSection( ref sectionHeader, binary.mJumpLabelSection );
+                        if ( binary.mJumpLabelSection != null )
+                            WriteLabelSection( ref sectionHeader, binary.mJumpLabelSection );
                         break;
 
                     case BinarySectionType.TextSection:
-                        WriteTextSection( ref sectionHeader, binary.mTextSection );
+                        if ( binary.mTextSection != null )
+                            WriteTextSection( ref sectionHeader, binary.mTextSection );
                         break;
 
                     case BinarySectionType.MessageScriptSection:
-                        WriteMessageScriptSection( ref sectionHeader, binary.mMessageScriptSection );
+                        if ( binary.mMessageScriptSection != null )
+                            WriteMessageScriptSection( ref sectionHeader, binary.mMessageScriptSection );
                         break;
 
                     case BinarySectionType.StringSection:
-                        WriteStringSection( ref sectionHeader, binary.mStringSection );
+                        if ( binary.mStringSection != null )
+                            WriteStringSection( ref sectionHeader, binary.mStringSection );
                         break;
 
                     default:

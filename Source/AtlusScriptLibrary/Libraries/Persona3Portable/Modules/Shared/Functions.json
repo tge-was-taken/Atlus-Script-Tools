@@ -1,378 +1,402 @@
 [
-    {
-        "Index": "0x5000",
-        "ReturnType": "void",
-        "Name": "SHD_FUNCTION_0000",
-        "Description": "Address: 0x089730D0",
-        "Parameters": [
-            {
-                "Type": "int",
-                "Name": "param1",
-                "Description": ""
-            },
-            {
-                "Type": "int",
-                "Name": "param2",
-                "Description": ""
-            }
-        ]
-    },
-    {
-        "Index": "0x5001",
-        "ReturnType": "int",
-        "Name": "SHD_FUNCTION_0001",
-        "Description": "Address: 0x08973158",
-        "Parameters": [
-            {
-                "Type": "int",
-                "Name": "param1",
-                "Description": ""
-            },
-            {
-                "Type": "float",
-                "Name": "param2",
-                "Description": ""
-            }
-        ]
-    },
-    {
-        "Index": "0x5002",
-        "ReturnType": "int",
-        "Name": "SHD_FUNCTION_0002",
-        "Description": "Address: 0x089731A0",
-        "Parameters": [
-            {
-                "Type": "int",
-                "Name": "param1",
-                "Description": ""
-            }
-        ]
-    },
-    {
-        "Index": "0x5003",
-        "ReturnType": "int",
-        "Name": "SHD_FUNCTION_0003",
-        "Description": "Address: 0x08973354",
-        "Parameters": [
-            {
-                "Type": "int",
-                "Name": "param1",
-                "Description": ""
-            }
-        ]
-    },
-    {
-        "Index": "0x5004",
-        "ReturnType": "int",
-        "Name": "SHD_FUNCTION_0004",
-        "Description": "Address: 0x08973488",
-        "Parameters": [
-            {
-                "Type": "int",
-                "Name": "param1",
-                "Description": ""
-            }
-        ]
-    },
-    {
-        "Index": "0x5005",
-        "ReturnType": "void",
-        "Name": "SHD_FUNCTION_0005",
-        "Description": "Address: 0x089734B8",
-        "Parameters": [
-            {
-                "Type": "int",
-                "Name": "param1",
-                "Description": ""
-            },
-            {
-                "Type": "int",
-                "Name": "param2",
-                "Description": ""
-            }
-        ]
-    },
-    {
-        "Index": "0x5006",
-        "ReturnType": "int",
-        "Name": "SHD_FUNCTION_0006",
-        "Description": "Address: 0x089736A0",
-        "Parameters": [
-            {
-                "Type": "int",
-                "Name": "param1",
-                "Description": ""
-            },
-            {
-                "Type": "int",
-                "Name": "param2",
-                "Description": ""
-            }
-        ]
-    },
-    {
-        "Index": "0x5007",
-        "ReturnType": "void",
-        "Name": "SHD_FUNCTION_0007",
-        "Description": "Address: 0x089736E8",
-        "Parameters": [
-            {
-                "Type": "int",
-                "Name": "param1",
-                "Description": ""
-            },
-            {
-                "Type": "int",
-                "Name": "param2",
-                "Description": ""
-            },
-            {
-                "Type": "int",
-                "Name": "param3",
-                "Description": ""
-            }
-        ]
-    },
-    {
-        "Index": "0x5008",
-        "ReturnType": "int",
-        "Name": "SHD_FUNCTION_0008",
-        "Description": "Address: 0x08979C30",
-        "Parameters": [
-            {
-                "Type": "int",
-                "Name": "param1",
-                "Description": ""
-            }
-        ]
-    },
-    {
-        "Index": "0x5009",
-        "ReturnType": "int",
-        "Name": "SHD_FUNCTION_0009",
-        "Description": "Address: 0x08979AE0",
-        "Parameters": [
-            {
-                "Type": "int",
-                "Name": "param1",
-                "Description": ""
-            }
-        ]
-    },
-    {
-        "Index": "0x500a",
-        "ReturnType": "int",
-        "Name": "SHD_FUNCTION_000A",
-        "Description": "Address: 0x08979B10",
-        "Parameters": [
-            {
-                "Type": "int",
-                "Name": "param1",
-                "Description": ""
-            }
-        ]
-    },
-    {
-        "Index": "0x500b",
-        "ReturnType": "void",
-        "Name": "SHD_FUNCTION_000B",
-        "Description": "Address: 0x08979B40",
-        "Parameters": [
-            {
-                "Type": "int",
-                "Name": "param1",
-                "Description": ""
-            },
-            {
-                "Type": "int",
-                "Name": "param2",
-                "Description": ""
-            }
-        ]
-    },
-    {
-        "Index": "0x500c",
-        "ReturnType": "int",
-        "Name": "SHD_FUNCTION_000C",
-        "Description": "Address: 0x08979B80",
-        "Parameters": [
-            {
-                "Type": "int",
-                "Name": "param1",
-                "Description": ""
-            }
-        ]
-    },
-    {
-        "Index": "0x500d",
-        "ReturnType": "int",
-        "Name": "SHD_FUNCTION_000D",
-        "Description": "Address: 0x08979BB0",
-        "Parameters": [
-            {
-                "Type": "int",
-                "Name": "param1",
-                "Description": ""
-            }
-        ]
-    },
-    {
-        "Index": "0x500e",
-        "ReturnType": "void",
-        "Name": "SHD_FUNCTION_000E",
-        "Description": "Address: 0x08979BE0",
-        "Parameters": [
-            {
-                "Type": "int",
-                "Name": "param1",
-                "Description": ""
-            },
-            {
-                "Type": "int",
-                "Name": "param2",
-                "Description": ""
-            }
-        ]
-    },
-    {
-        "Index": "0x500f",
-        "ReturnType": "int",
-        "Name": "SHD_FUNCTION_000F",
-        "Description": "Address: 0x089731D0",
-        "Parameters": [
-            {
-                "Type": "int",
-                "Name": "param1",
-                "Description": ""
-            }
-        ]
-    },
-    {
-        "Index": "0x5010",
-        "ReturnType": "void",
-        "Name": "SHD_FUNCTION_0010",
-        "Description": "Address: 0x08973234",
-        "Parameters": [
-            {
-                "Type": "int",
-                "Name": "param1",
-                "Description": ""
-            },
-            {
-                "Type": "int",
-                "Name": "param2",
-                "Description": ""
-            },
-            {
-                "Type": "int",
-                "Name": "param3",
-                "Description": ""
-            }
-        ]
-    },
-    {
-        "Index": "0x5011",
-        "ReturnType": "void",
-        "Name": "SHD_FUNCTION_0011",
-        "Description": "Address: 0x0897328C",
-        "Parameters": [
-            {
-                "Type": "int",
-                "Name": "param1",
-                "Description": ""
-            },
-            {
-                "Type": "int",
-                "Name": "param2",
-                "Description": ""
-            },
-            {
-                "Type": "int",
-                "Name": "param3",
-                "Description": ""
-            }
-        ]
-    },
-    {
-        "Index": "0x5012",
-        "ReturnType": "int",
-        "Name": "SHD_FUNCTION_0012",
-        "Description": "Address: 0x089732E4",
-        "Parameters": [
-            {
-                "Type": "int",
-                "Name": "param1",
-                "Description": ""
-            },
-            {
-                "Type": "int",
-                "Name": "param2",
-                "Description": ""
-            }
-        ]
-    },
-    {
-        "Index": "0x5013",
-        "ReturnType": "int",
-        "Name": "SHD_FUNCTION_0013",
-        "Description": "Address: 0x0897332C",
-        "Parameters": []
-    },
-    {
-        "Index": "0x5014",
-        "ReturnType": "void",
-        "Name": "SHD_FUNCTION_0014",
-        "Description": "Address: 0x089738A8",
-        "Parameters": [
-            {
-                "Type": "int",
-                "Name": "param1",
-                "Description": ""
-            }
-        ]
-    },
-    {
-        "Index": "0x5015",
-        "ReturnType": "int",
-        "Name": "SHD_FUNCTION_0015",
-        "Description": "Address: 0x088C33C8",
-        "Parameters": [
-            {
-                "Type": "int",
-                "Name": "param1",
-                "Description": ""
-            }
-        ]
-    },
-    {
-        "Index": "0x5016",
-        "ReturnType": "int",
-        "Name": "SHD_FUNCTION_0016",
-        "Description": "Address: 0x088C33F8",
-        "Parameters": [
-            {
-                "Type": "int",
-                "Name": "param1",
-                "Description": ""
-            },
-            {
-                "Type": "int",
-                "Name": "param2",
-                "Description": ""
-            }
-        ]
-    },
-    {
-        "Index": "0x5017",
-        "ReturnType": "int",
-        "Name": "SHD_FUNCTION_0017",
-        "Description": "Address: 0x08973204",
-        "Parameters": [
-            {
-                "Type": "int",
-                "Name": "param1",
-                "Description": ""
-            }
-        ]
-    }
+  {
+    "Index": "0x5000",
+    "ReturnType": "void",
+    "Name": "SHD_FUNCTION_0000",
+    "Description": "",
+    "Address": "0x089730D0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5001",
+    "ReturnType": "int",
+    "Name": "SHD_FUNCTION_0001",
+    "Description": "",
+    "Address": "0x08973158",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5002",
+    "ReturnType": "int",
+    "Name": "SHD_FUNCTION_0002",
+    "Description": "",
+    "Address": "0x089731A0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5003",
+    "ReturnType": "int",
+    "Name": "SHD_FUNCTION_0003",
+    "Description": "",
+    "Address": "0x08973354",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5004",
+    "ReturnType": "int",
+    "Name": "SHD_FUNCTION_0004",
+    "Description": "",
+    "Address": "0x08973488",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5005",
+    "ReturnType": "void",
+    "Name": "SHD_FUNCTION_0005",
+    "Description": "",
+    "Address": "0x089734B8",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5006",
+    "ReturnType": "int",
+    "Name": "SHD_FUNCTION_0006",
+    "Description": "",
+    "Address": "0x089736A0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5007",
+    "ReturnType": "void",
+    "Name": "SHD_FUNCTION_0007",
+    "Description": "",
+    "Address": "0x089736E8",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5008",
+    "ReturnType": "int",
+    "Name": "SHD_FUNCTION_0008",
+    "Description": "",
+    "Address": "0x08979C30",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5009",
+    "ReturnType": "int",
+    "Name": "SHD_FUNCTION_0009",
+    "Description": "",
+    "Address": "0x08979AE0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x500a",
+    "ReturnType": "int",
+    "Name": "SHD_FUNCTION_000A",
+    "Description": "",
+    "Address": "0x08979B10",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x500b",
+    "ReturnType": "void",
+    "Name": "SHD_FUNCTION_000B",
+    "Description": "",
+    "Address": "0x08979B40",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x500c",
+    "ReturnType": "int",
+    "Name": "SHD_FUNCTION_000C",
+    "Description": "",
+    "Address": "0x08979B80",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x500d",
+    "ReturnType": "int",
+    "Name": "SHD_FUNCTION_000D",
+    "Description": "",
+    "Address": "0x08979BB0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x500e",
+    "ReturnType": "void",
+    "Name": "SHD_FUNCTION_000E",
+    "Description": "",
+    "Address": "0x08979BE0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x500f",
+    "ReturnType": "int",
+    "Name": "SHD_FUNCTION_000F",
+    "Description": "",
+    "Address": "0x089731D0",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5010",
+    "ReturnType": "void",
+    "Name": "SHD_FUNCTION_0010",
+    "Description": "",
+    "Address": "0x08973234",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5011",
+    "ReturnType": "void",
+    "Name": "SHD_FUNCTION_0011",
+    "Description": "",
+    "Address": "0x0897328C",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5012",
+    "ReturnType": "int",
+    "Name": "SHD_FUNCTION_0012",
+    "Description": "",
+    "Address": "0x089732E4",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5013",
+    "ReturnType": "int",
+    "Name": "SHD_FUNCTION_0013",
+    "Description": "",
+    "Address": "0x0897332C",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5014",
+    "ReturnType": "void",
+    "Name": "SHD_FUNCTION_0014",
+    "Description": "",
+    "Address": "0x089738A8",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5015",
+    "ReturnType": "int",
+    "Name": "SHD_FUNCTION_0015",
+    "Description": "",
+    "Address": "0x088C33C8",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5016",
+    "ReturnType": "int",
+    "Name": "SHD_FUNCTION_0016",
+    "Description": "",
+    "Address": "0x088C33F8",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5017",
+    "ReturnType": "int",
+    "Name": "SHD_FUNCTION_0017",
+    "Description": "",
+    "Address": "0x08973204",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  }
 ]

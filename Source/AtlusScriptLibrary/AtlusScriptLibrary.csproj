@@ -55,6 +55,7 @@
     <Compile Include="Common\IO\AlignmentHelper.cs" />
     <Compile Include="Common\IO\FileUtils.cs" />
     <Compile Include="Common\IO\StreamView.cs" />
+    <Compile Include="Common\Libraries\Serialization\CustomStringEnumConverter.cs" />
     <Compile Include="Common\Logging\ConsoleLogListener.cs" />
     <Compile Include="Common\Logging\LogEventArgs.cs" />
     <Compile Include="Common\Logging\Logger.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="FlowScriptLanguage\Compiler\IntrinsicSupport.cs" />
     <Compile Include="FlowScriptLanguage\Compiler\Label.cs" />
     <Compile Include="FlowScriptLanguage\Compiler\Procedure.cs" />
+    <Compile Include="FlowScriptLanguage\Compiler\ProcedureHookMode.cs" />
     <Compile Include="FlowScriptLanguage\Compiler\ScopeContext.cs" />
     <Compile Include="FlowScriptLanguage\Compiler\Variable.cs" />
     <Compile Include="FlowScriptLanguage\Compiler\Parser\CompilationUnitParser.cs" />
@@ -111,6 +113,7 @@
     <Compile Include="FlowScriptLanguage\Interpreter\StackValue.cs" />
     <Compile Include="FlowScriptLanguage\Interpreter\StackValueKind.cs" />
     <Compile Include="FlowScriptLanguage\Operand.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Comment.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\ParameterModifier.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\CastExpression.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Argument.cs" />
@@ -233,6 +236,7 @@
     <Compile Include="MessageScriptLanguage\CodePointToken.cs" />
     <Compile Include="MessageScriptLanguage\MessageDialog.cs" />
     <Compile Include="MessageScriptLanguage\FunctionToken.cs" />
+    <Compile Include="MessageScriptLanguage\SelectionDialogPattern.cs" />
     <Compile Include="MessageScriptLanguage\TokenText.cs" />
     <Compile Include="MessageScriptLanguage\Enums.cs" />
     <Compile Include="MessageScriptLanguage\TokenTextBuilder.cs" />
@@ -360,7 +364,7 @@
     <Content Include="Libraries\Persona4Golden\Modules\AI\Functions.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Libraries\Persona4Golden\Modules\Calendar\Functions.json">
+    <Content Include="Libraries\Persona4Golden\Modules\Facility\Functions.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Libraries\Persona4Golden\Modules\Common\Functions.json">
@@ -372,7 +376,7 @@
     <Content Include="Libraries\Persona4Golden\Modules\Field\Functions.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Libraries\Persona4Golden\Modules\Unknown\Functions.json">
+    <Content Include="Libraries\Persona4Golden\Modules\Net\Functions.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Libraries\Persona4\FlowScriptModules.json">
@@ -498,7 +502,7 @@
     <None Include="Libraries\Persona3Portable\Modules\AI\Functions.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Libraries\Persona3Portable\Modules\Call\Functions.json">
+    <None Include="Libraries\Persona3Portable\Modules\Facility\Functions.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Libraries\Persona3Portable\Modules\Event\Functions.json">

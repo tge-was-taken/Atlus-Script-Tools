@@ -6,7 +6,8 @@
     "Functions": [
       {
         "Index": 0,
-        "Name": "@Unused",
+        "Name": "",
+        "Semantic": "Unused",
         "Description": "",
         "Parameters": [
         ]
@@ -24,7 +25,8 @@
       },
       {
         "Index": 2,
-        "Name": "@Unused",
+        "Name": "",
+        "Semantic": "Unused",
         "Description": "",
         "Parameters": [
         ]
@@ -45,7 +47,8 @@
       },
       {
         "Index": 5,
-        "Name": "@Unused",
+        "Name": "",
+        "Semantic": "Unused",
         "Description": "",
         "Parameters": [
         ]
@@ -74,7 +77,8 @@
     "Functions": [
       {
         "Index": 0,
-        "Name": "@Unused",
+        "Name": "",
+        "Semantic": "Unused",
         "Description": "",
         "Parameters": [
         ]
@@ -159,7 +163,8 @@
     "Functions": [
       {
         "Index": 0,
-        "Name": "@Unused",
+        "Name": "",
+        "Semantic": "Unused",
         "Description": "",
         "Parameters": [
         ]
@@ -227,7 +232,8 @@
     "Functions": [
       {
         "Index": 0,
-        "Name": "@Unused",
+        "Name": "",
+        "Semantic": "Unused",
         "Description": "",
         "Parameters": [
         ]
@@ -273,7 +279,8 @@
     "Functions": [
       {
         "Index": 0,
-        "Name": "@Unused",
+        "Name": "",
+        "Semantic": "Unused",
         "Description": "",
         "Parameters": [
         ]
@@ -519,7 +526,8 @@
     "Functions": [
       {
         "Index": 0,
-        "Name": "@Unused",
+        "Name": "",
+        "Semantic": "Unused",
         "Description": "",
         "Parameters": [
         ]
@@ -646,7 +654,8 @@
     "Functions": [
       {
         "Index": 0,
-        "Name": "@Unused",
+        "Name": "",
+        "Semantic": "Unused",
         "Description": "",
         "Parameters": [
         ]

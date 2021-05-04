@@ -310,6 +310,36 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
 
             LogInfo( context, $"Compiling selection window: {identifier}" );
 
+            //
+            // Parse pattern
+            //
+            SelectionDialogPattern pattern = SelectionDialogPattern.Top;
+            {
+                if ( TryGet( context, context.selectionDialogPattern, out var patternCtx ))
+                {
+                    if ( TryGet( patternCtx, patternCtx.SelectionDialogPatternId, out var patternIdNode ))
+                    {
+                        switch ( patternIdNode.Symbol.Text )
+                        {
+                            case "top": pattern = SelectionDialogPattern.Top; break;
+                            case "bottom": pattern = SelectionDialogPattern.Bottom; break;
+                            default:
+                                LogError( patternCtx, $"Unknown selection dialog pattern: {patternIdNode.Symbol.Text}" );
+                                return false;
+                        }
+                    }
+                    else if ( TryParseShortIntLiteral( context, "Failed to parse selection dialog pattern ID", patternCtx.IntLiteral, out var patternId ) )
+                    {
+                        pattern = (SelectionDialogPattern)patternId;
+                    }
+                    else
+                    {
+                        LogError( patternCtx, "Invalid selection dialog pattern" );
+                        return false;
+                    }
+                }
+            }
+
             // 
             // Parse text content
             //
@@ -328,7 +358,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
             //
             // Create Selection window
             //
-            selectionWindow = new SelectionDialog( identifier, options );
+            selectionWindow = new SelectionDialog( identifier, pattern, options );
 
             return true;
         }

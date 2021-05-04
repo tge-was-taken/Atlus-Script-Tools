@@ -303,12 +303,53 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
             if ( !mConvertIfStatementsToGotos )
                 BuildIfStatements();
 
+            AnnotateBitArgs();
+
             // Convert the evaluated statements to regular statements
             statements = mEvaluatedStatements
                 .Select( x => x.Statement )
                 .ToList();
 
             return true;
+        }
+
+        private void AnnotateBitArgs()
+        {
+            for ( var j = 0; j < mEvaluatedStatements.Count; j++ )
+            {
+                var evaluatedStatement = (EvaluatedStatement)mEvaluatedStatements[ j ];
+                var calls = SyntaxNodeCollector<CallOperator>.Collect( evaluatedStatement.Statement );
+                if ( !calls.Any() )
+                    continue;
+
+                foreach ( var call in calls )
+                {
+                    var libFunc = Library.FlowScriptModules.SelectMany( x => x.Functions ).FirstOrDefault( x => x.Name == call.Identifier.Text );
+                    if ( libFunc == null )
+                    {
+                        // procedure call or unknown function
+                        continue;
+                    }
+
+                    for ( int i = 0; i < libFunc.Parameters.Count; i++ )
+                    {
+                        if ( libFunc.Parameters[ i ].Semantic != FlowScriptModuleParameterSemantic.BitId )
+                        {
+                            // only interested in bit parameters
+                            continue;
+                        }
+
+                        var arg = call.Arguments[ i ];
+                        var literals = SyntaxNodeCollector<IntLiteral>.Collect( arg );
+                        var sum = 0;
+                        foreach ( var literal in literals )
+                            sum += literal.Value;
+
+                        // insert comment with bit value sum before usage of value
+                        mEvaluatedStatements.Insert( j++, new EvaluatedStatement( new Comment( $"bit id {arg.Expression} = {sum}", false ), -1, null ) );
+                    }
+                }
+            }
         }
 
         private void ReplaceUnnamedMessageScriptConstants()
@@ -320,18 +361,39 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
                 {
                     foreach ( var call in calls )
                     {
-                        // TODO: Add this meta info to the library function definition somehow 
-                        if ( call.Identifier.Text == "MSG" || 
-                             call.Identifier.Text == "SEL" ||
-                             call.Identifier.Text == "FLD_SIMPLE_SYS_MSG" ||
-                             call.Identifier.Text == "MSG_SYSTEM" )
+                        var libFunc = Library.FlowScriptModules.SelectMany( x => x.Functions ).FirstOrDefault( x => x.Name == call.Identifier.Text );
+                        if ( libFunc == null )
                         {
-                            if ( call.Arguments[ 0 ].Expression is IntLiteral dialogIndex )
+                            // procedure call or unknown function
+                            continue;
+                        }
+
+                        for ( int i = 0; i < libFunc.Parameters.Count; i++ )
+                        {
+                            if ( libFunc.Parameters[ i ].Semantic != FlowScriptModuleParameterSemantic.MsgId )
                             {
-                                call.Arguments[ 0 ].Expression = new Identifier(
-                                    ValueKind.Int,
-                                    mEvaluatedScript.FlowScript.MessageScript.Dialogs[dialogIndex.Value].Name);
-                            }                      
+                                // only interested in message parameters
+                                continue;
+                            }
+
+                            var arg = call.Arguments[ i ];
+                            if ( !( arg.Expression is IntLiteral dialogIndex ) )
+                            {
+                                // only handle literals for now
+                                // TODO: name constants in compound expressions used to initialize msg variables
+                                continue;
+                            }
+
+                            if ( dialogIndex >= mEvaluatedScript.FlowScript.MessageScript.Dialogs.Count )
+                            {
+                                // out of bounds index... weird
+                                continue;
+                            }
+
+                            // rewrite expression to be a reference to the dialog name
+                            arg.Expression = new Identifier(
+                                ValueKind.Int,
+                                mEvaluatedScript.FlowScript.MessageScript.Dialogs[ dialogIndex.Value ].Name );
                         }
                     }
                 }

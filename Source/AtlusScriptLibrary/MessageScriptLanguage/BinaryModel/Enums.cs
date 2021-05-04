@@ -14,4 +14,10 @@
         BigEndian = 1 << 15,
         Version1BigEndian = Version1 | BigEndian
     }
+
+    public enum BinarySelectionDialogPattern : short
+    {
+        Top = 0,
+        Bottom = 1,
+    }
 }

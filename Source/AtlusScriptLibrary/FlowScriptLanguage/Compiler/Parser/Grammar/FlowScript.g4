@@ -313,7 +313,23 @@ ProcedureIdentifier
 
 fragment
 Letter
-	: [a-zA-Z];
+	: ( [a-zA-Z] | JapaneseCharacter );
+
+fragment
+JapaneseCharacter
+	: ( KanjiCharacter | HiraganaCharacter | KatakanaCharacter | '\u3001' | '\u30FC' | '\u3005' | '\u3006' | '\u3024' | '\uFF1C' | '\uFF1E' );
+
+fragment
+KanjiCharacter
+	: [\u4E00-\u9FA0];
+
+fragment
+HiraganaCharacter
+	: [\u3041-\u30F4];
+
+fragment
+KatakanaCharacter
+	: [\u30A1-\u30F4];
 
 fragment
 Digit
@@ -337,7 +353,7 @@ LetterOrUnderscore
 
 fragment
 LetterOrUnderscoreOrDigit
-	: ( Letter | '_' | Digit );
+	: ( Letter | '_' | Digit | '-' );
 
 
 // Whitespace, newline & comments

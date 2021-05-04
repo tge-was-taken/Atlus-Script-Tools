@@ -41,24 +41,24 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.IO
         private void WriteHeader( ref BinaryHeader header )
         {
             mWriter.Write( header.FileType );
-            mWriter.Write( header.IsCompressed ? ( byte )1 : ( byte )0 );
+            mWriter.Write( header.Format ? ( byte )1 : ( byte )0 );
             mWriter.Write( header.UserId );
             mWriter.Write( header.FileSize );
             mWriter.Write( header.Magic );
-            mWriter.Write( header.Field0C );
+            mWriter.Write( header.ExtSize );
             mWriter.Write( header.RelocationTable.Offset );
             mWriter.Write( header.RelocationTableSize );
             mWriter.Write( header.DialogCount );
             mWriter.Write( header.IsRelocated ? ( short )1 : ( short )0 );
-            mWriter.Write( header.Field1E );
+            mWriter.Write( header.Version );
         }
 
         private void WriteDialogHeaders( BinaryDialogHeader[] headers )
         {
             foreach ( var header in headers )
             {
-                mWriter.Write( ( int )header.DialogKind );
-                mWriter.Write( header.Dialog.Offset );
+                mWriter.Write( ( int )header.Kind );
+                mWriter.Write( header.Data.Offset );
             }
         }
 
@@ -66,28 +66,28 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.IO
         {
             mWriter.Write( header.SpeakerNameArray.Offset );
             mWriter.Write( header.SpeakerCount );
-            mWriter.Write( header.Field08 );
-            mWriter.Write( header.Field0C );
+            mWriter.Write( header.ExtDataOffset );
+            mWriter.Write( header.Reserved );
         }
 
         private void WriteDialogs( BinaryDialogHeader[] headers )
         {
             foreach ( var header in headers )
             {
-                mWriter.SeekBegin( mPositionBase + BinaryHeader.SIZE + header.Dialog.Offset );
+                mWriter.SeekBegin( mPositionBase + BinaryHeader.SIZE + header.Data.Offset );
 
-                switch ( header.DialogKind )
+                switch ( header.Kind )
                 {
                     case BinaryDialogKind.Message:
-                        WriteMessageDialog( ( BinaryMessageDialog )header.Dialog.Value );
+                        WriteMessageDialog( ( BinaryMessageDialog )header.Data.Value );
                         break;
 
                     case BinaryDialogKind.Selection:
-                        WriteSelectionDialog( ( BinarySelectionDialog )header.Dialog.Value );
+                        WriteSelectionDialog( ( BinarySelectionDialog )header.Data.Value );
                         break;
 
                     default:
-                        throw new NotImplementedException( header.DialogKind.ToString() );
+                        throw new NotImplementedException( header.Kind.ToString() );
                 }
             }
         }
@@ -111,10 +111,10 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.IO
         {
             mWriter.Write( selection.Name.Substring( 0, Math.Min( selection.Name.Length, BinarySelectionDialog.IDENTIFIER_LENGTH ) ),
                            StringBinaryFormat.FixedLength, BinaryMessageDialog.IDENTIFIER_LENGTH );
-            mWriter.Write( selection.Field18 );
+            mWriter.Write( selection.Ext );
             mWriter.Write( selection.OptionCount );
-            mWriter.Write( selection.Field1C );
-            mWriter.Write( selection.Field1E );
+            mWriter.Write( ( short )selection.Pattern );
+            mWriter.Write( selection.Reserved );
             mWriter.Write( selection.OptionStartAddresses );
             mWriter.Write( selection.TextBufferSize );
             mWriter.Write( selection.TextBuffer );

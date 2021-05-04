@@ -113,7 +113,8 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel
             BinarySelectionDialog binary;
 
             binary.Name = message.Name;
-            binary.Field18 = binary.Field1C = binary.Field1E = 0;
+            binary.Pattern = ( BinarySelectionDialogPattern )message.Pattern;
+            binary.Ext = binary.Reserved = 0;
             binary.OptionCount = ( short )message.Options.Count;
             binary.OptionStartAddresses = new int[message.Options.Count];
 
@@ -215,7 +216,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel
             }
             else
             {
-                textBytes = Encoding.GetEncoding( 932 ).GetBytes( token.Value );
+                textBytes = Encoding.ASCII.GetBytes( token.Value );
             }
 
             // simple add to the list of bytes
@@ -274,15 +275,15 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel
         private void BuildHeaderFirstPass( ref BinaryHeader header )
         {
             header.FileType = BinaryHeader.FILE_TYPE;
-            header.IsCompressed = false;
+            header.Format = false;
             header.UserId = mUserId;
             header.Magic = mFormatVersion.HasFlag( BinaryFormatVersion.BigEndian )
                 ? BinaryHeader.MAGIC_V1_BE
                 : BinaryHeader.MAGIC_V1;
-            header.Field0C = 0;
+            header.ExtSize = 0;
             header.DialogCount = mDialogs?.Count ?? 0;
             header.IsRelocated = false;
-            header.Field1E = 2;
+            header.Version = 2;
         }
 
         private void BuildWindowHeadersFirstPass( ref BinaryDialogHeader[] headers )
@@ -290,7 +291,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel
             headers = new BinaryDialogHeader[mDialogs.Count];
             for ( int i = 0; i < headers.Length; i++ )
             {
-                headers[i].DialogKind = mDialogs[i].Item1;
+                headers[i].Kind = mDialogs[i].Item1;
                 MoveToNextIntPosition();
 
                 AddAddressLocation();
@@ -306,10 +307,10 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel
             speakerHeader.SpeakerCount = mSpeakerNames.Count;
             MoveToNextIntPosition();
 
-            speakerHeader.Field08 = 0;
+            speakerHeader.ExtDataOffset = 0;
             MoveToNextIntPosition();
 
-            speakerHeader.Field0C = 0;
+            speakerHeader.Reserved = 0;
             MoveToNextIntPosition();
         }
 
@@ -317,8 +318,8 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel
         {
             for ( int i = 0; i < headers.Length; i++ )
             {
-                headers[i].Dialog.Offset = GetAlignedAddress();
-                headers[i].Dialog.Value = UpdateDialogAddressBase( mDialogs[i].Item2 );
+                headers[i].Data.Offset = GetAlignedAddress();
+                headers[i].Data.Value = UpdateDialogAddressBase( mDialogs[i].Item2 );
             }
         }
 

@@ -47,7 +47,7 @@ namespace AtlusScriptLibrary.Common.IO
         public EndianBinaryWriter(Stream input, Endianness endianness)
             : base(input)
         {
-            Init(Encoding.Default, endianness);
+            Init( Encoding.ASCII, endianness);
         }
 
         public EndianBinaryWriter(Stream input, Encoding encoding, Endianness endianness)

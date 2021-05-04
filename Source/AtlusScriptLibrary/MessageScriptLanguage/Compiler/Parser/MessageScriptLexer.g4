@@ -43,6 +43,11 @@ MessageDialogTagId
 SelectionDialogTagId
 	: 'sel';
 
+SelectionDialogPatternId
+	: 'top'
+	| 'bottom'
+	;
+
 // Keywords
 CloseCode
 	: ']' -> popMode;

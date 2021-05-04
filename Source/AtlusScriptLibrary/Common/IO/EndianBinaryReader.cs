@@ -48,7 +48,7 @@ namespace AtlusScriptLibrary.Common.IO
         public EndianBinaryReader(Stream input, Endianness endianness)
             : base(input)
         {
-            Init(Encoding.Default, endianness);
+            Init(Encoding.ASCII, endianness);
         }
 
         public EndianBinaryReader(Stream input, Encoding encoding, Endianness endianness)

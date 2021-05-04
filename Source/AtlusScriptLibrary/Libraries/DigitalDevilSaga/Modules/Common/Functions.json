@@ -8,7 +8,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "MsgId"
       }
     ]
   },

@@ -103,7 +103,15 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Decompiler
 
         public void Decompile( SelectionDialog message )
         {
-            WriteTag( "sel", message.Name );
+            var pattern = "";
+            if ( message.Pattern == SelectionDialogPattern.Top )
+                pattern = "top";
+            else if ( message.Pattern == SelectionDialogPattern.Bottom )
+                pattern = "bottom";
+            else
+                pattern = ( (int)message.Pattern ).ToString();
+
+            WriteTag( "sel", message.Name, pattern );
             mWriter.WriteLine();
 
             foreach ( var line in message.Options )
@@ -156,7 +164,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Decompiler
                     var function = library.Functions.FirstOrDefault( x => x.Index == token.FunctionIndex );
                     if ( function != null )
                     {
-                        if ( function.Name == "@Unused" && OmitUnusedFunctions )
+                        if ( function.Semantic == MessageScriptLibraryFunctionSemantic.Unused && OmitUnusedFunctions )
                             return;
 
                         if ( !string.IsNullOrWhiteSpace( function.Name ) )

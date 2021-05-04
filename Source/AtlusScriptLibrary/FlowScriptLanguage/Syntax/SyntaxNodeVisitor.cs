@@ -31,6 +31,11 @@
             Visit( ( dynamic )statement );
         }
 
+        public virtual void Visit( Comment comment )
+        {
+
+        }
+
         public virtual void Visit( SyntaxNode syntaxNode )
         {
             Visit( ( dynamic )syntaxNode );

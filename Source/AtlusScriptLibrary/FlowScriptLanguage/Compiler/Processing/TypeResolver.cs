@@ -498,7 +498,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Processing
             bool isUndeclared = false;
             if ( !Scope.TryGetDeclaration( identifier, out var declaration ) )
             {
-                LogWarning( identifier, $"Identifiers references undeclared identifier '{identifier.Text}'. Is this a compile time variable?" );
+                LogInfo( identifier, $"Identifiers references undeclared identifier '{identifier.Text}'. Is this a compile time variable?" );
                 isUndeclared = true;
             }
 

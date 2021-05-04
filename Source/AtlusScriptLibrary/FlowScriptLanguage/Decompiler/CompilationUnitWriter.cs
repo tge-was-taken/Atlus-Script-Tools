@@ -242,7 +242,8 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
 
             public override void Visit( Statement statement )
             {
-                if ( !( statement is ReturnStatement ) )
+                if ( !( statement is ReturnStatement ) &&
+                     !( statement is Comment ) )
                     WriteIndentation();
 
                 base.Visit( statement );
@@ -254,9 +255,24 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
                      !( statement is WhileStatement ) &&
                      !( statement is ReturnStatement ) &&
                      !( statement is LabelDeclaration ) &&
-                     !( statement is ProcedureDeclaration ) )
+                     !( statement is ProcedureDeclaration ) &&
+                     !( statement is Comment ) )
                 {
                     WriteStatementEnd();
+                }
+            }
+
+            public override void Visit( Comment comment )
+            {
+                if ( comment.Inline )
+                {
+                    WriteIndented( "/* " );
+                    Write( comment.Content );
+                    Write( " */" );
+                }
+                else
+                {
+                    WriteComment( comment.Content );
                 }
             }
 

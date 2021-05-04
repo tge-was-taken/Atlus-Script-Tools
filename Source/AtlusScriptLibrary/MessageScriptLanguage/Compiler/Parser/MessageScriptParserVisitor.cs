@@ -68,6 +68,13 @@ public interface IMessageScriptParserVisitor<Result> : IParseTreeVisitor<Result>
 	Result VisitSelectionDialog([NotNull] MessageScriptParser.SelectionDialogContext context);
 
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="MessageScriptParser.selectionDialogPattern"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitSelectionDialogPattern([NotNull] MessageScriptParser.SelectionDialogPatternContext context);
+
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="MessageScriptParser.tokenText"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

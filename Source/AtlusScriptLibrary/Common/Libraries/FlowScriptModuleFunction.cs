@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using AtlusScriptLibrary.Common.Libraries.Serialization;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace AtlusScriptLibrary.Common.Libraries
 {
@@ -15,6 +16,18 @@ namespace AtlusScriptLibrary.Common.Libraries
 
         public string Description { get; set; }
 
+        [JsonConverter( typeof( HexIntStringJsonConverter ) )]
+        public int Address { get; set; }
+
+        [JsonConverter( typeof( CustomStringEnumConverter ) )]
+        public FlowScriptModuleFunctionSemantic Semantic { get; set; }
+
         public List<FlowScriptModuleParameter> Parameters { get; set; }
+    }
+
+    public enum FlowScriptModuleFunctionSemantic
+    {
+        Normal,
+        Variadic
     }
 }

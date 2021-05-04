@@ -42,11 +42,11 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
                 IReadOnlyList<byte> buffer;
                 int pageCount;
 
-                switch ( messageHeader.DialogKind )
+                switch ( messageHeader.Kind )
                 {
                     case BinaryDialogKind.Message:
                         {
-                            var binaryMessage = (BinaryMessageDialog)messageHeader.Dialog.Value;
+                            var binaryMessage = (BinaryMessageDialog)messageHeader.Data.Value;
                             pageStartAddresses = binaryMessage.PageStartAddresses;
                             buffer = binaryMessage.TextBuffer;
                             pageCount = binaryMessage.PageCount;
@@ -73,7 +73,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
                                 if ( binaryMessage.SpeakerId < binary.SpeakerTableHeader.SpeakerCount )
                                 {
                                     speakerName = ParseSpeakerText( binary.SpeakerTableHeader.SpeakerNameArray
-                                        .Value[ binaryMessage.SpeakerId ].Value, instance.FormatVersion, encoding == null ? Encoding.GetEncoding( 932 ) : encoding );
+                                        .Value[ binaryMessage.SpeakerId ].Value, instance.FormatVersion, encoding == null ? Encoding.ASCII : encoding );
                                 }
 
                                 message = new MessageDialog( name, new NamedSpeaker( speakerName ) );
@@ -83,12 +83,12 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
 
                     case BinaryDialogKind.Selection:
                         {
-                            var binaryMessage = ( BinarySelectionDialog )messageHeader.Dialog.Value;
+                            var binaryMessage = ( BinarySelectionDialog )messageHeader.Data.Value;
                             pageStartAddresses = binaryMessage.OptionStartAddresses;
                             buffer = binaryMessage.TextBuffer;
                             pageCount = binaryMessage.OptionCount;
                             var name = ResolveName( labelOccurences, binaryMessage.Name );
-                            message = new SelectionDialog( name );
+                            message = new SelectionDialog( name, (SelectionDialogPattern)binaryMessage.Pattern );
                         }
                         break;
 
@@ -99,7 +99,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
                 if ( pageCount != 0 )
                 {
                     // Parse the line data
-                    ParsePages( message, pageStartAddresses, buffer, instance.FormatVersion, encoding == null ? Encoding.GetEncoding( 932 ) : encoding );
+                    ParsePages( message, pageStartAddresses, buffer, instance.FormatVersion, encoding == null ? Encoding.ASCII : encoding );
                 }
 
                 // Add it to the message list

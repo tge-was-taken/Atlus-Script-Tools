@@ -8,7 +8,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "MsgId"
       }
     ]
   },
@@ -37,7 +38,8 @@
       {
         "Type": "int",
         "Name": "selId",
-        "Description": "Id of selection dialog."
+        "Description": "Id of selection dialog.",
+        "Semantic": "SelId"
       }
     ]
   },
@@ -120,7 +122,8 @@
       {
         "Type": "int",
         "Name": "msgId",
-        "Description": ""
+        "Description": "",
+        "Semantic": "MsgId"
       }
     ]
   },
@@ -554,7 +557,8 @@
       {
         "Type": "int",
         "Name": "msgId",
-        "Description": ""
+        "Description": "",
+        "Semantic": "MsgId"
       },
       {
         "Type": "int",

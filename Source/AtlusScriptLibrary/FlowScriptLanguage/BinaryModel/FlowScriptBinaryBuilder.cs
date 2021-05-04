@@ -215,7 +215,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel
 
             if ( mMatching || mMessageScriptSection != null )
             {
-                sectionHeader = BuildSectionHeader( BinarySectionType.MessageScriptSection, sizeof( byte ), mMessageScriptSection.Header.FileSize, nextFirstElementAddress );
+                sectionHeader = BuildSectionHeader( BinarySectionType.MessageScriptSection, sizeof( byte ), mMessageScriptSection?.Header.FileSize ?? 0, nextFirstElementAddress );
                 sectionHeaders[currentSectionHeaderIndex++] = sectionHeader;
                 nextFirstElementAddress += ( sectionHeader.ElementCount * sectionHeader.ElementSize );
             }
@@ -264,6 +264,8 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel
 
             if ( mMessageScriptSection != null )
                 size += ( BinarySectionHeader.SIZE + ( mMessageScriptSection.Header.FileSize * sizeof( byte ) ) );
+            else if ( mMatching )
+                size += BinarySectionHeader.SIZE;
 
             if ( mStringSection != null )
             {

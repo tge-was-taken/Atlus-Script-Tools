@@ -32,12 +32,12 @@
     "FunctionsPath": "Persona3Portable\\Modules\\Event\\Functions.json"
   },
   {
-    "Name": "Call",
-    "ShortName": "Call",
+    "Name": "Facility",
+    "ShortName": "Facility",
     "Description": "Call game mode and transition functions.",
     "ConstantsPath": "",
     "EnumsPath": "",
-    "FunctionsPath": "Persona3Portable\\Modules\\Call\\Functions.json"
+    "FunctionsPath": "Persona3Portable\\Modules\\Facility\\Functions.json"
   },
   {
     "Name": "Shared",

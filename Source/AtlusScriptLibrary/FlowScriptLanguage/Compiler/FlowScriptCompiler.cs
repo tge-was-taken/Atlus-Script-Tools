@@ -16,13 +16,6 @@ using AtlusScriptLibrary.MessageScriptLanguage.Compiler;
 
 namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
 {
-    public enum ProcedureHookMode
-    {
-        None,
-        ImportedOnly,
-        All
-    }
-
     /// <summary>
     /// Represents the compiler for FlowScripts. Responsible for transforming FlowScript sources into code.
     /// </summary>
@@ -1774,49 +1767,53 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
 
             if ( mRootScope.TryGetFunction( callExpression.Identifier.Text, out var function ) )
             {
+                var libFunc = Library.FlowScriptModules.SelectMany( x => x.Functions ).FirstOrDefault( x => x.Name == function.Declaration.Identifier.Text );
+
                 if ( callExpression.Arguments.Count != function.Declaration.Parameters.Count )
                 {
-                    // Todo: mark variadic functions
-                    if ( function.Declaration.Identifier.Text != "PUTS" || function.Declaration.Parameters.Count == 0 )
+                    // Check if function is marked variadic
+                    if ( libFunc == null || libFunc.Semantic != FlowScriptModuleFunctionSemantic.Variadic )
                     {
-                        Error(
-                            $"Function '{function.Declaration}' expects {function.Declaration.Parameters.Count} arguments but {callExpression.Arguments.Count} are given" );
+                        Error($"Function '{function.Declaration}' expects {function.Declaration.Parameters.Count} arguments but {callExpression.Arguments.Count} are given" );
                         return false;
                     }
                 }
 
                 // Check MessageScript function call semantics
-                if ( mScript.MessageScript != null )
+                if ( mScript.MessageScript != null && libFunc != null )
                 {
-                    // Todo: make this less hardcoded
-                    switch ( callExpression.Identifier.Text )
+                    for ( int i = 0; i < libFunc.Parameters.Count; i++ )
                     {
-                        case "MSG":
-                        case "SEL":
-                            {
-                                var firstArgument = callExpression.Arguments[ 0 ];
-                                if ( firstArgument.Expression is IntLiteral firstArgumentInt )
-                                {
-                                    var index = firstArgumentInt.Value;
-                                    if ( index < 0 || index >= mScript.MessageScript.Dialogs.Count )
-                                    {
-                                        Error( $"Function call to {callExpression.Identifier.Text} references dialog that doesn't exist (index: {index})" );
-                                        return false;
-                                    }
+                        var semantic = libFunc.Parameters[ i ].Semantic;
+                        if ( semantic != FlowScriptModuleParameterSemantic.MsgId &&
+                             semantic != FlowScriptModuleParameterSemantic.SelId )
+                            continue;
 
-                                    var expectedDialogKind = callExpression.Identifier.Text == "MSG"
-                                        ? DialogKind.Message
-                                        : DialogKind.Selection;
+                        var arg = callExpression.Arguments[ i ];
+                        if ( !( arg.Expression is IntLiteral argInt ) )
+                        {
+                            // only check constants for now
+                            // TODO: evaluate expressions
+                            continue;
+                        }
 
-                                    var dialog = mScript.MessageScript.Dialogs[index];
-                                    if ( dialog.Kind != expectedDialogKind )
-                                    {
-                                        Error( $"Function call to {callExpression.Identifier.Text} doesn't reference a {expectedDialogKind} dialog, got dialog of type: {dialog.Kind} index: {index}" );
-                                        return false;
-                                    }
-                                }
-                            }
-                            break;
+                        var index = argInt.Value;
+                        if ( index < 0 || index >= mScript.MessageScript.Dialogs.Count )
+                        {
+                            Error( $"Function call to {callExpression.Identifier.Text} references dialog that doesn't exist (index: {index})" );
+                            return false;
+                        }
+
+                        var expectedDialogKind = semantic == FlowScriptModuleParameterSemantic.MsgId
+                            ? DialogKind.Message
+                            : DialogKind.Selection;
+
+                        var dialog = mScript.MessageScript.Dialogs[ index ];
+                        if ( dialog.Kind != expectedDialogKind )
+                        {
+                            Error( $"Function call to {callExpression.Identifier.Text} doesn't reference a {expectedDialogKind} dialog, got dialog of type: {dialog.Kind} index: {index}" );
+                            return false;
+                        }
                     }
                 }
 
