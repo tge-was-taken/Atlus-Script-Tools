@@ -17,6 +17,7 @@ namespace AtlusScriptLibraryTests.FlowScriptLanguage.Interpreter
             var compiler = new FlowScriptCompiler( version );
             compiler.Library                = LibraryLookup.GetLibrary( library );
             compiler.EnableProcedureTracing = false;
+            compiler.ProcedureHookMode = ProcedureHookMode.All;
             compiler.AddListener( new DebugLogListener() );
             if ( !compiler.TryCompile( source, out var script ) )
             {
@@ -252,6 +253,61 @@ void Test()
 ";
 
             RunP5Test(source, "-420.69\n");
+        }
+
+        [TestMethod]
+        public void hook()
+        {
+            var source = @"
+void Test()
+{
+    PUTS( ""bar"" );
+}
+
+void Test_hook()
+{
+    PUTS( ""hook"" );
+}";
+            RunP5Test( source, "hook\n" );
+        }
+
+        [TestMethod]
+        public void hookafter()
+        {
+            var source = @"
+void Test()
+{
+    int i = 0;
+    if ( i == 0 )
+    {
+        PUTS( ""qux"" );
+        return;
+    }
+
+    PUTS( ""bar"" );
+}
+
+void Test_hookafter()
+{
+    PUTS( ""hook"" );
+}";
+            RunP5Test( source, "qux\nhook\n" );
+        }
+
+        [TestMethod]
+        public void softhook()
+        {
+            var source = @"
+void Test()
+{
+    PUTS( ""bar"" );
+}
+
+void Test_softhook()
+{
+    PUTS( ""hook"" );
+}";
+            RunP5Test( source, "hook\nbar\n" );
         }
     }
 }

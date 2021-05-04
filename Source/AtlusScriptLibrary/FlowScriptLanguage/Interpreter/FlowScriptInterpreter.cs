@@ -8,7 +8,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Interpreter
 {
     public class FlowScriptInterpreter
     {
-        private static readonly Action< FlowScriptInterpreter >[] sOpcodeHandlers =
+        private static readonly Func< FlowScriptInterpreter, bool >[] sOpcodeHandlers =
         {
             PUSHI, PUSHF, PUSHIX, PUSHIF, PUSHREG,
             POPIX, POPFX, PROC, COMM, END, JUMP,
@@ -75,25 +75,31 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Interpreter
 
         public void Run()
         {
-            while ( mInstructionIndex < Procedure.Instructions.Count )
-                Step();
+            while ( Step() ) ;
 
             if ( mStack.Count > 1 )
                 throw new StackInbalanceException();
         }
 
-        public void Step()
+        public bool Step()
         {
             // Save current instruction index for later
             var prevProcedureIndex = ProcedureIndex;
             var prevInstructionIndex = InstructionIndex;
 
             // Invoke handler
-            sOpcodeHandlers[ ( int ) Instruction.Opcode ]( this );
+            var continueFlag = sOpcodeHandlers[ ( int ) Instruction.Opcode ]( this );
+            if ( !continueFlag )
+            {
+                // done
+                return false;
+            }
 
             // Only increment instruction index if opcode didn't modify it
             if ( ProcedureIndex == prevProcedureIndex && InstructionIndex == prevInstructionIndex )
                 ++InstructionIndex;
+
+            return mInstructionIndex < Procedure.Instructions.Count;
         }
 
         private bool IsStackEmpty() => mStack.Count == 0;
@@ -239,47 +245,55 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Interpreter
         }
 
         // Opcode handlers
-        private static void PUSHI( FlowScriptInterpreter instance )
+        private static bool PUSHI( FlowScriptInterpreter instance )
         {
             instance.PushValue( instance.Instruction.Operand.Int32Value );
+            return true;
         }
 
-        private static void PUSHF( FlowScriptInterpreter instance )
+        private static bool PUSHF( FlowScriptInterpreter instance )
         {
             instance.PushValue( instance.Instruction.Operand.SingleValue );
+            return true;
         }
 
-        private static void PUSHIX( FlowScriptInterpreter instance )
+        private static bool PUSHIX( FlowScriptInterpreter instance )
         {
             instance.PushValue( sGlobalIntVariablePool[instance.Instruction.Operand.Int16Value] );
+            return true;
         }
 
-        private static void PUSHIF( FlowScriptInterpreter instance )
+        private static bool PUSHIF( FlowScriptInterpreter instance )
         {
             instance.PushValue( sGlobalFloatVariablePool[instance.Instruction.Operand.Int16Value] );
+            return true;
         }
 
-        private static void PUSHREG( FlowScriptInterpreter instance )
+        private static bool PUSHREG( FlowScriptInterpreter instance )
         {
             instance.PushValue( instance.mCommReturnValue );
+            return true;
         }
 
-        private static void POPIX( FlowScriptInterpreter instance )
+        private static bool POPIX( FlowScriptInterpreter instance )
         {
             sGlobalIntVariablePool[ instance.Instruction.Operand.Int16Value ] = instance.PopIntValue();
+            return true;
         }
 
-        private static void POPFX( FlowScriptInterpreter instance )
+        private static bool POPFX( FlowScriptInterpreter instance )
         {
             sGlobalFloatVariablePool[instance.Instruction.Operand.Int16Value] = instance.PopFloatValue();
+            return true;
         }
 
-        private static void PROC( FlowScriptInterpreter instance )
+        private static bool PROC( FlowScriptInterpreter instance )
         {
-           // Nothing to do?
+            // Nothing to do?
+            return true;
         }
 
-        private static void COMM( FlowScriptInterpreter instance )
+        private static bool COMM( FlowScriptInterpreter instance )
         {
             var index = instance.Instruction.Operand.Int16Value;
 
@@ -360,13 +374,15 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Interpreter
                 default:
                     throw new NotImplementedException( $"COMM function: {index:X8}" );
             }
+
+            return true;
         }
 
-        private static void END( FlowScriptInterpreter instance )
+        private static bool END( FlowScriptInterpreter instance )
         {
             // Nothing to return to if stack is empty
             if ( instance.IsStackEmpty() )
-                return;
+                return false;
 
             // Set procedure & instruction index to the one we stored during CALL
             var returnIndexValue = instance.PopValue();
@@ -376,175 +392,200 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Interpreter
             var returnIndex = ( long ) returnIndexValue.Value;
             instance.ProcedureIndex = ( int ) ( returnIndex >> 32 );
             instance.InstructionIndex = ( int )returnIndex + 1;
+            return true;
         }
 
-        private static void JUMP( FlowScriptInterpreter instance )
+        private static bool JUMP( FlowScriptInterpreter instance )
         {
             var index = instance.Instruction.Operand.Int16Value;
             instance.InstructionIndex = instance.Procedure.Labels[index].InstructionIndex;
+            return true;
         }
 
-        private static void CALL( FlowScriptInterpreter instance )
+        private static bool CALL( FlowScriptInterpreter instance )
         {
             instance.PushValue( StackValueKind.ReturnIndex, ( ( long )instance.ProcedureIndex << 32 ) | ( long )instance.InstructionIndex );
             instance.ProcedureIndex = instance.Instruction.Operand.Int16Value;
             instance.InstructionIndex = 0;
+            return true;
         }
 
-        private static void RUN( FlowScriptInterpreter instance )
+        private static bool RUN( FlowScriptInterpreter instance )
         {
             throw new NotImplementedException();
         }
 
-        private static void GOTO( FlowScriptInterpreter instance )
+        private static bool GOTO( FlowScriptInterpreter instance )
         {
             var index = instance.Instruction.Operand.Int16Value;
             instance.InstructionIndex = instance.Procedure.Labels[index].InstructionIndex;
+            return true;
         }
 
-        private static void ADD( FlowScriptInterpreter instance )
+        private static bool ADD( FlowScriptInterpreter instance )
         {
             var l = instance.PopArithmicValue();
             var r = instance.PopArithmicValue();
             instance.PushValue( ( dynamic )l.Value + ( dynamic )r.Value );
+            return true;
         }
 
-        private static void SUB( FlowScriptInterpreter instance )
+        private static bool SUB( FlowScriptInterpreter instance )
         {
             var l = instance.PopArithmicValue();
             var r = instance.PopArithmicValue();
             instance.PushValue( ( dynamic )l.Value - ( dynamic )r.Value );
+            return true;
         }
 
-        private static void MUL( FlowScriptInterpreter instance )
+        private static bool MUL( FlowScriptInterpreter instance )
         {
             var l = instance.PopArithmicValue();
             var r = instance.PopArithmicValue();
             instance.PushValue( ( dynamic )l.Value * ( dynamic )r.Value );
+            return true;
         }
 
-        private static void DIV( FlowScriptInterpreter instance )
+        private static bool DIV( FlowScriptInterpreter instance )
         {
             var l = instance.PopArithmicValue();
             var r = instance.PopArithmicValue();
             instance.PushValue( ( dynamic )l.Value / ( dynamic )r.Value );
+            return true;
         }
 
-        private static void MINUS( FlowScriptInterpreter instance )
+        private static bool MINUS( FlowScriptInterpreter instance )
         {
             var l = instance.PopArithmicValue();
             instance.PushValue( -( dynamic )l.Value );
+            return true;
         }
 
-        private static void NOT( FlowScriptInterpreter instance )
+        private static bool NOT( FlowScriptInterpreter instance )
         {
             var o = instance.PopBooleanValue();
             instance.PushValue( !o );
+            return true;
         }
 
-        private static void OR( FlowScriptInterpreter instance )
+        private static bool OR( FlowScriptInterpreter instance )
         {
             var l = instance.PopBooleanValue();
             var r = instance.PopBooleanValue();
             instance.PushValue( l || r );
+            return true;
         }
 
-        private static void AND( FlowScriptInterpreter instance )
+        private static bool AND( FlowScriptInterpreter instance )
         {
             var l = instance.PopBooleanValue();
             var r = instance.PopBooleanValue();
             instance.PushValue( l && r );
+            return true;
         }
 
-        private static void EQ( FlowScriptInterpreter instance )
+        private static bool EQ( FlowScriptInterpreter instance )
         {
             var l = instance.PopArithmicValue();
             var r = instance.PopArithmicValue();
             instance.PushValue( ( dynamic ) l.Value == ( dynamic ) r.Value );
+            return true;
         }
 
-        private static void NEQ( FlowScriptInterpreter instance )
+        private static bool NEQ( FlowScriptInterpreter instance )
         {
             var l = instance.PopArithmicValue();
             var r = instance.PopArithmicValue();
             instance.PushValue( ( dynamic )l.Value != ( dynamic )r.Value );
+            return true;
         }
 
-        private static void S( FlowScriptInterpreter instance )
+        private static bool S( FlowScriptInterpreter instance )
         {
             var l = instance.PopArithmicValue();
             var r = instance.PopArithmicValue();
             instance.PushValue( ( dynamic )l.Value < ( dynamic )r.Value );
+            return true;
         }
 
-        private static void L( FlowScriptInterpreter instance )
+        private static bool L( FlowScriptInterpreter instance )
         {
             var l = instance.PopArithmicValue();
             var r = instance.PopArithmicValue();
             instance.PushValue( ( dynamic )l.Value > ( dynamic )r.Value );
+            return true;
         }
 
-        private static void SE( FlowScriptInterpreter instance )
+        private static bool SE( FlowScriptInterpreter instance )
         {
             var l = instance.PopArithmicValue();
             var r = instance.PopArithmicValue();
             instance.PushValue( ( dynamic )l.Value <= ( dynamic )r.Value );
+            return true;
         }
 
-        private static void LE( FlowScriptInterpreter instance )
+        private static bool LE( FlowScriptInterpreter instance )
         {
             var l = instance.PopArithmicValue();
             var r = instance.PopArithmicValue();
             instance.PushValue( ( dynamic )l.Value >= ( dynamic )r.Value );
+            return true;
         }
 
-        private static void IF( FlowScriptInterpreter instance )
+        private static bool IF( FlowScriptInterpreter instance )
         {
             var condition = instance.PopBooleanValue();
             if ( condition )
-                return;
+                return true;
 
             // Jump to false label
             var index = instance.Instruction.Operand.Int16Value;
             var label = instance.Procedure.Labels[ index ];
             instance.InstructionIndex = label.InstructionIndex;
+            return true;
         }
 
-        private static void PUSHIS( FlowScriptInterpreter instance )
+        private static bool PUSHIS( FlowScriptInterpreter instance )
         {
             var value = instance.Instruction.Operand.Int16Value;
             instance.PushValue( value );
+            return true;
         }
 
-        private static void PUSHLIX( FlowScriptInterpreter instance )
+        private static bool PUSHLIX( FlowScriptInterpreter instance )
         {
             var index = instance.Instruction.Operand.Int16Value;
             var value = instance.mLocalIntVariablePool[ index ];
             instance.PushValue( value );
+            return true;
         }
 
-        private static void PUSHLFX( FlowScriptInterpreter instance )
+        private static bool PUSHLFX( FlowScriptInterpreter instance )
         {
             var index = instance.Instruction.Operand.Int16Value;
             var value = instance.mLocalFloatVariablePool[index];
             instance.PushValue( value );
+            return true;
         }
 
-        private static void POPLIX( FlowScriptInterpreter instance )
+        private static bool POPLIX( FlowScriptInterpreter instance )
         {
             var index = instance.Instruction.Operand.Int16Value;
             instance.mLocalIntVariablePool[index] = instance.PopIntValue();
+            return true;
         }
 
-        private static void POPLFX( FlowScriptInterpreter instance )
+        private static bool POPLFX( FlowScriptInterpreter instance )
         {
             var index = instance.Instruction.Operand.Int16Value;
             instance.mLocalFloatVariablePool[ index ] = instance.PopFloatValue();
+            return true;
         }
 
-        private static void PUSHSTR( FlowScriptInterpreter instance )
+        private static bool PUSHSTR( FlowScriptInterpreter instance )
         {
             instance.PushValue( instance.Instruction.Operand.StringValue );
+            return true;
         }
     }
 }

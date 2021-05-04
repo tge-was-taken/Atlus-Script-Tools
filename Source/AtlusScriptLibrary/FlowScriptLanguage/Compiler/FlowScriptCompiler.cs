@@ -16,6 +16,13 @@ using AtlusScriptLibrary.MessageScriptLanguage.Compiler;
 
 namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
 {
+    public enum ProcedureHookMode
+    {
+        None,
+        ImportedOnly,
+        All
+    }
+
     /// <summary>
     /// Represents the compiler for FlowScripts. Responsible for transforming FlowScript sources into code.
     /// </summary>
@@ -92,7 +99,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
         /// <summary>
         /// Gets or sets whether the compiler should generate hooks for all procedures imported from existing scripts.
         /// </summary>
-        public bool HookImportedProcedures { get; set; }
+        public ProcedureHookMode ProcedureHookMode { get; set; }
 
         public bool Matching { get; set; } = true;
 
@@ -290,6 +297,12 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                     Error( statement, $"Unexpected top-level statement type: {statement}" );
                     return false;
                 }
+            }
+
+            if ( ProcedureHookMode == ProcedureHookMode.All )
+            {
+                foreach ( var proc in mScript.Procedures )
+                    MaybeHookProcedure( proc.Name );
             }
 
             Info( "Done compiling compilation unit" );
@@ -803,19 +816,9 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
 
                             Trace( $"Registered procedure declaration '{procedureDeclaration}'" );
 
-                            if ( HookImportedProcedures )
+                            if ( ProcedureHookMode == ProcedureHookMode.ImportedOnly )
                             {
-                                var importedProcedureToHook =
-                                    mScript.Procedures.FirstOrDefault( x => x.Name + "_hook" == procedureDeclaration.Identifier.Text );
-
-                                if ( importedProcedureToHook != null )
-                                {
-                                    Info( $"Registering {procedureDeclaration.Identifier.Text} as hook for {importedProcedureToHook.Name}" );
-                                    importedProcedureToHook.Instructions.Insert( 1, Instruction.CALL( Scope
-                                                                                                .Procedures[ procedureDeclaration.Identifier.Text ]
-                                                                                                .Index ) );
-                                    importedProcedureToHook.Instructions.Insert( 2, Instruction.END() );
-                                }
+                                MaybeHookProcedure( procedureDeclaration.Identifier.Text );
                             }
 
                             if ( procedureDeclaration.ReturnType.ValueKind != ValueKind.Void )
@@ -920,6 +923,50 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             mNextFloatVariableIndex += maxFloatParameterCount;
 
             return true;
+        }
+
+        private void MaybeHookProcedure( string name )
+        {
+            var importedProcedureToHook =
+                mScript.Procedures.FirstOrDefault( x => x.Name + "_hook" == name );
+
+            if ( importedProcedureToHook != null )
+            {
+                Info( $"Registering {name} as hook for {importedProcedureToHook.Name}" );
+                importedProcedureToHook.Instructions.Insert( 1, Instruction.CALL( Scope
+                                                                            .Procedures[ name ]
+                                                                            .Index ) );
+                importedProcedureToHook.Instructions.Insert( 2, Instruction.END() );
+            }
+
+            if ( importedProcedureToHook == null &&
+                ( importedProcedureToHook = mScript.Procedures.FirstOrDefault( x => x.Name + "_hookafter" == name ) ) != null )
+            {
+                Info( $"Registering {name} as hook (after) for {importedProcedureToHook.Name}" );
+
+                // Insert call to hook at every return
+                for ( int i = 0; i < importedProcedureToHook.Instructions.Count; i++ )
+                {
+                    if ( importedProcedureToHook.Instructions[ i ].Opcode == Opcode.END )
+                    {
+                        importedProcedureToHook.Instructions.Insert( i, Instruction.CALL( Scope
+                                        .Procedures[ name ]
+                                        .Index ) );
+                        i++;
+                    }
+                }
+            }
+
+            if ( importedProcedureToHook == null &&
+                ( importedProcedureToHook = mScript.Procedures.FirstOrDefault( x => x.Name + "_softhook" == name ) ) != null )
+            {
+                Info( $"Registering {name} as hook (soft) for {importedProcedureToHook.Name}" );
+
+                // Insert call to hook at start of the procedure without a return
+                importedProcedureToHook.Instructions.Insert( 1, Instruction.CALL( Scope
+                                                                            .Procedures[ name ]
+                                                                            .Index ) );
+            }
         }
 
         //
@@ -2818,7 +2865,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
 
             // create else label
             Label elseLabel = null;
-            if ( ifStatement.ElseBody != null || Matching )
+            if ( ifStatement.ElseBody != null  )
                 elseLabel = CreateLabel( "IfElseLabel" );
 
             // generate label for jump if condition is false

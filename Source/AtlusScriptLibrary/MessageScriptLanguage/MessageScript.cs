@@ -35,7 +35,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
 
             // Convert the binary messages to their counterpart
             var labelOccurences = new Dictionary<string, int>();
-            static string ResolveName( Dictionary<string, int> labelOccurences, string name )
+            string ResolveName( Dictionary<string, int> labelOccurences, string name )
             {
                 if ( labelOccurences.ContainsKey( name ) )
                 {

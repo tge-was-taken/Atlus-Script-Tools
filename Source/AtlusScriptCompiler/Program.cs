@@ -499,7 +499,7 @@ namespace AtlusScriptCompiler
             compiler.EnableProcedureCallTracing = FlowScriptEnableProcedureCallTracing;
             compiler.EnableFunctionCallTracing = FlowScriptEnableFunctionCallTracing;
             compiler.EnableStackCookie = FlowScriptEnableStackCookie;
-            compiler.HookImportedProcedures = FlowScriptEnableProcedureHook;
+            compiler.ProcedureHookMode = FlowScriptEnableProcedureHook ? ProcedureHookMode.ImportedOnly : ProcedureHookMode.None;
 
             if ( LibraryName != null )
             {
