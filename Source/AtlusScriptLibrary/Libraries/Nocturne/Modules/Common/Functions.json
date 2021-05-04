@@ -92,7 +92,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "BitId"
       }
     ],
     "FullName": "scrCommonCommand_scrCommand_BIT_CHK"
@@ -106,7 +107,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "BitId"
       }
     ],
     "FullName": "scrCommonCommand_scrCommand_BIT_ON"
@@ -120,7 +122,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "BitId"
       }
     ],
     "FullName": "scrCommonCommand_scrCommand_BIT_OFF"
@@ -6637,7 +6640,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "BitId"
       }
     ],
     "FullName": "scrCommonCommand_scrCommand_BIT_CHK2"

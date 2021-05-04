@@ -136,7 +136,8 @@
       {
         "Type": "int",
         "Name": "bitId",
-        "Description": ""
+        "Description": "",
+        "Semantic": "BitId"
       }
     ]
   },
@@ -149,7 +150,8 @@
       {
         "Type": "int",
         "Name": "bitId",
-        "Description": ""
+        "Description": "",
+        "Semantic": "BitId"
       }
     ]
   },
@@ -162,7 +164,8 @@
       {
         "Type": "int",
         "Name": "bitId",
-        "Description": ""
+        "Description": "",
+        "Semantic": "BitId"
       }
     ]
   },
