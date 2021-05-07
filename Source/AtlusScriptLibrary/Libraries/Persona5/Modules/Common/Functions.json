@@ -2525,11 +2525,6 @@
     "Name": "MDL_GET_ANIM_COUNT",
     "Description": "",
     "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
     ]
   },
   {
