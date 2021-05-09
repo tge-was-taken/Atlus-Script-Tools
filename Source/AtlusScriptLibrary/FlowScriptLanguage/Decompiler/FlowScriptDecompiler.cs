@@ -694,7 +694,14 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
 
         private void CoagulateVariableDeclarationAssignments()
         {
-            CoagulateVariableDeclarationAssignmentsRecursively( mEvaluatedStatements, new HashSet<string>() );
+            foreach ( var item in mEvaluatedProcedure.Scope.LocalIntVariables.Reverse() )
+                mEvaluatedStatements.Insert( 0, new EvaluatedStatement( item.Value, -1, null ) );
+
+            foreach ( var item in mEvaluatedProcedure.Scope.LocalFloatVariables.Reverse() )
+                mEvaluatedStatements.Insert( 0, new EvaluatedStatement( item.Value, -1, null ) );
+
+            // Commented out due to being broken, sometimes causing expressions to disappear
+            //CoagulateVariableDeclarationAssignmentsRecursively( mEvaluatedStatements, new HashSet<string>() );
         }
 
         private void CoagulateVariableDeclarationAssignmentsRecursively( List<EvaluatedStatement> evaluatedStatements, HashSet<string> parentScopeDeclaredVariables )

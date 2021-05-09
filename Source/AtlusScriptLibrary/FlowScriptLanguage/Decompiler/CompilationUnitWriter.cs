@@ -365,13 +365,13 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
                     // Write body
                     mSuppressCompoundStatementNewline.Push( false );
                     mSuppressIfStatementNewLine.Push( false );
-                    Visit( ifStatement.Body );
+                    if ( ifStatement.Body != null ) Visit( ifStatement.Body );
                 }
                 else
                 {
                     // Write body
                     mSuppressCompoundStatementNewline.Push( true );
-                    Visit( ifStatement.Body );
+                    if ( ifStatement.Body != null ) Visit( ifStatement.Body );
 
                     // Write 'else'
                     WriteIndentation();
