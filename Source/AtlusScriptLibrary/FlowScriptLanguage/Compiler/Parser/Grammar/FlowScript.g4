@@ -298,7 +298,7 @@ StringHexEscape
 // Identifiers
 
 Identifier
-	: LetterOrUnderscoreOrDigit LetterOrUnderscoreOrDigit*;
+	: ( Letter | '_' ) ( Letter | '_' | Digit | '-' )*;
  
 PrimitiveTypeIdentifier
 	: 'bool'
@@ -309,7 +309,7 @@ PrimitiveTypeIdentifier
 	;
 
 ProcedureIdentifier
-	: LetterOrUnderscoreOrDigit LetterOrUnderscoreOrDigit*;
+	: ( Letter | '_' | Digit ) ( Letter | '_' | Digit )*;
 
 fragment
 Letter
@@ -346,14 +346,6 @@ HexLiteralPrefix
 fragment
 Sign
 	: '+' | '-';
-
-fragment
-LetterOrUnderscore
-	: ( Letter | '_' );
-
-fragment
-LetterOrUnderscoreOrDigit
-	: ( Letter | '_' | Digit | '-' );
 
 
 // Whitespace, newline & comments

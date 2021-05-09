@@ -22,6 +22,5 @@ namespace AtlusScriptLibrary.Common.Libraries
         MsgId,
         SelId,
         BitId,
-
     }
 }
