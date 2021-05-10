@@ -38,7 +38,6 @@
     "ReturnType": "void",
     "Name": "PUTS",
     "Description": "Prints string to TTY log.",
-    "Semantic": "Variadic",
     "Parameters": [
       {
         "Type": "string",
