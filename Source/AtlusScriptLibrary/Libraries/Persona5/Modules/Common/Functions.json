@@ -75,7 +75,8 @@
       {
         "Type": "int",
         "Name": "param2",
-        "Description": "Unknown type; assumed int."
+        "Description": "Unknown type; assumed int.",
+        "DefaultValue": "0"
       }
     ]
   },

@@ -9,16 +9,18 @@
         public Identifier Identifier { get; set; }
 
         public virtual bool IsArray => false;
+        public Expression DefaultVaue { get; set; }
 
         public Parameter()
         {
         }
 
-        public Parameter( ParameterModifier modifier, TypeIdentifier type, Identifier identifier )
+        public Parameter( ParameterModifier modifier, TypeIdentifier type, Identifier identifier, Expression defaultValue )
         {
             Modifier = modifier;
             Type = type;
             Identifier = identifier;
+            DefaultVaue = defaultValue;
         }
 
         public override string ToString()
@@ -38,7 +40,7 @@
             
         }
 
-        public ArrayParameter( ParameterModifier modifier, TypeIdentifier type, Identifier identifier, IntLiteral size ) : base(modifier, type, identifier)
+        public ArrayParameter( ParameterModifier modifier, TypeIdentifier type, Identifier identifier, IntLiteral size ) : base(modifier, type, identifier, null)
         {
             Size = size;
         }

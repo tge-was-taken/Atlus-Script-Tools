@@ -883,7 +883,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
                             parameterCount = 0;
                             var parameters = new List< Parameter >();
                             for ( int i = 0; i < parameterCount; i++ )
-                                parameters.Add( new Parameter( ParameterModifier.None, new TypeIdentifier( ValueKind.Int ), new Identifier( $"param{i + 1}" ) ) );
+                                parameters.Add( new Parameter( ParameterModifier.None, new TypeIdentifier( ValueKind.Int ), new Identifier( $"param{i + 1}" ), null ) );
 
                             declaration = new ProcedureDeclaration(
                                 new TypeIdentifier( ValueKind.Void ),

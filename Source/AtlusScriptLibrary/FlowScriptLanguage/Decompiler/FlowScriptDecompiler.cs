@@ -286,6 +286,8 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
 
             InsertFunctionCallEnumParameterValues();
 
+            RemoveDefaultParameterValues();
+
             // Insert label declarations, they'll be used to build if statements
             InsertLabelDeclarations();
 
@@ -378,6 +380,49 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
                 }
             }
         }
+
+        private void RemoveDefaultParameterValues()
+        {
+            foreach ( var evaluatedStatement in mEvaluatedStatements )
+            {
+                var calls = SyntaxNodeCollector<CallOperator>.Collect( evaluatedStatement.Statement );
+                if ( calls.Any() )
+                {
+                    foreach ( var call in calls )
+                    {
+                        var libFunc = Library.FlowScriptModules.SelectMany( x => x.Functions ).FirstOrDefault( x => x.Name == call.Identifier.Text );
+                        if ( libFunc == null )
+                        {
+                            // procedure call or unknown function
+                            continue;
+                        }
+
+                        var argIndex = 0;
+                        for ( int i = 0; i < libFunc.Parameters.Count; i++ )
+                        {
+                            if ( libFunc.Parameters[ i ].DefaultValue == null )
+                            {
+                                argIndex++;
+                                continue;
+                            }
+
+                            var arg = call.Arguments[ argIndex ];
+                            var defaultValue = Expression.FromText( libFunc.Parameters[ i ].DefaultValue );
+                            if ( arg.Expression is IntLiteral argLiteral && 
+                                 defaultValue is IntLiteral defaultValueLiteral && 
+                                 argLiteral.Equals( defaultValueLiteral ))
+                            {
+                                call.Arguments.RemoveAt( argIndex );
+                                argIndex--;
+                            }
+
+                            argIndex++;
+                        }
+                    }
+                }
+            }
+        }
+
 
         private void ReplaceUnnamedMessageScriptConstants()
         {

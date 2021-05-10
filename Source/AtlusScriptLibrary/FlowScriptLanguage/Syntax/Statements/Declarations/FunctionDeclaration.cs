@@ -60,7 +60,9 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax
                 functionParameters.Add( new Parameter(
                                              ParameterModifier.None,
                                             new TypeIdentifier( libraryFunctionParameter.Type ),
-                                            new Identifier( libraryFunctionParameter.Name ) ) );
+                                            new Identifier( libraryFunctionParameter.Name ),
+                                            !string.IsNullOrWhiteSpace( libraryFunctionParameter.DefaultValue ) ? 
+                                                Expression.FromText( libraryFunctionParameter.DefaultValue ) : null ) );
             }
 
             var functionDeclaration = new FunctionDeclaration(

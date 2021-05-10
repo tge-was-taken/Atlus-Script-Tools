@@ -78,7 +78,8 @@
       {
         "Type": "int",
         "Name": "param2",
-        "Description": ""
+        "Description": "",
+        "DefaultValue": "0"
       }
     ],
     "Comment": ""

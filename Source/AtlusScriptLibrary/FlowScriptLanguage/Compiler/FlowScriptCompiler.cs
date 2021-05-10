@@ -1787,6 +1787,27 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             {
                 var libFunc = Library.FlowScriptModules.SelectMany( x => x.Functions ).FirstOrDefault( x => x.Name == function.Declaration.Identifier.Text );
 
+                // Add default values
+                var foundDefaultValue = false;
+                for ( var i = 0; i < function.Declaration.Parameters.Count; i++ )
+                {
+                    var param = function.Declaration.Parameters[ i ];
+                    if ( param.DefaultVaue == null )
+                    {
+                        if ( foundDefaultValue )
+                        {
+                            Error( $"Invalid library function definition: found parameter without default value after parameter with default value" );
+                            return false;
+                        }  
+                    }
+                    else
+                    {
+                        // Insert default values
+                        foundDefaultValue = true;
+                        callExpression.Arguments.Add( new Argument( param.DefaultVaue ) );
+                    }
+                }
+
                 if ( callExpression.Arguments.Count != function.Declaration.Parameters.Count )
                 {
                     // Check if function is marked variadic

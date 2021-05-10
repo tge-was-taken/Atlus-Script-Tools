@@ -14,6 +14,8 @@ namespace AtlusScriptLibrary.Common.Libraries
 
         [JsonConverter( typeof( CustomStringEnumConverter ) )]
         public FlowScriptModuleParameterSemantic Semantic { get; set; }
+
+        public string DefaultValue { get; set; }
     }
 
     public enum FlowScriptModuleParameterSemantic
