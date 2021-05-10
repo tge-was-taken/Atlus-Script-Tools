@@ -29,8 +29,8 @@ namespace DumpProcedureIds
             {
                 var compilationUnit = FlowScriptParserHelper.ParseCompilationUnit( File.OpenText( filePath ) );
                 WriteProcedureIds( outFilePath,
-                                   compilationUnit.declarationStatement().Where( x => x.procedureDeclarationStatement() != null && x.procedureDeclarationStatement().ProcedureIdentifier() != null )
-                                                  .Select( x => x.procedureDeclarationStatement().ProcedureIdentifier().Symbol.Text ) );
+                                   compilationUnit.declarationStatement().Where( x => x.procedureDeclarationStatement() != null && x.procedureDeclarationStatement().Identifier() != null )
+                                                  .Select( x => x.procedureDeclarationStatement().Identifier().Symbol.Text ) );
             }
             else
             {

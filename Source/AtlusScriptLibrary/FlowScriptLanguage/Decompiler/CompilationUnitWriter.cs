@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using AtlusScriptLibrary.Common.IO;
 using AtlusScriptLibrary.FlowScriptLanguage.Syntax;
 
@@ -29,6 +30,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
 
         private class WriterVisitor : SyntaxNodeVisitor, IDisposable
         {
+            private static Regex sIdentifierRegex = new Regex( "[a-zA-Z_][a-zA-Z0-9_]*" );
             private readonly TextWriter mWriter;
             private int mTabLevel;
             private bool mInsideLine;
@@ -535,7 +537,15 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
             // Identifiers
             public override void Visit( Identifier identifier )
             {
-                Write( identifier.Text );
+                if ( !sIdentifierRegex.IsMatch( identifier.Text ) )
+                {
+                    // escape name
+                    Write( "``" + identifier.Text + "``" );
+                }
+                else
+                {
+                    Write( identifier.Text );
+                }
             }
 
             public override void Visit( TypeIdentifier typeIdentifier )

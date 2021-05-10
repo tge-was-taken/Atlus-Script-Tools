@@ -50,15 +50,15 @@ declarationStatement
 	;
 
 functionDeclarationStatement
-	: Function'('IntLiteral')' ( PrimitiveTypeIdentifier | Identifier ) Identifier parameterList ';'
+	: Function'('IntLiteral')' TypeIdentifier Identifier parameterList ';'
 	;
 
 procedureDeclarationStatement
-	: ( PrimitiveTypeIdentifier | Identifier ) ( Identifier | ProcedureIdentifier ) parameterList compoundStatement
+	: TypeIdentifier Identifier parameterList compoundStatement
 	;
 
 variableDeclarationStatement
-	: variableModifier? ( PrimitiveTypeIdentifier | Identifier ) Identifier arraySignifier? ('=' expression)? ';'
+	: variableModifier? TypeIdentifier Identifier arraySignifier? ('=' expression)? ';'
 	;
 
 arraySignifier
@@ -99,7 +99,7 @@ parameterList
 	;
 
 parameter
-	: Out? ( PrimitiveTypeIdentifier | Identifier ) Identifier arraySignifier?
+	: Out? TypeIdentifier Identifier arraySignifier?
 	;
 
 //
@@ -127,7 +127,7 @@ expression
 	| '{' (expression)? (',' expression)* (',')? '}'						# initializerListExpression
 	| Identifier '[' expression ']'											# subscriptExpression
 	| Identifier '.' Identifier												# memberAccessExpression
-	| '(' ( PrimitiveTypeIdentifier | Identifier ) ')' '(' expression ')'	# castExpression				// precedence 2
+	| '(' TypeIdentifier ')' '(' expression ')'	# castExpression				// precedence 2
 	| Identifier argumentList												# callExpression				// precedence 2
 	| expression Op=( '--' | '++' )											# unaryPostfixExpression		// precedence 2
 	| Op=( '!' | '-' | '--' | '++' ) expression								# unaryPrefixExpression			// precedence 3
@@ -244,6 +244,9 @@ True:		'true';
 fragment
 False:		'false';
 
+fragment
+IdentifierEscape: '``';
+
 // Integer constants
 IntLiteral
 	: ( DecIntLiteral | HexIntLiteral );
@@ -296,9 +299,9 @@ StringHexEscape
     : '\\' 'x' HexDigit HexDigit;
 
 // Identifiers
-
-Identifier
-	: ( Letter | '_' ) ( Letter | '_' | Digit | '-' )*;
+TypeIdentifier
+	: PrimitiveTypeIdentifier
+	;
  
 PrimitiveTypeIdentifier
 	: 'bool'
@@ -308,28 +311,14 @@ PrimitiveTypeIdentifier
 	| 'void'
 	;
 
-ProcedureIdentifier
-	: ( Letter | '_' | Digit ) ( Letter | '_' | Digit )*;
+Identifier
+	: ( Letter | '_' ) ( Letter | '_' | Digit )*				// C style identifier
+	| IdentifierEscape ( ~( '`' ) )* IdentifierEscape	// Verbatim string identifier for otherwise invalid names
+	;
 
 fragment
 Letter
-	: ( [a-zA-Z] | JapaneseCharacter );
-
-fragment
-JapaneseCharacter
-	: ( KanjiCharacter | HiraganaCharacter | KatakanaCharacter | '\u3001' | '\u30FC' | '\u3005' | '\u3006' | '\u3024' | '\uFF1C' | '\uFF1E' );
-
-fragment
-KanjiCharacter
-	: [\u4E00-\u9FA0];
-
-fragment
-HiraganaCharacter
-	: [\u3041-\u30F4];
-
-fragment
-KatakanaCharacter
-	: [\u30A1-\u30F4];
+	: ( [a-zA-Z] );
 
 fragment
 Digit

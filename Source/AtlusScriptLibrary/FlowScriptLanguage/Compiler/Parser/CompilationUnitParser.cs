@@ -405,17 +405,11 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser
 
             functionDeclaration = CreateAstNode<FunctionDeclaration>( context );
 
-            int identifierIndex = 0;
             // Parse return type
             {
-                if ( !TryGet( context, context.PrimitiveTypeIdentifier, out var typeIdentifierNode ) )
+                if ( !TryGet( context, "Expected function return type", () => context.TypeIdentifier(), out var typeIdentifierNode ) )
                 {
-                    if ( !TryGet( context, "Expected function return type", () => context.Identifier(0), out typeIdentifierNode ) )
-                    {
-                        return false;
-                    }
-
-                    identifierIndex = 1;
+                    return false;
                 }
 
                 TypeIdentifier typeIdentifier = null;
@@ -439,7 +433,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser
 
             // Parse identifier
             {
-                if ( !TryGet( context, "Expected function identifier", () => context.Identifier( identifierIndex ), out var identifierNode ) )
+                if ( !TryGet( context, "Expected function identifier", () => context.Identifier(), out var identifierNode ) )
                     return false;
 
                 Identifier identifier = null;
@@ -476,14 +470,9 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser
 
             // Parse return type
             int identifierIndex = 0;
-            if (!TryGet(context, context.PrimitiveTypeIdentifier, out var typeIdentifierNode))
+            if (!TryGet(context, "Expected function return type", context.TypeIdentifier, out var typeIdentifierNode))
             {
-                if (!TryGet(context, "Expected function return type", () => context.Identifier(0), out typeIdentifierNode))
-                {
-                    return false;
-                }
-
-                identifierIndex = 1;
+                return false;
             }
 
             TypeIdentifier typeIdentifier = null;
@@ -494,11 +483,8 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser
 
             // Parse identifier
 
-            if ( !TryGet( context, context.ProcedureIdentifier, out ITerminalNode identifierNode ) )
-            {
-                if ( !TryGet( context, "Expected procedure identifier", () => context.Identifier( identifierIndex ), out identifierNode ) )
-                    return false;
-            }
+            if ( !TryGet( context, "Expected procedure identifier", () => context.Identifier(), out var identifierNode ) )
+                return false;
 
             Identifier identifier = null;
             if ( !TryFunc( identifierNode, "Failed to parse procedure identifier", () => TryParseIdentifier( identifierNode, out identifier ) ) )
@@ -556,17 +542,10 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser
             }
 
             // Parse type identifier
-            int identifierIndex = 0;
             {
-                
-                if (!TryGet(context, context.PrimitiveTypeIdentifier, out var typeIdentifierNode))
+                if ( !TryGet( context, "Expected function return type", () => context.TypeIdentifier(), out var typeIdentifierNode ) )
                 {
-                    if (!TryGet(context, "Expected function return type", () => context.Identifier(0), out typeIdentifierNode))
-                    {
-                        return false;
-                    }
-
-                    identifierIndex = 1;
+                    return false;
                 }
 
                 TypeIdentifier typeIdentifier = null;
@@ -578,7 +557,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser
 
             // Parse identifier
             {
-                if ( !TryGet( context, "Expected variable identifier", () => context.Identifier(identifierIndex ), out var identifierNode ) )
+                if ( !TryGet( context, "Expected variable identifier", () => context.Identifier(), out var identifierNode ) )
                     return false;
 
                 Identifier identifier = null;
@@ -1572,15 +1551,9 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser
             }
 
             // Parse type identifier
-            int identifierIndex = 0;
-            if (!TryGet(context, context.PrimitiveTypeIdentifier, out var typeIdentifierNode))
+            if ( !TryGet( context, "Expected function return type", () => context.TypeIdentifier(), out var typeIdentifierNode ) )
             {
-                if (!TryGet(context, "Expected function return type", () => context.Identifier(0), out typeIdentifierNode))
-                {
-                    return false;
-                }
-
-                identifierIndex = 1;
+                return false;
             }
 
             TypeIdentifier typeIdentifier = null;
@@ -1590,7 +1563,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser
             parameter.Type = typeIdentifier;
 
             // Parse identifier
-            if ( !TryGet( context, "Expected parameter identifier", () => context.Identifier(identifierIndex ), out var identifierNode ) )
+            if ( !TryGet( context, "Expected parameter identifier", () => context.Identifier(), out var identifierNode ) )
                 return false;
 
             Identifier identifier = null;
@@ -1672,6 +1645,13 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser
         {
             identifier = CreateAstNode<Identifier>( node );
             identifier.Text = node.Symbol.Text;
+            if ( identifier.Text.StartsWith("@\"") )
+            {
+                // verbatim identifier
+                // @"foo"
+                // 012345
+                identifier.Text = identifier.Text.Substring( 2, identifier.Text.Length - 3 );
+            }
 
             return true;
         }
