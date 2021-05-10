@@ -30,7 +30,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
 
         private class WriterVisitor : SyntaxNodeVisitor, IDisposable
         {
-            private static Regex sIdentifierRegex = new Regex( "[a-zA-Z_][a-zA-Z0-9_]*" );
+            private static Regex sIdentifierRegex = new Regex( "^[a-zA-Z_][a-zA-Z0-9_]*$" );
             private readonly TextWriter mWriter;
             private int mTabLevel;
             private bool mInsideLine;

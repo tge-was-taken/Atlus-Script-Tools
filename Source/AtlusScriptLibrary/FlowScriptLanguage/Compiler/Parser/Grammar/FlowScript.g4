@@ -312,7 +312,7 @@ PrimitiveTypeIdentifier
 	;
 
 Identifier
-	: ( Letter | '_' ) ( Letter | '_' | Digit )*				// C style identifier
+	: ( Letter | '_' ) ( Letter | '_' | Digit )*		// C style identifier
 	| IdentifierEscape ( ~( '`' ) )* IdentifierEscape	// Verbatim string identifier for otherwise invalid names
 	;
 

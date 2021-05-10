@@ -220,7 +220,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
                 if ( !TryGetFatal( context, context.Identifier, "Expected dialog window name", out var identifierNode ) )
                     return false;
 
-                identifier = identifierNode.Symbol.Text;
+                identifier = ParseIdentifier( identifierNode );
             }
 
             LogInfo( context, $"Compiling dialog window: {identifier}" );
@@ -291,6 +291,20 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
             return true;
         }
 
+        private static string ParseIdentifier( ITerminalNode identifierNode )
+        {
+            var text = identifierNode.Symbol.Text;
+            if ( text.StartsWith( "``" ) )
+            {
+                // verbatim identifier
+                // ``foo``
+                // 0123456
+                text = text.Substring( 2, text.Length - 4 );
+            }
+
+            return text;
+        }
+
         private bool TryCompileSelectionDialog( MessageScriptParser.SelectionDialogContext context, out SelectionDialog selectionWindow )
         {          
             LogContextInfo( context );
@@ -305,7 +319,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
                 if ( !TryGetFatal( context, context.Identifier, "Expected selection window name", out var identifierNode ) )
                     return false;
 
-                identifier = identifierNode.Symbol.Text;
+                identifier = ParseIdentifier( identifierNode );
             }
 
             LogInfo( context, $"Compiling selection window: {identifier}" );
@@ -379,7 +393,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
                     if ( !TryGetFatal( context, () => tagContext.Identifier(), "Expected tag id", out var tagIdNode ) )
                         return false;
 
-                    var tagId = tagIdNode.Symbol.Text;
+                    var tagId = ParseIdentifier( tagIdNode );
 
                     switch ( tagId.ToLowerInvariant() )
                     {
@@ -624,7 +638,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
             }
             else if ( TryGet( expressionContext, expressionContext.Identifier, out var identifier ))
             {
-                if ( mVariables.TryGetValue( identifier.Symbol.Text, out intValue ) )
+                if ( mVariables.TryGetValue( ParseIdentifier( identifier ), out intValue ) )
                     return false;
             }
             else
@@ -657,7 +671,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
             }
             else if ( TryGet( expressionContext, expressionContext.Identifier, out var identifier ) )
             {
-                if ( mVariables.TryGetValue( identifier.Symbol.Text, out value ) )
+                if ( mVariables.TryGetValue( ParseIdentifier( identifier ), out value ) )
                     return false;
             }
             else

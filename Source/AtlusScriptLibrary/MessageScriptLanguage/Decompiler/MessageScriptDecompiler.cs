@@ -1,12 +1,15 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using AtlusScriptLibrary.Common.Libraries;
 
 namespace AtlusScriptLibrary.MessageScriptLanguage.Decompiler
 {
     public sealed class MessageScriptDecompiler : IDisposable
     {
+        private static Regex sIdentifierRegex = new Regex( "^[a-zA-Z_][a-zA-Z0-9_]*$" );
+
         private readonly TextWriter mWriter;
 
         public Library Library { get; set; }
@@ -56,7 +59,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Decompiler
                     case SpeakerKind.Named:
                         {
                             WriteOpenTag( "msg" );
-                            WriteTagArgument( message.Name );
+                            WriteTagArgument( FormatIdentifier( message.Name ) );
                             {
                                 mWriter.Write( " " );
 
@@ -75,7 +78,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Decompiler
                     case SpeakerKind.Variable:
                         {
                             WriteOpenTag( "msg" );
-                            WriteTagArgument( message.Name );
+                            WriteTagArgument( FormatIdentifier( message.Name ) );
                             {
                                 mWriter.Write( " " );
                                 WriteOpenTag();
@@ -89,7 +92,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Decompiler
             }
             else
             {
-                WriteTag( "msg", message.Name );
+                WriteTag( "msg", FormatIdentifier( message.Name ) );
             }
 
             mWriter.WriteLine();
@@ -111,7 +114,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Decompiler
             else
                 pattern = ( (int)message.Pattern ).ToString();
 
-            WriteTag( "sel", message.Name, pattern );
+            WriteTag( "sel", FormatIdentifier( message.Name ), pattern );
             mWriter.WriteLine();
 
             foreach ( var line in message.Options )
@@ -169,7 +172,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Decompiler
 
                         if ( !string.IsNullOrWhiteSpace( function.Name ) )
                         {
-                            WriteOpenTag( function.Name );
+                            WriteOpenTag( FormatIdentifier( function.Name ) );
 
                             for ( var i = 0; i < function.Parameters.Count; i++ )
                             {
@@ -257,6 +260,14 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Decompiler
             }
 
             WriteCloseTag();
+        }
+
+        private string FormatIdentifier( string text )
+        {
+            if ( !sIdentifierRegex.IsMatch( text ) )
+                return "``" + text + "``";
+            else
+                return text;
         }
     }
 }

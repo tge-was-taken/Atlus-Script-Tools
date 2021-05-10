@@ -69,7 +69,8 @@
       {
         "Type": "int",
         "Name": "messageId",
-        "Description": "Id of the message to display."
+        "Description": "Id of the message to display.",
+        "Semantic": "MsgId"
       },
       {
         "Type": "int",

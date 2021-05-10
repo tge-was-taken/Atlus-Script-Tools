@@ -56,6 +56,8 @@ OpenText
 	: '[' -> popMode;  // open tag is used for opening inline text inside tag
 
 // Literals
+fragment
+IdentifierEscape: '``';
 
 // This must come before identifier, otherwise some integers 
 // will get mistaken for an identifier
@@ -63,7 +65,9 @@ IntLiteral
 	: ( DecIntLiteral | HexIntLiteral );
 
 Identifier
-	: ( Letter | Digit | '_' | '-' )+;
+	: ( Letter | '_' ) ( Letter | '_' | Digit )*		// C style identifier
+	| IdentifierEscape ( ~( '`' ) )* IdentifierEscape	// Verbatim string identifier for otherwise invalid names
+	;
 
 fragment
 DecIntLiteral
@@ -75,23 +79,7 @@ HexIntLiteral
 
 fragment
 Letter
-	: ( [a-zA-Z] | JapaneseCharacter );
-
-fragment
-JapaneseCharacter
-	: ( KanjiCharacter | HiraganaCharacter | KatakanaCharacter | '\u3001' | '\u30FC' | '\u3005' | '\u3006' | '\u3024' | '\uFF1C' | '\uFF1E' );
-
-fragment
-KanjiCharacter
-	: [\u4E00-\u9FA0];
-
-fragment
-HiraganaCharacter
-	: [\u3041-\u30F4];
-
-fragment
-KatakanaCharacter
-	: [\u30A1-\u30F4];
+	: ( [a-zA-Z] );
 
 fragment
 Digit
