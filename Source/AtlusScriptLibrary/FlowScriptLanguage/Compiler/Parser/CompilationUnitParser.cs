@@ -1645,12 +1645,12 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser
         {
             identifier = CreateAstNode<Identifier>( node );
             identifier.Text = node.Symbol.Text;
-            if ( identifier.Text.StartsWith("@\"") )
+            if ( identifier.Text.StartsWith("``") )
             {
                 // verbatim identifier
-                // @"foo"
-                // 012345
-                identifier.Text = identifier.Text.Substring( 2, identifier.Text.Length - 3 );
+                // ``foo``
+                // 0123456
+                identifier.Text = identifier.Text.Substring( 2, identifier.Text.Length - 4 );
             }
 
             return true;
