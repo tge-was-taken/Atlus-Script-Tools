@@ -6,11 +6,11 @@
         "Description": "003A2040",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -38,11 +38,11 @@
         "Description": "003A2550",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -70,11 +70,11 @@
         "Description": "Sets bit mask for SEL()",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "mask",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "mask",
+                "Description": ""
+            }
         ]
     },
     {
@@ -84,11 +84,11 @@
         "Description": "Checks if bit is true or not",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "bit",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "bit",
+                "Description": ""
+            }
         ]
     },
     {
@@ -98,11 +98,11 @@
         "Description": "Turns on bit",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "bit",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "bit",
+                "Description": ""
+            }
         ]
     },
     {
@@ -112,11 +112,11 @@
         "Description": "Turns off bit",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "bit",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "bit",
+                "Description": ""
+            }
         ]
     },
     {
@@ -126,11 +126,11 @@
         "Description": "0035AEB0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -149,11 +149,11 @@
         "Description": "0035AF30",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -163,11 +163,11 @@
         "Description": "001C2750",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -177,16 +177,16 @@
         "Description": "Call animated transition",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": "Enum of fade"
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": "Length of fade?"
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": "Enum of fade"
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": "Length of fade?"
+            }
         ]
     },
     {
@@ -196,46 +196,46 @@
         "Description": "0035B010",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": "Unknown type; assumed int"
-			},
-			{
-				"Type": "int",
-				"Name": "param3",
-				"Description": "Unknown type; assumed int"
-			},
-			{
-				"Type": "int",
-				"Name": "param4",
-				"Description": "Unknown type; assumed int"
-			},
-			{
-				"Type": "int",
-				"Name": "param5",
-				"Description": "Unknown type; assumed int"
-			},
-			{
-				"Type": "int",
-				"Name": "param6",
-				"Description": "Unknown type; assumed int"
-			},
-			{
-				"Type": "int",
-				"Name": "param7",
-				"Description": "Unknown type; assumed int"
-			},
-			{
-				"Type": "int",
-				"Name": "param8",
-				"Description": "Unknown type; assumed int"
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": "Unknown type; assumed int"
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": "Unknown type; assumed int"
+            },
+            {
+                "Type": "int",
+                "Name": "param4",
+                "Description": "Unknown type; assumed int"
+            },
+            {
+                "Type": "int",
+                "Name": "param5",
+                "Description": "Unknown type; assumed int"
+            },
+            {
+                "Type": "int",
+                "Name": "param6",
+                "Description": "Unknown type; assumed int"
+            },
+            {
+                "Type": "int",
+                "Name": "param7",
+                "Description": "Unknown type; assumed int"
+            },
+            {
+                "Type": "int",
+                "Name": "param8",
+                "Description": "Unknown type; assumed int"
+            }
         ]
     },
     {
@@ -245,11 +245,11 @@
         "Description": "0035AF90",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "value",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "value",
+                "Description": ""
+            }
         ]
     },
     {
@@ -268,11 +268,11 @@
         "Description": "0035AFD0",
         "Parameters":
         [
-			{
-				"Type": "string",
-				"Name": "message",
-				"Description": ""
-			}
+            {
+                "Type": "string",
+                "Name": "message",
+                "Description": ""
+            }
         ]
     },
     {
@@ -282,11 +282,11 @@
         "Description": "0035B0B0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -296,11 +296,11 @@
         "Description": "0035B0F0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -310,21 +310,21 @@
         "Description": "0035B130",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param3",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
         ]
     },
     {
@@ -334,11 +334,11 @@
         "Description": "0035B170",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": "Unknown type; assumed int"
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": "Unknown type; assumed int"
+            }
         ]
     },
     {
@@ -348,16 +348,16 @@
         "Description": "0035B180",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -367,11 +367,11 @@
         "Description": "0035B290",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -381,11 +381,11 @@
         "Description": "0035B300",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -395,11 +395,11 @@
         "Description": "0035B340",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -409,11 +409,11 @@
         "Description": "0035B3A0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -423,21 +423,21 @@
         "Description": "003A2A20",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "index",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "val",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "type",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "index",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "val",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "type",
+                "Description": ""
+            }
         ]
     },
     {
@@ -447,16 +447,16 @@
         "Description": "Null pointer",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": "Unknown type; assumed int"
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": "Unknown type; assumed int"
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": "Unknown type; assumed int"
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": "Unknown type; assumed int"
+            }
         ]
     },
     {
@@ -466,11 +466,11 @@
         "Description": "Null pointer",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": "Unknown type; assumed int"
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": "Unknown type; assumed int"
+            }
         ]
     },
     {
@@ -480,16 +480,16 @@
         "Description": "Null pointer",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": "Unknown type; assumed int"
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": "Unknown type; assumed int"
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": "Unknown type; assumed int"
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": "Unknown type; assumed int"
+            }
         ]
     },
     {
@@ -499,11 +499,11 @@
         "Description": "Null pointer",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": "Unknown type; assumed int"
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": "Unknown type; assumed int"
+            }
         ]
     },
     {
@@ -513,26 +513,26 @@
         "Description": "Calls field based on ids, entry point, and maybe position",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "major",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "minor",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "entry",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param4",
-				"Description": "Maybe rotation of camera?"
-			}
+            {
+                "Type": "int",
+                "Name": "major",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "minor",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "entry",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param4",
+                "Description": "Maybe rotation of camera?"
+            }
         ]
     },
     {
@@ -551,11 +551,11 @@
         "Description": "Null pointer",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": "Unknown type; assumed int"
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": "Unknown type; assumed int"
+            }
         ]
     },
     {
@@ -565,11 +565,11 @@
         "Description": "Null pointer",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": "Unknown type; assumed int"
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": "Unknown type; assumed int"
+            }
         ]
     },
     {
@@ -579,11 +579,11 @@
         "Description": "Null pointer",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": "Unknown type; assumed int"
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": "Unknown type; assumed int"
+            }
         ]
     },
     {
@@ -593,11 +593,11 @@
         "Description": "Displays msg on help screen",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": "Index/name of msg to display"
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": "Index/name of msg to display"
+            }
         ]
     },
     {
@@ -607,11 +607,11 @@
         "Description": "003A2330",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "Type",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "Type",
+                "Description": ""
+            }
         ]
     },
     {
@@ -621,16 +621,16 @@
         "Description": "Bind button to SEL choice",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "button",
-				"Description": "6 is circle"
-			},
-			{
-				"Type": "int",
-				"Name": "selection",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "button",
+                "Description": "6 is circle"
+            },
+            {
+                "Type": "int",
+                "Name": "selection",
+                "Description": ""
+            }
         ]
     },
     {
@@ -640,11 +640,11 @@
         "Description": "Null pointer",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": "Unknown type; assumed int"
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": "Unknown type; assumed int"
+            }
         ]
     },
     {
@@ -654,11 +654,11 @@
         "Description": "Calls a facility eg. velvet room, shop etc.",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "FacilityID",
-				"Description": "To do: Make this an enum"
-			}
+            {
+                "Type": "int",
+                "Name": "FacilityID",
+                "Description": "To do: Make this an enum"
+            }
         ]
     },
     {
@@ -686,16 +686,16 @@
         "Description": "Null pointer",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": "Unknown type; assumed int"
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": "Unknown type; assumed int"
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": "Unknown type; assumed int"
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": "Unknown type; assumed int"
+            }
         ]
     },
     {
@@ -705,11 +705,11 @@
         "Description": "0035B420",
         "Parameters":
         [
-			{
-				"Type": "float",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "float",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -719,11 +719,11 @@
         "Description": "Null pointer",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": "Unknown type; assumed int"
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": "Unknown type; assumed int"
+            }
         ]
     },
     {
@@ -742,11 +742,11 @@
         "Description": "00311080",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": "Unknown type; assumed int"
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": "Unknown type; assumed int"
+            }
         ]
     },
     {
@@ -756,16 +756,16 @@
         "Description": "0030FCC0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": "Unknown type; assumed int"
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": "Unknown type; assumed int"
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": "Unknown type; assumed int"
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": "Unknown type; assumed int"
+            }
         ]
     },
     {
@@ -775,11 +775,11 @@
         "Description": "002C7600",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -789,11 +789,11 @@
         "Description": "002C76B0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -803,11 +803,11 @@
         "Description": "002C7760",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -817,11 +817,11 @@
         "Description": "002C7810",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -831,11 +831,11 @@
         "Description": "002C78C0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -845,11 +845,11 @@
         "Description": "002C7970",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -859,11 +859,11 @@
         "Description": "002C7A20",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -873,11 +873,11 @@
         "Description": "002C7AD0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -887,11 +887,11 @@
         "Description": "002C7B80",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -901,11 +901,11 @@
         "Description": "002C7C30",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -915,11 +915,11 @@
         "Description": "002C7CE0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -929,11 +929,11 @@
         "Description": "002C7D90",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -943,11 +943,11 @@
         "Description": "002C7E40",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -957,11 +957,11 @@
         "Description": "002C7EF0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -971,11 +971,11 @@
         "Description": "002C7FA0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -985,11 +985,11 @@
         "Description": "Checks if the party member specified is present in the fight",
         "Parameters":
         [
-			{
-				"Type": "BattleUnit",
-				"Name": "Unit",
-				"Description": ""
-			}
+            {
+                "Type": "BattleUnit",
+                "Name": "Unit",
+                "Description": ""
+            }
         ]
     },
     {
@@ -999,11 +999,11 @@
         "Description": "002C8100",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1013,11 +1013,11 @@
         "Description": "002C81B0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1054,11 +1054,11 @@
         "Description": "002C8350",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1068,11 +1068,11 @@
         "Description": "002C8400",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1082,11 +1082,11 @@
         "Description": "002C84B0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1096,11 +1096,11 @@
         "Description": "002C8560",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1110,11 +1110,11 @@
         "Description": "002C8610",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1124,11 +1124,11 @@
         "Description": "002C86C0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1138,11 +1138,11 @@
         "Description": "002C8770",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1152,11 +1152,11 @@
         "Description": "002C8820",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1166,11 +1166,11 @@
         "Description": "002C88D0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1180,11 +1180,11 @@
         "Description": "002C8980",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1194,11 +1194,11 @@
         "Description": "002C8A30",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1208,11 +1208,11 @@
         "Description": "002C8AE0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1222,11 +1222,11 @@
         "Description": "002C8B90",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1236,11 +1236,11 @@
         "Description": "002C8C40",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1250,11 +1250,11 @@
         "Description": "002C8CF0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1264,11 +1264,11 @@
         "Description": "002C8DA0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1278,11 +1278,11 @@
         "Description": "002C8E50",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1292,11 +1292,11 @@
         "Description": "002C8F00",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1333,11 +1333,11 @@
         "Description": "002C90A0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1347,11 +1347,11 @@
         "Description": "002C9150",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1397,11 +1397,11 @@
         "Description": "002CC4F0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1411,11 +1411,11 @@
         "Description": "002CC5A0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1425,11 +1425,11 @@
         "Description": "002CC650",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1457,11 +1457,11 @@
         "Description": "002CC7E0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1471,11 +1471,11 @@
         "Description": "002CC890",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1485,11 +1485,11 @@
         "Description": "002CC940",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1499,11 +1499,11 @@
         "Description": "002CC9F0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1513,11 +1513,11 @@
         "Description": "002CCAA0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1527,11 +1527,11 @@
         "Description": "002CCB50",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1541,11 +1541,11 @@
         "Description": "002CCC00",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1555,11 +1555,11 @@
         "Description": "002CCCB0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1578,11 +1578,11 @@
         "Description": "Perform skill given",
         "Parameters":
         [
-			{
-				"Type": "BattleSkill",
-				"Name": "skill_ID",
-				"Description": ""
-			}
+            {
+                "Type": "BattleSkill",
+                "Name": "skill_ID",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1610,11 +1610,11 @@
         "Description": "002C7490",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1633,21 +1633,21 @@
         "Description": "Calls pm event based on id's",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "major",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "minor",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param3",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "major",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "minor",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1657,11 +1657,11 @@
         "Description": "Calls town map with pointer at given index",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "index",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "index",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1671,11 +1671,11 @@
         "Description": "Goes to floor id set in the param",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "id",
-				"Description": "ID of floor"
-			}
+            {
+                "Type": "int",
+                "Name": "id",
+                "Description": "ID of floor"
+            }
         ]
     },
     {
@@ -1685,16 +1685,16 @@
         "Description": "001C26A0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1713,11 +1713,11 @@
         "Description": "0035F070",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1727,11 +1727,11 @@
         "Description": "0035F0B0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1741,11 +1741,11 @@
         "Description": "0035F4B0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1809,26 +1809,26 @@
         "Description": "Returns true if within the two dates",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "month1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "day1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "month2",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "day2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "month1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "day1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "month2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "day2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1838,16 +1838,16 @@
         "Description": "Adds given party member id to party",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": "Unknown. Set to 0"
-			},
-			{
-				"Type": "BattleUnit",
-				"Name": "id",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": "Unknown. Set to 0"
+            },
+            {
+                "Type": "BattleUnit",
+                "Name": "id",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1857,11 +1857,11 @@
         "Description": "0016E6C0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1871,26 +1871,26 @@
         "Description": "001C29D0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param3",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param4",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param4",
+                "Description": ""
+            }
         ]
     },
     {
@@ -1909,31 +1909,31 @@
         "Description": "001C2AA0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param3",
-				"Description": ""
-			},
-			{
-				"Type": "float",
-				"Name": "param4",
-				"Description": ""
-			},
-			{
-				"Type": "float",
-				"Name": "param5",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param4",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param5",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2006,16 +2006,16 @@
         "Description": "00350090",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2043,11 +2043,11 @@
         "Description": "Calls battle based on id",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "id",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "id",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2057,11 +2057,11 @@
         "Description": "002CCEB0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2071,11 +2071,11 @@
         "Description": "002CCF60",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2085,11 +2085,11 @@
         "Description": "002CD010",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2099,11 +2099,11 @@
         "Description": "002CD0C0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2113,11 +2113,11 @@
         "Description": "002CD170",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2127,11 +2127,11 @@
         "Description": "002CD220",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2141,11 +2141,11 @@
         "Description": "002CD2D0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2155,11 +2155,11 @@
         "Description": "002CD380",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2169,11 +2169,11 @@
         "Description": "002C92A0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2183,11 +2183,11 @@
         "Description": "002C9350",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2197,11 +2197,11 @@
         "Description": "002C9400",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2211,11 +2211,11 @@
         "Description": "002C94B0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2225,11 +2225,11 @@
         "Description": "002C9560",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2239,11 +2239,11 @@
         "Description": "002C9610",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2253,11 +2253,11 @@
         "Description": "002C96C0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2267,11 +2267,11 @@
         "Description": "002C9770",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2281,16 +2281,16 @@
         "Description": "002C7520",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2309,16 +2309,16 @@
         "Description": "002C9820",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2328,16 +2328,16 @@
         "Description": "002C9910",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2347,16 +2347,16 @@
         "Description": "002C9A00",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2366,16 +2366,16 @@
         "Description": "002C9AF0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2385,16 +2385,16 @@
         "Description": "002C9C30",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2404,16 +2404,16 @@
         "Description": "002C9CF0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2423,16 +2423,16 @@
         "Description": "002C9DE0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2442,16 +2442,16 @@
         "Description": "002C9ED0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2461,16 +2461,16 @@
         "Description": "002C9FC0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2480,16 +2480,16 @@
         "Description": "002CA0B0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2499,16 +2499,16 @@
         "Description": "002CA1A0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2518,11 +2518,11 @@
         "Description": "002CA290",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2532,11 +2532,11 @@
         "Description": "002CA330",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2564,41 +2564,41 @@
         "Description": "00397090",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param3",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param4",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param5",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param6",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param7",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param4",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param5",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param6",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param7",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2608,11 +2608,11 @@
         "Description": "003972D0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2622,11 +2622,11 @@
         "Description": "0038D870",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2636,16 +2636,16 @@
         "Description": "003BCD50",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2673,11 +2673,11 @@
         "Description": "00423A50",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2687,36 +2687,36 @@
         "Description": "00423AB0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param3",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param4",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param5",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param6",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param4",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param5",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param6",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2744,11 +2744,11 @@
         "Description": "001C3070",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2758,11 +2758,11 @@
         "Description": "Get current hp of the id given",
         "Parameters":
         [
-			{
-				"Type": "BattleUnit",
-				"Name": "id",
-				"Description": ""
-			}
+            {
+                "Type": "BattleUnit",
+                "Name": "id",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2772,11 +2772,11 @@
         "Description": "Get total hp of the id given",
         "Parameters":
         [
-			{
-				"Type": "BattleUnit",
-				"Name": "id",
-				"Description": ""
-			}
+            {
+                "Type": "BattleUnit",
+                "Name": "id",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2786,11 +2786,11 @@
         "Description": "Get current sp of the id given",
         "Parameters":
         [
-			{
-				"Type": "BattleUnit",
-				"Name": "id",
-				"Description": ""
-			}
+            {
+                "Type": "BattleUnit",
+                "Name": "id",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2800,11 +2800,11 @@
         "Description": "Get total sp of the id given",
         "Parameters":
         [
-			{
-				"Type": "BattleUnit",
-				"Name": "id",
-				"Description": ""
-			}
+            {
+                "Type": "BattleUnit",
+                "Name": "id",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2814,16 +2814,16 @@
         "Description": "001C3340",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2833,11 +2833,11 @@
         "Description": "001C3510",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2847,11 +2847,11 @@
         "Description": "001C3560",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2861,11 +2861,11 @@
         "Description": "001C35B0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2875,11 +2875,11 @@
         "Description": "Returns fatigue level of id given. 0 is good, 2 is best, 3 or more is bad.",
         "Parameters":
         [
-			{
-				"Type": "BattleUnit",
-				"Name": "id",
-				"Description": ""
-			}
+            {
+                "Type": "BattleUnit",
+                "Name": "id",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2889,16 +2889,16 @@
         "Description": "001C3650",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2908,11 +2908,11 @@
         "Description": "001C36E0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2922,16 +2922,16 @@
         "Description": "001C3830",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2941,21 +2941,21 @@
         "Description": "001C38B0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param3",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2965,11 +2965,11 @@
         "Description": "00423B80",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2979,16 +2979,16 @@
         "Description": "Increases given stat by given amount",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "stat",
-				"Description": "0 = academics, 1 = charm, 2 = courage"
-			},
-			{
-				"Type": "int",
-				"Name": "amount",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "stat",
+                "Description": "0 = academics, 1 = charm, 2 = courage"
+            },
+            {
+                "Type": "int",
+                "Name": "amount",
+                "Description": ""
+            }
         ]
     },
     {
@@ -2998,16 +2998,16 @@
         "Description": "Increases current persona's given stat with given amount",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "stat",
-				"Description": "0 = strength, 1 = magic, 2 = endurance, 3 = agility, 4 = luck"
-			},
-			{
-				"Type": "int",
-				"Name": "amount",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "stat",
+                "Description": "0 = strength, 1 = magic, 2 = endurance, 3 = agility, 4 = luck"
+            },
+            {
+                "Type": "int",
+                "Name": "amount",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3026,11 +3026,11 @@
         "Description": "Gives Amount yen to the player",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "Amount",
-				"Description": "Amount to give to player"
-			}
+            {
+                "Type": "int",
+                "Name": "Amount",
+                "Description": "Amount to give to player"
+            }
         ]
     },
     {
@@ -3040,11 +3040,11 @@
         "Description": "Takes away Amount yen from player.",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "Amount",
-				"Description": "Amount of yen to remove"
-			}
+            {
+                "Type": "int",
+                "Name": "Amount",
+                "Description": "Amount of yen to remove"
+            }
         ]
     },
     {
@@ -3054,11 +3054,11 @@
         "Description": "Get id from the given slot in party",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "slot",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "slot",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3068,11 +3068,11 @@
         "Description": "Removes given party member id",
         "Parameters":
         [
-			{
-				"Type": "BattleUnit",
-				"Name": "id",
-				"Description": ""
-			}
+            {
+                "Type": "BattleUnit",
+                "Name": "id",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3100,16 +3100,16 @@
         "Description": "001C3960",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3119,16 +3119,16 @@
         "Description": "001C39C0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3138,11 +3138,11 @@
         "Description": "Returns the social link rank of SLID",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "SLID",
-				"Description": "A numeric id for the social link."
-			}
+            {
+                "Type": "int",
+                "Name": "SLID",
+                "Description": "A numeric id for the social link."
+            }
         ]
     },
     {
@@ -3152,11 +3152,11 @@
         "Description": "00360200",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3166,11 +3166,11 @@
         "Description": "003602D0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3180,11 +3180,11 @@
         "Description": "0035F580",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3212,11 +3212,11 @@
         "Description": "0035FE80",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3226,11 +3226,11 @@
         "Description": "0035FF20",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3303,11 +3303,11 @@
         "Description": "001C2D20",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3317,16 +3317,16 @@
         "Description": "003603A0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3336,11 +3336,11 @@
         "Description": "002C7330",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3350,16 +3350,16 @@
         "Description": "002CB0E0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3369,11 +3369,11 @@
         "Description": "002CB1C0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3383,11 +3383,11 @@
         "Description": "002CB270",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3397,11 +3397,11 @@
         "Description": "Returns true if ai has the skill",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "skill",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "skill",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3411,11 +3411,11 @@
         "Description": "002CB3D0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3425,11 +3425,11 @@
         "Description": "002CB480",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3439,11 +3439,11 @@
         "Description": "002CB530",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3453,11 +3453,11 @@
         "Description": "002CB5E0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3467,11 +3467,11 @@
         "Description": "002CB690",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3481,11 +3481,11 @@
         "Description": "002CB740",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3495,11 +3495,11 @@
         "Description": "002CB7F0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3509,11 +3509,11 @@
         "Description": "002CB8A0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3523,16 +3523,16 @@
         "Description": "002CDE90",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3542,16 +3542,16 @@
         "Description": "002CDF60",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3561,11 +3561,11 @@
         "Description": "002CDFE0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3575,16 +3575,16 @@
         "Description": "002CE0C0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3594,16 +3594,16 @@
         "Description": "002CE160",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3613,11 +3613,11 @@
         "Description": "002CE2D0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3627,16 +3627,16 @@
         "Description": "002CE390",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3655,11 +3655,11 @@
         "Description": "002CE510",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3669,11 +3669,11 @@
         "Description": "002CE610",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3683,11 +3683,11 @@
         "Description": "002CE6F0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3697,11 +3697,11 @@
         "Description": "002CF3A0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3711,11 +3711,11 @@
         "Description": "002CF4D0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3725,11 +3725,11 @@
         "Description": "002CF600",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3739,11 +3739,11 @@
         "Description": "002CFA70",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3753,11 +3753,11 @@
         "Description": "002CFBA0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3767,11 +3767,11 @@
         "Description": "002CFCD0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3781,21 +3781,21 @@
         "Description": "002CF730",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param3",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3805,21 +3805,21 @@
         "Description": "002CF7E0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param3",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3829,21 +3829,21 @@
         "Description": "002CF890",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param3",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3862,11 +3862,11 @@
         "Description": "002CFF10",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3894,11 +3894,11 @@
         "Description": "002CE7D0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3908,11 +3908,11 @@
         "Description": "002CE8B0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3922,11 +3922,11 @@
         "Description": "002CE990",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3945,11 +3945,11 @@
         "Description": "Gets value at given index",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "index",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "index",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3959,16 +3959,16 @@
         "Description": "Sets value at given index",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "index",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "value",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "index",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "value",
+                "Description": ""
+            }
         ]
     },
     {
@@ -3987,16 +3987,16 @@
         "Description": "Sets hp of given id",
         "Parameters":
         [
-			{
-				"Type": "BattleUnit",
-				"Name": "id",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "hp",
-				"Description": ""
-			}
+            {
+                "Type": "BattleUnit",
+                "Name": "id",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "hp",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4006,16 +4006,16 @@
         "Description": "Sets sp of id given",
         "Parameters":
         [
-			{
-				"Type": "BattleUnit",
-				"Name": "id",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "sp",
-				"Description": ""
-			}
+            {
+                "Type": "BattleUnit",
+                "Name": "id",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "sp",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4025,11 +4025,11 @@
         "Description": "001C30C0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4039,16 +4039,16 @@
         "Description": "Returns current amount of items",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": "Unknown. Set to 1"
-			},
-			{
-				"Type": "int",
-				"Name": "id",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": "Unknown. Set to 1"
+            },
+            {
+                "Type": "int",
+                "Name": "id",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4058,21 +4058,21 @@
         "Description": "Sets given amount to given item id",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": "Unknown. Set to 1"
-			},
-			{
-				"Type": "int",
-				"Name": "id",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "amount",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": "Unknown. Set to 1"
+            },
+            {
+                "Type": "int",
+                "Name": "id",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "amount",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4082,16 +4082,16 @@
         "Description": "001C3E70",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4101,11 +4101,11 @@
         "Description": "00360470",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4115,11 +4115,11 @@
         "Description": "002CD740",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4129,11 +4129,11 @@
         "Description": "001C4050",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4143,11 +4143,11 @@
         "Description": "001C40B0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4157,16 +4157,16 @@
         "Description": "00360540",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4176,16 +4176,16 @@
         "Description": "003605F0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4195,11 +4195,11 @@
         "Description": "001C3F90",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4209,11 +4209,11 @@
         "Description": "003606A0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4223,11 +4223,11 @@
         "Description": "003607E0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4237,16 +4237,16 @@
         "Description": "00360890",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4256,11 +4256,11 @@
         "Description": "00181680",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4270,16 +4270,16 @@
         "Description": "001C2550",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4334,11 +4334,11 @@
         "Description": "002CD810",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4348,11 +4348,11 @@
         "Description": "002CD890",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4371,11 +4371,11 @@
         "Description": "001C4130",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4385,11 +4385,11 @@
         "Description": "001C4180",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4399,11 +4399,11 @@
         "Description": "Returns random number from 0 to range given",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "range",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "range",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4413,11 +4413,11 @@
         "Description": "00167AB0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4427,11 +4427,11 @@
         "Description": "00167B70",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4450,11 +4450,11 @@
         "Description": "001C4220",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4464,16 +4464,16 @@
         "Description": "001C42C0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4483,16 +4483,16 @@
         "Description": "001C4BA0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4502,16 +4502,16 @@
         "Description": "001C4C00",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4521,16 +4521,16 @@
         "Description": "001C3F00",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4540,11 +4540,11 @@
         "Description": "001C4DF0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4554,11 +4554,11 @@
         "Description": "002CD4C0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4595,11 +4595,11 @@
         "Description": "00168DA0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4618,26 +4618,26 @@
         "Description": "002D0510",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param3",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param4",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param4",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4647,11 +4647,11 @@
         "Description": "00169AB0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4688,16 +4688,16 @@
         "Description": "002CE200",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4752,11 +4752,11 @@
         "Description": "00423BC0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4766,16 +4766,16 @@
         "Description": "00423CA0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4785,16 +4785,16 @@
         "Description": "00423E10",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4804,11 +4804,11 @@
         "Description": "00424090",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4818,16 +4818,16 @@
         "Description": "00423F60",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4837,16 +4837,16 @@
         "Description": "001C4EB0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4856,16 +4856,16 @@
         "Description": "001C4F30",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4875,16 +4875,16 @@
         "Description": "001C4F90",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4894,11 +4894,11 @@
         "Description": "001C4FF0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4908,21 +4908,21 @@
         "Description": "002D0330",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param3",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4932,16 +4932,16 @@
         "Description": "002CA3D0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4951,16 +4951,16 @@
         "Description": "002CA4E0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4970,16 +4970,16 @@
         "Description": "002CA5F0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -4989,16 +4989,16 @@
         "Description": "002CA700",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5008,16 +5008,16 @@
         "Description": "002CA850",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5027,16 +5027,16 @@
         "Description": "002CA920",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5046,16 +5046,16 @@
         "Description": "002CAA30",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5065,16 +5065,16 @@
         "Description": "002CAB40",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5084,16 +5084,16 @@
         "Description": "002CAC50",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5103,16 +5103,16 @@
         "Description": "002CAD60",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5122,16 +5122,16 @@
         "Description": "002CAE70",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5141,11 +5141,11 @@
         "Description": "002CAF80",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5155,11 +5155,11 @@
         "Description": "002CB030",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5169,16 +5169,16 @@
         "Description": "001C4780",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5188,16 +5188,16 @@
         "Description": "001C48A0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5207,16 +5207,16 @@
         "Description": "001C4B30",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5226,16 +5226,16 @@
         "Description": "Plays sfx",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5272,11 +5272,11 @@
         "Description": "00424790",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5286,21 +5286,21 @@
         "Description": "004247C0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param3",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5310,16 +5310,16 @@
         "Description": "00424870",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5329,16 +5329,16 @@
         "Description": "00424900",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5348,11 +5348,11 @@
         "Description": "00424950",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5362,11 +5362,11 @@
         "Description": "001FB030",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5385,11 +5385,11 @@
         "Description": "001C57A0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5408,11 +5408,11 @@
         "Description": "002D06B0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5431,16 +5431,16 @@
         "Description": "002D0830",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "Persona",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "Skill",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "Persona",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "Skill",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5459,11 +5459,11 @@
         "Description": "001C58A0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5482,11 +5482,11 @@
         "Description": "00424980",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5496,11 +5496,11 @@
         "Description": "002D0A40",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5510,11 +5510,11 @@
         "Description": "00360A70",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5551,11 +5551,11 @@
         "Description": "Enemy attacks with slash, pierce, or strike (105, 106, 107)",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5574,16 +5574,16 @@
         "Description": "Calls battle sfx based on unknown indices",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5593,11 +5593,11 @@
         "Description": "001C5750",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5607,11 +5607,11 @@
         "Description": "Plays bgm based on id",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "id",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "id",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5621,11 +5621,11 @@
         "Description": "001C56B0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5635,16 +5635,16 @@
         "Description": "001C56F0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5654,11 +5654,11 @@
         "Description": "002CD9A0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5668,11 +5668,11 @@
         "Description": "002CDA20",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5682,11 +5682,11 @@
         "Description": "00424240",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5696,16 +5696,16 @@
         "Description": "001C5950",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5724,16 +5724,16 @@
         "Description": "001C5A10",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5770,26 +5770,26 @@
         "Description": "001C23E0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param3",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param4",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param4",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5799,11 +5799,11 @@
         "Description": "002D1420",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5813,16 +5813,16 @@
         "Description": "002D1460",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5832,11 +5832,11 @@
         "Description": "002CBA40",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5846,11 +5846,11 @@
         "Description": "002CDAC0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5860,11 +5860,11 @@
         "Description": "002CDB30",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5874,11 +5874,11 @@
         "Description": "002CDBA0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5888,11 +5888,11 @@
         "Description": "002CDC10",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5902,11 +5902,11 @@
         "Description": "002CDC80",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5916,11 +5916,11 @@
         "Description": "002CEA70",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5930,11 +5930,11 @@
         "Description": "002CEB80",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5962,21 +5962,21 @@
         "Description": "00360B50",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param3",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
         ]
     },
     {
@@ -5986,26 +5986,26 @@
         "Description": "00424AB0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param3",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param4",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param4",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6033,11 +6033,11 @@
         "Description": "00424B60",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6074,11 +6074,11 @@
         "Description": "00424CB0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6097,11 +6097,11 @@
         "Description": "00360BF0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6120,11 +6120,11 @@
         "Description": "Call movie based on id",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "id",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "id",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6143,16 +6143,16 @@
         "Description": "001C4CD0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "float",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6171,21 +6171,21 @@
         "Description": "002CBAF0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param3",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6195,16 +6195,16 @@
         "Description": "002CBC20",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6232,36 +6232,36 @@
         "Description": "002D0D30",
         "Parameters":
         [
-			{
-				"Type": "float",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "float",
-				"Name": "param2",
-				"Description": ""
-			},
-			{
-				"Type": "float",
-				"Name": "param3",
-				"Description": ""
-			},
-			{
-				"Type": "float",
-				"Name": "param4",
-				"Description": ""
-			},
-			{
-				"Type": "float",
-				"Name": "param5",
-				"Description": ""
-			},
-			{
-				"Type": "float",
-				"Name": "param6",
-				"Description": ""
-			}
+            {
+                "Type": "float",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param4",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param5",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param6",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6271,36 +6271,36 @@
         "Description": "002D0E40",
         "Parameters":
         [
-			{
-				"Type": "float",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "float",
-				"Name": "param2",
-				"Description": ""
-			},
-			{
-				"Type": "float",
-				"Name": "param3",
-				"Description": ""
-			},
-			{
-				"Type": "float",
-				"Name": "param4",
-				"Description": ""
-			},
-			{
-				"Type": "float",
-				"Name": "param5",
-				"Description": ""
-			},
-			{
-				"Type": "float",
-				"Name": "param6",
-				"Description": ""
-			}
+            {
+                "Type": "float",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param4",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param5",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param6",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6310,36 +6310,36 @@
         "Description": "002D0EE0",
         "Parameters":
         [
-			{
-				"Type": "float",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "float",
-				"Name": "param2",
-				"Description": ""
-			},
-			{
-				"Type": "float",
-				"Name": "param3",
-				"Description": ""
-			},
-			{
-				"Type": "float",
-				"Name": "param4",
-				"Description": ""
-			},
-			{
-				"Type": "float",
-				"Name": "param5",
-				"Description": ""
-			},
-			{
-				"Type": "float",
-				"Name": "param6",
-				"Description": ""
-			}
+            {
+                "Type": "float",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param4",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param5",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param6",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6349,11 +6349,11 @@
         "Description": "002D0F80",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6363,16 +6363,16 @@
         "Description": "002D1040",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6418,11 +6418,11 @@
         "Description": "002CD5E0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6432,11 +6432,11 @@
         "Description": "002CD690",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6446,16 +6446,16 @@
         "Description": "002D1230",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6465,16 +6465,16 @@
         "Description": "002CBF20",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6502,11 +6502,11 @@
         "Description": "002D10D0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6552,16 +6552,16 @@
         "Description": "002CBFF0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6571,11 +6571,11 @@
         "Description": "002CC0E0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6585,11 +6585,11 @@
         "Description": "002CDCF0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6617,11 +6617,11 @@
         "Description": "002CDE20",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6631,11 +6631,11 @@
         "Description": "002CEE60",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6645,11 +6645,11 @@
         "Description": "002CEFC0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6659,11 +6659,11 @@
         "Description": "002CF120",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6673,16 +6673,16 @@
         "Description": "002CC190",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6701,11 +6701,11 @@
         "Description": "001C51E0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6715,11 +6715,11 @@
         "Description": "002C7430",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6729,26 +6729,26 @@
         "Description": "001C2250",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param3",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param4",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param4",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6767,11 +6767,11 @@
         "Description": "001C5AA0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6781,11 +6781,11 @@
         "Description": "001C5B20",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6822,16 +6822,16 @@
         "Description": "002CBCE0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6841,16 +6841,16 @@
         "Description": "002CBDA0",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6860,16 +6860,16 @@
         "Description": "002CBE60",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6879,16 +6879,16 @@
         "Description": "001C2E20",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "float",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -6943,16 +6943,16 @@
         "Description": "Returns rank of given social stat",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": "Unknown. Set to 1"
-			},
-			{
-				"Type": "int",
-				"Name": "stat",
-				"Description": "0 = academics, 1 = charm, 2 = courage"
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": "Unknown. Set to 1"
+            },
+            {
+                "Type": "int",
+                "Name": "stat",
+                "Description": "0 = academics, 1 = charm, 2 = courage"
+            }
         ]
     },
     {
@@ -6971,11 +6971,11 @@
         "Description": "002CF290",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -7021,11 +7021,11 @@
         "Description": "001C4A90",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -7035,21 +7035,21 @@
         "Description": "Sets next date",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "month",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "day",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "time",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "month",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "day",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "time",
+                "Description": ""
+            }
         ]
     },
     {
@@ -7068,16 +7068,16 @@
         "Description": "002CD910",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     },
     {
@@ -7096,11 +7096,11 @@
         "Description": "0035FC00",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
         ]
     },
     {
@@ -7119,21 +7119,21 @@
         "Description": "0035FB70",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param2",
-				"Description": ""
-			},
-			{
-				"Type": "int",
-				"Name": "param3",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
         ]
     },
     {
@@ -7170,16 +7170,16 @@
         "Description": "001C2F70",
         "Parameters":
         [
-			{
-				"Type": "int",
-				"Name": "param1",
-				"Description": ""
-			},
-			{
-				"Type": "float",
-				"Name": "param2",
-				"Description": ""
-			}
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param2",
+                "Description": ""
+            }
         ]
     }
 ]
