@@ -2,7 +2,7 @@
   {
     "Index": "0x3000",
     "ReturnType": "void",
-    "Name": "EVT_FUNCTION_0000",
+    "Name": "SPAWN_NPC",
     "Description": "Code function name: evtScript____sub_81225DDE",
     "Parameters": [
       {
@@ -46,7 +46,7 @@
   {
     "Index": "0x3003",
     "ReturnType": "int",
-    "Name": "EVT_FUNCTION_0003",
+    "Name": "GET_SL_LEVEL",
     "Description": "",
     "Parameters": [
       {
@@ -59,7 +59,7 @@
   {
     "Index": "0x3004",
     "ReturnType": "void",
-    "Name": "EVT_FUNCTION_0004",
+    "Name": "INCREASE_SL",
     "Description": "",
     "Parameters": [
       {
@@ -184,7 +184,7 @@
   {
     "Index": "0x300e",
     "ReturnType": "int",
-    "Name": "EVT_FUNCTION_000E",
+    "Name": "CHECK_IF_SL_LVLUP",
     "Description": "",
     "Parameters": [
       {
@@ -223,7 +223,7 @@
   {
     "Index": "0x3011",
     "ReturnType": "void",
-    "Name": "EVT_FUNCTION_0011",
+    "Name": "REVERSE_SL",
     "Description": "",
     "Parameters": [
       {
@@ -241,7 +241,7 @@
   {
     "Index": "0x3012",
     "ReturnType": "void",
-    "Name": "EVT_FUNCTION_0012",
+    "Name": "BREAK_SL",
     "Description": "",
     "Parameters": [
       {
@@ -559,7 +559,7 @@
   {
     "Index": "0x302c",
     "ReturnType": "void",
-    "Name": "EVT_FUNCTION_002C",
+    "Name": "SL_LVLUP_VISUAL",
     "Description": "",
     "Parameters": [
       {
@@ -733,7 +733,7 @@
   {
     "Index": "0x3039",
     "ReturnType": "void",
-    "Name": "EVT_FUNCTION_0039",
+    "Name": "ACCEPT_QUEST",
     "Description": "Code function name: cmpMisc_sub_81164064",
     "Parameters": [
       {
@@ -746,7 +746,7 @@
   {
     "Index": "0x303a",
     "ReturnType": "void",
-    "Name": "EVT_FUNCTION_003A",
+    "Name": "COMPLETE_QUEST",
     "Description": "Code function name: cmpMisc_sub_81164152",
     "Parameters": [
       {

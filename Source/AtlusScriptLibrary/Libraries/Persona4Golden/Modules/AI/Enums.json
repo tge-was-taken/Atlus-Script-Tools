@@ -54,22 +54,22 @@
         "Description": "Generated from table entry: Immortal Flame"
       },
       {
-        "Name": "Blank",
+        "Name": "TinySoulTomato",
         "Value": 10,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank1",
+        "Name": "Tetracorn",
         "Value": 11,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank2",
+        "Name": "RunAmok",
         "Value": 12,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank3",
+        "Name": "ShakeOff",
         "Value": 13,
         "Description": "Generated from table entry: Blank"
       },
@@ -114,22 +114,22 @@
         "Description": "Generated from table entry: Panta Rhei"
       },
       {
-        "Name": "Blank4",
+        "Name": "HiranyaCabbage",
         "Value": 22,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank5",
+        "Name": "CryOfDenial",
         "Value": 23,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank6",
+        "Name": "HotLightning",
         "Value": 24,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank7",
+        "Name": "DrainingFog",
         "Value": 25,
         "Description": "Generated from table entry: Blank"
       },
@@ -179,22 +179,22 @@
         "Description": "Generated from table entry: Bloody Rain"
       },
       {
-        "Name": "Blank8",
+        "Name": "RedPaprika",
         "Value": 35,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank9",
+        "Name": "EnclosureShell",
         "Value": 36,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank10",
+        "Name": "HotLightning2",
         "Value": 37,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank11",
+        "Name": "ShellOfDenial",
         "Value": 38,
         "Description": "Generated from table entry: Blank"
       },
@@ -239,22 +239,22 @@
         "Description": "Generated from table entry: Thunder Reign"
       },
       {
-        "Name": "Blank12",
+        "Name": "BeadMelon",
         "Value": 47,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank13",
+        "Name": "MidSoulTomato",
         "Value": 48,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank14",
+        "Name": "BigSoulTomato",
         "Value": 49,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank15",
+        "Name": "Makaracorn",
         "Value": 50,
         "Description": "Generated from table entry: Blank"
       },
@@ -289,22 +289,22 @@
         "Description": "Generated from table entry: Morning Star"
       },
       {
-        "Name": "Blank16",
+        "Name": "WhitePaprika",
         "Value": 57,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank17",
+        "Name": "BluePaprika",
         "Value": 58,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank18",
+        "Name": "GreenPaprika",
         "Value": 59,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank19",
+        "Name": "Blank1",
         "Value": 60,
         "Description": "Generated from table entry: Blank"
       },
@@ -549,47 +549,47 @@
         "Description": "Generated from table entry: Last Resort"
       },
       {
-        "Name": "Blank28",
+        "Name": "KamuiMiracle1",
         "Value": 109,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank29",
+        "Name": "KamuiMiracle2",
         "Value": 110,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank30",
+        "Name": "KamuiMiracle3",
         "Value": 111,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank31",
+        "Name": "KamuiMiracle4",
         "Value": 112,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank32",
+        "Name": "KamuiMiracle5",
         "Value": 113,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank33",
+        "Name": "KamuiMiracle6",
         "Value": 114,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank34",
+        "Name": "KamuiMiracle7",
         "Value": 115,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank35",
+        "Name": "KamuiMiracle8",
         "Value": 116,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank36",
+        "Name": "KamuiMiracle9",
         "Value": 117,
         "Description": "Generated from table entry: Blank"
       },
@@ -599,7 +599,7 @@
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank38",
+        "Name": "ElementalBreak",
         "Value": 119,
         "Description": "Generated from table entry: Blank"
       },
@@ -889,32 +889,32 @@
         "Description": "Generated from table entry: Rampage"
       },
       {
-        "Name": "Blank39",
+        "Name": "AttackUpSupport",
         "Value": 177,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank40",
+        "Name": "GuardUpSupport",
         "Value": 178,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank41",
+        "Name": "AgilityUpSupport",
         "Value": 179,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank42",
+        "Name": "ChargeSupport",
         "Value": 180,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank43",
+        "Name": "HPRecoverySupport",
         "Value": 181,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank44",
+        "Name": "SPRecoverySupport",
         "Value": 182,
         "Description": "Generated from table entry: Blank"
       },
@@ -1239,37 +1239,37 @@
         "Description": "Generated from table entry: Traesto"
       },
       {
-        "Name": "Blank54",
+        "Name": "YouthfulWind",
         "Value": 247,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank55",
+        "Name": "DragonHustle",
         "Value": 248,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank56",
+        "Name": "BurningPetals",
         "Value": 249,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank57",
+        "Name": "TheMan'sWay",
         "Value": 250,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank58",
+        "Name": "KamuiMiracle",
         "Value": 251,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank59",
+        "Name": "ShieldOfJustice",
         "Value": 252,
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank60",
+        "Name": "CompleteAnalysis",
         "Value": 253,
         "Description": "Generated from table entry: Blank"
       },
@@ -1279,7 +1279,7 @@
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank62",
+        "Name": "UNKNOWN_DATA",
         "Value": 255,
         "Description": "Generated from table entry: Blank"
       },
@@ -2819,7 +2819,7 @@
         "Description": "Generated from table entry: Izanami Endure"
       },
       {
-        "Name": "Blank63",
+        "Name": "AlienationWall",
         "Value": 563,
         "Description": "Generated from table entry: Blank"
       },
@@ -2874,7 +2874,7 @@
         "Description": "Generated from table entry: Blank"
       },
       {
-        "Name": "Blank74",
+        "Name": "Mudo2",
         "Value": 574,
         "Description": "Generated from table entry: Blank"
       },
@@ -2882,1732 +2882,6 @@
         "Name": "Blank75",
         "Value": 575,
         "Description": "Generated from table entry: Blank"
-      }
-    ]
-  },
-  {
-    "Name": "BattleUnit",
-    "Description": "This enum represents the available units in battle",
-    "Members": [
-      {
-        "Name": "_000",
-        "Value": 0,
-        "Description": "Generated from table entry: 000"
-      },
-      {
-        "Name": "Protagonist",
-        "Value": 1,
-        "Description": ""
-      },
-      {
-        "Name": "Yosuke",
-        "Value": 2,
-        "Description": ""
-      },
-      {
-        "Name": "Chie",
-        "Value": 3,
-        "Description": ""
-      },
-      {
-        "Name": "Yukiko",
-        "Value": 4,
-        "Description": ""
-      },
-      {
-        "Name": "Rise",
-        "Value": 5,
-        "Description": ""
-      },
-      {
-        "Name": "Kanji",
-        "Value": 6,
-        "Description": ""
-      },
-      {
-        "Name": "Naoto",
-        "Value": 7,
-        "Description": ""
-      },
-      {
-        "Name": "Teddie",
-        "Value": 8,
-        "Description": ""
-      },
-      {
-        "Name": "CowardlyMaya",
-        "Value": 1,
-        "Description": "Generated from table entry: Cowardly Maya"
-      },
-      {
-        "Name": "SelfishBasalt",
-        "Value": 2,
-        "Description": "Generated from table entry: Selfish Basalt"
-      },
-      {
-        "Name": "RainySister4",
-        "Value": 3,
-        "Description": "Generated from table entry: Rainy Sister 4"
-      },
-      {
-        "Name": "blank",
-        "Value": 4,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "MagicHand",
-        "Value": 5,
-        "Description": "Generated from table entry: Magic Hand"
-      },
-      {
-        "Name": "DancingHand",
-        "Value": 6,
-        "Description": "Generated from table entry: Dancing Hand"
-      },
-      {
-        "Name": "KillingHand",
-        "Value": 7,
-        "Description": "Generated from table entry: Killing Hand"
-      },
-      {
-        "Name": "AlmightyHand",
-        "Value": 8,
-        "Description": "Generated from table entry: Almighty Hand"
-      },
-      {
-        "Name": "LaughingTable",
-        "Value": 9,
-        "Description": "Generated from table entry: Laughing Table"
-      },
-      {
-        "Name": "CryingTable",
-        "Value": 10,
-        "Description": "Generated from table entry: Crying Table"
-      },
-      {
-        "Name": "AngryTable",
-        "Value": 11,
-        "Description": "Generated from table entry: Angry Table"
-      },
-      {
-        "Name": "SleepingTable",
-        "Value": 12,
-        "Description": "Generated from table entry: Sleeping Table"
-      },
-      {
-        "Name": "MagicalMagus",
-        "Value": 13,
-        "Description": "Generated from table entry: Magical Magus"
-      },
-      {
-        "Name": "WondrousMagus",
-        "Value": 14,
-        "Description": "Generated from table entry: Wondrous Magus"
-      },
-      {
-        "Name": "PrimeMagus",
-        "Value": 15,
-        "Description": "Generated from table entry: Prime Magus"
-      },
-      {
-        "Name": "GrandMagus",
-        "Value": 16,
-        "Description": "Generated from table entry: Grand Magus"
-      },
-      {
-        "Name": "LyingHablerie",
-        "Value": 17,
-        "Description": "Generated from table entry: Lying Hablerie"
-      },
-      {
-        "Name": "ForgottenHablerie",
-        "Value": 18,
-        "Description": "Generated from table entry: Forgotten Hablerie"
-      },
-      {
-        "Name": "FlatteringHablerie",
-        "Value": 19,
-        "Description": "Generated from table entry: Flattering Hablerie"
-      },
-      {
-        "Name": "AgitatingHablerie",
-        "Value": 20,
-        "Description": "Generated from table entry: Agitating Hablerie"
-      },
-      {
-        "Name": "MercilessMaya",
-        "Value": 21,
-        "Description": "Generated from table entry: Merciless Maya"
-      },
-      {
-        "Name": "AutonomicBasalt",
-        "Value": 22,
-        "Description": "Generated from table entry: Autonomic Basalt"
-      },
-      {
-        "Name": "RainyBrother4",
-        "Value": 23,
-        "Description": "Generated from table entry: Rainy Brother 4"
-      },
-      {
-        "Name": "blank1",
-        "Value": 24,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "CloudgirlPot",
-        "Value": 25,
-        "Description": "Generated from table entry: Cloudgirl Pot"
-      },
-      {
-        "Name": "RainyPot",
-        "Value": 26,
-        "Description": "Generated from table entry: Rainy Pot"
-      },
-      {
-        "Name": "YearningPot",
-        "Value": 27,
-        "Description": "Generated from table entry: Yearning Pot"
-      },
-      {
-        "Name": "MistressPot",
-        "Value": 28,
-        "Description": "Generated from table entry: Mistress Pot"
-      },
-      {
-        "Name": "SpuriousBook",
-        "Value": 29,
-        "Description": "Generated from table entry: Spurious Book"
-      },
-      {
-        "Name": "ManiacalBook",
-        "Value": 30,
-        "Description": "Generated from table entry: Maniacal Book"
-      },
-      {
-        "Name": "SilentBook",
-        "Value": 31,
-        "Description": "Generated from table entry: Silent Book"
-      },
-      {
-        "Name": "WrathfulBook",
-        "Value": 32,
-        "Description": "Generated from table entry: Wrathful Book"
-      },
-      {
-        "Name": "TranquilIdol",
-        "Value": 33,
-        "Description": "Generated from table entry: Tranquil Idol"
-      },
-      {
-        "Name": "LiberatingIdol",
-        "Value": 34,
-        "Description": "Generated from table entry: Liberating Idol"
-      },
-      {
-        "Name": "LeadingIdol",
-        "Value": 35,
-        "Description": "Generated from table entry: Leading Idol"
-      },
-      {
-        "Name": "VehementIdol",
-        "Value": 36,
-        "Description": "Generated from table entry: Vehement Idol"
-      },
-      {
-        "Name": "PrimitiveIdol",
-        "Value": 37,
-        "Description": "Generated from table entry: Primitive Idol"
-      },
-      {
-        "Name": "CalmPesce",
-        "Value": 38,
-        "Description": "Generated from table entry: Calm Pesce"
-      },
-      {
-        "Name": "PursuingPesce",
-        "Value": 39,
-        "Description": "Generated from table entry: Pursuing Pesce"
-      },
-      {
-        "Name": "TruthPesce",
-        "Value": 40,
-        "Description": "Generated from table entry: Truth Pesce"
-      },
-      {
-        "Name": "RevelationPesce",
-        "Value": 41,
-        "Description": "Generated from table entry: Revelation Pesce"
-      },
-      {
-        "Name": "FrivolousMaya",
-        "Value": 42,
-        "Description": "Generated from table entry: Frivolous Maya"
-      },
-      {
-        "Name": "IdleBasalt",
-        "Value": 43,
-        "Description": "Generated from table entry: Idle Basalt"
-      },
-      {
-        "Name": "RainySister3",
-        "Value": 44,
-        "Description": "Generated from table entry: Rainy Sister 3"
-      },
-      {
-        "Name": "blank2",
-        "Value": 45,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "VenusEagle",
-        "Value": 46,
-        "Description": "Generated from table entry: Venus Eagle"
-      },
-      {
-        "Name": "DarkEagle",
-        "Value": 47,
-        "Description": "Generated from table entry: Dark Eagle"
-      },
-      {
-        "Name": "JupiterEagle",
-        "Value": 48,
-        "Description": "Generated from table entry: Jupiter Eagle"
-      },
-      {
-        "Name": "EternalEagle",
-        "Value": 49,
-        "Description": "Generated from table entry: Eternal Eagle"
-      },
-      {
-        "Name": "CreationRelic",
-        "Value": 50,
-        "Description": "Generated from table entry: Creation Relic"
-      },
-      {
-        "Name": "ConstancyRelic",
-        "Value": 51,
-        "Description": "Generated from table entry: Constancy Relic"
-      },
-      {
-        "Name": "GrowthRelic",
-        "Value": 52,
-        "Description": "Generated from table entry: Growth Relic"
-      },
-      {
-        "Name": "ChangeRelic",
-        "Value": 53,
-        "Description": "Generated from table entry: Change Relic"
-      },
-      {
-        "Name": "ElegantMother",
-        "Value": 54,
-        "Description": "Generated from table entry: Elegant Mother"
-      },
-      {
-        "Name": "RegalMother",
-        "Value": 55,
-        "Description": "Generated from table entry: Regal Mother"
-      },
-      {
-        "Name": "PistilMother",
-        "Value": 56,
-        "Description": "Generated from table entry: Pistil Mother"
-      },
-      {
-        "Name": "DivineMother",
-        "Value": 57,
-        "Description": "Generated from table entry: Divine Mother"
-      },
-      {
-        "Name": "SecretBambino",
-        "Value": 58,
-        "Description": "Generated from table entry: Secret Bambino"
-      },
-      {
-        "Name": "BloomingBambino",
-        "Value": 59,
-        "Description": "Generated from table entry: Blooming Bambino"
-      },
-      {
-        "Name": "AvariceBambino",
-        "Value": 60,
-        "Description": "Generated from table entry: Avarice Bambino"
-      },
-      {
-        "Name": "FreeBambino",
-        "Value": 61,
-        "Description": "Generated from table entry: Free Bambino"
-      },
-      {
-        "Name": "HaughtyMaya",
-        "Value": 62,
-        "Description": "Generated from table entry: Haughty Maya"
-      },
-      {
-        "Name": "LargeBasalt",
-        "Value": 63,
-        "Description": "Generated from table entry: Large Basalt"
-      },
-      {
-        "Name": "RainyBrother3",
-        "Value": 64,
-        "Description": "Generated from table entry: Rainy Brother 3"
-      },
-      {
-        "Name": "blank3",
-        "Value": 65,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "GraveBeetle",
-        "Value": 66,
-        "Description": "Generated from table entry: Grave Beetle"
-      },
-      {
-        "Name": "AdamantBeetle",
-        "Value": 67,
-        "Description": "Generated from table entry: Adamant Beetle"
-      },
-      {
-        "Name": "StrengthBeetle",
-        "Value": 68,
-        "Description": "Generated from table entry: Strength Beetle"
-      },
-      {
-        "Name": "EmperorBeetle",
-        "Value": 69,
-        "Description": "Generated from table entry: Emperor Beetle"
-      },
-      {
-        "Name": "BurningBeetle",
-        "Value": 70,
-        "Description": "Generated from table entry: Burning Beetle"
-      },
-      {
-        "Name": "AvengerKnight",
-        "Value": 71,
-        "Description": "Generated from table entry: Avenger Knight"
-      },
-      {
-        "Name": "ChampionKnight",
-        "Value": 72,
-        "Description": "Generated from table entry: Champion Knight"
-      },
-      {
-        "Name": "HellKnight",
-        "Value": 73,
-        "Description": "Generated from table entry: Hell Knight"
-      },
-      {
-        "Name": "IntrepidKnight",
-        "Value": 74,
-        "Description": "Generated from table entry: Intrepid Knight"
-      },
-      {
-        "Name": "RainyCastle",
-        "Value": 75,
-        "Description": "Generated from table entry: Rainy Castle"
-      },
-      {
-        "Name": "PowerCastle",
-        "Value": 76,
-        "Description": "Generated from table entry: Power Castle"
-      },
-      {
-        "Name": "RaindropCastle",
-        "Value": 77,
-        "Description": "Generated from table entry: Raindrop Castle"
-      },
-      {
-        "Name": "KingCastle",
-        "Value": 78,
-        "Description": "Generated from table entry: King Castle"
-      },
-      {
-        "Name": "PositiveKing",
-        "Value": 79,
-        "Description": "Generated from table entry: Positive King"
-      },
-      {
-        "Name": "EgotisticalKing",
-        "Value": 80,
-        "Description": "Generated from table entry: Egotistical King"
-      },
-      {
-        "Name": "GreatKing",
-        "Value": 81,
-        "Description": "Generated from table entry: Great King"
-      },
-      {
-        "Name": "BrilliantKing",
-        "Value": 82,
-        "Description": "Generated from table entry: Brilliant King"
-      },
-      {
-        "Name": "IndolentMaya",
-        "Value": 83,
-        "Description": "Generated from table entry: Indolent Maya"
-      },
-      {
-        "Name": "DependentBasalt",
-        "Value": 84,
-        "Description": "Generated from table entry: Dependent Basalt"
-      },
-      {
-        "Name": "RainySister2",
-        "Value": 85,
-        "Description": "Generated from table entry: Rainy Sister 2"
-      },
-      {
-        "Name": "blank4",
-        "Value": 86,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "TranceTwins",
-        "Value": 87,
-        "Description": "Generated from table entry: Trance Twins"
-      },
-      {
-        "Name": "KillerTwins",
-        "Value": 88,
-        "Description": "Generated from table entry: Killer Twins"
-      },
-      {
-        "Name": "RainbowTwins",
-        "Value": 89,
-        "Description": "Generated from table entry: Rainbow Twins"
-      },
-      {
-        "Name": "CrazyTwins",
-        "Value": 90,
-        "Description": "Generated from table entry: Crazy Twins"
-      },
-      {
-        "Name": "CorruptTower",
-        "Value": 91,
-        "Description": "Generated from table entry: Corrupt Tower"
-      },
-      {
-        "Name": "DogmaticTower",
-        "Value": 92,
-        "Description": "Generated from table entry: Dogmatic Tower"
-      },
-      {
-        "Name": "ApostateTower",
-        "Value": 93,
-        "Description": "Generated from table entry: Apostate Tower"
-      },
-      {
-        "Name": "FanaticTower",
-        "Value": 94,
-        "Description": "Generated from table entry: Fanatic Tower"
-      },
-      {
-        "Name": "GrudgeTower",
-        "Value": 95,
-        "Description": "Generated from table entry: Grudge Tower"
-      },
-      {
-        "Name": "BlueSigil",
-        "Value": 96,
-        "Description": "Generated from table entry: Blue Sigil"
-      },
-      {
-        "Name": "RedSigil",
-        "Value": 97,
-        "Description": "Generated from table entry: Red Sigil"
-      },
-      {
-        "Name": "GreenSigil",
-        "Value": 98,
-        "Description": "Generated from table entry: Green Sigil"
-      },
-      {
-        "Name": "PurpleSigil",
-        "Value": 99,
-        "Description": "Generated from table entry: Purple Sigil"
-      },
-      {
-        "Name": "BribedFuzz",
-        "Value": 100,
-        "Description": "Generated from table entry: Bribed Fuzz"
-      },
-      {
-        "Name": "PersistentFuzz",
-        "Value": 101,
-        "Description": "Generated from table entry: Persistent Fuzz"
-      },
-      {
-        "Name": "MonomaniacFuzz",
-        "Value": 102,
-        "Description": "Generated from table entry: Monomaniac Fuzz"
-      },
-      {
-        "Name": "ChaosFuzz",
-        "Value": 103,
-        "Description": "Generated from table entry: Chaos Fuzz"
-      },
-      {
-        "Name": "InsidiousMaya",
-        "Value": 104,
-        "Description": "Generated from table entry: Insidious Maya"
-      },
-      {
-        "Name": "AnguishBasalt",
-        "Value": 105,
-        "Description": "Generated from table entry: Anguish Basalt"
-      },
-      {
-        "Name": "RainyBrother2",
-        "Value": 106,
-        "Description": "Generated from table entry: Rainy Brother 2"
-      },
-      {
-        "Name": "blank5",
-        "Value": 107,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "MonopolizingCupid",
-        "Value": 108,
-        "Description": "Generated from table entry: Monopolizing Cupid"
-      },
-      {
-        "Name": "BlindCupid",
-        "Value": 109,
-        "Description": "Generated from table entry: Blind Cupid"
-      },
-      {
-        "Name": "DevotedCupid",
-        "Value": 110,
-        "Description": "Generated from table entry: Devoted Cupid"
-      },
-      {
-        "Name": "GraciousCupid",
-        "Value": 111,
-        "Description": "Generated from table entry: Gracious Cupid"
-      },
-      {
-        "Name": "SoulDancer",
-        "Value": 112,
-        "Description": "Generated from table entry: Soul Dancer"
-      },
-      {
-        "Name": "ArdentDancer",
-        "Value": 113,
-        "Description": "Generated from table entry: Ardent Dancer"
-      },
-      {
-        "Name": "RoyalDancer",
-        "Value": 114,
-        "Description": "Generated from table entry: Royal Dancer"
-      },
-      {
-        "Name": "NaturalDancer",
-        "Value": 115,
-        "Description": "Generated from table entry: Natural Dancer"
-      },
-      {
-        "Name": "HaremDancer",
-        "Value": 116,
-        "Description": "Generated from table entry: Harem Dancer"
-      },
-      {
-        "Name": "LustfulSnake",
-        "Value": 117,
-        "Description": "Generated from table entry: Lustful Snake"
-      },
-      {
-        "Name": "ImmoralSnake",
-        "Value": 118,
-        "Description": "Generated from table entry: Immoral Snake"
-      },
-      {
-        "Name": "CarnalSnake",
-        "Value": 119,
-        "Description": "Generated from table entry: Carnal Snake"
-      },
-      {
-        "Name": "AmorousSnake",
-        "Value": 120,
-        "Description": "Generated from table entry: Amorous Snake"
-      },
-      {
-        "Name": "StoicSnake",
-        "Value": 121,
-        "Description": "Generated from table entry: Stoic Snake"
-      },
-      {
-        "Name": "WhimsicalPapillon",
-        "Value": 122,
-        "Description": "Generated from table entry: Whimsical Papillon"
-      },
-      {
-        "Name": "FinickyPapillon",
-        "Value": 123,
-        "Description": "Generated from table entry: Finicky Papillon"
-      },
-      {
-        "Name": "FicklePapillon",
-        "Value": 124,
-        "Description": "Generated from table entry: Fickle Papillon"
-      },
-      {
-        "Name": "PurePapillon",
-        "Value": 125,
-        "Description": "Generated from table entry: Pure Papillon"
-      },
-      {
-        "Name": "IllfatedMaya",
-        "Value": 126,
-        "Description": "Generated from table entry: Ill-fated Maya"
-      },
-      {
-        "Name": "InsolentBasalt",
-        "Value": 127,
-        "Description": "Generated from table entry: Insolent Basalt"
-      },
-      {
-        "Name": "RainySister1",
-        "Value": 128,
-        "Description": "Generated from table entry: Rainy Sister 1"
-      },
-      {
-        "Name": "blank6",
-        "Value": 129,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "RainWheel",
-        "Value": 130,
-        "Description": "Generated from table entry: Rain Wheel"
-      },
-      {
-        "Name": "MachWheel",
-        "Value": 131,
-        "Description": "Generated from table entry: Mach Wheel"
-      },
-      {
-        "Name": "BraveWheel",
-        "Value": 132,
-        "Description": "Generated from table entry: Brave Wheel"
-      },
-      {
-        "Name": "BattleWheel",
-        "Value": 133,
-        "Description": "Generated from table entry: Battle Wheel"
-      },
-      {
-        "Name": "WildDrive",
-        "Value": 134,
-        "Description": "Generated from table entry: Wild Drive"
-      },
-      {
-        "Name": "KillerDrive",
-        "Value": 135,
-        "Description": "Generated from table entry: Killer Drive"
-      },
-      {
-        "Name": "SlaughterDrive",
-        "Value": 136,
-        "Description": "Generated from table entry: Slaughter Drive"
-      },
-      {
-        "Name": "RampageDrive",
-        "Value": 137,
-        "Description": "Generated from table entry: Rampage Drive"
-      },
-      {
-        "Name": "ArcaneTurret",
-        "Value": 138,
-        "Description": "Generated from table entry: Arcane Turret"
-      },
-      {
-        "Name": "ScarletTurret",
-        "Value": 139,
-        "Description": "Generated from table entry: Scarlet Turret"
-      },
-      {
-        "Name": "WickedTurret",
-        "Value": 140,
-        "Description": "Generated from table entry: Wicked Turret"
-      },
-      {
-        "Name": "HallowedTurret",
-        "Value": 141,
-        "Description": "Generated from table entry: Hallowed Turret"
-      },
-      {
-        "Name": "SpasticTurret",
-        "Value": 142,
-        "Description": "Generated from table entry: Spastic Turret"
-      },
-      {
-        "Name": "BerserkTurret",
-        "Value": 143,
-        "Description": "Generated from table entry: Berserk Turret"
-      },
-      {
-        "Name": "DismayedPanzer",
-        "Value": 144,
-        "Description": "Generated from table entry: Dismayed Panzer"
-      },
-      {
-        "Name": "RashPanzer",
-        "Value": 145,
-        "Description": "Generated from table entry: Rash Panzer"
-      },
-      {
-        "Name": "ConceitedPanzer",
-        "Value": 146,
-        "Description": "Generated from table entry: Conceited Panzer"
-      },
-      {
-        "Name": "PtarmiganPanzer",
-        "Value": 147,
-        "Description": "Generated from table entry: Ptarmigan Panzer"
-      },
-      {
-        "Name": "VisceralMaya",
-        "Value": 148,
-        "Description": "Generated from table entry: Visceral Maya"
-      },
-      {
-        "Name": "SourceBasalt",
-        "Value": 149,
-        "Description": "Generated from table entry: Source Basalt"
-      },
-      {
-        "Name": "RainyBrother1",
-        "Value": 150,
-        "Description": "Generated from table entry: Rainy Brother 1"
-      },
-      {
-        "Name": "blank7",
-        "Value": 151,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "RainLegMusha",
-        "Value": 152,
-        "Description": "Generated from table entry: Rain Leg Musha"
-      },
-      {
-        "Name": "RainEndMusha",
-        "Value": 153,
-        "Description": "Generated from table entry: Rain End Musha"
-      },
-      {
-        "Name": "RaindropMusha",
-        "Value": 154,
-        "Description": "Generated from table entry: Raindrop Musha"
-      },
-      {
-        "Name": "RainWindMusha",
-        "Value": 155,
-        "Description": "Generated from table entry: Rain Wind Musha"
-      },
-      {
-        "Name": "DaringGigas",
-        "Value": 156,
-        "Description": "Generated from table entry: Daring Gigas"
-      },
-      {
-        "Name": "BeastlyGigas",
-        "Value": 157,
-        "Description": "Generated from table entry: Beastly Gigas"
-      },
-      {
-        "Name": "FuriousGigas",
-        "Value": 158,
-        "Description": "Generated from table entry: Furious Gigas"
-      },
-      {
-        "Name": "MythicalGigas",
-        "Value": 159,
-        "Description": "Generated from table entry: Mythical Gigas"
-      },
-      {
-        "Name": "ImmortalGigas",
-        "Value": 160,
-        "Description": "Generated from table entry: Immortal Gigas"
-      },
-      {
-        "Name": "NizamBeast",
-        "Value": 161,
-        "Description": "Generated from table entry: Nizam Beast"
-      },
-      {
-        "Name": "EnslavedBeast",
-        "Value": 162,
-        "Description": "Generated from table entry: Enslaved Beast"
-      },
-      {
-        "Name": "MightyBeast",
-        "Value": 163,
-        "Description": "Generated from table entry: Mighty Beast"
-      },
-      {
-        "Name": "NemeanBeast",
-        "Value": 164,
-        "Description": "Generated from table entry: Nemean Beast"
-      },
-      {
-        "Name": "ElDoradoBeast",
-        "Value": 165,
-        "Description": "Generated from table entry: El Dorado Beast"
-      },
-      {
-        "Name": "InvitingNyogo",
-        "Value": 166,
-        "Description": "Generated from table entry: Inviting Nyogo"
-      },
-      {
-        "Name": "BlossomNyogo",
-        "Value": 167,
-        "Description": "Generated from table entry: Blossom Nyogo"
-      },
-      {
-        "Name": "ValuingNyogo",
-        "Value": 168,
-        "Description": "Generated from table entry: Valuing Nyogo"
-      },
-      {
-        "Name": "SilentNyogo",
-        "Value": 169,
-        "Description": "Generated from table entry: Silent Nyogo"
-      },
-      {
-        "Name": "DesirousMaya",
-        "Value": 170,
-        "Description": "Generated from table entry: Desirous Maya"
-      },
-      {
-        "Name": "SubmissiveBasalt",
-        "Value": 171,
-        "Description": "Generated from table entry: Submissive Basalt"
-      },
-      {
-        "Name": "RainySister21",
-        "Value": 172,
-        "Description": "Generated from table entry: Rainy Sister 2"
-      },
-      {
-        "Name": "blank8",
-        "Value": 173,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "BlackRaven",
-        "Value": 174,
-        "Description": "Generated from table entry: Black Raven"
-      },
-      {
-        "Name": "ViciousRaven",
-        "Value": 175,
-        "Description": "Generated from table entry: Vicious Raven"
-      },
-      {
-        "Name": "SonicRaven",
-        "Value": 176,
-        "Description": "Generated from table entry: Sonic Raven"
-      },
-      {
-        "Name": "AmentiRaven",
-        "Value": 177,
-        "Description": "Generated from table entry: Amenti Raven"
-      },
-      {
-        "Name": "PhantomMage",
-        "Value": 178,
-        "Description": "Generated from table entry: Phantom Mage"
-      },
-      {
-        "Name": "PhantomMaster",
-        "Value": 179,
-        "Description": "Generated from table entry: Phantom Master"
-      },
-      {
-        "Name": "PhantomLord",
-        "Value": 180,
-        "Description": "Generated from table entry: Phantom Lord"
-      },
-      {
-        "Name": "PhantomKing",
-        "Value": 181,
-        "Description": "Generated from table entry: Phantom King"
-      },
-      {
-        "Name": "PhantomHero",
-        "Value": 182,
-        "Description": "Generated from table entry: Phantom Hero"
-      },
-      {
-        "Name": "DeathSeeker",
-        "Value": 183,
-        "Description": "Generated from table entry: Death Seeker"
-      },
-      {
-        "Name": "FateSeeker",
-        "Value": 184,
-        "Description": "Generated from table entry: Fate Seeker"
-      },
-      {
-        "Name": "NobleSeeker",
-        "Value": 185,
-        "Description": "Generated from table entry: Noble Seeker"
-      },
-      {
-        "Name": "AcheronSeeker",
-        "Value": 186,
-        "Description": "Generated from table entry: Acheron Seeker"
-      },
-      {
-        "Name": "ShallowOkina",
-        "Value": 187,
-        "Description": "Generated from table entry: Shallow Okina"
-      },
-      {
-        "Name": "RecklessOkina",
-        "Value": 188,
-        "Description": "Generated from table entry: Reckless Okina"
-      },
-      {
-        "Name": "ReformedOkina",
-        "Value": 189,
-        "Description": "Generated from table entry: Reformed Okina"
-      },
-      {
-        "Name": "MoonOkina",
-        "Value": 190,
-        "Description": "Generated from table entry: Moon Okina"
-      },
-      {
-        "Name": "ImprudentMaya",
-        "Value": 191,
-        "Description": "Generated from table entry: Imprudent Maya"
-      },
-      {
-        "Name": "AccidentalBasalt",
-        "Value": 192,
-        "Description": "Generated from table entry: Accidental Basalt"
-      },
-      {
-        "Name": "RainyBrother21",
-        "Value": 193,
-        "Description": "Generated from table entry: Rainy Brother 2"
-      },
-      {
-        "Name": "blank9",
-        "Value": 194,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "BronzeDice",
-        "Value": 195,
-        "Description": "Generated from table entry: Bronze Dice"
-      },
-      {
-        "Name": "IronDice",
-        "Value": 196,
-        "Description": "Generated from table entry: Iron Dice"
-      },
-      {
-        "Name": "SilverDice",
-        "Value": 197,
-        "Description": "Generated from table entry: Silver Dice"
-      },
-      {
-        "Name": "PlatinumDice",
-        "Value": 198,
-        "Description": "Generated from table entry: Platinum Dice"
-      },
-      {
-        "Name": "MindDice",
-        "Value": 199,
-        "Description": "Generated from table entry: Mind Dice"
-      },
-      {
-        "Name": "CurseDice",
-        "Value": 200,
-        "Description": "Generated from table entry: Curse Dice"
-      },
-      {
-        "Name": "DeathDice",
-        "Value": 201,
-        "Description": "Generated from table entry: Death Dice"
-      },
-      {
-        "Name": "ReckoningDice",
-        "Value": 202,
-        "Description": "Generated from table entry: Reckoning Dice"
-      },
-      {
-        "Name": "FlowingSand",
-        "Value": 203,
-        "Description": "Generated from table entry: Flowing Sand"
-      },
-      {
-        "Name": "PerpetualSand",
-        "Value": 204,
-        "Description": "Generated from table entry: Perpetual Sand"
-      },
-      {
-        "Name": "InfiniteSand",
-        "Value": 205,
-        "Description": "Generated from table entry: Infinite Sand"
-      },
-      {
-        "Name": "EternalSand",
-        "Value": 206,
-        "Description": "Generated from table entry: Eternal Sand"
-      },
-      {
-        "Name": "MissGene",
-        "Value": 207,
-        "Description": "Generated from table entry: Miss Gene"
-      },
-      {
-        "Name": "FailGene",
-        "Value": 208,
-        "Description": "Generated from table entry: Fail Gene"
-      },
-      {
-        "Name": "HappyGene",
-        "Value": 209,
-        "Description": "Generated from table entry: Happy Gene"
-      },
-      {
-        "Name": "NextGene",
-        "Value": 210,
-        "Description": "Generated from table entry: Next Gene"
-      },
-      {
-        "Name": "BigotedMaya",
-        "Value": 211,
-        "Description": "Generated from table entry: Bigoted Maya"
-      },
-      {
-        "Name": "CovictedBasalt",
-        "Value": 212,
-        "Description": "Generated from table entry: Covicted Basalt"
-      },
-      {
-        "Name": "RainySister11",
-        "Value": 213,
-        "Description": "Generated from table entry: Rainy Sister 1"
-      },
-      {
-        "Name": "blank10",
-        "Value": 214,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "JusticeSword",
-        "Value": 215,
-        "Description": "Generated from table entry: Justice Sword"
-      },
-      {
-        "Name": "ConvictionSword",
-        "Value": 216,
-        "Description": "Generated from table entry: Conviction Sword"
-      },
-      {
-        "Name": "JudgmentSword",
-        "Value": 217,
-        "Description": "Generated from table entry: Judgment Sword"
-      },
-      {
-        "Name": "DoomSword",
-        "Value": 218,
-        "Description": "Generated from table entry: Doom Sword"
-      },
-      {
-        "Name": "HeatBalance",
-        "Value": 219,
-        "Description": "Generated from table entry: Heat Balance"
-      },
-      {
-        "Name": "SkyBalance",
-        "Value": 220,
-        "Description": "Generated from table entry: Sky Balance"
-      },
-      {
-        "Name": "WorldBalance",
-        "Value": 221,
-        "Description": "Generated from table entry: World Balance"
-      },
-      {
-        "Name": "LightBalance",
-        "Value": 222,
-        "Description": "Generated from table entry: Light Balance"
-      },
-      {
-        "Name": "OrderGiant",
-        "Value": 223,
-        "Description": "Generated from table entry: Order Giant"
-      },
-      {
-        "Name": "StasisGiant",
-        "Value": 224,
-        "Description": "Generated from table entry: Stasis Giant"
-      },
-      {
-        "Name": "HarmonyGiant",
-        "Value": 225,
-        "Description": "Generated from table entry: Harmony Giant"
-      },
-      {
-        "Name": "VoidGiant",
-        "Value": 226,
-        "Description": "Generated from table entry: Void Giant"
-      },
-      {
-        "Name": "SteelMachine",
-        "Value": 227,
-        "Description": "Generated from table entry: Steel Machine"
-      },
-      {
-        "Name": "DominatingMachine",
-        "Value": 228,
-        "Description": "Generated from table entry: Dominating Machine"
-      },
-      {
-        "Name": "SolemnMachine",
-        "Value": 229,
-        "Description": "Generated from table entry: Solemn Machine"
-      },
-      {
-        "Name": "HeartlessMachine",
-        "Value": 230,
-        "Description": "Generated from table entry: Heartless Machine"
-      },
-      {
-        "Name": "DeviousMaya",
-        "Value": 231,
-        "Description": "Generated from table entry: Devious Maya"
-      },
-      {
-        "Name": "OppressiveBasalt",
-        "Value": 232,
-        "Description": "Generated from table entry: Oppressive Basalt"
-      },
-      {
-        "Name": "RainyBrother11",
-        "Value": 233,
-        "Description": "Generated from table entry: Rainy Brother 1"
-      },
-      {
-        "Name": "blank11",
-        "Value": 234,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "MinotaurIV",
-        "Value": 235,
-        "Description": "Generated from table entry: Minotaur IV"
-      },
-      {
-        "Name": "MinotaurIII",
-        "Value": 236,
-        "Description": "Generated from table entry: Minotaur III"
-      },
-      {
-        "Name": "MinotaurII",
-        "Value": 237,
-        "Description": "Generated from table entry: Minotaur II"
-      },
-      {
-        "Name": "MinotaurI",
-        "Value": 238,
-        "Description": "Generated from table entry: Minotaur I"
-      },
-      {
-        "Name": "NeoMinotaur",
-        "Value": 239,
-        "Description": "Generated from table entry: Neo Minotaur"
-      },
-      {
-        "Name": "JotunofPower",
-        "Value": 240,
-        "Description": "Generated from table entry: Jotun of Power"
-      },
-      {
-        "Name": "JotunofBlood",
-        "Value": 241,
-        "Description": "Generated from table entry: Jotun of Blood"
-      },
-      {
-        "Name": "JotunofEvil",
-        "Value": 242,
-        "Description": "Generated from table entry: Jotun of Evil"
-      },
-      {
-        "Name": "JotunofGrief",
-        "Value": 243,
-        "Description": "Generated from table entry: Jotun of Grief"
-      },
-      {
-        "Name": "MightyCyclops",
-        "Value": 244,
-        "Description": "Generated from table entry: Mighty Cyclops"
-      },
-      {
-        "Name": "MadCyclops",
-        "Value": 245,
-        "Description": "Generated from table entry: Mad Cyclops"
-      },
-      {
-        "Name": "FierceCyclops",
-        "Value": 246,
-        "Description": "Generated from table entry: Fierce Cyclops"
-      },
-      {
-        "Name": "ChaosCyclops",
-        "Value": 247,
-        "Description": "Generated from table entry: Chaos Cyclops"
-      },
-      {
-        "Name": "BrilliantCyclops",
-        "Value": 248,
-        "Description": "Generated from table entry: Brilliant Cyclops"
-      },
-      {
-        "Name": "RebelliousCyclops",
-        "Value": 249,
-        "Description": "Generated from table entry: Rebellious Cyclops"
-      },
-      {
-        "Name": "ProtectiveRexy",
-        "Value": 250,
-        "Description": "Generated from table entry: Protective Rexy"
-      },
-      {
-        "Name": "DryDixie",
-        "Value": 251,
-        "Description": "Generated from table entry: Dry Dixie"
-      },
-      {
-        "Name": "EarnestCarothy",
-        "Value": 252,
-        "Description": "Generated from table entry: Earnest Carothy"
-      },
-      {
-        "Name": "SuccessfulJunshi",
-        "Value": 253,
-        "Description": "Generated from table entry: Successful Junshi"
-      },
-      {
-        "Name": "TestRare",
-        "Value": 254,
-        "Description": "Generated from table entry: Test Rare"
-      },
-      {
-        "Name": "blank12",
-        "Value": 255,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "ShadowYosuke",
-        "Value": 256,
-        "Description": "Generated from table entry: Shadow Yosuke"
-      },
-      {
-        "Name": "ShadowChie",
-        "Value": 257,
-        "Description": "Generated from table entry: Shadow Chie"
-      },
-      {
-        "Name": "ShadowYukiko",
-        "Value": 258,
-        "Description": "Generated from table entry: Shadow Yukiko"
-      },
-      {
-        "Name": "ShadowKanji",
-        "Value": 259,
-        "Description": "Generated from table entry: Shadow Kanji"
-      },
-      {
-        "Name": "ShadowRise",
-        "Value": 260,
-        "Description": "Generated from table entry: Shadow Rise"
-      },
-      {
-        "Name": "ShadowTeddie",
-        "Value": 261,
-        "Description": "Generated from table entry: Shadow Teddie"
-      },
-      {
-        "Name": "ShadowMitsuo",
-        "Value": 262,
-        "Description": "Generated from table entry: Shadow Mitsuo"
-      },
-      {
-        "Name": "ShadowNaoto",
-        "Value": 263,
-        "Description": "Generated from table entry: Shadow Naoto"
-      },
-      {
-        "Name": "Kuninosagiri",
-        "Value": 264,
-        "Description": "Generated from table entry: Kunino-sagiri"
-      },
-      {
-        "Name": "Adachi",
-        "Value": 265,
-        "Description": "Generated from table entry: Adachi"
-      },
-      {
-        "Name": "Amenosagiri",
-        "Value": 266,
-        "Description": "Generated from table entry: Ameno-sagiri"
-      },
-      {
-        "Name": "Izanami",
-        "Value": 267,
-        "Description": "Generated from table entry: Izanami"
-      },
-      {
-        "Name": "SlippingHablerie",
-        "Value": 268,
-        "Description": "Generated from table entry: Slipping Hablerie"
-      },
-      {
-        "Name": "CharmingPrince",
-        "Value": 269,
-        "Description": "Generated from table entry: Charming Prince"
-      },
-      {
-        "Name": "IzanaminoOkami",
-        "Value": 270,
-        "Description": "Generated from table entry: Izanami-no-Okami"
-      },
-      {
-        "Name": "MitsuotheHero",
-        "Value": 271,
-        "Description": "Generated from table entry: Mitsuo the Hero"
-      },
-      {
-        "Name": "NiceGuy",
-        "Value": 272,
-        "Description": "Generated from table entry: Nice Guy"
-      },
-      {
-        "Name": "ToughGuy",
-        "Value": 273,
-        "Description": "Generated from table entry: Tough Guy"
-      },
-      {
-        "Name": "Margaret",
-        "Value": 274,
-        "Description": "Generated from table entry: Margaret"
-      },
-      {
-        "Name": "???",
-        "Value": 275,
-        "Description": "Generated from table entry: ???"
-      },
-      {
-        "Name": "blank13",
-        "Value": 276,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "blank14",
-        "Value": 277,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "blank15",
-        "Value": 278,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "blank16",
-        "Value": 279,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "blank17",
-        "Value": 280,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "blank18",
-        "Value": 281,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "blank19",
-        "Value": 282,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "blank20",
-        "Value": 283,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "blank21",
-        "Value": 284,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "blank22",
-        "Value": 285,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "blank23",
-        "Value": 286,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "blank24",
-        "Value": 287,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "TheReaper",
-        "Value": 288,
-        "Description": "Generated from table entry: The Reaper"
-      },
-      {
-        "Name": "TheReaper1",
-        "Value": 289,
-        "Description": "Generated from table entry: The Reaper"
-      },
-      {
-        "Name": "TheReaper2",
-        "Value": 290,
-        "Description": "Generated from table entry: The Reaper"
-      },
-      {
-        "Name": "TheReaper3",
-        "Value": 291,
-        "Description": "Generated from table entry: The Reaper"
-      },
-      {
-        "Name": "TheReaper4",
-        "Value": 292,
-        "Description": "Generated from table entry: The Reaper"
-      },
-      {
-        "Name": "TheReaper5",
-        "Value": 293,
-        "Description": "Generated from table entry: The Reaper"
-      },
-      {
-        "Name": "TheReaper6",
-        "Value": 294,
-        "Description": "Generated from table entry: The Reaper"
-      },
-      {
-        "Name": "TheReaper7",
-        "Value": 295,
-        "Description": "Generated from table entry: The Reaper"
-      },
-      {
-        "Name": "TheReaper8",
-        "Value": 296,
-        "Description": "Generated from table entry: The Reaper"
-      },
-      {
-        "Name": "TheReaper9",
-        "Value": 297,
-        "Description": "Generated from table entry: The Reaper"
-      },
-      {
-        "Name": "WealthHand",
-        "Value": 298,
-        "Description": "Generated from table entry: Wealth Hand"
-      },
-      {
-        "Name": "TreasureHand",
-        "Value": 299,
-        "Description": "Generated from table entry: Treasure Hand"
-      },
-      {
-        "Name": "SupremeHand",
-        "Value": 300,
-        "Description": "Generated from table entry: Supreme Hand"
-      },
-      {
-        "Name": "OpulentHand",
-        "Value": 301,
-        "Description": "Generated from table entry: Opulent Hand"
-      },
-      {
-        "Name": "LuxuryHand",
-        "Value": 302,
-        "Description": "Generated from table entry: Luxury Hand"
-      },
-      {
-        "Name": "GloriousHand",
-        "Value": 303,
-        "Description": "Generated from table entry: Glorious Hand"
-      },
-      {
-        "Name": "ContrarianKing",
-        "Value": 304,
-        "Description": "Generated from table entry: Contrarian King"
-      },
-      {
-        "Name": "IntolerantOfficer",
-        "Value": 305,
-        "Description": "Generated from table entry: Intolerant Officer"
-      },
-      {
-        "Name": "MomentaryChild",
-        "Value": 306,
-        "Description": "Generated from table entry: Momentary Child"
-      },
-      {
-        "Name": "EscapistSoldier",
-        "Value": 307,
-        "Description": "Generated from table entry: Escapist Soldier"
-      },
-      {
-        "Name": "ExtremeVessel",
-        "Value": 308,
-        "Description": "Generated from table entry: Extreme Vessel"
-      },
-      {
-        "Name": "LostOkina",
-        "Value": 309,
-        "Description": "Generated from table entry: Lost Okina"
-      },
-      {
-        "Name": "AvengerKnight1",
-        "Value": 310,
-        "Description": "Generated from table entry: Avenger Knight"
-      },
-      {
-        "Name": "DaringGigas1",
-        "Value": 311,
-        "Description": "Generated from table entry: Daring Gigas"
-      },
-      {
-        "Name": "AmorousSnake1",
-        "Value": 312,
-        "Description": "Generated from table entry: Amorous Snake"
-      },
-      {
-        "Name": "KillingHand1",
-        "Value": 313,
-        "Description": "Generated from table entry: Killing Hand"
-      },
-      {
-        "Name": "DominatingMachine1",
-        "Value": 314,
-        "Description": "Generated from table entry: Dominating Machine"
-      },
-      {
-        "Name": "WorldBalance1",
-        "Value": 315,
-        "Description": "Generated from table entry: World Balance"
-      },
-      {
-        "Name": "ChaosFuzz1",
-        "Value": 316,
-        "Description": "Generated from table entry: Chaos Fuzz"
-      },
-      {
-        "Name": "EnviousGiant",
-        "Value": 317,
-        "Description": "Generated from table entry: Envious Giant"
-      },
-      {
-        "Name": "NeoMinotaur1",
-        "Value": 318,
-        "Description": "Generated from table entry: Neo Minotaur"
-      },
-      {
-        "Name": "SleepingTable1",
-        "Value": 319,
-        "Description": "Generated from table entry: Sleeping Table"
-      },
-      {
-        "Name": "blank25",
-        "Value": 320,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "blank26",
-        "Value": 321,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "blank27",
-        "Value": 322,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "blank28",
-        "Value": 323,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "blank29",
-        "Value": 324,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "blank30",
-        "Value": 325,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "blank31",
-        "Value": 326,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "blank32",
-        "Value": 327,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "blank33",
-        "Value": 328,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "blank34",
-        "Value": 329,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "blank35",
-        "Value": 330,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "blank36",
-        "Value": 331,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "blank37",
-        "Value": 332,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "blank38",
-        "Value": 333,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "blank39",
-        "Value": 334,
-        "Description": "Generated from table entry: blank"
-      },
-      {
-        "Name": "blank40",
-        "Value": 335,
-        "Description": "Generated from table entry: blank"
       }
     ]
   },
@@ -4636,5 +2910,1338 @@
         "Description": ""
       }
     ]
+  },
+  {
+    "Name": "PartyUnit",
+    "Description": "This enum represents The party members",
+    "Members": [
+	  {
+		"Name": "Protagonist",
+		"Value": 1,
+		"Description": ""
+	  },
+	  {
+		"Name": "Yosuke",
+		"Value": 2,
+		"Description": ""
+	  },
+	  {
+		"Name": "Chie",
+		"Value": 3,
+		"Description": ""
+	  },
+	  {
+		"Name": "Yukiko",
+		"Value": 4,
+		"Description": ""
+	  },
+	  {
+		"Name": "Rise",
+		"Value": 5,
+		"Description": ""
+	  },
+	  {
+		"Name": "Kanji",
+		"Value": 6,
+		"Description": ""
+	  },
+	  {
+		"Name": "Naoto",
+		"Value": 7,
+		"Description": ""
+	  },
+	  {
+		"Name": "Teddie",
+		"Value": 8,
+		"Description": ""
+	  },
+	]
+  },
+  {
+    "Name": "PersonaUnit",
+    "Description": "This enum represents The personas",
+    "Members": [
+      {
+		"Name": "Blank",
+		"Value": 0,
+		"Description": ""
+	},
+	{
+		"Name": "Izanagi",
+		"Value": 1,
+		"Description": ""
+	},
+	{
+		"Name": "Tzitzimitl",
+		"Value": 2,
+		"Description": ""
+	},
+	{
+		"Name": "Flauros",
+		"Value": 3,
+		"Description": ""
+	},
+	{
+		"Name": "Loki",
+		"Value": 4,
+		"Description": ""
+	},
+	{
+		"Name": "Ishtar",
+		"Value": 5,
+		"Description": ""
+	},
+	{
+		"Name": "PyroJack",
+		"Value": 6,
+		"Description": ""
+	},
+	{
+		"Name": "JackFrost",
+		"Value": 7,
+		"Description": ""
+	},
+	{
+		"Name": "Scathach",
+		"Value": 8,
+		"Description": ""
+	},
+	{
+		"Name": "Rangda",
+		"Value": 9,
+		"Description": ""
+	},
+	{
+		"Name": "Hachiman",
+		"Value": 10,
+		"Description": ""
+	},
+	{
+		"Name": "CuChulainn",
+		"Value": 11,
+		"Description": ""
+	},
+	{
+		"Name": "Ose",
+		"Value": 12,
+		"Description": ""
+	},
+	{
+		"Name": "KusiMitama",
+		"Value": 13,
+		"Description": ""
+	},
+	{
+		"Name": "Apsaras",
+		"Value": 14,
+		"Description": ""
+	},
+	{
+		"Name": "Ardha",
+		"Value": 15,
+		"Description": ""
+	},
+	{
+		"Name": "Parvati",
+		"Value": 16,
+		"Description": ""
+	},
+	{
+		"Name": "KikuriHime",
+		"Value": 17,
+		"Description": ""
+	},
+	{
+		"Name": "ZaouGongen",
+		"Value": 18,
+		"Description": ""
+	},
+	{
+		"Name": "Sarasvati",
+		"Value": 19,
+		"Description": ""
+	},
+	{
+		"Name": "Yatsufusa",
+		"Value": 20,
+		"Description": ""
+	},
+	{
+		"Name": "Cybele",
+		"Value": 21,
+		"Description": ""
+	},
+	{
+		"Name": "Sraosha",
+		"Value": 22,
+		"Description": ""
+	},
+	{
+		"Name": "NekoShogun",
+		"Value": 23,
+		"Description": ""
+	},
+	{
+		"Name": "Kali",
+		"Value": 24,
+		"Description": ""
+	},
+	{
+		"Name": "Obariyon",
+		"Value": 25,
+		"Description": ""
+	},
+	{
+		"Name": "Ukobach",
+		"Value": 26,
+		"Description": ""
+	},
+	{
+		"Name": "Lamia",
+		"Value": 27,
+		"Description": ""
+	},
+	{
+		"Name": "Odin",
+		"Value": 28,
+		"Description": ""
+	},
+	{
+		"Name": "KingFrost",
+		"Value": 29,
+		"Description": ""
+	},
+	{
+		"Name": "Oukuninushi",
+		"Value": 30,
+		"Description": ""
+	},
+	{
+		"Name": "Undine",
+		"Value": 31,
+		"Description": ""
+	},
+	{
+		"Name": "Sylph",
+		"Value": 32,
+		"Description": ""
+	},
+	{
+		"Name": "Forneus",
+		"Value": 33,
+		"Description": ""
+	},
+	{
+		"Name": "Alraune",
+		"Value": 34,
+		"Description": ""
+	},
+	{
+		"Name": "Mithra",
+		"Value": 35,
+		"Description": ""
+	},
+	{
+		"Name": "Daisoujou",
+		"Value": 36,
+		"Description": ""
+	},
+	{
+		"Name": "Ananta",
+		"Value": 37,
+		"Description": ""
+	},
+	{
+		"Name": "Futsunushi",
+		"Value": 38,
+		"Description": ""
+	},
+	{
+		"Name": "Triglav",
+		"Value": 39,
+		"Description": ""
+	},
+	{
+		"Name": "Raphael",
+		"Value": 40,
+		"Description": ""
+	},
+	{
+		"Name": "Titania",
+		"Value": 41,
+		"Description": ""
+	},
+	{
+		"Name": "Oberon",
+		"Value": 42,
+		"Description": ""
+	},
+	{
+		"Name": "PersonaPlaceholder1",
+		"Value": 43,
+		"Description": ""
+	},
+	{
+		"Name": "Sandman",
+		"Value": 44,
+		"Description": ""
+	},
+	{
+		"Name": "LeananSidhe",
+		"Value": 45,
+		"Description": ""
+	},
+	{
+		"Name": "Pixie",
+		"Value": 46,
+		"Description": ""
+	},
+	{
+		"Name": "Uriel",
+		"Value": 47,
+		"Description": ""
+	},
+	{
+		"Name": "Surt",
+		"Value": 48,
+		"Description": ""
+	},
+	{
+		"Name": "Throne",
+		"Value": 49,
+		"Description": ""
+	},
+	{
+		"Name": "Ares",
+		"Value": 50,
+		"Description": ""
+	},
+	{
+		"Name": "Titan",
+		"Value": 51,
+		"Description": ""
+	},
+	{
+		"Name": "PersonaPlaceholder2",
+		"Value": 52,
+		"Description": ""
+	},
+	{
+		"Name": "AraMitama",
+		"Value": 53,
+		"Description": ""
+	},
+	{
+		"Name": "Valkyrie",
+		"Value": 54,
+		"Description": ""
+	},
+	{
+		"Name": "Melchizedek",
+		"Value": 55,
+		"Description": ""
+	},
+	{
+		"Name": "Dominion",
+		"Value": 56,
+		"Description": ""
+	},
+	{
+		"Name": "Siegfried",
+		"Value": 57,
+		"Description": ""
+	},
+	{
+		"Name": "Virtue",
+		"Value": 58,
+		"Description": ""
+	},
+	{
+		"Name": "Power",
+		"Value": 59,
+		"Description": ""
+	},
+	{
+		"Name": "Archangel",
+		"Value": 60,
+		"Description": ""
+	},
+	{
+		"Name": "Angel",
+		"Value": 61,
+		"Description": ""
+	},
+	{
+		"Name": "Hitokotonusi",
+		"Value": 62,
+		"Description": ""
+	},
+	{
+		"Name": "IpponDatara",
+		"Value": 63,
+		"Description": ""
+	},
+	{
+		"Name": "Nebiros",
+		"Value": 64,
+		"Description": ""
+	},
+	{
+		"Name": "Decarabia",
+		"Value": 65,
+		"Description": ""
+	},
+	{
+		"Name": "Belphegor",
+		"Value": 66,
+		"Description": ""
+	},
+	{
+		"Name": "YomotsuShikome",
+		"Value": 67,
+		"Description": ""
+	},
+	{
+		"Name": "Vetala",
+		"Value": 68,
+		"Description": ""
+	},
+	{
+		"Name": "Norn",
+		"Value": 69,
+		"Description": ""
+	},
+	{
+		"Name": "Atropos",
+		"Value": 70,
+		"Description": ""
+	},
+	{
+		"Name": "Pazuzu",
+		"Value": 71,
+		"Description": ""
+	},
+	{
+		"Name": "Lachesis",
+		"Value": 72,
+		"Description": ""
+	},
+	{
+		"Name": "SakiMitama",
+		"Value": 73,
+		"Description": ""
+	},
+	{
+		"Name": "Eligor",
+		"Value": 74,
+		"Description": ""
+	},
+	{
+		"Name": "Clotho",
+		"Value": 75,
+		"Description": ""
+	},
+	{
+		"Name": "Fortuna",
+		"Value": 76,
+		"Description": ""
+	},
+	{
+		"Name": "Thor",
+		"Value": 77,
+		"Description": ""
+	},
+	{
+		"Name": "Mokoi",
+		"Value": 78,
+		"Description": ""
+	},
+	{
+		"Name": "Abaddon",
+		"Value": 79,
+		"Description": ""
+	},
+	{
+		"Name": "Belial",
+		"Value": 80,
+		"Description": ""
+	},
+	{
+		"Name": "Hanuman",
+		"Value": 81,
+		"Description": ""
+	},
+	{
+		"Name": "Yoshitsune",
+		"Value": 82,
+		"Description": ""
+	},
+	{
+		"Name": "Mahakala",
+		"Value": 83,
+		"Description": ""
+	},
+	{
+		"Name": "Attis",
+		"Value": 84,
+		"Description": ""
+	},
+	{
+		"Name": "Vasuki",
+		"Value": 85,
+		"Description": ""
+	},
+	{
+		"Name": "Orthrus",
+		"Value": 86,
+		"Description": ""
+	},
+	{
+		"Name": "TamLin",
+		"Value": 87,
+		"Description": ""
+	},
+	{
+		"Name": "Jinn",
+		"Value": 88,
+		"Description": ""
+	},
+	{
+		"Name": "Mada",
+		"Value": 89,
+		"Description": ""
+	},
+	{
+		"Name": "WhiteRider",
+		"Value": 90,
+		"Description": ""
+	},
+	{
+		"Name": "Alice",
+		"Value": 91,
+		"Description": ""
+	},
+	{
+		"Name": "Seth",
+		"Value": 92,
+		"Description": ""
+	},
+	{
+		"Name": "Mot",
+		"Value": 93,
+		"Description": ""
+	},
+	{
+		"Name": "Samael",
+		"Value": 94,
+		"Description": ""
+	},
+	{
+		"Name": "Gdon",
+		"Value": 95,
+		"Description": ""
+	},
+	{
+		"Name": "Gorgon",
+		"Value": 96,
+		"Description": ""
+	},
+	{
+		"Name": "Dis",
+		"Value": 97,
+		"Description": ""
+	},
+	{
+		"Name": "Michael",
+		"Value": 98,
+		"Description": ""
+	},
+	{
+		"Name": "Byakko",
+		"Value": 99,
+		"Description": ""
+	},
+	{
+		"Name": "Suzaku",
+		"Value": 100,
+		"Description": ""
+	},
+	{
+		"Name": "Seiryuu",
+		"Value": 101,
+		"Description": ""
+	},
+	{
+		"Name": "NigiMitama",
+		"Value": 102,
+		"Description": ""
+	},
+	{
+		"Name": "Genbu",
+		"Value": 103,
+		"Description": ""
+	},
+	{
+		"Name": "Beelzebub",
+		"Value": 104,
+		"Description": ""
+	},
+	{
+		"Name": "MotherHarlot",
+		"Value": 105,
+		"Description": ""
+	},
+	{
+		"Name": "ShikiOuji",
+		"Value": 106,
+		"Description": ""
+	},
+	{
+		"Name": "Lilith",
+		"Value": 107,
+		"Description": ""
+	},
+	{
+		"Name": "Incubus",
+		"Value": 108,
+		"Description": ""
+	},
+	{
+		"Name": "Succubus",
+		"Value": 109,
+		"Description": ""
+	},
+	{
+		"Name": "Lilim",
+		"Value": 110,
+		"Description": ""
+	},
+	{
+		"Name": "Phoenix",
+		"Value": 111,
+		"Description": ""
+	},
+	{
+		"Name": "Shiva",
+		"Value": 112,
+		"Description": ""
+	},
+	{
+		"Name": "Masakado",
+		"Value": 113,
+		"Description": ""
+	},
+	{
+		"Name": "Ikusa",
+		"Value": 114,
+		"Description": ""
+	},
+	{
+		"Name": "YamatanoOrochi",
+		"Value": 115,
+		"Description": ""
+	},
+	{
+		"Name": "Anzu",
+		"Value": 116,
+		"Description": ""
+	},
+	{
+		"Name": "Helel",
+		"Value": 117,
+		"Description": ""
+	},
+	{
+		"Name": "Sandalphon",
+		"Value": 118,
+		"Description": ""
+	},
+	{
+		"Name": "BlackFrost",
+		"Value": 119,
+		"Description": ""
+	},
+	{
+		"Name": "Garuda",
+		"Value": 120,
+		"Description": ""
+	},
+	{
+		"Name": "Suiki",
+		"Value": 121,
+		"Description": ""
+	},
+	{
+		"Name": "Ganesha",
+		"Value": 122,
+		"Description": ""
+	},
+	{
+		"Name": "Isis",
+		"Value": 123,
+		"Description": ""
+	},
+	{
+		"Name": "Cerberus",
+		"Value": 124,
+		"Description": ""
+	},
+	{
+		"Name": "Fuuki",
+		"Value": 125,
+		"Description": ""
+	},
+	{
+		"Name": "Setanta",
+		"Value": 126,
+		"Description": ""
+	},
+	{
+		"Name": "Girimehkala",
+		"Value": 127,
+		"Description": ""
+	},
+	{
+		"Name": "Nozuchi",
+		"Value": 128,
+		"Description": ""
+	},
+	{
+		"Name": "Legion",
+		"Value": 129,
+		"Description": ""
+	},
+	{
+		"Name": "Berith",
+		"Value": 130,
+		"Description": ""
+	},
+	{
+		"Name": "Saturnus",
+		"Value": 131,
+		"Description": ""
+	},
+	{
+		"Name": "Vishnu",
+		"Value": 132,
+		"Description": ""
+	},
+	{
+		"Name": "Barong",
+		"Value": 133,
+		"Description": ""
+	},
+	{
+		"Name": "Andra",
+		"Value": 134,
+		"Description": ""
+	},
+	{
+		"Name": "Horus",
+		"Value": 135,
+		"Description": ""
+	},
+	{
+		"Name": "Narasimha",
+		"Value": 136,
+		"Description": ""
+	},
+	{
+		"Name": "Senri",
+		"Value": 137,
+		"Description": ""
+	},
+	{
+		"Name": "Kinki",
+		"Value": 138,
+		"Description": ""
+	},
+	{
+		"Name": "Asura",
+		"Value": 139,
+		"Description": ""
+	},
+	{
+		"Name": "Metatron",
+		"Value": 140,
+		"Description": ""
+	},
+	{
+		"Name": "Satan",
+		"Value": 141,
+		"Description": ""
+	},
+	{
+		"Name": "Gabriel",
+		"Value": 142,
+		"Description": ""
+	},
+	{
+		"Name": "HokutoSeikun",
+		"Value": 143,
+		"Description": ""
+	},
+	{
+		"Name": "Trumpeter",
+		"Value": 144,
+		"Description": ""
+	},
+	{
+		"Name": "Anubis",
+		"Value": 145,
+		"Description": ""
+	},
+	{
+		"Name": "NataTaishi",
+		"Value": 146,
+		"Description": ""
+	},
+	{
+		"Name": "Ongyoki",
+		"Value": 147,
+		"Description": ""
+	},
+	{
+		"Name": "HighPixie",
+		"Value": 148,
+		"Description": ""
+	},
+	{
+		"Name": "Yaksini",
+		"Value": 149,
+		"Description": ""
+	},
+	{
+		"Name": "Xiezhai",
+		"Value": 150,
+		"Description": ""
+	},
+	{
+		"Name": "Thoth",
+		"Value": 151,
+		"Description": ""
+	},
+	{
+		"Name": "CuSith",
+		"Value": 152,
+		"Description": ""
+	},
+	{
+		"Name": "Mothman",
+		"Value": 153,
+		"Description": ""
+	},
+	{
+		"Name": "Oni",
+		"Value": 154,
+		"Description": ""
+	},
+	{
+		"Name": "Makami",
+		"Value": 155,
+		"Description": ""
+	},
+	{
+		"Name": "Rakshasa",
+		"Value": 156,
+		"Description": ""
+	},
+	{
+		"Name": "Matador",
+		"Value": 157,
+		"Description": ""
+	},
+	{
+		"Name": "HellBiker",
+		"Value": 158,
+		"Description": ""
+	},
+	{
+		"Name": "Taowu",
+		"Value": 159,
+		"Description": ""
+	},
+	{
+		"Name": "Taotie",
+		"Value": 160,
+		"Description": ""
+	},
+	{
+		"Name": "Pabilsag",
+		"Value": 161,
+		"Description": ""
+	},
+	{
+		"Name": "Mara",
+		"Value": 162,
+		"Description": ""
+	},
+	{
+		"Name": "Kartikeya",
+		"Value": 163,
+		"Description": ""
+	},
+	{
+		"Name": "BaalZebul",
+		"Value": 164,
+		"Description": ""
+	},
+	{
+		"Name": "Suparna",
+		"Value": 165,
+		"Description": ""
+	},
+	{
+		"Name": "Lucifer",
+		"Value": 166,
+		"Description": ""
+	},
+	{
+		"Name": "Orobas",
+		"Value": 167,
+		"Description": ""
+	},
+	{
+		"Name": "Atavaka",
+		"Value": 168,
+		"Description": ""
+	},
+	{
+		"Name": "Hariti",
+		"Value": 169,
+		"Description": ""
+	},
+	{
+		"Name": "Skadi",
+		"Value": 170,
+		"Description": ""
+	},
+	{
+		"Name": "Unicorn",
+		"Value": 171,
+		"Description": ""
+	},
+	{
+		"Name": "Omoikane",
+		"Value": 172,
+		"Description": ""
+	},
+	{
+		"Name": "Shiisaa",
+		"Value": 173,
+		"Description": ""
+	},
+	{
+		"Name": "Principality",
+		"Value": 174,
+		"Description": ""
+	},
+	{
+		"Name": "KuramaTengu",
+		"Value": 175,
+		"Description": ""
+	},
+	{
+		"Name": "Yurlungur",
+		"Value": 176,
+		"Description": ""
+	},
+	{
+		"Name": "Kaiwan",
+		"Value": 177,
+		"Description": ""
+	},
+	{
+		"Name": "Jatayu",
+		"Value": 178,
+		"Description": ""
+	},
+	{
+		"Name": "Slime",
+		"Value": 179,
+		"Description": ""
+	},
+	{
+		"Name": "PersonaPlaceholder3",
+		"Value": 180,
+		"Description": ""
+	},
+	{
+		"Name": "PersonaPlaceholder4",
+		"Value": 181,
+		"Description": ""
+	},
+	{
+		"Name": "Arahabaki",
+		"Value": 182,
+		"Description": ""
+	},
+	{
+		"Name": "HuaPo",
+		"Value": 183,
+		"Description": ""
+	},
+	{
+		"Name": "Alilat",
+		"Value": 184,
+		"Description": ""
+	},
+	{
+		"Name": "Kohryu",
+		"Value": 185,
+		"Description": ""
+	},
+	{
+		"Name": "Ghoul",
+		"Value": 186,
+		"Description": ""
+	},
+	{
+		"Name": "QueenMab",
+		"Value": 187,
+		"Description": ""
+	},
+	{
+		"Name": "Ganga",
+		"Value": 188,
+		"Description": ""
+	},
+	{
+		"Name": "IzanaginoOkami",
+		"Value": 189,
+		"Description": ""
+	},
+	{
+		"Name": "Niddhoggr",
+		"Value": 190,
+		"Description": ""
+	},
+	{
+		"Name": "Yatagarasu",
+		"Value": 191,
+		"Description": ""
+	},
+	{
+		"Name": "Jiraiya",
+		"Value": 192,
+		"Description": ""
+	},
+	{
+		"Name": "SusanoO",
+		"Value": 193,
+		"Description": ""
+	},
+	{
+		"Name": "Tomoe",
+		"Value": 194,
+		"Description": ""
+	},
+	{
+		"Name": "SuzukaGongen",
+		"Value": 195,
+		"Description": ""
+	},
+	{
+		"Name": "KonohanaSakuya",
+		"Value": 196,
+		"Description": ""
+	},
+	{
+		"Name": "Amaterasu",
+		"Value": 197,
+		"Description": ""
+	},
+	{
+		"Name": "TakeMikazuchi",
+		"Value": 198,
+		"Description": ""
+	},
+	{
+		"Name": "RokutenMaoh",
+		"Value": 199,
+		"Description": ""
+	},
+	{
+		"Name": "Himiko",
+		"Value": 200,
+		"Description": ""
+	},
+	{
+		"Name": "Kanzeon",
+		"Value": 201,
+		"Description": ""
+	},
+	{
+		"Name": "KintokiDouji",
+		"Value": 202,
+		"Description": ""
+	},
+	{
+		"Name": "Kamui",
+		"Value": 203,
+		"Description": ""
+	},
+	{
+		"Name": "SukunaHikona",
+		"Value": 204,
+		"Description": ""
+	},
+	{
+		"Name": "YamatoTakeru",
+		"Value": 205,
+		"Description": ""
+	},
+	{
+		"Name": "MagatsuIzanagi1",
+		"Value": 206,
+		"Description": ""
+	},
+	{
+		"Name": "TakehayaSusanoo",
+		"Value": 207,
+		"Description": ""
+	},
+	{
+		"Name": "HaraedonoOkami",
+		"Value": 208,
+		"Description": ""
+	},
+	{
+		"Name": "SumeoOkami",
+		"Value": 209,
+		"Description": ""
+	},
+	{
+		"Name": "TakejiZaiten",
+		"Value": 210,
+		"Description": ""
+	},
+	{
+		"Name": "Kouzeon",
+		"Value": 211,
+		"Description": ""
+	},
+	{
+		"Name": "KamuiMoshiri",
+		"Value": 212,
+		"Description": ""
+	},
+	{
+		"Name": "YamatoSumeragi",
+		"Value": 213,
+		"Description": ""
+	},
+	{
+		"Name": "PersonaPlaceholder5",
+		"Value": 214,
+		"Description": ""
+	},
+	{
+		"Name": "PersonaPlaceholder6",
+		"Value": 215,
+		"Description": ""
+	},
+	{
+		"Name": "PersonaPlaceholder7",
+		"Value": 216,
+		"Description": ""
+	},
+	{
+		"Name": "PersonaPlaceholder8",
+		"Value": 217,
+		"Description": ""
+	},
+	{
+		"Name": "PersonaPlaceholder9",
+		"Value": 218,
+		"Description": ""
+	},
+	{
+		"Name": "PersonaPlaceholder10",
+		"Value": 219,
+		"Description": ""
+	},
+	{
+		"Name": "PersonaPlaceholder11",
+		"Value": 220,
+		"Description": ""
+	},
+	{
+		"Name": "PersonaPlaceholder12",
+		"Value": 221,
+		"Description": ""
+	},
+	{
+		"Name": "PersonaPlaceholder13",
+		"Value": 222,
+		"Description": ""
+	},
+	{
+		"Name": "PersonaPlaceholder14",
+		"Value": 223,
+		"Description": ""
+	},
+	{
+		"Name": "BlackIzanami",
+		"Value": 224,
+		"Description": ""
+	},
+	{
+		"Name": "Okami",
+		"Value": 225,
+		"Description": ""
+	},
+	{
+		"Name": "UNKNOWN1",
+		"Value": 226,
+		"Description": ""
+	},
+	{
+		"Name": "UNKNOWN2",
+		"Value": 227,
+		"Description": ""
+	},
+	{
+		"Name": "UNKNOWN3",
+		"Value": 228,
+		"Description": ""
+	},
+	{
+		"Name": "UNKNOWN4",
+		"Value": 229,
+		"Description": ""
+	},
+	{
+		"Name": "UNKNOWN5",
+		"Value": 230,
+		"Description": ""
+	},
+	{
+		"Name": "UNKNOWN6",
+		"Value": 231,
+		"Description": ""
+	},
+	{
+		"Name": "Kaguya",
+		"Value": 232,
+		"Description": ""
+	},
+	{
+		"Name": "PaleRider",
+		"Value": 233,
+		"Description": ""
+	},
+	{
+		"Name": "TakeMinakata",
+		"Value": 234,
+		"Description": ""
+	},
+	{
+		"Name": "Narcissus",
+		"Value": 235,
+		"Description": ""
+	},
+	{
+		"Name": "Kumbhanda",
+		"Value": 236,
+		"Description": ""
+	},
+	{
+		"Name": "Gurr",
+		"Value": 237,
+		"Description": ""
+	},
+	{
+		"Name": "Baphomet",
+		"Value": 238,
+		"Description": ""
+	},
+	{
+		"Name": "Loa",
+		"Value": 239,
+		"Description": ""
+	},
+	{
+		"Name": "Chernobog",
+		"Value": 240,
+		"Description": ""
+	},
+	{
+		"Name": "Quetzalcoatl",
+		"Value": 241,
+		"Description": ""
+	},
+	{
+		"Name": "AmenoUzume",
+		"Value": 242,
+		"Description": ""
+	},
+	{
+		"Name": "SeitenTaisei",
+		"Value": 243,
+		"Description": ""
+	},
+	{
+		"Name": "Kingu",
+		"Value": 244,
+		"Description": ""
+	},
+	{
+		"Name": "Kushinada",
+		"Value": 245,
+		"Description": ""
+	},
+	{
+		"Name": "Sati",
+		"Value": 246,
+		"Description": ""
+	},
+	{
+		"Name": "RajaNaga",
+		"Value": 247,
+		"Description": ""
+	},
+	{
+		"Name": "Laksmi",
+		"Value": 248,
+		"Description": ""
+	},
+	{
+		"Name": "MagatsuIzanagi2",
+		"Value": 249,
+		"Description": ""
+	},
+	{
+		"Name": "PersonaPlaceholder15",
+		"Value": 250,
+		"Description": ""
+	},
+	{
+		"Name": "PersonaPlaceholder16",
+		"Value": 251,
+		"Description": ""
+	},
+	{
+		"Name": "PersonaPlaceholder17",
+		"Value": 252,
+		"Description": ""
+	},
+	{
+		"Name": "PersonaPlaceholder18",
+		"Value": 253,
+		"Description": ""
+	},
+	{
+		"Name": "PersonaPlaceholder19",
+		"Value": 254,
+		"Description": ""
+	},
+	{
+		"Name": "PersonaPlaceholder20",
+		"Value": 255,
+		"Description": ""
+	}
+    ]
   }
+  
 ]

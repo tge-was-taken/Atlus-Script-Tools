@@ -2,7 +2,7 @@
   {
     "Index": "0x0000",
     "ReturnType": "void",
-    "Name": "FUNCTION_0000",
+    "Name": "MSG",
     "Description": "",
     "Parameters": [
       {
@@ -15,7 +15,7 @@
   {
     "Index": "0x0001",
     "ReturnType": "void",
-    "Name": "FUNCTION_0001",
+    "Name": "OPEN_MSG_WIN",
     "Description": "Code function name: itfMesManager__sub_8101F8DC",
     "Parameters": [
     ]
@@ -23,7 +23,7 @@
   {
     "Index": "0x0002",
     "ReturnType": "void",
-    "Name": "FUNCTION_0002",
+    "Name": "CLOSE_MSG_WIN",
     "Description": "Code function name: itfMesManager__sub_8101F93C",
     "Parameters": [
     ]
@@ -31,7 +31,7 @@
   {
     "Index": "0x0003",
     "ReturnType": "int",
-    "Name": "FUNCTION_0003",
+    "Name": "SEL",
     "Description": "Code function name: itfMesManager__sub_8101F680",
     "Parameters": [
       {
@@ -60,62 +60,62 @@
   {
     "Index": "0x0006",
     "ReturnType": "void",
-    "Name": "FUNCTION_0006",
-    "Description": "",
+    "Name": "SET_MSG_VAR",
+    "Description": "Set any int to the parameter [f 2 4 index] in the msg.",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "index",
+        "Description": "Index to set the msg variable as"
       },
       {
         "Type": "int",
-        "Name": "param2",
-        "Description": ""
+        "Name": "var",
+        "Description": "Variable to set for param to print in msg"
       },
       {
         "Type": "int",
-        "Name": "param3",
-        "Description": ""
+        "Name": "unknown2",
+        "Description": "Enum for which type of variable? 0 for int using [f 2 4 index] and 1 for item string using [f 2 5 3 -1 index]"
       }
     ]
   },
   {
     "Index": "0x0007",
     "ReturnType": "void",
-    "Name": "FUNCTION_0007",
-    "Description": "",
+    "Name": "SET_SEL_CHOICE_KEYBIND",
+    "Description": "Selects choice from SEL or ADV_SEL when the specified key is pressed, 14 being the back button",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "key",
+        "Description": "Key pressed, only tested 14"
       },
       {
         "Type": "int",
-        "Name": "param2",
-        "Description": ""
+        "Name": "choice",
+        "Description": "Index of sel to choose"
       }
     ]
   },
   {
     "Index": "0x0008",
     "ReturnType": "void",
-    "Name": "FUNCTION_0008",
-    "Description": "Code function name: itfMesManager__sub_8101F7DA",
+    "Name": "SET_MASK",
+    "Description": "Sets mask similar to the one for ADV_SEL but for SEL",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "mask",
+        "Description": "Bit mask to hide choices"
       }
     ]
   },
   {
     "Index": "0x0009",
     "ReturnType": "void",
-    "Name": "FUNCTION_0009",
-    "Description": "Code function name: itfMesManager__sub_8101EEA8",
+    "Name": "HELP_MSG",
+    "Description": "Prints message on help screen",
     "Parameters": [
       {
         "Type": "int",
@@ -127,7 +127,7 @@
   {
     "Index": "0x000a",
     "ReturnType": "int",
-    "Name": "FUNCTION_000A",
+    "Name": "BIT_CHK",
     "Description": "Code function name: scrCommandCommand_BIT_CHK",
     "Parameters": [
       {
@@ -140,7 +140,7 @@
   {
     "Index": "0x000b",
     "ReturnType": "void",
-    "Name": "FUNCTION_000B",
+    "Name": "BIT_ON",
     "Description": "",
     "Parameters": [
       {
@@ -153,7 +153,7 @@
   {
     "Index": "0x000c",
     "ReturnType": "void",
-    "Name": "FUNCTION_000C",
+    "Name": "BIT_OFF",
     "Description": "",
     "Parameters": [
       {
@@ -166,8 +166,8 @@
   {
     "Index": "0x000d",
     "ReturnType": "int",
-    "Name": "FUNCTION_000D",
-    "Description": "",
+    "Name": "RNG",
+    "Description": "Returns random int from 0 to param",
     "Parameters": [
       {
         "Type": "int",
@@ -200,8 +200,8 @@
   {
     "Index": "0x0010",
     "ReturnType": "void",
-    "Name": "FUNCTION_0010",
-    "Description": "",
+    "Name": "NS_WAIT",
+    "Description": "Makes the game wait for a certain amount of time,not sure what the input actually is ig,sec,ms,etc",
     "Parameters": [
       {
         "Type": "int",
@@ -278,7 +278,7 @@
   {
     "Index": "0x0016",
     "ReturnType": "void",
-    "Name": "FUNCTION_0016",
+    "Name": "FADE",
     "Description": "",
     "Parameters": [
       {
@@ -296,7 +296,7 @@
   {
     "Index": "0x0017",
     "ReturnType": "void",
-    "Name": "FUNCTION_0017",
+    "Name": "FADE_SYNC",
     "Description": "",
     "Parameters": [
     ]
@@ -476,12 +476,12 @@
   {
     "Index": "0x0021",
     "ReturnType": "int",
-    "Name": "FUNCTION_0021",
-    "Description": "",
+    "Name": "GET_CNT",
+    "Description": "Gets count at param",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "INDEX",
         "Description": ""
       }
     ]
@@ -489,17 +489,17 @@
   {
     "Index": "0x0022",
     "ReturnType": "void",
-    "Name": "FUNCTION_0022",
-    "Description": "",
+    "Name": "SET_CNT",
+    "Description": "Sets count at param",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "INDEX",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "AMOUNT",
         "Description": ""
       }
     ]
@@ -548,23 +548,23 @@
   {
     "Index": "0x0025",
     "ReturnType": "int",
-    "Name": "FUNCTION_0025",
+    "Name": "ADV_SEL",
     "Description": "Code function name: itfMesManager__sub_8101F354",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "Message on bottom right of select menu"
       },
       {
         "Type": "int",
         "Name": "param2",
-        "Description": ""
+        "Description": "Select options"
       },
       {
         "Type": "int",
         "Name": "param3",
-        "Description": ""
+        "Description": "Bit mask to disable options"
       }
     ]
   },
@@ -721,7 +721,7 @@
   {
     "Index": "0x0030",
     "ReturnType": "void",
-    "Name": "FUNCTION_0030",
+    "Name": "CALL_FIELD",
     "Description": "",
     "Parameters": [
       {
@@ -777,7 +777,7 @@
   {
     "Index": "0x0032",
     "ReturnType": "void",
-    "Name": "FUNCTION_0032",
+    "Name": "CALL_EVENT",
     "Description": "",
     "Parameters": [
       {
@@ -800,7 +800,7 @@
   {
     "Index": "0x0033",
     "ReturnType": "int",
-    "Name": "FUNCTION_0033",
+    "Name": "GET_MONTH",
     "Description": "",
     "Parameters": [
     ]
@@ -808,23 +808,23 @@
   {
     "Index": "0x0034",
     "ReturnType": "int",
-    "Name": "FUNCTION_0034",
-    "Description": "",
+    "Name": "GET_DAY_OF_MONTH",
+    "Description": "Returns day of the month",
     "Parameters": [
     ]
   },
   {
     "Index": "0x0035",
     "ReturnType": "int",
-    "Name": "FUNCTION_0035",
-    "Description": "",
+    "Name": "GET_DAY_OF_WEEK",
+    "Description": "Returns day of the week as int from 0 to 6.",
     "Parameters": [
     ]
   },
   {
     "Index": "0x0036",
     "ReturnType": "int",
-    "Name": "FUNCTION_0036",
+    "Name": "GET_TIME_OF_DAY",
     "Description": "",
     "Parameters": [
     ]
@@ -832,7 +832,7 @@
   {
     "Index": "0x0037",
     "ReturnType": "int",
-    "Name": "FUNCTION_0037",
+    "Name": "DATE_CHK",
     "Description": "",
     "Parameters": [
       {
@@ -850,7 +850,7 @@
   {
     "Index": "0x0038",
     "ReturnType": "void",
-    "Name": "FUNCTION_0038",
+    "Name": "ADD_PARTY",
     "Description": "",
     "Parameters": [
       {
@@ -863,8 +863,8 @@
   {
     "Index": "0x0039",
     "ReturnType": "void",
-    "Name": "FUNCTION_0039",
-    "Description": "",
+    "Name": "RM_PARTY",
+    "Description": "Removes given id from party",
     "Parameters": [
       {
         "Type": "int",
@@ -884,7 +884,7 @@
   {
     "Index": "0x003b",
     "ReturnType": "void",
-    "Name": "FUNCTION_003B",
+    "Name": "TOWN_MAP",
     "Description": "",
     "Parameters": [
       {
@@ -897,7 +897,7 @@
   {
     "Index": "0x003c",
     "ReturnType": "void",
-    "Name": "FUNCTION_003C",
+    "Name": "TV_STUDIO",
     "Description": "",
     "Parameters": [
     ]
@@ -905,7 +905,7 @@
   {
     "Index": "0x003d",
     "ReturnType": "void",
-    "Name": "FUNCTION_003D",
+    "Name": "NEXT_DATE",
     "Description": "",
     "Parameters": [
       {
@@ -928,20 +928,20 @@
   {
     "Index": "0x003e",
     "ReturnType": "void",
-    "Name": "FUNCTION_003E",
-    "Description": "",
+    "Name": "CALL_FLOOR",
+    "Description": "Loads floor ID from 1-170 for dungeons",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "floorID",
+        "Description": "ID of the floor to load"
       }
     ]
   },
   {
     "Index": "0x003f",
     "ReturnType": "void",
-    "Name": "FUNCTION_003F",
+    "Name": "CALL_DUNGEON",
     "Description": "",
     "Parameters": [
       {
@@ -959,27 +959,27 @@
   {
     "Index": "0x0040",
     "ReturnType": "int",
-    "Name": "FUNCTION_0040",
-    "Description": "",
+    "Name": "CHECK_TIME_SPAN",
+    "Description": "Returns 1 (true) if current date is between date1 and date2",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "date1Month",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "date1Day",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param3",
+        "Name": "date2Month",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param4",
+        "Name": "date2Day",
         "Description": ""
       }
     ]
@@ -1005,7 +1005,7 @@
   {
     "Index": "0x0042",
     "ReturnType": "int",
-    "Name": "FUNCTION_0042",
+    "Name": "GET_SOCIAL_STATS",
     "Description": "Code function name: shdScript_sub_81038D40",
     "Parameters": [
       {
@@ -1126,7 +1126,7 @@
   {
     "Index": "0x0049",
     "ReturnType": "void",
-    "Name": "FUNCTION_0049",
+    "Name": "DAIDARA_SHOP",
     "Description": "",
     "Parameters": [
     ]
@@ -1134,7 +1134,7 @@
   {
     "Index": "0x004a",
     "ReturnType": "void",
-    "Name": "FUNCTION_004A",
+    "Name": "SHIROKU_SHOP",
     "Description": "",
     "Parameters": [
     ]
@@ -1142,7 +1142,7 @@
   {
     "Index": "0x004b",
     "ReturnType": "void",
-    "Name": "FUNCTION_004B",
+    "Name": "VELVET_ROOM",
     "Description": "",
     "Parameters": [
     ]
@@ -1150,8 +1150,8 @@
   {
     "Index": "0x004c",
     "ReturnType": "int",
-    "Name": "FUNCTION_004C",
-    "Description": "",
+    "Name": "GET_WEATHER",
+    "Description": "Returns the weather,0=Clear,1= Rain, 2= Cloudy, Thunderstorm",
     "Parameters": [
     ]
   },
@@ -1174,7 +1174,7 @@
   {
     "Index": "0x004f",
     "ReturnType": "void",
-    "Name": "FUNCTION_004F",
+    "Name": "SOFT_RESET",
     "Description": "",
     "Parameters": [
     ]
@@ -1182,13 +1182,13 @@
   {
     "Index": "0x0050",
     "ReturnType": "int",
-    "Name": "FUNCTION_0050",
-    "Description": "",
+    "Name": "ADD_YEN",
+    "Description": "Adds the amount of yen and return the new total.",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "Yen_Amount",
+        "Description": "How much you want to change the money value by"
       }
     ]
   },
@@ -1203,12 +1203,12 @@
   {
     "Index": "0x0052",
     "ReturnType": "int",
-    "Name": "FUNCTION_0052",
-    "Description": "",
+    "Name": "GET_ITEM",
+    "Description": "Returns amount of the item index you currently have",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "index",
         "Description": ""
       }
     ]
@@ -1216,17 +1216,17 @@
   {
     "Index": "0x0053",
     "ReturnType": "void",
-    "Name": "FUNCTION_0053",
-    "Description": "",
+    "Name": "SET_ITEM",
+    "Description": "Sets the specified amount to the item specified",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "index",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "count",
         "Description": ""
       }
     ]
@@ -1234,11 +1234,11 @@
   {
     "Index": "0x0054",
     "ReturnType": "int",
-    "Name": "FUNCTION_0054",
+    "Name": "GET_EQUIPMENT_ID",
     "Description": "",
     "Parameters": [
       {
-        "Type": "int",
+        "Type": "PartyUnit",
         "Name": "param1",
         "Description": ""
       },
@@ -1283,8 +1283,8 @@
   {
     "Index": "0x0057",
     "ReturnType": "int",
-    "Name": "FUNCTION_0057",
-    "Description": "",
+    "Name": "NS_SAVE",
+    "Description": "Pulls up the save menu and saves.",
     "Parameters": [
     ]
   },
@@ -1307,8 +1307,8 @@
   {
     "Index": "0x005a",
     "ReturnType": "int",
-    "Name": "FUNCTION_005A",
-    "Description": "",
+    "Name": "GET_PARTY_MEMBER_ID",
+    "Description": "Returns the id of the party member in the slot specified 0-3 (0 always being protagonist)",
     "Parameters": [
       {
         "Type": "int",
@@ -1333,27 +1333,27 @@
   {
     "Index": "0x005c",
     "ReturnType": "int",
-    "Name": "FUNCTION_005C",
-    "Description": "",
+    "Name": "NAVI_BU_OPEN",
+    "Description": "Opens given navi bustup in given position. Returns id for NAVI_BU_CLOSE to close.",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "pos_x",
+        "Description": "X position. Usually 280"
+      },
+      {
+        "Type": "int",
+        "Name": "pos_y",
+        "Description": "Y position. Usually -40"
+      },
+      {
+        "Type": "int",
+        "Name": "major",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
-        "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param3",
-        "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param4",
+        "Name": "minor",
         "Description": ""
       }
     ]
@@ -1361,8 +1361,8 @@
   {
     "Index": "0x005d",
     "ReturnType": "void",
-    "Name": "FUNCTION_005D",
-    "Description": "",
+    "Name": "NAVI_BU_CLOSE",
+    "Description": "Closes navi bustup opened by NAVI_BU_OPEN",
     "Parameters": [
       {
         "Type": "int",
@@ -1374,7 +1374,7 @@
   {
     "Index": "0x005e",
     "ReturnType": "int",
-    "Name": "FUNCTION_005E",
+    "Name": "GET_CUR_HP",
     "Description": "",
     "Parameters": [
       {
@@ -1387,7 +1387,7 @@
   {
     "Index": "0x005f",
     "ReturnType": "int",
-    "Name": "FUNCTION_005F",
+    "Name": "GET_TOT_HP",
     "Description": "",
     "Parameters": [
       {
@@ -1400,7 +1400,7 @@
   {
     "Index": "0x0060",
     "ReturnType": "void",
-    "Name": "FUNCTION_0060",
+    "Name": "SET_HP",
     "Description": "",
     "Parameters": [
       {
@@ -1418,7 +1418,7 @@
   {
     "Index": "0x0061",
     "ReturnType": "int",
-    "Name": "FUNCTION_0061",
+    "Name": "GET_CUR_SP",
     "Description": "",
     "Parameters": [
       {
@@ -1431,7 +1431,7 @@
   {
     "Index": "0x0062",
     "ReturnType": "int",
-    "Name": "FUNCTION_0062",
+    "Name": "GET_TOT_SP",
     "Description": "",
     "Parameters": [
       {
@@ -1444,7 +1444,7 @@
   {
     "Index": "0x0063",
     "ReturnType": "void",
-    "Name": "FUNCTION_0063",
+    "Name": "SET_SP",
     "Description": "",
     "Parameters": [
       {
@@ -1462,7 +1462,7 @@
   {
     "Index": "0x0064",
     "ReturnType": "void",
-    "Name": "FUNCTION_0064",
+    "Name": "PLAY_CUTSCENE",
     "Description": "",
     "Parameters": [
       {
@@ -1483,7 +1483,7 @@
   {
     "Index": "0x0066",
     "ReturnType": "void",
-    "Name": "FUNCTION_0066",
+    "Name": "SHOW_DATE",
     "Description": "",
     "Parameters": [
       {
@@ -1496,7 +1496,7 @@
   {
     "Index": "0x0067",
     "ReturnType": "void",
-    "Name": "FUNCTION_0067",
+    "Name": "NG_PLUS_SAVE",
     "Description": "Code function name: mc_clear___sub_8129DBB8",
     "Parameters": [
     ]
@@ -1512,7 +1512,7 @@
   {
     "Index": "0x0069",
     "ReturnType": "void",
-    "Name": "FUNCTION_0069",
+    "Name": "JUNES_FOODCOURT",
     "Description": "",
     "Parameters": [
     ]
@@ -1520,7 +1520,7 @@
   {
     "Index": "0x006a",
     "ReturnType": "void",
-    "Name": "FUNCTION_006A",
+    "Name": "BAD_END_CREDITS",
     "Description": "Code function name: ed_sr_sub_81299624",
     "Parameters": [
     ]
@@ -1575,7 +1575,7 @@
   {
     "Index": "0x006f",
     "ReturnType": "void",
-    "Name": "FUNCTION_006F",
+    "Name": "CALL_BGM",
     "Description": "",
     "Parameters": [
       {
@@ -1588,7 +1588,7 @@
   {
     "Index": "0x0070",
     "ReturnType": "void",
-    "Name": "FUNCTION_0070",
+    "Name": "STOP_BGM",
     "Description": "",
     "Parameters": [
       {
@@ -1601,8 +1601,8 @@
   {
     "Index": "0x0071",
     "ReturnType": "void",
-    "Name": "FUNCTION_0071",
-    "Description": "",
+    "Name": "PLAY_SOUNDEFFECT",
+    "Description": "Plays a sound effect. param1 specifies which sound effect.",
     "Parameters": [
       {
         "Type": "int",
@@ -1752,7 +1752,7 @@
   {
     "Index": "0x007d",
     "ReturnType": "void",
-    "Name": "FUNCTION_007D",
+    "Name": "OPEN_CALENDAR",
     "Description": "Code function name: cmpCalendar_sub_8114FEBC",
     "Parameters": [
     ]
@@ -1760,15 +1760,15 @@
   {
     "Index": "0x007e",
     "ReturnType": "void",
-    "Name": "FUNCTION_007E",
-    "Description": "",
+    "Name": "SHIROKU_PUB",
+    "Description": "Goes to Shiroku Pub",
     "Parameters": [
     ]
   },
   {
     "Index": "0x007f",
     "ReturnType": "void",
-    "Name": "FUNCTION_007F",
+    "Name": "CROCOFUR_SHOP",
     "Description": "",
     "Parameters": [
     ]
@@ -1776,7 +1776,7 @@
   {
     "Index": "0x0080",
     "ReturnType": "void",
-    "Name": "FUNCTION_0080",
+    "Name": "BOOK_SHOP",
     "Description": "",
     "Parameters": [
       {
@@ -1789,7 +1789,7 @@
   {
     "Index": "0x0081",
     "ReturnType": "void",
-    "Name": "FUNCTION_0081",
+    "Name": "PRODUCE_SHOP",
     "Description": "",
     "Parameters": [
     ]
@@ -1797,7 +1797,7 @@
   {
     "Index": "0x0082",
     "ReturnType": "void",
-    "Name": "FUNCTION_0082",
+    "Name": "BOOK_READ",
     "Description": "Code function name: cmpBook_sub_8114E452",
     "Parameters": [
     ]
@@ -1823,18 +1823,18 @@
   {
     "Index": "0x0084",
     "ReturnType": "void",
-    "Name": "FUNCTION_0084",
+    "Name": "LEARN_SL_SKILL",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "Requires more investigation"
       },
       {
         "Type": "int",
         "Name": "param2",
-        "Description": ""
+        "Description": "requires more investigation"
       }
     ]
   },
@@ -1920,8 +1920,8 @@
   {
     "Index": "0x008d",
     "ReturnType": "void",
-    "Name": "FUNCTION_008D",
-    "Description": "",
+    "Name": "CALL_MARIE_DNG_TV",
+    "Description": "Calls for the team to meet infront of the tv to maries dungeon.",
     "Parameters": [
     ]
   },
@@ -1954,8 +1954,8 @@
   {
     "Index": "0x0090",
     "ReturnType": "void",
-    "Name": "FUNCTION_0090",
-    "Description": "Code function name: mc_clear___sub_8129DCB0",
+    "Name": "SAVE_STORY",
+    "Description": "Gives you a warning about story changes and then asks you to save.",
     "Parameters": [
     ]
   },
@@ -1970,21 +1970,21 @@
   {
     "Index": "0x0092",
     "ReturnType": "void",
-    "Name": "FUNCTION_0092",
-    "Description": "Code function name: mc_clear___sub_8129DDC6",
+    "Name": "SAVE_ASK",
+    "Description": "Opens a menu that says (Are you sure you would like to save?) and then opens save menu.",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "Location ID",
+        "Description": "The ID of the location that the save is made in"
       }
     ]
   },
   {
     "Index": "0x0093",
     "ReturnType": "void",
-    "Name": "FUNCTION_0093",
-    "Description": "",
+    "Name": "NS_DISABLE_PLAYER_MOVEMENT",
+    "Description": "Stops player from moving. To be used with SAVE_ASK",
     "Parameters": [
     ]
   },
@@ -2052,17 +2052,17 @@
     "Index": "0x0099",
     "ReturnType": "int",
     "Name": "FUNCTION_0099",
-    "Description": "Code function name: cmpMisc_sub_81165A4E",
+    "Description": "LEARN_BONUS_SKILL",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "Requires more investigation"
       },
       {
         "Type": "int",
         "Name": "param2",
-        "Description": ""
+        "Description": "Requires more investigation"
       }
     ]
   },
@@ -2219,8 +2219,8 @@
   {
     "Index": "0x00a4",
     "ReturnType": "void",
-    "Name": "FUNCTION_00A4",
-    "Description": "Code function name: cldDayChange_sub_81040476",
+    "Name": "TRANSITION_EPILOGUE",
+    "Description": "Calender transition used in the epilogue",
     "Parameters": [
     ]
   },

@@ -32,19 +32,19 @@
     "FunctionsPath": "Persona4Golden\\Modules\\Event\\Functions.json"
   },
   {
-    "Name": "Facility",
-    "ShortName": "Facility",
-    "Description": "Facility based scene transition related functions.",
+    "Name": "Calendar",
+    "ShortName": "Calendar",
+    "Description": "Calendar based scene transition related functions.",
     "ConstantsPath": "",
     "EnumsPath": "",
-    "FunctionsPath": "Persona4Golden\\Modules\\Facility\\Functions.json"
+    "FunctionsPath": "Persona4Golden\\Modules\\Calendar\\Functions.json"
   },
   {
-    "Name": "Net",
-    "ShortName": "Net",
+    "Name": "Unknown",
+    "ShortName": "Unknown",
     "Description": "",
     "ConstantsPath": "",
     "EnumsPath": "",
-    "FunctionsPath": "Persona4Golden\\Modules\\Net\\Functions.json"
+    "FunctionsPath": "Persona4Golden\\Modules\\Unknown\\Functions.json"
   },
 ]
