@@ -8,7 +8,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "MsgId"
       }
     ]
   },
@@ -37,7 +38,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "SelId"
       }
     ]
   },
@@ -83,7 +85,7 @@
   {
     "Index": "0x0007",
     "ReturnType": "void",
-    "Name": "SET_SEL_CHOICE_KEYBIND",
+    "Name": "SEL_CHK_PAD",
     "Description": "Selects choice from SEL or ADV_SEL when the specified key is pressed, 14 being the back button",
     "Parameters": [
       {
@@ -120,7 +122,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "MsgId"
       }
     ]
   },
@@ -133,7 +136,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "BitId"
       }
     ]
   },
@@ -146,7 +150,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "BitId"
       }
     ]
   },
@@ -159,7 +164,8 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "BitId"
       }
     ]
   },
@@ -200,7 +206,7 @@
   {
     "Index": "0x0010",
     "ReturnType": "void",
-    "Name": "NS_WAIT",
+    "Name": "WAIT",
     "Description": "Makes the game wait for a certain amount of time,not sure what the input actually is ig,sec,ms,etc",
     "Parameters": [
       {
@@ -554,12 +560,14 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": "Message on bottom right of select menu"
+        "Description": "Message on bottom right of select menu",
+        "Semantic": "MsgId"
       },
       {
         "Type": "int",
         "Name": "param2",
-        "Description": "Select options"
+        "Description": "Select options",
+        "Semantic": "SelId"
       },
       {
         "Type": "int",
