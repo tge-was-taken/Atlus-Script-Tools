@@ -16,10 +16,7 @@
       },
       {
         "Index": 5,
-        "Name": "@Unused",
-        "Description": "",
-        "Semantic": "Unused",
-        "Parameters": []
+        "Semantic": "Unused"
       }
     ]
   },
