@@ -10,8 +10,8 @@
   {
     "Index": "0x1001",
     "ReturnType": "void",
-    "Name": "FLD_FUNCTION_0001",
-    "Description": "",
+    "Name": "GOTO_REL_FLOOR",
+    "Description": "Goes to current floor plus parameter",
     "Parameters": [
       {
         "Type": "int",
@@ -23,16 +23,16 @@
   {
     "Index": "0x1002",
     "ReturnType": "int",
-    "Name": "FLD_FUNCTION_0002",
-    "Description": "",
+    "Name": "GET_FLOOR_ID",
+    "Description": "Returns 0 if not in dungeon, ID of floor otherwise.",
     "Parameters": [
     ]
   },
   {
     "Index": "0x1003",
     "ReturnType": "void",
-    "Name": "FLD_FUNCTION_0003",
-    "Description": "",
+    "Name": "RESET_FLOOR",
+    "Description": "Makes new floor",
     "Parameters": [
     ]
   },
@@ -191,7 +191,7 @@
   {
     "Index": "0x100d",
     "ReturnType": "int",
-    "Name": "FLD_FUNCTION_000D",
+    "Name": "LOAD_FIELD_OBJECT",
     "Description": "",
     "Parameters": [
       {
@@ -328,7 +328,7 @@
   {
     "Index": "0x1016",
     "ReturnType": "int",
-    "Name": "FLD_FUNCTION_0016",
+    "Name": "CALL_BATTLE",
     "Description": "",
     "Parameters": [
       {
@@ -474,16 +474,16 @@
   {
     "Index": "0x1022",
     "ReturnType": "int",
-    "Name": "FLD_FUNCTION_0022",
-    "Description": "",
+    "Name": "GET_FIELD_MAJOR",
+    "Description": "Returns major id of current field",
     "Parameters": [
     ]
   },
   {
     "Index": "0x1023",
     "ReturnType": "int",
-    "Name": "FLD_FUNCTION_0023",
-    "Description": "",
+    "Name": "GET_FIELD_MINOR",
+    "Description": "Returns minor id of current field",
     "Parameters": [
     ]
   },
@@ -522,7 +522,7 @@
   {
     "Index": "0x1028",
     "ReturnType": "void",
-    "Name": "FLD_FUNCTION_0028",
+    "Name": "TRAESTO_VISUAL",
     "Description": "",
     "Parameters": [
     ]
