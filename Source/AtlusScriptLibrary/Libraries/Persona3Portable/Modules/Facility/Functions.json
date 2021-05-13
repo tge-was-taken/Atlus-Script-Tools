@@ -2,18 +2,17 @@
   {
     "Index": "0x4000",
     "ReturnType": "void",
-    "Name": "FCL_FUNCTION_0000",
-    "Description": "",
-    "Address": "0x08991DA4",
+    "Name": "CALL_EVENT",
+    "Description": "Address: 0x08991DA4",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "MajorID",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "MinorID",
         "Description": ""
       }
     ]
@@ -21,18 +20,17 @@
   {
     "Index": "0x4001",
     "ReturnType": "void",
-    "Name": "FCL_FUNCTION_0001",
-    "Description": "",
-    "Address": "0x08994EF0",
+    "Name": "CALL_FIELD",
+    "Description": "Address: 0x08994EF0",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "MajorID",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "MinorID",
         "Description": ""
       },
       {
@@ -50,22 +48,20 @@
   {
     "Index": "0x4002",
     "ReturnType": "void",
-    "Name": "FCL_FUNCTION_0002",
-    "Description": "",
-    "Address": "0x08995024",
+    "Name": "NEXT_TIME",
+    "Description": "Progresses time of day; Address: 0x08995024",
     "Parameters": []
   },
   {
     "Index": "0x4003",
     "ReturnType": "void",
-    "Name": "FCL_FUNCTION_0003",
-    "Description": "",
-    "Address": "0x089660EC",
+    "Name": "FLD_SEL_EX",
+    "Description": "Opens map of the city; Address: 0x089660EC",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "StartingSelection",
+        "Description": "Puts the cursor on given position"
       }
     ]
   },
@@ -73,8 +69,7 @@
     "Index": "0x4004",
     "ReturnType": "void",
     "Name": "FCL_FUNCTION_0004",
-    "Description": "",
-    "Address": "0x088C14B0",
+    "Description": "Address: 0x088C14B0",
     "Parameters": [
       {
         "Type": "int",
@@ -87,8 +82,7 @@
     "Index": "0x4005",
     "ReturnType": "void",
     "Name": "FCL_FUNCTION_0005",
-    "Description": "",
-    "Address": "0x088C1568",
+    "Description": "Address: 0x088C1568",
     "Parameters": [
       {
         "Type": "int",
@@ -105,97 +99,85 @@
   {
     "Index": "0x4006",
     "ReturnType": "void",
-    "Name": "FCL_FUNCTION_0006",
-    "Description": "",
-    "Address": "0x089733BC",
+    "Name": "CALL_TITLE",
+    "Description": "Calls title screen; Address: 0x089733BC",
     "Parameters": []
   },
   {
     "Index": "0x4007",
     "ReturnType": "void",
-    "Name": "FCL_FUNCTION_0007",
-    "Description": "",
-    "Address": "0x089733FC",
+    "Name": "CALL_NAME_ENTRY",
+    "Description": "Calls Protagonist name entry screen; Address: 0x089733FC",
     "Parameters": []
   },
   {
     "Index": "0x4008",
     "ReturnType": "void",
-    "Name": "FCL_FUNCTION_0008",
-    "Description": "",
-    "Address": "0x08973740",
+    "Name": "SAVE_MENU",
+    "Description": "Calls Save Data screen; Address: 0x08973740",
     "Parameters": []
   },
   {
     "Index": "0x4009",
     "ReturnType": "void",
-    "Name": "FCL_FUNCTION_0009",
-    "Description": "",
-    "Address": "0x089737A8",
+    "Name": "LOAD_MENU",
+    "Description": "Calls Load Data screen; Address: 0x089737A8",
     "Parameters": []
   },
   {
     "Index": "0x400a",
     "ReturnType": "void",
     "Name": "FCL_FUNCTION_000A",
-    "Description": "",
-    "Address": "0x08973810",
+    "Description": "Address: 0x08973810",
     "Parameters": []
   },
   {
     "Index": "0x400b",
     "ReturnType": "void",
-    "Name": "FCL_FUNCTION_000B",
-    "Description": "",
-    "Address": "0x08A63E5C",
+    "Name": "SAVE_NG_MENU",
+    "Description": "Calls Save New Cycle Data screen; Address: 0x08A63E5C",
     "Parameters": []
   },
   {
     "Index": "0x400c",
     "ReturnType": "void",
     "Name": "FCL_FUNCTION_000C",
-    "Description": "",
-    "Address": "0x08A63E84",
+    "Description": "Address: 0x08A63E84",
     "Parameters": []
   },
   {
     "Index": "0x400d",
     "ReturnType": "void",
-    "Name": "FCL_FUNCTION_000D",
-    "Description": "",
-    "Address": "0x0896F390",
+    "Name": "CALL_STAFF_ROLL",
+    "Description": "Address: 0x0896F390",
     "Parameters": []
   },
   {
     "Index": "0x400e",
     "ReturnType": "void",
-    "Name": "FCL_FUNCTION_000E",
-    "Description": "",
-    "Address": "0x0887262C",
+    "Name": "CALL_WEAPON_SHOP",
+    "Description": "Address: 0x0887262C",
     "Parameters": []
   },
   {
     "Index": "0x400f",
     "ReturnType": "void",
-    "Name": "FCL_FUNCTION_000F",
-    "Description": "",
-    "Address": "0x08872674",
+    "Name": "CALL_ITEM_SHOP",
+    "Description": "Address: 0x08872674",
     "Parameters": []
   },
   {
     "Index": "0x4010",
     "ReturnType": "void",
-    "Name": "FCL_FUNCTION_0010",
-    "Description": "",
-    "Address": "0x08872704",
+    "Name": "CALL_COMBINE_SHOP",
+    "Description": "Address: 0x08872704",
     "Parameters": []
   },
   {
     "Index": "0x4011",
     "ReturnType": "void",
-    "Name": "FCL_FUNCTION_0011",
-    "Description": "",
-    "Address": "0x089B9DDC",
+    "Name": "CALL_BATTLE",
+    "Description": "Address: 0x089B9DDC",
     "Parameters": [
       {
         "Type": "int",
@@ -207,33 +189,29 @@
   {
     "Index": "0x4012",
     "ReturnType": "void",
-    "Name": "FCL_FUNCTION_0012",
-    "Description": "",
-    "Address": "0x089BA858",
+    "Name": "WAIT_BATTLE",
+    "Description": "Address: 0x089BA858",
     "Parameters": []
   },
   {
     "Index": "0x4013",
     "ReturnType": "void",
-    "Name": "FCL_FUNCTION_0013",
-    "Description": "",
-    "Address": "0x088726BC",
+    "Name": "CALL_TRADE_SHOP",
+    "Description": "Address: 0x088726BC",
     "Parameters": []
   },
   {
     "Index": "0x4014",
     "ReturnType": "void",
     "Name": "FCL_FUNCTION_0014",
-    "Description": "",
-    "Address": "0x0887274C",
+    "Description": "Address: 0x0887274C",
     "Parameters": []
   },
   {
     "Index": "0x4015",
     "ReturnType": "void",
     "Name": "FCL_FUNCTION_0015",
-    "Description": "",
-    "Address": "0x088C1218",
+    "Description": "Address: 0x088C1218",
     "Parameters": [
       {
         "Type": "int",
@@ -260,57 +238,50 @@
   {
     "Index": "0x4016",
     "ReturnType": "void",
-    "Name": "FCL_FUNCTION_0016",
-    "Description": "",
-    "Address": "0x08973D98",
+    "Name": "CALL_DARK_HOUR",
+    "Description": "Address: 0x08973D98",
     "Parameters": []
   },
   {
     "Index": "0x4017",
     "ReturnType": "void",
     "Name": "FCL_FUNCTION_0017",
-    "Description": "",
-    "Address": "0x08973DB8",
+    "Description": "Address: 0x08973DB8",
     "Parameters": []
   },
   {
     "Index": "0x4018",
     "ReturnType": "void",
     "Name": "FCL_FUNCTION_0018",
-    "Description": "",
-    "Address": "0x08973DD8",
+    "Description": "Address: 0x08973DD8",
     "Parameters": []
   },
   {
     "Index": "0x4019",
     "ReturnType": "void",
     "Name": "FCL_FUNCTION_0019",
-    "Description": "",
-    "Address": "0x08973E54",
+    "Description": "Address: 0x08973E54",
     "Parameters": []
   },
   {
     "Index": "0x401a",
     "ReturnType": "void",
-    "Name": "FCL_FUNCTION_001A",
-    "Description": "",
-    "Address": "0x08878C80",
+    "Name": "CALL_SEX_SELECT",
+    "Description": "Address: 0x08878C80",
     "Parameters": []
   },
   {
     "Index": "0x401b",
     "ReturnType": "int",
     "Name": "FCL_FUNCTION_001B",
-    "Description": "",
-    "Address": "0x08973E20",
+    "Description": "Address: 0x08973E20",
     "Parameters": []
   },
   {
     "Index": "0x401c",
     "ReturnType": "void",
     "Name": "FCL_FUNCTION_001C",
-    "Description": "",
-    "Address": "0x08991EB4",
+    "Description": "Address: 0x08991EB4",
     "Parameters": [
       {
         "Type": "int",
@@ -328,8 +299,7 @@
     "Index": "0x401d",
     "ReturnType": "void",
     "Name": "FCL_FUNCTION_001D",
-    "Description": "",
-    "Address": "0x089B9E0C",
+    "Description": "Address: 0x089B9E0C",
     "Parameters": [
       {
         "Type": "int",
@@ -340,10 +310,9 @@
   },
   {
     "Index": "0x401e",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FCL_FUNCTION_001E",
-    "Description": "",
-    "Address": "0x089BA79C",
+    "Description": "Address: 0x089BA79C",
     "Parameters": []
   }
 ]
