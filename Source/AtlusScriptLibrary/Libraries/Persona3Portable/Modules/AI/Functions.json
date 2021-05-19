@@ -3,8 +3,7 @@
     "Index": "0x2000",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0000",
-    "Description": "",
-    "Address": "0x089FC3FC",
+    "Description": "Address: 0x089FC3FC",
     "Parameters": [
       {
         "Type": "int",
@@ -17,8 +16,7 @@
     "Index": "0x2001",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0001",
-    "Description": "",
-    "Address": "0x089FC448",
+    "Description": "Address: 0x089FC448",
     "Parameters": [
       {
         "Type": "int",
@@ -31,8 +29,7 @@
     "Index": "0x2002",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0002",
-    "Description": "",
-    "Address": "0x089FC494",
+    "Description": "Address: 0x089FC494",
     "Parameters": [
       {
         "Type": "int",
@@ -45,8 +42,7 @@
     "Index": "0x2003",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0003",
-    "Description": "",
-    "Address": "0x089FC4E0",
+    "Description": "Address: 0x089FC4E0",
     "Parameters": [
       {
         "Type": "int",
@@ -59,8 +55,7 @@
     "Index": "0x2004",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0004",
-    "Description": "",
-    "Address": "0x089FC52C",
+    "Description": "Address: 0x089FC52C",
     "Parameters": [
       {
         "Type": "int",
@@ -73,8 +68,7 @@
     "Index": "0x2005",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0005",
-    "Description": "",
-    "Address": "0x089FC578",
+    "Description": "Address: 0x089FC578",
     "Parameters": [
       {
         "Type": "int",
@@ -87,8 +81,7 @@
     "Index": "0x2006",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0006",
-    "Description": "",
-    "Address": "0x089FC5C4",
+    "Description": "Address: 0x089FC5C4",
     "Parameters": [
       {
         "Type": "int",
@@ -101,8 +94,7 @@
     "Index": "0x2007",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0007",
-    "Description": "",
-    "Address": "0x089FC610",
+    "Description": "Address: 0x089FC610",
     "Parameters": [
       {
         "Type": "int",
@@ -115,8 +107,7 @@
     "Index": "0x2008",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0008",
-    "Description": "",
-    "Address": "0x089FC65C",
+    "Description": "Address: 0x089FC65C",
     "Parameters": [
       {
         "Type": "int",
@@ -129,8 +120,7 @@
     "Index": "0x2009",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0009",
-    "Description": "",
-    "Address": "0x089FC6A8",
+    "Description": "Address: 0x089FC6A8",
     "Parameters": [
       {
         "Type": "int",
@@ -143,8 +133,7 @@
     "Index": "0x200a",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_000A",
-    "Description": "",
-    "Address": "0x089FC6F4",
+    "Description": "Address: 0x089FC6F4",
     "Parameters": [
       {
         "Type": "int",
@@ -157,8 +146,7 @@
     "Index": "0x200b",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_000B",
-    "Description": "",
-    "Address": "0x089FC740",
+    "Description": "Address: 0x089FC740",
     "Parameters": [
       {
         "Type": "int",
@@ -171,8 +159,7 @@
     "Index": "0x200c",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_000C",
-    "Description": "",
-    "Address": "0x089FC78C",
+    "Description": "Address: 0x089FC78C",
     "Parameters": [
       {
         "Type": "int",
@@ -185,8 +172,7 @@
     "Index": "0x200d",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_000D",
-    "Description": "",
-    "Address": "0x089FC7D8",
+    "Description": "Address: 0x089FC7D8",
     "Parameters": [
       {
         "Type": "int",
@@ -199,8 +185,7 @@
     "Index": "0x200e",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_000E",
-    "Description": "",
-    "Address": "0x089FC824",
+    "Description": "Address: 0x089FC824",
     "Parameters": [
       {
         "Type": "int",
@@ -213,8 +198,7 @@
     "Index": "0x200f",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_000F",
-    "Description": "",
-    "Address": "0x089FC870",
+    "Description": "Address: 0x089FC870",
     "Parameters": [
       {
         "Type": "int",
@@ -227,8 +211,7 @@
     "Index": "0x2010",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0010",
-    "Description": "",
-    "Address": "0x089FC8BC",
+    "Description": "Address: 0x089FC8BC",
     "Parameters": [
       {
         "Type": "int",
@@ -241,8 +224,7 @@
     "Index": "0x2011",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0011",
-    "Description": "",
-    "Address": "0x089FC908",
+    "Description": "Address: 0x089FC908",
     "Parameters": [
       {
         "Type": "int",
@@ -255,32 +237,28 @@
     "Index": "0x2012",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0012",
-    "Description": "",
-    "Address": "0x089FC954",
+    "Description": "Address: 0x089FC954",
     "Parameters": []
   },
   {
     "Index": "0x2013",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0013",
-    "Description": "",
-    "Address": "0x089FC988",
+    "Description": "Address: 0x089FC988",
     "Parameters": []
   },
   {
     "Index": "0x2014",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0014",
-    "Description": "",
-    "Address": "0x089FC9BC",
+    "Description": "Address: 0x089FC9BC",
     "Parameters": []
   },
   {
     "Index": "0x2015",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0015",
-    "Description": "",
-    "Address": "0x089FC9F0",
+    "Description": "Address: 0x089FC9F0",
     "Parameters": [
       {
         "Type": "int",
@@ -293,8 +271,7 @@
     "Index": "0x2016",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0016",
-    "Description": "",
-    "Address": "0x089FCA3C",
+    "Description": "Address: 0x089FCA3C",
     "Parameters": [
       {
         "Type": "int",
@@ -307,8 +284,7 @@
     "Index": "0x2017",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0017",
-    "Description": "",
-    "Address": "0x089FCA88",
+    "Description": "Address: 0x089FCA88",
     "Parameters": [
       {
         "Type": "int",
@@ -321,8 +297,7 @@
     "Index": "0x2018",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0018",
-    "Description": "",
-    "Address": "0x089FCAD4",
+    "Description": "Address: 0x089FCAD4",
     "Parameters": [
       {
         "Type": "int",
@@ -335,8 +310,7 @@
     "Index": "0x2019",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0019",
-    "Description": "",
-    "Address": "0x089FCB20",
+    "Description": "Address: 0x089FCB20",
     "Parameters": [
       {
         "Type": "int",
@@ -349,8 +323,7 @@
     "Index": "0x201a",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_001A",
-    "Description": "",
-    "Address": "0x089FCB6C",
+    "Description": "Address: 0x089FCB6C",
     "Parameters": [
       {
         "Type": "int",
@@ -363,8 +336,7 @@
     "Index": "0x201b",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_001B",
-    "Description": "",
-    "Address": "0x089FCBB8",
+    "Description": "Address: 0x089FCBB8",
     "Parameters": [
       {
         "Type": "int",
@@ -377,8 +349,7 @@
     "Index": "0x201c",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_001C",
-    "Description": "",
-    "Address": "0x089FCC04",
+    "Description": "Address: 0x089FCC04",
     "Parameters": [
       {
         "Type": "int",
@@ -391,8 +362,7 @@
     "Index": "0x201d",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_001D",
-    "Description": "",
-    "Address": "0x089FCC50",
+    "Description": "Address: 0x089FCC50",
     "Parameters": [
       {
         "Type": "int",
@@ -405,8 +375,7 @@
     "Index": "0x201e",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_001E",
-    "Description": "",
-    "Address": "0x089FCC9C",
+    "Description": "Address: 0x089FCC9C",
     "Parameters": [
       {
         "Type": "int",
@@ -419,8 +388,7 @@
     "Index": "0x201f",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_001F",
-    "Description": "",
-    "Address": "0x089FCCE8",
+    "Description": "Address: 0x089FCCE8",
     "Parameters": [
       {
         "Type": "int",
@@ -433,8 +401,7 @@
     "Index": "0x2020",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0020",
-    "Description": "",
-    "Address": "0x089FCD34",
+    "Description": "Address: 0x089FCD34",
     "Parameters": [
       {
         "Type": "int",
@@ -447,8 +414,7 @@
     "Index": "0x2021",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0021",
-    "Description": "",
-    "Address": "0x089FCD80",
+    "Description": "Address: 0x089FCD80",
     "Parameters": [
       {
         "Type": "int",
@@ -461,8 +427,7 @@
     "Index": "0x2022",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0022",
-    "Description": "",
-    "Address": "0x089FCDCC",
+    "Description": "Address: 0x089FCDCC",
     "Parameters": [
       {
         "Type": "int",
@@ -475,8 +440,7 @@
     "Index": "0x2023",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0023",
-    "Description": "",
-    "Address": "0x089FCE18",
+    "Description": "Address: 0x089FCE18",
     "Parameters": [
       {
         "Type": "int",
@@ -489,8 +453,7 @@
     "Index": "0x2024",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0024",
-    "Description": "",
-    "Address": "0x089FCE64",
+    "Description": "Address: 0x089FCE64",
     "Parameters": [
       {
         "Type": "int",
@@ -503,8 +466,7 @@
     "Index": "0x2025",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0025",
-    "Description": "",
-    "Address": "0x089FCEB0",
+    "Description": "Address: 0x089FCEB0",
     "Parameters": [
       {
         "Type": "int",
@@ -517,8 +479,7 @@
     "Index": "0x2026",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0026",
-    "Description": "",
-    "Address": "0x089FCEFC",
+    "Description": "Address: 0x089FCEFC",
     "Parameters": [
       {
         "Type": "int",
@@ -531,32 +492,28 @@
     "Index": "0x2027",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0027",
-    "Description": "",
-    "Address": "0x089FCF48",
+    "Description": "Address: 0x089FCF48",
     "Parameters": []
   },
   {
     "Index": "0x2028",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0028",
-    "Description": "",
-    "Address": "0x089FCF7C",
+    "Description": "Address: 0x089FCF7C",
     "Parameters": []
   },
   {
     "Index": "0x2029",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0029",
-    "Description": "",
-    "Address": "0x089FCFB0",
+    "Description": "Address: 0x089FCFB0",
     "Parameters": []
   },
   {
     "Index": "0x202a",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_002A",
-    "Description": "",
-    "Address": "0x089FCFE4",
+    "Description": "Address: 0x089FCFE4",
     "Parameters": [
       {
         "Type": "int",
@@ -569,8 +526,7 @@
     "Index": "0x202b",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_002B",
-    "Description": "",
-    "Address": "0x089FD030",
+    "Description": "Address: 0x089FD030",
     "Parameters": [
       {
         "Type": "int",
@@ -583,40 +539,35 @@
     "Index": "0x202c",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_002C",
-    "Description": "",
-    "Address": "0x089FF0F0",
+    "Description": "Address: 0x089FF0F0",
     "Parameters": []
   },
   {
     "Index": "0x202d",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_002D",
-    "Description": "",
-    "Address": "0x089FF11C",
+    "Description": "Address: 0x089FF11C",
     "Parameters": []
   },
   {
     "Index": "0x202e",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_002E",
-    "Description": "",
-    "Address": "0x089FF148",
+    "Description": "Address: 0x089FF148",
     "Parameters": []
   },
   {
     "Index": "0x202f",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_002F",
-    "Description": "",
-    "Address": "0x089FF174",
+    "Description": "Address: 0x089FF174",
     "Parameters": []
   },
   {
     "Index": "0x2030",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_0030",
-    "Description": "",
-    "Address": "0x089FF1A0",
+    "Description": "Address: 0x089FF1A0",
     "Parameters": [
       {
         "Type": "int",
@@ -629,8 +580,7 @@
     "Index": "0x2031",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_0031",
-    "Description": "",
-    "Address": "0x089FF1E4",
+    "Description": "Address: 0x089FF1E4",
     "Parameters": [
       {
         "Type": "int",
@@ -643,8 +593,7 @@
     "Index": "0x2032",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_0032",
-    "Description": "",
-    "Address": "0x089FF28C",
+    "Description": "Address: 0x089FF28C",
     "Parameters": [
       {
         "Type": "int",
@@ -657,24 +606,21 @@
     "Index": "0x2033",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_0033",
-    "Description": "",
-    "Address": "0x089FF2D0",
+    "Description": "Address: 0x089FF2D0",
     "Parameters": []
   },
   {
     "Index": "0x2034",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_0034",
-    "Description": "",
-    "Address": "0x089FF2FC",
+    "Description": "Address: 0x089FF2FC",
     "Parameters": []
   },
   {
     "Index": "0x2035",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_0035",
-    "Description": "",
-    "Address": "0x089FF328",
+    "Description": "Address: 0x089FF328",
     "Parameters": [
       {
         "Type": "int",
@@ -687,8 +633,7 @@
     "Index": "0x2036",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_0036",
-    "Description": "",
-    "Address": "0x089FF36C",
+    "Description": "Address: 0x089FF36C",
     "Parameters": [
       {
         "Type": "int",
@@ -701,8 +646,7 @@
     "Index": "0x2037",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_0037",
-    "Description": "",
-    "Address": "0x089FF3B0",
+    "Description": "Address: 0x089FF3B0",
     "Parameters": [
       {
         "Type": "int",
@@ -715,8 +659,7 @@
     "Index": "0x2038",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_0038",
-    "Description": "",
-    "Address": "0x089FF3F4",
+    "Description": "Address: 0x089FF3F4",
     "Parameters": [
       {
         "Type": "int",
@@ -729,8 +672,7 @@
     "Index": "0x2039",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_0039",
-    "Description": "",
-    "Address": "0x089FF438",
+    "Description": "Address: 0x089FF438",
     "Parameters": [
       {
         "Type": "int",
@@ -743,8 +685,7 @@
     "Index": "0x203a",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_003A",
-    "Description": "",
-    "Address": "0x089FF47C",
+    "Description": "Address: 0x089FF47C",
     "Parameters": [
       {
         "Type": "int",
@@ -757,8 +698,7 @@
     "Index": "0x203b",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_003B",
-    "Description": "",
-    "Address": "0x089FF4C0",
+    "Description": "Address: 0x089FF4C0",
     "Parameters": [
       {
         "Type": "int",
@@ -771,8 +711,7 @@
     "Index": "0x203c",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_003C",
-    "Description": "",
-    "Address": "0x089FF504",
+    "Description": "Address: 0x089FF504",
     "Parameters": [
       {
         "Type": "int",
@@ -785,16 +724,14 @@
     "Index": "0x203d",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_003D",
-    "Description": "",
-    "Address": "0x089FC168",
+    "Description": "Address: 0x089FC168",
     "Parameters": []
   },
   {
     "Index": "0x203e",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_003E",
-    "Description": "",
-    "Address": "0x089FC198",
+    "Description": "Address: 0x089FC198",
     "Parameters": [
       {
         "Type": "int",
@@ -807,24 +744,21 @@
     "Index": "0x203f",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_003F",
-    "Description": "",
-    "Address": "0x089FC27C",
+    "Description": "Address: 0x089FC27C",
     "Parameters": []
   },
   {
     "Index": "0x2040",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_0040",
-    "Description": "",
-    "Address": "0x089FC2AC",
+    "Description": "Address: 0x089FC2AC",
     "Parameters": []
   },
   {
     "Index": "0x2041",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_0041",
-    "Description": "",
-    "Address": "0x089FC320",
+    "Description": "Address: 0x089FC320",
     "Parameters": [
       {
         "Type": "int",
@@ -837,64 +771,56 @@
     "Index": "0x2042",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_0042",
-    "Description": "",
-    "Address": "0x08A03F00",
+    "Description": "Address: 0x08A03F00",
     "Parameters": []
   },
   {
     "Index": "0x2043",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_0043",
-    "Description": "",
-    "Address": "0x089FF548",
+    "Description": "Address: 0x089FF548",
     "Parameters": []
   },
   {
     "Index": "0x2044",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_0044",
-    "Description": "",
-    "Address": "0x089FF574",
+    "Description": "Address: 0x089FF574",
     "Parameters": []
   },
   {
     "Index": "0x2045",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_0045",
-    "Description": "",
-    "Address": "0x089FF5A0",
+    "Description": "Address: 0x089FF5A0",
     "Parameters": []
   },
   {
     "Index": "0x2046",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0046",
-    "Description": "",
-    "Address": "0x089FD07C",
+    "Description": "Address: 0x089FD07C",
     "Parameters": []
   },
   {
     "Index": "0x2047",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0047",
-    "Description": "",
-    "Address": "0x089FD0B0",
+    "Description": "Address: 0x089FD0B0",
     "Parameters": []
   },
   {
     "Index": "0x2048",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_0048",
-    "Description": "",
-    "Address": "0x089FC3CC",
+    "Description": "Address: 0x089FC3CC",
     "Parameters": []
   },
   {
     "Index": "0x2049",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_0049",
-    "Description": "",
-    "Address": "0x089FF5CC",
+    "Description": "Address: 0x089FF5CC",
     "Parameters": [
       {
         "Type": "int",
@@ -907,8 +833,7 @@
     "Index": "0x204a",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_004A",
-    "Description": "",
-    "Address": "0x089FF610",
+    "Description": "Address: 0x089FF610",
     "Parameters": [
       {
         "Type": "int",
@@ -921,8 +846,7 @@
     "Index": "0x204b",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_004B",
-    "Description": "",
-    "Address": "0x089FF654",
+    "Description": "Address: 0x089FF654",
     "Parameters": [
       {
         "Type": "int",
@@ -935,8 +859,7 @@
     "Index": "0x204c",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_004C",
-    "Description": "",
-    "Address": "0x089FF698",
+    "Description": "Address: 0x089FF698",
     "Parameters": [
       {
         "Type": "int",
@@ -949,8 +872,7 @@
     "Index": "0x204d",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_004D",
-    "Description": "",
-    "Address": "0x089FF6DC",
+    "Description": "Address: 0x089FF6DC",
     "Parameters": [
       {
         "Type": "int",
@@ -963,8 +885,7 @@
     "Index": "0x204e",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_004E",
-    "Description": "",
-    "Address": "0x089FF720",
+    "Description": "Address: 0x089FF720",
     "Parameters": [
       {
         "Type": "int",
@@ -977,8 +898,7 @@
     "Index": "0x204f",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_004F",
-    "Description": "",
-    "Address": "0x089FF764",
+    "Description": "Address: 0x089FF764",
     "Parameters": [
       {
         "Type": "int",
@@ -991,8 +911,7 @@
     "Index": "0x2050",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_0050",
-    "Description": "",
-    "Address": "0x089FF7A8",
+    "Description": "Address: 0x089FF7A8",
     "Parameters": [
       {
         "Type": "int",
@@ -1005,8 +924,7 @@
     "Index": "0x2051",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0051",
-    "Description": "",
-    "Address": "0x089FD0E4",
+    "Description": "Address: 0x089FD0E4",
     "Parameters": [
       {
         "Type": "int",
@@ -1019,8 +937,7 @@
     "Index": "0x2052",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0052",
-    "Description": "",
-    "Address": "0x089FD130",
+    "Description": "Address: 0x089FD130",
     "Parameters": [
       {
         "Type": "int",
@@ -1033,8 +950,7 @@
     "Index": "0x2053",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0053",
-    "Description": "",
-    "Address": "0x089FD17C",
+    "Description": "Address: 0x089FD17C",
     "Parameters": [
       {
         "Type": "int",
@@ -1047,8 +963,7 @@
     "Index": "0x2054",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0054",
-    "Description": "",
-    "Address": "0x089FD1C8",
+    "Description": "Address: 0x089FD1C8",
     "Parameters": [
       {
         "Type": "int",
@@ -1061,8 +976,7 @@
     "Index": "0x2055",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0055",
-    "Description": "",
-    "Address": "0x089FD214",
+    "Description": "Address: 0x089FD214",
     "Parameters": [
       {
         "Type": "int",
@@ -1075,8 +989,7 @@
     "Index": "0x2056",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0056",
-    "Description": "",
-    "Address": "0x089FD260",
+    "Description": "Address: 0x089FD260",
     "Parameters": [
       {
         "Type": "int",
@@ -1089,8 +1002,7 @@
     "Index": "0x2057",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0057",
-    "Description": "",
-    "Address": "0x089FD2AC",
+    "Description": "Address: 0x089FD2AC",
     "Parameters": [
       {
         "Type": "int",
@@ -1103,8 +1015,7 @@
     "Index": "0x2058",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0058",
-    "Description": "",
-    "Address": "0x089FD2F8",
+    "Description": "Address: 0x089FD2F8",
     "Parameters": [
       {
         "Type": "int",
@@ -1117,8 +1028,7 @@
     "Index": "0x2059",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_0059",
-    "Description": "",
-    "Address": "0x089FC370",
+    "Description": "Address: 0x089FC370",
     "Parameters": [
       {
         "Type": "int",
@@ -1136,8 +1046,7 @@
     "Index": "0x205a",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_005A",
-    "Description": "",
-    "Address": "0x089FD344",
+    "Description": "Address: 0x089FD344",
     "Parameters": [
       {
         "Type": "int",
@@ -1155,8 +1064,7 @@
     "Index": "0x205b",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_005B",
-    "Description": "",
-    "Address": "0x089FD3C8",
+    "Description": "Address: 0x089FD3C8",
     "Parameters": [
       {
         "Type": "int",
@@ -1174,8 +1082,7 @@
     "Index": "0x205c",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_005C",
-    "Description": "",
-    "Address": "0x089FD44C",
+    "Description": "Address: 0x089FD44C",
     "Parameters": [
       {
         "Type": "int",
@@ -1193,8 +1100,7 @@
     "Index": "0x205d",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_005D",
-    "Description": "",
-    "Address": "0x089FD4D0",
+    "Description": "Address: 0x089FD4D0",
     "Parameters": [
       {
         "Type": "int",
@@ -1212,8 +1118,7 @@
     "Index": "0x205e",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_005E",
-    "Description": "",
-    "Address": "0x089FD588",
+    "Description": "Address: 0x089FD588",
     "Parameters": [
       {
         "Type": "int",
@@ -1231,8 +1136,7 @@
     "Index": "0x205f",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_005F",
-    "Description": "",
-    "Address": "0x089FD608",
+    "Description": "Address: 0x089FD608",
     "Parameters": [
       {
         "Type": "int",
@@ -1250,8 +1154,7 @@
     "Index": "0x2060",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0060",
-    "Description": "",
-    "Address": "0x089FD68C",
+    "Description": "Address: 0x089FD68C",
     "Parameters": [
       {
         "Type": "int",
@@ -1269,8 +1172,7 @@
     "Index": "0x2061",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0061",
-    "Description": "",
-    "Address": "0x089FD710",
+    "Description": "Address: 0x089FD710",
     "Parameters": [
       {
         "Type": "int",
@@ -1288,8 +1190,7 @@
     "Index": "0x2062",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0062",
-    "Description": "",
-    "Address": "0x089FD794",
+    "Description": "Address: 0x089FD794",
     "Parameters": [
       {
         "Type": "int",
@@ -1307,8 +1208,7 @@
     "Index": "0x2063",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0063",
-    "Description": "",
-    "Address": "0x089FD818",
+    "Description": "Address: 0x089FD818",
     "Parameters": [
       {
         "Type": "int",
@@ -1326,8 +1226,7 @@
     "Index": "0x2064",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0064",
-    "Description": "",
-    "Address": "0x089FD89C",
+    "Description": "Address: 0x089FD89C",
     "Parameters": [
       {
         "Type": "int",
@@ -1345,8 +1244,7 @@
     "Index": "0x2065",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0065",
-    "Description": "",
-    "Address": "0x089FD920",
+    "Description": "Address: 0x089FD920",
     "Parameters": [
       {
         "Type": "int",
@@ -1359,8 +1257,7 @@
     "Index": "0x2066",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0066",
-    "Description": "",
-    "Address": "0x089FD994",
+    "Description": "Address: 0x089FD994",
     "Parameters": [
       {
         "Type": "int",
@@ -1373,16 +1270,14 @@
     "Index": "0x2067",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_0067",
-    "Description": "",
-    "Address": "0x089FF7EC",
+    "Description": "Address: 0x089FF7EC",
     "Parameters": []
   },
   {
     "Index": "0x2068",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_0068",
-    "Description": "",
-    "Address": "0x089FC208",
+    "Description": "Address: 0x089FC208",
     "Parameters": [
       {
         "Type": "int",
@@ -1395,8 +1290,7 @@
     "Index": "0x2069",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0069",
-    "Description": "",
-    "Address": "0x089FE584",
+    "Description": "Address: 0x089FE584",
     "Parameters": [
       {
         "Type": "int",
@@ -1414,8 +1308,7 @@
     "Index": "0x206a",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_006A",
-    "Description": "",
-    "Address": "0x089FE630",
+    "Description": "Address: 0x089FE630",
     "Parameters": [
       {
         "Type": "int",
@@ -1428,8 +1321,7 @@
     "Index": "0x206b",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_006B",
-    "Description": "",
-    "Address": "0x089FE67C",
+    "Description": "Address: 0x089FE67C",
     "Parameters": [
       {
         "Type": "int",
@@ -1442,8 +1334,7 @@
     "Index": "0x206c",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_006C",
-    "Description": "",
-    "Address": "0x089FE6C8",
+    "Description": "Address: 0x089FE6C8",
     "Parameters": [
       {
         "Type": "int",
@@ -1456,8 +1347,7 @@
     "Index": "0x206d",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_006D",
-    "Description": "",
-    "Address": "0x089FE714",
+    "Description": "Address: 0x089FE714",
     "Parameters": [
       {
         "Type": "int",
@@ -1470,8 +1360,7 @@
     "Index": "0x206e",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_006E",
-    "Description": "",
-    "Address": "0x089FE760",
+    "Description": "Address: 0x089FE760",
     "Parameters": [
       {
         "Type": "int",
@@ -1484,8 +1373,7 @@
     "Index": "0x206f",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_006F",
-    "Description": "",
-    "Address": "0x089FE7AC",
+    "Description": "Address: 0x089FE7AC",
     "Parameters": [
       {
         "Type": "int",
@@ -1498,8 +1386,7 @@
     "Index": "0x2070",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0070",
-    "Description": "",
-    "Address": "0x089FE7F8",
+    "Description": "Address: 0x089FE7F8",
     "Parameters": [
       {
         "Type": "int",
@@ -1512,8 +1399,7 @@
     "Index": "0x2071",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0071",
-    "Description": "",
-    "Address": "0x089FE844",
+    "Description": "Address: 0x089FE844",
     "Parameters": [
       {
         "Type": "int",
@@ -1526,8 +1412,7 @@
     "Index": "0x2072",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0072",
-    "Description": "",
-    "Address": "0x089FE890",
+    "Description": "Address: 0x089FE890",
     "Parameters": [
       {
         "Type": "int",
@@ -1540,8 +1425,7 @@
     "Index": "0x2073",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0073",
-    "Description": "",
-    "Address": "0x089FE8DC",
+    "Description": "Address: 0x089FE8DC",
     "Parameters": [
       {
         "Type": "int",
@@ -1554,8 +1438,7 @@
     "Index": "0x2074",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0074",
-    "Description": "",
-    "Address": "0x089FE928",
+    "Description": "Address: 0x089FE928",
     "Parameters": [
       {
         "Type": "int",
@@ -1568,8 +1451,7 @@
     "Index": "0x2075",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0075",
-    "Description": "",
-    "Address": "0x08A0006C",
+    "Description": "Address: 0x08A0006C",
     "Parameters": [
       {
         "Type": "int",
@@ -1587,8 +1469,7 @@
     "Index": "0x2076",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0076",
-    "Description": "",
-    "Address": "0x08A000D4",
+    "Description": "Address: 0x08A000D4",
     "Parameters": [
       {
         "Type": "int",
@@ -1606,8 +1487,7 @@
     "Index": "0x2077",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0077",
-    "Description": "",
-    "Address": "0x08A00138",
+    "Description": "Address: 0x08A00138",
     "Parameters": [
       {
         "Type": "int",
@@ -1620,8 +1500,7 @@
     "Index": "0x2078",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0078",
-    "Description": "",
-    "Address": "0x08A001E8",
+    "Description": "Address: 0x08A001E8",
     "Parameters": [
       {
         "Type": "int",
@@ -1639,8 +1518,7 @@
     "Index": "0x2079",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0079",
-    "Description": "",
-    "Address": "0x08A00264",
+    "Description": "Address: 0x08A00264",
     "Parameters": [
       {
         "Type": "int",
@@ -1658,8 +1536,7 @@
     "Index": "0x207a",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_007A",
-    "Description": "",
-    "Address": "0x08A0044C",
+    "Description": "Address: 0x08A0044C",
     "Parameters": [
       {
         "Type": "int",
@@ -1672,8 +1549,7 @@
     "Index": "0x207b",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_007B",
-    "Description": "",
-    "Address": "0x08A004D0",
+    "Description": "Address: 0x08A004D0",
     "Parameters": [
       {
         "Type": "int",
@@ -1691,16 +1567,14 @@
     "Index": "0x207c",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_007C",
-    "Description": "",
-    "Address": "0x08A00570",
+    "Description": "Address: 0x08A00570",
     "Parameters": []
   },
   {
     "Index": "0x207d",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_007D",
-    "Description": "",
-    "Address": "0x08A00648",
+    "Description": "Address: 0x08A00648",
     "Parameters": [
       {
         "Type": "int",
@@ -1713,8 +1587,7 @@
     "Index": "0x207e",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_007E",
-    "Description": "",
-    "Address": "0x08A00748",
+    "Description": "Address: 0x08A00748",
     "Parameters": [
       {
         "Type": "int",
@@ -1727,8 +1600,7 @@
     "Index": "0x207f",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_007F",
-    "Description": "",
-    "Address": "0x08A0081C",
+    "Description": "Address: 0x08A0081C",
     "Parameters": [
       {
         "Type": "int",
@@ -1741,8 +1613,7 @@
     "Index": "0x2080",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0080",
-    "Description": "",
-    "Address": "0x08A01C98",
+    "Description": "Address: 0x08A01C98",
     "Parameters": [
       {
         "Type": "int",
@@ -1755,8 +1626,7 @@
     "Index": "0x2081",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0081",
-    "Description": "",
-    "Address": "0x08A01D28",
+    "Description": "Address: 0x08A01D28",
     "Parameters": [
       {
         "Type": "int",
@@ -1769,8 +1639,7 @@
     "Index": "0x2082",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0082",
-    "Description": "",
-    "Address": "0x08A01DB8",
+    "Description": "Address: 0x08A01DB8",
     "Parameters": [
       {
         "Type": "int",
@@ -1783,8 +1652,7 @@
     "Index": "0x2083",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0083",
-    "Description": "",
-    "Address": "0x08A022A0",
+    "Description": "Address: 0x08A022A0",
     "Parameters": [
       {
         "Type": "int",
@@ -1797,8 +1665,7 @@
     "Index": "0x2084",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0084",
-    "Description": "",
-    "Address": "0x08A02330",
+    "Description": "Address: 0x08A02330",
     "Parameters": [
       {
         "Type": "int",
@@ -1811,8 +1678,7 @@
     "Index": "0x2085",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0085",
-    "Description": "",
-    "Address": "0x08A023C0",
+    "Description": "Address: 0x08A023C0",
     "Parameters": [
       {
         "Type": "int",
@@ -1825,8 +1691,7 @@
     "Index": "0x2086",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0086",
-    "Description": "",
-    "Address": "0x08A01FF8",
+    "Description": "Address: 0x08A01FF8",
     "Parameters": [
       {
         "Type": "int",
@@ -1849,8 +1714,7 @@
     "Index": "0x2087",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0087",
-    "Description": "",
-    "Address": "0x08A02084",
+    "Description": "Address: 0x08A02084",
     "Parameters": [
       {
         "Type": "int",
@@ -1873,8 +1737,7 @@
     "Index": "0x2088",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0088",
-    "Description": "",
-    "Address": "0x08A02110",
+    "Description": "Address: 0x08A02110",
     "Parameters": [
       {
         "Type": "int",
@@ -1897,16 +1760,14 @@
     "Index": "0x2089",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0089",
-    "Description": "",
-    "Address": "0x08A02450",
+    "Description": "Address: 0x08A02450",
     "Parameters": []
   },
   {
     "Index": "0x208a",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_008A",
-    "Description": "",
-    "Address": "0x08A02558",
+    "Description": "Address: 0x08A02558",
     "Parameters": [
       {
         "Type": "int",
@@ -1919,24 +1780,21 @@
     "Index": "0x208b",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_008B",
-    "Description": "",
-    "Address": "0x08A026C0",
+    "Description": "Address: 0x08A026C0",
     "Parameters": []
   },
   {
     "Index": "0x208c",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_008C",
-    "Description": "",
-    "Address": "0x08A027D0",
+    "Description": "Address: 0x08A027D0",
     "Parameters": []
   },
   {
     "Index": "0x208d",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_008D",
-    "Description": "",
-    "Address": "0x08A008F0",
+    "Description": "Address: 0x08A008F0",
     "Parameters": [
       {
         "Type": "int",
@@ -1949,8 +1807,7 @@
     "Index": "0x208e",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_008E",
-    "Description": "",
-    "Address": "0x08A009C4",
+    "Description": "Address: 0x08A009C4",
     "Parameters": [
       {
         "Type": "int",
@@ -1963,8 +1820,7 @@
     "Index": "0x208f",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_008F",
-    "Description": "",
-    "Address": "0x08A00A98",
+    "Description": "Address: 0x08A00A98",
     "Parameters": [
       {
         "Type": "int",
@@ -1977,16 +1833,14 @@
     "Index": "0x2090",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0090",
-    "Description": "",
-    "Address": "0x08A0219C",
+    "Description": "Address: 0x08A0219C",
     "Parameters": []
   },
   {
     "Index": "0x2091",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_0091",
-    "Description": "",
-    "Address": "0x089FF9CC",
+    "Description": "Address: 0x089FF9CC",
     "Parameters": [
       {
         "Type": "int",
@@ -1999,32 +1853,28 @@
     "Index": "0x2092",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0092",
-    "Description": "",
-    "Address": "0x089FE974",
+    "Description": "Address: 0x089FE974",
     "Parameters": []
   },
   {
     "Index": "0x2093",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0093",
-    "Description": "",
-    "Address": "0x089FE9A8",
+    "Description": "Address: 0x089FE9A8",
     "Parameters": []
   },
   {
     "Index": "0x2094",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0094",
-    "Description": "",
-    "Address": "0x089FE9DC",
+    "Description": "Address: 0x089FE9DC",
     "Parameters": []
   },
   {
     "Index": "0x2095",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_0095",
-    "Description": "",
-    "Address": "0x089FFA60",
+    "Description": "Address: 0x089FFA60",
     "Parameters": [
       {
         "Type": "int",
@@ -2037,8 +1887,7 @@
     "Index": "0x2096",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_0096",
-    "Description": "",
-    "Address": "0x089FFAD0",
+    "Description": "Address: 0x089FFAD0",
     "Parameters": [
       {
         "Type": "int",
@@ -2051,8 +1900,7 @@
     "Index": "0x2097",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0097",
-    "Description": "",
-    "Address": "0x08A03F2C",
+    "Description": "Address: 0x08A03F2C",
     "Parameters": [
       {
         "Type": "int",
@@ -2065,8 +1913,7 @@
     "Index": "0x2098",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_0098",
-    "Description": "",
-    "Address": "0x089FF844",
+    "Description": "Address: 0x089FF844",
     "Parameters": [
       {
         "Type": "int",
@@ -2079,32 +1926,28 @@
     "Index": "0x2099",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0099",
-    "Description": "",
-    "Address": "0x089FFB80",
+    "Description": "Address: 0x089FFB80",
     "Parameters": []
   },
   {
     "Index": "0x209a",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_009A",
-    "Description": "",
-    "Address": "0x089FF888",
+    "Description": "Address: 0x089FF888",
     "Parameters": []
   },
   {
     "Index": "0x209b",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_009B",
-    "Description": "",
-    "Address": "0x08A021D4",
+    "Description": "Address: 0x08A021D4",
     "Parameters": []
   },
   {
     "Index": "0x209c",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_009C",
-    "Description": "",
-    "Address": "0x08A03314",
+    "Description": "Address: 0x08A03314",
     "Parameters": [
       {
         "Type": "int",
@@ -2132,8 +1975,7 @@
     "Index": "0x209d",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_009D",
-    "Description": "",
-    "Address": "0x08A002E0",
+    "Description": "Address: 0x08A002E0",
     "Parameters": [
       {
         "Type": "int",
@@ -2151,24 +1993,21 @@
     "Index": "0x209e",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_009E",
-    "Description": "",
-    "Address": "0x08A036E8",
+    "Description": "Address: 0x08A036E8",
     "Parameters": []
   },
   {
     "Index": "0x209f",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_009F",
-    "Description": "",
-    "Address": "0x08A03718",
+    "Description": "Address: 0x08A03718",
     "Parameters": []
   },
   {
     "Index": "0x20a0",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00A0",
-    "Description": "",
-    "Address": "0x08A02954",
+    "Description": "Address: 0x08A02954",
     "Parameters": [
       {
         "Type": "int",
@@ -2191,8 +2030,7 @@
     "Index": "0x20a1",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00A1",
-    "Description": "",
-    "Address": "0x089FDA08",
+    "Description": "Address: 0x089FDA08",
     "Parameters": [
       {
         "Type": "int",
@@ -2210,8 +2048,7 @@
     "Index": "0x20a2",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00A2",
-    "Description": "",
-    "Address": "0x089FDA8C",
+    "Description": "Address: 0x089FDA8C",
     "Parameters": [
       {
         "Type": "int",
@@ -2229,8 +2066,7 @@
     "Index": "0x20a3",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00A3",
-    "Description": "",
-    "Address": "0x089FDB10",
+    "Description": "Address: 0x089FDB10",
     "Parameters": [
       {
         "Type": "int",
@@ -2248,8 +2084,7 @@
     "Index": "0x20a4",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00A4",
-    "Description": "",
-    "Address": "0x089FDB94",
+    "Description": "Address: 0x089FDB94",
     "Parameters": [
       {
         "Type": "int",
@@ -2267,8 +2102,7 @@
     "Index": "0x20a5",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00A5",
-    "Description": "",
-    "Address": "0x089FDEA8",
+    "Description": "Address: 0x089FDEA8",
     "Parameters": [
       {
         "Type": "int",
@@ -2286,8 +2120,7 @@
     "Index": "0x20a6",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00A6",
-    "Description": "",
-    "Address": "0x089FE184",
+    "Description": "Address: 0x089FE184",
     "Parameters": [
       {
         "Type": "int",
@@ -2305,8 +2138,7 @@
     "Index": "0x20a7",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00A7",
-    "Description": "",
-    "Address": "0x089FE208",
+    "Description": "Address: 0x089FE208",
     "Parameters": [
       {
         "Type": "int",
@@ -2324,8 +2156,7 @@
     "Index": "0x20a8",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00A8",
-    "Description": "",
-    "Address": "0x089FE28C",
+    "Description": "Address: 0x089FE28C",
     "Parameters": [
       {
         "Type": "int",
@@ -2343,8 +2174,7 @@
     "Index": "0x20a9",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00A9",
-    "Description": "",
-    "Address": "0x089FE310",
+    "Description": "Address: 0x089FE310",
     "Parameters": [
       {
         "Type": "int",
@@ -2362,8 +2192,7 @@
     "Index": "0x20aa",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00AA",
-    "Description": "",
-    "Address": "0x089FE394",
+    "Description": "Address: 0x089FE394",
     "Parameters": [
       {
         "Type": "int",
@@ -2381,8 +2210,7 @@
     "Index": "0x20ab",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00AB",
-    "Description": "",
-    "Address": "0x089FE418",
+    "Description": "Address: 0x089FE418",
     "Parameters": [
       {
         "Type": "int",
@@ -2400,8 +2228,7 @@
     "Index": "0x20ac",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00AC",
-    "Description": "",
-    "Address": "0x089FE49C",
+    "Description": "Address: 0x089FE49C",
     "Parameters": [
       {
         "Type": "int",
@@ -2414,8 +2241,7 @@
     "Index": "0x20ad",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00AD",
-    "Description": "",
-    "Address": "0x089FE510",
+    "Description": "Address: 0x089FE510",
     "Parameters": [
       {
         "Type": "int",
@@ -2428,8 +2254,7 @@
     "Index": "0x20ae",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_00AE",
-    "Description": "",
-    "Address": "0x08A03748",
+    "Description": "Address: 0x08A03748",
     "Parameters": [
       {
         "Type": "int",
@@ -2442,16 +2267,14 @@
     "Index": "0x20af",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_00AF",
-    "Description": "",
-    "Address": "0x08A037F0",
+    "Description": "Address: 0x08A037F0",
     "Parameters": []
   },
   {
     "Index": "0x20b0",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_00B0",
-    "Description": "",
-    "Address": "0x08A03444",
+    "Description": "Address: 0x08A03444",
     "Parameters": [
       {
         "Type": "int",
@@ -2469,16 +2292,14 @@
     "Index": "0x20b1",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00B1",
-    "Description": "",
-    "Address": "0x08A03530",
+    "Description": "Address: 0x08A03530",
     "Parameters": []
   },
   {
     "Index": "0x20b2",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_00B2",
-    "Description": "",
-    "Address": "0x08A03558",
+    "Description": "Address: 0x08A03558",
     "Parameters": [
       {
         "Type": "int",
@@ -2491,24 +2312,21 @@
     "Index": "0x20b3",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_00B3",
-    "Description": "",
-    "Address": "0x08A035AC",
+    "Description": "Address: 0x08A035AC",
     "Parameters": []
   },
   {
     "Index": "0x20b4",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_00B4",
-    "Description": "",
-    "Address": "0x08A035DC",
+    "Description": "Address: 0x08A035DC",
     "Parameters": []
   },
   {
     "Index": "0x20b5",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_00B5",
-    "Description": "",
-    "Address": "0x08A034B0",
+    "Description": "Address: 0x08A034B0",
     "Parameters": [
       {
         "Type": "int",
@@ -2521,16 +2339,14 @@
     "Index": "0x20b6",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00B6",
-    "Description": "",
-    "Address": "0x08A0363C",
+    "Description": "Address: 0x08A0363C",
     "Parameters": []
   },
   {
     "Index": "0x20b7",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00B7",
-    "Description": "",
-    "Address": "0x089FFBB0",
+    "Description": "Address: 0x089FFBB0",
     "Parameters": [
       {
         "Type": "int",
@@ -2543,8 +2359,7 @@
     "Index": "0x20b8",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00B8",
-    "Description": "",
-    "Address": "0x089FFC14",
+    "Description": "Address: 0x089FFC14",
     "Parameters": [
       {
         "Type": "int",
@@ -2557,8 +2372,7 @@
     "Index": "0x20b9",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00B9",
-    "Description": "",
-    "Address": "0x08A03F5C",
+    "Description": "Address: 0x08A03F5C",
     "Parameters": [
       {
         "Type": "int",
@@ -2571,8 +2385,7 @@
     "Index": "0x20ba",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_00BA",
-    "Description": "",
-    "Address": "0x08A03F94",
+    "Description": "Address: 0x08A03F94",
     "Parameters": [
       {
         "Type": "int",
@@ -2590,8 +2403,7 @@
     "Index": "0x20bb",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00BB",
-    "Description": "",
-    "Address": "0x089FEA10",
+    "Description": "Address: 0x089FEA10",
     "Parameters": [
       {
         "Type": "int",
@@ -2604,8 +2416,7 @@
     "Index": "0x20bc",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00BC",
-    "Description": "",
-    "Address": "0x089FFC78",
+    "Description": "Address: 0x089FFC78",
     "Parameters": [
       {
         "Type": "int",
@@ -2618,8 +2429,7 @@
     "Index": "0x20bd",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00BD",
-    "Description": "",
-    "Address": "0x089FFCD4",
+    "Description": "Address: 0x089FFCD4",
     "Parameters": [
       {
         "Type": "int",
@@ -2632,8 +2442,7 @@
     "Index": "0x20be",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00BE",
-    "Description": "",
-    "Address": "0x089FFD30",
+    "Description": "Address: 0x089FFD30",
     "Parameters": [
       {
         "Type": "int",
@@ -2646,8 +2455,7 @@
     "Index": "0x20bf",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00BF",
-    "Description": "",
-    "Address": "0x089FFDE8",
+    "Description": "Address: 0x089FFDE8",
     "Parameters": [
       {
         "Type": "int",
@@ -2660,8 +2468,7 @@
     "Index": "0x20c0",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00C0",
-    "Description": "",
-    "Address": "0x089FFE44",
+    "Description": "Address: 0x089FFE44",
     "Parameters": [
       {
         "Type": "int",
@@ -2674,8 +2481,7 @@
     "Index": "0x20c1",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00C1",
-    "Description": "",
-    "Address": "0x08A00B6C",
+    "Description": "Address: 0x08A00B6C",
     "Parameters": [
       {
         "Type": "int",
@@ -2688,8 +2494,7 @@
     "Index": "0x20c2",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00C2",
-    "Description": "",
-    "Address": "0x08A00C44",
+    "Description": "Address: 0x08A00C44",
     "Parameters": [
       {
         "Type": "int",
@@ -2702,32 +2507,28 @@
     "Index": "0x20c3",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00C3",
-    "Description": "",
-    "Address": "0x08A00D44",
+    "Description": "Address: 0x08A00D44",
     "Parameters": []
   },
   {
     "Index": "0x20c4",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00C4",
-    "Description": "",
-    "Address": "0x08A0368C",
+    "Description": "Address: 0x08A0368C",
     "Parameters": []
   },
   {
     "Index": "0x20c5",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_00C5",
-    "Description": "",
-    "Address": "0x08A03FDC",
+    "Description": "Address: 0x08A03FDC",
     "Parameters": []
   },
   {
     "Index": "0x20c6",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00C6",
-    "Description": "",
-    "Address": "0x089FEA5C",
+    "Description": "Address: 0x089FEA5C",
     "Parameters": [
       {
         "Type": "int",
@@ -2750,8 +2551,7 @@
     "Index": "0x20c7",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00C7",
-    "Description": "",
-    "Address": "0x089FEB0C",
+    "Description": "Address: 0x089FEB0C",
     "Parameters": [
       {
         "Type": "int",
@@ -2769,24 +2569,21 @@
     "Index": "0x20c8",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_00C8",
-    "Description": "",
-    "Address": "0x08A03890",
+    "Description": "Address: 0x08A03890",
     "Parameters": []
   },
   {
     "Index": "0x20c9",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_00C9",
-    "Description": "",
-    "Address": "0x08A038F4",
+    "Description": "Address: 0x08A038F4",
     "Parameters": []
   },
   {
     "Index": "0x20ca",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_00CA",
-    "Description": "",
-    "Address": "0x08A03958",
+    "Description": "Address: 0x08A03958",
     "Parameters": [
       {
         "Type": "float",
@@ -2824,8 +2621,7 @@
     "Index": "0x20cb",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_00CB",
-    "Description": "",
-    "Address": "0x08A03A48",
+    "Description": "Address: 0x08A03A48",
     "Parameters": [
       {
         "Type": "float",
@@ -2863,8 +2659,7 @@
     "Index": "0x20cc",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_00CC",
-    "Description": "",
-    "Address": "0x08A03AC0",
+    "Description": "Address: 0x08A03AC0",
     "Parameters": [
       {
         "Type": "float",
@@ -2902,8 +2697,7 @@
     "Index": "0x20cd",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_00CD",
-    "Description": "",
-    "Address": "0x08A03B38",
+    "Description": "Address: 0x08A03B38",
     "Parameters": [
       {
         "Type": "int",
@@ -2916,8 +2710,7 @@
     "Index": "0x20ce",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_00CE",
-    "Description": "",
-    "Address": "0x08A03BD4",
+    "Description": "Address: 0x08A03BD4",
     "Parameters": [
       {
         "Type": "int",
@@ -2935,40 +2728,35 @@
     "Index": "0x20cf",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_00CF",
-    "Description": "",
-    "Address": "0x08A045D4",
+    "Description": "Address: 0x08A045D4",
     "Parameters": []
   },
   {
     "Index": "0x20d0",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_00D0",
-    "Description": "",
-    "Address": "0x08A04584",
+    "Description": "Address: 0x08A04584",
     "Parameters": []
   },
   {
     "Index": "0x20d1",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_00D1",
-    "Description": "",
-    "Address": "0x08A04520",
+    "Description": "Address: 0x08A04520",
     "Parameters": []
   },
   {
     "Index": "0x20d2",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_00D2",
-    "Description": "",
-    "Address": "0x08A044BC",
+    "Description": "Address: 0x08A044BC",
     "Parameters": []
   },
   {
     "Index": "0x20d3",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_00D3",
-    "Description": "",
-    "Address": "0x089FF8B4",
+    "Description": "Address: 0x089FF8B4",
     "Parameters": [
       {
         "Type": "int",
@@ -2981,8 +2769,7 @@
     "Index": "0x20d4",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_00D4",
-    "Description": "",
-    "Address": "0x089FF8F8",
+    "Description": "Address: 0x089FF8F8",
     "Parameters": [
       {
         "Type": "int",
@@ -2995,8 +2782,7 @@
     "Index": "0x20d5",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00D5",
-    "Description": "",
-    "Address": "0x08A03C84",
+    "Description": "Address: 0x08A03C84",
     "Parameters": [
       {
         "Type": "int",
@@ -3014,8 +2800,7 @@
     "Index": "0x20d6",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00D6",
-    "Description": "",
-    "Address": "0x089FED50",
+    "Description": "Address: 0x089FED50",
     "Parameters": [
       {
         "Type": "int",
@@ -3033,8 +2818,7 @@
     "Index": "0x20d7",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_00D7",
-    "Description": "",
-    "Address": "0x08A03C44",
+    "Description": "Address: 0x08A03C44",
     "Parameters": [
       {
         "Type": "int",
@@ -3047,24 +2831,21 @@
     "Index": "0x20d8",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_00D8",
-    "Description": "",
-    "Address": "0x08A03664",
+    "Description": "Address: 0x08A03664",
     "Parameters": []
   },
   {
     "Index": "0x20d9",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00D9",
-    "Description": "",
-    "Address": "0x08A0360C",
+    "Description": "Address: 0x08A0360C",
     "Parameters": []
   },
   {
     "Index": "0x20da",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00DA",
-    "Description": "",
-    "Address": "0x089FEDEC",
+    "Description": "Address: 0x089FEDEC",
     "Parameters": [
       {
         "Type": "int",
@@ -3082,8 +2863,7 @@
     "Index": "0x20db",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00DB",
-    "Description": "",
-    "Address": "0x089FEE70",
+    "Description": "Address: 0x089FEE70",
     "Parameters": [
       {
         "Type": "int",
@@ -3096,8 +2876,7 @@
     "Index": "0x20dc",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00DC",
-    "Description": "",
-    "Address": "0x089FFEA0",
+    "Description": "Address: 0x089FFEA0",
     "Parameters": [
       {
         "Type": "int",
@@ -3110,24 +2889,21 @@
     "Index": "0x20dd",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00DD",
-    "Description": "",
-    "Address": "0x089FFEFC",
+    "Description": "Address: 0x089FFEFC",
     "Parameters": []
   },
   {
     "Index": "0x20de",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00DE",
-    "Description": "",
-    "Address": "0x089FFF40",
+    "Description": "Address: 0x089FFF40",
     "Parameters": []
   },
   {
     "Index": "0x20df",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00DF",
-    "Description": "",
-    "Address": "0x089FFF88",
+    "Description": "Address: 0x089FFF88",
     "Parameters": [
       {
         "Type": "int",
@@ -3140,8 +2916,7 @@
     "Index": "0x20e0",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00E0",
-    "Description": "",
-    "Address": "0x08A00EC8",
+    "Description": "Address: 0x08A00EC8",
     "Parameters": [
       {
         "Type": "int",
@@ -3154,8 +2929,7 @@
     "Index": "0x20e1",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00E1",
-    "Description": "",
-    "Address": "0x08A01068",
+    "Description": "Address: 0x08A01068",
     "Parameters": [
       {
         "Type": "int",
@@ -3168,8 +2942,7 @@
     "Index": "0x20e2",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00E2",
-    "Description": "",
-    "Address": "0x08A01188",
+    "Description": "Address: 0x08A01188",
     "Parameters": [
       {
         "Type": "int",
@@ -3182,8 +2955,7 @@
     "Index": "0x20e3",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00E3",
-    "Description": "",
-    "Address": "0x089FEEB8",
+    "Description": "Address: 0x089FEEB8",
     "Parameters": [
       {
         "Type": "int",
@@ -3201,8 +2973,7 @@
     "Index": "0x20e4",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_00E4",
-    "Description": "",
-    "Address": "0x089FC2DC",
+    "Description": "Address: 0x089FC2DC",
     "Parameters": [
       {
         "Type": "int",
@@ -3215,8 +2986,7 @@
     "Index": "0x20e5",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00E5",
-    "Description": "",
-    "Address": "0x089FEBA0",
+    "Description": "Address: 0x089FEBA0",
     "Parameters": [
       {
         "Type": "int",
@@ -3234,8 +3004,7 @@
     "Index": "0x20e6",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00E6",
-    "Description": "",
-    "Address": "0x089FEC30",
+    "Description": "Address: 0x089FEC30",
     "Parameters": [
       {
         "Type": "int",
@@ -3253,8 +3022,7 @@
     "Index": "0x20e7",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00E7",
-    "Description": "",
-    "Address": "0x089FECC0",
+    "Description": "Address: 0x089FECC0",
     "Parameters": [
       {
         "Type": "int",
@@ -3272,24 +3040,21 @@
     "Index": "0x20e8",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00E8",
-    "Description": "",
-    "Address": "0x089FEF3C",
+    "Description": "Address: 0x089FEF3C",
     "Parameters": []
   },
   {
     "Index": "0x20e9",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_00E9",
-    "Description": "",
-    "Address": "0x08A03868",
+    "Description": "Address: 0x08A03868",
     "Parameters": []
   },
   {
     "Index": "0x20ea",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00EA",
-    "Description": "",
-    "Address": "0x08A01324",
+    "Description": "Address: 0x08A01324",
     "Parameters": [
       {
         "Type": "int",
@@ -3302,16 +3067,14 @@
     "Index": "0x20eb",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00EB",
-    "Description": "",
-    "Address": "0x08A03848",
+    "Description": "Address: 0x08A03848",
     "Parameters": []
   },
   {
     "Index": "0x20ec",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_00EC",
-    "Description": "",
-    "Address": "0x089FFB40",
+    "Description": "Address: 0x089FFB40",
     "Parameters": [
       {
         "Type": "int",
@@ -3329,8 +3092,7 @@
     "Index": "0x20ed",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00ED",
-    "Description": "",
-    "Address": "0x08A014EC",
+    "Description": "Address: 0x08A014EC",
     "Parameters": [
       {
         "Type": "int",
@@ -3343,16 +3105,14 @@
     "Index": "0x20ee",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00EE",
-    "Description": "",
-    "Address": "0x08A0140C",
+    "Description": "Address: 0x08A0140C",
     "Parameters": []
   },
   {
     "Index": "0x20ef",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00EF",
-    "Description": "",
-    "Address": "0x08A0143C",
+    "Description": "Address: 0x08A0143C",
     "Parameters": [
       {
         "Type": "int",
@@ -3365,8 +3125,7 @@
     "Index": "0x20f0",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00F0",
-    "Description": "",
-    "Address": "0x08A0147C",
+    "Description": "Address: 0x08A0147C",
     "Parameters": [
       {
         "Type": "int",
@@ -3379,8 +3138,7 @@
     "Index": "0x20f1",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00F1",
-    "Description": "",
-    "Address": "0x08A01548",
+    "Description": "Address: 0x08A01548",
     "Parameters": [
       {
         "Type": "int",
@@ -3393,8 +3151,7 @@
     "Index": "0x20f2",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00F2",
-    "Description": "",
-    "Address": "0x08A01588",
+    "Description": "Address: 0x08A01588",
     "Parameters": [
       {
         "Type": "int",
@@ -3407,16 +3164,14 @@
     "Index": "0x20f3",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00F3",
-    "Description": "",
-    "Address": "0x08A014BC",
+    "Description": "Address: 0x08A014BC",
     "Parameters": []
   },
   {
     "Index": "0x20f4",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00F4",
-    "Description": "",
-    "Address": "0x08A00348",
+    "Description": "Address: 0x08A00348",
     "Parameters": [
       {
         "Type": "int",
@@ -3429,24 +3184,21 @@
     "Index": "0x20f5",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00F5",
-    "Description": "",
-    "Address": "0x089FFFD0",
+    "Description": "Address: 0x089FFFD0",
     "Parameters": []
   },
   {
     "Index": "0x20f6",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00F6",
-    "Description": "",
-    "Address": "0x08A00004",
+    "Description": "Address: 0x08A00004",
     "Parameters": []
   },
   {
     "Index": "0x20f7",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00F7",
-    "Description": "",
-    "Address": "0x089FFD8C",
+    "Description": "Address: 0x089FFD8C",
     "Parameters": [
       {
         "Type": "int",
@@ -3459,8 +3211,7 @@
     "Index": "0x20f8",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00F8",
-    "Description": "",
-    "Address": "0x08A02AF8",
+    "Description": "Address: 0x08A02AF8",
     "Parameters": [
       {
         "Type": "int",
@@ -3473,8 +3224,7 @@
     "Index": "0x20f9",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00F9",
-    "Description": "",
-    "Address": "0x08A003E4",
+    "Description": "Address: 0x08A003E4",
     "Parameters": [
       {
         "Type": "int",
@@ -3492,8 +3242,7 @@
     "Index": "0x20fa",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00FA",
-    "Description": "",
-    "Address": "0x08A03030",
+    "Description": "Address: 0x08A03030",
     "Parameters": [
       {
         "Type": "int",
@@ -3506,8 +3255,7 @@
     "Index": "0x20fb",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00FB",
-    "Description": "",
-    "Address": "0x08A0315C",
+    "Description": "Address: 0x08A0315C",
     "Parameters": [
       {
         "Type": "int",
@@ -3520,16 +3268,14 @@
     "Index": "0x20fc",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00FC",
-    "Description": "",
-    "Address": "0x08A0328C",
+    "Description": "Address: 0x08A0328C",
     "Parameters": []
   },
   {
     "Index": "0x20fd",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00FD",
-    "Description": "",
-    "Address": "0x08A00384",
+    "Description": "Address: 0x08A00384",
     "Parameters": [
       {
         "Type": "int",
@@ -3547,8 +3293,7 @@
     "Index": "0x20fe",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00FE",
-    "Description": "",
-    "Address": "0x08A015C8",
+    "Description": "Address: 0x08A015C8",
     "Parameters": [
       {
         "Type": "int",
@@ -3561,8 +3306,7 @@
     "Index": "0x20ff",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_00FF",
-    "Description": "",
-    "Address": "0x08A0169C",
+    "Description": "Address: 0x08A0169C",
     "Parameters": [
       {
         "Type": "int",
@@ -3575,8 +3319,7 @@
     "Index": "0x2100",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0100",
-    "Description": "",
-    "Address": "0x08A0179C",
+    "Description": "Address: 0x08A0179C",
     "Parameters": [
       {
         "Type": "int",
@@ -3589,8 +3332,7 @@
     "Index": "0x2101",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0101",
-    "Description": "",
-    "Address": "0x08A0189C",
+    "Description": "Address: 0x08A0189C",
     "Parameters": [
       {
         "Type": "int",
@@ -3603,8 +3345,7 @@
     "Index": "0x2102",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0102",
-    "Description": "",
-    "Address": "0x089FF00C",
+    "Description": "Address: 0x089FF00C",
     "Parameters": [
       {
         "Type": "int",
@@ -3617,8 +3358,7 @@
     "Index": "0x2103",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0103",
-    "Description": "",
-    "Address": "0x089FF058",
+    "Description": "Address: 0x089FF058",
     "Parameters": [
       {
         "Type": "int",
@@ -3631,8 +3371,7 @@
     "Index": "0x2104",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0104",
-    "Description": "",
-    "Address": "0x089FF0A4",
+    "Description": "Address: 0x089FF0A4",
     "Parameters": [
       {
         "Type": "int",
@@ -3645,8 +3384,7 @@
     "Index": "0x2105",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_0105",
-    "Description": "",
-    "Address": "0x08A03D30",
+    "Description": "Address: 0x08A03D30",
     "Parameters": [
       {
         "Type": "int",
@@ -3659,24 +3397,21 @@
     "Index": "0x2106",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_0106",
-    "Description": "",
-    "Address": "0x08A03D38",
+    "Description": "Address: 0x08A03D38",
     "Parameters": []
   },
   {
     "Index": "0x2107",
     "ReturnType": "void",
     "Name": "AI_FUNCTION_0107",
-    "Description": "",
-    "Address": "0x08A03FE4",
+    "Description": "Address: 0x08A03FE4",
     "Parameters": []
   },
   {
     "Index": "0x2108",
     "ReturnType": "int",
     "Name": "AI_FUNCTION_0108",
-    "Description": "",
-    "Address": "0x08A00038",
+    "Description": "Address: 0x08A00038",
     "Parameters": []
   }
 ]

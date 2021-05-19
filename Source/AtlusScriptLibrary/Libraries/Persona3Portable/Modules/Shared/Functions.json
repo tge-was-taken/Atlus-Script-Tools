@@ -2,9 +2,8 @@
   {
     "Index": "0x5000",
     "ReturnType": "void",
-    "Name": "SHD_FUNCTION_0000",
-    "Description": "",
-    "Address": "0x089730D0",
+    "Name": "ADD_PC_STAT",
+    "Description": "Address: 0x089730D0",
     "Parameters": [
       {
         "Type": "int",
@@ -22,8 +21,7 @@
     "Index": "0x5001",
     "ReturnType": "int",
     "Name": "SHD_FUNCTION_0001",
-    "Description": "",
-    "Address": "0x08973158",
+    "Description": "Address: 0x08973158",
     "Parameters": [
       {
         "Type": "int",
@@ -41,8 +39,7 @@
     "Index": "0x5002",
     "ReturnType": "int",
     "Name": "SHD_FUNCTION_0002",
-    "Description": "",
-    "Address": "0x089731A0",
+    "Description": "Address: 0x089731A0",
     "Parameters": [
       {
         "Type": "int",
@@ -54,9 +51,8 @@
   {
     "Index": "0x5003",
     "ReturnType": "int",
-    "Name": "SHD_FUNCTION_0003",
-    "Description": "",
-    "Address": "0x08973354",
+    "Name": "ADD_PC_MONEY",
+    "Description": "Address: 0x08973354",
     "Parameters": [
       {
         "Type": "int",
@@ -68,9 +64,8 @@
   {
     "Index": "0x5004",
     "ReturnType": "int",
-    "Name": "SHD_FUNCTION_0004",
-    "Description": "",
-    "Address": "0x08973488",
+    "Name": "GET_ITEM_NUM",
+    "Description": "Address: 0x08973488",
     "Parameters": [
       {
         "Type": "int",
@@ -82,9 +77,8 @@
   {
     "Index": "0x5005",
     "ReturnType": "void",
-    "Name": "SHD_FUNCTION_0005",
-    "Description": "",
-    "Address": "0x089734B8",
+    "Name": "SET_ITEM_NUM",
+    "Description": "Address: 0x089734B8",
     "Parameters": [
       {
         "Type": "int",
@@ -101,9 +95,8 @@
   {
     "Index": "0x5006",
     "ReturnType": "int",
-    "Name": "SHD_FUNCTION_0006",
-    "Description": "",
-    "Address": "0x089736A0",
+    "Name": "GET_EQUIP",
+    "Description": "Address: 0x089736A0",
     "Parameters": [
       {
         "Type": "int",
@@ -120,9 +113,8 @@
   {
     "Index": "0x5007",
     "ReturnType": "void",
-    "Name": "SHD_FUNCTION_0007",
-    "Description": "",
-    "Address": "0x089736E8",
+    "Name": "SET_EQUIP",
+    "Description": "Address: 0x089736E8",
     "Parameters": [
       {
         "Type": "int",
@@ -144,9 +136,8 @@
   {
     "Index": "0x5008",
     "ReturnType": "int",
-    "Name": "SHD_FUNCTION_0008",
-    "Description": "",
-    "Address": "0x08979C30",
+    "Name": "GET_SMN_LEVEL",
+    "Description": "Address: 0x08979C30",
     "Parameters": [
       {
         "Type": "int",
@@ -158,13 +149,12 @@
   {
     "Index": "0x5009",
     "ReturnType": "int",
-    "Name": "SHD_FUNCTION_0009",
-    "Description": "",
-    "Address": "0x08979AE0",
+    "Name": "GET_HP",
+    "Description": "Address: 0x08979AE0",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "PartyMember",
         "Description": ""
       }
     ]
@@ -172,13 +162,12 @@
   {
     "Index": "0x500a",
     "ReturnType": "int",
-    "Name": "SHD_FUNCTION_000A",
-    "Description": "",
-    "Address": "0x08979B10",
+    "Name": "GET_MAXHP",
+    "Description": "Address: 0x08979B10",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "PartyMember",
         "Description": ""
       }
     ]
@@ -186,9 +175,8 @@
   {
     "Index": "0x500b",
     "ReturnType": "void",
-    "Name": "SHD_FUNCTION_000B",
-    "Description": "",
-    "Address": "0x08979B40",
+    "Name": "SET_HP",
+    "Description": "Address: 0x08979B40",
     "Parameters": [
       {
         "Type": "int",
@@ -205,13 +193,12 @@
   {
     "Index": "0x500c",
     "ReturnType": "int",
-    "Name": "SHD_FUNCTION_000C",
-    "Description": "",
-    "Address": "0x08979B80",
+    "Name": "GET_SP",
+    "Description": "Address: 0x08979B80",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "PartyMember",
         "Description": ""
       }
     ]
@@ -219,13 +206,12 @@
   {
     "Index": "0x500d",
     "ReturnType": "int",
-    "Name": "SHD_FUNCTION_000D",
-    "Description": "",
-    "Address": "0x08979BB0",
+    "Name": "GET_MAXSP",
+    "Description": "Address: 0x08979BB0",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "PartyMember",
         "Description": ""
       }
     ]
@@ -233,9 +219,8 @@
   {
     "Index": "0x500e",
     "ReturnType": "void",
-    "Name": "SHD_FUNCTION_000E",
-    "Description": "",
-    "Address": "0x08979BE0",
+    "Name": "SET_SP",
+    "Description": "Address: 0x08979BE0",
     "Parameters": [
       {
         "Type": "int",
@@ -253,8 +238,7 @@
     "Index": "0x500f",
     "ReturnType": "int",
     "Name": "SHD_FUNCTION_000F",
-    "Description": "",
-    "Address": "0x089731D0",
+    "Description": "Address: 0x089731D0",
     "Parameters": [
       {
         "Type": "int",
@@ -267,8 +251,7 @@
     "Index": "0x5010",
     "ReturnType": "void",
     "Name": "SHD_FUNCTION_0010",
-    "Description": "",
-    "Address": "0x08973234",
+    "Description": "Address: 0x08973234",
     "Parameters": [
       {
         "Type": "int",
@@ -291,8 +274,7 @@
     "Index": "0x5011",
     "ReturnType": "void",
     "Name": "SHD_FUNCTION_0011",
-    "Description": "",
-    "Address": "0x0897328C",
+    "Description": "Address: 0x0897328C",
     "Parameters": [
       {
         "Type": "int",
@@ -315,8 +297,7 @@
     "Index": "0x5012",
     "ReturnType": "int",
     "Name": "SHD_FUNCTION_0012",
-    "Description": "",
-    "Address": "0x089732E4",
+    "Description": "Address: 0x089732E4",
     "Parameters": [
       {
         "Type": "int",
@@ -334,20 +315,18 @@
     "Index": "0x5013",
     "ReturnType": "int",
     "Name": "SHD_FUNCTION_0013",
-    "Description": "",
-    "Address": "0x0897332C",
+    "Description": "Address: 0x0897332C",
     "Parameters": []
   },
   {
     "Index": "0x5014",
     "ReturnType": "void",
-    "Name": "SHD_FUNCTION_0014",
-    "Description": "",
-    "Address": "0x089738A8",
+    "Name": "PERSONA_EVOLUTION",
+    "Description": "Address: 0x089738A8",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "PartyMember",
+        "Name": "PartyMember",
         "Description": ""
       }
     ]
@@ -355,12 +334,11 @@
   {
     "Index": "0x5015",
     "ReturnType": "int",
-    "Name": "SHD_FUNCTION_0015",
-    "Description": "",
-    "Address": "0x088C33C8",
+    "Name": "CHECK_TIREDNESS",
+    "Description": "Address: 0x088C33C8",
     "Parameters": [
       {
-        "Type": "int",
+        "Type": "PartyMember",
         "Name": "param1",
         "Description": ""
       }
@@ -369,12 +347,11 @@
   {
     "Index": "0x5016",
     "ReturnType": "int",
-    "Name": "SHD_FUNCTION_0016",
-    "Description": "",
-    "Address": "0x088C33F8",
+    "Name": "SET_TIREDNESS",
+    "Description": "Address: 0x088C33F8",
     "Parameters": [
       {
-        "Type": "int",
+        "Type": "PartyMember",
         "Name": "param1",
         "Description": ""
       },
@@ -389,8 +366,7 @@
     "Index": "0x5017",
     "ReturnType": "int",
     "Name": "SHD_FUNCTION_0017",
-    "Description": "",
-    "Address": "0x08973204",
+    "Description": "Address: 0x08973204",
     "Parameters": [
       {
         "Type": "int",
