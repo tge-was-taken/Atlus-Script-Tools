@@ -1895,7 +1895,8 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                 if ( !TryEmitProcedureCall( callExpression, isStatement, procedure ) )
                     return false;
             }
-            else if ( ProcedureHookMode != ProcedureHookMode.None && 
+            else if ( ProcedureHookMode != ProcedureHookMode.None
+                && callExpression.Identifier.Text.IndexOf("_unhooked") != -1 &&
                 mRootScope.TryGetProcedure( callExpression.Identifier.Text.Substring(0, 
                     callExpression.Identifier.Text.IndexOf("_unhooked") ), out procedure ))
             {
