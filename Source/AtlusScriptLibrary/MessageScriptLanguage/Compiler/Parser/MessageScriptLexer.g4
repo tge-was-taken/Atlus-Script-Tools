@@ -16,7 +16,7 @@ OpenCode
 CloseText
 	: ']' -> pushMode( MessageScriptCode );  // close tag is used for closing inline text inside tag
 
-// match line comment starting with
+// match line comment starting with //
 LineComment
     : '//' ~[\r\n]* '\r'? '\n'?
 		-> skip
@@ -24,11 +24,9 @@ LineComment
 
 // match actual text
 Text
-	: ~( '[' | ']' )+?;
-
-// catches wholly empty lines
-EmptyLine
-	: [ \t\r\n]+ -> skip;
+	: ~( '[' | ']' | '/' )+ // can't match full line comment, but matching first character is sufficient
+	| '/' ~[/]				// match single slash as text (workaround for excluding comment)
+	;
 
 //
 // Code lexer rules
