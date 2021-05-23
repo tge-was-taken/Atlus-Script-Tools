@@ -2940,10 +2940,21 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
         {
             Trace( intLiteral, $"Pushing int literal: {intLiteral}" );
 
-            if ( IntFitsInShort( intLiteral.Value ) )
-                Emit( Instruction.PUSHIS( ( short )intLiteral.Value ) );
+            var value = intLiteral.Value;
+            var isNegative = false;
+            if ( value < 0 )
+            {
+                isNegative = true;
+                value = -value;
+            }
+
+            if ( ( value & ~0x7FFF ) == 0 )
+                Emit( Instruction.PUSHIS( ( short )value ) );
             else
-                Emit( Instruction.PUSHI( intLiteral.Value ) );
+                Emit( Instruction.PUSHI( value ) );
+
+            if ( isNegative )
+                Emit( Instruction.MINUS() );
         }
 
         private void EmitPushFloatLiteral( FloatLiteral floatLiteral )
