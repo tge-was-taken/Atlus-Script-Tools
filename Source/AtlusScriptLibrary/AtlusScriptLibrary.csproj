@@ -499,12 +499,12 @@
     <Content Include="Libraries\Persona5Royal\FlowScriptModules.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Libraries\Persona3FES\Modules\Common\Enums.json">
+    <Content Include="Libraries\Persona3FES\Modules\Common\Enums.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Libraries\Persona3Portable\Enums.json">
+    </Content>
+    <Content Include="Libraries\Persona3Portable\Enums.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="Libraries\Persona3Portable\Modules\AI\Functions.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
