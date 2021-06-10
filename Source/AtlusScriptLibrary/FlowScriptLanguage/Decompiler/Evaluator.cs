@@ -1258,15 +1258,33 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
             // omit the x == 0 or x == 1 expression
             if ( left.ExpressionValueKind == ValueKind.Bool && right is IntLiteral intLiteral )
             {
-                if ( intLiteral.Value == 0 ) //  x == false -> !x
+                if ( typeof(T) == typeof( NonEqualityOperator ) )
                 {
-                    PushStatement( new LogicalNotOperator( left ) );
-                    return true;
+                    // NEQ
+                    if ( intLiteral.Value == 0 ) //  x != false -> x
+                    {
+                        PushStatement( left );
+                        return true;
+                    }
+                    else if ( intLiteral.Value == 1 ) // x != true -> !x
+                    {
+                        PushStatement( new LogicalNotOperator( left ) );
+                        return true;
+                    }
                 }
-                if ( intLiteral.Value == 1 ) // x == true -> x
+                else
                 {
-                    PushStatement( left );
-                    return true;
+                    // OR, AND, EQ
+                    if ( intLiteral.Value == 0 ) //  x == false -> !x
+                    {
+                        PushStatement( new LogicalNotOperator( left ) );
+                        return true;
+                    }
+                    else if ( intLiteral.Value == 1 ) // x == true -> x
+                    {
+                        PushStatement( left );
+                        return true;
+                    }
                 }
             }
 
