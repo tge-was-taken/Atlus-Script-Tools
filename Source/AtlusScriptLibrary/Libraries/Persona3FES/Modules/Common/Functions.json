@@ -243,8 +243,8 @@
   {
     "Index": "0x0011",
     "ReturnType": "void",
-    "Name": "RELOAD_TBLS",
-    "Description": "Reloads tbls when using tupelov's patch",
+    "Name": "FUNCTION_0011",
+    "Description": "Null pointer",
     "Parameters": [
     ]
   },
@@ -508,17 +508,17 @@
   },
   {
     "Index": "0x0022",
-    "ReturnType": "int",
-    "Name": "GET_FIELD_MAJOR",
-    "Description": "Returns field major with tupelov's patch",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0022",
+    "Description": "Null pointer",
     "Parameters": [
     ]
   },
   {
     "Index": "0x0023",
-    "ReturnType": "int",
-    "Name": "GET_FIELD_MINOR",
-    "Description": "Returns field minor with tupelov's patch",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0023",
+    "Description": "Null pointer",
     "Parameters": [
     ]
   },
