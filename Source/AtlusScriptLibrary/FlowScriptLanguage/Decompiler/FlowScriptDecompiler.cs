@@ -442,7 +442,8 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
 
                         for ( int i = 0; i < libFunc.Parameters.Count; i++ )
                         {
-                            if ( libFunc.Parameters[ i ].Semantic != FlowScriptModuleParameterSemantic.MsgId )
+                            if ( libFunc.Parameters[ i ].Semantic != FlowScriptModuleParameterSemantic.MsgId &&
+                                libFunc.Parameters[i].Semantic != FlowScriptModuleParameterSemantic.SelId)
                             {
                                 // only interested in message parameters
                                 continue;
