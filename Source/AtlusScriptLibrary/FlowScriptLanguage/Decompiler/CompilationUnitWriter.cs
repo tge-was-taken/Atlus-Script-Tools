@@ -188,6 +188,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
                 mProcedure = procedureDeclaration;
 
                 WriteNewLine();
+                WriteComment($"Procedure Index: {procedureDeclaration.Index}");
                 Visit( procedureDeclaration.ReturnType );
                 Write( " " );
                 Visit( procedureDeclaration.Identifier );
