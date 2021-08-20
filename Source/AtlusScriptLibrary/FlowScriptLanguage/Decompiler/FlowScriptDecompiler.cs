@@ -249,12 +249,13 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
                 declaration = null;
                 return false;
             }
-            
+
             declaration = new ProcedureDeclaration(
-                new TypeIdentifier( evaluatedProcedure.ReturnKind),
-                new Identifier( ValueKind.Procedure, evaluatedProcedure.Procedure.Name ),
+                new IntLiteral(mEvaluatedScript.Procedures.IndexOf(evaluatedProcedure)),
+                new TypeIdentifier(evaluatedProcedure.ReturnKind),
+                new Identifier(ValueKind.Procedure, evaluatedProcedure.Procedure.Name),
                 evaluatedProcedure.Parameters,
-                new CompoundStatement( statements ) );
+                new CompoundStatement(statements));
 
             return true;
         }
