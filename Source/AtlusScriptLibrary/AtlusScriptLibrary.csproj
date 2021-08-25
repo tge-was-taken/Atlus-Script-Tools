@@ -520,6 +520,9 @@
     <None Include="Libraries\Persona3Portable\Modules\Shared\Functions.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Content Include="Libraries\Persona4Golden\Modules\Common\Enums.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptLexer.g4" />
     <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptLexer.tokens" />
     <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptParser.g4" />
