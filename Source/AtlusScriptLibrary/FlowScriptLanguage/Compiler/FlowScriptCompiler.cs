@@ -1804,7 +1804,12 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                     {
                         // Insert default values
                         foundDefaultValue = true;
-                        callExpression.Arguments.Add( new Argument( param.DefaultVaue ) );
+
+                        if ( i + 1 > callExpression.Arguments.Count )
+                        {
+                            // Add default value if not explicitly specified
+                            callExpression.Arguments.Add( new Argument( param.DefaultVaue ) );
+                        }
                     }
                 }
 
