@@ -252,7 +252,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
                 throw new ArgumentOutOfRangeException( nameof( version ) );
             }
 
-            short[] functionArguments = new short[functionArgumentByteCount / 2];
+            var functionArguments = new ushort[functionArgumentByteCount / 2];
 
             for ( int i = 0; i < functionArguments.Length; i++ )
             {
@@ -265,7 +265,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
                     secondByte = ( byte )( secondByteAux - 1 );
                 }
 
-                functionArguments[i] = ( short )( ( firstByte & ~0xFF00 ) | ( ( secondByte << 8 ) & 0xFF00 ) );
+                functionArguments[i] = (ushort)( ( firstByte & ~0xFF00 ) | ( ( secondByte << 8 ) & 0xFF00 ) );
             }
 
             return new FunctionToken( functionTableIndex, functionIndex, functionArguments );

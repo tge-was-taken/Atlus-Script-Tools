@@ -21,7 +21,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
         /// <summary>
         /// Gets the list of arguments.
         /// </summary>
-        public List<short> Arguments { get; }
+        public List<ushort> Arguments { get; }
 
         /// <summary>
         /// Constructs a new message script function token with no arguments.
@@ -32,7 +32,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
         {
             FunctionTableIndex = functionTableIndex;
             FunctionIndex = functionIndex;
-            Arguments = new List<short>();
+            Arguments = new List<ushort>();
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
         /// <param name="functionTableIndex">The function table index.</param>
         /// <param name="functionIndex">The function index within the table.</param>
         /// <param name="arguments">The function arguments.</param>
-        public FunctionToken( int functionTableIndex, int functionIndex, List<short> arguments )
+        public FunctionToken( int functionTableIndex, int functionIndex, List<ushort> arguments )
         {
             FunctionTableIndex = functionTableIndex;
             FunctionIndex = functionIndex;
@@ -54,7 +54,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
         /// <param name="functionTableIndex">The function table index.</param>
         /// <param name="functionIndex">The function index within the table.</param>
         /// <param name="arguments">The function arguments.</param>
-        public FunctionToken( int functionTableIndex, int functionIndex, params short[] arguments )
+        public FunctionToken( int functionTableIndex, int functionIndex, params ushort[] arguments )
         {
             FunctionTableIndex = functionTableIndex;
             FunctionIndex = functionIndex;
