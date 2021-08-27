@@ -22,7 +22,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
             return AddToken( new StringToken( value ) );
         }
 
-        public TokenTextBuilder AddFunction( int functionTableIndex, int functionIndex, params short[] args )
+        public TokenTextBuilder AddFunction( int functionTableIndex, int functionIndex, params ushort[] args )
         {
             return AddToken( new FunctionToken( functionTableIndex, functionIndex, args ) );
         }

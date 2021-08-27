@@ -16,7 +16,7 @@ compilationUnit
 	;
 	
 dialog
-	: ( LineComment | Text )* ( messageDialog | selectionDialog )
+	: Text* ( messageDialog | selectionDialog ) Text*
 	;
 
 	// [ msg DialogName [SpeakerName] ] text...

@@ -512,12 +512,15 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
             {
                 var function = library.Functions.SingleOrDefault( x => x.Name == tagId );
                 if ( function == null )
+                {
+                    LogWarning( context, $"Unknown function name: { tagId }" );
                     continue;
+                }
 
-                var arguments = new List<short>();
+                var arguments = new List<ushort>();
                 for ( var i = 0; i < function.Parameters.Count; i++ )
                 {
-                    if ( !TryParseShortIntExpression( context, "Expected function argument", () => context.expression( i ), out var argument ) )
+                    if ( !TryParseUShortIntExpression( context, "Expected function argument", () => context.expression( i ), out var argument ) )
                         return false;
 
                     arguments.Add( argument );
@@ -540,18 +543,18 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
             if ( !TryGetFatal( context, context.expression, "Expected arguments", out var argumentNodes ) )
                 return false;
 
-            if ( !TryParseShortIntExpression( context, "Expected function table index", () => argumentNodes[0], out var functionTableIndex ) )
+            if ( !TryParseUShortIntExpression( context, "Expected function table index", () => argumentNodes[0], out var functionTableIndex ) )
                 return false;
 
-            if ( !TryParseShortIntExpression( context, "Expected function index", () => argumentNodes[1], out var functionIndex ) )
+            if ( !TryParseUShortIntExpression( context, "Expected function index", () => argumentNodes[1], out var functionIndex ) )
                 return false;
 
             if ( argumentNodes.Length > 2 )
             {
-                var arguments = new List<short>( argumentNodes.Length - 2 );
+                var arguments = new List<ushort>( argumentNodes.Length - 2 );
                 for ( int i = 2; i < argumentNodes.Length; i++ )
                 {
-                    if ( !TryParseShortIntExpression( context, "Expected function argument", () => argumentNodes[i], out var argument ) )
+                    if ( !TryParseUShortIntExpression( context, "Expected function argument", () => argumentNodes[i], out var argument ) )
                         return false;
 
                     arguments.Add( argument );
@@ -623,6 +626,40 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
         }
 
         // Expression parsing
+        private bool TryParseUShortIntExpression( ParserRuleContext context, string failureText, Func<MessageScriptParser.ExpressionContext> getFunc, out ushort value )
+        {
+            value = 0;
+
+            if ( !TryGetFatal( context, getFunc, failureText, out var expressionContext ) )
+                return false;
+
+            int intValue = 0;
+            if ( TryGet( expressionContext, expressionContext.IntLiteral, out var node ) )
+            {
+                if ( !TryParseIntLiteral( node, out intValue ) )
+                    return false;
+            }
+            else if ( TryGet( expressionContext, expressionContext.Identifier, out var identifier ) )
+            {
+                if ( mVariables.TryGetValue( ParseIdentifier( identifier ), out intValue ) )
+                    return false;
+            }
+            else
+            {
+                return false;
+            }
+
+            if ( intValue < ushort.MinValue || intValue > ushort.MaxValue )
+            {
+                LogError( expressionContext, "Value out of range" );
+                return false;
+            }
+
+            // Todo: range checking?
+            value = (ushort)intValue;
+            return true;
+        }
+
         private bool TryParseShortIntExpression( ParserRuleContext context, string failureText, Func<MessageScriptParser.ExpressionContext> getFunc, out short value )
         {
             value = -1;
