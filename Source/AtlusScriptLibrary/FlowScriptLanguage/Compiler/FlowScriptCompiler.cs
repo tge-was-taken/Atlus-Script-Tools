@@ -2946,6 +2946,9 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
         {
             Trace( intLiteral, $"Pushing int literal: {intLiteral}" );
 
+            // Original scripts never use negative literals
+            // so if our literal is negative, we make it positive
+            // and later negative it using the negation operator
             var value = intLiteral.Value;
             var isNegative = false;
             if ( value < 0 )
@@ -2967,7 +2970,20 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
         {
             Trace( floatLiteral, $"Pushing float literal: {floatLiteral}" );
 
-            Emit( Instruction.PUSHF( floatLiteral.Value ) );
+            // Original scripts never use negative literals
+            // so if our literal is negative, we make it positive
+            // and later negative it using the negation operator
+            var value = floatLiteral.Value;
+            var isNegative = false;
+            if ( value < 0 )
+            {
+                isNegative = true;
+                value = -value;
+            }
+
+            Emit( Instruction.PUSHF( value ) );
+            if ( isNegative )
+                Emit( Instruction.MINUS() );
         }
 
         private void EmitPushStringLiteral( StringLiteral stringLiteral )
