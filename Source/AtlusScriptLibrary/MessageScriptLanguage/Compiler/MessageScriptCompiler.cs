@@ -515,10 +515,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
             {
                 var function = library.Functions.SingleOrDefault( x => x.Name == tagId );
                 if ( function == null )
-                {
-                    LogWarning( context, $"Unknown function name: { tagId }" );
                     continue;
-                }
 
                 var arguments = new List<ushort>();
                 for ( var i = 0; i < function.Parameters.Count; i++ )
