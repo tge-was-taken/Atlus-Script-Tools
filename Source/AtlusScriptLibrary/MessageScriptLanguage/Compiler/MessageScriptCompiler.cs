@@ -465,7 +465,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
                 {
                     var text = textNode.Symbol.Text;
 
-                    var textWithoutNewlines = Regex.Replace( text, @"\r?\n", "" );
+                    var textWithoutNewlines = text.Replace( "\r", "" ).Replace( "\n", "" );
                     if ( textWithoutNewlines.Length == 0 )
                         continue; // filter out standalone newlines
 
