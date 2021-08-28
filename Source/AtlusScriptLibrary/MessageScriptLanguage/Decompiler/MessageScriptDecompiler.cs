@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using AtlusScriptLibrary.Common.Libraries;
+using AtlusScriptLibrary.Common.Text;
 
 namespace AtlusScriptLibrary.MessageScriptLanguage.Decompiler
 {
@@ -28,7 +29,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Decompiler
             for ( var i = 0; i < script.Dialogs.Count; i++ )
             {
                 var message = script.Dialogs[ i ];
-                WriteComment( $"Dialog index {i}" );
+                WriteComment( $"index {i,-3} {message.Kind,-10} {message.Name}" );
                 Decompile( message );
                 mWriter.WriteLine();
             }
@@ -270,9 +271,18 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Decompiler
                 return text;
         }
 
+        private bool mFirstComment = true;
+
         private void WriteComment( string text )
         {
-            mWriter.WriteLine( $"/* {text} */" );
+            // HACK: Temporary fix for lack of comments
+            var ftw = mWriter as FileTextWriter;
+            if ( ftw != null )
+            {
+                using var commentWriter = new StreamWriter( ftw.Path + ".log", !mFirstComment );
+                commentWriter.WriteLine( $"{text}" );
+                mFirstComment = false;
+            }
         }
     }
 }

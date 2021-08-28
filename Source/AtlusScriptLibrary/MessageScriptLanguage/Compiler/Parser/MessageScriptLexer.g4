@@ -90,8 +90,3 @@ Sign
 
 Whitespace
 	: [ \t\r\n] -> skip;
-
-BlockComment
-    :   '/*' .*? '*/'
-        -> skip
-    ;
