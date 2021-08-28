@@ -384,113 +384,116 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
             lines = new List<TokenText>();
             TokenTextBuilder lineBuilder = null;
 
-            foreach ( var node in context.children )
+            if ( context.children != null )
             {
-                IToken lineToken;
-
-                if ( TryCast<MessageScriptParser.TokenContext>( node, out var tagContext ) )
+                foreach ( var node in context.children )
                 {
-                    if ( !TryGetFatal( context, () => tagContext.Identifier(), "Expected tag id", out var tagIdNode ) )
-                        return false;
+                    IToken lineToken;
 
-                    var tagId = ParseIdentifier( tagIdNode );
-
-                    switch ( tagId.ToLowerInvariant() )
+                    if ( TryCast<MessageScriptParser.TokenContext>( node, out var tagContext ) )
                     {
-                        case "f":
-                            {
-                                if ( !TryCompileFunctionToken( tagContext, out var functionToken ) )
+                        if ( !TryGetFatal( context, () => tagContext.Identifier(), "Expected tag id", out var tagIdNode ) )
+                            return false;
+
+                        var tagId = ParseIdentifier( tagIdNode );
+
+                        switch ( tagId.ToLowerInvariant() )
+                        {
+                            case "f":
                                 {
-                                    mLogger.Error( "Failed to compile function token" );
-                                    return false;
-                                }
+                                    if ( !TryCompileFunctionToken( tagContext, out var functionToken ) )
+                                    {
+                                        mLogger.Error( "Failed to compile function token" );
+                                        return false;
+                                    }
 
-                                lineToken = functionToken;
-                            }
-                            break;
-
-                        case "n":
-                            lineToken = new NewLineToken();
-                            break;
-
-                        case "e":
-                            {
-                                if ( lineBuilder == null )
-                                {
-                                    LogWarning( context, "Empty line" );
-                                    lines.Add( new TokenText() );
-                                }
-                                else
-                                {
-                                    lines.Add( lineBuilder.Build() );
-                                    lineBuilder = null;
-                                }
-
-                                continue;
-                            }
-
-                        case "x":
-                            {
-                                if ( !TryCompileCodePointToken( tagContext, out var codePointToken ) )
-                                {
-                                    mLogger.Error( "Failed to compile code point token" );
-                                    return false;
-                                }
-
-                                lineToken = codePointToken;
-                            }
-                            break;
-
-                        default:
-                            {
-                                lineToken = null;
-                                var wasAliasedFunction = false;
-
-                                if ( Library != null )
-                                {
-                                    wasAliasedFunction = TryCompileAliasedFunction( tagContext, tagId, out var functionToken );
                                     lineToken = functionToken;
                                 }
+                                break;
 
-                                if ( !wasAliasedFunction )
+                            case "n":
+                                lineToken = new NewLineToken();
+                                break;
+
+                            case "e":
                                 {
-                                    LogError( tagContext, $"Unknown tag with id {tagId}" );
-                                    return false;
+                                    if ( lineBuilder == null )
+                                    {
+                                        LogWarning( context, "Empty line" );
+                                        lines.Add( new TokenText() );
+                                    }
+                                    else
+                                    {
+                                        lines.Add( lineBuilder.Build() );
+                                        lineBuilder = null;
+                                    }
+
+                                    continue;
+                                }
+
+                            case "x":
+                                {
+                                    if ( !TryCompileCodePointToken( tagContext, out var codePointToken ) )
+                                    {
+                                        mLogger.Error( "Failed to compile code point token" );
+                                        return false;
+                                    }
+
+                                    lineToken = codePointToken;
                                 }
                                 break;
-                            }
+
+                            default:
+                                {
+                                    lineToken = null;
+                                    var wasAliasedFunction = false;
+
+                                    if ( Library != null )
+                                    {
+                                        wasAliasedFunction = TryCompileAliasedFunction( tagContext, tagId, out var functionToken );
+                                        lineToken = functionToken;
+                                    }
+
+                                    if ( !wasAliasedFunction )
+                                    {
+                                        LogError( tagContext, $"Unknown tag with id {tagId}" );
+                                        return false;
+                                    }
+                                    break;
+                                }
+                        }
                     }
-                }
-                else if ( TryCast<ITerminalNode>( node, out var textNode ) )
-                {
-                    var text = textNode.Symbol.Text;
-
-                    var textWithoutNewlines = text.Replace( "\r", "" ).Replace( "\n", "" );
-                    if ( textWithoutNewlines.Length == 0 )
-                        continue; // filter out standalone newlines
-
-                    lineToken = new StringToken( textWithoutNewlines );
-                }
-                else
-                {
-                    if ( node is ParserRuleContext )
+                    else if ( TryCast<ITerminalNode>( node, out var textNode ) )
                     {
-                        LogError( node as ParserRuleContext, "Expected a tag or text, but got neither." );
+                        var text = textNode.Symbol.Text;
+
+                        var textWithoutNewlines = text.Replace( "\r", "" ).Replace( "\n", "" );
+                        if ( textWithoutNewlines.Length == 0 )
+                            continue; // filter out standalone newlines
+
+                        lineToken = new StringToken( textWithoutNewlines );
                     }
                     else
                     {
-                        LogError( context, "Expected a tag or text, but got neither." );
+                        if ( node is ParserRuleContext )
+                        {
+                            LogError( node as ParserRuleContext, "Expected a tag or text, but got neither." );
+                        }
+                        else
+                        {
+                            LogError( context, "Expected a tag or text, but got neither." );
+                        }
+
+                        return false;
                     }
 
-                    return false;
+                    if ( lineBuilder == null )
+                        lineBuilder = new TokenTextBuilder();
+
+                    Debug.Assert( lineToken != null, "Line token shouldn't be null" );
+
+                    lineBuilder.AddToken( lineToken );
                 }
-
-                if ( lineBuilder == null )
-                    lineBuilder = new TokenTextBuilder();
-
-                Debug.Assert( lineToken != null, "Line token shouldn't be null" );
-
-                lineBuilder.AddToken( lineToken );
             }
 
             if ( lineBuilder != null )

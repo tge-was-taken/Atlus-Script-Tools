@@ -12,24 +12,32 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Decompiler
         private static Regex sIdentifierRegex = new Regex( "^[a-zA-Z_][a-zA-Z0-9_]*$" );
 
         private readonly TextWriter mWriter;
+        private readonly TextWriter mHeaderWriter;
 
         public Library Library { get; set; }
 
         public bool OmitUnusedFunctions { get; set; } = true;
 
-        public MessageScriptDecompiler( TextWriter writer )
+        public MessageScriptDecompiler( TextWriter writer, TextWriter headerWriter = null )
         {
             mWriter = writer;
+
+            if ( headerWriter == null && writer is FileTextWriter fileTextWriter )
+            {
+                headerWriter = new FileTextWriter( fileTextWriter.Path + ".h" );
+            }
+
+            mHeaderWriter = headerWriter;
         }
 
         public void Decompile( MessageScript script )
         {
-            WriteComment( "Decompiled by Atlus Script Tools (2017-2021) © TGE" );
+            WriteHeaderComment( "Decompiled by Atlus Script Tools (2017-2021) © TGE" );
 
             for ( var i = 0; i < script.Dialogs.Count; i++ )
             {
                 var message = script.Dialogs[ i ];
-                WriteComment( $"index {i,-3} {message.Kind,-10} {message.Name}" );
+                WriteHeaderLine( $"const int {FormatIdentifier( message.Name ).PadRight(32)} = {i};" );
                 Decompile( message );
                 mWriter.WriteLine();
             }
@@ -225,6 +233,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Decompiler
         public void Dispose()
         {
             mWriter.Dispose();
+            mHeaderWriter?.Dispose();
         }
 
         private void WriteOpenTag()
@@ -271,18 +280,19 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Decompiler
                 return text;
         }
 
-        private bool mFirstComment = true;
-
         private void WriteComment( string text )
         {
-            // HACK: Temporary fix for lack of comments
-            var ftw = mWriter as FileTextWriter;
-            if ( ftw != null )
-            {
-                using var commentWriter = new StreamWriter( ftw.Path + ".log", !mFirstComment );
-                commentWriter.WriteLine( $"{text}" );
-                mFirstComment = false;
-            }
+            // Disabled temporarily
+        }
+
+        private void WriteHeaderComment( string text )
+        {
+            mHeaderWriter.WriteLine( $"// {text}" );
+        }
+
+        private void WriteHeaderLine( string text )
+        {
+            mHeaderWriter.WriteLine( text );
         }
     }
 }
