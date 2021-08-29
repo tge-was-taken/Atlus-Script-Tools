@@ -651,8 +651,16 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
 
             if ( intValue < ushort.MinValue || intValue > ushort.MaxValue )
             {
-                LogError( expressionContext, "Value out of range" );
-                return false;
+                // Try to convert signed short to unsigned
+                if ( intValue >= short.MinValue && intValue <= short.MaxValue )
+                {
+                    intValue = (ushort)( (short)intValue );
+                }
+                else
+                {
+                    LogError( expressionContext, $"Value out of range: {intValue}" );
+                    return false;
+                }
             }
 
             // Todo: range checking?
