@@ -5068,7 +5068,7 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "BattleSkill",
         "Name": "Skill",
         "Description": ""
       }
