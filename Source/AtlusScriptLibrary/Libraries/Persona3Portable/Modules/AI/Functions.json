@@ -658,7 +658,7 @@
   {
     "Index": "0x2038",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_0038",
+    "Name": "AI_WEAK",
     "Description": "Address: 0x089FF3F4",
     "Parameters": [
       {
@@ -1899,7 +1899,7 @@
   {
     "Index": "0x2097",
     "ReturnType": "int",
-    "Name": "RNG",
+    "Name": "AI_RND",
     "Description": "Address: 0x08A03F2C",
     "Parameters": [
       {

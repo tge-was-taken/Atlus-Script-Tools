@@ -4095,7 +4095,7 @@
   {
     "Index": "0x0133",
     "ReturnType": "int",
-    "Name": "RNG",
+    "Name": "AI_RND",
     "Description": "Returns random number from 0 to range given",
     "Parameters": [
       {
