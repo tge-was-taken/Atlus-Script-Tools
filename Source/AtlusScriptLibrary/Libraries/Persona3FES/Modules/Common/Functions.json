@@ -728,7 +728,7 @@
     "Index": "0x0033",
     "ReturnType": "int",
     "Name": "FUNCTION_0033",
-    "Description": "002C7600",
+    "Description": "This or 0059 is seemingly an equipment check",
     "Parameters": [
       {
         "Type": "int",
@@ -1207,7 +1207,7 @@
     "Index": "0x0059",
     "ReturnType": "int",
     "Name": "FUNCTION_0059",
-    "Description": "002C8F00",
+    "Description": "This or 0033 is seemingly an equipment check",
     "Parameters": [
       {
         "Type": "int",
@@ -3832,12 +3832,12 @@
   {
     "Index": "0x011e",
     "ReturnType": "void",
-    "Name": "FUNCTION_011E",
-    "Description": "002CD740",
+    "Name": "AI_AFFINITY_SWITCH",
+    "Description": "Switches current affinity to the enemy ID called. The Answer overwrites some of the values Elizabeth calls in The Journey",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleEnemy",
+        "Name": "enemy_ID",
         "Description": ""
       }
     ]
@@ -5063,8 +5063,8 @@
     "Description": "002D0830",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "Persona",
+        "Type": "Persona",
+        "Name": "personaID",
         "Description": ""
       },
       {
@@ -5170,11 +5170,11 @@
     "Index": "0x0181",
     "ReturnType": "void",
     "Name": "AI_ACT_ATTACK",
-    "Description": "Enemy attacks with slash, pierce, or strike (105, 106, 107)",
+    "Description": "A seemingly Elizabeth only weapon attack function",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleSkill",
+        "Name": "skill_ID",
         "Description": ""
       }
     ]
