@@ -3832,12 +3832,12 @@
   {
     "Index": "0x011e",
     "ReturnType": "void",
-    "Name": "FUNCTION_011E",
-    "Description": "002CD740",
+    "Name": "AI_AFFINITY_SWITCH",
+    "Description": "Switches current affinity to the enemy ID called. The Answer overwrites some of the values Elizabeth calls in The Journey",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleEnemy",
+        "Name": "enemy_ID",
         "Description": ""
       }
     ]

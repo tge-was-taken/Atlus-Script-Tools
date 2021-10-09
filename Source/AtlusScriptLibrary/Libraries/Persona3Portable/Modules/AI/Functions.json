@@ -750,7 +750,7 @@
   {
     "Index": "0x2040",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_0040",
+    "Name": "AI_ACT_WAIT",
     "Description": "Address: 0x089FC2AC",
     "Parameters": []
   },
@@ -1839,12 +1839,12 @@
   {
     "Index": "0x2091",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_0091",
-    "Description": "Address: 0x089FF9CC",
+    "Name": "AI_SWITCH_AFFINITY",
+    "Description": "Switches current affinity to the enemy ID called.",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleUnit",
+        "Name": "enemy_ID",
         "Description": ""
       }
     ]
