@@ -197,12 +197,12 @@
   {
     "Index": "0x200f",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_000F",
+    "Name": "AI_CHK_PLAYER_ID",
     "Description": "Address: 0x089FC870",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "PartyMember",
+        "Name": "partyID",
         "Description": ""
       }
     ]
@@ -2277,8 +2277,8 @@
     "Description": "Address: 0x08A03444",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Persona",
+        "Name": "personaID",
         "Description": ""
       },
       {
@@ -2326,11 +2326,11 @@
     "Index": "0x20b5",
     "ReturnType": "void",
     "Name": "AI_ACT_ATTACK",
-    "Description": "Address: 0x08A034B0",
+    "Description": "A seemingly Elizabeth/Theo only weapon attack function",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleSkill",
+        "Name": "skill_ID",
         "Description": ""
       }
     ]
