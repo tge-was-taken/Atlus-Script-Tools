@@ -1,6 +1,6 @@
 [
  {
-  "Name": "BattleUnit",
+  "Name": "PartyMember",
   "Description": "This enum represents the available units in battle.",
   "Members": [
     {"Name":"Protagonist","Value":1},
@@ -713,7 +713,7 @@
     {"Name":"StoicSnake","Value":205},
     {"Name":"BurningBeetle","Value":206},
     {"Name":"ElizabethSurtJLossGiantA","Value":207},
-    {"Name":"ElizabethJackJandAffectionRelicA","Value":208},
+    {"Name":"ElizabethJackJAffectionRelicA","Value":208},
     {"Name":"ElizabethThorJPhantomHeroA","Value":209},
     {"Name":"ElizabethCuJGrudgeTowerA","Value":210},
 	{"Name":"ElizabethMetatron","Value":211},
@@ -831,22 +831,38 @@
   ]
  },
  {
+  "Name": "StatusEffects",
+  "Description": "",
+  "Members": [
+	{"Name":"Charm","Value":2},
+	{"Name":"Panic","Value":8},
+	{"Name":"Fear","Value":16},
+	{"Name":"Rage","Value":32},
+	{"Name":"Poison","Value":256},
+	{"Name":"Downed","Value":1048576}
+	]
+ },
+ {
   "Name": "SpecialEffects",
   "Description": "",
   "Members": [
-    {"Name":"AttackBuff","Value":1},
-    {"Name":"AttackDebuff","Value":2},
-    {"Name":"HitUpBuff","Value":16},
-    {"Name":"HitUpDebuff","Value":32},
-    {"Name":"DefenseBuff","Value":64},
-    {"Name":"DefenseDebuff","Value":128},
-    {"Name":"PowerCharge","Value":1024},
-    {"Name":"MindCharge","Value":2048},
-    {"Name":"Rebellion","Value":16384},
-    {"Name":"Revolution","Value":32768},
-    {"Name":"Downed","Value":1048576}
+	{"Name":"AttackBuff","Value":1},
+	{"Name":"AttackDebuff","Value":2},
+	{"Name":"HitUpBuff","Value":16},
+	{"Name":"HitUpDebuff","Value":32},
+	{"Name":"DefenseBuff","Value":64},
+	{"Name":"DefenseDebuff","Value":128},
+	{"Name":"EvasionUpBuff","Value":256},
+	{"Name":"EvasionUpDebuff","Value":512},
+	{"Name":"PowerCharge","Value":1024},
+	{"Name":"MindCharge","Value":2048},
+	{"Name":"Rebellion","Value":16384},
+	{"Name":"Revolution","Value":32768},
+	{"Name":"Tetrakarn","Value":65536},
+	{"Name":"Downed","Value":1048576},
+	{"Name":"Makarakarn","Value":131072}
   ]
- },
+},
  {
   "Name": "Persona",
   "Description": "",
