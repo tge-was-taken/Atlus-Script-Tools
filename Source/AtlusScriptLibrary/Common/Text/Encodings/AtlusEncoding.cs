@@ -36,12 +36,16 @@ namespace AtlusScriptLibrary.Common.Text.Encodings
         private static AtlusEncoding sPersona5;
         private static AtlusEncoding sPersona5Chinese;
         private static AtlusEncoding sPersona5RoyalEFIGS;
+        private static AtlusEncoding sPersona5RoyalJapanese;
+        private static AtlusEncoding sPersona5RoyalChinese;
 
         public static AtlusEncoding Persona3 => sPersona3 ?? ( sPersona3 = new AtlusEncoding( "P3" ) );
         public static AtlusEncoding Persona4 => sPersona4 ?? ( sPersona4 = new AtlusEncoding( "P4" ) );
         public static AtlusEncoding Persona5 => sPersona5 ?? ( sPersona5 = new AtlusEncoding( "P5" ) );
         public static AtlusEncoding Persona5Chinese => sPersona5Chinese ?? ( sPersona5Chinese = new AtlusEncoding( "P5_Chinese" ) );
         public static AtlusEncoding Persona5RoyalEFIGS => sPersona5RoyalEFIGS ?? ( sPersona5RoyalEFIGS = new AtlusEncoding( "P5R_EFIGS" ) );
+        public static AtlusEncoding Persona5RoyalJapanese => sPersona5RoyalJapanese ?? ( sPersona5RoyalJapanese = new AtlusEncoding( "P5R_Japanese" ) );
+        public static AtlusEncoding Persona5RoyalChinese => sPersona5RoyalChinese ?? ( sPersona5RoyalChinese = new AtlusEncoding( "P5R_Chinese" ) );
 
         public static AtlusEncoding GetByName( string name )
         {
@@ -72,6 +76,14 @@ namespace AtlusScriptLibrary.Common.Text.Encodings
                 case "p5r_m5":
                 case "p5r_efigs":
                     return Persona5RoyalEFIGS;
+
+                case "p5r_jap":
+                case "p5r_japanese":
+                    return Persona5RoyalJapanese;
+
+                case "p5r_chi":
+                case "p5r_chinese":
+                    return Persona5RoyalChinese;
 
                 default:
                     {
