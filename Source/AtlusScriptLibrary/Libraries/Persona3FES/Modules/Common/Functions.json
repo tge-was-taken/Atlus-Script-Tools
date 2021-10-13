@@ -883,12 +883,12 @@
   {
     "Index": "0x003f",
     "ReturnType": "int",
-    "Name": "FUNCTION_003F",
+    "Name": "AI_CHK_ENEMY_STATUS",
     "Description": "002C7E40",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "StatusEffects",
+        "Name": "statusID",
         "Description": ""
       }
     ]
@@ -926,7 +926,7 @@
     "Description": "Checks if the party member specified is present in the fight",
     "Parameters": [
       {
-        "Type": "BattleUnit",
+        "Type": "PartyMember",
         "Name": "Unit",
         "Description": ""
       }
@@ -1206,12 +1206,12 @@
   {
     "Index": "0x0059",
     "ReturnType": "int",
-    "Name": "FUNCTION_0059",
-    "Description": "This or 0033 is seemingly an equipment check",
+    "Name": "AI_CHK_ENEMY_SKILL",
+    "Description": "True if the opponent uses the skill in the conditional. Used for Armageddon checks",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleSkill",
+        "Name": "skill_ID",
         "Description": ""
       }
     ]
@@ -1301,12 +1301,12 @@
   {
     "Index": "0x0063",
     "ReturnType": "void",
-    "Name": "FUNCTION_0063",
+    "Name": "AI_TAR_STATUS",
     "Description": "002CC4F0",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "StatusEffects",
+        "Name": "statusID",
         "Description": ""
       }
     ]
@@ -1395,12 +1395,12 @@
   {
     "Index": "0x006b",
     "ReturnType": "void",
-    "Name": "FUNCTION_006B",
+    "Name": "AI_TAR_WEAK",
     "Description": "002CC9F0",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
     ]
@@ -1717,7 +1717,7 @@
         "Description": "Unknown. Set to 0"
       },
       {
-        "Type": "BattleUnit",
+        "Type": "PartyMember",
         "Name": "id",
         "Description": ""
       }
@@ -2572,7 +2572,7 @@
     "Description": "Get current hp of the id given",
     "Parameters": [
       {
-        "Type": "BattleUnit",
+        "Type": "PertyMember",
         "Name": "id",
         "Description": ""
       }
@@ -2585,7 +2585,7 @@
     "Description": "Get total hp of the id given",
     "Parameters": [
       {
-        "Type": "BattleUnit",
+        "Type": "PartyMember",
         "Name": "id",
         "Description": ""
       }
@@ -2598,7 +2598,7 @@
     "Description": "Get current sp of the id given",
     "Parameters": [
       {
-        "Type": "BattleUnit",
+        "Type": "PartyMember",
         "Name": "id",
         "Description": ""
       }
@@ -2611,7 +2611,7 @@
     "Description": "Get total sp of the id given",
     "Parameters": [
       {
-        "Type": "BattleUnit",
+        "Type": "PartyMember",
         "Name": "id",
         "Description": ""
       }
@@ -2681,7 +2681,7 @@
     "Description": "Returns fatigue level of id given. 0 is good, 2 is best, 3 or more is bad.",
     "Parameters": [
       {
-        "Type": "BattleUnit",
+        "Type": "PartyMember",
         "Name": "id",
         "Description": ""
       }
@@ -2862,7 +2862,7 @@
     "Description": "Removes given party member id",
     "Parameters": [
       {
-        "Type": "BattleUnit",
+        "Type": "PartyMember",
         "Name": "id",
         "Description": ""
       }
@@ -3715,7 +3715,7 @@
     "Description": "Sets hp of given id",
     "Parameters": [
       {
-        "Type": "BattleUnit",
+        "Type": "PartyMember",
         "Name": "id",
         "Description": ""
       },
@@ -3733,7 +3733,7 @@
     "Description": "Sets sp of id given",
     "Parameters": [
       {
-        "Type": "BattleUnit",
+        "Type": "PartyMember",
         "Name": "id",
         "Description": ""
       },
@@ -4645,17 +4645,17 @@
   {
     "Index": "0x015b",
     "ReturnType": "int",
-    "Name": "FUNCTION_015B",
+    "Name": "AI_CHK_PLAYER_EFFECT",
     "Description": "002CA700",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "PartyMember",
+        "Name": "playerID",
         "Description": ""
       },
       {
-        "Type": "int",
-        "Name": "param2",
+        "Type": "SpecialEffects",
+        "Name": "effectID",
         "Description": ""
       }
     ]
@@ -6423,8 +6423,8 @@
   {
     "Index": "0x01de",
     "ReturnType": "int",
-    "Name": "FUNCTION_01DE",
-    "Description": "002CC280",
+    "Name": "AI_CHK_TURN",
+    "Description": "For enemies with multiple turns, true if it is equivalent to the turn number",
     "Parameters": [
     ]
   },
