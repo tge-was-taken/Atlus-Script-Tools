@@ -860,7 +860,8 @@
 	{"Name":"Revolution","Value":32768},
 	{"Name":"Tetrakarn","Value":65536},
 	{"Name":"Downed","Value":1048576},
-	{"Name":"Makarakarn","Value":131072}
+	{"Name":"Makarakarn","Value":131072},
+	{"Name":"AilmentSusceptibility","Value":4194304}
   ]
 },
  {

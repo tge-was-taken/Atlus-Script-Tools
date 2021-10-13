@@ -135,8 +135,8 @@
       {"Name":"CruelAttack","Value":146},
       {"Name":"VileAssault","Value":147},
       {"Name":"PoisonArrow","Value":148},
-      {"Name":"WearyThrust2","Value":149},
-      {"Name":"VorpalBlade2","Value":150},
+      {"Name":"WearyThrustUnused","Value":149},
+      {"Name":"VorpalBladeUnused","Value":150},
       {"Name":"JunpeiCoOp","Value":151},
       {"Name":"YukariCoOp","Value":152},
       {"Name":"AkihikoCoOp","Value":153},
@@ -1099,7 +1099,8 @@
 		{"Name":"Revolution","Value":32768},
 		{"Name":"Tetrakarn","Value":65536},
 		{"Name":"Downed","Value":1048576},
-		{"Name":"Makarakarn","Value":131072}
+		{"Name":"Makarakarn","Value":131072},
+		{"Name":"AilmentSusceptibility","Value":4194304}
 	  ]
 	 }
 ]

@@ -1206,12 +1206,12 @@
   {
     "Index": "0x0059",
     "ReturnType": "int",
-    "Name": "FUNCTION_0059",
-    "Description": "This or 0033 is seemingly an equipment check",
+    "Name": "AI_CHK_ENEMY_SKILL",
+    "Description": "True if the opponent uses the skill in the conditional. Used for Armageddon checks",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleSkill",
+        "Name": "skill_ID",
         "Description": ""
       }
     ]

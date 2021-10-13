@@ -478,12 +478,12 @@
   {
     "Index": "0x2026",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0026",
-    "Description": "Address: 0x089FCEFC",
+    "Name": "AI_CHK_ENEMY_SKILL",
+    "Description": "True if the opponent uses the skill in the conditional. Used for Armageddon checks",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleSkill",
+        "Name": "skill_ID",
         "Description": ""
       }
     ]
@@ -1372,12 +1372,12 @@
   {
     "Index": "0x206f",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_006F",
-    "Description": "Address: 0x089FE7AC",
+    "Name": "AI_CHK_DOWNED_WEAK",
+    "Description": "A combination of checking if an enemy is downed and weak to a given affinity",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
     ]
@@ -2191,8 +2191,8 @@
   {
     "Index": "0x20aa",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_00AA",
-    "Description": "Address: 0x089FE394",
+    "Name": "AI_CHK_ENEMY_SKILL_AFFINITY",
+    "Description": "For Margaret, first int is enemy position, second is affinity ID. True if target is hit with that affinity",
     "Parameters": [
       {
         "Type": "int",
@@ -2200,8 +2200,8 @@
         "Description": ""
       },
       {
-        "Type": "int",
-        "Name": "param2",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
     ]
