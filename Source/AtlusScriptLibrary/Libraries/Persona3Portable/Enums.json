@@ -562,7 +562,7 @@
       {"Name":"GrandMagus","Value":16},
       {"Name":"MercifulMaya","Value":17},
 	  {"Name":"ElizabethCu","Value":18},
-	  {"Name":"ElizabethMeta","Value":19},
+	  {"Name":"ElizabethMetatron","Value":19},
 	  {"Name":"ElizabethAlice","Value":20},
       {"Name":"MutteringTiara","Value":21},
       {"Name":"GrievingTiara","Value":22},
@@ -799,7 +799,6 @@
       {"Name":"Statue5","Value":279},
       {"Name":"Statue6","Value":280},
       {"Name":"DeviousMaya4","Value":281},
-      {"Name":"NyxAvatarMagician","Value":282},
       {"Name":"NyxAvatarMagician","Value":282},
       {"Name":"NyxAvatarPriestess","Value":283},
 	  {"Name":"NyxAvatarEmpress","Value":284},
@@ -1065,6 +1064,7 @@
 		{"Name":"Ice","Value":4},
 		{"Name":"Elec","Value":5},
 		{"Name":"Wind","Value":6},
+		{"Name":"Almighty","Value":7},
 		{"Name":"Light","Value":8},
 		{"Name":"Dark","Value":9}
 	  ]

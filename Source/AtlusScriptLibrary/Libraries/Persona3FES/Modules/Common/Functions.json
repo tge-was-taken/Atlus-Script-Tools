@@ -1340,7 +1340,7 @@
   {
     "Index": "0x0066",
     "ReturnType": "void",
-    "Name": "FUNCTION_0066",
+    "Name": "AI_MINE",
     "Description": "002CC700",
     "Parameters": [
     ]
@@ -1848,7 +1848,7 @@
   {
     "Index": "0x008f",
     "ReturnType": "int",
-    "Name": "FUNCTION_008F",
+    "Name": "AI_CHK_ENEMY_DOWNED",
     "Description": "002C9250",
     "Parameters": [
     ]
@@ -3836,7 +3836,7 @@
     "Description": "Switches current affinity to the enemy ID called. The Answer overwrites some of the values Elizabeth calls in The Journey",
     "Parameters": [
       {
-        "Type": "BattleEnemy",
+        "Type": "BattleUnit",
         "Name": "enemy_ID",
         "Description": ""
       }
