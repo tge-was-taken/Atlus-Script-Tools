@@ -805,7 +805,7 @@
   {
     "Index": "0x2047",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0047",
+    "Name": "AI_CHK_ENEMY_DOWNED",
     "Description": "Address: 0x089FD0B0",
     "Parameters": []
   },
@@ -1839,7 +1839,7 @@
   {
     "Index": "0x2091",
     "ReturnType": "void",
-    "Name": "AI_SWITCH_AFFINITY",
+    "Name": "AI_AFFINITY_SWITCH",
     "Description": "Switches current affinity to the enemy ID called.",
     "Parameters": [
       {
@@ -2265,7 +2265,7 @@
   },
   {
     "Index": "0x20af",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "AI_FUNCTION_00AF",
     "Description": "Address: 0x08A037F0",
     "Parameters": []
