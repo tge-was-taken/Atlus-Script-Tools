@@ -835,11 +835,12 @@
   "Name": "StatusEffects",
   "Description": "",
   "Members": [
-	{"Name":"Charm","Value":2},
-	{"Name":"Panic","Value":8},
-	{"Name":"Fear","Value":16},
-	{"Name":"Rage","Value":32},
-	{"Name":"Poison","Value":256},
+	{"Name":"Charm","Value":1},
+	{"Name":"Despair","Value":2},
+	{"Name":"Panic","Value":4},
+	{"Name":"Fear","Value":8},
+	{"Name":"Rage","Value":16},
+	{"Name":"Poison","Value":128},
 	{"Name":"Downed","Value":1048576}
 	]
  },
@@ -848,7 +849,7 @@
   "Description": "",
   "Members": [
 	{"Name":"AttackBuff","Value":1},
-	{"Name":"AttackDebuff","Value":2},
+	{"Name":"AttackDebuff","Value":8},
 	{"Name":"HitUpBuff","Value":16},
 	{"Name":"HitUpDebuff","Value":32},
 	{"Name":"DefenseBuff","Value":64},

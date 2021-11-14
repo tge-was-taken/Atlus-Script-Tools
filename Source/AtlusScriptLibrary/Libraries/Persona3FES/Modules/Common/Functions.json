@@ -727,8 +727,8 @@
   {
     "Index": "0x0033",
     "ReturnType": "int",
-    "Name": "FUNCTION_0033",
-    "Description": "This or 0059 is seemingly an equipment check",
+    "Name": "AI_CHK_HP_PERCENT",
+    "Description": "True if HP left is under the value, false if over",
     "Parameters": [
       {
         "Type": "int",
@@ -870,12 +870,12 @@
   {
     "Index": "0x003e",
     "ReturnType": "int",
-    "Name": "FUNCTION_003E",
+    "Name": "AI_CHK_PARTY_STATUS",
     "Description": "002C7D90",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "StatusEffects",
+        "Name": "statusID",
         "Description": ""
       }
     ]
@@ -896,12 +896,12 @@
   {
     "Index": "0x0040",
     "ReturnType": "int",
-    "Name": "FUNCTION_0040",
+    "Name": "AI_CHK_ENEMY_PARTY_STATUS",
     "Description": "002C7EF0",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "StatusEffects",
+        "Name": "statusID",
         "Description": ""
       }
     ]
@@ -1050,12 +1050,12 @@
   {
     "Index": "0x004d",
     "ReturnType": "int",
-    "Name": "FUNCTION_004D",
+    "Name": "AI_EN_HAS_NULL",
     "Description": "002C86C0",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
     ]
@@ -1076,12 +1076,12 @@
   {
     "Index": "0x004f",
     "ReturnType": "int",
-    "Name": "FUNCTION_004F",
+    "Name": "AI_EN_HAS_REFLECT",
     "Description": "002C8820",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
     ]
@@ -1102,12 +1102,12 @@
   {
     "Index": "0x0051",
     "ReturnType": "int",
-    "Name": "FUNCTION_0051",
+    "Name": "AI_EN_HAS_ABSORB",
     "Description": "002C8980",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
     ]
@@ -1301,7 +1301,7 @@
   {
     "Index": "0x0063",
     "ReturnType": "void",
-    "Name": "AI_TAR_STATUS",
+    "Name": "AI_TAR_ALLY_STATUS",
     "Description": "002CC4F0",
     "Parameters": [
       {
@@ -1314,12 +1314,12 @@
   {
     "Index": "0x0064",
     "ReturnType": "void",
-    "Name": "FUNCTION_0064",
+    "Name": "AI_DONT_TAR_STATUS",
     "Description": "002CC5A0",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "StatusEffects",
+        "Name": "statusID",
         "Description": ""
       }
     ]
@@ -1356,12 +1356,12 @@
   {
     "Index": "0x0068",
     "ReturnType": "void",
-    "Name": "FUNCTION_0068",
+    "Name": "AI_TAR_NULL",
     "Description": "002CC7E0",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
     ]
@@ -1369,12 +1369,12 @@
   {
     "Index": "0x0069",
     "ReturnType": "void",
-    "Name": "FUNCTION_0069",
+    "Name": "AI_TAR_REFLECT",
     "Description": "002CC890",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
     ]
@@ -1382,12 +1382,12 @@
   {
     "Index": "0x006a",
     "ReturnType": "void",
-    "Name": "FUNCTION_006A",
+    "Name": "AI_TAR_ABSORB",
     "Description": "002CC940",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+		"Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
     ]
@@ -1848,7 +1848,7 @@
   {
     "Index": "0x008f",
     "ReturnType": "int",
-    "Name": "AI_CHK_ENEMY_DOWNED",
+    "Name": "AI_CHK_ONE_MORE",
     "Description": "002C9250",
     "Parameters": [
     ]
@@ -2199,17 +2199,17 @@
   {
     "Index": "0x00aa",
     "ReturnType": "int",
-    "Name": "MYBAD",
+    "Name": "AI_CHK_UNIT_STATUS",
     "Description": "002C9AF0",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleUnit",
+        "Name": "enemy_ID",
         "Description": ""
       },
       {
-        "Type": "int",
-        "Name": "param2",
+        "Type": "StatusEffects",
+        "Name": "effectID",
         "Description": ""
       }
     ]
@@ -5401,7 +5401,7 @@
     "Index": "0x0192",
     "ReturnType": "int",
     "Name": "FUNCTION_0192",
-    "Description": "002D1420",
+    "Description": "Related to enemies with two turns and the below function",
     "Parameters": [
       {
         "Type": "int",
@@ -5414,7 +5414,7 @@
     "Index": "0x0193",
     "ReturnType": "void",
     "Name": "FUNCTION_0193",
-    "Description": "002D1460",
+    "Description": "Related to enemies with two turns and the above function",
     "Parameters": [
       {
         "Type": "int",
