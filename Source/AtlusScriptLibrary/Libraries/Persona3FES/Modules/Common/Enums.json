@@ -853,7 +853,7 @@
   "Members": [
 	{"Name":"AttackBuff","Value":1},
 	{"Name":"AttackDebuff","Value":2},
-	{"Name":"DefenseBuff","Value":4},
+	{"Name":"UnknownBuff","Value":4},
 	{"Name":"HitUpBuff","Value":16},
 	{"Name":"HitUpDebuff","Value":32},
 	{"Name":"DefenseBuff","Value":64},
