@@ -805,7 +805,7 @@
   {
     "Index": "0x2047",
     "ReturnType": "int",
-    "Name": "AI_CHK_ENEMY_DOWNED",
+    "Name": "AI_CHK_ONE_MORE",
     "Description": "Address: 0x089FD0B0",
     "Parameters": []
   },
