@@ -727,7 +727,7 @@
   {
     "Index": "0x0033",
     "ReturnType": "int",
-    "Name": "AI_CHK_HP_PERCENT",
+    "Name": "AI_SELF_HP_PERCENT",
     "Description": "True if HP left is under the value, false if over",
     "Parameters": [
       {
@@ -740,7 +740,7 @@
   {
     "Index": "0x0034",
     "ReturnType": "int",
-    "Name": "FUNCTION_0034",
+    "Name": "AI_SELF_SP_PERCENT",
     "Description": "002C76B0",
     "Parameters": [
       {
@@ -831,38 +831,38 @@
   {
     "Index": "0x003b",
     "ReturnType": "int",
-    "Name": "FUNCTION_003B",
+    "Name": "AI_ALLY_COUNT",
     "Description": "002C7B80",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "True if int is equal to or less than the number of allies present"
       }
     ]
   },
   {
     "Index": "0x003c",
     "ReturnType": "int",
-    "Name": "FUNCTION_003C",
+    "Name": "AI_ENEMY_COUNT",
     "Description": "002C7C30",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "True if int is equal to or less than the number of enemies present"
       }
     ]
   },
   {
     "Index": "0x003d",
     "ReturnType": "int",
-    "Name": "FUNCTION_003D",
+    "Name": "AI_CHK_SELF_STATUS",
     "Description": "002C7CE0",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "StatusEffects",
+        "Name": "statusID",
         "Description": ""
       }
     ]
@@ -870,7 +870,7 @@
   {
     "Index": "0x003e",
     "ReturnType": "int",
-    "Name": "AI_CHK_PARTY_STATUS",
+    "Name": "AI_CHK_ALLIES_STATUS",
     "Description": "002C7D90",
     "Parameters": [
       {
@@ -896,7 +896,7 @@
   {
     "Index": "0x0040",
     "ReturnType": "int",
-    "Name": "AI_CHK_ENEMY_PARTY_STATUS",
+    "Name": "AI_CHK_ENEMIES_STATUS",
     "Description": "002C7EF0",
     "Parameters": [
       {
@@ -909,12 +909,12 @@
   {
     "Index": "0x0041",
     "ReturnType": "int",
-    "Name": "FUNCTION_0041",
-    "Description": "002C7FA0",
+    "Name": "AI_CHK_UNIT_PRESENT",
+    "Description": "Returns 1 if at least one of the unit specified is currently alive in the fight",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleUnit",
+        "Name": "enemy_ID",
         "Description": ""
       }
     ]
@@ -935,7 +935,7 @@
   {
     "Index": "0x0043",
     "ReturnType": "int",
-    "Name": "BUFF_ALLIES_CHECK",
+    "Name": "AI_CHK_ALLY_EFFECT",
     "Description": "002C8100",
     "Parameters": [
       {
@@ -948,7 +948,7 @@
   {
     "Index": "0x0044",
     "ReturnType": "int",
-    "Name": "DEBUFF_ENEMIES_CHECK",
+    "Name": "AI_CHK_ENEMIES_EFFECT",
     "Description": "002C81B0",
     "Parameters": [
       {
@@ -1050,7 +1050,7 @@
   {
     "Index": "0x004d",
     "ReturnType": "int",
-    "Name": "AI_EN_HAS_NULL",
+    "Name": "AI_EN_HAS_REFLECT",
     "Description": "002C86C0",
     "Parameters": [
       {
@@ -1076,7 +1076,7 @@
   {
     "Index": "0x004f",
     "ReturnType": "int",
-    "Name": "AI_EN_HAS_REFLECT",
+    "Name": "AI_EN_HAS_NULL",
     "Description": "002C8820",
     "Parameters": [
       {
@@ -1301,7 +1301,7 @@
   {
     "Index": "0x0063",
     "ReturnType": "void",
-    "Name": "AI_TAR_ALLY_STATUS",
+    "Name": "AI_TAR_STATUS",
     "Description": "002CC4F0",
     "Parameters": [
       {
@@ -1327,12 +1327,12 @@
   {
     "Index": "0x0065",
     "ReturnType": "void",
-    "Name": "FUNCTION_0065",
+    "Name": "AI_TAR_UNIT",
     "Description": "002CC650",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleUnit",
+        "Name": "enemy_ID",
         "Description": ""
       }
     ]
@@ -1340,7 +1340,7 @@
   {
     "Index": "0x0066",
     "ReturnType": "void",
-    "Name": "AI_MINE",
+    "Name": "AI_TAR_SELF",
     "Description": "002CC700",
     "Parameters": [
     ]
@@ -1356,7 +1356,7 @@
   {
     "Index": "0x0068",
     "ReturnType": "void",
-    "Name": "AI_TAR_NULL",
+    "Name": "AI_TAR_REFLECT",
     "Description": "002CC7E0",
     "Parameters": [
       {
@@ -1369,7 +1369,7 @@
   {
     "Index": "0x0069",
     "ReturnType": "void",
-    "Name": "AI_TAR_REFLECT",
+    "Name": "AI_TAR_NULL",
     "Description": "002CC890",
     "Parameters": [
       {
@@ -2145,12 +2145,12 @@
   {
     "Index": "0x00a7",
     "ReturnType": "int",
-    "Name": "MYHP",
+    "Name": "AI_CHK_UNIT_HP_PERCENT",
     "Description": "002C9820",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleUnit",
+        "Name": "enemy_ID",
         "Description": ""
       },
       {
@@ -2200,11 +2200,11 @@
     "Index": "0x00aa",
     "ReturnType": "int",
     "Name": "AI_CHK_UNIT_STATUS",
-    "Description": "002C9AF0",
+    "Description": "This one is wack cause the first int will call enemies and party members alike depending on the enemy",
     "Parameters": [
       {
-        "Type": "BattleUnit",
-        "Name": "enemy_ID",
+        "Type": "PartyMember",
+        "Name": "partyID",
         "Description": ""
       },
       {
@@ -3165,8 +3165,8 @@
     "Description": "Returns true if ai has the skill",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "skill",
+        "Type": "BattleSkill",
+        "Name": "skillID",
         "Description": ""
       }
     ]
@@ -3174,12 +3174,12 @@
   {
     "Index": "0x00f0",
     "ReturnType": "int",
-    "Name": "ENWEAK_PAI",
+    "Name": "AI_EN_WEAK",
     "Description": "002CB3D0",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
     ]
@@ -3213,12 +3213,12 @@
   {
     "Index": "0x00f3",
     "ReturnType": "int",
-    "Name": "MYATTRSKIL",
+    "Name": "AI_HAS_AFFINITY",
     "Description": "002CB5E0",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
     ]
@@ -3239,12 +3239,12 @@
   {
     "Index": "0x00f5",
     "ReturnType": "int",
-    "Name": "ENNOMAL",
+    "Name": "AI_CHK_ANY_EN_WEAK",
     "Description": "002CB740",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
     ]
@@ -3363,7 +3363,7 @@
   {
     "Index": "0x00fd",
     "ReturnType": "void",
-    "Name": "FUNCTION_00FD",
+    "Name": "AI_TAR_POSITION",
     "Description": "002CE2D0",
     "Parameters": [
       {
@@ -3377,7 +3377,7 @@
     "Index": "0x00fe",
     "ReturnType": "int",
     "Name": "FUNCTION_00FE",
-    "Description": "002CE390",
+    "Description": "Has to do with targetting a specific ally",
     "Parameters": [
       {
         "Type": "int",
@@ -3385,8 +3385,8 @@
         "Description": ""
       },
       {
-        "Type": "int",
-        "Name": "param2",
+        "Type": "PartyMember",
+        "Name": "partyID",
         "Description": ""
       }
     ]
@@ -3480,12 +3480,12 @@
   {
     "Index": "0x0106",
     "ReturnType": "int",
-    "Name": "FUNCTION_0106",
+    "Name": "AI_CHK_WEAK_POSITION",
     "Description": "002CFA70",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
     ]
@@ -3507,7 +3507,7 @@
     "Index": "0x0108",
     "ReturnType": "int",
     "Name": "FUNCTION_0108",
-    "Description": "002CFCD0",
+    "Description": "Another weakness check I think but like exclusive to Cruel Attack (no Vile Assault) so no clue",
     "Parameters": [
       {
         "Type": "int",
@@ -3664,7 +3664,7 @@
   {
     "Index": "0x0113",
     "ReturnType": "int",
-    "Name": "FUNCTION_0113",
+    "Name": "AI_WEAPON_AFFINITY",
     "Description": "002CF940",
     "Parameters": [
     ]
@@ -4240,8 +4240,8 @@
   {
     "Index": "0x013d",
     "ReturnType": "void",
-    "Name": "FUNCTION_013D",
-    "Description": "002CD4C0",
+    "Name": "AI_TAR_UNKNOWN_013D",
+    "Description": "Associated with instant kill spells",
     "Parameters": [
       {
         "Type": "int",
@@ -4382,7 +4382,7 @@
     "Index": "0x0149",
     "ReturnType": "void",
     "Name": "FUNCTION_0149",
-    "Description": "002D0630",
+    "Description": "Likely the function that splits Arcana Justice and Chariot",
     "Parameters": [
     ]
   },
@@ -5039,7 +5039,7 @@
     "Index": "0x0175",
     "ReturnType": "void",
     "Name": "FUNCTION_0175",
-    "Description": "002D06B0",
+    "Description": "Likely related to Arcana Hermits Charge",
     "Parameters": [
       {
         "Type": "int",
@@ -5444,12 +5444,12 @@
   {
     "Index": "0x0195",
     "ReturnType": "int",
-    "Name": "FUNCTION_0195",
+    "Name": "AI_CHK_NUM_ALLIES_EFFECTED",
     "Description": "002CDAC0",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "SpecialEffects",
+        "Name": "effectID",
         "Description": ""
       }
     ]
@@ -5483,12 +5483,12 @@
   {
     "Index": "0x0198",
     "ReturnType": "int",
-    "Name": "FUNCTION_0198",
+    "Name": "AI_CHK_NUM_ENEMIES_EFFECTED",
     "Description": "002CDC10",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "SpecialEffects",
+        "Name": "effectID",
         "Description": ""
       }
     ]
@@ -5509,12 +5509,12 @@
   {
     "Index": "0x019a",
     "ReturnType": "int",
-    "Name": "FUNCTION_019A",
-    "Description": "002CEA70",
+    "Name": "AI_CHK_ANY_ALLIES_EFFECT",
+    "Description": "Returns -1 if buff/ debuff is active, else the position of a suitable target",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "SpecialEffects",
+        "Name": "effectID",
         "Description": ""
       }
     ]
@@ -5522,13 +5522,13 @@
   {
     "Index": "0x019b",
     "ReturnType": "int",
-    "Name": "FUNCTION_019B",
+    "Name": "AI_CHK_ANY_ENEMIES_EFFECT",
     "Description": "002CEB80",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Type": "SpecialEffects",
+        "Name": "effectID",
+        "Description": "Returns -1 if buff/ debuff is active, else the position of a suitable target"
       }
     ]
   },
@@ -5991,12 +5991,12 @@
   {
     "Index": "0x01bc",
     "ReturnType": "void",
-    "Name": "NOTHOJO",
+    "Name": "AI_DONT_TAR_EFFECT",
     "Description": "002CD690",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "SpecialEffects",
+        "Name": "effectID",
         "Description": ""
       }
     ]
@@ -6119,7 +6119,7 @@
   {
     "Index": "0x01c7",
     "ReturnType": "int",
-    "Name": "BUFF_SELF_CHECK",
+    "Name": "AI_CHK_SELF_EFFECT",
     "Description": "002CC0E0",
     "Parameters": [
       {
@@ -6252,8 +6252,8 @@
   {
     "Index": "0x01d2",
     "ReturnType": "void",
-    "Name": "FUNCTION_01D2",
-    "Description": "002C7430",
+    "Name": "AI_WAIT_CUSTOM",
+    "Description": "The unit waits and calls a unique wait message, no idea where the values are",
     "Parameters": [
       {
         "Type": "int",

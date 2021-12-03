@@ -840,7 +840,10 @@
 	{"Name":"Panic","Value":4},
 	{"Name":"Fear","Value":8},
 	{"Name":"Rage","Value":16},
+	{"Name":"Freeze","Value":32},
+	{"Name":"Shock","Value":64},
 	{"Name":"Poison","Value":128},
+	{"Name":"Unconscious","Value":524288},
 	{"Name":"Downed","Value":1048576}
 	]
  },
@@ -849,19 +852,24 @@
   "Description": "",
   "Members": [
 	{"Name":"AttackBuff","Value":1},
-	{"Name":"AttackDebuff","Value":8},
+	{"Name":"AttackDebuff","Value":2},
+	{"Name":"DefenseBuff","Value":4},
 	{"Name":"HitUpBuff","Value":16},
 	{"Name":"HitUpDebuff","Value":32},
 	{"Name":"DefenseBuff","Value":64},
 	{"Name":"DefenseDebuff","Value":128},
 	{"Name":"EvasionUpBuff","Value":256},
+	{"Name":"HitAndEvasionUpBuff","Value":272},
 	{"Name":"EvasionUpDebuff","Value":512},
 	{"Name":"PowerCharge","Value":1024},
 	{"Name":"MindCharge","Value":2048},
 	{"Name":"Rebellion","Value":16384},
 	{"Name":"Revolution","Value":32768},
+	{"Name":"Break1","Value":262144},
+	{"Name":"Break2","Value":524288},
 	{"Name":"Tetrakarn","Value":65536},
-	{"Name":"Downed","Value":1048576},
+	{"Name":"Break3","Value":1048576},
+	{"Name":"Break4","Value":2097152},
 	{"Name":"Makarakarn","Value":131072},
 	{"Name":"AilmentSusceptibility","Value":4194304}
   ]
@@ -1061,5 +1069,17 @@
     {"Name":"Medea","Value":210},
     {"Name":"Psyche","Value":211}
   ]
+ },
+ {
+  "Name": "WaitMessages",
+  "Description": "",
+  "Members": [
+	{"Name":"GenericArcana","Value":0},
+	{"Name":"CowardlyMaya","Value":218},
+	{"Name":"NyxFool","Value":219},
+	{"Name":"ArcanaHermit","Value":220},
+	{"Name":"GoldenHand","Value":221},
+	{"Name":"Metis","Value":222},
+	]
  }
 ]
