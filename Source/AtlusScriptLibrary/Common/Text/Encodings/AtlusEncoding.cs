@@ -77,7 +77,7 @@ namespace AtlusScriptLibrary.Common.Text.Encodings
                 case "p5r_efigs":
                     return Persona5RoyalEFIGS;
 
-                case "p5r_jap":
+                case "p5r_jp":
                 case "p5r_japanese":
                     return Persona5RoyalJapanese;
 
