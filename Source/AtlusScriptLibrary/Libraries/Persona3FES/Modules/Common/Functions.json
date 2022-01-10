@@ -3363,7 +3363,7 @@
   {
     "Index": "0x00fd",
     "ReturnType": "void",
-    "Name": "AI_TAR_POSITION",
+    "Name": "AI_TAR_ID",
     "Description": "002CE2D0",
     "Parameters": [
       {
@@ -3402,13 +3402,13 @@
   {
     "Index": "0x0100",
     "ReturnType": "int",
-    "Name": "FUNCTION_0100",
+    "Name": "AI_EN_NOT_IMMUNE",
     "Description": "002CE510",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Type": "Affinity",
+        "Name": "affinityID",
+        "Description": "Checks if the enemy doesn't Null, Reflect, or Absorb the affinity"
       }
     ]
   },
@@ -3519,22 +3519,22 @@
   {
     "Index": "0x0109",
     "ReturnType": "int",
-    "Name": "FUNCTION_0109",
+    "Name": "AI_USE_SKILL_AFFINITY",
     "Description": "002CF730",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
+        "Description": "Related to targetting"
+      },
+      {
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       },
       {
-        "Type": "int",
-        "Name": "param2",
-        "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param3",
+        "Type": "NumberTargets",
+        "Name": "number",
         "Description": ""
       }
     ]
@@ -3542,23 +3542,23 @@
   {
     "Index": "0x010a",
     "ReturnType": "int",
-    "Name": "FUNCTION_010A",
+    "Name": "AI_USE_ITEM",
     "Description": "002CF7E0",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
+        "Description": "Related to targetting"
+      },
+      {
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       },
       {
-        "Type": "int",
-        "Name": "param2",
-        "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param3",
-        "Description": ""
+        "Type": "NumberTargets",
+        "Name": "number",
+        "Description": "Seemingly redundant in many cases as the party lacks access to items that heal 2+ allies"
       }
     ]
   },
@@ -6174,7 +6174,7 @@
   {
     "Index": "0x01cc",
     "ReturnType": "int",
-    "Name": "FUNCTION_01CC",
+    "Name": "AI_EN_WEAK_ID",
     "Description": "002CEE60",
     "Parameters": [
       {
@@ -6489,12 +6489,12 @@
   {
     "Index": "0x01e5",
     "ReturnType": "int",
-    "Name": "FUNCTION_01E5",
+    "Name": "AI_NUM_EN_NOT_IMMUNE",
     "Description": "002CF290",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
     ]

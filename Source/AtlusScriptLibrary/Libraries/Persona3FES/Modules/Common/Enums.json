@@ -1081,5 +1081,13 @@
 	{"Name":"GoldenHand","Value":221},
 	{"Name":"Metis","Value":222},
 	]
+ },
+ {
+  "Name": "NumberTargets",
+  "Description": "",
+  "Members": [
+	{"Name":"MultiTarget","Value":0},
+	{"Name":"SingleTarget","Value":1},
+	]
  }
 ]
