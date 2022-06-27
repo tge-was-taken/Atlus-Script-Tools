@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using AtlusScriptDocGen.Exceptions;
 using AtlusScriptDocGen.Generators;
@@ -12,7 +13,7 @@ namespace AtlusScriptDocGen
     {
         private static Library sLibrary;
         private static DocumentationFormat sDocFormat;
-        private static string sOutPath = Environment.CurrentDirectory;
+        private static string sOutPath;
 
         private static readonly Dictionary<string, DocumentationFormat> sDocFormatLookup = new Dictionary<string, DocumentationFormat>()
         {
@@ -143,6 +144,9 @@ Supported documentation formats:
 
             if ( sDocFormat == DocumentationFormat.Unknown )
                 throw new MissingMandatoryArgumentException( "DocFormat" );
+
+            if (sOutPath == null)
+                sOutPath = Path.Combine(Environment.CurrentDirectory, sLibrary.ShortName + (sDocFormat == DocumentationFormat.SweetScape010Editor ? ".bt" : ".xml"));
         }
     }
 }
