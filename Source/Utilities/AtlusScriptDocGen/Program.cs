@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using AtlusScriptDocGen.Exceptions;
@@ -135,6 +135,7 @@ Supported documentation formats:
                         }
                         break;
                 }
+                iterator.MoveNext();
             }
 
             if ( sLibrary == null )
