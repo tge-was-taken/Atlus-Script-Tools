@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "Name": "PadButton",
     "Description": "This enum represents the buttons on the gamepad.",
@@ -41,27 +41,27 @@
       {
         "Name": "Left",
         "Value": 7,
-        "Description": "The dpad down button."
-      },
-      {
-        "Name": "L1",
-        "Value": 8,
-        "Description": "The L1 button."
-      },
-      {
-        "Name": "R1",
-        "Value": 9,
-        "Description": "The R1 button."
+        "Description": "The dpad Left button."
       },
       {
         "Name": "L2",
-        "Value": 10,
+        "Value": 8,
         "Description": "The L2 button."
       },
       {
         "Name": "R2",
-        "Value": 11,
+        "Value": 9,
         "Description": "The R2 button."
+      },
+      {
+        "Name": "L1",
+        "Value": 10,
+        "Description": "The L1 button."
+      },
+      {
+        "Name": "R1",
+        "Value": 11,
+        "Description": "The R1 button."
       },
       {
         "Name": "Triangle",
@@ -87,6 +87,112 @@
         "Name": "Any",
         "Value": 16,
         "Description": "Any button."
+      }
+    ]
+  },
+  {
+    "Name": "BattleUnit",
+    "Description": "This enum represents the available units in battle.",
+    "Members": [
+      {
+        "Name": "Protagonist",
+        "Value": 1
+      },
+      {
+        "Name": "Ryuji",
+        "Value": 2
+      },
+      {
+        "Name": "Morgana",
+        "Value": 3
+      },
+      {
+        "Name": "Ann",
+        "Value": 4
+      },
+      {
+        "Name": "Yusuke",
+        "Value": 5
+      },
+      {
+        "Name": "Makoto",
+        "Value": 6
+      },
+      {
+        "Name": "Haru",
+        "Value": 7
+      },
+      {
+        "Name": "Futaba",
+        "Value": 8
+      },
+      {
+        "Name": "Akechi",
+        "Value": 9
+      },
+      {
+        "Name": "Sumire",
+        "Value": 10
+      }
+    ]
+  },
+  {
+    "Name": "EquipSlotID",
+    "Description": "This enum represents the available units in battle.",
+    "Members": [
+      {
+        "Name": "MeleeWeapon",
+        "Value": 0,
+        "Description": ""
+      },
+      {
+        "Name": "Armor",
+        "Value": 1,
+        "Description": ""
+      },
+      {
+        "Name": "Accessory",
+        "Value": 2,
+        "Description": ""
+      },
+      {
+        "Name": "Outfit",
+        "Value": 3,
+        "Description": ""
+      },
+      {
+        "Name": "RangedWeapon",
+        "Value": 4,
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Name": "Flag",
+    "Members": [
+      {
+        "Name": "Section0",
+        "Value": 0
+      },
+      {
+        "Name": "Section1",
+        "Value": 2048
+      },
+      {
+        "Name": "Section2",
+        "Value": 4096
+      },
+      {
+        "Name": "Section3",
+        "Value": 8192
+      },
+      {
+        "Name": "Section4",
+        "Value": 8448
+      },
+      {
+        "Name": "Section5",
+        "Value": 8704
       }
     ]
   }
