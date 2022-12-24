@@ -251,28 +251,38 @@
     <Compile Include="Common\Libraries\LibraryLookup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Charsets\P3.tsv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Charsets\P4.tsv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Charsets\P4_Spanish.tsv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Charsets\P5.tsv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Charsets\P5R_EFIGS.tsv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Charsets\P5_Chinese.tsv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScript.g4" />
     <None Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScript.tokens" />
     <None Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScriptLexer.tokens" />
     <None Include="FlowScriptLanguage\GenerateGrammarParserAndLexer.bat" />
+    <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptLexer.g4" />
+    <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptParser.g4" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Charsets\P3.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Charsets\P4.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Charsets\P4_Spanish.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Charsets\P5.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Charsets\P5R_Chinese.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Charsets\P5R_EFIGS.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Charsets\P5R_Japanese.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Charsets\P5_Chinese.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Libraries\Persona5.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -498,29 +508,30 @@
     <Content Include="Libraries\Persona3Portable\Enums.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Libraries\Persona3Portable\Modules\AI\Functions.json">
+    <Content Include="Libraries\Persona3Portable\Modules\AI\Functions.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Libraries\Persona3Portable\Modules\Facility\Functions.json">
+    </Content>
+    <Content Include="Libraries\Persona3Portable\Modules\Facility\Functions.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Libraries\Persona3Portable\Modules\Event\Functions.json">
+    </Content>
+    <Content Include="Libraries\Persona3Portable\Modules\Event\Functions.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Libraries\Persona3Portable\Modules\Field\Functions.json">
+    </Content>
+    <Content Include="Libraries\Persona3Portable\Modules\Field\Functions.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Libraries\Persona3Portable\Modules\Shared\Functions.json">
+    </Content>
+    <Content Include="Libraries\Persona3Portable\Modules\Shared\Functions.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <Content Include="Libraries\Persona4Golden\Modules\Common\Enums.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Libraries\Persona5Royal\Modules\Field\Enums.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptLexer.g4" />
-    <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptParser.g4" />
+    <Content Include="Libraries\Persona5Royal\Modules\Common\Enums.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Antlr4.CodeGenerator">
