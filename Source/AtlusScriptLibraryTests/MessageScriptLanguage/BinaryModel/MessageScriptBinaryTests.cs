@@ -176,7 +176,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.Tests
 
             // header checks
             Assert.AreEqual( 7, script.Header.FileType );
-            Assert.AreEqual( false, script.Header.Format );
+            Assert.AreEqual( 0, script.Header.Format );
             Assert.AreEqual( 0, script.Header.UserId );
             Assert.AreEqual( 0x987A, script.Header.FileSize );
             Assert.IsTrue( script.Header.Magic.SequenceEqual( BinaryHeader.MAGIC_V1 ) );
