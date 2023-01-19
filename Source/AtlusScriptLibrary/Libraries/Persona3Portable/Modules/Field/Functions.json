@@ -1421,5 +1421,29 @@
         "Description": ""
       }
     ]
+  },
+  {
+    "Index": "0x106d",
+    "ReturnType": "void",
+    "Name": "HD_FLD_FUNCTION_006D",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x106e",
+    "ReturnType": "void",
+    "Name": "HD_FLD_FUNCTION_006E",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x106f",
+    "ReturnType": "int",
+    "Name": "HD_FLD_FUNCTION_006F",
+    "Description": "",
+    "Parameters": [
+    ]
   }
 ]
