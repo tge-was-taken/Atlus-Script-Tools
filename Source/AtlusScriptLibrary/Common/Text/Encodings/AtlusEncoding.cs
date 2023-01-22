@@ -32,6 +32,7 @@ namespace AtlusScriptLibrary.Common.Text.Encodings
         // Ease of use accessors
         private static readonly string sCharsetsBaseDirectoryPath = Path.Combine( AppDomain.CurrentDomain.BaseDirectory, "Charsets" );
         private static AtlusEncoding sPersona3;
+        private static AtlusEncoding sPersona3PortableEFIGS;
         private static AtlusEncoding sPersona4;
         private static AtlusEncoding sPersona5;
         private static AtlusEncoding sPersona5Chinese;
@@ -40,6 +41,7 @@ namespace AtlusScriptLibrary.Common.Text.Encodings
         private static AtlusEncoding sPersona5RoyalChinese;
 
         public static AtlusEncoding Persona3 => sPersona3 ?? ( sPersona3 = new AtlusEncoding( "P3" ) );
+        public static AtlusEncoding Persona3PortableEFIGS => sPersona3PortableEFIGS ?? ( sPersona3PortableEFIGS = new AtlusEncoding( "P3P_EFIGS" ) );
         public static AtlusEncoding Persona4 => sPersona4 ?? ( sPersona4 = new AtlusEncoding( "P4" ) );
         public static AtlusEncoding Persona5 => sPersona5 ?? ( sPersona5 = new AtlusEncoding( "P5" ) );
         public static AtlusEncoding Persona5Chinese => sPersona5Chinese ?? ( sPersona5Chinese = new AtlusEncoding( "P5_Chinese" ) );
@@ -57,6 +59,10 @@ namespace AtlusScriptLibrary.Common.Text.Encodings
                 case "p3":
                 case "persona3":
                     return Persona3;
+
+                case "p3p":
+                case "p3p_efigs":
+                    return Persona3PortableEFIGS;
 
                 case "p4":
                 case "persona4":
