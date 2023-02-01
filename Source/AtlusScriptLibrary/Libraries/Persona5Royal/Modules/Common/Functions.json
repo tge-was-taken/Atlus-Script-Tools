@@ -6580,7 +6580,7 @@
   {
     "Index": "0x01a5",
     "ReturnType": "int",
-    "Name": "GET_PLATFORM",
+    "Name": "HD_GET_PLATFORM",
     "Description": "",
     "Parameters": [],
     "Comment": "returns 7 on pc, 3 on switch"
@@ -6588,7 +6588,7 @@
   {
     "Index": "0x01a6",
     "ReturnType": "int",
-    "Name": "GET_TEXT_PLATFORM",
+    "Name": "HD_GET_TEXT_PLATFORM",
     "Description": "",
     "Parameters": [],
     "Comment": "returns 3 on pc, 0 on switch"
@@ -6596,7 +6596,7 @@
   {
     "Index": "0x01a7",
     "ReturnType": "void",
-    "Name": "PRESS_WIRE",
+    "Name": "HD_PRESS_WIRE",
     "Description": "",
     "Parameters": [],
     "Comment": ""

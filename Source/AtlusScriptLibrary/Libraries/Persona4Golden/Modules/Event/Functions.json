@@ -971,5 +971,46 @@
     "Description": "",
     "Parameters": [
     ]
+  },
+  {
+    "Index": "0x304c",
+    "ReturnType": "int",
+    "Name": "HD_EVT_FUNCTION_004C",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x304d",
+    "ReturnType": "void",
+    "Name": "HD_EVT_FUNCTION_004D",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
   }
 ]

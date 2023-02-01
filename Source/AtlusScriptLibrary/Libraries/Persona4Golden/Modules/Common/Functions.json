@@ -2495,5 +2495,39 @@
     "Description": "Code function name: cldScheduler_sub_810448F6",
     "Parameters": [
     ]
+  },
+  {
+    "Index": "0x00bd",
+    "ReturnType": "void",
+    "Name": "HD_CALL_ALBUM",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x00be",
+    "ReturnType": "void",
+    "Name": "HD_FUNCTION_00BE",
+    "Description": "",
+    "Parameters": [
+    ]
+  },
+  {
+    "Index": "0x00bf",
+    "ReturnType": "void",
+    "Name": "HD_FUNCTION_00BF",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
   }
 ]

@@ -1406,5 +1406,31 @@
         "Description": ""
       }
     ]
+  },
+  {
+    "Index": "0x0067",
+    "ReturnType": "void",
+    "Name": "HD_FUNCTION_0067",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0068",
+    "ReturnType": "int",
+    "Name": "HD_FUNCTION_0068",
+    "Description": "",
+    "Parameters": [
+    ]
   }
 ]
