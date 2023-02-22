@@ -44,14 +44,14 @@
   {
     "Index": "0x0004",
     "ReturnType": "void",
-    "Name": "FUNCTION_0004",
+    "Name": "SEL_WND_DSP",
     "Description": "Null pointer",
     "Parameters": []
   },
   {
     "Index": "0x0005",
     "ReturnType": "void",
-    "Name": "FUNCTION_0005",
+    "Name": "SEL_WND_CLS",
     "Description": "Null pointer",
     "Parameters": []
   },
@@ -509,7 +509,7 @@
   {
     "Index": "0x0023",
     "ReturnType": "void",
-    "Name": "FUNCTION_0023",
+    "Name": "BGM_STOP",
     "Description": "Address: 0x089793C8",
     "Parameters": [
       {
@@ -666,7 +666,7 @@
   {
     "Index": "0x002c",
     "ReturnType": "void",
-    "Name": "FUNCTION_002C",
+    "Name": "SEL_DEFKEY",
     "Description": "Address: 0x08982AA8",
     "Parameters": [
       {
