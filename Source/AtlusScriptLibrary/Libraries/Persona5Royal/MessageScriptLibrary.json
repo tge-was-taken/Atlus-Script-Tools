@@ -217,9 +217,25 @@
       },
       {
         "Index": 7,
-        "Name": "",
-        "Description": "",
+        "Name": "bitflag",
+        "Description": "toggles bitflags on and off",
         "Parameters": [
+		  {
+            "Name": "param1",
+            "Description": ""
+          },
+		  {
+            "Name": "flag_section",
+            "Description": "section of the flag you want to toggle"
+          },
+		  {
+            "Name": "flag_id",
+            "Description": "the id of the flag you want to toggle"
+          },
+		  {
+            "Name": "flag_bool",
+            "Description": "boolean value that enables or disables the flag"
+          }
         ]
       }
     ]
@@ -511,9 +527,13 @@
       },
       {
         "Index": 29,
-        "Name": "",
-        "Description": "",
+        "Name": "selTex",
+        "Description": "overrides game logic deciding which dialogue select portrait to display",
         "Parameters": [
+			{
+            "Name": "selMajorId",
+            "Description": "the major id of the select portrait to display (FONT/SELECT/CUTIN_XXX_000.DDS)"
+			}
         ]
       }
     ]
@@ -618,9 +638,21 @@
       },
       {
         "Index": 13,
-        "Name": "",
-        "Description": "",
+        "Name": "coop",
+        "Description": "adds confidant points to a specified arcana",
         "Parameters": [
+          {
+            "Name": "arcanaId",
+            "Description": "the arcana id of the character you want to add points to"
+          },
+          {
+            "Name": "pointsGiven",
+            "Description": "the amount of points added to the arcana"
+          },
+          {
+            "Name": "modelMajorId",
+            "Description": "the Major ID of the model above which to display musical notes"
+          },
         ]
       },
       {
@@ -662,9 +694,25 @@
       },
       {
         "Index": 1,
-        "Name": "",
-        "Description": "",
+        "Name": "itemIcon",
+        "Description": "Displays an item category icon (consumable, armor, etc...)",
         "Parameters": [
+          {
+            "Name": "param1",
+            "Description": ""
+          },
+          {
+            "Name": "param2",
+            "Description": ""
+          },
+          {
+            "Name": "param3",
+            "Description": ""
+          },
+          {
+            "Name": "icon_id",
+            "Description": "the id of the icon to display"
+          }
         ]
       }
     ]
