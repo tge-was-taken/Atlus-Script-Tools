@@ -290,10 +290,24 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                 }
                 else if ( statement is VariableDeclaration variableDeclaration )
                 {
-                    if ( variableDeclaration.Initializer != null && ( variableDeclaration.Modifier != null && variableDeclaration.Modifier.Kind != VariableModifierKind.Constant ) )
+                    if (variableDeclaration.Initializer != null)
                     {
-                        Error( variableDeclaration.Initializer, "Non-constant variables declared outside of a procedure can't be initialized with a value" );
-                        return false;
+                        if (variableDeclaration.Modifier == null || variableDeclaration.Modifier.Kind != VariableModifierKind.Constant)
+                        {
+                            Error(variableDeclaration.Initializer, "Non-constant variables declared outside of a procedure can't be initialized with a value");
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        if (variableDeclaration.Modifier?.Kind == VariableModifierKind.Constant)
+                        {
+                            if (variableDeclaration.Initializer == null)
+                            {
+                                Error(variableDeclaration, "Missing initializer for constant variable");
+                                return false;
+                            }
+                        }
                     }
                 }
                 else if ( !( statement is FunctionDeclaration ) && !( statement is EnumDeclaration ) )

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using AtlusScriptLibrary.Common.Libraries;
 using AtlusScriptLibrary.Common.Logging;
 using AtlusScriptLibrary.FlowScriptLanguage;
@@ -12,21 +13,60 @@ namespace AtlusScriptLibraryTests.FlowScriptLanguage.Interpreter
     [ TestClass ]
     public class FlowScriptInterpreterTests
     {
+        private static void PatchPUTSFunction(Library library)
+        {
+            var putsFunction = library.FlowScriptModules
+                .SelectMany(x => x.Functions)
+                .Where(x => x.Name == "PUTS")
+                .FirstOrDefault();
+
+            if (putsFunction != null)
+            {
+                putsFunction.Semantic = FlowScriptModuleFunctionSemantic.Variadic;
+            }
+            else
+            {
+                library.FlowScriptModules.Add(new FlowScriptModule()
+                {
+                    Name = "Test",
+                    Functions =
+                    {
+                        new FlowScriptModuleFunction()
+                        {
+                            Name = "PUTS",
+                            Semantic = FlowScriptModuleFunctionSemantic.Variadic,
+                            ReturnType = "void",
+                            Index = 1234,
+                            Parameters =
+                            {
+                                new FlowScriptModuleParameter()
+                                {
+                                    Name = "Format",
+                                    Semantic = FlowScriptModuleParameterSemantic.Normal
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
         public string RunTest( FormatVersion version, string library, string source )
         {
-            var compiler = new FlowScriptCompiler( version );
-            compiler.Library                = LibraryLookup.GetLibrary( library );
+            var compiler = new FlowScriptCompiler(version);
+            compiler.Library = LibraryLookup.GetLibrary(library);
+            PatchPUTSFunction(compiler.Library);
             compiler.EnableProcedureTracing = false;
             compiler.ProcedureHookMode = ProcedureHookMode.All;
-            compiler.AddListener( new DebugLogListener() );
-            if ( !compiler.TryCompile( source, out var script ) )
+            compiler.AddListener(new DebugLogListener());
+            if (!compiler.TryCompile(source, out var script))
             {
-                Console.WriteLine( "Script failed to compile" );
+                Console.WriteLine("Script failed to compile");
                 return null;
             }
 
-            var textOutput  = new StringWriter();
-            var interpreter = new FlowScriptInterpreter( script );
+            var textOutput = new StringWriter();
+            var interpreter = new FlowScriptInterpreter(script);
             interpreter.TextOutput = textOutput;
             interpreter.Run();
             return textOutput.GetStringBuilder().ToString();
@@ -93,6 +133,10 @@ void Main()
 
     array5 = { 6, 7, 8, 9, 10 };
     PUTS( ""array5[0] = %d"", array5[0] );
+
+    int index3 = 3;
+    PUTS( ""array2[3] = %d"", array2[index3] );
+    PUTS( ""constArray[3] = %d"", constArray[index3] );
 }
 
 void TakesArrayParameter(int array[5])
@@ -107,7 +151,82 @@ void TakesArrayParameter(int array[5])
                        "array5[1] = 0\n" +
                        "constArray[0] = 1\n" +
                        "globalArray[0] = 10\n" +
-                       "array5[0] = 6\n" );
+                       "array5[0] = 6\n" +
+                       "array2[3] = 4\n" +
+                       "constArray[3] = 4\n");
+        }
+
+        [TestMethod]
+        public void test_arrays_2()
+        {
+            var source = @"
+const int selection[] = {1,2,3,4,5}; //this is fine
+const int num1 = selection[1]; // this is also fine
+const int index = 2;
+const int num2 = selection[index]; // this is fine
+
+void func() {
+  PUTS(""num1 %d"", num1);
+  PUTS(""num2 %d"", num2); 
+  int index2 = 3;
+  int num3 = selection[index]; // this breaks
+  PUTS(""num3 %d"", num3);
+  int num4 = selection[index2]; //this also breaks
+  PUTS(""num4 %d"", num4);
+
+  if (index == 2) {
+    int num5 = selection[index2]; //this breaks
+    PUTS(""num5 %d"", num5);
+  }
+  switch (index) {
+    case 2:
+      int num6 = selection[index2]; //this breaks
+      PUTS(""num6 %d"", num6);
+      break;
+  }
+
+  for (int i = 0; i < 5; i++) {
+    int num7 = selection[i]; //this works
+    PUTS(""num7 %d"", num7);
+    if (i%2==0) {
+      int num8 = selection[i]; // this breaks
+      PUTS(""num8 %d"", num8);
+    }
+    switch (index) {
+      case 2:
+        int num9 = selection[i]; //this breaks
+        PUTS(""num9 %d"", num9);
+        break;
+    }
+    int num10 = selection[index]; //this breaks
+    PUTS(""num10 %d"", num10);
+  }
+}
+";
+            RunP5Test(source, "num1 2\n"+
+                              "num2 3\n"+
+                              "num3 3\n"+
+                              "num4 4\n"+
+                              "num5 4\n"+
+                              "num6 4\n"+
+                              "num7 1\n"+
+                              "num8 1\n"+
+                              "num9 1\n"+
+                              "num10 3\n"+
+                              "num7 2\n"+
+                              "num9 2\n"+
+                              "num10 3\n"+
+                              "num7 3\n"+
+                              "num8 3\n"+
+                              "num9 3\n"+
+                              "num10 3\n"+
+                              "num7 4\n"+
+                              "num9 4\n"+
+                              "num10 3\n"+
+                              "num7 5\n"+
+                              "num8 5\n"+
+                              "num9 5\n"+
+                              "num10 3\n");
         }
 
         [TestMethod]

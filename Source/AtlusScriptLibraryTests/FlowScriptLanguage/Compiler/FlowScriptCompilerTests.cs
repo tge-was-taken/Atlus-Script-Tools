@@ -25,7 +25,8 @@ namespace AtlusScriptLibraryTests.FlowScriptLanguage.Compiler
                 throw new Exception( "Script failed to compile" );
             }
 
-            Assert.IsTrue(script.EnumerateInstructions().SequenceEqual(instructions));
+            var compiledInstructions = script.EnumerateInstructions().ToList();
+            Assert.IsTrue(compiledInstructions.SequenceEqual(instructions));
         }
 
         [TestMethod]
