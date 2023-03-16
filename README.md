@@ -1,5 +1,5 @@
 ﻿
-# Atlus Script Tools [![Build status](https://ci.appveyor.com/api/projects/status/l3p8joj4frjkn753?svg=true)](https://ci.appveyor.com/project/tge/atlusscripttools)
+# Atlus Script Tools [![Build status](https://ci.appveyor.com/api/projects/status/l3p8joj4frjkn753?svg=true)](https://ci.appveyor.com/project/tge-was-taken/atlus-script-tools/build/artifacts)
 
 WIP set of tools developed for handling Atlus' script formats including
 * flow script files (.bf)
