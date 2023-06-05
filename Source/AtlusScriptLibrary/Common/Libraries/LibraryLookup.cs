@@ -14,6 +14,11 @@ namespace AtlusScriptLibrary.Common.Libraries
         private static Dictionary<string, Library> sLibrariesByFullName;
         private static bool sInitialized;
 
+        public static void SetLibraryPath(string path)
+        {
+            LibraryBaseDirectoryPath = path;
+        }
+
         public static IEnumerable<Library> Libraries
         {
             get

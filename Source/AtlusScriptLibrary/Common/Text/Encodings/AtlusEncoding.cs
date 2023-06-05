@@ -30,7 +30,7 @@ namespace AtlusScriptLibrary.Common.Text.Encodings
         private const int GLYPH_TABLE_INDEX_MARKER = 0x80;
 
         // Ease of use accessors
-        private static readonly string sCharsetsBaseDirectoryPath = Path.Combine( AppDomain.CurrentDomain.BaseDirectory, "Charsets" );
+        private static string sCharsetsBaseDirectoryPath = Path.Combine( AppDomain.CurrentDomain.BaseDirectory, "Charsets" );
         private static AtlusEncoding sPersona3;
         private static AtlusEncoding sPersona3PortableEFIGS;
         private static AtlusEncoding sPersona4;
@@ -39,6 +39,11 @@ namespace AtlusScriptLibrary.Common.Text.Encodings
         private static AtlusEncoding sPersona5RoyalEFIGS;
         private static AtlusEncoding sPersona5RoyalJapanese;
         private static AtlusEncoding sPersona5RoyalChinese;
+
+        public static void SetCharsetDirectory(string directory)
+        {
+            sCharsetsBaseDirectoryPath = directory;
+        }
 
         public static AtlusEncoding Persona3 => sPersona3 ?? ( sPersona3 = new AtlusEncoding( "P3" ) );
         public static AtlusEncoding Persona3PortableEFIGS => sPersona3PortableEFIGS ?? ( sPersona3PortableEFIGS = new AtlusEncoding( "P3P_EFIGS" ) );
