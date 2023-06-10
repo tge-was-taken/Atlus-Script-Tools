@@ -151,13 +151,16 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                     Error("Failed to parse compilation unit");
                     flowScript = null;
                     return false;
-                }                
+                }
             }
 
             // Parse base bf
-            var baseBf = FlowScript.FromStream(baseBfStream, Encoding, mFormatVersion, false);
-            mBaseBfImport = (new Import(baseBfStream.Name), baseBf);
-            
+            if (baseBfStream != null)
+            {
+                var baseBf = FlowScript.FromStream(baseBfStream, Encoding, mFormatVersion, false);
+                mBaseBfImport = (new Import(baseBfStream.Name), baseBf);
+            }
+
             compilationUnit.Imports.AddRange(imports.Select(import => new Import(import)));
             mCurrentBaseDirectory = "";
             return TryCompile(compilationUnit, out flowScript);
@@ -297,7 +300,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             InitializeCompilationState();
 
             // Resolve imports
-            if (compilationUnit.Imports.Count > 0 || mBaseBfImport != (null,null))
+            if (compilationUnit.Imports.Count > 0 || mBaseBfImport != (null, null))
             {
                 do
                 {
