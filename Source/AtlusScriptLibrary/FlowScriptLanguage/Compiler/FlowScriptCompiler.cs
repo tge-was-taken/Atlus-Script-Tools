@@ -98,6 +98,12 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
         /// </summary>
         public ProcedureHookMode ProcedureHookMode { get; set; }
 
+        /// <summary>
+        /// If true when there are message name conflicts an existing message of the same name will be overwritten. 
+        /// Otherwise an error will occur and the existing message will not be changed
+        /// </summary>
+        public bool OverwriteExistingMsgs { get; set; } = false;
+
         public bool Matching { get; set; } = true;
 
         /// <summary>
@@ -123,7 +129,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
         /// <summary>
         /// Tries to compile the provided FlowScript source with given imports. Returns a boolean indicating if the operation succeeded.
         /// </summary>
-        /// <param name="baseBf">A FileStream of the base bf file</param>
+        /// <param name="baseBfStream">A FileStream of the base bf file</param>
         /// <param name="imports">A List of paths to .bf, .flow, and .msg files that will be forcibly imported</param>
         /// <param name="flowScript">The compiled FlowScript</param>
         /// <returns>True if the file successfully compiled, false otherwise</returns>
@@ -131,8 +137,11 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
         {
             // Parse base flow file
             CompilationUnit compilationUnit;
-            using (var file = File.Open(baseFlow, FileMode.Open, FileAccess.Read, FileShare.Read))
+            if (baseFlow == null)
+                compilationUnit = new CompilationUnit();
+            else
             {
+                using var file = File.Open(baseFlow, FileMode.Open, FileAccess.Read, FileShare.Read);
                 mFilePath = Path.GetFullPath(file.Name);
                 mCurrentBaseDirectory = Path.GetDirectoryName(mFilePath);
 
@@ -839,6 +848,19 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                 for (int i = 0; i < mScript.MessageScript.Dialogs.Count; i++)
                 {
                     var dialog = mScript.MessageScript.Dialogs[i];
+
+                    if (OverwriteExistingMsgs)
+                    {
+                        // Try and replace the current one with the last one
+                        int last = mScript.MessageScript.Dialogs.FindLastIndex(msg => msg.Name == dialog.Name);
+                        mScript.MessageScript.Dialogs[i] = mScript.MessageScript.Dialogs[last]; // Replace current one
+                        dialog = mScript.MessageScript.Dialogs[i];
+                        while (last != i) // Keep removing from the end until there's only one
+                        {
+                            mScript.MessageScript.Dialogs.RemoveAt(last);
+                            last = mScript.MessageScript.Dialogs.FindLastIndex(msg => msg.Name == dialog.Name);
+                        }
+                    }
 
                     var declaration = new VariableDeclaration
                     (
