@@ -1,10 +1,13 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using AtlusScriptLibrary.Common.Libraries.Serialization;
+using AtlusScriptLibrary.FlowScriptLanguage.Compiler;
 using Newtonsoft.Json;
 
 namespace AtlusScriptLibrary.Common.Libraries
 {
-    public class Library
+    public class Library : ICloneable
     {
         public string Name { get; set; }
 
@@ -17,5 +20,15 @@ namespace AtlusScriptLibrary.Common.Libraries
         [JsonProperty( "MessageScriptLibraryPath" )]
         [JsonConverter( typeof(ExternalJsonPathConverter) ) ]
         public List<MessageScriptLibrary> MessageScriptLibraries { get; set; }
+
+        public object Clone()
+        {
+            var clone = new Library();
+            clone.Name = Name;
+            clone.ShortName = ShortName;
+            clone.FlowScriptModules = FlowScriptModules.Clone()?.ToList();
+            clone.MessageScriptLibraries = MessageScriptLibraries.Clone()?.ToList();
+            return clone;
+        }
     }
 }

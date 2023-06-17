@@ -1,11 +1,13 @@
 using AtlusScriptLibrary.Common.Libraries.Serialization;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+using System;
 using System.Collections.Generic;
+using AtlusScriptLibrary.FlowScriptLanguage.Compiler;
+using System.Linq;
 
 namespace AtlusScriptLibrary.Common.Libraries
 {
-    public class MessageScriptLibraryFunction
+    public class MessageScriptLibraryFunction : ICloneable
     {
         public int Index { get; set; }
 
@@ -17,6 +19,17 @@ namespace AtlusScriptLibrary.Common.Libraries
         public MessageScriptLibraryFunctionSemantic Semantic { get; set; }
 
         public List<MessageScriptLibraryParameter> Parameters { get; set; }
+
+        public object Clone()
+        {
+            var clone = new MessageScriptLibraryFunction();
+            clone.Index = Index;
+            clone.Name = Name;
+            clone.Description = Description;
+            clone.Semantic = Semantic;
+            clone.Parameters = Parameters.Clone()?.ToList();
+            return clone;
+        }
     }
 
     public enum MessageScriptLibraryFunctionSemantic

@@ -21,5 +21,11 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
 
             return max;
         }
+
+        public static IEnumerable<T> Clone<T>(this IEnumerable<T> collection) where T : ICloneable
+        {
+            if (collection == null) return null;
+            return collection.Select(item => (T)item.Clone());
+        }
     }
 }
