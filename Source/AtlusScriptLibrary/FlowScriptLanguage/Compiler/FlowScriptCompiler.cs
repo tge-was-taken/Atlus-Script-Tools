@@ -301,6 +301,46 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             mProcedureInstructionCache = new Dictionary<string, List<Instruction>>();
         }
 
+        // Reorders any procedures with forced indices
+        private void ReorderProcedures(CompilationUnit compilationUnit)
+        {
+            for(int i = 0; i < compilationUnit.Declarations.Count; i++)
+            {
+                var declaration = compilationUnit.Declarations[i];
+                if (declaration.DeclarationType != DeclarationType.Procedure)
+                    continue;
+
+                var nameParts = declaration.Identifier.Text.Split('_');
+                if (nameParts.Length < 2) continue;
+                if (!nameParts[nameParts.Length - 2].Equals("index", StringComparison.OrdinalIgnoreCase)) continue;
+                if(!int.TryParse(nameParts[nameParts.Length-1], out var index))
+                {
+                    Error($"Unable to parse procedure index {nameParts[nameParts.Length - 1]}. Index will not be changed");
+                    continue;
+                } 
+
+                var procedure = (ProcedureDeclaration)declaration;
+                Info($"Changed procedure index of {declaration.Identifier.Text} from {procedure.Index} to {index}");
+                ((ProcedureDeclaration)compilationUnit.Declarations[i]).Index = index;
+            }
+        }
+
+        // Adds dummy procedures if there are any that don't exist due to forced indices
+        private void AddMissingProcedures(CompilationUnit compilationUnit)
+        {
+            int maxIndex = Scope.Procedures.Max(x => x.Value.Index);
+            for(int i = 0; i < maxIndex; i++)
+            {
+                if(!Scope.Procedures.Any(x => x.Value.Index == i))
+                {
+                    // Add dummy procedure
+                    var procedure = new ProcedureDeclaration(i, TypeIdentifier.Void, new Identifier($"procedure_{i}"), new List<Parameter>(), new CompoundStatement());
+                    compilationUnit.Declarations.Add(procedure);
+                    Scope.TryDeclareProcedure(procedure, out _);
+                }
+            }
+        }
+
         private bool TryCompileCompilationUnit(CompilationUnit compilationUnit)
         {
             Info($"Start compiling FlowScript compilation unit with version {mFormatVersion}");
@@ -321,9 +361,13 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                 } while (mReresolveImports);
             }
 
+            ReorderProcedures(compilationUnit);
+
             // Evaluate declarations, return values, parameters etc
             if (!TryEvaluateCompilationUnitBeforeCompilation(compilationUnit))
                 return false;
+
+            AddMissingProcedures(compilationUnit);
 
             if (ProcedureHookMode == ProcedureHookMode.ImportedOnly)
             {

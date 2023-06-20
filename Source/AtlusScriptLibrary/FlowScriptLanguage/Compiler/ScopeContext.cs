@@ -158,9 +158,20 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
 
             var p = new ProcedureInfo();
             p.Declaration = declaration;
-            p.Index = declaration.Index == null ? ( short ) Procedures.Count : ( short ) declaration.Index.Value;
-            Debug.Assert( Procedures.All( x => x.Value.Index != p.Index ), "Same procedure index used by multiple procedures" );
+            p.IndexForced = declaration.Index != null;
+            p.Index = !p.IndexForced ? ( short ) Procedures.Count : ( short ) declaration.Index.Value;
+            if (Procedures.Any(x => x.Value.Index == p.Index))
+            {
+                var duplicate = !p.IndexForced ? p : Procedures.Values.FirstOrDefault(x => x.Index == p.Index && !x.IndexForced);
+                if(duplicate == null)
+                    duplicate = p; // If there's nothing else that can be replaced then this just can't have its index forced
+                short newIndex = 0;
+                while (Procedures.Any(x => x.Value.Index == newIndex))
+                    newIndex++;
+                duplicate.Index = newIndex;
+            }
             Procedures[ declaration.Identifier.Text ] = procedure = p;
+            declaration.Index = p.Index;
             return true;
         }
 
