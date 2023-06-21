@@ -12,6 +12,7 @@ using AtlusScriptLibrary.Common.Libraries;
 using AtlusScriptLibrary.Common.Logging;
 using AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser;
 using AtlusScriptLibrary.MessageScriptLanguage.Compiler.Parser;
+using MessageScriptParser = AtlusScriptLibrary.MessageScriptLanguage.Compiler.Parser.MessageScriptParser;
 
 namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
 {

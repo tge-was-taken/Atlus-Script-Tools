@@ -141,25 +141,32 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                 compilationUnit = new CompilationUnit();
             else
             {
-                using var file = File.Open(baseFlow, FileMode.Open, FileAccess.Read, FileShare.Read);
-                mFilePath = Path.GetFullPath(file.Name);
-                mCurrentBaseDirectory = Path.GetDirectoryName(mFilePath);
-
-                // Add hash for current file
-                var hashAlgo = new MD5CryptoServiceProvider();
-                var hashBytes = hashAlgo.ComputeHash(file);
-                int hashInt = BitConverter.ToInt32(hashBytes, 0);
-                mImportedFileHashSet.Add(hashInt);
-                file.Position = 0;
-
-                // Parse compilation unit
-                var parser = new CompilationUnitParser();
-                parser.AddListener(new LoggerPassthroughListener(mLogger));
-                if (!parser.TryParse(file, out compilationUnit))
+                var file = File.Open(baseFlow, FileMode.Open, FileAccess.Read, FileShare.Read);
+                try
                 {
-                    Error("Failed to parse compilation unit");
-                    flowScript = null;
-                    return false;
+                    mFilePath = Path.GetFullPath(file.Name);
+                    mCurrentBaseDirectory = Path.GetDirectoryName(mFilePath);
+
+                    // Add hash for current file
+                    var hashAlgo = new MD5CryptoServiceProvider();
+                    var hashBytes = hashAlgo.ComputeHash(file);
+                    int hashInt = BitConverter.ToInt32(hashBytes, 0);
+                    mImportedFileHashSet.Add(hashInt);
+                    file.Position = 0;
+
+                    // Parse compilation unit
+                    var parser = new CompilationUnitParser();
+                    parser.AddListener(new LoggerPassthroughListener(mLogger));
+                    if (!parser.TryParse(file, out compilationUnit))
+                    {
+                        Error("Failed to parse compilation unit");
+                        flowScript = null;
+                        return false;
+                    }
+                }
+                finally
+                {
+                    file.Close();
                 }
             }
 
@@ -304,7 +311,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
         // Reorders any procedures with forced indices
         private void ReorderProcedures(CompilationUnit compilationUnit)
         {
-            for(int i = 0; i < compilationUnit.Declarations.Count; i++)
+            for (int i = 0; i < compilationUnit.Declarations.Count; i++)
             {
                 var declaration = compilationUnit.Declarations[i];
                 if (declaration.DeclarationType != DeclarationType.Procedure)
@@ -313,11 +320,11 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                 var nameParts = declaration.Identifier.Text.Split('_');
                 if (nameParts.Length < 2) continue;
                 if (!nameParts[nameParts.Length - 2].Equals("index", StringComparison.OrdinalIgnoreCase)) continue;
-                if(!int.TryParse(nameParts[nameParts.Length-1], out var index))
+                if (!int.TryParse(nameParts[nameParts.Length - 1], out var index))
                 {
                     Error($"Unable to parse procedure index {nameParts[nameParts.Length - 1]}. Index will not be changed");
                     continue;
-                } 
+                }
 
                 var procedure = (ProcedureDeclaration)declaration;
                 Info($"Changed procedure index of {declaration.Identifier.Text} from {procedure.Index} to {index}");
@@ -329,9 +336,9 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
         private void AddMissingProcedures(CompilationUnit compilationUnit)
         {
             int maxIndex = Scope.Procedures.Max(x => x.Value.Index);
-            for(int i = 0; i < maxIndex; i++)
+            for (int i = 0; i < maxIndex; i++)
             {
-                if(!Scope.Procedures.Any(x => x.Value.Index == i))
+                if (!Scope.Procedures.Any(x => x.Value.Index == i))
                 {
                     // Add dummy procedure
                     var procedure = new ProcedureDeclaration(i, TypeIdentifier.Void, new Identifier($"procedure_{i}"), new List<Parameter>(), new CompoundStatement());
