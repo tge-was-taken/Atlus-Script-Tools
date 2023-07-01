@@ -1,6 +1,5 @@
-﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax
+﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax;
+
+public class NullStatement : Statement
 {
-    public class NullStatement : Statement
-    {
-    }
 }

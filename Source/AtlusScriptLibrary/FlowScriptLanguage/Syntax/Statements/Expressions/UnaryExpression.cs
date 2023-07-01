@@ -1,21 +1,20 @@
-﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax
+﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax;
+
+public abstract class UnaryExpression : Expression
 {
-    public abstract class UnaryExpression : Expression
+    public Expression Operand { get; set; }
+
+    protected UnaryExpression(ValueKind kind) : base(kind)
     {
-        public Expression Operand { get; set; }
+    }
 
-        protected UnaryExpression( ValueKind kind ) : base( kind )
-        {
-        }
+    protected UnaryExpression(ValueKind kind, Expression operand) : base(kind)
+    {
+        Operand = operand;
+    }
 
-        protected UnaryExpression( ValueKind kind, Expression operand ) : base( kind )
-        {
-            Operand = operand;
-        }
-
-        public override int GetDepth()
-        {
-            return 1 + Operand.GetDepth();
-        }
+    public override int GetDepth()
+    {
+        return 1 + Operand.GetDepth();
     }
 }

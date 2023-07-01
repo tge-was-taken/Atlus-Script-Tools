@@ -1,13 +1,12 @@
-namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
+namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler;
+
+internal class LabelInfo
 {
-    internal class LabelInfo
-    {
-        public string Name { get; set; }
+    public string Name { get; set; }
 
-        public short Index { get; set; }
+    public short Index { get; set; }
 
-        public short InstructionIndex { get; set; }
+    public short InstructionIndex { get; set; }
 
-        public bool IsResolved { get; set; }
-    }
+    public bool IsResolved { get; set; }
 }
