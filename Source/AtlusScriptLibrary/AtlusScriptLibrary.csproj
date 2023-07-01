@@ -343,9 +343,7 @@
     <PackageReference Include="morelinq">
       <Version>3.3.2</Version>
     </PackageReference>
-    <PackageReference Include="Newtonsoft.Json">
-      <Version>13.0.2</Version>
-    </PackageReference>
+    <PackageReference Include="System.Text.Json" Version="5.0.2" />
   </ItemGroup>
   <PropertyGroup />
 </Project>
