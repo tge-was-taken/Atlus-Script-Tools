@@ -956,7 +956,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                 // Functions
                 foreach (var libraryFunction in Library.FlowScriptModules.SelectMany(x => x.Functions))
                 {
-                    Scope.TryDeclareFunction(FunctionDeclaration.FromLibraryFunction(libraryFunction));
+                    Scope.TryDeclareFunctions(FunctionDeclaration.FromLibraryFunctionWithAliases(libraryFunction));
                 }
 
                 // Enums
@@ -1849,7 +1849,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
 
             if (mRootScope.TryGetFunction(callExpression.Identifier.Text, out var function))
             {
-                var libFunc = Library.FlowScriptModules.SelectMany(x => x.Functions).FirstOrDefault(x => x.Name == function.Declaration.Identifier.Text);
+                var libFunc = Library.FlowScriptModules.SelectMany(x => x.Functions).FirstOrDefault(x => x.Name == function.Declaration.Identifier.Text || (x.Aliases != null && x.Aliases.Contains(function.Declaration.Identifier.Text)));
 
                 // Add default values
                 var foundDefaultValue = false;
@@ -3701,7 +3701,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
                     break;
                 case Opcode.COMM:
                     {
-                        var functionCalled = mRootScope.Functions.Values.Single(x => x.Index == instruction.Operand.Int16Value);
+                        var functionCalled = mRootScope.Functions.Values.First(x => x.Index == instruction.Operand.Int16Value);
                         mStackValueCount -= functionCalled.Declaration.Parameters.Count;
                     }
                     break;

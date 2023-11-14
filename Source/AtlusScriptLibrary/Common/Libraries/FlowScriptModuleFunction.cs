@@ -14,6 +14,8 @@ namespace AtlusScriptLibrary.Common.Libraries
 
         public string Name { get; set; }
 
+        public List<string> Aliases { get; set; }
+
         public string Description { get; set; }
 
         [JsonConverter( typeof( HexIntStringJsonConverter ) )]

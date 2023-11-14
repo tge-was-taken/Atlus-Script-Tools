@@ -149,6 +149,17 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
             return true;
         }
 
+        public bool TryDeclareFunctions(FunctionDeclaration[] declarations)
+        {
+            foreach(var declaration in declarations)
+            {
+                if(!TryDeclareFunction(declaration))
+                    return false;
+            }
+            return true;
+        }
+
+
         public bool TryDeclareProcedure( ProcedureDeclaration declaration, out ProcedureInfo procedure )
         {
             if ( TryGetProcedure( declaration.Identifier.Text, out procedure ) )
