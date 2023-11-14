@@ -1,13 +1,24 @@
+using AtlusScriptLibrary.FlowScriptLanguage.Compiler;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
-namespace AtlusScriptLibrary.Common.Libraries
+namespace AtlusScriptLibrary.Common.Libraries;
+
+public class FlowScriptModuleEnum : ICloneable
 {
-    public class FlowScriptModuleEnum
+    public string Name { get; set; }
+
+    public string Description { get; set; }
+
+    public List<FlowScriptModuleEnumMember> Members { get; set; }
+
+    public object Clone()
     {
-        public string Name { get; set; }
-
-        public string Description { get; set; }
-
-        public List<FlowScriptModuleEnumMember> Members { get; set; }
+        var clone = new FlowScriptModuleEnum();
+        clone.Name = Name;
+        clone.Description = Description;
+        clone.Members = Members.Clone()?.ToList();
+        return clone;
     }
 }

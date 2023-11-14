@@ -1,12 +1,11 @@
-using System.Collections.Generic;
 using AtlusScriptLibrary.FlowScriptLanguage.Syntax;
+using System.Collections.Generic;
 
-namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
+namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler;
+
+internal class Enum
 {
-    internal class Enum
-    {
-        public EnumDeclaration Declaration { get; set; }
+    public EnumDeclaration Declaration { get; set; }
 
-        public Dictionary<string, Expression> Members { get; set; }
-    }
+    public Dictionary<string, Expression> Members { get; set; }
 }

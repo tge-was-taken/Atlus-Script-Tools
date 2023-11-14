@@ -186,13 +186,13 @@
   {
     "Index": "0x300f",
     "ReturnType": "int",
-    "Name": "EVT_FUNCTION_000F",
-    "Description": "Address: 0x08A5F44C",
+    "Name": "CMM_CHK_LVUP",
+    "Description": "Checks whether a social link is ready to rank up. Returns true if they are, false otherwise.",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "slId",
+        "Description": "The id of the social link to check."
       }
     ]
   },

@@ -1,20 +1,19 @@
-﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax
+﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax;
+
+public class MultiplicationAssignmentOperator : CompoundAssignmentOperator
 {
-    public class MultiplicationAssignmentOperator : CompoundAssignmentOperator
+    public MultiplicationAssignmentOperator()
     {
-        public MultiplicationAssignmentOperator()
-        {
 
-        }
+    }
 
-        public MultiplicationAssignmentOperator( Expression left, Expression right )
-            : base( left, right )
-        {
-        }
+    public MultiplicationAssignmentOperator(Expression left, Expression right)
+        : base(left, right)
+    {
+    }
 
-        public override string ToString()
-        {
-            return $"{Left} *= ({Right})";
-        }
+    public override string ToString()
+    {
+        return $"{Left} *= ({Right})";
     }
 }

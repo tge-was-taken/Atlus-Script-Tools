@@ -1,8 +1,7 @@
-﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax
+﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax;
+
+public enum ArgumentModifier
 {
-    public enum ArgumentModifier
-    {
-        None,
-        Out
-    }
+    None,
+    Out
 }
