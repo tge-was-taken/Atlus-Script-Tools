@@ -149,12 +149,23 @@ internal class ScopeContext
         return true;
     }
 
-    public bool TryDeclareProcedure(ProcedureDeclaration declaration, out ProcedureInfo procedure)
-    {
-        if (TryGetProcedure(declaration.Identifier.Text, out procedure))
+        public bool TryDeclareFunctions(FunctionDeclaration[] declarations)
         {
-            return false;
+            foreach(var declaration in declarations)
+            {
+                if(!TryDeclareFunction(declaration))
+                    return false;
+            }
+            return true;
         }
+
+
+        public bool TryDeclareProcedure( ProcedureDeclaration declaration, out ProcedureInfo procedure )
+        {
+            if ( TryGetProcedure( declaration.Identifier.Text, out procedure ) )
+            {
+                return false;
+            }
 
         var p = new ProcedureInfo();
         p.Declaration = declaration;

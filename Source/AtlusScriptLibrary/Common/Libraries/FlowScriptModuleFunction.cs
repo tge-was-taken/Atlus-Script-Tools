@@ -16,7 +16,9 @@ public class FlowScriptModuleFunction : ICloneable
 
     public string Name { get; set; }
 
-    public string Description { get; set; }
+        public List<string> Aliases { get; set; }
+
+        public string Description { get; set; }
 
     [JsonConverter(typeof(HexIntStringJsonConverter))]
     public int Address { get; set; }
