@@ -80,7 +80,7 @@
   {
     "Index": "0x4004",
     "ReturnType": "void",
-    "Name": "FCL_FUNCTION_0004",
+    "Name": "CALL_FLOOR",
     "Description": "Address: 0x088C14B0",
     "Parameters": [
       {
@@ -88,6 +88,9 @@
         "Name": "param1",
         "Description": "Unknown type; assumed int"
       }
+    ],
+    "Aliases": [
+      "FCL_FUNCTION_0004"
     ]
   },
   {

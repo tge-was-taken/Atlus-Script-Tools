@@ -76,7 +76,7 @@
   {
     "Index": "0x0006",
     "ReturnType": "void",
-    "Name": "FUNCTION_0006",
+    "Name": "SET_MASK",
     "Description": "Address: 0x08982784",
     "Parameters": [
       {
@@ -84,6 +84,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0006"
     ]
   },
   {
@@ -213,9 +216,12 @@
   {
     "Index": "0x000f",
     "ReturnType": "int",
-    "Name": "FUNCTION_000F",
+    "Name": "FADE_SYNC",
     "Description": "Address: 0x08978F28",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_000F"
+    ]
   },
   {
     "Index": "0x0010",
@@ -732,7 +738,7 @@
   {
     "Index": "0x002d",
     "ReturnType": "void",
-    "Name": "FUNCTION_002D",
+    "Name": "MSG_HELP",
     "Description": "Address: 0x08986A78",
     "Parameters": [
       {
@@ -740,6 +746,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_002D"
     ]
   },
   {
@@ -1020,7 +1029,7 @@
   {
     "Index": "0x0042",
     "ReturnType": "int",
-    "Name": "FUNCTION_0042",
+    "Name": "GET_PARTY_ID",
     "Description": "Address: 0x08973878",
     "Parameters": [
       {
@@ -1028,6 +1037,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0042"
     ]
   },
   {
@@ -1416,7 +1428,7 @@
   {
     "Index": "0x0064",
     "ReturnType": "void",
-    "Name": "FUNCTION_0064",
+    "Name": "CUTIN_DISPLAY",
     "Description": "Address: 0x08973AA4",
     "Parameters": [
       {
@@ -1454,12 +1466,15 @@
         "Name": "param7",
         "Description": "Unknown type; assumed int"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0064"
     ]
   },
   {
     "Index": "0x0065",
     "ReturnType": "void",
-    "Name": "FUNCTION_0065",
+    "Name": "CUTIN_CLEAR",
     "Description": "Address: 0x08973C38",
     "Parameters": [
       {
@@ -1467,6 +1482,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0065"
     ]
   },
   {
