@@ -2,7 +2,7 @@
   {
     "Index": "0x2000",
     "ReturnType": "int",
-    "Name": "AI_CHK_HP_PERCENT",
+    "Name": "AI_SELF_HP_PERCENT",
     "Description": "True if HP left is under the value, false if over",
     "Parameters": [
       {
@@ -10,19 +10,26 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_0000",
+      "AI_CHK_HP_PERCENT"
     ]
   },
   {
     "Index": "0x2001",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0001",
-    "Description": "Address: 0x089FC448",
+    "Name": "AI_SELF_SP_PERCENT",
+    "Description": "True if SP left is under the value, false if over",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_0001"
     ]
   },
   {
@@ -80,8 +87,8 @@
   {
     "Index": "0x2006",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0006",
-    "Description": "Address: 0x089FC5C4",
+    "Name": "AI_CHK_SOMETHING_2",
+    "Description": "Checks for something, maybe the amount of health or sp of all enemies or something? Used for triggering MarinKarin (TODO research more)",
     "Parameters": [
       {
         "Type": "int",
@@ -106,27 +113,33 @@
   {
     "Index": "0x2008",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0008",
-    "Description": "Address: 0x089FC65C",
+    "Name": "AI_ALLY_COUNT",
+    "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "count",
+        "Description": "True if int is equal to or less than the number of allies present"
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_0008"
     ]
   },
   {
     "Index": "0x2009",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0009",
+    "Name": "AI_ENEMY_COUNT",
     "Description": "Address: 0x089FC6A8",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "count",
+        "Description": "True if count is equal to or less than the number of enemies present"
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_0009"
     ]
   },
   {
@@ -166,17 +179,20 @@
         "Name": "statusID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_000C"
     ]
   },
   {
     "Index": "0x200d",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_000D",
-    "Description": "Address: 0x089FC7D8",
+    "Name": "AI_CHK_ENEMIES_STATUS",
+    "Description": "002C7EF0",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "StatusEffects",
+        "Name": "statusID",
         "Description": ""
       }
     ]
@@ -205,6 +221,9 @@
         "Name": "partyID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_000F"
     ]
   },
   {
@@ -218,6 +237,9 @@
         "Name": "Effect",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_0010"
     ]
   },
   {
@@ -231,14 +253,20 @@
         "Name": "effectID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_0011"
     ]
   },
   {
     "Index": "0x2012",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0012",
-    "Description": "Address: 0x089FC954",
-    "Parameters": []
+    "Name": "AI_CHK_SOMETHING_3",
+    "Description": "Checks something, *maybe* if the battle can be escaped from",
+    "Parameters": [],
+    "Aliases":[
+      "AI_FUNCTION_0012"
+    ]
   },
   {
     "Index": "0x2013",
@@ -322,14 +350,17 @@
   {
     "Index": "0x201a",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_001A",
-    "Description": "Address: 0x089FCB6C",
+    "Name": "AI_EN_HAS_REFLECT",
+    "Description": "Checks if any enemy reflects the specified affinity",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_001A"
     ]
   },
   {
@@ -486,6 +517,9 @@
         "Name": "skill_ID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_0026"
     ]
   },
   {
@@ -540,7 +574,10 @@
     "ReturnType": "void",
     "Name": "AI_TAR_RND",
     "Description": "Address: 0x089FF0F0",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "AI_FUNCTION_002C"
+    ]
   },
   {
     "Index": "0x202d",
@@ -559,9 +596,12 @@
   {
     "Index": "0x202f",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_002F",
-    "Description": "Address: 0x089FF174",
-    "Parameters": []
+    "Name": "AI_TAR_RAND_SP",
+    "Description": "Targets a random enemy probably checking that it has enough SP for Spirit Drain to work (since this is only useed with Spirit Drain)",
+    "Parameters": [],
+    "Aliases":[
+      "AI_FUNCTION_002F"
+    ]
   },
   {
     "Index": "0x2030",
@@ -574,19 +614,26 @@
         "Name": "statusID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_0030"
     ]
   },
   {
     "Index": "0x2031",
     "ReturnType": "void",
-    "Name": "AI_NOTBAD",
-    "Description": "Address: 0x089FF1E4",
+    "Name": "AI_DONT_TAR_STATUS",
+    "Description": "Target any enemy that doesn't have the specified status effect",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "StatusEffects",
+        "Name": "statusID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_0031",
+      "AI_NOTBAD"
     ]
   },
   {
@@ -600,6 +647,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_0032"
     ]
   },
   {
@@ -607,7 +657,10 @@
     "ReturnType": "void",
     "Name": "AI_MINE",
     "Description": "Address: 0x089FF2D0",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "AI_FUNCTION_0033"
+    ]
   },
   {
     "Index": "0x2034",
@@ -666,6 +719,9 @@
         "Name": "affinityID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_0038"
     ]
   },
   {
@@ -725,7 +781,10 @@
     "ReturnType": "void",
     "Name": "AI_ACT_WEAPON",
     "Description": "Address: 0x089FC168",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "AI_FUNCTION_003D"
+    ]
   },
   {
     "Index": "0x203e",
@@ -738,21 +797,30 @@
         "Name": "skill_ID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_003E"
     ]
   },
   {
     "Index": "0x203f",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_003F",
-    "Description": "Address: 0x089FC27C",
-    "Parameters": []
+    "Name": "AI_ESCAPE",
+    "Description": "Makes the AI run away",
+    "Parameters": [],
+    "Aliases":[
+      "AI_FUNCTION_003F"
+    ]
   },
   {
     "Index": "0x2040",
     "ReturnType": "void",
     "Name": "AI_ACT_WAIT",
     "Description": "Address: 0x089FC2AC",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "AI_FUNCTION_0040"
+    ]
   },
   {
     "Index": "0x2041",
@@ -807,7 +875,10 @@
     "ReturnType": "int",
     "Name": "AI_CHK_ONE_MORE",
     "Description": "Address: 0x089FD0B0",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "AI_FUNCTION_0047"
+    ]
   },
   {
     "Index": "0x2048",
@@ -1099,19 +1170,21 @@
   {
     "Index": "0x205d",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_005D",
-    "Description": "Address: 0x089FD4D0",
+    "Name": "AI_CHK_UNIT_STATUS",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "PartyMember",
+        "Name": "partyID",
         "Description": ""
       },
       {
-        "Type": "int",
-        "Name": "param2",
+        "Type": "StatusEffects",
+        "Name": "effectID",
         "Description": ""
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_005D"
     ]
   },
   {
@@ -1333,27 +1406,33 @@
   {
     "Index": "0x206c",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_006C",
-    "Description": "Address: 0x089FE6C8",
+    "Name": "AI_HAS_SKILL",
+    "Description": "Returns true if ai has the skill",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleSkill",
+        "Name": "skillID",
         "Description": ""
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_006C"
     ]
   },
   {
     "Index": "0x206d",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_006D",
-    "Description": "Address: 0x089FE714",
+    "Name": "AI_CHK_ANY_EN_WEAK",
+    "Description": "Checks if any enemy is weak to the specified affinity",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_006D"
     ]
   },
   {
@@ -1380,19 +1459,25 @@
         "Name": "affinityID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_006F"
     ]
   },
   {
     "Index": "0x2070",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0070",
-    "Description": "Address: 0x089FE7F8",
+    "Name": "AI_HAS_AFFINITY",
+    "Description": "Checks whether the ai has an attack with the specified affinity",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_0070"
     ]
   },
   {
@@ -1411,12 +1496,12 @@
   {
     "Index": "0x2072",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0072",
-    "Description": "Address: 0x089FE890",
+    "Name": "AI_CHK_ANY_EN_WEAK_2",
+    "Description": "Checks if any enemy is weak to the specified affinity, same as AI_CHK_ANY_EN_WEAK? (TODO Research more)",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
     ]
@@ -1450,19 +1535,22 @@
   {
     "Index": "0x2075",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0075",
-    "Description": "Address: 0x08A0006C",
+    "Name": "AI_HP_PERCENT",
+    "Description": "Checks if the unit at the position's HP left is under the value",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "position",
+        "Description": "The position of the unit"
       },
       {
         "Type": "int",
-        "Name": "param2",
-        "Description": ""
+        "Name": "percent",
+        "Description": "The percent that the unit's hp should be under to return true"
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_0075"
     ]
   },
   {
@@ -1486,151 +1574,181 @@
   {
     "Index": "0x2077",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0077",
-    "Description": "Address: 0x08A00138",
+    "Name": "AI_CHK_UNIT_UP",
+    "Description": "Checks whether the unit at position is up (i.e. not downed)",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "position",
         "Description": ""
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_0077"
     ]
   },
   {
     "Index": "0x2078",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0078",
-    "Description": "Address: 0x08A001E8",
+    "Name": "AI_CHK_AFFINITY_UNK",
+    "Description": "Something to do with checking affinities, seemeingly only used for support stuff?",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "position",
         "Description": ""
       },
       {
-        "Type": "int",
-        "Name": "param2",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_0078"
     ]
   },
   {
     "Index": "0x2079",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0079",
-    "Description": "Address: 0x08A00264",
+    "Name": "AI_CHK_AFFINITY_UNK2",
+    "Description": "The same thing as AI_CHK_AFFINITY?",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "position",
         "Description": ""
       },
       {
-        "Type": "int",
-        "Name": "param2",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_0079"
     ]
   },
   {
     "Index": "0x207a",
     "ReturnType": "void",
-    "Name": "AI_FUNCTION_007A",
-    "Description": "Address: 0x08A0044C",
+    "Name": "AI_TAR_POSITION",
+    "Description": "Target the enemy in the specified position",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "position",
+        "Description": "The position to target"
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_007A"
     ]
   },
   {
     "Index": "0x207b",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_007B",
-    "Description": "Address: 0x08A004D0",
+    "Name": "AI_GET_FR_POSITION",
+    "Description": "Gets the position of an ally to be targeted",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "unknown",
         "Description": ""
       },
       {
-        "Type": "int",
-        "Name": "param2",
+        "Type": "PartyMember",
+        "Name": "partyID",
         "Description": ""
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_007B"
     ]
   },
   {
     "Index": "0x207c",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_007C",
-    "Description": "Address: 0x08A00570",
-    "Parameters": []
+    "Name": "AI_GET_RND_EN",
+    "Description": "Gets the position of a random enemy maybe, seems to only be used when there's one left",
+    "Parameters": [],
+    "Aliases":[
+      "AI_FUNCTION_007C"
+    ]
   },
   {
     "Index": "0x207d",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_007D",
-    "Description": "Address: 0x08A00648",
+    "Name": "AI_CHK_WEAK_POSITION",
+    "Description": "Gets the position of an enemy that is weak to the specified affinity including downed enemies. Returns -1 if none are found",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityId",
         "Description": ""
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_007D"
     ]
   },
   {
     "Index": "0x207e",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_007E",
-    "Description": "Address: 0x08A00748",
+    "Name": "AI_CHK_WEAK_UP_POSITION",
+    "Description": "Gets the position of an enemy that is weak to the specified affinity and not downed. Returns -1 if none are found",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_007E"
     ]
   },
   {
     "Index": "0x207f",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_007F",
-    "Description": "Address: 0x08A0081C",
+    "Name": "AI_CHK_WEAK_POSITION_2",
+    "Description": "Gets the position of an enemy that's weak to the specified affinity, presumably there's some difference between this and the other 3 functions that do this (TODO reasearch more)",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_007F"
     ]
   },
   {
     "Index": "0x2080",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0080",
-    "Description": "Address: 0x08A01C98",
+    "Name": "AI_CHK_WEAK_POSITION_3",
+    "Description": "Why are there so many of these??? TODO research more!",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_0080"
     ]
   },
   {
     "Index": "0x2081",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0081",
-    "Description": "Address: 0x08A01D28",
+    "Name": "AI_CHK_WEAK_POSITION_4",
+    "Description": "Why are there so many of these??? TODO research more!",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
     ]
@@ -1638,12 +1756,12 @@
   {
     "Index": "0x2082",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0082",
-    "Description": "Address: 0x08A01DB8",
+    "Name": "AI_CHK_WEAK_POSITION_5",
+    "Description": "Why are there so many of these??? TODO research more!",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
     ]
@@ -1651,14 +1769,17 @@
   {
     "Index": "0x2083",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0083",
-    "Description": "Address: 0x08A022A0",
+    "Name": "AI_CHK_WEAK_POSITION_6",
+    "Description": "Seemingly also gets the position of an enemy weak to the specified affinity, similar to AI_CHK_WEAK_POSITION (TODO Research more)",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_0083"
     ]
   },
   {
@@ -1677,76 +1798,85 @@
   {
     "Index": "0x2085",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0085",
-    "Description": "Address: 0x08A023C0",
+    "Name": "AI_CHK_DOWNED_WEAK_2",
+    "Description": "A combination of checking if an enemy is downed and weak to a given affinity, same as AI_CHK_DOWNED_WEAK? (TODO research more)",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_0085"
     ]
   },
   {
     "Index": "0x2086",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0086",
-    "Description": "Address: 0x08A01FF8",
+    "Name": "AI_GET_AFFINITY_SKILL",
+    "Description": "Gets the best skill to use against the enemy at position with the specified affinity",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "position",
         "Description": ""
       },
       {
-        "Type": "int",
-        "Name": "param2",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       },
       {
-        "Type": "int",
-        "Name": "param3",
+        "Type": "NumTargets",
+        "Name": "numTargets",
         "Description": ""
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_0086"
     ]
   },
   {
     "Index": "0x2087",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0087",
-    "Description": "Address: 0x08A02084",
+    "Name": "AI_GET_SKILL_FR",
+    "Description": "Seemingly similar to AI_GET_SKILL, might be specifically for using on allies?",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "position",
         "Description": ""
       },
       {
-        "Type": "int",
-        "Name": "param2",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       },
       {
-        "Type": "int",
-        "Name": "param3",
+        "Type": "NumTargets",
+        "Name": "numTargets",
         "Description": ""
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_0087"
     ]
   },
   {
     "Index": "0x2088",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_0088",
-    "Description": "Address: 0x08A02110",
+    "Name": "AI_GET_SKILL",
+    "Description": "Gets the best skill to use against the enemy, seemingly of any type (really not sure of the difference betweene these three)",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "position",
         "Description": ""
       },
       {
-        "Type": "int",
-        "Name": "param2",
+        "Type": "NumTargets",
+        "Name": "numTargets",
         "Description": ""
       },
       {
@@ -1754,6 +1884,9 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_0088"
     ]
   },
   {
@@ -1786,34 +1919,44 @@
   {
     "Index": "0x208c",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_008C",
-    "Description": "Address: 0x08A027D0",
-    "Parameters": []
+    "Name": "AI_CHK_DOWNED",
+    "Description": "Gets the position of a downed enemy, returns -1 if none are found (TODO note that this is assumed based off of FES function positions, needs to be verified)",
+    "Parameters": [],
+    "Aliases":
+    [
+      "AI_FUNCTION_008C"
+    ]
   },
   {
     "Index": "0x208d",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_008D",
-    "Description": "Address: 0x08A008F0",
+    "Name": "AI_CHK_WEAK_POSITION_8",
+    "Description": "Something to do with getting the position of or checking whether there's a weak enemy (TODO Research more, there are so many like this)",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_008D"
     ]
   },
   {
     "Index": "0x208e",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_008E",
-    "Description": "Address: 0x08A009C4",
+    "Name": "AI_CHK_WEAK_POSITION_7",
+    "Description": "Something to do with getting the position of or checking whether there's a weak enemy (TODO Research more, there are so many like this)",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
+    ], 
+    "Aliases":[
+      "AI_FUNCTION_008E"
     ]
   },
   {
@@ -1831,10 +1974,13 @@
   },
   {
     "Index": "0x2090",
-    "ReturnType": "int",
-    "Name": "AI_FUNCTION_0090",
-    "Description": "Address: 0x08A0219C",
-    "Parameters": []
+    "ReturnType": "Affinity",
+    "Name": "AI_WEAPON_AFFINITY",
+    "Description": "Gets the type of weapon the player is using",
+    "Parameters": [],
+    "Aliases":[
+      "AI_FUNCTION_0090"
+    ]
   },
   {
     "Index": "0x2091",
@@ -1847,6 +1993,9 @@
         "Name": "enemy_ID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_0091"
     ]
   },
   {
@@ -1907,6 +2056,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_0097"
     ]
   },
   {
@@ -1939,9 +2091,12 @@
   {
     "Index": "0x209b",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_009B",
-    "Description": "Address: 0x08A021D4",
-    "Parameters": []
+    "Name": "AI_GET_SELF_POSITION",
+    "Description": "Gets the position of the current AI",
+    "Parameters": [],
+    "Aliases":[
+      "AI_FUNCTION_009B"
+    ]
   },
   {
     "Index": "0x209c",
@@ -1974,19 +2129,22 @@
   {
     "Index": "0x209d",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_009D",
-    "Description": "Address: 0x08A002E0",
+    "Name": "AI_CHK_EN_WEAK",
+    "Description": "Checks whether the enemy at position is weak to affinity",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "position",
         "Description": ""
       },
       {
-        "Type": "int",
-        "Name": "param2",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_009D"
     ]
   },
   {
@@ -2006,12 +2164,12 @@
   {
     "Index": "0x20a0",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_00A0",
-    "Description": "Address: 0x08A02954",
+    "Name": "AI_CHK_SOMETHING",
+    "Description": "Checks something about a party member, unsure what (TODO research more)",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "PartyMember",
+        "Name": "partyID",
         "Description": ""
       },
       {
@@ -2020,10 +2178,13 @@
         "Description": ""
       },
       {
-        "Type": "int",
-        "Name": "param3",
+        "Type": "SpecialEffects",
+        "Name": "effectID",
         "Description": ""
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_00A0"
     ]
   },
   {
@@ -2096,6 +2257,9 @@
         "Name": "effectID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_00A4"
     ]
   },
   {
@@ -2204,6 +2368,9 @@
         "Name": "affinityID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_00AA"
     ]
   },
   {
@@ -2286,6 +2453,9 @@
         "Name": "skill_ID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_00B0"
     ]
   },
   {
@@ -2333,6 +2503,9 @@
         "Name": "skill_ID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_00B5"
     ]
   },
   {
@@ -2402,8 +2575,8 @@
   {
     "Index": "0x20bb",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_00BB",
-    "Description": "Address: 0x089FEA10",
+    "Name": "AI_CHK_UNK_2",
+    "Description": "Checks something, not sure what (TODO reasearch more)",
     "Parameters": [
       {
         "Type": "int",
@@ -2415,14 +2588,17 @@
   {
     "Index": "0x20bc",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_00BC",
-    "Description": "Address: 0x089FFC78",
+    "Name": "AI_CHK_NUM_ALLIES_EFFECTED",
+    "Description": "Checks the number of allies with the specified effect",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "SpecialEffects",
+        "Name": "effectID",
         "Description": ""
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_00BC"
     ]
   },
   {
@@ -2454,14 +2630,17 @@
   {
     "Index": "0x20bf",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_00BF",
-    "Description": "Address: 0x089FFDE8",
+    "Name": "AI_CHK_NUM_ENEMIES_EFFECTED",
+    "Description": "Checks the number of enemies with the specified effect",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "SpecialEffects",
+        "Name": "effectID",
         "Description": ""
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_00BF"
     ]
   },
   {
@@ -2480,27 +2659,33 @@
   {
     "Index": "0x20c1",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_00C1",
-    "Description": "Address: 0x08A00B6C",
+    "Name": "AI_CHK_ANY_ALLIES_EFFECT",
+    "Description": "Returns -1 if buff/ debuff is active, else the position of a suitable target",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "SpecialEffects",
+        "Name": "effectID",
         "Description": ""
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_00C1"
     ]
   },
   {
     "Index": "0x20c2",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_00C2",
-    "Description": "Address: 0x08A00C44",
+    "Name": "AI_CHK_ANY_ENEMIES_EFFECT",
+    "Description": "002CEB80",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Type": "SpecialEffects",
+        "Name": "effectID",
+        "Description": "Returns -1 if buff/ debuff is active, else the position of a suitable target"
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_00C2"
     ]
   },
   {
@@ -2513,9 +2698,12 @@
   {
     "Index": "0x20c4",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_00C4",
-    "Description": "Address: 0x08A0368C",
-    "Parameters": []
+    "Name": "AI_CHK_UNK",
+    "Description": "Checks something, I don't no what (TODO Research this more)",
+    "Parameters": [],
+    "Aliases":[
+      "AI_FUNCTION_00C4"
+    ]
   },
   {
     "Index": "0x20c5",
@@ -2862,7 +3050,7 @@
   {
     "Index": "0x20db",
     "ReturnType": "int",
-    "Name": "BUFF_SELF_CHECK",
+    "Name": "AI_CHK_SELF_EFFECT",
     "Description": "Address: 0x089FEE70",
     "Parameters": [
       {
@@ -2870,59 +3058,78 @@
         "Name": "Effect",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_00DB",
+      "BUFF_SELF_CHECK"
     ]
   },
   {
     "Index": "0x20dc",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_00DC",
-    "Description": "Address: 0x089FFEA0",
+    "Name": "AI_FR_HP_PERCENT",
+    "Description": "Checks how many friends have HP % less than or equal to the specified value",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "percent",
         "Description": ""
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_00DC"
     ]
   },
   {
     "Index": "0x20dd",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_00DD",
-    "Description": "Address: 0x089FFEFC",
-    "Parameters": []
+    "Name": "AI_GET_SOMETHING",
+    "Description": "Gets the number of something (TODO research more)",
+    "Parameters": [],
+    "Aliases":[
+      "AI_FUNCTION_00DD"
+    ]
   },
   {
     "Index": "0x20de",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_00DE",
-    "Description": "Address: 0x089FFF40",
-    "Parameters": []
+    "Name": "AI_GET_SOMETHING2",
+    "Description": "Gets the number of something else (TODO research more)",
+    "Parameters": [],
+    "Aliases":[
+      "AI_FUNCTION_00DE"
+    ]
   },
   {
     "Index": "0x20df",
-    "ReturnType": "int",
-    "Name": "AI_FUNCTION_00DF",
-    "Description": "Address: 0x089FFF88",
+    "ReturnType": "Affinity",
+    "Name": "AI_GET_SKILL_AFFINITY",
+    "Description": "Gets the affinity of the specified skill",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "BattleSkill",
+        "Name": "skill",
         "Description": ""
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_00DF"
     ]
   },
   {
     "Index": "0x20e0",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_00E0",
-    "Description": "Address: 0x08A00EC8",
+    "Name": "AI_CHK_WEAK_POSITION_9",
+    "Description": "Something to do with getting the position of or checking whether there's a weak enemy (TODO Research more, there are so many like this)",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_00E0"
     ]
   },
   {
@@ -2941,21 +3148,24 @@
   {
     "Index": "0x20e2",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_00E2",
-    "Description": "Address: 0x08A01188",
+    "Name": "AI_CHK_RESIST_POSITION",
+    "Description": "Gets the position of an enemy that resists the specified affinity. Returns -1 if none are found",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityId",
         "Description": ""
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_00E2"
     ]
   },
   {
     "Index": "0x20e3",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_00E3",
-    "Description": "Address: 0x089FEEB8",
+    "Name": "AI_CHK_AFFINITY",
+    "Description": "Something to do with checking an AI's affinity, used for break skills",
     "Parameters": [
       {
         "Type": "int",
@@ -2963,10 +3173,13 @@
         "Description": ""
       },
       {
-        "Type": "int",
-        "Name": "param2",
+        "Type": "Affinity",
+        "Name": "affinityId",
         "Description": ""
       }
+    ],
+    "Aliases":[
+      "AI_FUNCTION_00E3"
     ]
   },
   {
@@ -3041,7 +3254,10 @@
     "ReturnType": "int",
     "Name": "AI_CHK_TURN",
     "Description": "For enemies with multiple turns, true if it is equivalent to the turn number",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "AI_FUNCTION_00E8"
+    ]
   },
   {
     "Index": "0x20e9",
@@ -3053,14 +3269,17 @@
   {
     "Index": "0x20ea",
     "ReturnType": "int",
-    "Name": "AI_FUNCTION_00EA",
-    "Description": "Address: 0x08A01324",
+    "Name": "AI_CHK_NUM_ENEMIES_EFFECT",
+    "Description": "Checks the number of enemies that can be afflicted with the specified ailment",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "Something to do with choosing which status effects to check for"
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_00EA"
     ]
   },
   {
@@ -3412,6 +3631,9 @@
     "ReturnType": "int",
     "Name": "AI_CHK_HP_VALUE",
     "Description": "Address: 0x08A00038",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "AI_FUNCTION_0108"
+    ]
   }
 ]

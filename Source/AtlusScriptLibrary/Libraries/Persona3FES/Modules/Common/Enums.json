@@ -815,23 +815,33 @@
     {"Name":"PrimitiveIdol","Value":333}
   ]
  },
- {
-  "Name": "Affinity",
-  "Description": "",
-  "Members": [
-    {"Name":"Slash","Value":0},
-    {"Name":"Strike","Value":1},
-    {"Name":"Pierce","Value":2},
-    {"Name":"Fire","Value":3},
-    {"Name":"Ice","Value":4},
-    {"Name":"Elec","Value":5},
-    {"Name":"Wind","Value":6},
-	{"Name":"Almighty","Value":7},
-    {"Name":"Light","Value":8},
-    {"Name":"Dark","Value":9}
-  ]
- },
- {
+    {
+	  "Name": "Affinity",
+	  "Description": "",
+	  "Members": [
+		{"Name":"Slash","Value":0},
+		{"Name":"Strike","Value":1},
+		{"Name":"Pierce","Value":2},
+		{"Name":"Fire","Value":3},
+		{"Name":"Ice","Value":4},
+		{"Name":"Elec","Value":5},
+		{"Name":"Wind","Value":6},
+		{"Name":"Almighty","Value":7},
+		{"Name":"Light","Value":8},
+		{"Name":"Dark","Value":9},
+		{"Name":"Charm","Value":10},
+		{"Name":"Poison","Value":11},
+		{"Name":"Distress","Value":12},
+		{"Name":"Panic","Value":13},
+		{"Name":"Fear","Value":14},
+		{"Name":"Rage","Value":15},
+		{"Name":"Healing","Value":16},
+		{"Name":"Support","Value":17},
+		{"Name":"Special","Value":18},
+		{"Name":"Passive","Value":255}
+	  ]
+	 },
+   {
   "Name": "StatusEffects",
   "Description": "",
   "Members": [
@@ -847,7 +857,7 @@
 	{"Name":"Downed","Value":1048576}
 	]
  },
- {
+  {
   "Name": "SpecialEffects",
   "Description": "",
   "Members": [
@@ -1080,6 +1090,14 @@
 	{"Name":"ArcanaHermit","Value":220},
 	{"Name":"GoldenHand","Value":221},
 	{"Name":"Metis","Value":222},
+	]
+ },
+  {
+  "Name": "NumTargets",
+  "Description": "",
+  "Members": [
+	{"Name":"Multiple","Value":0},
+	{"Name":"Single","Value":1}
 	]
  }
 ]

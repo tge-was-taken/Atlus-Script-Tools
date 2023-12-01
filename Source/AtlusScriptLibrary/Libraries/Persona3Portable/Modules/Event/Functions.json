@@ -25,6 +25,9 @@
         "Name": "param4",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "EVT_FUNCTION_0000"
     ]
   },
   {
@@ -85,6 +88,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "EVT_FUNCTION_0006"
     ]
   },
   {
@@ -187,26 +193,33 @@
     "Index": "0x300f",
     "ReturnType": "int",
     "Name": "CMM_CHK_LVUP",
-    "Description": "Checks whether a social link is ready to rank up. Returns true if they are, false otherwise.",
-    "Parameters": [
-      {
-        "Type": "int",
-        "Name": "slId",
-        "Description": "The id of the social link to check."
-      }
-    ]
-  },
-  {
-    "Index": "0x3010",
-    "ReturnType": "int",
-    "Name": "EVT_FUNCTION_0010",
-    "Description": "Address: 0x08A5F554",
+    "Description": "Check if a social link is ready to rank up. Does not check if they are actually available.",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "EVT_FUNCTION_000F",
+      "CMM_CHK_LVLUP"
+    ]
+  },
+  {
+    "Index": "0x3010",
+    "ReturnType": "int",
+    "Name": "CMM_CHK_REV",
+    "Description": "Check if social link is reversed",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "EVT_FUNCTION_0010"
     ]
   },
   {
@@ -332,14 +345,17 @@
   {
     "Index": "0x301a",
     "ReturnType": "int",
-    "Name": "EVT_FUNCTION_001A",
-    "Description": "Address: 0x08A601E8",
+    "Name": "CMM_CHK_PS",
+    "Description": "Checks whether or not you have a Persona of the matching arcana.",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "EVT_FUNCTION_001A"
     ]
   },
   {
@@ -545,6 +561,9 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "EVT_FUNCTION_002B"
     ]
   },
   {
@@ -1169,14 +1188,20 @@
     "ReturnType": "int",
     "Name": "FLD_GET_MAJOR",
     "Description": "Address: 0x08994F64",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "EVT_FUNCTION_0057"
+    ]
   },
   {
     "Index": "0x3058",
     "ReturnType": "int",
     "Name": "FLD_GET_MINOR",
     "Description": "Address: 0x08994FB0",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "EVT_FUNCTION_0058"
+    ]
   },
   {
     "Index": "0x3059",
