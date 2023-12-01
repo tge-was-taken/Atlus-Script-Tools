@@ -28,7 +28,7 @@
         "Description": ""
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_0001"
     ]
   },
@@ -95,6 +95,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_0006"
     ]
   },
   {
@@ -122,7 +125,7 @@
         "Description": "True if int is equal to or less than the number of allies present"
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_0008"
     ]
   },
@@ -138,7 +141,7 @@
         "Description": "True if count is equal to or less than the number of enemies present"
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_0009"
     ]
   },
@@ -195,6 +198,9 @@
         "Name": "statusID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_000D"
     ]
   },
   {
@@ -264,7 +270,7 @@
     "Name": "AI_CHK_SOMETHING_3",
     "Description": "Checks something, *maybe* if the battle can be escaped from",
     "Parameters": [],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_0012"
     ]
   },
@@ -359,7 +365,7 @@
         "Description": ""
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_001A"
     ]
   },
@@ -599,7 +605,7 @@
     "Name": "AI_TAR_RAND_SP",
     "Description": "Targets a random enemy probably checking that it has enough SP for Spirit Drain to work (since this is only useed with Spirit Drain)",
     "Parameters": [],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_002F"
     ]
   },
@@ -808,7 +814,7 @@
     "Name": "AI_ESCAPE",
     "Description": "Makes the AI run away",
     "Parameters": [],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_003F"
     ]
   },
@@ -1183,7 +1189,7 @@
         "Description": ""
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_005D"
     ]
   },
@@ -1415,7 +1421,7 @@
         "Description": ""
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_006C"
     ]
   },
@@ -1431,7 +1437,7 @@
         "Description": ""
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_006D"
     ]
   },
@@ -1476,7 +1482,7 @@
         "Description": ""
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_0070"
     ]
   },
@@ -1504,6 +1510,9 @@
         "Name": "affinityID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_0072"
     ]
   },
   {
@@ -1549,7 +1558,7 @@
         "Description": "The percent that the unit's hp should be under to return true"
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_0075"
     ]
   },
@@ -1583,7 +1592,7 @@
         "Description": ""
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_0077"
     ]
   },
@@ -1604,7 +1613,7 @@
         "Description": ""
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_0078"
     ]
   },
@@ -1625,7 +1634,7 @@
         "Description": ""
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_0079"
     ]
   },
@@ -1641,7 +1650,7 @@
         "Description": "The position to target"
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_007A"
     ]
   },
@@ -1662,7 +1671,7 @@
         "Description": ""
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_007B"
     ]
   },
@@ -1672,7 +1681,7 @@
     "Name": "AI_GET_RND_EN",
     "Description": "Gets the position of a random enemy maybe, seems to only be used when there's one left",
     "Parameters": [],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_007C"
     ]
   },
@@ -1688,7 +1697,7 @@
         "Description": ""
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_007D"
     ]
   },
@@ -1704,7 +1713,7 @@
         "Description": ""
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_007E"
     ]
   },
@@ -1720,7 +1729,7 @@
         "Description": ""
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_007F"
     ]
   },
@@ -1736,7 +1745,7 @@
         "Description": ""
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_0080"
     ]
   },
@@ -1751,6 +1760,9 @@
         "Name": "affinityID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_0081"
     ]
   },
   {
@@ -1764,6 +1776,9 @@
         "Name": "affinityID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_0082"
     ]
   },
   {
@@ -1778,7 +1793,7 @@
         "Description": ""
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_0083"
     ]
   },
@@ -1807,7 +1822,7 @@
         "Description": ""
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_0085"
     ]
   },
@@ -1833,7 +1848,7 @@
         "Description": ""
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_0086"
     ]
   },
@@ -1859,7 +1874,7 @@
         "Description": ""
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_0087"
     ]
   },
@@ -1885,7 +1900,7 @@
         "Description": ""
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_0088"
     ]
   },
@@ -1922,8 +1937,7 @@
     "Name": "AI_CHK_DOWNED",
     "Description": "Gets the position of a downed enemy, returns -1 if none are found (TODO note that this is assumed based off of FES function positions, needs to be verified)",
     "Parameters": [],
-    "Aliases":
-    [
+    "Aliases": [
       "AI_FUNCTION_008C"
     ]
   },
@@ -1939,7 +1953,7 @@
         "Description": ""
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_008D"
     ]
   },
@@ -1954,8 +1968,8 @@
         "Name": "affinityID",
         "Description": ""
       }
-    ], 
-    "Aliases":[
+    ],
+    "Aliases": [
       "AI_FUNCTION_008E"
     ]
   },
@@ -1978,7 +1992,7 @@
     "Name": "AI_WEAPON_AFFINITY",
     "Description": "Gets the type of weapon the player is using",
     "Parameters": [],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_0090"
     ]
   },
@@ -2094,7 +2108,7 @@
     "Name": "AI_GET_SELF_POSITION",
     "Description": "Gets the position of the current AI",
     "Parameters": [],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_009B"
     ]
   },
@@ -2143,7 +2157,7 @@
         "Description": ""
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_009D"
     ]
   },
@@ -2183,7 +2197,7 @@
         "Description": ""
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_00A0"
     ]
   },
@@ -2583,6 +2597,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_00BB"
     ]
   },
   {
@@ -2597,7 +2614,7 @@
         "Description": ""
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_00BC"
     ]
   },
@@ -2639,7 +2656,7 @@
         "Description": ""
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_00BF"
     ]
   },
@@ -2668,7 +2685,7 @@
         "Description": ""
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_00C1"
     ]
   },
@@ -2684,7 +2701,7 @@
         "Description": "Returns -1 if buff/ debuff is active, else the position of a suitable target"
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_00C2"
     ]
   },
@@ -2701,7 +2718,7 @@
     "Name": "AI_CHK_UNK",
     "Description": "Checks something, I don't no what (TODO Research this more)",
     "Parameters": [],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_00C4"
     ]
   },
@@ -3076,7 +3093,7 @@
         "Description": ""
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_00DC"
     ]
   },
@@ -3086,7 +3103,7 @@
     "Name": "AI_GET_SOMETHING",
     "Description": "Gets the number of something (TODO research more)",
     "Parameters": [],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_00DD"
     ]
   },
@@ -3096,7 +3113,7 @@
     "Name": "AI_GET_SOMETHING2",
     "Description": "Gets the number of something else (TODO research more)",
     "Parameters": [],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_00DE"
     ]
   },
@@ -3112,7 +3129,7 @@
         "Description": ""
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_00DF"
     ]
   },
@@ -3128,7 +3145,7 @@
         "Description": ""
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_00E0"
     ]
   },
@@ -3157,7 +3174,7 @@
         "Description": ""
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_00E2"
     ]
   },
@@ -3178,7 +3195,7 @@
         "Description": ""
       }
     ],
-    "Aliases":[
+    "Aliases": [
       "AI_FUNCTION_00E3"
     ]
   },
