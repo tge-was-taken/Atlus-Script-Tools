@@ -38,6 +38,7 @@ public class FlowScriptModuleFunction : ICloneable
         clone.Address = Address;
         clone.Semantic = Semantic;
         clone.Parameters = Parameters.Clone()?.ToList();
+        clone.Aliases = Aliases.Clone()?.ToList();
         return clone;
     }
 }
