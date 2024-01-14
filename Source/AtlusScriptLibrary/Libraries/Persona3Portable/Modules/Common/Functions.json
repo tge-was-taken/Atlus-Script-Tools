@@ -1341,8 +1341,8 @@
   {
     "Index": "0x0064",
     "ReturnType": "void",
-    "Name": "FUNCTION_0064",
-    "Description": "Address: 0x08973AA4",
+    "Name": "NAVI_OPEN",
+    "Description": "Opens navigator bustup with parameters deciding which one to show.",
     "Parameters": [
       {
         "Type": "int",
@@ -1362,7 +1362,7 @@
       {
         "Type": "int",
         "Name": "param4",
-        "Description": ""
+        "Description": "6 is Fuuka, 4 is Mitsuru."
       },
       {
         "Type": "int",
@@ -1384,8 +1384,8 @@
   {
     "Index": "0x0065",
     "ReturnType": "void",
-    "Name": "FUNCTION_0065",
-    "Description": "Address: 0x08973C38",
+    "Name": "NAVI_CLOSE",
+    "Description": "Closes navigator bustup.",
     "Parameters": [
       {
         "Type": "int",
