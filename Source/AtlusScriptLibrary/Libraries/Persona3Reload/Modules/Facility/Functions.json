@@ -1,0 +1,928 @@
+[
+  {
+    "Index": "0x5000",
+    "ReturnType": "void",
+    "Name": "CALL_WEAPON_SHOP_LV",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5001",
+    "ReturnType": "void",
+    "Name": "CALL_ITEM_SHOP_LV",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5002",
+    "ReturnType": "void",
+    "Name": "CALL_VELVET_ROOM_LV",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5003",
+    "ReturnType": "void",
+    "Name": "CALL_PUBLIC_SHOP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5004",
+    "ReturnType": "void",
+    "Name": "CALL_ANTIQUE_SHOP_LV",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5005",
+    "ReturnType": "void",
+    "Name": "UI_DUMMY4",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5006",
+    "ReturnType": "void",
+    "Name": "UI_DUMMY5",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5007",
+    "ReturnType": "void",
+    "Name": "UI_DUMMY6",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5008",
+    "ReturnType": "void",
+    "Name": "UI_DUMMY7",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5009",
+    "ReturnType": "void",
+    "Name": "UI_DUMMY8",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x500a",
+    "ReturnType": "void",
+    "Name": "UI_DUMMY9",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x500b",
+    "ReturnType": "void",
+    "Name": "UI_DUMMY10",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x500c",
+    "ReturnType": "void",
+    "Name": "UI_DUMMY11",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x500d",
+    "ReturnType": "void",
+    "Name": "UI_DUMMY12",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x500e",
+    "ReturnType": "void",
+    "Name": "UI_DUMMY13",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x500f",
+    "ReturnType": "void",
+    "Name": "UI_DUMMY14",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5010",
+    "ReturnType": "void",
+    "Name": "CALL_MONEY_PANEL",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5011",
+    "ReturnType": "void",
+    "Name": "CLOSE_MONEY_PANEL",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5012",
+    "ReturnType": "void",
+    "Name": "CALL_ADD_MONEY",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5013",
+    "ReturnType": "void",
+    "Name": "CINEMASCOPE_START",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5014",
+    "ReturnType": "void",
+    "Name": "CINEMASCOPE_END",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5015",
+    "ReturnType": "void",
+    "Name": "ADD_GET_ITEM_LIST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5016",
+    "ReturnType": "void",
+    "Name": "OPEN_GET_ITEM",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5017",
+    "ReturnType": "void",
+    "Name": "RESET_GET_ITEM_LIST",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5018",
+    "ReturnType": "int",
+    "Name": "GET_ITEM_NUM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5019",
+    "ReturnType": "void",
+    "Name": "SET_ITEM_NUM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x501a",
+    "ReturnType": "int",
+    "Name": "CALL_LMAP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x501b",
+    "ReturnType": "void",
+    "Name": "CLOSE_LMAP",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x501c",
+    "ReturnType": "void",
+    "Name": "CMM_RANKUP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x501d",
+    "ReturnType": "void",
+    "Name": "ADD_GET_ITEM_LIST_MONEY",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x501e",
+    "ReturnType": "void",
+    "Name": "OPEN_SUPPORT_PARTY_PANEL",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x501f",
+    "ReturnType": "void",
+    "Name": "CLOSE_SUPPORT_PARTY_PANEL",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5020",
+    "ReturnType": "void",
+    "Name": "FAKE_DATE_SET",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5021",
+    "ReturnType": "void",
+    "Name": "FAKE_DATE_RESET",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5022",
+    "ReturnType": "void",
+    "Name": "CHANGE_MINIMAP",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5023",
+    "ReturnType": "void",
+    "Name": "OPEN_MAIL_MENU",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5024",
+    "ReturnType": "void",
+    "Name": "CLOSE_MAIL_MENU",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5025",
+    "ReturnType": "int",
+    "Name": "RECEIVE_MAIL_CONDITIONAL",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5026",
+    "ReturnType": "int",
+    "Name": "RECEIVE_MAIL_FORCIBLY",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5027",
+    "ReturnType": "void",
+    "Name": "RESET_MAIL_BOX",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5028",
+    "ReturnType": "int",
+    "Name": "GET_SAVED_DISAPPEAR_ID",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5029",
+    "ReturnType": "void",
+    "Name": "GET_DISAPPEAR_AWARD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x502a",
+    "ReturnType": "void",
+    "Name": "MASTERY_THEURGIA_DRAW",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x502b",
+    "ReturnType": "int",
+    "Name": "DUNGEON_LMAP_OPEN",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x502c",
+    "ReturnType": "void",
+    "Name": "SET_HIDE_MINIMAP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x502d",
+    "ReturnType": "void",
+    "Name": "SET_MONAD_MINIMAP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x502e",
+    "ReturnType": "int",
+    "Name": "GET_RECEIVED_MAIL_NUM",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x502f",
+    "ReturnType": "void",
+    "Name": "CINEMASCOPE_START_ANIME",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5030",
+    "ReturnType": "void",
+    "Name": "CINEMASCOPE_END_ANIME",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5031",
+    "ReturnType": "void",
+    "Name": "CALL_DISAPPEAR_LIST",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5032",
+    "ReturnType": "void",
+    "Name": "SET_ACTION_RECORD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5033",
+    "ReturnType": "void",
+    "Name": "OPEN_PICTURE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5034",
+    "ReturnType": "void",
+    "Name": "CLOSE_PICTURE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5035",
+    "ReturnType": "void",
+    "Name": "CALL_CAMP_CALENDAR",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5036",
+    "ReturnType": "void",
+    "Name": "CALL_NAME_ENTRY",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5037",
+    "ReturnType": "void",
+    "Name": "OPEN_MAIL_MENU_WITH_SET_ID",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5038",
+    "ReturnType": "int",
+    "Name": "FRIEND_SKILL_ADD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5039",
+    "ReturnType": "int",
+    "Name": "CHK_FRIEND_SKILL_ADD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x503a",
+    "ReturnType": "void",
+    "Name": "SET_ADD_MONEY_PLANS",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x503b",
+    "ReturnType": "void",
+    "Name": "SET_VELVET_VTAG",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x503c",
+    "ReturnType": "void",
+    "Name": "CALL_ADD_MONEY_AUTO_CLOSE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x503d",
+    "ReturnType": "void",
+    "Name": "MONEY_PANEL_COLOR_CHANGE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x503e",
+    "ReturnType": "void",
+    "Name": "CALL_VELVET_REQUEST",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x503f",
+    "ReturnType": "int",
+    "Name": "GET_ORDERED_REQUEST_ID",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5040",
+    "ReturnType": "void",
+    "Name": "ADD_REQUEST_ITEM_AND_CLEAR_FLAG_ON",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5041",
+    "ReturnType": "int",
+    "Name": "GET_ORDERED_REQUEST_TOTAL",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5042",
+    "ReturnType": "void",
+    "Name": "LIMIT_DISP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5043",
+    "ReturnType": "int",
+    "Name": "GET_CANCEL_REQUEST_TOTAL",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5044",
+    "ReturnType": "int",
+    "Name": "GET_HAVE_PERSONA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5045",
+    "ReturnType": "int",
+    "Name": "GET_HAVE_PERSONA_LV",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5046",
+    "ReturnType": "void",
+    "Name": "TROPHY_REQUEST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "string",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5047",
+    "ReturnType": "void",
+    "Name": "ORDER_QUEST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5048",
+    "ReturnType": "void",
+    "Name": "QUEST_LIST_ALL_INFO_DISPLAY",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5049",
+    "ReturnType": "void",
+    "Name": "GET_ADC_ITEM_WINDOW",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x504a",
+    "ReturnType": "int",
+    "Name": "CHECK_ADC_ITEM_VALID",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x504b",
+    "ReturnType": "int",
+    "Name": "CHECK_NEW_QUEST_EXIST",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x504c",
+    "ReturnType": "int",
+    "Name": "GET_PERSONA_REGIST_PERCENT",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x504d",
+    "ReturnType": "void",
+    "Name": "CMM_POINT_ANIM_SYNC",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x504e",
+    "ReturnType": "void",
+    "Name": "SET_ITEM_NUM_EX",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x504f",
+    "ReturnType": "int",
+    "Name": "CHECK_DATA_INHERITANCE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5050",
+    "ReturnType": "void",
+    "Name": "GET_THEURGIA_SKILL_ADD_DRAW_LIST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5051",
+    "ReturnType": "void",
+    "Name": "GET_THEURGIA_SKILL_DRAW",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5052",
+    "ReturnType": "int",
+    "Name": "GET_ORDERED_REQUEST_ID_SELECT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5053",
+    "ReturnType": "int",
+    "Name": "GET_REQUEST_STATUS",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5054",
+    "ReturnType": "int",
+    "Name": "CALL_CLEAR_SAVE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5055",
+    "ReturnType": "void",
+    "Name": "LOAD_STAFFROLL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5056",
+    "ReturnType": "void",
+    "Name": "CALL_STAFFROLL",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5057",
+    "ReturnType": "void",
+    "Name": "GET_ADC_ITEM_WINDOW_SYNC",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5058",
+    "ReturnType": "void",
+    "Name": "IN_NAMEENTRY",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5059",
+    "ReturnType": "void",
+    "Name": "OUT_NAMEENTRY",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x505a",
+    "ReturnType": "void",
+    "Name": "RECOVERY_EFFECT_FIELD_PARTY_PANEL",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x505b",
+    "ReturnType": "void",
+    "Name": "VELVET_WIPE_WITH_FADE_FLAG_TRUE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x505c",
+    "ReturnType": "void",
+    "Name": "RESET_FOOT_MINIMAP",
+    "Description": "",
+    "Parameters": []
+  }
+]
