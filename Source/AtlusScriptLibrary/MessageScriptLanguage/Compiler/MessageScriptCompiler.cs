@@ -399,11 +399,22 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
 
                         switch ( tagId.ToLowerInvariant() )
                         {
-                            case "f":
+                            case "f": // Regular msg function
                                 {
-                                    if ( !TryCompileFunctionToken( tagContext, out var functionToken ) )
+                                    if ( !TryCompileFunctionToken( tagContext, out var functionToken, false ) )
                                     {
                                         mLogger.Error( "Failed to compile function token" );
+                                        return false;
+                                    }
+
+                                    lineToken = functionToken;
+                                }
+                                break;
+                            case "uf": // UTF-8 msg function (P3RE)
+                                {
+                                    if (!TryCompileFunctionToken(tagContext, out var functionToken, true))
+                                    {
+                                        mLogger.Error("Failed to compile function token");
                                         return false;
                                     }
 
@@ -526,7 +537,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
                     arguments.Add( argument );
                 }
 
-                functionToken = new FunctionToken( library.Index, function.Index, arguments );
+                functionToken = new FunctionToken( library.Index, function.Index, arguments, functionToken.UseIdentifierByte );
                 functionWasFound = true;
                 break;
             }
@@ -534,7 +545,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
             return functionWasFound;
         }
 
-        private bool TryCompileFunctionToken( MessageScriptParser.TokenContext context,  out FunctionToken functionToken )
+        private bool TryCompileFunctionToken( MessageScriptParser.TokenContext context, out FunctionToken functionToken, bool useIdentifierByte )
         {
             LogContextInfo( context );
 
@@ -560,11 +571,11 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
                     arguments.Add( argument );
                 }
 
-                functionToken = new FunctionToken( functionTableIndex, functionIndex, arguments );
+                functionToken = new FunctionToken( functionTableIndex, functionIndex, arguments, useIdentifierByte);
             }
             else
             {
-                functionToken = new FunctionToken( functionTableIndex, functionIndex );
+                functionToken = new FunctionToken( functionTableIndex, functionIndex, useIdentifierByte);
             }
 
             return true;

@@ -24,15 +24,21 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
         public List<ushort> Arguments { get; }
 
         /// <summary>
+        /// Prefixes every message function with an 0xFE byte (Persona 3 Reload)
+        /// </summary>
+        public bool UseIdentifierByte { get; }
+
+        /// <summary>
         /// Constructs a new message script function token with no arguments.
         /// </summary>
         /// <param name="functionTableIndex">The function table index.</param>
         /// <param name="functionIndex">The function index within the table.</param>
-        public FunctionToken( int functionTableIndex, int functionIndex )
+        public FunctionToken( int functionTableIndex, int functionIndex, bool useIdentifierByte )
         {
             FunctionTableIndex = functionTableIndex;
             FunctionIndex = functionIndex;
             Arguments = new List<ushort>();
+            UseIdentifierByte = useIdentifierByte;
         }
 
         /// <summary>
@@ -41,11 +47,12 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
         /// <param name="functionTableIndex">The function table index.</param>
         /// <param name="functionIndex">The function index within the table.</param>
         /// <param name="arguments">The function arguments.</param>
-        public FunctionToken( int functionTableIndex, int functionIndex, List<ushort> arguments )
+        public FunctionToken( int functionTableIndex, int functionIndex, List<ushort> arguments, bool useIdentifierByte)
         {
             FunctionTableIndex = functionTableIndex;
             FunctionIndex = functionIndex;
             Arguments = arguments;
+            UseIdentifierByte = useIdentifierByte;
         }
 
         /// <summary>
@@ -54,11 +61,12 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
         /// <param name="functionTableIndex">The function table index.</param>
         /// <param name="functionIndex">The function index within the table.</param>
         /// <param name="arguments">The function arguments.</param>
-        public FunctionToken( int functionTableIndex, int functionIndex, params ushort[] arguments )
+        public FunctionToken( int functionTableIndex, int functionIndex, bool useIdentifierByte, params ushort[] arguments )
         {
             FunctionTableIndex = functionTableIndex;
             FunctionIndex = functionIndex;
             Arguments = arguments.ToList();
+            UseIdentifierByte = useIdentifierByte;
         }
 
         /// <summary>

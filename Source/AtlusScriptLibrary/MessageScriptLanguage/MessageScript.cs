@@ -234,12 +234,13 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
 
         private static FunctionToken ParseFunctionToken( byte b, IReadOnlyList<byte> buffer, ref int bufferIndex, FormatVersion version )
         {
-            int functionId = ( b << 8 ) | buffer[bufferIndex++];
+            int first = (version == FormatVersion.Version1Reload) ? buffer[bufferIndex++] : b;
+            int functionId = (first << 8 ) | buffer[bufferIndex++];
             int functionTableIndex = ( functionId & 0xE0 ) >> 5;
             int functionIndex = ( functionId & 0x1F );
 
             int functionArgumentByteCount;
-            if ( version == FormatVersion.Version1 || version == FormatVersion.Version1BigEndian )
+            if ( version == FormatVersion.Version1 || version == FormatVersion.Version1BigEndian || version == FormatVersion.Version1Reload )
             {
                 functionArgumentByteCount = ( ( ( ( functionId >> 8 ) & 0xF ) - 1 ) * 2 );
             }
@@ -267,8 +268,8 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
 
                 functionArguments[i] = (ushort)( ( firstByte & ~0xFF00 ) | ( ( secondByte << 8 ) & 0xFF00 ) );
             }
-
-            return new FunctionToken( functionTableIndex, functionIndex, functionArguments );
+            var bAddIdentifierType = (version == FormatVersion.Version1Reload) ? true : false;
+            return new FunctionToken( functionTableIndex, functionIndex, bAddIdentifierType, functionArguments);
         }
 
         private static IEnumerable< IToken > ParseTextTokens( byte b, IReadOnlyList<byte> buffer, ref int bufferIndex, Encoding encoding )
@@ -277,7 +278,6 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
             var charBytes = new byte[2];
             var tokens = new List<IToken>();
             byte b2;
-
             while ( true )
             {
                 // Read 2 bytes
@@ -326,43 +326,49 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
                 tokens.Add( token );
             }
 
-            for ( int i = 0; i < accumulatedTextBuffer.Length; i++ )
+            if (encoding == Encoding.UTF8)
             {
-                byte high = accumulatedTextBuffer[i];
-                if ( ( high & 0x80 ) == 0x80 )
+                stringBuilder.Append(Encoding.UTF8.GetString(accumulatedTextBuffer));
+            } else
+            {
+                for (int i = 0; i < accumulatedTextBuffer.Length; i++)
                 {
-                    byte low = accumulatedTextBuffer[++i];
-
-                    if ( encoding != null && !encoding.IsSingleByte )
+                    byte high = accumulatedTextBuffer[i];
+                    if ((high & 0x80) == 0x80)
                     {
-                        // Get decoded characters
-                        charBytes[0] = high;
-                        charBytes[1] = low;
+                        byte low = accumulatedTextBuffer[++i];
 
-                        // Check if it's an unmapped character -> make it a code point
-                        var chars = encoding.GetChars( charBytes );
-                        Trace.Assert( chars.Length > 0 );
-
-                        if ( chars[0] == 0 )
+                        if (encoding != null && !encoding.IsSingleByte)
                         {
-                            AddToken( new CodePointToken( high, low ) );
+                            // Get decoded characters
+                            charBytes[0] = high;
+                            charBytes[1] = low;
+
+                            // Check if it's an unmapped character -> make it a code point
+                            var chars = encoding.GetChars(charBytes);
+                            Trace.Assert(chars.Length > 0);
+
+                            if (chars[0] == 0)
+                            {
+                                AddToken(new CodePointToken(high, low));
+                            }
+                            else
+                            {
+                                foreach (char c in chars)
+                                {
+                                    stringBuilder.Append(c);
+                                }
+                            }
                         }
                         else
                         {
-                            foreach ( char c in chars )
-                            {
-                                stringBuilder.Append( c );
-                            }
+                            AddToken(new CodePointToken(high, low));
                         }
                     }
                     else
                     {
-                        AddToken( new CodePointToken( high, low ) );
+                        stringBuilder.Append((char)high);
                     }
-                }
-                else
-                {
-                    stringBuilder.Append( ( char )high );
                 }
             }
 

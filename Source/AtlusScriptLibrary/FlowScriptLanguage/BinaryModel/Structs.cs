@@ -8,6 +8,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel
         public const int SIZE = 32;
         public const int FILE_TYPE = 0;
         public static byte[] MAGIC = { ( byte )'F', ( byte )'L', ( byte )'W', ( byte )'0' };
+        public static byte[] MAGIC_REVERSED = { (byte)'0', (byte)'W', (byte)'L', (byte)'F' };
 
         // 0x00
         public byte FileType;
@@ -78,6 +79,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel
         public const int SIZE_V1 = 32;
         public const int SIZE_V2 = 56;
         public const int SIZE_V3 = 48;
+        public const int SIZE_V4 = 56;
 
         public string Name;
         public int InstructionIndex;

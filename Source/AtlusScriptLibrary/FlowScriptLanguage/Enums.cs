@@ -192,5 +192,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage
         Version2BigEndian = BinaryFormatVersion.Version2BigEndian,
         Version3 = BinaryFormatVersion.Version3,
         Version3BigEndian = BinaryFormatVersion.Version3BigEndian,
+        Version4 = BinaryFormatVersion.Version4,
+        Version4BigEndian = BinaryFormatVersion.Version4BigEndian,
     }
 }

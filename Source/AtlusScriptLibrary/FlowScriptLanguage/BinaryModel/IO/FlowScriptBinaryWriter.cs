@@ -82,6 +82,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel.IO
                 int labelLength = ( mVersion.HasFlag( BinaryFormatVersion.Version1 ) ? BinaryLabel.SIZE_V1 :
                                     mVersion.HasFlag( BinaryFormatVersion.Version2 ) ? BinaryLabel.SIZE_V2 :
                                     mVersion.HasFlag( BinaryFormatVersion.Version3 ) ? BinaryLabel.SIZE_V3 :
+                                    mVersion.HasFlag( BinaryFormatVersion.Version4 ) ? BinaryLabel.SIZE_V4 :
                                     throw new Exception( "Invalid format version" ) ) - ( sizeof( int ) * 2 );
 
                 mWriter.Write( label.Name.Substring( 0, Math.Min( label.Name.Length, labelLength ) ), 
@@ -94,7 +95,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel.IO
         public void WriteTextSection( ref BinarySectionHeader sectionHeader, BinaryInstruction[] instructions )
         {
             mWriter.SeekBegin( mPositionBase + sectionHeader.FirstElementAddress );
-
+            if (mVersion == BinaryFormatVersion.Version4) mWriter.Endianness = Endianness.BigEndian;
             for ( int i = 0; i < instructions.Length; i++ )
             {
                 ref var instruction = ref instructions[i];
@@ -114,6 +115,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel.IO
                     mWriter.Write( instructions[++i].OperandFloat );
                 }
             }
+            if (mVersion == BinaryFormatVersion.Version4) mWriter.Endianness = Endianness.LittleEndian;
         }
 
         public void WriteMessageScriptSection( ref BinarySectionHeader sectionHeader, MessageScriptBinary messageScript )

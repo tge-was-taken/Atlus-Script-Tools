@@ -82,6 +82,7 @@ namespace AtlusScriptCompiler
             Console.WriteLine( "            V1              Used by Persona 3, 4, 5 PS4" );
             Console.WriteLine( "            V1DDS           Used by Digital Devil Saga 1 & 2" );
             Console.WriteLine( "            V1BE            Used by Persona 5 PS3" );
+            Console.WriteLine( "            V1RE            Used by Persona 3 Reload");
             Console.WriteLine();
             Console.WriteLine( "        -Encoding" );
             Console.WriteLine( "            Below is a list of different available standard encodings." );
@@ -91,6 +92,7 @@ namespace AtlusScriptCompiler
             Console.WriteLine( "            P3                  Persona 3's custom encoding" );
             Console.WriteLine( "            P4                  Persona 4's custom encoding" );
             Console.WriteLine( "            P5                  Persona 5's custom encoding" );
+            Console.WriteLine( "            UT                  UTF-8 Encoding. Used by Persona 3 Reload");
             Console.WriteLine( "            <charset file name> Custom encodings can be used by placing them in the charset folder. The TSV files are tab separated.");
             Console.WriteLine();
             Console.WriteLine( "        -Library" );
@@ -108,6 +110,8 @@ namespace AtlusScriptCompiler
             Console.WriteLine( "            V2BE            " );
             Console.WriteLine( "            V3              Used by Persona 5 PS4" );
             Console.WriteLine( "            V3BE            Used by Persona 5 PS3 & PS4" );
+            Console.WriteLine( "            V4              Used by Persona 3 Reload");
+            Console.WriteLine( "            V4BE            Used by Persona 3 Reload");
             Console.WriteLine();
             Console.WriteLine( "        -Library" );
             Console.WriteLine( "            For FlowScripts the libraries is used for the decompiler to decompile binary scripts, but it is also used to generate documentation." );
@@ -315,6 +319,10 @@ namespace AtlusScriptCompiler
                             case "shiftjis":
                             case "shift-jis":
                                 MessageScriptEncoding = ShiftJISEncoding.Instance;
+                                break;
+                            case "ut":
+                            case "utf-8":
+                                MessageScriptEncoding = Encoding.UTF8;
                                 break;
                             default:
                                 try
@@ -572,6 +580,12 @@ namespace AtlusScriptCompiler
                 case OutputFileFormat.V3BE:
                     version = FormatVersion.Version3BigEndian;
                     break;
+                case OutputFileFormat.V4:
+                    version = FormatVersion.Version4;
+                    break;
+                case OutputFileFormat.V4BE:
+                    version = FormatVersion.Version4BigEndian;
+                    break;
                 default:
                     version = FormatVersion.Unknown;
                     break;
@@ -648,6 +662,9 @@ namespace AtlusScriptCompiler
                     break;
                 case OutputFileFormat.V1BE:
                     version = AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Version1BigEndian;
+                    break;
+                case OutputFileFormat.V1RE:
+                    version = AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Version1Reload;
                     break;
                 default:
                     version = AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Detect;
@@ -855,9 +872,12 @@ namespace AtlusScriptCompiler
         V1,
         V1DDS,
         V1BE,
+        V1RE,
         V2,
         V2BE,
         V3,
-        V3BE
+        V3BE,
+        V4,
+        V4BE
     }
 }

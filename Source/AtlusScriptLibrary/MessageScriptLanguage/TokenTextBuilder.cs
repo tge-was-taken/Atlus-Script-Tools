@@ -24,7 +24,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
 
         public TokenTextBuilder AddFunction( int functionTableIndex, int functionIndex, params ushort[] args )
         {
-            return AddToken( new FunctionToken( functionTableIndex, functionIndex, args ) );
+            return AddToken( new FunctionToken( functionTableIndex, functionIndex, false, args ) );
         }
 
         public TokenTextBuilder AddCodePoint( byte highSurrogate, byte lowSurrogate )
