@@ -195,6 +195,9 @@ namespace AtlusScriptLibrary.FlowScriptLanguage
                 case Opcode.POPLFX:
                     return POPLFX( binary.OperandShort );
 
+                case Opcode.OPCODE35:
+                    throw new Exception( "Opcode 35 WIP" );
+
                 default:
                     throw new Exception( "Opcode not supported" );
             }

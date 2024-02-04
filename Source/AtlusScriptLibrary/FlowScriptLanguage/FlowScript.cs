@@ -121,6 +121,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage
                 {               
                     // Convert each instruction
                     var binaryInstruction = binary.TextSection[instructionBinaryIndex];
+                    //Console.WriteLine($"{binaryInstruction}");
 
                     Instruction instruction;
 

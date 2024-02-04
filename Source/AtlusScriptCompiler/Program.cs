@@ -42,6 +42,7 @@ namespace AtlusScriptCompiler
         public static bool FlowScriptEnableFunctionCallTracing;
         public static bool FlowScriptEnableStackCookie;
         public static bool FlowScriptEnableProcedureHook;
+        public static bool UnrealEngineWrapper;
 
         public static bool FlowScriptSumBits { get; private set; }
 
@@ -116,7 +117,7 @@ namespace AtlusScriptCompiler
             Console.WriteLine( "        -Library" );
             Console.WriteLine( "            For FlowScripts the libraries is used for the decompiler to decompile binary scripts, but it is also used to generate documentation." );
             Console.WriteLine( "            Without a specified registry you cannot decompile scripts." );
-            Console.WriteLine( "            Libraryies can be found in the Libraries directory" );
+            Console.WriteLine( "            Libraries can be found in the Libraries directory" );
         }
 
         public static void Main( string[] args )
@@ -150,6 +151,10 @@ namespace AtlusScriptCompiler
             try
 #endif
             {
+                if ( UnrealEngineWrapper )
+                {
+                    success = UEWrapperHandler();
+                }
                 if ( DoCompile )
                 {
                     success = TryDoCompilation();
@@ -403,10 +408,22 @@ namespace AtlusScriptCompiler
                         InputFileFormat = InputFileFormat.MessageScriptTextSource;
                         break;
 
+                    case ".uasset":
+                        Logger.Error( "-InFormat parameter required when working with Unreal Engine wrapped scripts" );
+                        return false;
+
                     default:
                         Logger.Error( "Unable to detect input file format" );
                         return false;
                 }
+            }
+
+            if (Path.GetExtension(InputFilePath).ToLowerInvariant().Equals(".uasset"))
+            {
+                UnrealEngineWrapper = true;
+            } else
+            {
+                UnrealEngineWrapper = false;
             }
 
 
@@ -853,6 +870,18 @@ namespace AtlusScriptCompiler
             Logger.Error( $"{e.Message}" );
             Logger.Error( "Stacktrace:" );
             Logger.Error( $"{e.StackTrace}" );
+        }
+
+        private static bool UEWrapperHandler()
+        {
+            bool success = false;
+            using (var unwrapper = File.Open(InputFilePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+
+                UEWrapper.UnwrapAsset(Path.GetDirectoryName(InputFilePath), Path.GetFileNameWithoutExtension(InputFilePath), Path.GetExtension(InputFilePath), unwrapper, out var outName);
+                InputFilePath = outName;
+            }
+            return success;
         }
     }
 

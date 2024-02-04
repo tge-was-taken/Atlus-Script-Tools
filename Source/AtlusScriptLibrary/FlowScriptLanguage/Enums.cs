@@ -180,7 +180,12 @@ namespace AtlusScriptLibrary.FlowScriptLanguage
         /// <summary>
         /// Push a string value to the stack by pushing the index of the string in the string table.
         /// </summary>
-        PUSHSTR
+        PUSHSTR,
+
+        /// <summary>
+        /// idk yet lol
+        /// </summary>
+        OPCODE35
     }
 
     public enum FormatVersion : uint
