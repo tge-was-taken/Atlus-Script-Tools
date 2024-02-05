@@ -42,7 +42,8 @@ namespace AtlusScriptCompiler
         public static bool FlowScriptEnableFunctionCallTracing;
         public static bool FlowScriptEnableStackCookie;
         public static bool FlowScriptEnableProcedureHook;
-        public static bool UnrealEngineWrapper;
+        public static bool UEWrapped;
+        public static string UEPatchFile;
 
         public static bool FlowScriptSumBits { get; private set; }
 
@@ -65,6 +66,7 @@ namespace AtlusScriptCompiler
             Console.WriteLine( "        -Disassemble                                Instructs the compiler to disassemble the provided input file source." );
             Console.WriteLine( "        -Library                <name>              Specifies the name of the library that should be used." );
             Console.WriteLine( "        -LogTrace                                   Outputs trace log messages to the console" );
+            Console.WriteLine( "        -UPatch                 <path to file>      Patches an existing BF/BMD uasset to insert the newly compiled file into, including fixing file lengths. For Persona 3 Reload");
             Console.WriteLine();
             Console.WriteLine( "    MessageScript:" );
             Console.WriteLine( "        -Encoding               <format>            Specifies the MessageScript binary output text encoding. See below for further info." );
@@ -151,7 +153,7 @@ namespace AtlusScriptCompiler
             try
 #endif
             {
-                if ( UnrealEngineWrapper )
+                if (UEWrapped)
                 {
                     success = UEWrapperHandler();
                 }
@@ -172,6 +174,10 @@ namespace AtlusScriptCompiler
                     Logger.Error( "No compilation, decompilation or disassemble instruction given!" );
                     DisplayUsage();
                     return;
+                }
+                if (success && UEPatchFile != null)
+                {
+                    success = UEWrapper.WrapAsset(OutputFilePath, UEPatchFile);
                 }
             }
 #if !DEBUG
@@ -368,6 +374,16 @@ namespace AtlusScriptCompiler
                     case "-SumBits":
                         FlowScriptSumBits = true;
                         break;
+
+                    case "-UPatch":
+                        if (isLast)
+                        {
+                            Logger.Error("Missing argument for -UPatch parameter");
+                            return false;
+                        }
+
+                        UEPatchFile = args[++i];
+                        break;
                 }
             }
 
@@ -420,10 +436,10 @@ namespace AtlusScriptCompiler
 
             if (Path.GetExtension(InputFilePath).ToLowerInvariant().Equals(".uasset"))
             {
-                UnrealEngineWrapper = true;
+                UEWrapped = true;
             } else
             {
-                UnrealEngineWrapper = false;
+                UEWrapped = false;
             }
 
 
@@ -484,7 +500,7 @@ namespace AtlusScriptCompiler
                 }
             }
 
-            if (!UnrealEngineWrapper) Logger.Info( $"Output file path is set to {OutputFilePath}" );
+            if (!UEWrapped) Logger.Info( $"Output file path is set to {OutputFilePath}" );
 
             return true;
         }

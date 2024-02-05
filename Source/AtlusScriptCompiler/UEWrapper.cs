@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,10 +12,6 @@ namespace AtlusScriptCompiler
 {
     public class UEWrapper
     {
-        public static uint GraphDataOffset;
-        public static uint GraphDataSize;
-        public static uint ExportMapOffset;
-        public static ulong CookedSerialSize;
 
         public static string[] constantCommonImports =
         {
@@ -30,51 +28,28 @@ namespace AtlusScriptCompiler
 
         public static uint AlgorithmHash = 0xC1640000;
 
-        public static byte[] UexpFormattingAfter = { 0xa, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 };
+
+        public static uint[] ExpSection1 = { 0x9, 0x0, 0x3, 0x0 };
+        public static uint[] ExpSection2 = { 0x0, 0x6, 0x0 };
+        public static byte[] ExpSection3 = { 0xa, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 };
 
 
         public static int FORMATTING_SIZE = 0x25; // from beginning of "uexp" portion to start of bf block
         public static bool UnwrapAsset( string dir, string name, string ext, Stream stream, out string outName )
         {
             var endianReader = new EndianBinaryReader(stream, Endianness.LittleEndian); // UE stuff is in little endian
-            ReadIoStorePackageSummaryHeader(endianReader);
-            // Get out of there
-            //endianReader.SeekBegin(GraphDataOffset + GraphDataSize + 0x25);
-            endianReader.SeekBegin(ExportMapOffset);
-            ReadExportMapEntry(endianReader);
-            CookedSerialSize -= (ulong)FORMATTING_SIZE; // length of data preceeding BF
-            endianReader.SeekBegin(GraphDataOffset + GraphDataSize + FORMATTING_SIZE);
+            var packageHeader = new FPackageSummaryHeader(endianReader);
+            endianReader.SeekBegin(packageHeader.ExportMapOffset);
+            var exportMapEntry = new FExportMapEntry(endianReader);
+            var bfSize = exportMapEntry.CookedSerialSize - (ulong)FORMATTING_SIZE; // length of data preceeding BF
+            endianReader.SeekBegin(packageHeader.GraphDataOffset + packageHeader.GraphDataSize + FORMATTING_SIZE);
             var startPos = endianReader.Position;
-            byte[] buffer = new byte[CookedSerialSize];
+            byte[] buffer = new byte[bfSize];
             stream.Position = startPos;
-            stream.Read(buffer, 0, (int)CookedSerialSize);
+            stream.Read(buffer, 0, (int)bfSize);
             outName = Path.Combine(dir, $"{name}_unwrapped{ext}");
             using (var fileOut = File.Create(outName)) { fileOut.Write(buffer, 0, buffer.Length); }
             return false;
-        }
-
-        public static void ReadIoStorePackageSummaryHeader(EndianBinaryReader reader) // Accurate for UE 4.27
-        {
-            reader.ReadUInt64(); // Name
-            reader.ReadUInt64(); // SourceName
-            reader.ReadUInt32(); // PackageFlags
-            reader.ReadUInt32(); // CookedHeaderSize
-            reader.ReadUInt32(); // NameMapNamesOffset
-            reader.ReadUInt32(); // NameMapNamesSize
-            reader.ReadUInt32(); // NameMapHashesOffset
-            reader.ReadUInt32(); // NameMapHashesSIze
-            reader.ReadUInt32(); // ImportMapOffset
-            ExportMapOffset = reader.ReadUInt32(); // ExportMapOffset
-            reader.ReadUInt32(); // ExportBudlesOffset
-            GraphDataOffset = reader.ReadUInt32(); // GraphDataOffset
-            GraphDataSize = reader.ReadUInt32(); // GraphDataSize
-            reader.ReadUInt32(); // Padding
-        }
-
-        public static void ReadExportMapEntry(EndianBinaryReader reader)
-        {
-            reader.ReadUInt64(); // CookedSerialOffset
-            CookedSerialSize = reader.ReadUInt64(); // CookedSerialSize
         }
 
         public static void WriteFString16(EndianBinaryWriter writer, string text)
@@ -83,6 +58,136 @@ namespace AtlusScriptCompiler
             if (text.Length > 0xff) throw new Exception($"Name \"{text}\" is too long to converted into FString");
             writer.Write((byte)text.Length);
             writer.Write(Encoding.ASCII.GetBytes(text));
+        }
+
+        public static bool WrapAsset( string inFileName, string patchFileName )
+        {
+            using 
+            (FileStream 
+                payloadFile = File.Open(inFileName, FileMode.Open), // the file that we've just compiled
+                wrapperFile = File.Open(patchFileName, FileMode.Open), 
+                outFile = File.Create(inFileName + ".uasset")
+            ) {
+                var wrapperReader = new EndianBinaryReader(wrapperFile, Endianness.LittleEndian); // .uasset
+                var outFileEndian = new EndianBinaryWriter(outFile, Endianness.LittleEndian);
+                var packageHeader = new FPackageSummaryHeader(wrapperReader);
+                // everything up until ExportMap is the same
+                wrapperReader.SeekBegin(0); // go back to beginning
+                outFileEndian.Write(wrapperReader.ReadBytes((int)(packageHeader.ExportMapOffset)));
+                var exportHeader = new FExportMapEntry(wrapperReader);
+                exportHeader.CookedSerialSize = (ulong)payloadFile.Length + 0x25;
+                exportHeader.Write(outFileEndian);
+                // the rest of the package header is the same
+                outFileEndian.Write(wrapperReader.ReadBytes((int)(packageHeader.GraphDataOffset + packageHeader.GraphDataSize - outFileEndian.Position)));
+                outFileEndian.Write(ExpSection1);
+                outFileEndian.Write(payloadFile.Length + 0x4);
+                outFileEndian.Write(ExpSection2);
+                outFileEndian.Write((byte)0x0);
+                outFileEndian.Write(payloadFile.Length);
+                byte[] payloadData = new byte[payloadFile.Length];
+                payloadFile.Read(payloadData, 0, (int)payloadFile.Length);
+                outFileEndian.Write(payloadData);
+                outFileEndian.Write(ExpSection3);
+            }
+            return true;
+        }
+    }
+
+    public class FPackageObjectIndex 
+    {
+        public static int SerializedLength = 0x8;
+    }
+
+    public class FExportBundleHeader
+    {
+        public static int SerializedLength = 0x8;
+    }
+
+    public class FExportBundleEntry
+    {
+        public static int SerializedLength = 0x8;
+    }
+
+    public class FPackageSummaryHeader
+    {
+        public static int SerializedLength = 0x40;
+
+        public ulong Name;
+        public ulong SourceName;
+        public uint PackageFlags;
+        public uint CookedHeaderSize;
+        public uint NameMapNamesOffset;
+        public uint NameMapNamesSize;
+        public uint NameMapHashesOffset;
+        public uint NameMapHashesSize;
+        public uint ImportMapOffset;
+        public uint ExportMapOffset;
+        public uint ExportBundlesOffset;
+        public uint GraphDataOffset;
+        public uint GraphDataSize;
+        public uint Padding;
+        public FPackageSummaryHeader(EndianBinaryReader reader)
+        {
+            Name = reader.ReadUInt64(); // Name
+            SourceName = reader.ReadUInt64(); // SourceName
+            PackageFlags = reader.ReadUInt32(); // PackageFlags
+            CookedHeaderSize = reader.ReadUInt32(); // CookedHeaderSize
+            NameMapNamesOffset = reader.ReadUInt32(); // NameMapNamesOffset
+            NameMapNamesSize = reader.ReadUInt32(); // NameMapNamesSize
+            NameMapHashesOffset = reader.ReadUInt32(); // NameMapHashesOffset
+            NameMapHashesSize = reader.ReadUInt32(); // NameMapHashesSIze
+            ImportMapOffset = reader.ReadUInt32(); // ImportMapOffset
+            ExportMapOffset = reader.ReadUInt32(); // ExportMapOffset
+            ExportBundlesOffset = reader.ReadUInt32(); // ExportBudlesOffset
+            GraphDataOffset = reader.ReadUInt32(); // GraphDataOffset
+            GraphDataSize = reader.ReadUInt32(); // GraphDataSize
+            Padding = reader.ReadUInt32(); // Padding
+        }
+    }
+
+    public class FExportMapEntry
+    {
+        public static int SerializedLength = 0x48;
+
+        public ulong CookedSerialOffset;
+        public ulong CookedSerialSize;
+        public ulong ObjectName;
+        public ulong OuterIndex;
+        public ulong ClassIndex;
+        public ulong SuperIndex;
+        public ulong TemplateIndex;
+        public ulong GlobalImportIndex;
+        public int ObjectFlags;
+        public byte FilterFlags;
+        public byte[] unk;
+        public FExportMapEntry(EndianBinaryReader reader)
+        {
+            CookedSerialOffset = reader.ReadUInt64(); // CookedSerialOffset
+            CookedSerialSize = reader.ReadUInt64(); // CookedSerialSize
+            ObjectName = reader.ReadUInt64();
+            OuterIndex = reader.ReadUInt64();
+            ClassIndex = reader.ReadUInt64();
+            SuperIndex = reader.ReadUInt64();
+            TemplateIndex = reader.ReadUInt64();
+            GlobalImportIndex = reader.ReadUInt64();
+            ObjectFlags = reader.ReadInt32();
+            FilterFlags = reader.ReadByte();
+            unk = reader.ReadBytes(3);
+        }
+
+        public void Write(EndianBinaryWriter writer)
+        {
+            writer.Write(CookedSerialOffset);
+            writer.Write(CookedSerialSize);
+            writer.Write(ObjectName);
+            writer.Write(OuterIndex);
+            writer.Write(ClassIndex);
+            writer.Write(SuperIndex);
+            writer.Write(TemplateIndex);
+            writer.Write(GlobalImportIndex);
+            writer.Write(ObjectFlags);
+            writer.Write(FilterFlags);
+            writer.Write(unk);
         }
     }
 }
