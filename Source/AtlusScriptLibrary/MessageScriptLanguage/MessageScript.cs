@@ -220,7 +220,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
             {
                 tokens.Add( new NewLineToken() );
             }
-            else if ( ( b & 0xF0 ) == 0xF0 )
+            else if ( IsFunctionToken(b, version) )
             {
                 tokens.Add( ParseFunctionToken( b, buffer, ref bufferIndex, version ) );
             }
@@ -230,6 +230,17 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
             }
 
             return true;
+        }
+
+        private static bool IsFunctionToken(byte b, FormatVersion version)
+        {
+            if (version == FormatVersion.Version1Reload)
+            {
+                return (b & 0xF0) == 0xF0;
+            } else
+            {
+                return b == 0xFE;
+            }
         }
 
         private static FunctionToken ParseFunctionToken( byte b, IReadOnlyList<byte> buffer, ref int bufferIndex, FormatVersion version )
@@ -280,17 +291,37 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
             byte b2;
             while ( true )
             {
-                // Read 2 bytes
-                if ( ( b & 0x80 ) == 0x80 )
+                if (encoding == Encoding.UTF8)
                 {
-                    b2 = buffer[bufferIndex++];
-                    accumulatedText.Add( b );
-                    accumulatedText.Add( b2 );
-                }
-                else
+                    accumulatedText.Add(b);
+                    if (b > 0xC0) // read 2 bytes
+                    {
+                        b2 = buffer[bufferIndex++];
+                        accumulatedText.Add(b2);
+                        if (b > 0xE0) // read 3 bytes
+                        {
+                            var b3 = buffer[bufferIndex++];
+                            accumulatedText.Add(b3);
+                            if (b > 0xF0) // read 4 bytes
+                            {
+                                var b4 = buffer[bufferIndex++];
+                                accumulatedText.Add(b4);
+                            }
+                        }
+                    }
+                } else // Atlus and Shift-JIS
                 {
-                    // Read one
-                    accumulatedText.Add( b );
+                    if ((b & 0x80) == 0x80)
+                    {
+                        b2 = buffer[bufferIndex++];
+                        accumulatedText.Add(b);
+                        accumulatedText.Add(b2);
+                    }
+                    else
+                    {
+                        // Read one
+                        accumulatedText.Add(b);
+                    }
                 }
 
                 // Check for any condition that would end the sequence of text characters

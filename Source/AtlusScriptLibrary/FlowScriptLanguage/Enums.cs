@@ -183,9 +183,9 @@ namespace AtlusScriptLibrary.FlowScriptLanguage
         PUSHSTR,
 
         /// <summary>
-        /// idk yet lol
+        /// Pop the value of the register from the stack.
         /// </summary>
-        OPCODE35
+        POPREG
     }
 
     public enum FormatVersion : uint

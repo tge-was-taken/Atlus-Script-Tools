@@ -195,8 +195,11 @@ namespace AtlusScriptLibrary.FlowScriptLanguage
                 case Opcode.POPLFX:
                     return POPLFX( binary.OperandShort );
 
-                case Opcode.OPCODE35:
-                    throw new Exception( "Opcode 35 WIP" );
+                //case Opcode.POPREG:
+                //    return POPREG();
+
+                case Opcode.POPREG:
+                    throw new Exception("Pop Register Opcode WIP");
 
                 default:
                     throw new Exception( "Opcode not supported" );
@@ -550,6 +553,11 @@ namespace AtlusScriptLibrary.FlowScriptLanguage
         public static Instruction PUSHSTR( string value )
         {
             return new Instruction( Opcode.PUSHSTR, value );
+        }
+
+        public static Instruction POPREG()
+        {
+            return new Instruction(Opcode.POPREG);
         }
 
         public override string ToString()

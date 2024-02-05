@@ -14,10 +14,28 @@ namespace AtlusScriptCompiler
         public static uint GraphDataSize;
         public static uint ExportMapOffset;
         public static ulong CookedSerialSize;
-        public static int FORMATTING_SIZE = 0x25;
+
+        public static string[] constantCommonImports =
+        {
+            "/Script/CoreUObject", "ArrayProperty", "Class", "mBuf", "None", "Package"
+        };
+        public static string[] constantBfImoprts = 
+        {
+            "/Script/BfAssetPlugin", "ByteProperty", "BfAsset", "Default__BfAsset"
+        };
+        public static string[] constantBmdImoprts = 
+        {
+            "/Script/BmdAssetPlugin", "Int8Property", "BmdAsset", "Default__BmdAsset"
+        };
+
+        public static uint AlgorithmHash = 0xC1640000;
+
+        public static byte[] UexpFormattingAfter = { 0xa, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 };
+
+
+        public static int FORMATTING_SIZE = 0x25; // from beginning of "uexp" portion to start of bf block
         public static bool UnwrapAsset( string dir, string name, string ext, Stream stream, out string outName )
         {
-            Console.WriteLine($"Unwrapping asset {name}, {ext}");
             var endianReader = new EndianBinaryReader(stream, Endianness.LittleEndian); // UE stuff is in little endian
             ReadIoStorePackageSummaryHeader(endianReader);
             // Get out of there
@@ -27,16 +45,11 @@ namespace AtlusScriptCompiler
             CookedSerialSize -= (ulong)FORMATTING_SIZE; // length of data preceeding BF
             endianReader.SeekBegin(GraphDataOffset + GraphDataSize + FORMATTING_SIZE);
             var startPos = endianReader.Position;
-            Console.WriteLine($"Start pos is {startPos}, {CookedSerialSize}, {stream.Length - startPos}");
             byte[] buffer = new byte[CookedSerialSize];
             stream.Position = startPos;
             stream.Read(buffer, 0, (int)CookedSerialSize);
             outName = Path.Combine(dir, $"{name}_unwrapped{ext}");
-            using (var fileOut = File.Create(outName))
-            {
-                Console.WriteLine($"Using file name {outName}");
-                fileOut.Write(buffer, 0, buffer.Length);
-            }
+            using (var fileOut = File.Create(outName)) { fileOut.Write(buffer, 0, buffer.Length); }
             return false;
         }
 
@@ -62,6 +75,14 @@ namespace AtlusScriptCompiler
         {
             reader.ReadUInt64(); // CookedSerialOffset
             CookedSerialSize = reader.ReadUInt64(); // CookedSerialSize
+        }
+
+        public static void WriteFString16(EndianBinaryWriter writer, string text)
+        {
+            writer.Write((byte)0);
+            if (text.Length > 0xff) throw new Exception($"Name \"{text}\" is too long to converted into FString");
+            writer.Write((byte)text.Length);
+            writer.Write(Encoding.ASCII.GetBytes(text));
         }
     }
 }

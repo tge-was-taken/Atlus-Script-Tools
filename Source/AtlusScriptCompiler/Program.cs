@@ -484,7 +484,7 @@ namespace AtlusScriptCompiler
                 }
             }
 
-            Logger.Info( $"Output file path is set to {OutputFilePath}" );
+            if (!UnrealEngineWrapper) Logger.Info( $"Output file path is set to {OutputFilePath}" );
 
             return true;
         }
@@ -877,11 +877,47 @@ namespace AtlusScriptCompiler
             bool success = false;
             using (var unwrapper = File.Open(InputFilePath, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
-
-                UEWrapper.UnwrapAsset(Path.GetDirectoryName(InputFilePath), Path.GetFileNameWithoutExtension(InputFilePath), Path.GetExtension(InputFilePath), unwrapper, out var outName);
+                UEWrapper.UnwrapAsset(Path.GetDirectoryName(InputFilePath), Path.GetFileNameWithoutExtension(InputFilePath), GetInputFileExtensionByFileFormat(), unwrapper, out var outName);
                 InputFilePath = outName;
+                OutputFilePath = InputFilePath + GetOutputFileExtensionByFileFormat();
+                Logger.Info($"Input file path is set to {InputFilePath}");
+                Logger.Info($"Output file path is set to {OutputFilePath}");
             }
             return success;
+        }
+
+        private static string GetInputFileExtensionByFileFormat()
+        {
+            switch (InputFileFormat)
+            {
+                case InputFileFormat.FlowScriptBinary:
+                    return ".bf";
+                case InputFileFormat.MessageScriptBinary:
+                    return ".bmd";
+                default:
+                    throw new Exception("Couldn't determine an input file extension");
+            }
+        }
+
+        private static string GetOutputFileExtensionByFileFormat()
+        {
+            switch (InputFileFormat)
+            {
+                case InputFileFormat.FlowScriptTextSource:
+                case InputFileFormat.FlowScriptAssemblerSource:
+                    return ".bf";
+                case InputFileFormat.MessageScriptTextSource:
+                    return ".bmd";
+
+                case InputFileFormat.FlowScriptBinary:
+                    if (DoDecompile) return ".flow";
+                    return ".flowasm";
+                case InputFileFormat.MessageScriptBinary:
+                    return ".msg";
+
+                default:
+                    throw new Exception("Couldn't determine an output file extension");
+            }
         }
     }
 
