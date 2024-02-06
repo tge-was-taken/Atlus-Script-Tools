@@ -177,7 +177,14 @@ namespace AtlusScriptCompiler
                 }
                 if (success && UEPatchFile != null)
                 {
-                    success = UEWrapper.WrapAsset(OutputFilePath, UEPatchFile);
+                    if (DoCompile)
+                    {
+                        success = UEWrapper.WrapAsset(OutputFilePath, UEPatchFile);
+                    } else {
+                        Logger.Error("Patch file can only be used on compilation");
+                        DisplayUsage();
+                        return;
+                    }
                 }
             }
 #if !DEBUG

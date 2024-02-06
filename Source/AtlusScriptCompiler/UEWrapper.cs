@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Security.AccessControl;
 using System.Text;
@@ -28,9 +29,6 @@ namespace AtlusScriptCompiler
 
         public static uint AlgorithmHash = 0xC1640000;
 
-
-        public static uint[] ExpSection1 = { 0x9, 0x0, 0x3, 0x0 };
-        public static uint[] ExpSection2 = { 0x0, 0x6, 0x0 };
         public static byte[] ExpSection3 = { 0xa, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 };
 
 
@@ -43,10 +41,7 @@ namespace AtlusScriptCompiler
             var exportMapEntry = new FExportMapEntry(endianReader);
             var bfSize = exportMapEntry.CookedSerialSize - (ulong)FORMATTING_SIZE; // length of data preceeding BF
             endianReader.SeekBegin(packageHeader.GraphDataOffset + packageHeader.GraphDataSize + FORMATTING_SIZE);
-            var startPos = endianReader.Position;
-            byte[] buffer = new byte[bfSize];
-            stream.Position = startPos;
-            stream.Read(buffer, 0, (int)bfSize);
+            byte[] buffer = endianReader.ReadBytes((int)bfSize);
             outName = Path.Combine(dir, $"{name}_unwrapped{ext}");
             using (var fileOut = File.Create(outName)) { fileOut.Write(buffer, 0, buffer.Length); }
             return false;
@@ -75,15 +70,15 @@ namespace AtlusScriptCompiler
                 wrapperReader.SeekBegin(0); // go back to beginning
                 outFileEndian.Write(wrapperReader.ReadBytes((int)(packageHeader.ExportMapOffset)));
                 var exportHeader = new FExportMapEntry(wrapperReader);
-                exportHeader.CookedSerialSize = (ulong)payloadFile.Length + 0x25;
+                exportHeader.CookedSerialSize = (ulong)payloadFile.Length + 0x25 + 0xc;
                 exportHeader.Write(outFileEndian);
                 // the rest of the package header is the same
                 outFileEndian.Write(wrapperReader.ReadBytes((int)(packageHeader.GraphDataOffset + packageHeader.GraphDataSize - outFileEndian.Position)));
-                outFileEndian.Write(ExpSection1);
-                outFileEndian.Write(payloadFile.Length + 0x4);
-                outFileEndian.Write(ExpSection2);
-                outFileEndian.Write((byte)0x0);
-                outFileEndian.Write(payloadFile.Length);
+                outFileEndian.Write(wrapperReader.ReadBytes(0x10)); // Read first 0x10 bytes (same)
+                outFileEndian.Write((int)(payloadFile.Length + 0x4));
+                wrapperReader.SeekCurrent(4); // sizeof(uint)
+                outFileEndian.Write(wrapperReader.ReadBytes(0xd));
+                outFileEndian.Write((int)payloadFile.Length);
                 byte[] payloadData = new byte[payloadFile.Length];
                 payloadFile.Read(payloadData, 0, (int)payloadFile.Length);
                 outFileEndian.Write(payloadData);
@@ -190,4 +185,28 @@ namespace AtlusScriptCompiler
             writer.Write(unk);
         }
     }
+    /*
+    public class FString // FString32NoHash in UTOC Emulator
+    {
+        public static unsafe string Read(EndianBinaryReader reader)
+        {
+            int Length = reader.ReadInt32();
+            byte[] bytes = reader.ReadBytes(Length);
+            return Marshal.PtrToStringAnsi((IntPtr)(&bytes));
+        }
+    }
+
+    public class FField
+    {
+        public uint Type;
+        public uint Name;
+        public uint Flags;
+        public FField(EndianBinaryReader reader)
+        {
+            Type = reader.ReadUInt32();
+            Name = reader.ReadUInt32();
+            Flags = reader.ReadUInt32();
+        }
+    }
+    */
 }

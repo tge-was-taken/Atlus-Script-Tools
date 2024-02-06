@@ -95,7 +95,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel.IO
         public void WriteTextSection( ref BinarySectionHeader sectionHeader, BinaryInstruction[] instructions )
         {
             mWriter.SeekBegin( mPositionBase + sectionHeader.FirstElementAddress );
-            if (mVersion == BinaryFormatVersion.Version4) mWriter.Endianness = Endianness.BigEndian;
+            //if (mVersion == BinaryFormatVersion.Version4) mWriter.Endianness = Endianness.BigEndian;
             for ( int i = 0; i < instructions.Length; i++ )
             {
                 ref var instruction = ref instructions[i];
@@ -115,7 +115,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel.IO
                     mWriter.Write( instructions[++i].OperandFloat );
                 }
             }
-            if (mVersion == BinaryFormatVersion.Version4) mWriter.Endianness = Endianness.LittleEndian;
+            //if (mVersion == BinaryFormatVersion.Version4) mWriter.Endianness = Endianness.LittleEndian;
         }
 
         public void WriteMessageScriptSection( ref BinarySectionHeader sectionHeader, MessageScriptBinary messageScript )
