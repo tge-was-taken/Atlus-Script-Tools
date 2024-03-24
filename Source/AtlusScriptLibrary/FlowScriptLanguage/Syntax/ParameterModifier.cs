@@ -1,8 +1,7 @@
-﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax
+﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax;
+
+public enum ParameterModifier
 {
-    public enum ParameterModifier
-    {
-        None,
-        Out
-    }
+    None,
+    Out
 }

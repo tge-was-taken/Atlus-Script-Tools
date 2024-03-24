@@ -1,20 +1,19 @@
-﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax
+﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax;
+
+public class NegationOperator : PrefixOperator
 {
-    public class NegationOperator : PrefixOperator
+    public NegationOperator()
     {
-        public NegationOperator()
-        {
 
-        }
+    }
 
-        public NegationOperator( Expression operand ) : base( operand )
-        {
+    public NegationOperator(Expression operand) : base(operand)
+    {
 
-        }
+    }
 
-        public override string ToString()
-        {
-            return $"-({Operand})";
-        }
+    public override string ToString()
+    {
+        return $"-({Operand})";
     }
 }

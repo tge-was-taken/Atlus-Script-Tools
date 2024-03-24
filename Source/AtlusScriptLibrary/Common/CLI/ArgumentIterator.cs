@@ -1,55 +1,53 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace AtlusScriptLibrary.Common.CLI
+namespace AtlusScriptLibrary.Common.CLI;
+
+public sealed class ArgumentIterator : IEnumerator<string>
 {
-    public sealed class ArgumentIterator : IEnumerator<string>
+    public string[] Arguments { get; }
+
+    public int Index { get; private set; }
+
+    public string Current => Arguments[Index];
+
+    public bool HasNext => Index + 1 < Arguments.Length;
+
+    object IEnumerator.Current => Current;
+
+    public ArgumentIterator(string[] arguments)
     {
-        public string[] Arguments { get; }
+        Arguments = arguments;
+    }
 
-        public int Index { get; private set; }
+    public bool MoveNext()
+    {
+        if (!HasNext)
+            return false;
 
-        public string Current => Arguments[ Index ];
+        ++Index;
+        return true;
+    }
 
-        public bool HasNext => Index + 1 < Arguments.Length;
-
-        object IEnumerator.Current => Current;
-
-        public ArgumentIterator( string[] arguments )
+    public bool TryGetNextArgument(out string arg)
+    {
+        if (!MoveNext())
         {
-            Arguments = arguments;
+            arg = null;
+            return false;
         }
 
-        public bool MoveNext()
-        {
-            if ( !HasNext )
-                return false;
+        arg = Current;
+        return true;
+    }
 
-            ++Index;
-            return true;
-        }
+    public void Reset()
+    {
+        Index = 0;
+    }
 
-        public bool TryGetNextArgument( out string arg )
-        {
-            if ( !MoveNext() )
-            {
-                arg = null;
-                return false;
-            }
-
-            arg = Current;
-            return true;
-        }
-
-        public void Reset()
-        {
-            Index = 0;
-        }
-
-        public void Dispose()
-        {
-            // Nothing to dispose
-        }
+    public void Dispose()
+    {
+        // Nothing to dispose
     }
 }

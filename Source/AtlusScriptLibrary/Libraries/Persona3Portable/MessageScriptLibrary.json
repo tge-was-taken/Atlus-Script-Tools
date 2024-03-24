@@ -28,7 +28,7 @@
       {
         "Index": 1,
         "Name": "w",
-        "Description": "",
+        "Description": "Indicates that a message should be confirmed before moving on",
         "Parameters": []
       }
     ]
@@ -43,6 +43,17 @@
         "Name": "s",
         "Description": "Indicates the start of a line",
         "Parameters": []
+      },
+      {
+        "Index": 4,
+        "Name": "var",
+        "Description": "Loads name previously defined by SET_MSG_VAR",
+        "Parameters": [
+          {
+            "Name": "VariableID",
+            "Description": "The ID of the variable set by SET_MSG_VAR function."
+          }
+        ]
       }
     ]
   },

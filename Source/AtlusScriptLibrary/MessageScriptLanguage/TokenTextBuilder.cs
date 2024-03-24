@@ -1,45 +1,44 @@
 ﻿using System.Collections.Generic;
 
-namespace AtlusScriptLibrary.MessageScriptLanguage
+namespace AtlusScriptLibrary.MessageScriptLanguage;
+
+public class TokenTextBuilder
 {
-    public class TokenTextBuilder
+    private readonly List<IToken> mTokens;
+
+    public TokenTextBuilder()
     {
-        private readonly List<IToken> mTokens;
+        mTokens = new List<IToken>();
+    }
 
-        public TokenTextBuilder()
-        {
-            mTokens = new List<IToken>();
-        }
+    public TokenTextBuilder AddToken(IToken token)
+    {
+        mTokens.Add(token);
+        return this;
+    }
 
-        public TokenTextBuilder AddToken( IToken token )
-        {
-            mTokens.Add( token );
-            return this;
-        }
+    public TokenTextBuilder AddString(string value)
+    {
+        return AddToken(new StringToken(value));
+    }
 
-        public TokenTextBuilder AddString( string value )
-        {
-            return AddToken( new StringToken( value ) );
-        }
+    public TokenTextBuilder AddFunction(int functionTableIndex, int functionIndex, params ushort[] args)
+    {
+        return AddToken(new FunctionToken(functionTableIndex, functionIndex, args));
+    }
 
-        public TokenTextBuilder AddFunction( int functionTableIndex, int functionIndex, params ushort[] args )
-        {
-            return AddToken( new FunctionToken( functionTableIndex, functionIndex, args ) );
-        }
+    public TokenTextBuilder AddCodePoint(byte highSurrogate, byte lowSurrogate)
+    {
+        return AddToken(new CodePointToken(highSurrogate, lowSurrogate));
+    }
 
-        public TokenTextBuilder AddCodePoint( byte highSurrogate, byte lowSurrogate )
-        {
-            return AddToken( new CodePointToken( highSurrogate, lowSurrogate ) );
-        }
+    public TokenTextBuilder AddNewLine()
+    {
+        return AddToken(new NewLineToken());
+    }
 
-        public TokenTextBuilder AddNewLine()
-        {
-            return AddToken( new NewLineToken() );
-        }
-
-        public TokenText Build()
-        {
-            return new TokenText( mTokens );
-        }
+    public TokenText Build()
+    {
+        return new TokenText(mTokens);
     }
 }

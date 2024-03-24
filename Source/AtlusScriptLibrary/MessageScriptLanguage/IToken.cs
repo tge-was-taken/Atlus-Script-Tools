@@ -1,13 +1,12 @@
-﻿namespace AtlusScriptLibrary.MessageScriptLanguage
+﻿namespace AtlusScriptLibrary.MessageScriptLanguage;
+
+/// <summary>
+/// Common interface for message script line tokens.
+/// </summary>
+public interface IToken
 {
     /// <summary>
-    /// Common interface for message script line tokens.
+    /// Gets the type of token.
     /// </summary>
-    public interface IToken
-    {
-        /// <summary>
-        /// Gets the type of token.
-        /// </summary>
-        TokenKind Kind { get; }
-    }
+    TokenKind Kind { get; }
 }

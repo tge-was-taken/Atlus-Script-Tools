@@ -1,8 +1,7 @@
-﻿namespace AtlusScriptLibrary.MessageScriptLanguage
+﻿namespace AtlusScriptLibrary.MessageScriptLanguage;
+
+public enum SelectionDialogPattern
 {
-    public enum SelectionDialogPattern
-    {
-        Top = 0,
-        Bottom = 1,
-    }
+    Top = 0,
+    Bottom = 1,
 }

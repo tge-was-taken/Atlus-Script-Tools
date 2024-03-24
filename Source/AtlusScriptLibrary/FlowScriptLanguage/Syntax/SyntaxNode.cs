@@ -1,17 +1,16 @@
-﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax
+﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax;
+
+public abstract class SyntaxNode
 {
-    public abstract class SyntaxNode
+    public SourceInfo SourceInfo { get; internal set; }
+
+    public override string ToString()
     {
-        public SourceInfo SourceInfo { get; internal set; }
-
-        public override string ToString()
+        if (SourceInfo != null)
         {
-            if ( SourceInfo != null )
-            {
-                return SourceInfo.ToString();
-            }
-
-            return string.Empty;    
+            return SourceInfo.ToString();
         }
+
+        return string.Empty;
     }
 }

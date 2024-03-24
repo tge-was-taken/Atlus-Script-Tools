@@ -1,24 +1,20 @@
 using System;
 using System.Globalization;
-using Newtonsoft.Json;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
-namespace AtlusScriptLibrary.Common.Libraries.Serialization
+namespace AtlusScriptLibrary.Common.Libraries.Serialization;
+
+internal class HexIntStringJsonConverter : JsonConverter<int>
 {
-    internal class HexIntStringJsonConverter : JsonConverter
+    public override int Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        public override bool CanConvert( Type objectType ) => false;
+        var stringValue = reader.GetString();
+        return int.Parse(stringValue.Substring(2), NumberStyles.HexNumber);
+    }
 
-        public override bool CanWrite => false;
-
-        public override object ReadJson( JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer )
-        {
-            var stringValue = ( string ) reader.Value;
-            return int.Parse( stringValue.Substring( 2 ), NumberStyles.HexNumber );
-        }
-
-        public override void WriteJson( JsonWriter writer, object value, JsonSerializer serializer )
-        {
-            throw new NotImplementedException();
-        }
+    public override void Write(Utf8JsonWriter writer, int value, JsonSerializerOptions options)
+    {
+        writer.WriteStringValue($"0x{value:X}");
     }
 }

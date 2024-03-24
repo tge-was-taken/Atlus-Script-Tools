@@ -1,22 +1,21 @@
-﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax
+﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax;
+
+public class Import : SyntaxNode
 {
-    public class Import : SyntaxNode
+    public string CompilationUnitFileName { get; set; }
+
+    public Import()
     {
-        public string CompilationUnitFileName { get; set; }
 
-        public Import()
-        {
+    }
 
-        }
+    public Import(string filepath)
+    {
+        CompilationUnitFileName = filepath;
+    }
 
-        public Import( string filepath )
-        {
-            CompilationUnitFileName = filepath;
-        }
-
-        public override string ToString()
-        {
-            return $"import \"{CompilationUnitFileName}\"";
-        }
+    public override string ToString()
+    {
+        return $"import \"{CompilationUnitFileName}\"";
     }
 }

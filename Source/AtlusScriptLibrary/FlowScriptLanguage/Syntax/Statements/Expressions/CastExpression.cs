@@ -1,9 +1,8 @@
-namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax
+namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax;
+
+public abstract class CastExpression : Expression
 {
-    public abstract class CastExpression : Expression
+    protected CastExpression(ValueKind kind) : base(kind)
     {
-        protected CastExpression( ValueKind kind ) : base( kind )
-        {
-        }
     }
 }

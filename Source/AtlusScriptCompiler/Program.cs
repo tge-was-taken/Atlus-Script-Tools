@@ -45,6 +45,8 @@ namespace AtlusScriptCompiler
 
         public static bool FlowScriptSumBits { get; private set; }
 
+        public static bool FlowScriptOverwriteMessages { get; private set; }
+
         private static void DisplayUsage()
         {
             Console.WriteLine( $"AtlusScriptCompiler {Version.Major}.{Version.Minor}-{ThisAssembly.Git.Commit} by TGE (2018)" );
@@ -75,6 +77,7 @@ namespace AtlusScriptCompiler
             Console.WriteLine( "        -StackCookie                               Enables stack cookie. Used for debugging stack corruptions." );
             Console.WriteLine( "        -Hook                                      Enables hooking of procedures. Used to modify scripts without recompiling them entirely." );
             Console.WriteLine( "        -SumBits                                   Sums the bit id values passed to BIT_* function" );
+            Console.WriteLine( "        -OverwriteMessages                         Causes messages with duplicate names to overwrite existing messages.");
             Console.WriteLine();
             Console.WriteLine( "Parameter detailed info:" );
             Console.WriteLine( "    MessageScript:" );
@@ -355,6 +358,10 @@ namespace AtlusScriptCompiler
                     case "-SumBits":
                         FlowScriptSumBits = true;
                         break;
+
+                    case "-OverwriteMessages":
+                        FlowScriptOverwriteMessages = true;
+                        break;
                 }
             }
 
@@ -507,6 +514,7 @@ namespace AtlusScriptCompiler
             compiler.EnableFunctionCallTracing = FlowScriptEnableFunctionCallTracing;
             compiler.EnableStackCookie = FlowScriptEnableStackCookie;
             compiler.ProcedureHookMode = FlowScriptEnableProcedureHook ? ProcedureHookMode.ImportedOnly : ProcedureHookMode.None;
+            compiler.OverwriteExistingMsgs = FlowScriptOverwriteMessages;
 
             if ( LibraryName != null )
             {

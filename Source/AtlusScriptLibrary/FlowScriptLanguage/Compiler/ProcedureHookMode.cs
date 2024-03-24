@@ -1,9 +1,8 @@
-﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
+﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler;
+
+public enum ProcedureHookMode
 {
-    public enum ProcedureHookMode
-    {
-        None,
-        ImportedOnly,
-        All
-    }
+    None,
+    ImportedOnly,
+    All
 }

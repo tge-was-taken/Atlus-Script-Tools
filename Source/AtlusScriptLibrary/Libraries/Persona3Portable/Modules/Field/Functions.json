@@ -67,9 +67,12 @@
   {
     "Index": "0x1004",
     "ReturnType": "int",
-    "Name": "FLD_FUNCTION_0004",
+    "Name": "GET_FLOOR_ID",
     "Description": "Address: 0x088C1678",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FLD_FUNCTION_0004"
+    ]
   },
   {
     "Index": "0x1005",
@@ -212,12 +215,15 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FLD_FUNCTION_0012"
     ]
   },
   {
     "Index": "0x1013",
     "ReturnType": "int",
-    "Name": "FLD_FUNCTION_0013",
+    "Name": "SET_PARTY_SPLITUP",
     "Description": "Address: 0x088C3584",
     "Parameters": [
       {
@@ -225,12 +231,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FLD_FUNCTION_0013"
     ]
   },
   {
     "Index": "0x1014",
     "ReturnType": "int",
-    "Name": "FLD_FUNCTION_0014",
+    "Name": "SET_PARTY_PRIORITY",
     "Description": "Address: 0x088C35E8",
     "Parameters": [
       {
@@ -238,6 +247,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FLD_FUNCTION_0014"
     ]
   },
   {
@@ -927,9 +939,12 @@
   {
     "Index": "0x1046",
     "ReturnType": "int",
-    "Name": "FLD_FUNCTION_0046",
+    "Name": "IS_ANSWER",
     "Description": "Address: 0x088C3DC4",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FLD_FUNCTION_0046"
+    ]
   },
   {
     "Index": "0x1047",
@@ -1400,7 +1415,10 @@
     "ReturnType": "void",
     "Name": "CALL_CALENDAR",
     "Description": "Address: 0x089365C4",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FLD_FUNCTION_006A"
+    ]
   },
   {
     "Index": "0x106b",
@@ -1427,7 +1445,9 @@
     "ReturnType": "void",
     "Name": "HD_FLD_FUNCTION_006D",
     "Description": "",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FLD_FUNCTION_006D"
     ]
   },
   {
@@ -1435,7 +1455,9 @@
     "ReturnType": "void",
     "Name": "HD_FLD_FUNCTION_006E",
     "Description": "",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FLD_FUNCTION_006E"
     ]
   },
   {
@@ -1443,7 +1465,9 @@
     "ReturnType": "int",
     "Name": "HD_FLD_FUNCTION_006F",
     "Description": "",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FLD_FUNCTION_006F"
     ]
   }
 ]

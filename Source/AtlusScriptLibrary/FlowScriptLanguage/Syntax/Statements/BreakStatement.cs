@@ -1,10 +1,9 @@
-﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax
+﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax;
+
+public class BreakStatement : Statement
 {
-    public class BreakStatement : Statement
+    public override string ToString()
     {
-        public override string ToString()
-        {
-            return "break";
-        }
+        return "break";
     }
 }

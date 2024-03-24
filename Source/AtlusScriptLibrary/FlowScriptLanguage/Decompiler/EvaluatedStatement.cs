@@ -1,25 +1,24 @@
 using AtlusScriptLibrary.FlowScriptLanguage.Syntax;
 
-namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
+namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler;
+
+public class EvaluatedStatement
 {
-    public class EvaluatedStatement
+    public Statement Statement { get; }
+
+    public int InstructionIndex { get; }
+
+    public Label ReferencedLabel { get; }
+
+    internal EvaluatedStatement(Statement statement, int instructionIndex, Label referencedLabel)
     {
-        public Statement Statement { get; }
+        Statement = statement;
+        InstructionIndex = instructionIndex;
+        ReferencedLabel = referencedLabel;
+    }
 
-        public int InstructionIndex { get; }
-
-        public Label ReferencedLabel { get; }
-
-        internal EvaluatedStatement( Statement statement, int instructionIndex, Label referencedLabel )
-        {
-            Statement = statement;
-            InstructionIndex = instructionIndex;
-            ReferencedLabel = referencedLabel;
-        }
-
-        public override string ToString()
-        {
-            return $"{Statement} at {InstructionIndex}";
-        }
+    public override string ToString()
+    {
+        return $"{Statement} at {InstructionIndex}";
     }
 }

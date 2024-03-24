@@ -1,29 +1,28 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax
+namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax;
+
+public class
+    SwitchStatement : Statement
 {
-    public class 
-        SwitchStatement : Statement
+    public Expression SwitchOn { get; set; }
+
+    public List<FlowScriptSwitchLabel> Labels { get; set; }
+
+    public SwitchStatement()
     {
-        public Expression SwitchOn { get; set; }
+        Labels = new List<FlowScriptSwitchLabel>();
+    }
 
-        public List<FlowScriptSwitchLabel> Labels { get; set; }
+    public SwitchStatement(Expression switchOn, params FlowScriptSwitchLabel[] labels)
+    {
+        SwitchOn = switchOn;
+        Labels = labels.ToList();
+    }
 
-        public SwitchStatement()
-        {
-            Labels = new List<FlowScriptSwitchLabel>();
-        }
-
-        public SwitchStatement( Expression switchOn, params FlowScriptSwitchLabel[] labels )
-        {
-            SwitchOn = switchOn;
-            Labels = labels.ToList();
-        }
-
-        public override string ToString()
-        {
-            return $"switch ( {SwitchOn} ) {{ ... }}";
-        }
+    public override string ToString()
+    {
+        return $"switch ( {SwitchOn} ) {{ ... }}";
     }
 }

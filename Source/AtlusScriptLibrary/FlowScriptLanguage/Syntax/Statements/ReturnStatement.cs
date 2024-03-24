@@ -1,22 +1,21 @@
-﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax
+﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax;
+
+public class ReturnStatement : Statement
 {
-    public class ReturnStatement : Statement
+    public Expression Value { get; set; }
+
+    public ReturnStatement()
     {
-        public Expression Value { get; set; }
+        Value = null;
+    }
 
-        public ReturnStatement()
-        {
-            Value = null;
-        }
+    public ReturnStatement(Expression value)
+    {
+        Value = value;
+    }
 
-        public ReturnStatement( Expression value )
-        {
-            Value = value;
-        }
-
-        public override string ToString()
-        {
-            return $"return {Value}";
-        }
+    public override string ToString()
+    {
+        return $"return {Value}";
     }
 }

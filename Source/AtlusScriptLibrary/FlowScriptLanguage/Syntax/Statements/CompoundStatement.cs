@@ -2,40 +2,39 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax
+namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax;
+
+public class CompoundStatement : Statement, IEnumerable<Statement>
 {
-    public class CompoundStatement : Statement, IEnumerable<Statement>
+    public List<Statement> Statements { get; }
+
+    public CompoundStatement()
     {
-        public List<Statement> Statements { get; }
+        Statements = new List<Statement>();
+    }
 
-        public CompoundStatement()
-        {
-            Statements = new List<Statement>();
-        }
+    public CompoundStatement(List<Statement> statements)
+    {
+        Statements = statements;
+    }
 
-        public CompoundStatement( List<Statement> statements )
-        {
-            Statements = statements;
-        }
+    public CompoundStatement(params Statement[] statements)
+    {
+        Statements = statements.ToList();
+    }
 
-        public CompoundStatement( params Statement[] statements )
-        {
-            Statements = statements.ToList();
-        }
+    public IEnumerator<Statement> GetEnumerator()
+    {
+        return ((IEnumerable<Statement>)Statements).GetEnumerator();
+    }
 
-        public IEnumerator<Statement> GetEnumerator()
-        {
-            return ( ( IEnumerable<Statement> )Statements ).GetEnumerator();
-        }
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return ((IEnumerable<Statement>)Statements).GetEnumerator();
+    }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return ( ( IEnumerable<Statement> )Statements ).GetEnumerator();
-        }
-
-        public override string ToString()
-        {
-            return $"{{ {base.ToString()} }}";
-        }
+    public override string ToString()
+    {
+        return $"{{ {base.ToString()} }}";
     }
 }

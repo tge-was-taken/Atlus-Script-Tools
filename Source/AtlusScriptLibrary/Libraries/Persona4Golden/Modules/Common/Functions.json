@@ -11,6 +11,9 @@
         "Description": "",
         "Semantic": "MsgId"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0000"
     ]
   },
   {
@@ -18,7 +21,9 @@
     "ReturnType": "void",
     "Name": "OPEN_MSG_WIN",
     "Description": "Code function name: itfMesManager__sub_8101F8DC",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0001"
     ]
   },
   {
@@ -26,7 +31,9 @@
     "ReturnType": "void",
     "Name": "CLOSE_MSG_WIN",
     "Description": "Code function name: itfMesManager__sub_8101F93C",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0002"
     ]
   },
   {
@@ -41,6 +48,9 @@
         "Description": "",
         "Semantic": "SelId"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0003"
     ]
   },
   {
@@ -48,16 +58,14 @@
     "ReturnType": "void",
     "Name": "FUNCTION_0004",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0005",
     "ReturnType": "void",
     "Name": "FUNCTION_0005",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0006",
@@ -80,6 +88,9 @@
         "Name": "unknown2",
         "Description": "Enum for which type of variable? 0 for int using [f 2 4 index] and 1 for item string using [f 2 5 3 -1 index]"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0006"
     ]
   },
   {
@@ -98,6 +109,9 @@
         "Name": "choice",
         "Description": "Index of sel to choose"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0007"
     ]
   },
   {
@@ -111,6 +125,9 @@
         "Name": "mask",
         "Description": "Bit mask to hide choices"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0008"
     ]
   },
   {
@@ -125,6 +142,9 @@
         "Description": "",
         "Semantic": "MsgId"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0009"
     ]
   },
   {
@@ -139,6 +159,9 @@
         "Description": "",
         "Semantic": "BitId"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_000A"
     ]
   },
   {
@@ -153,6 +176,9 @@
         "Description": "",
         "Semantic": "BitId"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_000B"
     ]
   },
   {
@@ -167,6 +193,9 @@
         "Description": "",
         "Semantic": "BitId"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_000C"
     ]
   },
   {
@@ -180,6 +209,9 @@
         "Name": "param1",
         "Description": "Unknown type; assumed int"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_000D"
     ]
   },
   {
@@ -193,6 +225,9 @@
         "Name": "x",
         "Description": "The number to get the square root of"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_000E"
     ]
   },
   {
@@ -200,8 +235,7 @@
     "ReturnType": "void",
     "Name": "FUNCTION_000F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0010",
@@ -214,6 +248,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0010"
     ]
   },
   {
@@ -253,6 +290,9 @@
         "Name": "param1",
         "Description": "The input isn't even read although it says it takes one"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0013"
     ]
   },
   {
@@ -266,6 +306,9 @@
         "Name": "param1",
         "Description": "The input isn't even read although it says it takes one"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0014"
     ]
   },
   {
@@ -279,6 +322,9 @@
         "Name": "fadeLength",
         "Description": "How long it will take to fade back (30 is 1 second)"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0015"
     ]
   },
   {
@@ -297,6 +343,9 @@
         "Name": "fadeLength",
         "Description": "How long it will take to fade to black (30 is 1 second)"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0016"
     ]
   },
   {
@@ -304,7 +353,9 @@
     "ReturnType": "void",
     "Name": "FADE_SYNC",
     "Description": "",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0017"
     ]
   },
   {
@@ -371,6 +422,9 @@
         "Name": "param2",
         "Description": "Probably the index of the bf file to call the procedure from, hard to say how this actually works though 0 appears to be the current bf file"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0019"
     ]
   },
   {
@@ -441,6 +495,9 @@
         "Name": "intensity",
         "Description": "How intense the screen shake is (0 is no shake, going too high may cause the camera to clip through the roof)"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_001E"
     ]
   },
   {
@@ -448,8 +505,7 @@
     "ReturnType": "void",
     "Name": "FUNCTION_001F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0020",
@@ -477,6 +533,9 @@
         "Name": "param4",
         "Description": "Unknown type; assumed int"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0020"
     ]
   },
   {
@@ -490,6 +549,9 @@
         "Name": "INDEX",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0021"
     ]
   },
   {
@@ -508,6 +570,9 @@
         "Name": "AMOUNT",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0022"
     ]
   },
   {
@@ -526,6 +591,9 @@
         "Name": "minor",
         "Description": "The minor id of the sound effect."
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0023"
     ]
   },
   {
@@ -549,6 +617,9 @@
         "Name": "b",
         "Description": "The blue component of the colour"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0024"
     ]
   },
   {
@@ -574,6 +645,9 @@
         "Name": "param3",
         "Description": "Bit mask to disable options"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0025"
     ]
   },
   {
@@ -607,6 +681,9 @@
         "Name": "param5",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0026"
     ]
   },
   {
@@ -640,6 +717,9 @@
         "Name": "param5",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0027"
     ]
   },
   {
@@ -667,6 +747,9 @@
         "Description": "The message to display in the black text box below the forecast",
         "Semantic": "MsgId"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0029"
     ]
   },
   {
@@ -686,6 +769,9 @@
         "Name": "titleId",
         "Description": "The id of the message to display as the title. This is pulled from a bmd somewhere (not sure which one)"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_002A"
     ]
   },
   {
@@ -693,40 +779,35 @@
     "ReturnType": "void",
     "Name": "FUNCTION_002B",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x002c",
     "ReturnType": "void",
     "Name": "FUNCTION_002C",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x002d",
     "ReturnType": "void",
     "Name": "FUNCTION_002D",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x002e",
     "ReturnType": "void",
     "Name": "FUNCTION_002E",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x002f",
     "ReturnType": "void",
     "Name": "FUNCTION_002F",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0030",
@@ -754,6 +835,9 @@
         "Name": "weather",
         "Description": "If 0 uses the current weather otherwise it will change the weather in the field called (doesn't actually change the weather just the visuals)"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0030"
     ]
   },
   {
@@ -782,6 +866,9 @@
         "Name": "weather",
         "Description": "If 0 uses the current weather otherwise it will change the weather in the field called (doesn't actually change the weather just the visuals)"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0031"
     ]
   },
   {
@@ -805,6 +892,9 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0032"
     ]
   },
   {
@@ -812,7 +902,9 @@
     "ReturnType": "int",
     "Name": "GET_MONTH",
     "Description": "",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0033"
     ]
   },
   {
@@ -820,7 +912,9 @@
     "ReturnType": "int",
     "Name": "GET_DAY_OF_MONTH",
     "Description": "Returns day of the month",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0034"
     ]
   },
   {
@@ -828,7 +922,9 @@
     "ReturnType": "int",
     "Name": "GET_DAY_OF_WEEK",
     "Description": "Returns day of the week as int from 0 to 6.",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0035"
     ]
   },
   {
@@ -836,7 +932,9 @@
     "ReturnType": "int",
     "Name": "GET_TIME_OF_DAY",
     "Description": "",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0036"
     ]
   },
   {
@@ -855,6 +953,9 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0037"
     ]
   },
   {
@@ -868,6 +969,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0038"
     ]
   },
   {
@@ -881,6 +985,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0039"
     ]
   },
   {
@@ -888,8 +995,7 @@
     "ReturnType": "void",
     "Name": "FUNCTION_003A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x003b",
@@ -902,6 +1008,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_003B"
     ]
   },
   {
@@ -909,7 +1018,9 @@
     "ReturnType": "void",
     "Name": "TV_STUDIO",
     "Description": "",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_003C"
     ]
   },
   {
@@ -933,6 +1044,9 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_003D"
     ]
   },
   {
@@ -946,6 +1060,9 @@
         "Name": "floorID",
         "Description": "ID of the floor to load"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_003E"
     ]
   },
   {
@@ -964,6 +1081,9 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_003F"
     ]
   },
   {
@@ -992,6 +1112,9 @@
         "Name": "date2Day",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0040"
     ]
   },
   {
@@ -1010,6 +1133,9 @@
         "Name": "expression",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0041"
     ]
   },
   {
@@ -1028,6 +1154,9 @@
         "Name": "increaseAmount",
         "Description": "The amount to increase the social stat by"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0042"
     ]
   },
   {
@@ -1059,6 +1188,9 @@
         "Name": "statId",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0044"
     ]
   },
   {
@@ -1082,6 +1214,9 @@
         "Name": "increaseAmount",
         "Description": "The amount to increase the stat by"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0045"
     ]
   },
   {
@@ -1105,6 +1240,9 @@
         "Name": "increaseAmount",
         "Description": "The amount to increase the stat by"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0046"
     ]
   },
   {
@@ -1123,6 +1261,9 @@
         "Name": "stat",
         "Description": "The stat to check"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0047"
     ]
   },
   {
@@ -1130,7 +1271,9 @@
     "ReturnType": "int",
     "Name": "GET_CURRENT_PERSONA",
     "Description": "Returns the id of the currently equipped Persona",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0048"
     ]
   },
   {
@@ -1138,7 +1281,9 @@
     "ReturnType": "void",
     "Name": "DAIDARA_SHOP",
     "Description": "",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0049"
     ]
   },
   {
@@ -1146,7 +1291,9 @@
     "ReturnType": "void",
     "Name": "SHIROKU_SHOP",
     "Description": "",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_004A"
     ]
   },
   {
@@ -1154,7 +1301,9 @@
     "ReturnType": "void",
     "Name": "VELVET_ROOM",
     "Description": "",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_004B"
     ]
   },
   {
@@ -1162,7 +1311,9 @@
     "ReturnType": "int",
     "Name": "GET_WEATHER",
     "Description": "Returns the weather,0=Clear,1= Rain, 2= Cloudy, Thunderstorm",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_004C"
     ]
   },
   {
@@ -1170,23 +1321,23 @@
     "ReturnType": "void",
     "Name": "FUNCTION_004D",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x004e",
     "ReturnType": "int",
     "Name": "FUNCTION_004E",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x004f",
     "ReturnType": "void",
     "Name": "SOFT_RESET",
     "Description": "",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_004F"
     ]
   },
   {
@@ -1200,6 +1351,9 @@
         "Name": "Yen_Amount",
         "Description": "How much you want to change the money value by"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0050"
     ]
   },
   {
@@ -1207,7 +1361,9 @@
     "ReturnType": "void",
     "Name": "SET_NAME",
     "Description": "Takes the player to the menu where they choose their name",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0051"
     ]
   },
   {
@@ -1221,6 +1377,9 @@
         "Name": "index",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0052"
     ]
   },
   {
@@ -1239,6 +1398,9 @@
         "Name": "count",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0053"
     ]
   },
   {
@@ -1257,6 +1419,9 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0054"
     ]
   },
   {
@@ -1280,6 +1445,9 @@
         "Name": "equipmentId",
         "Description": "The id of the equipment to equip"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0055"
     ]
   },
   {
@@ -1287,15 +1455,16 @@
     "ReturnType": "void",
     "Name": "FUNCTION_0056",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0057",
     "ReturnType": "int",
     "Name": "NS_SAVE",
     "Description": "Pulls up the save menu and saves.",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0057"
     ]
   },
   {
@@ -1303,7 +1472,9 @@
     "ReturnType": "int",
     "Name": "LOAD",
     "Description": "Opens the load menu. Returns 1 if the player selected a save, 0 if they cancelled. This doesn't actually load the game it just makes the screen black another function must be needed",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0058"
     ]
   },
   {
@@ -1311,7 +1482,9 @@
     "ReturnType": "void",
     "Name": "NOTHING6",
     "Description": "Does nothing, the function immediately returns",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0059"
     ]
   },
   {
@@ -1325,6 +1498,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_005A"
     ]
   },
   {
@@ -1338,6 +1514,9 @@
         "Name": "partyMember",
         "Description": "The party member whose Persona should be reborn"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_005B"
     ]
   },
   {
@@ -1366,6 +1545,9 @@
         "Name": "minor",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_005C"
     ]
   },
   {
@@ -1379,6 +1561,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_005D"
     ]
   },
   {
@@ -1392,6 +1577,9 @@
         "Name": "partyMember",
         "Description": "The party member whose hp should be returned"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_005E"
     ]
   },
   {
@@ -1405,6 +1593,9 @@
         "Name": "partyMember",
         "Description": "The party member whose hp should be returned"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_005F"
     ]
   },
   {
@@ -1423,6 +1614,9 @@
         "Name": "newHp",
         "Description": "The value to set the party member's hp to"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0060"
     ]
   },
   {
@@ -1436,6 +1630,9 @@
         "Name": "partyMember",
         "Description": "The party member whose sp should be returned"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0061"
     ]
   },
   {
@@ -1449,6 +1646,9 @@
         "Name": "partyMember",
         "Description": "The party member whose sp should be returned"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0062"
     ]
   },
   {
@@ -1467,6 +1667,9 @@
         "Name": "newHp",
         "Description": "The value to set the party member's sp to"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0063"
     ]
   },
   {
@@ -1480,6 +1683,9 @@
         "Name": "cutsceneId",
         "Description": "The id of the cutscene to play"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0064"
     ]
   },
   {
@@ -1487,8 +1693,7 @@
     "ReturnType": "void",
     "Name": "FUNCTION_0065",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0066",
@@ -1501,6 +1706,9 @@
         "Name": "dateShown",
         "Description": "If 0 the date is hidden, 1 it's shown"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0066"
     ]
   },
   {
@@ -1508,7 +1716,9 @@
     "ReturnType": "void",
     "Name": "NG_PLUS_SAVE",
     "Description": "Code function name: mc_clear___sub_8129DBB8",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0067"
     ]
   },
   {
@@ -1516,15 +1726,16 @@
     "ReturnType": "void",
     "Name": "FUNCTION_0068",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0069",
     "ReturnType": "void",
     "Name": "JUNES_FOODCOURT",
     "Description": "",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0069"
     ]
   },
   {
@@ -1532,7 +1743,9 @@
     "ReturnType": "void",
     "Name": "BAD_END_CREDITS",
     "Description": "Code function name: ed_sr_sub_81299624",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_006A"
     ]
   },
   {
@@ -1553,7 +1766,9 @@
     "ReturnType": "void",
     "Name": "NOTHING7",
     "Description": "Does nothing, the function immediately returns",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_006C"
     ]
   },
   {
@@ -1572,6 +1787,9 @@
         "Name": "minor",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_006D"
     ]
   },
   {
@@ -1579,7 +1797,9 @@
     "ReturnType": "void",
     "Name": "NOTHING8",
     "Description": "Does nothing, the function immediately returns",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_006E"
     ]
   },
   {
@@ -1593,6 +1813,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_006F"
     ]
   },
   {
@@ -1606,6 +1829,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0070"
     ]
   },
   {
@@ -1619,6 +1845,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0071"
     ]
   },
   {
@@ -1632,6 +1861,9 @@
         "Name": "duration",
         "Description": "How long it takes to fade to nothing"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0072"
     ]
   },
   {
@@ -1645,6 +1877,9 @@
         "Name": "id",
         "Description": "The id of the sound effect to play"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0073"
     ]
   },
   {
@@ -1689,6 +1924,9 @@
         "Name": "expression",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0076"
     ]
   },
   {
@@ -1696,16 +1934,14 @@
     "ReturnType": "void",
     "Name": "FUNCTION_0077",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0078",
     "ReturnType": "void",
     "Name": "FUNCTION_0078",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0079",
@@ -1743,8 +1979,7 @@
     "ReturnType": "void",
     "Name": "FUNCTION_007B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x007c",
@@ -1764,7 +1999,9 @@
     "ReturnType": "void",
     "Name": "OPEN_CALENDAR",
     "Description": "Code function name: cmpCalendar_sub_8114FEBC",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_007D"
     ]
   },
   {
@@ -1772,7 +2009,9 @@
     "ReturnType": "void",
     "Name": "SHIROKU_PUB",
     "Description": "Goes to Shiroku Pub",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_007E"
     ]
   },
   {
@@ -1780,7 +2019,9 @@
     "ReturnType": "void",
     "Name": "CROCOFUR_SHOP",
     "Description": "",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_007F"
     ]
   },
   {
@@ -1794,6 +2035,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0080"
     ]
   },
   {
@@ -1801,7 +2045,9 @@
     "ReturnType": "void",
     "Name": "PRODUCE_SHOP",
     "Description": "",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0081"
     ]
   },
   {
@@ -1809,7 +2055,9 @@
     "ReturnType": "void",
     "Name": "BOOK_READ",
     "Description": "Code function name: cmpBook_sub_8114E452",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0082"
     ]
   },
   {
@@ -1846,6 +2094,9 @@
         "Name": "param2",
         "Description": "requires more investigation"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0084"
     ]
   },
   {
@@ -1853,48 +2104,42 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0085",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0086",
     "ReturnType": "void",
     "Name": "FUNCTION_0086",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0087",
     "ReturnType": "void",
     "Name": "FUNCTION_0087",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0088",
     "ReturnType": "int",
     "Name": "FUNCTION_0088",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0089",
     "ReturnType": "int",
     "Name": "FUNCTION_0089",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x008a",
     "ReturnType": "int",
     "Name": "FUNCTION_008A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x008b",
@@ -1932,7 +2177,9 @@
     "ReturnType": "void",
     "Name": "CALL_MARIE_DNG_TV",
     "Description": "Calls for the team to meet infront of the tv to maries dungeon.",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_008D"
     ]
   },
   {
@@ -1959,6 +2206,9 @@
         "Name": "bait",
         "Description": "Some kind of indicator of what bait was used which probably affects the chance of getting specific bugs. Bait is an unused feature, in game 0 is always used."
       }
+    ],
+    "Aliases": [
+      "FUNCTION_008F"
     ]
   },
   {
@@ -1966,7 +2216,9 @@
     "ReturnType": "void",
     "Name": "SAVE_STORY",
     "Description": "Gives you a warning about story changes and then asks you to save.",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0090"
     ]
   },
   {
@@ -1974,8 +2226,7 @@
     "ReturnType": "void",
     "Name": "FUNCTION_0091",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0092",
@@ -1988,6 +2239,9 @@
         "Name": "Location ID",
         "Description": "The ID of the location that the save is made in"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0092"
     ]
   },
   {
@@ -1995,7 +2249,9 @@
     "ReturnType": "void",
     "Name": "NS_DISABLE_PLAYER_MOVEMENT",
     "Description": "Stops player from moving. To be used with SAVE_ASK",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0093"
     ]
   },
   {
@@ -2009,6 +2265,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0094"
     ]
   },
   {
@@ -2047,16 +2306,14 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0097",
     "Description": "Code function name: modeCustom____sub_8124483C",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0098",
     "ReturnType": "int",
     "Name": "FUNCTION_0098",
     "Description": "Code function name: modeCustom____sub_81244926",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0099",
@@ -2081,24 +2338,21 @@
     "ReturnType": "void",
     "Name": "FUNCTION_009A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x009b",
     "ReturnType": "void",
     "Name": "FUNCTION_009B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x009c",
     "ReturnType": "void",
     "Name": "FUNCTION_009C",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x009d",
@@ -2164,6 +2418,9 @@
         "Name": "param2",
         "Description": "If 0 checks for moves to remember, if 1 checks for new moves"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_009E"
     ]
   },
   {
@@ -2177,6 +2434,9 @@
         "Name": "param1",
         "Description": "Only 1 and 0 seem to work (the game only uses 1 where this is called)"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_009F"
     ]
   },
   {
@@ -2184,24 +2444,21 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00A0",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00a1",
     "ReturnType": "void",
     "Name": "FUNCTION_00A1",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00a2",
     "ReturnType": "void",
     "Name": "FUNCTION_00A2",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00a3",
@@ -2231,7 +2488,9 @@
     "ReturnType": "void",
     "Name": "TRANSITION_EPILOGUE",
     "Description": "Calender transition used in the epilogue",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_00A4"
     ]
   },
   {
@@ -2306,32 +2565,28 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00A9",
     "Description": "Code function name: chQuiz_sub_8123B2B4",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00aa",
     "ReturnType": "int",
     "Name": "FUNCTION_00AA",
     "Description": "Code function name: chQuiz_sub_8123B3A6",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00ab",
     "ReturnType": "void",
     "Name": "FUNCTION_00AB",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00ac",
     "ReturnType": "void",
     "Name": "FUNCTION_00AC",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00ad",
@@ -2369,16 +2624,14 @@
     "ReturnType": "void",
     "Name": "FUNCTION_00AF",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00b0",
     "ReturnType": "int",
     "Name": "FUNCTION_00B0",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00b1",
@@ -2398,40 +2651,35 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00B2",
     "Description": "Code function name: chQuiz_sub_8123B668",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00b3",
     "ReturnType": "int",
     "Name": "FUNCTION_00B3",
     "Description": "Code function name: insectScript___sub_8129C7A8",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00b4",
     "ReturnType": "void",
     "Name": "FUNCTION_00B4",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00b5",
     "ReturnType": "int",
     "Name": "FUNCTION_00B5",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00b6",
     "ReturnType": "void",
     "Name": "FUNCTION_00B6",
     "Description": "Code function name: chQuiz_sub_8123C0C2",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00b7",
@@ -2451,8 +2699,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00B8",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00b9",
@@ -2485,23 +2732,23 @@
     "ReturnType": "void",
     "Name": "FUNCTION_00BB",
     "Description": "Code function name: chQuiz_sub_8123C194",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00bc",
     "ReturnType": "void",
     "Name": "FUNCTION_00BC",
     "Description": "Code function name: cldScheduler_sub_810448F6",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00bd",
     "ReturnType": "void",
     "Name": "HD_CALL_ALBUM",
     "Description": "",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_00BD"
     ]
   },
   {
@@ -2509,7 +2756,9 @@
     "ReturnType": "void",
     "Name": "HD_FUNCTION_00BE",
     "Description": "",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_00BE"
     ]
   },
   {
@@ -2528,6 +2777,9 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_00BF"
     ]
   }
 ]
