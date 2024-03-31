@@ -303,15 +303,15 @@
       },
       {
         "Index": 1,
-        "Name": "lName",
-        "Description": "Last name of the protagonist",
+        "Name": "",
+        "Description": "",
         "Parameters": [
         ]
       },
       {
         "Index": 2,
-        "Name": "fName",
-        "Description": "First name of the protagonist",
+        "Name": "",
+        "Description": "",
         "Parameters": [
         ]
       },
@@ -393,39 +393,23 @@
       },
       {
         "Index": 11,
-        "Name": "stIcon",
-        "Description": "Get the name of a Social stat by id and level",
+        "Name": "",
+        "Description": "",
         "Parameters": [
-          {
-            "Name": "stat_id",
-            "Description": "ID of the stat. (know: 0, charm: 1, prof: 2, guts: 3, kind: 4)"
-          }
         ]
       },
       {
         "Index": 12,
-        "Name": "stLabel",
-        "Description": "Label tag of a social stat",
+        "Name": "",
+        "Description": "",
         "Parameters": [
-          {
-            "Name": "stat_id",
-            "Description": "ID of the stat. (know: 0, charm: 1, prof: 2, guts: 3, kind: 4)"
-          }
         ]
       },
       {
         "Index": 13,
-        "Name": "stLvLabel",
-        "Description": "Label of a social stat at a specific level (oblivious, learned, etc)",
+        "Name": "",
+        "Description": "",
         "Parameters": [
-          {
-            "Name": "stat_id",
-            "Description": "ID of the stat. (know: 0, charm: 1, prof: 2, guts: 3, kind: 4)"
-          },
-          {
-            "Name": "level",
-            "Description": "Level to get the label of."
-          }
         ]
       },
       {
@@ -451,57 +435,9 @@
       },
       {
         "Index": 17,
-        "Name": "cut",
-        "Description": "Sets the cut-in to display.",
+        "Name": "",
+        "Description": "",
         "Parameters": [
-          {
-            "Name": "param0",
-            "Description": "Unknown value. Needs to be 1"
-          },
-          {
-            "Name": "param1",
-            "Description": "Unknown value. Needs to be 65535/-1/ffff"
-          },
-          {
-            "Name": "param2",
-            "Description": "Unknown value. Needs to be 65535/-1/ffff"
-          },
-          {
-            "Name": "param3",
-            "Description": "Unknown value. Needs to be 65535/-1/ffff"
-          },
-          {
-            "Name": "param4",
-            "Description": "Unknown value. Needs to be 65535/-1/ffff"
-          },
-          {
-            "Name": "param5",
-            "Description": "Unknown value. Needs to be 65535/-1/ffff"
-          },
-          {
-            "Name": "param6",
-            "Description": "Unknown value. Needs to be 65535/-1/ffff"
-          },
-          {
-            "Name": "param7",
-            "Description": "Unknown value. Needs to be 65535/-1/ffff"
-          },
-          {
-            "Name": "characterId",
-            "Description": "The id of the character."
-          },
-          {
-            "Name": "expressionId",
-            "Description": "The id of the character's expression."
-          },
-          {
-            "Name": "param10",
-            "Description": "Unknown value. Needs to be 300 or 301 depending on character"
-          },
-          {
-            "Name": "enabled",
-            "Description": "If the cut-in is enabled."
-          }
         ]
       },
       {
@@ -584,8 +520,8 @@
       },
       {
         "Index": 28,
-        "Name": "group",
-        "Description": "The team/guild/group name.",
+        "Name": "",
+        "Description": "",
         "Parameters": [
         ]
       },
@@ -594,10 +530,10 @@
         "Name": "selTex",
         "Description": "overrides game logic deciding which dialogue select portrait to display",
         "Parameters": [
-          {
+			{
             "Name": "selMajorId",
             "Description": "the major id of the select portrait to display (FONT/SELECT/CUTIN_XXX_000.DDS)"
-          }
+			}
         ]
       }
     ]
