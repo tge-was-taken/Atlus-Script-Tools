@@ -397,7 +397,8 @@ bool ForTest()
 {
 	//PUTS( "TestScript::ForTest() start" );
 	
-	for ( int i = 0; i < 10; i++ )
+	int i = 0;
+	for ( i = 0; i < 10; i++ )
 	{
 	}
 	
@@ -446,7 +447,8 @@ bool ForContinueTest()
 {
 	//PUTS( "TestScript::ForContinueTest() start" );
 	
-	for ( int i = 0; i < 10; i++ )
+	int i = 0;
+	for ( i = 0; i < 10; i++ )
 	{
 		continue;
 		
