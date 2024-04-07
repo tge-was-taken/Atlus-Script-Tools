@@ -30,7 +30,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel
         {
             using ( var reader = new FlowScriptBinaryReader( stream, version, leaveOpen ) )
             {
-                return reader.ReadBinary();
+                return reader.ReadBinary(version);
             }
         }
 
