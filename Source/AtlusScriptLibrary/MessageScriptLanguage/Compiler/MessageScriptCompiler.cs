@@ -399,11 +399,22 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
 
                         switch ( tagId.ToLowerInvariant() )
                         {
-                            case "f": // Regular msg function
+                            case "f":
                                 {
                                     if ( !TryCompileFunctionToken( tagContext, out var functionToken, mEncoding == Encoding.UTF8) )
                                     {
                                         mLogger.Error( "Failed to compile function token" );
+                                        return false;
+                                    }
+
+                                    lineToken = functionToken;
+                                }
+                                break;
+                            case "uf": // UTF-8 msg function. For backwards compatibility with older P3RE builds that explicitly noted UTF-8
+                                {
+                                    if (!TryCompileFunctionToken(tagContext, out var functionToken, true))
+                                    {
+                                        mLogger.Error("Failed to compile function token");
                                         return false;
                                     }
 
@@ -449,7 +460,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
 
                                     if ( Library != null )
                                     {
-                                        wasAliasedFunction = TryCompileAliasedFunction( tagContext, tagId, out var functionToken );
+                                        wasAliasedFunction = TryCompileAliasedFunction( tagContext, tagId, out var functionToken, mEncoding == Encoding.UTF8 );
                                         lineToken = functionToken;
                                     }
 
@@ -503,7 +514,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
             return true;
         }
 
-        private bool TryCompileAliasedFunction( MessageScriptParser.TokenContext context, string tagId, out FunctionToken functionToken )
+        private bool TryCompileAliasedFunction( MessageScriptParser.TokenContext context, string tagId, out FunctionToken functionToken, bool useIdentifierByte )
         {
             LogContextInfo( context );
 
@@ -525,7 +536,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
                     arguments.Add( argument );
                 }
 
-                functionToken = new FunctionToken( library.Index, function.Index, arguments, functionToken.UseIdentifierByte );
+                functionToken = new FunctionToken( library.Index, function.Index, arguments, useIdentifierByte );
                 functionWasFound = true;
                 break;
             }
