@@ -236,10 +236,10 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
         {
             if (version == FormatVersion.Version1Reload)
             {
-                return (b & 0xF0) == 0xF0;
+                return b == 0xFE;
             } else
             {
-                return b == 0xFE;
+                return (b & 0xF0) == 0xF0;
             }
         }
 

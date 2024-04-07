@@ -401,7 +401,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
                         {
                             case "f": // Regular msg function
                                 {
-                                    if ( !TryCompileFunctionToken( tagContext, out var functionToken, false ) )
+                                    if ( !TryCompileFunctionToken( tagContext, out var functionToken, mEncoding == Encoding.UTF8) )
                                     {
                                         mLogger.Error( "Failed to compile function token" );
                                         return false;
@@ -410,18 +410,6 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler
                                     lineToken = functionToken;
                                 }
                                 break;
-                            case "uf": // UTF-8 msg function (P3RE)
-                                {
-                                    if (!TryCompileFunctionToken(tagContext, out var functionToken, true))
-                                    {
-                                        mLogger.Error("Failed to compile function token");
-                                        return false;
-                                    }
-
-                                    lineToken = functionToken;
-                                }
-                                break;
-
                             case "n":
                                 lineToken = new NewLineToken();
                                 break;

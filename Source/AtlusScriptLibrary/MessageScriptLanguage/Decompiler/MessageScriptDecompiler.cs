@@ -195,7 +195,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Decompiler
                     }
                 }
             }
-            var tagHeader = token.UseIdentifierByte ? "uf" : "f";
+            var tagHeader = "f";
             if ( token.Arguments.Count == 0 )
             {
                 WriteTag( tagHeader, token.FunctionTableIndex.ToString(), token.FunctionIndex.ToString() );
