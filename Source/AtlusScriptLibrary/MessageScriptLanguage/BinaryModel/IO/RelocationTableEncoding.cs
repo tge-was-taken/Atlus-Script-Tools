@@ -5,9 +5,10 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.IO
     public static class RelocationTableEncoding
     {
         private const byte ADDRESS_SIZE = sizeof( int );
+        private const byte SEQ_LOOP = 0xF8;
         private const byte SEQ_BASE = 0x07;
         private const byte SEQ_BASE_NUM_LOOP = 2;
-        private const byte SEQ_FLAG_ODD = 1 << 3;
+        private const byte SEQ_MAX_NUM_LOOP = 33;
 
         public static int[] Decode( byte[] relocationTable, int addressBaseOffset )
         {
@@ -24,18 +25,11 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.IO
                     // Check if the value indicates a sequence run of addresses
                     if ( ( reloc & SEQ_BASE ) == SEQ_BASE )
                     {
-                        // Get the base loop multiplier
-                        int baseLoopMult = ( reloc & 0xF0 ) >> 4;
+                        // Get the encoded loop number
+                        int loop = ( reloc & SEQ_LOOP ) >> 3;
 
                         // Get the number of loops, base loop number is 2
-                        int numLoop = SEQ_BASE_NUM_LOOP + ( baseLoopMult * SEQ_BASE_NUM_LOOP );
-
-                        // Check if the number of loops is odd
-                        if ( ( reloc & SEQ_FLAG_ODD ) == SEQ_FLAG_ODD )
-                        {
-                            // If so then add an extra loop cycle.
-                            numLoop += 1;
-                        }
+                        int numLoop = SEQ_BASE_NUM_LOOP + loop;
 
                         for ( int j = 0; j < numLoop; j++ )
                         {
@@ -95,21 +89,28 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.IO
                     // Subtract one because the first entry is used to locate to the start of the sequence
                     int numberOfAddressesInSequence = sequences[seqIdx].SequenceAddressCount - 1;
 
-                    int baseLoopMult = ( numberOfAddressesInSequence - SEQ_BASE_NUM_LOOP ) / SEQ_BASE_NUM_LOOP;
-                    bool isOdd = ( numberOfAddressesInSequence % 2 ) == 1;
-
-                    reloc = SEQ_BASE;
-                    reloc |= baseLoopMult << 4;
-
-                    if ( isOdd )
+                    // Loop until we have added the full sequence
+                    while ( numberOfAddressesInSequence != 0 )
                     {
-                        reloc |= SEQ_FLAG_ODD;
+                        int numberOfAddressesToAdd = numberOfAddressesInSequence;
+                        if ( numberOfAddressesToAdd > SEQ_MAX_NUM_LOOP )
+                        {
+                            numberOfAddressesToAdd = SEQ_MAX_NUM_LOOP;
+                        }
+
+                        // Get the loop number to encode, base loop number is 2
+                        int loop = numberOfAddressesToAdd - SEQ_BASE_NUM_LOOP;
+
+                        reloc = ( loop << 3 ) | SEQ_BASE;
+
+                        relocationTable.Add( (byte)reloc );
+
+                        addressLocationIndex += numberOfAddressesToAdd;
+                        prevRelocSum += numberOfAddressesToAdd * ADDRESS_SIZE;
+
+                        // Decrease the number of addresses remaining
+                        numberOfAddressesInSequence -= numberOfAddressesToAdd;
                     }
-
-                    relocationTable.Add( ( byte )reloc );
-
-                    addressLocationIndex += numberOfAddressesInSequence;
-                    prevRelocSum += numberOfAddressesInSequence * ADDRESS_SIZE;
                 }
             }
 
