@@ -21,7 +21,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel.IO
             mVersion = version;
         }
 
-        public FlowScriptBinary ReadBinary()
+        public FlowScriptBinary ReadBinary(BinaryFormatVersion version)
         {
             FlowScriptBinary instance = new FlowScriptBinary
             {
@@ -45,7 +45,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel.IO
                         break;
 
                     case BinarySectionType.TextSection:
-                        instance.mTextSection = ReadTextSection( ref sectionHeader );
+                        instance.mTextSection = ReadTextSection( ref sectionHeader, version );
                         break;
 
                     case BinarySectionType.MessageScriptSection:
@@ -110,7 +110,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel.IO
 
                 var label = new BinaryLabel
                 {
-                    Name = mReader.ReadString( StringBinaryFormat.FixedLength, nameStringLength ),
+                    Name = mReader.ReadString(StringBinaryFormat.FixedLength, nameStringLength),
                     InstructionIndex = mReader.ReadInt32(),
                     Reserved = mReader.ReadInt32()
                 };
@@ -133,7 +133,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel.IO
             return labels;
         }
 
-        public BinaryInstruction[] ReadTextSection( ref BinarySectionHeader sectionHeader )
+        public BinaryInstruction[] ReadTextSection( ref BinarySectionHeader sectionHeader, BinaryFormatVersion version )
         {
             EnsureSectionHeaderInitialValidState( ref sectionHeader );
 
@@ -141,8 +141,8 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel.IO
             {
                 throw new InvalidDataException( $"{BinarySectionType.TextSection} unit size must be 4" );
             }
-
             var instructions = new BinaryInstruction[sectionHeader.ElementCount];
+            if (version == BinaryFormatVersion.Version4) mReader.Endianness = Endianness.BigEndian; // force big endian for instructions
             for ( int i = 0; i < instructions.Length; i++ )
             {
                 BinaryInstruction instruction = new BinaryInstruction();
@@ -165,6 +165,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel.IO
 
                 instructions[i] = instruction;
             }
+            if (version == BinaryFormatVersion.Version4) mReader.Endianness = Endianness.LittleEndian;
 
             return instructions;
         }
@@ -223,7 +224,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel.IO
                 throw new InvalidDataException( "Stream is too small to be valid" );
             }
             header = mReader.ReadStruct<BinaryHeader>();
-            if ( !header.Magic.SequenceEqual( BinaryHeader.MAGIC ) )
+            if ( !header.Magic.SequenceEqual( BinaryHeader.MAGIC ) && !header.Magic.SequenceEqual(BinaryHeader.MAGIC_REVERSED))
             {
                 throw new InvalidDataException( "Header magic value does not match" );
             }

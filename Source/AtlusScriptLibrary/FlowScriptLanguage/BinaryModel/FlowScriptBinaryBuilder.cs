@@ -173,7 +173,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel
                 Compressed = false,
                 UserId = mUserId,
                 FileSize = CalculateFileSize(),
-                Magic = BinaryHeader.MAGIC,
+                Magic = (mFormatVersion == BinaryFormatVersion.Version4) ? BinaryHeader.MAGIC_REVERSED : BinaryHeader.MAGIC,
                 Field0C = 0,
                 SectionCount = CalculateSectionCount(),
                 LocalIntVariableCount = CalculateLocalIntVariableCount(),
@@ -245,6 +245,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel
             return mFormatVersion.HasFlag( BinaryFormatVersion.Version1 ) ? BinaryLabel.SIZE_V1 :
                    mFormatVersion.HasFlag( BinaryFormatVersion.Version2 ) ? BinaryLabel.SIZE_V2 :
                    mFormatVersion.HasFlag( BinaryFormatVersion.Version3 ) ? BinaryLabel.SIZE_V3 :
+                   mFormatVersion.HasFlag( BinaryFormatVersion.Version4 ) ? BinaryLabel.SIZE_V4 :
                    throw new Exception( "Invalid format version" );
         }
 

@@ -180,7 +180,12 @@ namespace AtlusScriptLibrary.FlowScriptLanguage
         /// <summary>
         /// Push a string value to the stack by pushing the index of the string in the string table.
         /// </summary>
-        PUSHSTR
+        PUSHSTR,
+
+        /// <summary>
+        /// Pop the value of the register from the stack.
+        /// </summary>
+        POPREG
     }
 
     public enum FormatVersion : uint
@@ -192,5 +197,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage
         Version2BigEndian = BinaryFormatVersion.Version2BigEndian,
         Version3 = BinaryFormatVersion.Version3,
         Version3BigEndian = BinaryFormatVersion.Version3BigEndian,
+        Version4 = BinaryFormatVersion.Version4,
+        Version4BigEndian = BinaryFormatVersion.Version4BigEndian,
     }
 }

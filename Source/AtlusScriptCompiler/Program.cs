@@ -42,6 +42,8 @@ namespace AtlusScriptCompiler
         public static bool FlowScriptEnableFunctionCallTracing;
         public static bool FlowScriptEnableStackCookie;
         public static bool FlowScriptEnableProcedureHook;
+        public static bool UEWrapped;
+        public static string UEPatchFile;
 
         public static bool FlowScriptSumBits { get; private set; }
 
@@ -64,6 +66,7 @@ namespace AtlusScriptCompiler
             Console.WriteLine( "        -Disassemble                                Instructs the compiler to disassemble the provided input file source." );
             Console.WriteLine( "        -Library                <name>              Specifies the name of the library that should be used." );
             Console.WriteLine( "        -LogTrace                                   Outputs trace log messages to the console" );
+            Console.WriteLine( "        -UPatch                 <path to file>      Patches an existing BF/BMD uasset to insert the newly compiled file into, including fixing file lengths. For Persona 3 Reload");
             Console.WriteLine();
             Console.WriteLine( "    MessageScript:" );
             Console.WriteLine( "        -Encoding               <format>            Specifies the MessageScript binary output text encoding. See below for further info." );
@@ -82,6 +85,7 @@ namespace AtlusScriptCompiler
             Console.WriteLine( "            V1              Used by Persona 3, 4, 5 PS4" );
             Console.WriteLine( "            V1DDS           Used by Digital Devil Saga 1 & 2" );
             Console.WriteLine( "            V1BE            Used by Persona 5 PS3" );
+            Console.WriteLine( "            V1RE            Used by Persona 3 Reload");
             Console.WriteLine();
             Console.WriteLine( "        -Encoding" );
             Console.WriteLine( "            Below is a list of different available standard encodings." );
@@ -91,6 +95,7 @@ namespace AtlusScriptCompiler
             Console.WriteLine( "            P3                  Persona 3's custom encoding" );
             Console.WriteLine( "            P4                  Persona 4's custom encoding" );
             Console.WriteLine( "            P5                  Persona 5's custom encoding" );
+            Console.WriteLine( "            UT                  UTF-8 Encoding. Used by Persona 3 Reload");
             Console.WriteLine( "            <charset file name> Custom encodings can be used by placing them in the charset folder. The TSV files are tab separated.");
             Console.WriteLine();
             Console.WriteLine( "        -Library" );
@@ -108,11 +113,13 @@ namespace AtlusScriptCompiler
             Console.WriteLine( "            V2BE            " );
             Console.WriteLine( "            V3              Used by Persona 5 PS4" );
             Console.WriteLine( "            V3BE            Used by Persona 5 PS3 & PS4" );
+            Console.WriteLine( "            V4              Used by Persona 3 Reload");
+            Console.WriteLine( "            V4BE            Used by Persona 3 Reload");
             Console.WriteLine();
             Console.WriteLine( "        -Library" );
             Console.WriteLine( "            For FlowScripts the libraries is used for the decompiler to decompile binary scripts, but it is also used to generate documentation." );
             Console.WriteLine( "            Without a specified registry you cannot decompile scripts." );
-            Console.WriteLine( "            Libraryies can be found in the Libraries directory" );
+            Console.WriteLine( "            Libraries can be found in the Libraries directory" );
         }
 
         public static void Main( string[] args )
@@ -146,6 +153,10 @@ namespace AtlusScriptCompiler
             try
 #endif
             {
+                if (UEWrapped)
+                {
+                    success = UEWrapperHandler();
+                }
                 if ( DoCompile )
                 {
                     success = TryDoCompilation();
@@ -163,6 +174,17 @@ namespace AtlusScriptCompiler
                     Logger.Error( "No compilation, decompilation or disassemble instruction given!" );
                     DisplayUsage();
                     return;
+                }
+                if (success && UEPatchFile != null)
+                {
+                    if (DoCompile)
+                    {
+                        success = UEWrapper.WrapAsset(OutputFilePath, UEPatchFile);
+                    } else {
+                        Logger.Error("Patch file can only be used on compilation");
+                        DisplayUsage();
+                        return;
+                    }
                 }
             }
 #if !DEBUG
@@ -316,6 +338,10 @@ namespace AtlusScriptCompiler
                             case "shift-jis":
                                 MessageScriptEncoding = ShiftJISEncoding.Instance;
                                 break;
+                            case "ut":
+                            case "utf-8":
+                                MessageScriptEncoding = Encoding.UTF8;
+                                break;
                             default:
                                 try
                                 {
@@ -354,6 +380,16 @@ namespace AtlusScriptCompiler
 
                     case "-SumBits":
                         FlowScriptSumBits = true;
+                        break;
+
+                    case "-UPatch":
+                        if (isLast)
+                        {
+                            Logger.Error("Missing argument for -UPatch parameter");
+                            return false;
+                        }
+
+                        UEPatchFile = args[++i];
                         break;
                 }
             }
@@ -395,10 +431,22 @@ namespace AtlusScriptCompiler
                         InputFileFormat = InputFileFormat.MessageScriptTextSource;
                         break;
 
+                    case ".uasset":
+                        Logger.Error( "-InFormat parameter required when working with Unreal Engine wrapped scripts" );
+                        return false;
+
                     default:
                         Logger.Error( "Unable to detect input file format" );
                         return false;
                 }
+            }
+
+            if (Path.GetExtension(InputFilePath).ToLowerInvariant().Equals(".uasset"))
+            {
+                UEWrapped = true;
+            } else
+            {
+                UEWrapped = false;
             }
 
 
@@ -459,7 +507,7 @@ namespace AtlusScriptCompiler
                 }
             }
 
-            Logger.Info( $"Output file path is set to {OutputFilePath}" );
+            if (!UEWrapped) Logger.Info( $"Output file path is set to {OutputFilePath}" );
 
             return true;
         }
@@ -572,6 +620,12 @@ namespace AtlusScriptCompiler
                 case OutputFileFormat.V3BE:
                     version = FormatVersion.Version3BigEndian;
                     break;
+                case OutputFileFormat.V4:
+                    version = FormatVersion.Version4;
+                    break;
+                case OutputFileFormat.V4BE:
+                    version = FormatVersion.Version4BigEndian;
+                    break;
                 default:
                     version = FormatVersion.Unknown;
                     break;
@@ -648,6 +702,9 @@ namespace AtlusScriptCompiler
                     break;
                 case OutputFileFormat.V1BE:
                     version = AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Version1BigEndian;
+                    break;
+                case OutputFileFormat.V1RE:
+                    version = AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Version1Reload;
                     break;
                 default:
                     version = AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Detect;
@@ -837,6 +894,54 @@ namespace AtlusScriptCompiler
             Logger.Error( "Stacktrace:" );
             Logger.Error( $"{e.StackTrace}" );
         }
+
+        private static bool UEWrapperHandler()
+        {
+            bool success = false;
+            using (var unwrapper = File.Open(InputFilePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+                UEWrapper.UnwrapAsset(Path.GetDirectoryName(InputFilePath), Path.GetFileNameWithoutExtension(InputFilePath), GetInputFileExtensionByFileFormat(), unwrapper, out var outName);
+                InputFilePath = outName;
+                OutputFilePath = InputFilePath + GetOutputFileExtensionByFileFormat();
+                Logger.Info($"Input file path is set to {InputFilePath}");
+                Logger.Info($"Output file path is set to {OutputFilePath}");
+            }
+            return success;
+        }
+
+        private static string GetInputFileExtensionByFileFormat()
+        {
+            switch (InputFileFormat)
+            {
+                case InputFileFormat.FlowScriptBinary:
+                    return ".bf";
+                case InputFileFormat.MessageScriptBinary:
+                    return ".bmd";
+                default:
+                    throw new Exception("Couldn't determine an input file extension");
+            }
+        }
+
+        private static string GetOutputFileExtensionByFileFormat()
+        {
+            switch (InputFileFormat)
+            {
+                case InputFileFormat.FlowScriptTextSource:
+                case InputFileFormat.FlowScriptAssemblerSource:
+                    return ".bf";
+                case InputFileFormat.MessageScriptTextSource:
+                    return ".bmd";
+
+                case InputFileFormat.FlowScriptBinary:
+                    if (DoDecompile) return ".flow";
+                    return ".flowasm";
+                case InputFileFormat.MessageScriptBinary:
+                    return ".msg";
+
+                default:
+                    throw new Exception("Couldn't determine an output file extension");
+            }
+        }
     }
 
     public enum InputFileFormat
@@ -855,9 +960,12 @@ namespace AtlusScriptCompiler
         V1,
         V1DDS,
         V1BE,
+        V1RE,
         V2,
         V2BE,
         V3,
-        V3BE
+        V3BE,
+        V4,
+        V4BE
     }
 }

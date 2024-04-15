@@ -260,7 +260,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel
                 argumentBytes[byteIndex] = firstByte;
                 argumentBytes[byteIndex + 1] = secondByte;
             }
-
+            if (token.UseIdentifierByte) bytes.Add(0xfe);
             bytes.Add( functionSignifier );
             bytes.Add( functionId );
             bytes.AddRange( argumentBytes );
