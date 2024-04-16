@@ -743,7 +743,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler
             // Integer literal
             private void WriteIntegerLiteral( IntLiteral intLiteral )
             {
-                if ( IsPowerOfTwo( intLiteral.Value ) && intLiteral.Value >= 16 )
+                if ( IsPowerOfTwo( intLiteral.Value ) && ( intLiteral.Value & 0xF ) == 0 )
                 {
                     WriteHexIntegerLiteral( intLiteral.Value );
                 }
