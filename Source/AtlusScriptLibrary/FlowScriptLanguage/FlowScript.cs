@@ -84,7 +84,6 @@ namespace AtlusScriptLibrary.FlowScriptLanguage
             // assign strings before instructions so we can assign proper string indices as we convert the instructions
             var stringBinaryIndexToListIndexMap = new Dictionary<short, short>();
             var strings = new List<string>();
-
             if ( binary.StringSection != null )
             {
                 short curStringBinaryIndex = 0;
@@ -111,7 +110,6 @@ namespace AtlusScriptLibrary.FlowScriptLanguage
 
             var instructionBinaryIndexToListIndexMap = new Dictionary<int, int>();
             var instructions = new List<Instruction>();
-
             // assign instructions
             // TODO: optimize this away later as i don't feel like it right now
             if ( binary.TextSection != null )
@@ -123,6 +121,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage
                 {               
                     // Convert each instruction
                     var binaryInstruction = binary.TextSection[instructionBinaryIndex];
+                    //Console.WriteLine($"{binaryInstruction}");
 
                     Instruction instruction;
 

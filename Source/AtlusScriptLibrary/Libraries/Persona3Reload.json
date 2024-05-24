@@ -1,0 +1,6 @@
+{
+  "Name": "Persona 3 Reload",
+  "ShortName": "p3re",
+  "FlowScriptModulesPath": "Persona3Reload\\FlowScriptModules.json",
+  "MessageScriptLibraryPath": "Persona3Reload\\MessageScriptLibrary.json"
+}

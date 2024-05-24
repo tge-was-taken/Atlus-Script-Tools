@@ -1,5 +1,5 @@
 ﻿
-# Atlus Script Tools #
+# Atlus Script Tools [![Build status](https://ci.appveyor.com/api/projects/status/l3p8joj4frjkn753?svg=true)](https://ci.appveyor.com/project/tge-was-taken/atlus-script-tools/build/artifacts)
 
 WIP set of tools developed for handling Atlus' script formats including
 * flow script files (.bf)
@@ -8,7 +8,7 @@ WIP set of tools developed for handling Atlus' script formats including
 All of the code is written in C# and licensed under the GNU GPL.
 
 Latest build:
-* https://ci.appveyor.com/project/TGEnigma/atlusscripttools/build/artifacts
+* https://ci.appveyor.com/project/tge-was-taken/atlus-script-tools/build/artifacts
 
 ## Overview of repository structure ##
 

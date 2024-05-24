@@ -220,7 +220,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
             {
                 tokens.Add( new NewLineToken() );
             }
-            else if ( ( b & 0xF0 ) == 0xF0 )
+            else if ( IsFunctionToken(b, version) )
             {
                 tokens.Add( ParseFunctionToken( b, buffer, ref bufferIndex, version ) );
             }
@@ -232,14 +232,26 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
             return true;
         }
 
+        private static bool IsFunctionToken(byte b, FormatVersion version)
+        {
+            if (version == FormatVersion.Version1Reload)
+            {
+                return b == 0xFE;
+            } else
+            {
+                return (b & 0xF0) == 0xF0;
+            }
+        }
+
         private static FunctionToken ParseFunctionToken( byte b, IReadOnlyList<byte> buffer, ref int bufferIndex, FormatVersion version )
         {
-            int functionId = ( b << 8 ) | buffer[bufferIndex++];
+            int first = (version == FormatVersion.Version1Reload) ? buffer[bufferIndex++] : b;
+            int functionId = (first << 8 ) | buffer[bufferIndex++];
             int functionTableIndex = ( functionId & 0xE0 ) >> 5;
             int functionIndex = ( functionId & 0x1F );
 
             int functionArgumentByteCount;
-            if ( version == FormatVersion.Version1 || version == FormatVersion.Version1BigEndian )
+            if ( version == FormatVersion.Version1 || version == FormatVersion.Version1BigEndian || version == FormatVersion.Version1Reload )
             {
                 functionArgumentByteCount = ( ( ( ( functionId >> 8 ) & 0xF ) - 1 ) * 2 );
             }
@@ -267,8 +279,8 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
 
                 functionArguments[i] = (ushort)( ( firstByte & ~0xFF00 ) | ( ( secondByte << 8 ) & 0xFF00 ) );
             }
-
-            return new FunctionToken( functionTableIndex, functionIndex, functionArguments );
+            var bAddIdentifierType = (version == FormatVersion.Version1Reload) ? true : false;
+            return new FunctionToken( functionTableIndex, functionIndex, bAddIdentifierType, functionArguments);
         }
 
         private static IEnumerable< IToken > ParseTextTokens( byte b, IReadOnlyList<byte> buffer, ref int bufferIndex, Encoding encoding )
@@ -277,20 +289,39 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
             var charBytes = new byte[2];
             var tokens = new List<IToken>();
             byte b2;
-
             while ( true )
             {
-                // Read 2 bytes
-                if ( ( b & 0x80 ) == 0x80 )
+                if (encoding == Encoding.UTF8)
                 {
-                    b2 = buffer[bufferIndex++];
-                    accumulatedText.Add( b );
-                    accumulatedText.Add( b2 );
-                }
-                else
+                    accumulatedText.Add(b);
+                    if (b > 0xC0) // read 2 bytes
+                    {
+                        b2 = buffer[bufferIndex++];
+                        accumulatedText.Add(b2);
+                        if (b > 0xE0) // read 3 bytes
+                        {
+                            var b3 = buffer[bufferIndex++];
+                            accumulatedText.Add(b3);
+                            if (b > 0xF0) // read 4 bytes
+                            {
+                                var b4 = buffer[bufferIndex++];
+                                accumulatedText.Add(b4);
+                            }
+                        }
+                    }
+                } else // Atlus and Shift-JIS
                 {
-                    // Read one
-                    accumulatedText.Add( b );
+                    if ((b & 0x80) == 0x80)
+                    {
+                        b2 = buffer[bufferIndex++];
+                        accumulatedText.Add(b);
+                        accumulatedText.Add(b2);
+                    }
+                    else
+                    {
+                        // Read one
+                        accumulatedText.Add(b);
+                    }
                 }
 
                 // Check for any condition that would end the sequence of text characters
@@ -326,43 +357,49 @@ namespace AtlusScriptLibrary.MessageScriptLanguage
                 tokens.Add( token );
             }
 
-            for ( int i = 0; i < accumulatedTextBuffer.Length; i++ )
+            if (encoding == Encoding.UTF8)
             {
-                byte high = accumulatedTextBuffer[i];
-                if ( ( high & 0x80 ) == 0x80 )
+                stringBuilder.Append(Encoding.UTF8.GetString(accumulatedTextBuffer));
+            } else
+            {
+                for (int i = 0; i < accumulatedTextBuffer.Length; i++)
                 {
-                    byte low = accumulatedTextBuffer[++i];
-
-                    if ( encoding != null && !encoding.IsSingleByte )
+                    byte high = accumulatedTextBuffer[i];
+                    if ((high & 0x80) == 0x80)
                     {
-                        // Get decoded characters
-                        charBytes[0] = high;
-                        charBytes[1] = low;
+                        byte low = accumulatedTextBuffer[++i];
 
-                        // Check if it's an unmapped character -> make it a code point
-                        var chars = encoding.GetChars( charBytes );
-                        Trace.Assert( chars.Length > 0 );
-
-                        if ( chars[0] == 0 )
+                        if (encoding != null && !encoding.IsSingleByte)
                         {
-                            AddToken( new CodePointToken( high, low ) );
+                            // Get decoded characters
+                            charBytes[0] = high;
+                            charBytes[1] = low;
+
+                            // Check if it's an unmapped character -> make it a code point
+                            var chars = encoding.GetChars(charBytes);
+                            Trace.Assert(chars.Length > 0);
+
+                            if (chars[0] == 0)
+                            {
+                                AddToken(new CodePointToken(high, low));
+                            }
+                            else
+                            {
+                                foreach (char c in chars)
+                                {
+                                    stringBuilder.Append(c);
+                                }
+                            }
                         }
                         else
                         {
-                            foreach ( char c in chars )
-                            {
-                                stringBuilder.Append( c );
-                            }
+                            AddToken(new CodePointToken(high, low));
                         }
                     }
                     else
                     {
-                        AddToken( new CodePointToken( high, low ) );
+                        stringBuilder.Append((char)high);
                     }
-                }
-                else
-                {
-                    stringBuilder.Append( ( char )high );
                 }
             }
 

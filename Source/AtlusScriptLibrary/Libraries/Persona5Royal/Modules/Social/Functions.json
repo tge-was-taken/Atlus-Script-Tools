@@ -2769,5 +2769,13 @@
                            }
                        ],
         "Comment":  ""
+    },
+    {
+        "Index":  "0x30b5",
+        "ReturnType":  "void",
+        "Name":  "HD_EVT_MOUSE_INPUT_ENABLE",
+        "Description":  "",
+        "Parameters":  [],
+        "Comment":  ""
     }
 ]

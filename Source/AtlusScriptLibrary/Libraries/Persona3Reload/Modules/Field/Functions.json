@@ -1,0 +1,2850 @@
+[
+  {
+    "Index": "0x2000",
+    "ReturnType": "void",
+    "Name": "FLD_LOCAL_FLAG_ON",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2001",
+    "ReturnType": "void",
+    "Name": "FLD_LOCAL_FLAG_OFF",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2002",
+    "ReturnType": "int",
+    "Name": "FLD_LOCAL_FLAG_CHECK",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2003",
+    "ReturnType": "void",
+    "Name": "FLD_LOCAL_COUNTER_SET",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2004",
+    "ReturnType": "int",
+    "Name": "FLD_LOCAL_COUNTER_GET",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2005",
+    "ReturnType": "void",
+    "Name": "CALL_FIELD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2006",
+    "ReturnType": "void",
+    "Name": "CALL_KEYFREE_EVENT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2007",
+    "ReturnType": "void",
+    "Name": "CALL_DUNGEON",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2008",
+    "ReturnType": "void",
+    "Name": "DUNGEON_NEXTFLOOR",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2009",
+    "ReturnType": "void",
+    "Name": "DUNGEON_TRANSFER",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x200a",
+    "ReturnType": "void",
+    "Name": "DUNGEON_CONTINUATION",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x200b",
+    "ReturnType": "void",
+    "Name": "DUNGEON_EVACUATION",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x200c",
+    "ReturnType": "int",
+    "Name": "GET_FIELD_PARTS_ID",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x200d",
+    "ReturnType": "int",
+    "Name": "FLD_GET_MAJOR",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x200e",
+    "ReturnType": "int",
+    "Name": "FLD_GET_MINOR",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x200f",
+    "ReturnType": "int",
+    "Name": "FLD_GET_KEYFREE_EVENT_ID",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2010",
+    "ReturnType": "void",
+    "Name": "GOTO_TARTARUS",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2011",
+    "ReturnType": "void",
+    "Name": "FLD_RETURN_FIELD",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2012",
+    "ReturnType": "int",
+    "Name": "GET_FIELD_START_ID",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2013",
+    "ReturnType": "void",
+    "Name": "DUNGEON_MOVE_FDOOR",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2014",
+    "ReturnType": "void",
+    "Name": "FLD_SOUND_VOICE_SETUP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2015",
+    "ReturnType": "void",
+    "Name": "FLD_SOUND_VOICE_SYNC",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2016",
+    "ReturnType": "void",
+    "Name": "FLD_SOUND_VOICE_FREE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2017",
+    "ReturnType": "int",
+    "Name": "DUNGEON_GET_FLOORNO",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2018",
+    "ReturnType": "int",
+    "Name": "DUNGEON_GET_ARRIVAL_FLOORNO",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2019",
+    "ReturnType": "int",
+    "Name": "DUNGEON_CHECK_MISSING_FLOOR",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x201a",
+    "ReturnType": "int",
+    "Name": "FLD_GET_FAM_INDEX_OBJECT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x201b",
+    "ReturnType": "int",
+    "Name": "FLD_GET_FAM_INDEX_NPC",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x201c",
+    "ReturnType": "int",
+    "Name": "FLD_GET_FAM_INDEX_CMMNPC",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x201d",
+    "ReturnType": "void",
+    "Name": "FLD_FAM_ANIM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x201e",
+    "ReturnType": "void",
+    "Name": "FLD_FAM_ACTOR_SET_VISIBLE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x201f",
+    "ReturnType": "void",
+    "Name": "FLD_START_FIELD_EVENT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2020",
+    "ReturnType": "void",
+    "Name": "FLD_PC_MODEL_SET_POS",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2021",
+    "ReturnType": "void",
+    "Name": "FLD_REQ_BGM",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2022",
+    "ReturnType": "void",
+    "Name": "DUNGEON_DESTORY_DIRECT_SYMBOL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2023",
+    "ReturnType": "void",
+    "Name": "DUNGEON_SPSKILL_TARTARUSSEARCH",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2024",
+    "ReturnType": "void",
+    "Name": "DUNGEON_SPSKILL_JAMMING",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2025",
+    "ReturnType": "void",
+    "Name": "DUNGEON_SPSKILL_ESCAPEROAD",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2026",
+    "ReturnType": "void",
+    "Name": "DUNGEON_PARTY_DISPERSED",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2027",
+    "ReturnType": "void",
+    "Name": "DUNGEON_PARTY_ASSEMBLE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2028",
+    "ReturnType": "int",
+    "Name": "DUNGEON_TBOX_GET_ITEM_ID",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2029",
+    "ReturnType": "int",
+    "Name": "DUNGEON_TBOX_GET_ITEM_NUM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x202a",
+    "ReturnType": "int",
+    "Name": "DUNGEON_TBOX_GET_MONEY",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x202b",
+    "ReturnType": "void",
+    "Name": "DUNGEON_REMOVE_TBOX_ITEMINFO",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x202c",
+    "ReturnType": "void",
+    "Name": "FLD_CHARA_WALK_TRANSLATE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x202d",
+    "ReturnType": "void",
+    "Name": "FLD_CHARA_SYNC_TRANSLATE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x202e",
+    "ReturnType": "int",
+    "Name": "DUNGEON_TBOX_GET_TYPE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x202f",
+    "ReturnType": "int",
+    "Name": "DUNGEON_PARTNER_TBOX_NUM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2030",
+    "ReturnType": "int",
+    "Name": "DUNGEON_PARTNER_ITEM_ID",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2031",
+    "ReturnType": "int",
+    "Name": "DUNGEON_PARTNER_ITEM_NUM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2032",
+    "ReturnType": "int",
+    "Name": "DUNGEON_PARTNER_MONEY",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2033",
+    "ReturnType": "void",
+    "Name": "DUNGEON_ACCIDENT_CHANGE_SYMBOL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2034",
+    "ReturnType": "void",
+    "Name": "DUNGEON_ACCIDENT_DARK_ZONE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2035",
+    "ReturnType": "void",
+    "Name": "DUNGEON_ACCIDENT_PARTY_DIVISION",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2036",
+    "ReturnType": "void",
+    "Name": "DUNGEON_ACCIDENT_ABNORMAL_STATE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2037",
+    "ReturnType": "void",
+    "Name": "DUNGEON_ACCIDENT_IMMEDJATE_EFFECT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2038",
+    "ReturnType": "void",
+    "Name": "DUNGEON_ACCIDENT_LIMITED_BATTLE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2039",
+    "ReturnType": "void",
+    "Name": "DUNGEON_OPEN_TBOX",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x203a",
+    "ReturnType": "void",
+    "Name": "FLD_NPC_FLAG_ON",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x203b",
+    "ReturnType": "void",
+    "Name": "FLD_NPC_FLAG_OFF",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x203c",
+    "ReturnType": "int",
+    "Name": "FLD_NPC_FLAG_CHECK",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x203d",
+    "ReturnType": "void",
+    "Name": "DUNGEON_MOVE_FREEID",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x203e",
+    "ReturnType": "void",
+    "Name": "DUNGEON_INFO_SUPPORT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x203f",
+    "ReturnType": "void",
+    "Name": "DUNGEON_BEGINEVENT",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2040",
+    "ReturnType": "void",
+    "Name": "DUNGEON_ENDEVENT",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2041",
+    "ReturnType": "void",
+    "Name": "SET_FIELD_PARTS_ID",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2042",
+    "ReturnType": "void",
+    "Name": "FLDANIMOBJ_REQUEST_ANIMATION",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2043",
+    "ReturnType": "int",
+    "Name": "DUNGEON_CHECK_OPEN_FDOOR",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2044",
+    "ReturnType": "int",
+    "Name": "DUNGEON_PARTNER_ITEM_PAC_NUM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2045",
+    "ReturnType": "void",
+    "Name": "DUNGEON_PARTNER_ITEM_REFLECT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2046",
+    "ReturnType": "int",
+    "Name": "DUNGEON_CHECK_GATEKEEPER_FLOOR",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2047",
+    "ReturnType": "int",
+    "Name": "DUNGEON_CHECK_FDOOR_FLOOR",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2048",
+    "ReturnType": "void",
+    "Name": "FLD_FAM_SYNC_ANIM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2049",
+    "ReturnType": "void",
+    "Name": "DUNGEON_ATOMFOG_HIDDEN",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x204a",
+    "ReturnType": "int",
+    "Name": "DUNGEON_TBOX_CHECK_ENCOUNT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x204b",
+    "ReturnType": "void",
+    "Name": "FLD_TV_PROGRAM_ON",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x204c",
+    "ReturnType": "void",
+    "Name": "FLD_TV_PROGRAM_OFF",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x204d",
+    "ReturnType": "int",
+    "Name": "FLD_TV_PROGRAM_CHECK",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x204e",
+    "ReturnType": "void",
+    "Name": "FLD_TV_MODEL_REQ_ANIME",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x204f",
+    "ReturnType": "void",
+    "Name": "FLD_COMSE_PLAY",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2050",
+    "ReturnType": "void",
+    "Name": "FLD_COMSE_STOP",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2051",
+    "ReturnType": "int",
+    "Name": "DUNGEON_FLOORFLAGS_CHECK_EXIST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2052",
+    "ReturnType": "int",
+    "Name": "DUNGEON_FLOORFLAGS_CHECK_FLAG",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2053",
+    "ReturnType": "void",
+    "Name": "DUNGEON_FLOORFLAGS_SET_FLAG",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2054",
+    "ReturnType": "int",
+    "Name": "FLD_MAIL_ORDER_CHECK",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2055",
+    "ReturnType": "int",
+    "Name": "FLD_MAIL_ORDER_RECIEVE_CHECK",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2056",
+    "ReturnType": "int",
+    "Name": "FLD_MAIL_ORDER_GET_INDEX",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2057",
+    "ReturnType": "void",
+    "Name": "FLD_MAIL_ORDER_VSET",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2058",
+    "ReturnType": "int",
+    "Name": "FLD_MAIL_ORDER_GET_MONEY",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2059",
+    "ReturnType": "void",
+    "Name": "FLD_MAIL_ORDER_SET_ITEM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x205a",
+    "ReturnType": "int",
+    "Name": "FLD_MAIL_ORDER_GET_ITEM_MSGID",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x205b",
+    "ReturnType": "void",
+    "Name": "FLD_MAIL_ORDER_CALL_SCRIPT",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x205c",
+    "ReturnType": "void",
+    "Name": "FLD_MAIL_ORDER_PAY_THE_PRICE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x205d",
+    "ReturnType": "void",
+    "Name": "FLD_CAMERA_LOCK_INTERP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param6",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x205e",
+    "ReturnType": "void",
+    "Name": "FLD_CAMERA_LOCK_SYNC_INTERP",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x205f",
+    "ReturnType": "void",
+    "Name": "FLD_CAMERA_DEFAULT_INTERP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2060",
+    "ReturnType": "void",
+    "Name": "FLD_CAMERA_LOCK",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2061",
+    "ReturnType": "void",
+    "Name": "FLD_CAMERA_UNLOCK",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2062",
+    "ReturnType": "int",
+    "Name": "FLD_GET_FAM_INDEX_PLAYER",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2063",
+    "ReturnType": "void",
+    "Name": "FLD_OPEN_ORD_DOOR_FADE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2064",
+    "ReturnType": "void",
+    "Name": "FLD_PC_MODEL_SET_ROTATOR",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2065",
+    "ReturnType": "void",
+    "Name": "FLD_SET_DOOR_STATE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2066",
+    "ReturnType": "void",
+    "Name": "FLD_SET_HERO_NO_WEAPON",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2067",
+    "ReturnType": "void",
+    "Name": "FLD_SET_HERO_NO_FOLLOWER",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2068",
+    "ReturnType": "void",
+    "Name": "DUNGEON_FIELDBATTLE_END",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2069",
+    "ReturnType": "int",
+    "Name": "DUNGEON_GET_ENEMY_NUM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x206a",
+    "ReturnType": "void",
+    "Name": "FLD_START_BOSS",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x206b",
+    "ReturnType": "int",
+    "Name": "DUNGEON_SET_ENEMY_CONDITION",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x206c",
+    "ReturnType": "void",
+    "Name": "FLD_FAM_SET_DELAY_STOP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x206d",
+    "ReturnType": "void",
+    "Name": "FLD_FAM_CLEAR_DELAY_STOP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x206e",
+    "ReturnType": "void",
+    "Name": "FLD_FAM_CLEAR_DELAY_STOP_ALL",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x206f",
+    "ReturnType": "void",
+    "Name": "DUNGEON_RETRY_BACKUP",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2070",
+    "ReturnType": "void",
+    "Name": "DUNGEON_RETRY_RESTORE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2071",
+    "ReturnType": "void",
+    "Name": "FLD_FAM_ICON_START",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2072",
+    "ReturnType": "void",
+    "Name": "FLD_FAM_ICON_START_EX",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2073",
+    "ReturnType": "void",
+    "Name": "FLD_FAM_ICON_END",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2074",
+    "ReturnType": "void",
+    "Name": "FLD_FAM_ICON_SET_SCALE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2075",
+    "ReturnType": "void",
+    "Name": "DUNGEON_SET_FLOOR_OPEN",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2076",
+    "ReturnType": "int",
+    "Name": "DUNGEON_CHECK_FLOOR_OPEN",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2077",
+    "ReturnType": "void",
+    "Name": "DUNGEON_FIELDBATTLE_CLEAR_KEYLOCK",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2078",
+    "ReturnType": "void",
+    "Name": "DUNGEON_INFO_SUPPORT_TALK",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2079",
+    "ReturnType": "int",
+    "Name": "DUNGEON_GET_MISSING_ID",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x207a",
+    "ReturnType": "int",
+    "Name": "DUNGEON_INFO_SUPPORT_WAIT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x207b",
+    "ReturnType": "void",
+    "Name": "DUNGEON_ROLLBACK",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x207c",
+    "ReturnType": "void",
+    "Name": "DUNGEON_REAPER_APPEAR_TIME",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x207d",
+    "ReturnType": "void",
+    "Name": "DUNGEON_REAPER_CONTINUE_APPEAR_TIME",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x207e",
+    "ReturnType": "void",
+    "Name": "DUNGEON_REAPER_SPAWN_START_PART",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x207f",
+    "ReturnType": "int",
+    "Name": "DUNGEON_CHECK_PLAYER_START_PART",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2080",
+    "ReturnType": "void",
+    "Name": "SCHE_CHECK_MORNING_EVENT_MSGREF",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2081",
+    "ReturnType": "void",
+    "Name": "SCHE_CHECK_TEACHING_EVENT_MSGREF",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2082",
+    "ReturnType": "void",
+    "Name": "DUNGEON_SET_EVENT_TRANS_ORIGIN",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2083",
+    "ReturnType": "void",
+    "Name": "FLD_FAM_FACE_ANIM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2084",
+    "ReturnType": "void",
+    "Name": "FLD_FAM_NECK_ANIM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2085",
+    "ReturnType": "void",
+    "Name": "FLD_FAM_SYNC_NECK_ANIM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2086",
+    "ReturnType": "int",
+    "Name": "DUNGEON_AUTO_RECOVER",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2087",
+    "ReturnType": "void",
+    "Name": "DUNGEON_SUPPORT_SKILL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2088",
+    "ReturnType": "int",
+    "Name": "FLD_GET_FAM_INDEX_DOOR",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2089",
+    "ReturnType": "int",
+    "Name": "DUNGEON_CHECK_PC_SKILL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x208a",
+    "ReturnType": "void",
+    "Name": "DUNGEON_SET_PARTNER_POS",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x208b",
+    "ReturnType": "void",
+    "Name": "DUNGEON_EXECUTE_PARTNER_POS",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x208c",
+    "ReturnType": "int",
+    "Name": "DUNGEON_GET_AREA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x208d",
+    "ReturnType": "int",
+    "Name": "DUNGEON_GET_AREA_MINOR",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x208e",
+    "ReturnType": "void",
+    "Name": "FLD_FAM_SET_IMD_STOP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x208f",
+    "ReturnType": "void",
+    "Name": "FLD_CHARA_START_TURN",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2090",
+    "ReturnType": "void",
+    "Name": "FLD_CHARA_SYNC_TURN",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2091",
+    "ReturnType": "void",
+    "Name": "FLD_FAM_END_ANIM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2092",
+    "ReturnType": "void",
+    "Name": "FLD_MODEL_DIR_TRANSLATE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2093",
+    "ReturnType": "void",
+    "Name": "FLD_PC_MODEL_SET_LOCATION",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2094",
+    "ReturnType": "int",
+    "Name": "DUNGEON_GET_TBOX_NUM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2095",
+    "ReturnType": "void",
+    "Name": "FLD_CHARA_MOVE_TO_FRONT_CHARA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2096",
+    "ReturnType": "int",
+    "Name": "FLD_CHK_HERO_HAVE_BAG",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2097",
+    "ReturnType": "void",
+    "Name": "DUNGEON_EVENT_BATTLE_WIPE_START",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2098",
+    "ReturnType": "int",
+    "Name": "FLD_CHK_CAMERA_LOCK",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2099",
+    "ReturnType": "int",
+    "Name": "DUNGEON_GET_MONAD_ENCOUNTID",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x209a",
+    "ReturnType": "int",
+    "Name": "DUNGEON_FORCED_OPEN_TBOX",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x209b",
+    "ReturnType": "void",
+    "Name": "DUNGEON_CLEAR_EVENT_TRANS_ORIGIN",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x209c",
+    "ReturnType": "void",
+    "Name": "DUNGEON_TBOXSE_STOP",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x209d",
+    "ReturnType": "void",
+    "Name": "FLD_SET_FIELD_EVENT_NO_WEAPON",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x209e",
+    "ReturnType": "void",
+    "Name": "DUNGEON_DESTROY_MISSING_NPC",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x209f",
+    "ReturnType": "void",
+    "Name": "DUNGEON_MISSING_SE_STOP",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20a0",
+    "ReturnType": "void",
+    "Name": "FLD_CAMERA_LOCK_INTERP_RELATIVE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param6",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x20a1",
+    "ReturnType": "void",
+    "Name": "DUNGEON_SITUATION_HELP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x20a2",
+    "ReturnType": "void",
+    "Name": "DUNGEON_SITUATION_HELP_ITEM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x20a3",
+    "ReturnType": "void",
+    "Name": "DUNGEON_PARTNER_RELOAD",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20a4",
+    "ReturnType": "void",
+    "Name": "FLD_HERO_MODEL_RELOAD",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20a5",
+    "ReturnType": "void",
+    "Name": "FLD_OVERWRITE_CAMERA_PITCH",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x20a6",
+    "ReturnType": "void",
+    "Name": "FLD_HERO_REGIST_PHONE_MODEL",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20a7",
+    "ReturnType": "void",
+    "Name": "FLD_CAMERA_SHAKE_START",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x20a8",
+    "ReturnType": "void",
+    "Name": "FLD_CAMERA_SHAKE_END",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x20a9",
+    "ReturnType": "void",
+    "Name": "FLD_HERO_FUKIDASHI_START",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20aa",
+    "ReturnType": "void",
+    "Name": "FLD_HERO_FUKIDASHI_END",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20ab",
+    "ReturnType": "void",
+    "Name": "FLD_FREECAMERA_RESET",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20ac",
+    "ReturnType": "void",
+    "Name": "DUNGEON_SITUATION_HELP_MONEY",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x20ad",
+    "ReturnType": "int",
+    "Name": "FLD_CAMERA_GET_DOT_HORIZON",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x20ae",
+    "ReturnType": "void",
+    "Name": "FLD_NPC_RELOAD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x20af",
+    "ReturnType": "void",
+    "Name": "DUNGEON_SECRETGATE_SPAWN",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20b0",
+    "ReturnType": "void",
+    "Name": "DUNGEON_TALK_SETDELAY",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x20b1",
+    "ReturnType": "int",
+    "Name": "DUNGEON_TALK_WAITDELAY",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20b2",
+    "ReturnType": "void",
+    "Name": "DUNGEON_CHARACOSTUME_RELOAD",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20b3",
+    "ReturnType": "void",
+    "Name": "DUNGEON_SEPARATELEY_REQUEST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x20b4",
+    "ReturnType": "int",
+    "Name": "DUNGEON_SEPARATELEY_GETITEMTYPENUM",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20b5",
+    "ReturnType": "int",
+    "Name": "DUNGEON_SEPARATELEY_GETITEMID",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x20b6",
+    "ReturnType": "int",
+    "Name": "DUNGEON_SEPARATELEY_GETITENUM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x20b7",
+    "ReturnType": "void",
+    "Name": "DUNGEON_SEPARATELEY_PARTYIN",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20b8",
+    "ReturnType": "void",
+    "Name": "FLD_FOLLOWER_MODEL_RESET_POS",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20b9",
+    "ReturnType": "void",
+    "Name": "FLD_CHARA_SET_LOOKAT_ROTATION",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x20ba",
+    "ReturnType": "void",
+    "Name": "FLD_CHARA_CLEAR_LOOKAT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x20bb",
+    "ReturnType": "void",
+    "Name": "FLD_NPC_PAUSE_IDOL_TALK",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x20bc",
+    "ReturnType": "void",
+    "Name": "FLD_NPC_RESTART_IDOL_TALK",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x20bd",
+    "ReturnType": "void",
+    "Name": "FLD_CHARA_SET_LOOKAT_TARGET",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x20be",
+    "ReturnType": "int",
+    "Name": "DUNGEON_GET_PARTNUM",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20bf",
+    "ReturnType": "void",
+    "Name": "DUNGEON_RESET_CHARA_BEHAVIOR",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20c0",
+    "ReturnType": "void",
+    "Name": "DUNGEON_ENEMY_DIE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x20c1",
+    "ReturnType": "void",
+    "Name": "FLD_MOVE_FLOOR_DAILY",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x20c2",
+    "ReturnType": "void",
+    "Name": "DUNGEON_GET_TBOX_ITEM_SET_COUNTER",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x20c3",
+    "ReturnType": "void",
+    "Name": "FLD_FAM_MODEL_LOOKAT_ROTATION",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x20c4",
+    "ReturnType": "void",
+    "Name": "FLD_FAM_MODEL_LOOKAT_TARGET",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x20c5",
+    "ReturnType": "void",
+    "Name": "FLD_FAM_MODEL_CLEAR_LOOKAT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x20c6",
+    "ReturnType": "void",
+    "Name": "DUNGEON_ENEMY_DIE_EFFECT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x20c7",
+    "ReturnType": "void",
+    "Name": "FLD_SOUND_POST_VOLUME_SET_LOCK",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20c8",
+    "ReturnType": "void",
+    "Name": "FLD_SOUND_POST_VOLUME_CLEAR_LOCK",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20c9",
+    "ReturnType": "void",
+    "Name": "FLD_CHARA_START_TURN_TO_NPC",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x20ca",
+    "ReturnType": "void",
+    "Name": "FLD_MODEL_START_TURN_TO_MODEL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x20cb",
+    "ReturnType": "int",
+    "Name": "FLD_CHECK_INIT_AFTER_LOAD_SAVEDATA",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20cc",
+    "ReturnType": "void",
+    "Name": "FLD_REQ_ALL_LINK_ANIM_OBJ_END_MOTION",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20cd",
+    "ReturnType": "void",
+    "Name": "FLD_RECREATE_MODEL_HEAD_ICON",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x20ce",
+    "ReturnType": "void",
+    "Name": "FLD_REQ_TURN_DOWN_VOLUME",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20cf",
+    "ReturnType": "void",
+    "Name": "FLD_RESET_TURN_DOWN_VOLUME",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20d0",
+    "ReturnType": "void",
+    "Name": "FLD_SYNC_TURN_DOWN_VOLUME",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20d1",
+    "ReturnType": "void",
+    "Name": "FLD_RESET_HERO_OPACITY",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20d2",
+    "ReturnType": "void",
+    "Name": "FLD_REQ_ALL_LINK_ANIM_OBJ_MOTION_FORCE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20d3",
+    "ReturnType": "void",
+    "Name": "DUNGEON_RESET_CHARA_QUICK",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20d4",
+    "ReturnType": "void",
+    "Name": "FLD_SOUND_AISAC_CTRL_FORCE_LOCK",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20d5",
+    "ReturnType": "void",
+    "Name": "FLD_SOUND_AISAC_CTRL_FORCE_UNLOCK",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20d6",
+    "ReturnType": "int",
+    "Name": "FLD_FAM_OBJ_GET_NOW_ANIM_INDEX",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  }
+]
