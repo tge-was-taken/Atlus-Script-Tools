@@ -3104,13 +3104,13 @@
   {
     "Index": "0x00eb",
     "ReturnType": "void",
-    "Name": "FUNCTION_00EB",
+    "Name": "AI_ACT_ITEM",
     "Description": "002C7330",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "Item ID"
       }
     ]
   },
@@ -3191,8 +3191,8 @@
     "Description": "002CB480",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
     ]
@@ -3245,7 +3245,7 @@
       {
         "Type": "Affinity",
         "Name": "affinityID",
-        "Description": ""
+        "Description": "Not certain on the difference between this and AI_EN_WEAK"
       }
     ]
   },
@@ -3314,12 +3314,12 @@
   {
     "Index": "0x00fa",
     "ReturnType": "int",
-    "Name": "FUNCTION_00FA",
-    "Description": "002CDFE0",
+    "Name": "AI_CHK_WEAPON_AFFINITY",
+    "Description": "Returns 1 if the weapon affinity is the same as the input",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
     ]
@@ -3327,17 +3327,17 @@
   {
     "Index": "0x00fb",
     "ReturnType": "int",
-    "Name": "FUNCTION_00FB",
-    "Description": "002CE0C0",
+    "Name": "AI_SKILL_HEALING_POSSIBLE",
+    "Description": "Seemingly checks if the member has a skill to heal the target",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "Target ID"
       },
       {
-        "Type": "int",
-        "Name": "param2",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
     ]
@@ -3345,8 +3345,8 @@
   {
     "Index": "0x00fc",
     "ReturnType": "int",
-    "Name": "FUNCTION_00FC",
-    "Description": "002CE160",
+    "Name": "AI_ITEM_HEALING_POSSIBLE",
+    "Description": "Seemingly checks if the member has an item to heal the target",
     "Parameters": [
       {
         "Type": "int",
@@ -3354,8 +3354,8 @@
         "Description": ""
       },
       {
-        "Type": "int",
-        "Name": "param2",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
     ]
@@ -3403,24 +3403,24 @@
     "Index": "0x0100",
     "ReturnType": "int",
     "Name": "AI_EN_NOT_IMMUNE",
-    "Description": "002CE510",
+    "Description": "Checks if the enemy doesn't Null, Reflect, or Absorb the affinity",
     "Parameters": [
       {
         "Type": "Affinity",
         "Name": "affinityID",
-        "Description": "Checks if the enemy doesn't Null, Reflect, or Absorb the affinity"
+        "Description": ""
       }
     ]
   },
   {
     "Index": "0x0101",
     "ReturnType": "int",
-    "Name": "FUNCTION_0101",
-    "Description": "002CE610",
+    "Name": "AI_EN_UNKNOWN1",
+    "Description": "Targets an enemy based on their resistance to an affinity",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
     ]
@@ -3428,12 +3428,12 @@
   {
     "Index": "0x0102",
     "ReturnType": "int",
-    "Name": "FUNCTION_0102",
+    "Name": "AI_EN_UNKNOWN2",
     "Description": "002CE6F0",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
     ]
@@ -3441,12 +3441,12 @@
   {
     "Index": "0x0103",
     "ReturnType": "int",
-    "Name": "FUNCTION_0103",
+    "Name": "AI_EN_UNKNOWN3",
     "Description": "002CF3A0",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
     ]
@@ -3454,12 +3454,12 @@
   {
     "Index": "0x0104",
     "ReturnType": "int",
-    "Name": "FUNCTION_0104",
+    "Name": "AI_EN_UNKNOWN4",
     "Description": "002CF4D0",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
     ]
@@ -3467,12 +3467,12 @@
   {
     "Index": "0x0105",
     "ReturnType": "int",
-    "Name": "FUNCTION_0105",
-    "Description": "002CF600",
+    "Name": "AI_CHK_WEAK_POS",
+    "Description": "Related to targetting based on affinity",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
     ]
@@ -3480,8 +3480,8 @@
   {
     "Index": "0x0106",
     "ReturnType": "int",
-    "Name": "AI_CHK_WEAK_POSITION",
-    "Description": "002CFA70",
+    "Name": "AI_CHK_NEUTRAL_POS",
+    "Description": "Should be an acceptable target as long as they don't reflect, null, or drain",
     "Parameters": [
       {
         "Type": "Affinity",
@@ -3519,13 +3519,13 @@
   {
     "Index": "0x0109",
     "ReturnType": "int",
-    "Name": "AI_USE_SKILL_AFFINITY",
-    "Description": "002CF730",
+    "Name": "AI_CALL_SKILL_WITH_AFFINITY",
+    "Description": "Returns skill ID with a specific affinity that the AI member possesses",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
-        "Description": "Related to targetting"
+        "Description": "Target ID"
       },
       {
         "Type": "Affinity",
@@ -3542,13 +3542,13 @@
   {
     "Index": "0x010a",
     "ReturnType": "int",
-    "Name": "AI_USE_ITEM",
-    "Description": "002CF7E0",
+    "Name": "AI_CALL_ITEM_WITH_AFFINITY",
+    "Description": "Returns item ID with a specific affinity that the AI member possesses. Used almost exclusively for healing",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
-        "Description": "Related to targetting"
+        "Description": "Target ID"
       },
       {
         "Type": "Affinity",
@@ -3558,7 +3558,7 @@
       {
         "Type": "NumberTargets",
         "Name": "number",
-        "Description": "Seemingly redundant in many cases as the party lacks access to items that heal 2+ allies"
+        "Description": "Redundant in most cases as the party lacks access to items that heal 2+ allies"
       }
     ]
   },
@@ -4568,23 +4568,23 @@
   {
     "Index": "0x0157",
     "ReturnType": "int",
-    "Name": "FUNCTION_0157",
+    "Name": "AI_RELEVANT_TARGET",
     "Description": "002D0330",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "0 if unconscious, 1 otherwise"
       },
       {
         "Type": "int",
         "Name": "param2",
-        "Description": ""
+        "Description": "HP less than or equal to"
       },
       {
-        "Type": "int",
-        "Name": "param3",
-        "Description": ""
+        "Type": "StatusEffects",
+        "Name": "statusID",
+        "Description": "Status effect"
       }
     ]
   },
@@ -6132,13 +6132,13 @@
   {
     "Index": "0x01c8",
     "ReturnType": "int",
-    "Name": "FUNCTION_01C8",
+    "Name": "AI_NUM_ALLIES_UNDER_HP_PERCENT",
     "Description": "002CDCF0",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "Excludes unconscious allies"
       }
     ]
   },
@@ -6178,8 +6178,8 @@
     "Description": "002CEE60",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
     ]
@@ -6200,12 +6200,12 @@
   {
     "Index": "0x01ce",
     "ReturnType": "int",
-    "Name": "FUNCTION_01CE",
-    "Description": "002CF120",
+    "Name": "AI_EN_IMMUNE_ID",
+    "Description": "Returns the ID of an enemy immune to the input affinity",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
     ]
@@ -6213,17 +6213,17 @@
   {
     "Index": "0x01cf",
     "ReturnType": "int",
-    "Name": "FUNCTION_01CF",
+    "Name": "AI_CHK_MEMBER_HAS_AFFINITY",
     "Description": "002CC190",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "PartyMember",
+        "Name": "partyID",
         "Description": ""
       },
       {
-        "Type": "int",
-        "Name": "param2",
+        "Type": "Affinity",
+        "Name": "affinityID",
         "Description": ""
       }
     ]
