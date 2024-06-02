@@ -1,6 +1,7 @@
-﻿using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel;
-using System;
+﻿using System;
 using System.IO;
+using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AtlusScriptLibrary.MessageScriptLanguage.Tests
 {

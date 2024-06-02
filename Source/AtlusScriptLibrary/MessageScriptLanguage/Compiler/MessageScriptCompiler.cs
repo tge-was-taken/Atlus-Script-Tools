@@ -1,7 +1,7 @@
-﻿using AtlusScriptLibrary.Common.Libraries;
+﻿using Antlr4.Runtime;
+using Antlr4.Runtime.Tree;
+using AtlusScriptLibrary.Common.Libraries;
 using AtlusScriptLibrary.Common.Logging;
-using AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser;
-using AtlusScriptLibrary.MessageScriptLanguage.Compiler.Parser;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,6 +9,8 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using MessageScriptParser = AtlusScriptLibrary.MessageScriptLanguage.Compiler.Parser.MessageScriptParser;
+using MessageScriptParserHelper = AtlusScriptLibrary.MessageScriptLanguage.Compiler.Parser.MessageScriptParserHelper;
 
 namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler;
 
@@ -22,11 +24,20 @@ public class MessageScriptCompiler
 {
     private readonly Logger mLogger;
     private readonly FormatVersion mVersion;
+    private readonly HashSet<int> mImportedFileHashSet;
     private readonly Encoding mEncoding;
     private readonly Dictionary<string, int> mVariables;
+    private string mFilePath;
+    private MessageScript mScript;
+    private List<MessageScript> mImports;
 
     public Library Library { get; set; }
 
+    /// <summary>
+    /// If true when there are message name conflicts an existing message of the same name will be overwritten. 
+    /// Otherwise an error will occur and the existing message will not be changed
+    /// </summary>
+    public bool OverwriteExistingMsgs { get; set; } = false;
 
     /// <summary>
     /// Constructs a new instance of <see cref="MessageScriptCompiler"/> which will compile to the specified format.
@@ -39,6 +50,8 @@ public class MessageScriptCompiler
         mEncoding = encoding;
         mLogger = new Logger(nameof(MessageScriptCompiler));
         mVariables = new Dictionary<string, int>();
+        mImports = new List<MessageScript>();
+        mImportedFileHashSet = new HashSet<int>();
 
         LoggerManager.RegisterLogger(mLogger);
     }
@@ -50,6 +63,174 @@ public class MessageScriptCompiler
     public void AddListener(LogListener listener)
     {
         listener.Subscribe(mLogger);
+    }
+
+    /// <summary>
+    /// Tries to compile the provided MessageScript source with given imports. Returns a boolean indicating if the operation succeeded.
+    /// </summary>
+    /// <param name="baseBmdStream">A FileStream of the base bmd file</param>
+    /// <param name="imports">A List of paths to .msg files that will be forcibly imported</param>
+    /// <param name="messageScript">The compiled MessageScript</param>
+    /// <returns>True if the file successfully compiled, false otherwise</returns>
+    public bool TryCompileWithImports(FileStream baseBmdStream, List<string> imports, out MessageScript messageScript)
+    {
+        // Parse base bmd
+        if (baseBmdStream != null)
+            mScript = MessageScript.FromStream(baseBmdStream, mVersion, mEncoding, false);
+
+        if(imports.Count > 0)
+        {
+            mFilePath = Path.GetFullPath(imports[0]);
+        }
+
+        if(!TryResolveImports(imports))
+        {
+            messageScript = null;
+            return false;
+        }
+
+        for (int i = 0; i < mScript.Dialogs.Count; i++)
+        {
+            var dialog = mScript.Dialogs[i];
+
+            if (OverwriteExistingMsgs)
+            {
+                // Try and replace the current one with the last one
+                int last = mScript.Dialogs.FindLastIndex(msg => msg.Name == dialog.Name);
+                mScript.Dialogs[i] = mScript.Dialogs[last]; // Replace current one
+                dialog = mScript.Dialogs[i];
+                while (last != i) // Keep removing from the end until there's only one
+                {
+                    mScript.Dialogs.RemoveAt(last);
+                    last = mScript.Dialogs.FindLastIndex(msg => msg.Name == dialog.Name);
+                }
+            }
+        }
+        messageScript = mScript; //TODO: maybe this should be checked again...
+        return true;
+    }
+
+    private bool TryResolveImports(List<string> imports)
+    {
+        LogInfo("Resolving imports");
+
+        foreach (var import in imports)
+        {
+            if (!TryResolveMessageScriptImport(import, out var messageScript))
+            {
+                LogError($"Failed to resolve MessageScript import: {import}");
+                return false;
+            }
+
+            // Will be null if it was already imported before
+            if (messageScript != null)
+                mImports.Add(messageScript);
+        }
+
+        // Resolve MessageScripts imports
+        if (mImports.Count > 0)
+            MergeMessageScripts(mImports);
+
+        LogInfo("Done resolving imports");
+
+        return true;
+    }
+
+    private bool TryResolveMessageScriptImport(string import, out MessageScript messageScript)
+    {
+        LogInfo($"Resolving MessageScript import '{import}'");
+
+        if (!TryGetFullImportPath(import, out var compilationUnitFilePath))
+        {
+            messageScript = null;
+            return false;
+        }
+
+        LogInfo($"Importing MessageScript from file '{compilationUnitFilePath}'");
+
+        string messageScriptSource;
+
+        try
+        {
+            messageScriptSource = File.ReadAllText(compilationUnitFilePath);
+        }
+        catch (Exception)
+        {
+            LogError($"Can't open MessageScript file to import: {import}");
+            messageScript = null;
+            return false;
+        }
+
+        int messageScriptSourceHash = messageScriptSource.GetHashCode();
+
+        if (!mImportedFileHashSet.Contains(messageScriptSourceHash))
+        {
+            if (!TryCompile(messageScriptSource, out messageScript))
+            {
+                LogError($"Import MessageScript failed to compile: {import}");
+                return false;
+            }
+
+            mImportedFileHashSet.Add(messageScriptSourceHash);
+        }
+        else
+        {
+            LogWarning($"MessageScript file '{compilationUnitFilePath}' was already included once! Skipping!");
+            messageScript = null;
+        }
+
+        return true;
+    }
+
+    private bool TryGetFullImportPath(string import, out string path)
+    {
+        var compilationUnitFilePath = import;
+
+        if (!File.Exists(compilationUnitFilePath))
+        {
+            // Retry as relative path if we have a filename
+            if (mFilePath != null)
+            {
+                compilationUnitFilePath = Path.Combine(Path.GetDirectoryName(mFilePath), compilationUnitFilePath);
+
+                if (!File.Exists(compilationUnitFilePath))
+                {
+                    LogError($"File to import does not exist: {import}");
+                    path = null;
+                    return false;
+                }
+            }
+            else
+            {
+                LogError($"File to import does not exist: {import}");
+                path = null;
+                return false;
+            }
+        }
+
+        path = compilationUnitFilePath;
+        return true;
+    }
+
+    private void MergeMessageScripts(List<MessageScript> messageScripts)
+    {
+        // Merge message scripts
+        foreach (var messageScript in messageScripts)
+        {
+            if (messageScript != null)
+                MergeMessageScript(messageScript);
+        }
+    }
+
+    private void MergeMessageScript(MessageScript messageScript)
+    {
+        if (messageScript == null)
+            throw new ArgumentNullException(nameof(messageScript));
+
+        if (mScript == null)
+            mScript = messageScript;
+        else
+            mScript.Dialogs.AddRange(messageScript.Dialogs);
     }
 
     /// <summary>
@@ -804,6 +985,11 @@ public class MessageScriptCompiler
         mLogger.Info(str);
     }
 
+    private void LogError(string str)
+    {
+        mLogger.Error(str);
+    }
+
     private void LogError(ParserRuleContext context, string str)
     {
         mLogger.Error($"({context.Start.Line:D4}:{context.Start.Column:D4}) {str}");
@@ -812,6 +998,11 @@ public class MessageScriptCompiler
     private void LogError(Antlr4.Runtime.IToken token, string str)
     {
         mLogger.Error($"({token.Line:D4}:{token.Column:D4}) {str}");
+    }
+
+    private void LogWarning(string str)
+    {
+        mLogger.Warning(str);
     }
 
     private void LogWarning(ParserRuleContext context, string str)

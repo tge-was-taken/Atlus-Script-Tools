@@ -37,6 +37,7 @@ public class FlowScriptCompiler
     private VariableInfo mIntReturnValueVariable;
     private VariableInfo mFloatReturnValueVariable;
     private Dictionary<string, List<Instruction>> mProcedureInstructionCache;
+    private (Import, FlowScript) mBaseBfImport;
 
     // variable indices
     private short mNextIntVariableIndex;
@@ -96,6 +97,12 @@ public class FlowScriptCompiler
     /// </summary>
     public ProcedureHookMode ProcedureHookMode { get; set; }
 
+    /// <summary>
+    /// If true when there are message name conflicts an existing message of the same name will be overwritten. 
+    /// Otherwise an error will occur and the existing message will not be changed
+    /// </summary>
+    public bool OverwriteExistingMsgs { get; set; } = false;
+
     public bool Matching { get; set; } = true;
 
     /// <summary>
@@ -116,6 +123,62 @@ public class FlowScriptCompiler
     public void AddListener(LogListener listener)
     {
         listener.Subscribe(mLogger);
+    }
+
+    /// <summary>
+    /// Tries to compile the provided FlowScript source with given imports. Returns a boolean indicating if the operation succeeded.
+    /// </summary>
+    /// <param name="baseBfStream">A FileStream of the base bf file</param>
+    /// <param name="imports">A List of paths to .bf, .flow, and .msg files that will be forcibly imported</param>
+    /// <param name="flowScript">The compiled FlowScript</param>
+    /// <returns>True if the file successfully compiled, false otherwise</returns>
+    public bool TryCompileWithImports(FileStream baseBfStream, List<string> imports, string baseFlow, out FlowScript flowScript)
+    {
+        // Parse base flow file
+        CompilationUnit compilationUnit;
+        if (baseFlow == null)
+            compilationUnit = new CompilationUnit();
+        else
+        {
+            var file = File.Open(baseFlow, FileMode.Open, FileAccess.Read, FileShare.Read);
+            try
+            {
+                mFilePath = Path.GetFullPath(file.Name);
+                mCurrentBaseDirectory = Path.GetDirectoryName(mFilePath);
+
+                // Add hash for current file
+                var hashAlgo = new MD5CryptoServiceProvider();
+                var hashBytes = hashAlgo.ComputeHash(file);
+                int hashInt = BitConverter.ToInt32(hashBytes, 0);
+                mImportedFileHashSet.Add(hashInt);
+                file.Position = 0;
+
+                // Parse compilation unit
+                var parser = new CompilationUnitParser();
+                parser.AddListener(new LoggerPassthroughListener(mLogger));
+                if (!parser.TryParse(file, out compilationUnit))
+                {
+                    Error("Failed to parse compilation unit");
+                    flowScript = null;
+                    return false;
+                }
+            }
+            finally
+            {
+                file.Close();
+            }
+        }
+
+        // Parse base bf
+        if (baseBfStream != null)
+        {
+            var baseBf = FlowScript.FromStream(baseBfStream, Encoding, mFormatVersion, false);
+            mBaseBfImport = (new Import(baseBfStream.Name), baseBf);
+        }
+
+        compilationUnit.Imports.AddRange(imports.Select(import => new Import(import)));
+        mCurrentBaseDirectory = "";
+        return TryCompile(compilationUnit, out flowScript);
     }
 
     /// <summary>
@@ -162,7 +225,7 @@ public class FlowScriptCompiler
         }
         else
         {
-            Info("Start compiling FlowScript from stream");
+            Info("Start compiling FlowScript from baseBf");
             Warning("Because the input is not a file, this means imports will not work!");
         }
 
@@ -244,6 +307,46 @@ public class FlowScriptCompiler
         mProcedureInstructionCache = new Dictionary<string, List<Instruction>>();
     }
 
+    // Reorders any procedures with forced indices
+    private void ReorderProcedures(CompilationUnit compilationUnit)
+    {
+        for (int i = 0; i < compilationUnit.Declarations.Count; i++)
+        {
+            var declaration = compilationUnit.Declarations[i];
+            if (declaration.DeclarationType != DeclarationType.Procedure)
+                continue;
+
+            var nameParts = declaration.Identifier.Text.Split('_');
+            if (nameParts.Length < 2) continue;
+            if (!nameParts[nameParts.Length - 2].Equals("index", StringComparison.OrdinalIgnoreCase)) continue;
+            if (!int.TryParse(nameParts[nameParts.Length - 1], out var index))
+            {
+                Error($"Unable to parse procedure index {nameParts[nameParts.Length - 1]}. Index will not be changed");
+                continue;
+            }
+
+            var procedure = (ProcedureDeclaration)declaration;
+            Info($"Changed procedure index of {declaration.Identifier.Text} from {procedure.Index} to {index}");
+            ((ProcedureDeclaration)compilationUnit.Declarations[i]).Index = index;
+        }
+    }
+
+    // Adds dummy procedures if there are any that don't exist due to forced indices
+    private void AddMissingProcedures(CompilationUnit compilationUnit)
+    {
+        int maxIndex = Scope.Procedures.Max(x => x.Value.Index);
+        for (int i = 0; i < maxIndex; i++)
+        {
+            if (!Scope.Procedures.Any(x => x.Value.Index == i))
+            {
+                // Add dummy procedure
+                var procedure = new ProcedureDeclaration(i, TypeIdentifier.Void, new Identifier($"procedure_{i}"), new List<Parameter>(), new CompoundStatement());
+                compilationUnit.Declarations.Add(procedure);
+                Scope.TryDeclareProcedure(procedure, out _);
+            }
+        }
+    }
+
     private bool TryCompileCompilationUnit(CompilationUnit compilationUnit)
     {
         Info($"Start compiling FlowScript compilation unit with version {mFormatVersion}");
@@ -252,7 +355,7 @@ public class FlowScriptCompiler
         InitializeCompilationState();
 
         // Resolve imports
-        if (compilationUnit.Imports.Count > 0)
+        if (compilationUnit.Imports.Count > 0 || mBaseBfImport != (null, null))
         {
             do
             {
@@ -264,9 +367,13 @@ public class FlowScriptCompiler
             } while (mReresolveImports);
         }
 
+        ReorderProcedures(compilationUnit);
+
         // Evaluate declarations, return values, parameters etc
         if (!TryEvaluateCompilationUnitBeforeCompilation(compilationUnit))
             return false;
+
+        AddMissingProcedures(compilationUnit);
 
         if (ProcedureHookMode == ProcedureHookMode.ImportedOnly)
         {
@@ -407,6 +514,11 @@ public class FlowScriptCompiler
         }
 
         // process compiled FlowScript imports
+        if (mBaseBfImport != (null, null))
+        {
+            importedCompiledFlowScripts.Add(mBaseBfImport);
+            mBaseBfImport = (null, null); // Prevent it from being imported multiple times
+        }
         foreach (var compiledFlowScriptImport in importedCompiledFlowScripts)
         {
             var script = compiledFlowScriptImport.Script;
@@ -787,6 +899,19 @@ public class FlowScriptCompiler
             {
                 var dialog = mScript.MessageScript.Dialogs[i];
 
+                if (OverwriteExistingMsgs)
+                {
+                    // Try and replace the current one with the last one
+                    int last = mScript.MessageScript.Dialogs.FindLastIndex(msg => msg.Name == dialog.Name);
+                    mScript.MessageScript.Dialogs[i] = mScript.MessageScript.Dialogs[last]; // Replace current one
+                    dialog = mScript.MessageScript.Dialogs[i];
+                    while (last != i) // Keep removing from the end until there's only one
+                    {
+                        mScript.MessageScript.Dialogs.RemoveAt(last);
+                        last = mScript.MessageScript.Dialogs.FindLastIndex(msg => msg.Name == dialog.Name);
+                    }
+                }
+
                 var declaration = new VariableDeclaration
                 (
                     new VariableModifier(VariableModifierKind.Constant),
@@ -900,14 +1025,14 @@ public class FlowScriptCompiler
             }
         }
 
-        // Add stuff from registry
-        if (Library != null)
-        {
-            // Functions
-            foreach (var libraryFunction in Library.FlowScriptModules.SelectMany(x => x.Functions))
+            // Add stuff from registry
+            if (Library != null)
             {
-                Scope.TryDeclareFunction(FunctionDeclaration.FromLibraryFunction(libraryFunction));
-            }
+                // Functions
+                foreach (var libraryFunction in Library.FlowScriptModules.SelectMany(x => x.Functions))
+                {
+                    Scope.TryDeclareFunctions(FunctionDeclaration.FromLibraryFunctionWithAliases(libraryFunction));
+                }
 
             // Enums
             foreach (var libraryEnum in Library.FlowScriptModules
@@ -1797,9 +1922,9 @@ public class FlowScriptCompiler
     {
         Trace(callExpression, $"Emitting call: {callExpression}");
 
-        if (mRootScope.TryGetFunction(callExpression.Identifier.Text, out var function))
-        {
-            var libFunc = Library.FlowScriptModules.SelectMany(x => x.Functions).FirstOrDefault(x => x.Name == function.Declaration.Identifier.Text);
+            if (mRootScope.TryGetFunction(callExpression.Identifier.Text, out var function))
+            {
+                var libFunc = Library.FlowScriptModules.SelectMany(x => x.Functions).FirstOrDefault(x => x.Name == function.Declaration.Identifier.Text || (x.Aliases != null && x.Aliases.Contains(function.Declaration.Identifier.Text)));
 
             // Add default values
             var foundDefaultValue = false;
@@ -3651,7 +3776,7 @@ public class FlowScriptCompiler
                 break;
             case Opcode.COMM:
                 {
-                    var functionCalled = mRootScope.Functions.Values.Single(x => x.Index == instruction.Operand.Int16Value);
+                    var functionCalled = mRootScope.Functions.Values.First(x => x.Index == instruction.Operand.Int16Value);
                     mStackValueCount -= functionCalled.Declaration.Parameters.Count;
                 }
                 break;

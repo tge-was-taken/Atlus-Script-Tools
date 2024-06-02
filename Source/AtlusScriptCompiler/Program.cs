@@ -1,5 +1,9 @@
-﻿using AtlusScriptLibrary.Common.Libraries;
+﻿using System;
+using System.IO;
+using System.Reflection;
+using System.Text;
 using AtlusScriptLibrary.Common.Logging;
+using AtlusScriptLibrary.Common.Libraries;
 using AtlusScriptLibrary.Common.Text;
 using AtlusScriptLibrary.Common.Text.Encodings;
 using AtlusScriptLibrary.FlowScriptLanguage;
@@ -10,10 +14,6 @@ using AtlusScriptLibrary.FlowScriptLanguage.Disassembler;
 using AtlusScriptLibrary.MessageScriptLanguage;
 using AtlusScriptLibrary.MessageScriptLanguage.Compiler;
 using AtlusScriptLibrary.MessageScriptLanguage.Decompiler;
-using System;
-using System.IO;
-using System.Reflection;
-using System.Text;
 using FormatVersion = AtlusScriptLibrary.FlowScriptLanguage.FormatVersion;
 
 namespace AtlusScriptCompiler
@@ -46,6 +46,8 @@ namespace AtlusScriptCompiler
 
         public static bool FlowScriptSumBits { get; private set; }
 
+        public static bool FlowScriptOverwriteMessages { get; private set; }
+
         private static void DisplayUsage()
         {
             Console.WriteLine($"AtlusScriptCompiler {Version.Major}.{Version.Minor}-{ThisAssembly.Git.Commit} by TGE (2018)");
@@ -77,6 +79,7 @@ namespace AtlusScriptCompiler
             Console.WriteLine("        -StackCookie                               Enables stack cookie. Used for debugging stack corruptions.");
             Console.WriteLine("        -Hook                                      Enables hooking of procedures. Used to modify scripts without recompiling them entirely.");
             Console.WriteLine("        -SumBits                                   Sums the bit id values passed to BIT_* function");
+            Console.WriteLine("        -OverwriteMessages                         Causes messages with duplicate names to overwrite existing messages.");
             Console.WriteLine();
             Console.WriteLine("Parameter detailed info:");
             Console.WriteLine("    MessageScript:");
@@ -392,6 +395,10 @@ namespace AtlusScriptCompiler
 
                         UEPatchFile = args[++i];
                         break;
+
+                    case "-OverwriteMessages":
+                        FlowScriptOverwriteMessages = true;
+                        break;
                 }
             }
 
@@ -557,6 +564,7 @@ namespace AtlusScriptCompiler
             compiler.EnableFunctionCallTracing = FlowScriptEnableFunctionCallTracing;
             compiler.EnableStackCookie = FlowScriptEnableStackCookie;
             compiler.ProcedureHookMode = FlowScriptEnableProcedureHook ? ProcedureHookMode.ImportedOnly : ProcedureHookMode.None;
+            compiler.OverwriteExistingMsgs = FlowScriptOverwriteMessages;
 
             if (LibraryName != null)
             {
@@ -907,7 +915,7 @@ namespace AtlusScriptCompiler
                 OutputFilePath = InputFilePath + GetOutputFileExtensionByFileFormat();
                 Logger.Info($"Input file path is set to {InputFilePath}");
                 Logger.Info($"Output file path is set to {OutputFilePath}");
-            }
+    }
             return success;
         }
 

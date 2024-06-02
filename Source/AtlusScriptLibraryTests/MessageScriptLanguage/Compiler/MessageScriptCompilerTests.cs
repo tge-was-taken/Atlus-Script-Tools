@@ -1,4 +1,6 @@
-﻿namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler.Tests
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler.Tests
 {
     [TestClass]
     public class MessageScriptCompilerTests

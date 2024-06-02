@@ -1,11 +1,11 @@
-using AtlusScriptDocGen.Exceptions;
-using AtlusScriptDocGen.Generators;
-using AtlusScriptLibrary.Common.CLI;
-using AtlusScriptLibrary.Common.Libraries;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using AtlusScriptDocGen.Exceptions;
+using AtlusScriptDocGen.Generators;
+using AtlusScriptLibrary.Common.CLI;
+using AtlusScriptLibrary.Common.Libraries;
 
 namespace AtlusScriptDocGen
 {

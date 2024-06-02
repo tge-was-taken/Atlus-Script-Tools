@@ -31,7 +31,7 @@ public class EnumDeclaration : Declaration
         {
             var valueDeclaration = new EnumValueDeclaration(
                 new Identifier(ValueKind.Unresolved, libraryEnumMember.Name),
-                Expression.FromText(libraryEnumMember.Value)
+                Expression.FromText(libraryEnumMember.Value.ToString())
             );
 
             enumDeclaration.Values.Add(valueDeclaration);

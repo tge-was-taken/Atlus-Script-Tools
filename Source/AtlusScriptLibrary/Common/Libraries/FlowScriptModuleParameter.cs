@@ -1,8 +1,10 @@
 using AtlusScriptLibrary.Common.Libraries.Serialization;
+using System;
+using System.Text.Json.Serialization;
 
 namespace AtlusScriptLibrary.Common.Libraries;
 
-public class FlowScriptModuleParameter
+public class FlowScriptModuleParameter : ICloneable
 {
     public string Type { get; set; }
 
@@ -14,6 +16,17 @@ public class FlowScriptModuleParameter
     public FlowScriptModuleParameterSemantic Semantic { get; set; }
 
     public string DefaultValue { get; set; }
+
+    public object Clone()
+    {
+        var clone = new FlowScriptModuleParameter();
+        clone.Type = Type;
+        clone.Name = Name;
+        clone.Description = Description;
+        clone.Semantic = Semantic;
+        clone.DefaultValue = DefaultValue;
+        return clone;
+    }
 }
 
 public enum FlowScriptModuleParameterSemantic

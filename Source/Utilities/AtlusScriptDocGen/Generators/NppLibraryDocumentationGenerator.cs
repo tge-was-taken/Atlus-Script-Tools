@@ -1,5 +1,5 @@
-﻿using AtlusScriptLibrary.Common.Libraries;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
+using AtlusScriptLibrary.Common.Libraries;
 
 namespace AtlusScriptDocGen.Generators
 {

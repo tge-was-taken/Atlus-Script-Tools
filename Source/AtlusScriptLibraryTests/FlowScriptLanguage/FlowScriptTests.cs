@@ -1,7 +1,8 @@
-﻿using AtlusScriptLibrary.FlowScriptLanguage.BinaryModel;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
+using AtlusScriptLibrary.FlowScriptLanguage.BinaryModel;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AtlusScriptLibrary.FlowScriptLanguage.Tests
 {

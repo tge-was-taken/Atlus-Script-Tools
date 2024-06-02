@@ -1,11 +1,12 @@
-﻿using AtlusScriptLibrary.Common.Libraries;
+﻿using System;
+using System.IO;
+using System.Linq;
+using AtlusScriptLibrary.Common.Libraries;
 using AtlusScriptLibrary.Common.Logging;
 using AtlusScriptLibrary.FlowScriptLanguage;
 using AtlusScriptLibrary.FlowScriptLanguage.Compiler;
 using AtlusScriptLibrary.FlowScriptLanguage.Interpreter;
-using System;
-using System.IO;
-using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AtlusScriptLibraryTests.FlowScriptLanguage.Interpreter
 {

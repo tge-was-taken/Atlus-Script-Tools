@@ -1,8 +1,8 @@
-﻿using AtlusScriptLibrary.Common.Libraries;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using AtlusScriptLibrary.Common.Libraries;
 
 namespace AtlusScriptDocGen.Generators
 {

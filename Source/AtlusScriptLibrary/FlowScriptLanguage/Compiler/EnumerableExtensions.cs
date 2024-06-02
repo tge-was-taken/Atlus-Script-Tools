@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler;
 
@@ -17,5 +18,11 @@ internal static class EnumerableExtensions
         }
 
         return max;
+    }
+
+    public static IEnumerable<T> Clone<T>(this IEnumerable<T> collection) where T : ICloneable
+    {
+        if (collection == null) return null;
+        return collection.Select(item => (T)item.Clone());
     }
 }

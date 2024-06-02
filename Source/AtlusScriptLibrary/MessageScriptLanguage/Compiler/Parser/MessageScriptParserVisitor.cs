@@ -19,10 +19,11 @@
 // Ambiguous reference in cref attribute
 #pragma warning disable 419
 
-namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser; 
+namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser {
 using Antlr4.Runtime.Misc;
 using Antlr4.Runtime.Tree;
-using IToken = Antlr4.Runtime.IToken;
+    using AtlusScriptLibrary.MessageScriptLanguage.Compiler.Parser;
+    using IToken = Antlr4.Runtime.IToken;
 
 /// <summary>
 /// This interface defines a complete generic visitor for a parse tree produced
@@ -95,4 +96,4 @@ public interface IMessageScriptParserVisitor<Result> : IParseTreeVisitor<Result>
 	/// <return>The visitor result.</return>
 	Result VisitExpression([NotNull] MessageScriptParser.ExpressionContext context);
 }
-// namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser
+} // namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser

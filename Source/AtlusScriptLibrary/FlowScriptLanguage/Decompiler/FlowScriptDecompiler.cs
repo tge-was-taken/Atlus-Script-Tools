@@ -543,7 +543,7 @@ public class FlowScriptDecompiler
                     if (libraryEnum == null)
                         continue;
 
-                    var libraryEnumMember = libraryEnum.Members.FirstOrDefault(x => x.Value == argumentValue.Value.ToString());
+                    var libraryEnumMember = libraryEnum.Members.FirstOrDefault(x => x.Value == argumentValue.Value);
                     if (libraryEnumMember == null)
                         continue;
 

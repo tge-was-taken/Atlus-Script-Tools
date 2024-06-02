@@ -65,12 +65,43 @@ public class FunctionDeclaration : Declaration
                                             Expression.FromText(libraryFunctionParameter.DefaultValue) : null));
         }
 
-        var functionDeclaration = new FunctionDeclaration(
-            new IntLiteral(libraryFunction.Index),
-            new TypeIdentifier(libraryFunction.ReturnType),
-            new Identifier(libraryFunction.Name),
-            functionParameters);
-
-        return functionDeclaration;
+        return new FunctionDeclaration(
+           new IntLiteral(libraryFunction.Index),
+           new TypeIdentifier(libraryFunction.ReturnType),
+           new Identifier(libraryFunction.Name),
+           functionParameters);
     }
+
+    public static FunctionDeclaration[] FromLibraryFunctionWithAliases(FlowScriptModuleFunction libraryFunction)
+    {
+        var functionParameters = new List<Parameter>();
+        foreach (var libraryFunctionParameter in libraryFunction.Parameters)
+        {
+            functionParameters.Add(new Parameter(
+                                         ParameterModifier.None,
+                                        new TypeIdentifier(libraryFunctionParameter.Type),
+                                        new Identifier(libraryFunctionParameter.Name),
+                                        !string.IsNullOrWhiteSpace(libraryFunctionParameter.DefaultValue) ?
+                                            Expression.FromText(libraryFunctionParameter.DefaultValue) : null));
+        }
+
+        var declarations = new FunctionDeclaration[(libraryFunction.Aliases != null ? libraryFunction.Aliases.Count : 0) + 1];
+        declarations[0] = new FunctionDeclaration(
+           new IntLiteral(libraryFunction.Index),
+           new TypeIdentifier(libraryFunction.ReturnType),
+           new Identifier(libraryFunction.Name),
+           functionParameters);
+
+        for (int i = 1; i < declarations.Length; i++)
+        {
+            declarations[i] = new FunctionDeclaration(
+               new IntLiteral(libraryFunction.Index),
+               new TypeIdentifier(libraryFunction.ReturnType),
+               new Identifier(libraryFunction.Aliases[i - 1]),
+               functionParameters);
+        }
+
+        return declarations;
+    }
+
 }

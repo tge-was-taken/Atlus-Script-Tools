@@ -1,22 +1,20 @@
 using System;
 using System.Globalization;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace AtlusScriptLibrary.Common.Libraries.Serialization;
 
-internal class HexIntStringJsonConverter : JsonConverter
+internal class HexIntStringJsonConverter : JsonConverter<int>
 {
-    public override bool CanConvert(Type objectType) => false;
-
-    public override bool CanWrite => false;
-
-    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    public override int Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        var stringValue = (string)reader.Value;
+        var stringValue = reader.GetString();
         return int.Parse(stringValue.Substring(2), NumberStyles.HexNumber);
     }
 
-    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+    public override void Write(Utf8JsonWriter writer, int value, JsonSerializerOptions options)
     {
-        throw new NotImplementedException();
+        writer.WriteStringValue($"0x{value:X}");
     }
 }

@@ -1,6 +1,6 @@
-﻿using AtlusScriptDocGen.Generators;
+﻿using System;
+using AtlusScriptDocGen.Generators;
 using AtlusScriptLibrary.Common.Libraries;
-using System;
 
 namespace AtlusScriptDocGen
 {

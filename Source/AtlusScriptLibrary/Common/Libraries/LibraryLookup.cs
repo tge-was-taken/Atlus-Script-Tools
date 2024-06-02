@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 
 namespace AtlusScriptLibrary.Common.Libraries;
 
@@ -12,6 +13,11 @@ public static class LibraryLookup
     private static Dictionary<string, Library> sLibrariesByShortName;
     private static Dictionary<string, Library> sLibrariesByFullName;
     private static bool sInitialized;
+
+    public static void SetLibraryPath(string path)
+    {
+        LibraryBaseDirectoryPath = path;
+    }
 
     public static IEnumerable<Library> Libraries
     {
@@ -56,6 +62,6 @@ public static class LibraryLookup
     {
         EnsureInitialized();
         string jsonText = File.ReadAllText(path);
-        return JsonConvert.DeserializeObject<Library>(jsonText);
+        return JsonSerializer.Deserialize<Library>(jsonText);
     }
 }
