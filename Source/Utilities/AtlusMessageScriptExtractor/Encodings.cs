@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using AtlusScriptLibrary.Common.Text.Encodings;
+using System.Collections.Generic;
 using System.Text;
-using AtlusScriptLibrary.Common.Text.Encodings;
 
 namespace AtlusMessageScriptExtractor
 {

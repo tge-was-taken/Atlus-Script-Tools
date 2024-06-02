@@ -1,16 +1,15 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using AtlusScriptLibrary.Common.Libraries;
+﻿using AtlusScriptLibrary.Common.Libraries;
 using AtlusScriptLibrary.Common.Logging;
 using AtlusScriptLibrary.FlowScriptLanguage;
 using AtlusScriptLibrary.FlowScriptLanguage.Compiler;
 using AtlusScriptLibrary.FlowScriptLanguage.Interpreter;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.IO;
+using System.Linq;
 
 namespace AtlusScriptLibraryTests.FlowScriptLanguage.Interpreter
 {
-    [ TestClass ]
+    [TestClass]
     public class FlowScriptInterpreterTests
     {
         private static void PatchPUTSFunction(Library library)
@@ -51,7 +50,7 @@ namespace AtlusScriptLibraryTests.FlowScriptLanguage.Interpreter
             }
         }
 
-        public string RunTest( FormatVersion version, string library, string source )
+        public string RunTest(FormatVersion version, string library, string source)
         {
             var compiler = new FlowScriptCompiler(version);
             compiler.Library = LibraryLookup.GetLibrary(library);
@@ -72,18 +71,18 @@ namespace AtlusScriptLibraryTests.FlowScriptLanguage.Interpreter
             return textOutput.GetStringBuilder().ToString();
         }
 
-        public void RunTest( FormatVersion version, string library, string source, string expectedOutput )
+        public void RunTest(FormatVersion version, string library, string source, string expectedOutput)
         {
-            var output = RunTest( version, library, source );
-            Assert.AreEqual( expectedOutput, output );
+            var output = RunTest(version, library, source);
+            Assert.AreEqual(expectedOutput, output);
         }
 
-        public void RunP5Test( string source, string expectedOutput = "" )
+        public void RunP5Test(string source, string expectedOutput = "")
         {
-            RunTest( FormatVersion.Version3BigEndian, "p5", source, expectedOutput );
+            RunTest(FormatVersion.Version3BigEndian, "p5", source, expectedOutput);
         }
 
-        [ TestMethod ]
+        [TestMethod]
         public void compare_int_variable_against_minus_one()
         {
             const string source = @"
@@ -93,7 +92,7 @@ void Test()
     if ( foo == -1 ) 
         PUTS( ""Passed"" );
 }";
-            RunP5Test( source, "Passed\n" );
+            RunP5Test(source, "Passed\n");
         }
 
         [TestMethod]
@@ -105,10 +104,10 @@ void Test()
     if ( -1 == -1 ) 
         PUTS( ""Passed"" );
 }";
-            RunP5Test( source, "Passed\n" );
+            RunP5Test(source, "Passed\n");
         }
 
-        [ TestMethod ]
+        [TestMethod]
         public void test_arrays()
         {
             var source = @"
@@ -145,7 +144,7 @@ void TakesArrayParameter(int array[5])
 }
 ";
 
-            RunP5Test( source,
+            RunP5Test(source,
                        "array[0] = 1\n" +
                        "array[0] = 1\n" +
                        "array5[1] = 0\n" +
@@ -203,29 +202,29 @@ void func() {
   }
 }
 ";
-            RunP5Test(source, "num1 2\n"+
-                              "num2 3\n"+
-                              "num3 3\n"+
-                              "num4 4\n"+
-                              "num5 4\n"+
-                              "num6 4\n"+
-                              "num7 1\n"+
-                              "num8 1\n"+
-                              "num9 1\n"+
-                              "num10 3\n"+
-                              "num7 2\n"+
-                              "num9 2\n"+
-                              "num10 3\n"+
-                              "num7 3\n"+
-                              "num8 3\n"+
-                              "num9 3\n"+
-                              "num10 3\n"+
-                              "num7 4\n"+
-                              "num9 4\n"+
-                              "num10 3\n"+
-                              "num7 5\n"+
-                              "num8 5\n"+
-                              "num9 5\n"+
+            RunP5Test(source, "num1 2\n" +
+                              "num2 3\n" +
+                              "num3 3\n" +
+                              "num4 4\n" +
+                              "num5 4\n" +
+                              "num6 4\n" +
+                              "num7 1\n" +
+                              "num8 1\n" +
+                              "num9 1\n" +
+                              "num10 3\n" +
+                              "num7 2\n" +
+                              "num9 2\n" +
+                              "num10 3\n" +
+                              "num7 3\n" +
+                              "num8 3\n" +
+                              "num9 3\n" +
+                              "num10 3\n" +
+                              "num7 4\n" +
+                              "num9 4\n" +
+                              "num10 3\n" +
+                              "num7 5\n" +
+                              "num8 5\n" +
+                              "num9 5\n" +
                               "num10 3\n");
         }
 
@@ -247,10 +246,10 @@ void TakesOutArrayParameter( out int array[5] )
     array[1] = 5;
 }";
 
-            RunP5Test( source, "array[1] = 5\n" );
+            RunP5Test(source, "array[1] = 5\n");
         }
 
-        [ TestMethod ]
+        [TestMethod]
         public void can_assign_local_variable_declared_at_root_scope_in_a_method()
         {
             string source =
@@ -263,10 +262,10 @@ void Main()
     int test2 = test;
 }";
 
-            RunP5Test( source );
+            RunP5Test(source);
         }
 
-        [ TestMethod ]
+        [TestMethod]
         public void array_initializer_with_one_element()
         {
             string source = @"
@@ -277,7 +276,7 @@ void Test()
     PUT( a[0] );
 }";
 
-            RunP5Test( source, "1\n" );
+            RunP5Test(source, "1\n");
         }
 
         [TestMethod]
@@ -291,10 +290,10 @@ void Test()
     PUT( a[0] );
 }";
 
-            RunP5Test( source, "1\n" );
+            RunP5Test(source, "1\n");
         }
 
-        [ TestMethod ]
+        [TestMethod]
         public void array_test2()
         {
             var source = @"
@@ -317,10 +316,10 @@ int GetArrayValue(int arrayIndex, int elementIndex)
     return 0;
 }";
 
-            RunP5Test( source, "1\n" );
+            RunP5Test(source, "1\n");
         }
 
-        [ TestMethod ]
+        [TestMethod]
         public void goto_to_switch_case_label()
         {
             var source = @"
@@ -338,7 +337,7 @@ void Test()
     }
 }
 ";
-            RunP5Test( source, "Passed\n" );
+            RunP5Test(source, "Passed\n");
         }
 
         [TestMethod]
@@ -359,7 +358,7 @@ void Test()
     }
 }
 ";
-            RunP5Test( source, "Passed\n" );
+            RunP5Test(source, "Passed\n");
         }
 
         [TestMethod]
@@ -388,7 +387,7 @@ void Test_hook()
 {
     PUTS( ""hook"" );
 }";
-            RunP5Test( source, "hook\n" );
+            RunP5Test(source, "hook\n");
         }
 
         [TestMethod]
@@ -411,7 +410,7 @@ void Test_hookafter()
 {
     PUTS( ""hook"" );
 }";
-            RunP5Test( source, "qux\nhook\n" );
+            RunP5Test(source, "qux\nhook\n");
         }
 
         [TestMethod]
@@ -427,7 +426,7 @@ void Test_softhook()
 {
     PUTS( ""hook"" );
 }";
-            RunP5Test( source, "hook\nbar\n" );
+            RunP5Test(source, "hook\nbar\n");
         }
 
         [TestMethod]
@@ -442,7 +441,7 @@ void Test()
     if ( foo )
         PUTS( ""Passed"" );
 }";
-            RunP5Test( source, "Passed\n" );
+            RunP5Test(source, "Passed\n");
         }
 
         [TestMethod]
@@ -459,7 +458,7 @@ void Test_hook()
     PUTS( ""hook"" );
     Test_unhooked();
 }";
-            RunP5Test( source, "hook\nbar\n" );
+            RunP5Test(source, "hook\nbar\n");
         }
     }
 }

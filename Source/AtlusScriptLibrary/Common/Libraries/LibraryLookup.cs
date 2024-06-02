@@ -2,62 +2,60 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Newtonsoft.Json;
 
-namespace AtlusScriptLibrary.Common.Libraries
+namespace AtlusScriptLibrary.Common.Libraries;
+
+public static class LibraryLookup
 {
-    public static class LibraryLookup
+    internal static string LibraryBaseDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Libraries");
+    private static List<Library> sLibraries;
+    private static Dictionary<string, Library> sLibrariesByShortName;
+    private static Dictionary<string, Library> sLibrariesByFullName;
+    private static bool sInitialized;
+
+    public static IEnumerable<Library> Libraries
     {
-        internal static string LibraryBaseDirectoryPath = Path.Combine( AppDomain.CurrentDomain.BaseDirectory, "Libraries" );
-        private static List<Library> sLibraries;
-        private static Dictionary< string, Library > sLibrariesByShortName;
-        private static Dictionary<string, Library> sLibrariesByFullName;
-        private static bool sInitialized;
-
-        public static IEnumerable<Library> Libraries
-        {
-            get
-            {
-                EnsureInitialized();
-                return sLibraries;
-            }
-        }
-
-        private static void EnsureInitialized()
-        {
-            if ( sInitialized )
-                return;
-
-            sInitialized = true;
-            sLibraries = new List<Library>();
-            foreach ( var path in Directory.EnumerateFiles( LibraryBaseDirectoryPath, "*.json" ) )
-            {
-                var library = ParseLibrary( path );
-                sLibraries.Add( library );
-            }
-
-            sLibrariesByShortName = Libraries.ToDictionary( x => x.ShortName, StringComparer.InvariantCultureIgnoreCase );
-            sLibrariesByFullName = Libraries.ToDictionary( x => x.Name, StringComparer.InvariantCultureIgnoreCase );
-        }
-
-        public static Library GetLibrary( string name )
+        get
         {
             EnsureInitialized();
-
-            if ( sLibrariesByShortName.TryGetValue( name, out var value ) )
-                return value;
-
-            if ( sLibrariesByFullName.TryGetValue( name, out value ) )
-                return value;
-
-            return null;
+            return sLibraries;
         }
+    }
 
-        private static Library ParseLibrary( string path )
+    private static void EnsureInitialized()
+    {
+        if (sInitialized)
+            return;
+
+        sInitialized = true;
+        sLibraries = new List<Library>();
+        foreach (var path in Directory.EnumerateFiles(LibraryBaseDirectoryPath, "*.json"))
         {
-            EnsureInitialized();
-            string jsonText = File.ReadAllText( path );
-            return JsonConvert.DeserializeObject< Library >( jsonText );
+            var library = ParseLibrary(path);
+            sLibraries.Add(library);
         }
+
+        sLibrariesByShortName = Libraries.ToDictionary(x => x.ShortName, StringComparer.InvariantCultureIgnoreCase);
+        sLibrariesByFullName = Libraries.ToDictionary(x => x.Name, StringComparer.InvariantCultureIgnoreCase);
+    }
+
+    public static Library GetLibrary(string name)
+    {
+        EnsureInitialized();
+
+        if (sLibrariesByShortName.TryGetValue(name, out var value))
+            return value;
+
+        if (sLibrariesByFullName.TryGetValue(name, out value))
+            return value;
+
+        return null;
+    }
+
+    private static Library ParseLibrary(string path)
+    {
+        EnsureInitialized();
+        string jsonText = File.ReadAllText(path);
+        return JsonConvert.DeserializeObject<Library>(jsonText);
     }
 }

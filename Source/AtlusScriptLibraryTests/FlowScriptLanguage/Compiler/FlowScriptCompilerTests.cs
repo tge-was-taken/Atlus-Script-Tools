@@ -2,12 +2,9 @@
 using AtlusScriptLibrary.Common.Logging;
 using AtlusScriptLibrary.FlowScriptLanguage;
 using AtlusScriptLibrary.FlowScriptLanguage.Compiler;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AtlusScriptLibraryTests.FlowScriptLanguage.Compiler
 {
@@ -16,13 +13,13 @@ namespace AtlusScriptLibraryTests.FlowScriptLanguage.Compiler
     {
         private void RunTest(string source, IEnumerable<Instruction> instructions)
         {
-            var compiler = new FlowScriptCompiler( FormatVersion.Version3BigEndian );
-            compiler.Library = LibraryLookup.GetLibrary( "p5" );
+            var compiler = new FlowScriptCompiler(FormatVersion.Version3BigEndian);
+            compiler.Library = LibraryLookup.GetLibrary("p5");
             compiler.EnableProcedureTracing = false;
             compiler.AddListener(new DebugLogListener());
             if (!compiler.TryCompile(source, out var script))
             {
-                throw new Exception( "Script failed to compile" );
+                throw new Exception("Script failed to compile");
             }
 
             var compiledInstructions = script.EnumerateInstructions().ToList();

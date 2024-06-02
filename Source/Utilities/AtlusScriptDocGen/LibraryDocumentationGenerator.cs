@@ -8,12 +8,12 @@ namespace AtlusScriptDocGen
 
         public DocumentationFormat Format { get; }
 
-        protected LibraryDocumentationGenerator( Library library, DocumentationFormat format )
+        protected LibraryDocumentationGenerator(Library library, DocumentationFormat format)
         {
             Library = library;
             Format = format;
         }
 
-        public abstract void Generate( string path );
+        public abstract void Generate(string path);
     }
 }

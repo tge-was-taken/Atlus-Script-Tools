@@ -1,7 +1,6 @@
-﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax
+﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax;
+
+public interface IOperator
 {
-    public interface IOperator
-    {
-        int Precedence { get; }
-    }
+    int Precedence { get; }
 }

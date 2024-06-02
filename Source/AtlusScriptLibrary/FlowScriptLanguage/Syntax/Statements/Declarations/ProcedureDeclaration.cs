@@ -1,59 +1,58 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
-namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax
+namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax;
+
+public class ProcedureDeclaration : Declaration
 {
-    public class ProcedureDeclaration : Declaration
+    public IntLiteral Index { get; set; }
+
+    public TypeIdentifier ReturnType { get; set; }
+
+    public List<Parameter> Parameters { get; set; }
+
+    public CompoundStatement Body { get; set; }
+
+    public ProcedureDeclaration() : base(DeclarationType.Procedure)
     {
-        public IntLiteral Index { get; set; }
+        Parameters = new List<Parameter>();
+    }
 
-        public TypeIdentifier ReturnType { get; set; }
+    public ProcedureDeclaration(TypeIdentifier returnType, Identifier identifier, List<Parameter> parameters, CompoundStatement body) : base(DeclarationType.Procedure, identifier)
+    {
+        ReturnType = returnType;
+        Parameters = parameters;
+        Body = body;
+    }
 
-        public List<Parameter> Parameters { get; set; }
+    public ProcedureDeclaration(IntLiteral index, TypeIdentifier returnType, Identifier identifier, List<Parameter> parameters, CompoundStatement body) : base(DeclarationType.Procedure, identifier)
+    {
+        Index = index;
+        ReturnType = returnType;
+        Parameters = parameters;
+        Body = body;
+    }
 
-        public CompoundStatement Body { get; set; }
+    public override string ToString()
+    {
+        var builder = new StringBuilder();
 
-        public ProcedureDeclaration() : base(DeclarationType.Procedure)
+        builder.Append($"{ReturnType} {Identifier}(");
+        if (Parameters.Count > 0)
+            builder.Append(Parameters[0]);
+
+        for (int i = 1; i < Parameters.Count; i++)
         {
-            Parameters = new List<Parameter>();
+            builder.Append($", {Parameters[i]}");
         }
 
-        public ProcedureDeclaration( TypeIdentifier returnType, Identifier identifier, List<Parameter> parameters, CompoundStatement body ) : base( DeclarationType.Procedure, identifier )
+        builder.Append(")");
+
+        if (Body != null)
         {
-            ReturnType = returnType;
-            Parameters = parameters;
-            Body = body;
+            builder.Append($"{{ {Body} }}");
         }
 
-        public ProcedureDeclaration( IntLiteral index, TypeIdentifier returnType, Identifier identifier, List<Parameter> parameters, CompoundStatement body ) : base( DeclarationType.Procedure, identifier )
-        {
-            Index = index;
-            ReturnType = returnType;
-            Parameters = parameters;
-            Body       = body;
-        }
-
-        public override string ToString()
-        {
-            var builder = new StringBuilder();
-
-            builder.Append( $"{ReturnType} {Identifier}(" );
-            if ( Parameters.Count > 0 )
-                builder.Append( Parameters[0] );
-
-            for ( int i = 1; i < Parameters.Count; i++ )
-            {
-                builder.Append( $", {Parameters[i]}" );
-            }
-
-            builder.Append( ")" );
-
-            if ( Body != null )
-            {
-                builder.Append( $"{{ {Body} }}" );
-            }
-
-            return builder.ToString();
-        }
+        return builder.ToString();
     }
 }

@@ -1,13 +1,7 @@
 ﻿using AtlusScriptLibrary.Common.IO;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.ComTypes;
-using System.Security.AccessControl;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AtlusScriptCompiler
 {
@@ -18,11 +12,11 @@ namespace AtlusScriptCompiler
         {
             "/Script/CoreUObject", "ArrayProperty", "Class", "mBuf", "None", "Package"
         };
-        public static string[] constantBfImoprts = 
+        public static string[] constantBfImoprts =
         {
             "/Script/BfAssetPlugin", "ByteProperty", "BfAsset", "Default__BfAsset"
         };
-        public static string[] constantBmdImoprts = 
+        public static string[] constantBmdImoprts =
         {
             "/Script/BmdAssetPlugin", "Int8Property", "BmdAsset", "Default__BmdAsset"
         };
@@ -33,7 +27,7 @@ namespace AtlusScriptCompiler
 
 
         public static int FORMATTING_SIZE = 0x25; // from beginning of "uexp" portion to start of bf block
-        public static bool UnwrapAsset( string dir, string name, string ext, Stream stream, out string outName )
+        public static bool UnwrapAsset(string dir, string name, string ext, Stream stream, out string outName)
         {
             var endianReader = new EndianBinaryReader(stream, Endianness.LittleEndian); // UE stuff is in little endian
             var packageHeader = new FPackageSummaryHeader(endianReader);
@@ -55,14 +49,15 @@ namespace AtlusScriptCompiler
             writer.Write(Encoding.ASCII.GetBytes(text));
         }
 
-        public static bool WrapAsset( string inFileName, string patchFileName )
+        public static bool WrapAsset(string inFileName, string patchFileName)
         {
-            using 
-            (FileStream 
+            using
+            (FileStream
                 payloadFile = File.Open(inFileName, FileMode.Open), // the file that we've just compiled
-                wrapperFile = File.Open(patchFileName, FileMode.Open), 
+                wrapperFile = File.Open(patchFileName, FileMode.Open),
                 outFile = File.Create(inFileName + ".uasset")
-            ) {
+            )
+            {
                 var wrapperReader = new EndianBinaryReader(wrapperFile, Endianness.LittleEndian); // .uasset
                 var outFileEndian = new EndianBinaryWriter(outFile, Endianness.LittleEndian);
                 var packageHeader = new FPackageSummaryHeader(wrapperReader);
@@ -88,7 +83,7 @@ namespace AtlusScriptCompiler
         }
     }
 
-    public class FPackageObjectIndex 
+    public class FPackageObjectIndex
     {
         public static int SerializedLength = 0x8;
     }

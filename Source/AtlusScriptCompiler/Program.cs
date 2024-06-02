@@ -1,10 +1,5 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using System.Reflection;
-using System.Text;
+﻿using AtlusScriptLibrary.Common.Libraries;
 using AtlusScriptLibrary.Common.Logging;
-using AtlusScriptLibrary.Common.Libraries;
 using AtlusScriptLibrary.Common.Text;
 using AtlusScriptLibrary.Common.Text.Encodings;
 using AtlusScriptLibrary.FlowScriptLanguage;
@@ -15,6 +10,10 @@ using AtlusScriptLibrary.FlowScriptLanguage.Disassembler;
 using AtlusScriptLibrary.MessageScriptLanguage;
 using AtlusScriptLibrary.MessageScriptLanguage.Compiler;
 using AtlusScriptLibrary.MessageScriptLanguage.Decompiler;
+using System;
+using System.IO;
+using System.Reflection;
+using System.Text;
 using FormatVersion = AtlusScriptLibrary.FlowScriptLanguage.FormatVersion;
 
 namespace AtlusScriptCompiler
@@ -24,7 +23,7 @@ namespace AtlusScriptCompiler
         public static AssemblyName AssemblyName = Assembly.GetExecutingAssembly().GetName();
         public static Version Version = AssemblyName.Version;
         public static Logger Logger = new Logger(nameof(AtlusScriptCompiler));
-        public static LogListener Listener = new FileAndConsoleLogListener( true, LogLevel.Info | LogLevel.Warning | LogLevel.Error | LogLevel.Fatal );
+        public static LogListener Listener = new FileAndConsoleLogListener(true, LogLevel.Info | LogLevel.Warning | LogLevel.Error | LogLevel.Fatal);
         public static string InputFilePath;
         public static string OutputFilePath;
         public static bool IsActionAssigned;
@@ -49,102 +48,102 @@ namespace AtlusScriptCompiler
 
         private static void DisplayUsage()
         {
-            Console.WriteLine( $"AtlusScriptCompiler {Version.Major}.{Version.Minor}-{ThisAssembly.Git.Commit} by TGE (2018)" );
+            Console.WriteLine($"AtlusScriptCompiler {Version.Major}.{Version.Minor}-{ThisAssembly.Git.Commit} by TGE (2018)");
             Console.WriteLine();
-            Console.WriteLine( "Note: If you encounter any issues, please report it & include the AtlusScriptCompiler.log file. Thank you." );
+            Console.WriteLine("Note: If you encounter any issues, please report it & include the AtlusScriptCompiler.log file. Thank you.");
             Console.WriteLine();
-            Console.WriteLine( "Parameter overview:" );
-            Console.WriteLine( "    General:" );
-            Console.WriteLine( "        -In                     <path to file>      Provides an input file source to the compiler. If no input source is explicitly specified, " );
-            Console.WriteLine( "                                                    the first argument will be assumed to be one." );
-            Console.WriteLine( "        -InFormat               <format>            Specifies the input file source format. By default this is guessed by the file extension." );
-            Console.WriteLine( "        -Out                    <path to file>      Provides an output file path to the compiler. If no output source is explicitly specified, " );
-            Console.WriteLine( "                                                    the file will be output in the same folder as the source file under a different extension depending on the format used." );
-            Console.WriteLine( "        -OutFormat              <format>            Specifies the binary output file format. See below for further info." );
-            Console.WriteLine( "        -Compile                                    Instructs the compiler to compile the provided input file source." );
-            Console.WriteLine( "        -Decompile                                  Instructs the compiler to decompile the provided input file source." );
-            Console.WriteLine( "        -Disassemble                                Instructs the compiler to disassemble the provided input file source." );
-            Console.WriteLine( "        -Library                <name>              Specifies the name of the library that should be used." );
-            Console.WriteLine( "        -LogTrace                                   Outputs trace log messages to the console" );
-            Console.WriteLine( "        -UPatch                 <path to file>      Patches an existing BF/BMD uasset to insert the newly compiled file into, including fixing file lengths. For Persona 3 Reload");
+            Console.WriteLine("Parameter overview:");
+            Console.WriteLine("    General:");
+            Console.WriteLine("        -In                     <path to file>      Provides an input file source to the compiler. If no input source is explicitly specified, ");
+            Console.WriteLine("                                                    the first argument will be assumed to be one.");
+            Console.WriteLine("        -InFormat               <format>            Specifies the input file source format. By default this is guessed by the file extension.");
+            Console.WriteLine("        -Out                    <path to file>      Provides an output file path to the compiler. If no output source is explicitly specified, ");
+            Console.WriteLine("                                                    the file will be output in the same folder as the source file under a different extension depending on the format used.");
+            Console.WriteLine("        -OutFormat              <format>            Specifies the binary output file format. See below for further info.");
+            Console.WriteLine("        -Compile                                    Instructs the compiler to compile the provided input file source.");
+            Console.WriteLine("        -Decompile                                  Instructs the compiler to decompile the provided input file source.");
+            Console.WriteLine("        -Disassemble                                Instructs the compiler to disassemble the provided input file source.");
+            Console.WriteLine("        -Library                <name>              Specifies the name of the library that should be used.");
+            Console.WriteLine("        -LogTrace                                   Outputs trace log messages to the console");
+            Console.WriteLine("        -UPatch                 <path to file>      Patches an existing BF/BMD uasset to insert the newly compiled file into, including fixing file lengths. For Persona 3 Reload");
             Console.WriteLine();
-            Console.WriteLine( "    MessageScript:" );
-            Console.WriteLine( "        -Encoding               <format>            Specifies the MessageScript binary output text encoding. See below for further info." );
+            Console.WriteLine("    MessageScript:");
+            Console.WriteLine("        -Encoding               <format>            Specifies the MessageScript binary output text encoding. See below for further info.");
             Console.WriteLine();
-            Console.WriteLine( "    FlowScript:" );
-            Console.WriteLine( "        -TraceProcedure                            Enables procedure tracing. Only applies to compiler." );
-            Console.WriteLine( "        -TraceProcedureCalls                       Enables procedure call tracing. Only applies to compiler." );
-            Console.WriteLine( "        -TraceFunctionCalls                        Enables function call tracing. Only applies to compiler." );
-            Console.WriteLine( "        -StackCookie                               Enables stack cookie. Used for debugging stack corruptions." );
-            Console.WriteLine( "        -Hook                                      Enables hooking of procedures. Used to modify scripts without recompiling them entirely." );
-            Console.WriteLine( "        -SumBits                                   Sums the bit id values passed to BIT_* function" );
+            Console.WriteLine("    FlowScript:");
+            Console.WriteLine("        -TraceProcedure                            Enables procedure tracing. Only applies to compiler.");
+            Console.WriteLine("        -TraceProcedureCalls                       Enables procedure call tracing. Only applies to compiler.");
+            Console.WriteLine("        -TraceFunctionCalls                        Enables function call tracing. Only applies to compiler.");
+            Console.WriteLine("        -StackCookie                               Enables stack cookie. Used for debugging stack corruptions.");
+            Console.WriteLine("        -Hook                                      Enables hooking of procedures. Used to modify scripts without recompiling them entirely.");
+            Console.WriteLine("        -SumBits                                   Sums the bit id values passed to BIT_* function");
             Console.WriteLine();
-            Console.WriteLine( "Parameter detailed info:" );
-            Console.WriteLine( "    MessageScript:" );
-            Console.WriteLine( "        -OutFormat" );
-            Console.WriteLine( "            V1              Used by Persona 3, 4, 5 PS4" );
-            Console.WriteLine( "            V1DDS           Used by Digital Devil Saga 1 & 2" );
-            Console.WriteLine( "            V1BE            Used by Persona 5 PS3" );
-            Console.WriteLine( "            V1RE            Used by Persona 3 Reload");
+            Console.WriteLine("Parameter detailed info:");
+            Console.WriteLine("    MessageScript:");
+            Console.WriteLine("        -OutFormat");
+            Console.WriteLine("            V1              Used by Persona 3, 4, 5 PS4");
+            Console.WriteLine("            V1DDS           Used by Digital Devil Saga 1 & 2");
+            Console.WriteLine("            V1BE            Used by Persona 5 PS3");
+            Console.WriteLine("            V1RE            Used by Persona 3 Reload");
             Console.WriteLine();
-            Console.WriteLine( "        -Encoding" );
-            Console.WriteLine( "            Below is a list of different available standard encodings." );
-            Console.WriteLine( "            Note that ASCII characters don't really differ from the standard, so this mostly applies to special characters and japanese characters." );
+            Console.WriteLine("        -Encoding");
+            Console.WriteLine("            Below is a list of different available standard encodings.");
+            Console.WriteLine("            Note that ASCII characters don't really differ from the standard, so this mostly applies to special characters and japanese characters.");
             Console.WriteLine();
-            Console.WriteLine( "            SJ                  Shift-JIS encoding (CP932). Used by Persona Q(2)" );
-            Console.WriteLine( "            P3                  Persona 3's custom encoding" );
-            Console.WriteLine( "            P4                  Persona 4's custom encoding" );
-            Console.WriteLine( "            P5                  Persona 5's custom encoding" );
-            Console.WriteLine( "            UT                  UTF-8 Encoding. Used by Persona 3 Reload");
-            Console.WriteLine( "            <charset file name> Custom encodings can be used by placing them in the charset folder. The TSV files are tab separated.");
+            Console.WriteLine("            SJ                  Shift-JIS encoding (CP932). Used by Persona Q(2)");
+            Console.WriteLine("            P3                  Persona 3's custom encoding");
+            Console.WriteLine("            P4                  Persona 4's custom encoding");
+            Console.WriteLine("            P5                  Persona 5's custom encoding");
+            Console.WriteLine("            UT                  UTF-8 Encoding. Used by Persona 3 Reload");
+            Console.WriteLine("            <charset file name> Custom encodings can be used by placing them in the charset folder. The TSV files are tab separated.");
             Console.WriteLine();
-            Console.WriteLine( "        -Library" );
-            Console.WriteLine( "            For MessageScripts the libraries used for the compiler and decompiler to emit the proper [f] tags for each aliased function." );
-            Console.WriteLine( "            If you don't use any aliased functions, you don't need to specify this, but if you do without specifying it, you'll get a compiler error." );
-            Console.WriteLine( "            Not specifying a library definition registry means that the decompiler will not try to look up aliases for functions." );
-            Console.WriteLine( "            Libraries can be found in the Libraries directory" );
+            Console.WriteLine("        -Library");
+            Console.WriteLine("            For MessageScripts the libraries used for the compiler and decompiler to emit the proper [f] tags for each aliased function.");
+            Console.WriteLine("            If you don't use any aliased functions, you don't need to specify this, but if you do without specifying it, you'll get a compiler error.");
+            Console.WriteLine("            Not specifying a library definition registry means that the decompiler will not try to look up aliases for functions.");
+            Console.WriteLine("            Libraries can be found in the Libraries directory");
             Console.WriteLine();
-            Console.WriteLine( "    FlowScript:" );
-            Console.WriteLine( "        -OutFormat" );
-            Console.WriteLine( "            V1              Used by Persona 3 and 4" );
-            Console.WriteLine( "            V1DDS           Used by Digital Devil Saga 1 & 2" );
-            Console.WriteLine( "            V1BE            " );
-            Console.WriteLine( "            V2              Used by Persona 4 Dancing All Night" );
-            Console.WriteLine( "            V2BE            " );
-            Console.WriteLine( "            V3              Used by Persona 5 PS4" );
-            Console.WriteLine( "            V3BE            Used by Persona 5 PS3 & PS4" );
-            Console.WriteLine( "            V4              Used by Persona 3 Reload");
-            Console.WriteLine( "            V4BE            Used by Persona 3 Reload");
+            Console.WriteLine("    FlowScript:");
+            Console.WriteLine("        -OutFormat");
+            Console.WriteLine("            V1              Used by Persona 3 and 4");
+            Console.WriteLine("            V1DDS           Used by Digital Devil Saga 1 & 2");
+            Console.WriteLine("            V1BE            ");
+            Console.WriteLine("            V2              Used by Persona 4 Dancing All Night");
+            Console.WriteLine("            V2BE            ");
+            Console.WriteLine("            V3              Used by Persona 5 PS4");
+            Console.WriteLine("            V3BE            Used by Persona 5 PS3 & PS4");
+            Console.WriteLine("            V4              Used by Persona 3 Reload");
+            Console.WriteLine("            V4BE            Used by Persona 3 Reload");
             Console.WriteLine();
-            Console.WriteLine( "        -Library" );
-            Console.WriteLine( "            For FlowScripts the libraries is used for the decompiler to decompile binary scripts, but it is also used to generate documentation." );
-            Console.WriteLine( "            Without a specified registry you cannot decompile scripts." );
-            Console.WriteLine( "            Libraries can be found in the Libraries directory" );
+            Console.WriteLine("        -Library");
+            Console.WriteLine("            For FlowScripts the libraries is used for the decompiler to decompile binary scripts, but it is also used to generate documentation.");
+            Console.WriteLine("            Without a specified registry you cannot decompile scripts.");
+            Console.WriteLine("            Libraries can be found in the Libraries directory");
         }
 
-        public static void Main( string[] args )
+        public static void Main(string[] args)
         {
-            if ( args.Length == 0 )
+            if (args.Length == 0)
             {
-                Logger.Error( "No arguments specified!" );
+                Logger.Error("No arguments specified!");
                 DisplayUsage();
                 return;
             }
 
             // Set up log listener
-            Listener.Subscribe( Logger );
+            Listener.Subscribe(Logger);
 
             // Log arguments
-            Logger.Trace( $"Arguments: {string.Join( " ", args )}" );
+            Logger.Trace($"Arguments: {string.Join(" ", args)}");
 
-            if ( !TryParseArguments( args ) )
+            if (!TryParseArguments(args))
             {
-                Logger.Error( "Failed to parse arguments!" );
+                Logger.Error("Failed to parse arguments!");
                 DisplayUsage();
                 return;
             }
 
-            if ( LogTrace )
+            if (LogTrace)
                 Listener.Filter |= LogLevel.Trace;
 
             bool success;
@@ -157,21 +156,21 @@ namespace AtlusScriptCompiler
                 {
                     success = UEWrapperHandler();
                 }
-                if ( DoCompile )
+                if (DoCompile)
                 {
                     success = TryDoCompilation();
                 }
-                else if ( DoDecompile )
+                else if (DoDecompile)
                 {
                     success = TryDoDecompilation();
                 }
-                else if ( DoDisassemble )
+                else if (DoDisassemble)
                 {
                     success = TryDoDisassembling();
                 }
                 else
                 {
-                    Logger.Error( "No compilation, decompilation or disassemble instruction given!" );
+                    Logger.Error("No compilation, decompilation or disassemble instruction given!");
                     DisplayUsage();
                     return;
                 }
@@ -180,7 +179,9 @@ namespace AtlusScriptCompiler
                     if (DoCompile)
                     {
                         success = UEWrapper.WrapAsset(OutputFilePath, UEPatchFile);
-                    } else {
+                    }
+                    else
+                    {
                         Logger.Error("Patch file can only be used on compilation");
                         DisplayUsage();
                         return;
@@ -198,27 +199,27 @@ namespace AtlusScriptCompiler
             }
 #endif
 
-            if ( success )
-                Logger.Info( "Task completed successfully!" );
+            if (success)
+                Logger.Info("Task completed successfully!");
             else
-                Logger.Error( "One or more errors occured while executing task!" );
+                Logger.Error("One or more errors occured while executing task!");
 
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        private static bool TryParseArguments( string[] args )
+        private static bool TryParseArguments(string[] args)
         {
-            for ( int i = 0; i < args.Length; i++ )
+            for (int i = 0; i < args.Length; i++)
             {
                 bool isLast = i + 1 == args.Length;
 
-                switch ( args[i] )
+                switch (args[i])
                 {
                     // General
                     case "-In":
-                        if ( isLast )
+                        if (isLast)
                         {
-                            Logger.Error( "Missing argument for -In parameter" );
+                            Logger.Error("Missing argument for -In parameter");
                             return false;
                         }
 
@@ -226,24 +227,24 @@ namespace AtlusScriptCompiler
                         break;
 
                     case "-InFormat":
-                        if ( isLast )
+                        if (isLast)
                         {
-                            Logger.Error( "Missing argument for -InFormat parameter" );
+                            Logger.Error("Missing argument for -InFormat parameter");
                             return false;
                         }
 
-                        if ( !Enum.TryParse( args[++i], true, out InputFileFormat ) )
+                        if (!Enum.TryParse(args[++i], true, out InputFileFormat))
                         {
-                            Logger.Error( "Invalid input file format specified" );
+                            Logger.Error("Invalid input file format specified");
                             return false;
                         }
 
                         break;
 
                     case "-Out":
-                        if ( isLast )
+                        if (isLast)
                         {
-                            Logger.Error( "Missing argument for -Out parameter" );
+                            Logger.Error("Missing argument for -Out parameter");
                             return false;
                         }
 
@@ -251,28 +252,28 @@ namespace AtlusScriptCompiler
                         break;
 
                     case "-OutFormat":
-                        if ( isLast )
+                        if (isLast)
                         {
-                            Logger.Error( "Missing argument for -OutFormat parameter" );
+                            Logger.Error("Missing argument for -OutFormat parameter");
                             return false;
                         }
 
-                        if ( !Enum.TryParse( args[++i], true, out OutputFileFormat ) )
+                        if (!Enum.TryParse(args[++i], true, out OutputFileFormat))
                         {
-                            Logger.Error( "Invalid output file format specified" );
+                            Logger.Error("Invalid output file format specified");
                             return false;
                         }
 
                         break;
 
                     case "-Compile":
-                        if ( !IsActionAssigned )
+                        if (!IsActionAssigned)
                         {
                             IsActionAssigned = true;
                         }
                         else
                         {
-                            Logger.Error( "Attempted to assign compilation action while another action is already assigned." );
+                            Logger.Error("Attempted to assign compilation action while another action is already assigned.");
                             return false;
                         }
 
@@ -280,13 +281,13 @@ namespace AtlusScriptCompiler
                         break;
 
                     case "-Decompile":
-                        if ( !IsActionAssigned )
+                        if (!IsActionAssigned)
                         {
                             IsActionAssigned = true;
                         }
                         else
                         {
-                            Logger.Error( "Attempted to assign decompilation action while another action is already assigned." );
+                            Logger.Error("Attempted to assign decompilation action while another action is already assigned.");
                             return false;
                         }
 
@@ -294,13 +295,13 @@ namespace AtlusScriptCompiler
                         break;
 
                     case "-Disassemble":
-                        if ( !IsActionAssigned )
+                        if (!IsActionAssigned)
                         {
                             IsActionAssigned = true;
                         }
                         else
                         {
-                            Logger.Error( "Attempted to assign disassembly action while another action is already assigned." );
+                            Logger.Error("Attempted to assign disassembly action while another action is already assigned.");
                             return false;
                         }
 
@@ -308,13 +309,13 @@ namespace AtlusScriptCompiler
                         break;
 
                     case "-Library":
-                        if ( isLast )
+                        if (isLast)
                         {
-                            Logger.Error( "Missing argument for -Library parameter" );
+                            Logger.Error("Missing argument for -Library parameter");
                             return false;
                         }
 
-                        LibraryName = args[ ++i ];
+                        LibraryName = args[++i];
                         break;
 
                     case "-LogTrace":
@@ -323,15 +324,15 @@ namespace AtlusScriptCompiler
 
                     // MessageScript
                     case "-Encoding":
-                        if ( isLast )
+                        if (isLast)
                         {
-                            Logger.Error( "Missing argument for -Encoding parameter" );
+                            Logger.Error("Missing argument for -Encoding parameter");
                             return false;
                         }
 
                         MessageScriptTextEncodingName = args[++i];
 
-                        switch ( MessageScriptTextEncodingName.ToLower() )
+                        switch (MessageScriptTextEncodingName.ToLower())
                         {
                             case "sj":
                             case "shiftjis":
@@ -345,17 +346,17 @@ namespace AtlusScriptCompiler
                             default:
                                 try
                                 {
-                                    MessageScriptEncoding = AtlusEncoding.GetByName( MessageScriptTextEncodingName );
+                                    MessageScriptEncoding = AtlusEncoding.GetByName(MessageScriptTextEncodingName);
                                 }
-                                catch ( ArgumentException )
+                                catch (ArgumentException)
                                 {
-                                    Logger.Error( $"Unknown encoding: {MessageScriptTextEncodingName}" );
+                                    Logger.Error($"Unknown encoding: {MessageScriptTextEncodingName}");
                                     return false;
                                 }
                                 break;
                         }
 
-                        Logger.Info( $"Using {MessageScriptTextEncodingName} encoding" );
+                        Logger.Info($"Using {MessageScriptTextEncodingName} encoding");
                         break;
 
                     case "-TraceProcedure":
@@ -394,22 +395,22 @@ namespace AtlusScriptCompiler
                 }
             }
 
-            if ( InputFilePath == null )
+            if (InputFilePath == null)
             {
                 InputFilePath = args[0];
             }
 
-            if ( !File.Exists(InputFilePath) )
+            if (!File.Exists(InputFilePath))
             {
-                Logger.Error( $"Specified input file doesn't exist! ({InputFilePath})" );
+                Logger.Error($"Specified input file doesn't exist! ({InputFilePath})");
                 return false;
-            } 
+            }
 
-            if ( InputFileFormat == InputFileFormat.None )
+            if (InputFileFormat == InputFileFormat.None)
             {
-                var extension = Path.GetExtension( InputFilePath );
+                var extension = Path.GetExtension(InputFilePath);
 
-                switch ( extension.ToLowerInvariant() )
+                switch (extension.ToLowerInvariant())
                 {
                     case ".bf":
                         InputFileFormat = InputFileFormat.FlowScriptBinary;
@@ -432,11 +433,11 @@ namespace AtlusScriptCompiler
                         break;
 
                     case ".uasset":
-                        Logger.Error( "-InFormat parameter required when working with Unreal Engine wrapped scripts" );
+                        Logger.Error("-InFormat parameter required when working with Unreal Engine wrapped scripts");
                         return false;
 
                     default:
-                        Logger.Error( "Unable to detect input file format" );
+                        Logger.Error("Unable to detect input file format");
                         return false;
                 }
             }
@@ -444,16 +445,17 @@ namespace AtlusScriptCompiler
             if (Path.GetExtension(InputFilePath).ToLowerInvariant().Equals(".uasset"))
             {
                 UEWrapped = true;
-            } else
+            }
+            else
             {
                 UEWrapped = false;
             }
 
 
-            if ( !IsActionAssigned )
+            if (!IsActionAssigned)
             {
                 // Decide on default action based on input file format
-                switch ( InputFileFormat )
+                switch (InputFileFormat)
                 {
                     case InputFileFormat.FlowScriptBinary:
                     case InputFileFormat.MessageScriptBinary:
@@ -464,16 +466,16 @@ namespace AtlusScriptCompiler
                         DoCompile = true;
                         break;
                     default:
-                        Logger.Error( "No compilation, decompilation or disassemble instruction given!" );
+                        Logger.Error("No compilation, decompilation or disassemble instruction given!");
                         return false;
                 }
             }
 
-            if ( OutputFilePath == null )
+            if (OutputFilePath == null)
             {
-                if ( DoCompile )
+                if (DoCompile)
                 {
-                    switch ( InputFileFormat )
+                    switch (InputFileFormat)
                     {
                         case InputFileFormat.FlowScriptTextSource:
                         case InputFileFormat.FlowScriptAssemblerSource:
@@ -484,9 +486,9 @@ namespace AtlusScriptCompiler
                             break;
                     }
                 }
-                else if ( DoDecompile )
+                else if (DoDecompile)
                 {
-                    switch ( InputFileFormat )
+                    switch (InputFileFormat)
                     {
                         case InputFileFormat.FlowScriptBinary:
                             OutputFilePath = InputFilePath + ".flow";
@@ -496,9 +498,9 @@ namespace AtlusScriptCompiler
                             break;
                     }
                 }
-                else if ( DoDisassemble )
+                else if (DoDisassemble)
                 {
-                    switch ( InputFileFormat )
+                    switch (InputFileFormat)
                     {
                         case InputFileFormat.FlowScriptBinary:
                             OutputFilePath = InputFilePath + ".flowasm";
@@ -507,14 +509,14 @@ namespace AtlusScriptCompiler
                 }
             }
 
-            if (!UEWrapped) Logger.Info( $"Output file path is set to {OutputFilePath}" );
+            if (!UEWrapped) Logger.Info($"Output file path is set to {OutputFilePath}");
 
             return true;
         }
 
         private static bool TryDoCompilation()
         {
-            switch ( InputFileFormat )
+            switch (InputFileFormat)
             {
                 case InputFileFormat.FlowScriptTextSource:
                 case InputFileFormat.FlowScriptAssemblerSource:
@@ -525,30 +527,30 @@ namespace AtlusScriptCompiler
 
                 case InputFileFormat.FlowScriptBinary:
                 case InputFileFormat.MessageScriptBinary:
-                    Logger.Error( "Binary files can't be compiled again!" );
+                    Logger.Error("Binary files can't be compiled again!");
                     return false;
 
                 default:
-                    Logger.Error( "Invalid input file format!" );
+                    Logger.Error("Invalid input file format!");
                     return false;
             }
         }
 
         private static bool TryDoFlowScriptCompilation()
         {
-            Logger.Info( "Compiling FlowScript..." );
+            Logger.Info("Compiling FlowScript...");
 
             // Get format verson
             var version = GetFlowScriptFormatVersion();
-            if ( version == FormatVersion.Unknown )
+            if (version == FormatVersion.Unknown)
             {
-                Logger.Error( "Invalid FlowScript file format specified" );
+                Logger.Error("Invalid FlowScript file format specified");
                 return false;
             }
 
             // Compile source
-            var compiler = new FlowScriptCompiler( version );
-            compiler.AddListener( Listener );
+            var compiler = new FlowScriptCompiler(version);
+            compiler.AddListener(Listener);
             compiler.Encoding = MessageScriptEncoding;
             compiler.EnableProcedureTracing = FlowScriptEnableProcedureTracing;
             compiler.EnableProcedureCallTracing = FlowScriptEnableProcedureCallTracing;
@@ -556,13 +558,13 @@ namespace AtlusScriptCompiler
             compiler.EnableStackCookie = FlowScriptEnableStackCookie;
             compiler.ProcedureHookMode = FlowScriptEnableProcedureHook ? ProcedureHookMode.ImportedOnly : ProcedureHookMode.None;
 
-            if ( LibraryName != null )
+            if (LibraryName != null)
             {
-                var library = LibraryLookup.GetLibrary( LibraryName );
+                var library = LibraryLookup.GetLibrary(LibraryName);
 
-                if ( library == null )
+                if (library == null)
                 {
-                    Logger.Error( "Invalid library name specified" );
+                    Logger.Error("Invalid library name specified");
                     return false;
                 }
 
@@ -571,33 +573,33 @@ namespace AtlusScriptCompiler
 
             FlowScript flowScript = null;
             var success = false;
-            using ( var file = File.Open( InputFilePath, FileMode.Open, FileAccess.Read, FileShare.Read ) )
+            using (var file = File.Open(InputFilePath, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 try
                 {
-                    success = compiler.TryCompile( file, out flowScript );
+                    success = compiler.TryCompile(file, out flowScript);
                 }
-                catch ( UnsupportedCharacterException e )
+                catch (UnsupportedCharacterException e)
                 {
-                    Logger.Error( $"Character '{e.Character}' not supported by encoding '{e.EncodingName}'" );
+                    Logger.Error($"Character '{e.Character}' not supported by encoding '{e.EncodingName}'");
                 }
 
-                if ( !success )
+                if (!success)
                 {
-                    Logger.Error( "One or more errors occured during compilation!" );
+                    Logger.Error("One or more errors occured during compilation!");
                     return false;
                 }
             }
-            
+
             // Write binary
-            Logger.Info( "Writing binary to file..." );
-            return TryPerformAction( "An error occured while saving the file.", () => flowScript.ToFile( OutputFilePath ) );
+            Logger.Info("Writing binary to file...");
+            return TryPerformAction("An error occured while saving the file.", () => flowScript.ToFile(OutputFilePath));
         }
 
         private static FormatVersion GetFlowScriptFormatVersion()
         {
             FormatVersion version;
-            switch ( OutputFileFormat )
+            switch (OutputFileFormat)
             {
                 case OutputFileFormat.V1:
                     version = FormatVersion.Version1;
@@ -637,25 +639,25 @@ namespace AtlusScriptCompiler
         private static bool TryDoMessageScriptCompilation()
         {
             // Compile source
-            Logger.Info( "Compiling MessageScript..." );
+            Logger.Info("Compiling MessageScript...");
 
             var version = GetMessageScriptFormatVersion();
-            if ( version == AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Detect )
+            if (version == AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Detect)
             {
-                Logger.Error( "Invalid MessageScript file format" );
+                Logger.Error("Invalid MessageScript file format");
                 return false;
             }
 
-            var compiler = new MessageScriptCompiler( GetMessageScriptFormatVersion(), MessageScriptEncoding );
-            compiler.AddListener( Listener );
+            var compiler = new MessageScriptCompiler(GetMessageScriptFormatVersion(), MessageScriptEncoding);
+            compiler.AddListener(Listener);
 
-            if ( LibraryName != null )
+            if (LibraryName != null)
             {
-                var library = LibraryLookup.GetLibrary( LibraryName );
+                var library = LibraryLookup.GetLibrary(LibraryName);
 
-                if ( library == null )
+                if (library == null)
                 {
-                    Logger.Error( "Invalid library name specified" );
+                    Logger.Error("Invalid library name specified");
                     return false;
                 }
 
@@ -667,22 +669,22 @@ namespace AtlusScriptCompiler
 
             try
             {
-                success = compiler.TryCompile( File.OpenText( InputFilePath ), out script );
+                success = compiler.TryCompile(File.OpenText(InputFilePath), out script);
             }
-            catch ( UnsupportedCharacterException e )
+            catch (UnsupportedCharacterException e)
             {
-                Logger.Error( $"Character '{e.Character}' not supported by encoding '{e.EncodingName}'" );
+                Logger.Error($"Character '{e.Character}' not supported by encoding '{e.EncodingName}'");
             }
 
-            if ( !success )
+            if (!success)
             {
-                Logger.Error( "One or more errors occured during compilation!" );
+                Logger.Error("One or more errors occured during compilation!");
                 return false;
             }
 
             // Write binary
-            Logger.Info( "Writing binary to file..." );
-            if ( !TryPerformAction( "An error occured while saving the file.", () => script.ToFile( OutputFilePath ) ) )
+            Logger.Info("Writing binary to file...");
+            if (!TryPerformAction("An error occured while saving the file.", () => script.ToFile(OutputFilePath)))
                 return false;
 
             return true;
@@ -692,7 +694,7 @@ namespace AtlusScriptCompiler
         {
             AtlusScriptLibrary.MessageScriptLanguage.FormatVersion version;
 
-            switch ( OutputFileFormat )
+            switch (OutputFileFormat)
             {
                 case OutputFileFormat.V1:
                     version = AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Version1;
@@ -716,12 +718,12 @@ namespace AtlusScriptCompiler
 
         private static bool TryDoDecompilation()
         {
-            switch ( InputFileFormat )
+            switch (InputFileFormat)
             {
                 case InputFileFormat.FlowScriptTextSource:
                 case InputFileFormat.FlowScriptAssemblerSource:
                 case InputFileFormat.MessageScriptTextSource:
-                    Logger.Error( "Can't decompile a text source!" );
+                    Logger.Error("Can't decompile a text source!");
                     return false;
 
                 case InputFileFormat.FlowScriptBinary:
@@ -731,7 +733,7 @@ namespace AtlusScriptCompiler
                     return TryDoMessageScriptDecompilation();
 
                 default:
-                    Logger.Error( "Invalid input file format!" );
+                    Logger.Error("Invalid input file format!");
                     return false;
             }
         }
@@ -739,36 +741,36 @@ namespace AtlusScriptCompiler
         private static bool TryDoFlowScriptDecompilation()
         {
             // Load binary file
-            Logger.Info( "Loading binary FlowScript file..." );
+            Logger.Info("Loading binary FlowScript file...");
             FlowScript flowScript = null;
             var encoding = MessageScriptEncoding;
             var format = GetFlowScriptFormatVersion();
 
-            if ( !TryPerformAction( "Failed to load flow script from file", () => flowScript = FlowScript.FromFile( InputFilePath, encoding, format ) ) )
+            if (!TryPerformAction("Failed to load flow script from file", () => flowScript = FlowScript.FromFile(InputFilePath, encoding, format)))
                 return false;
 
-            Logger.Info( "Decompiling FlowScript..." );
+            Logger.Info("Decompiling FlowScript...");
 
             var decompiler = new FlowScriptDecompiler();
             decompiler.SumBits = FlowScriptSumBits;
-            decompiler.AddListener( Listener );
+            decompiler.AddListener(Listener);
 
-            if ( LibraryName != null )
+            if (LibraryName != null)
             {
-                var library = LibraryLookup.GetLibrary( LibraryName );
+                var library = LibraryLookup.GetLibrary(LibraryName);
 
-                if ( library == null )
+                if (library == null)
                 {
-                    Logger.Error( "Invalid library name specified" );
+                    Logger.Error("Invalid library name specified");
                     return false;
                 }
 
                 decompiler.Library = library;
             }
 
-            if ( !decompiler.TryDecompile( flowScript, OutputFilePath ) )
+            if (!decompiler.TryDecompile(flowScript, OutputFilePath))
             {
-                Logger.Error( "Failed to decompile FlowScript" );
+                Logger.Error("Failed to decompile FlowScript");
                 return false;
             }
 
@@ -778,35 +780,35 @@ namespace AtlusScriptCompiler
         private static bool TryDoMessageScriptDecompilation()
         {
             // load binary file
-            Logger.Info( "Loading binary MessageScript file..." );
+            Logger.Info("Loading binary MessageScript file...");
             MessageScript script = null;
             var encoding = MessageScriptEncoding;
             var format = GetMessageScriptFormatVersion();
 
-            if ( !TryPerformAction( "Failed to load message script from file.", () => script = MessageScript.FromFile( InputFilePath, format, encoding ) ) )
+            if (!TryPerformAction("Failed to load message script from file.", () => script = MessageScript.FromFile(InputFilePath, format, encoding)))
                 return false;
 
-            Logger.Info( "Decompiling MessageScript..." );
+            Logger.Info("Decompiling MessageScript...");
 
-            if ( !TryPerformAction( "Failed to decompile message script to file.", () =>
+            if (!TryPerformAction("Failed to decompile message script to file.", () =>
             {
-                using ( var decompiler = new MessageScriptDecompiler( new FileTextWriter( OutputFilePath ) ) )
+                using (var decompiler = new MessageScriptDecompiler(new FileTextWriter(OutputFilePath)))
                 {
-                    if ( LibraryName != null )
+                    if (LibraryName != null)
                     {
-                        var library = LibraryLookup.GetLibrary( LibraryName );
+                        var library = LibraryLookup.GetLibrary(LibraryName);
 
-                        if ( library == null )
+                        if (library == null)
                         {
-                            Logger.Error( "Invalid library name specified" );
+                            Logger.Error("Invalid library name specified");
                         }
 
                         decompiler.Library = library;
                     }
 
-                    decompiler.Decompile( script );
+                    decompiler.Decompile(script);
                 }
-            } ) )
+            }))
             {
                 return false;
             }
@@ -816,23 +818,23 @@ namespace AtlusScriptCompiler
 
         private static bool TryDoDisassembling()
         {
-            switch ( InputFileFormat )
+            switch (InputFileFormat)
             {
                 case InputFileFormat.FlowScriptTextSource:
                 case InputFileFormat.FlowScriptAssemblerSource:
                 case InputFileFormat.MessageScriptTextSource:
-                    Logger.Error( "Can't disassemble a text source!" );
+                    Logger.Error("Can't disassemble a text source!");
                     return false;
 
                 case InputFileFormat.FlowScriptBinary:
                     return TryDoFlowScriptDisassembly();
 
                 case InputFileFormat.MessageScriptBinary:
-                    Logger.Info( "Error. Disassembling message scripts is not supported." );
+                    Logger.Info("Error. Disassembling message scripts is not supported.");
                     return false;
 
                 default:
-                    Logger.Error( "Invalid input file format!" );
+                    Logger.Error("Invalid input file format!");
                     return false;
             }
         }
@@ -840,26 +842,26 @@ namespace AtlusScriptCompiler
         private static bool TryDoFlowScriptDisassembly()
         {
             // load binary file
-            Logger.Info( "Loading binary FlowScript file..." );
-           
+            Logger.Info("Loading binary FlowScript file...");
+
             FlowScriptBinary script = null;
             var format = GetFlowScriptFormatVersion();
 
-            if ( !TryPerformAction( "Failed to load flow script from file.", () =>
+            if (!TryPerformAction("Failed to load flow script from file.", () =>
             {
-                script = FlowScriptBinary.FromFile( InputFilePath, (BinaryFormatVersion)format );
-            } ) )
+                script = FlowScriptBinary.FromFile(InputFilePath, (BinaryFormatVersion)format);
+            }))
             {
                 return false;
             }
 
-            Logger.Info( "Disassembling FlowScript..." );
-            if ( !TryPerformAction( "Failed to disassemble flow script to file.", () =>
+            Logger.Info("Disassembling FlowScript...");
+            if (!TryPerformAction("Failed to disassemble flow script to file.", () =>
             {
-                var disassembler = new FlowScriptBinaryDisassembler( OutputFilePath );
-                disassembler.Disassemble( script );
+                var disassembler = new FlowScriptBinaryDisassembler(OutputFilePath);
+                disassembler.Disassemble(script);
                 disassembler.Dispose();
-            } ) )
+            }))
             {
                 return false;
             }
@@ -867,13 +869,13 @@ namespace AtlusScriptCompiler
             return true;
         }
 
-        private static bool TryPerformAction( string errorMessage, Action action )
+        private static bool TryPerformAction(string errorMessage, Action action)
         {
 #if !DEBUG
             try
             {
 #endif
-                action();
+            action();
 #if !DEBUG
             }
             catch ( Exception e )
@@ -886,13 +888,13 @@ namespace AtlusScriptCompiler
             return true;
         }
 
-        private static void LogException( string message, Exception e )
+        private static void LogException(string message, Exception e)
         {
-            Logger.Error( message );
-            Logger.Error( "Exception info:" );
-            Logger.Error( $"{e.Message}" );
-            Logger.Error( "Stacktrace:" );
-            Logger.Error( $"{e.StackTrace}" );
+            Logger.Error(message);
+            Logger.Error("Exception info:");
+            Logger.Error($"{e.Message}");
+            Logger.Error("Stacktrace:");
+            Logger.Error($"{e.StackTrace}");
         }
 
         private static bool UEWrapperHandler()

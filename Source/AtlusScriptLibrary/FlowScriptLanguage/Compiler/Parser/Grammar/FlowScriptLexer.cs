@@ -19,7 +19,7 @@
 // Ambiguous reference in cref attribute
 #pragma warning disable 419
 
-namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser.Grammar {
+namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser.Grammar; 
 using Antlr4.Runtime;
 using Antlr4.Runtime.Atn;
 using Antlr4.Runtime.Misc;
@@ -369,4 +369,4 @@ public partial class FlowScriptLexer : Lexer {
 	public static readonly ATN _ATN =
 		new ATNDeserializer().Deserialize(_serializedATN.ToCharArray());
 }
-} // namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser.Grammar
+// namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser.Grammar

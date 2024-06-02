@@ -1,83 +1,82 @@
-﻿using System;
+﻿using AtlusScriptLibrary.Common.Libraries;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using AtlusScriptLibrary.Common.Libraries;
 
-namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler
+namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler;
+
+internal class IntrinsicSupport
 {
-    internal class IntrinsicSupport
+    // Function indcies
+    public short PrintIntFunctionIndex { get; }
+
+    public short PrintStringFunctionIndex { get; }
+
+    public short PrintFloatFunctionIndex { get; }
+
+    public short AiGetLocalFunctionIndex { get; }
+
+    public short AiSetLocalFunctionIndex { get; }
+
+    public short AiGetGlobalFunctionIndex { get; }
+
+    public short AiSetGlobalFunctionIndex { get; }
+
+    public short BitCheckFunctionIndex { get; }
+
+    public short BitOnFunctionIndex { get; }
+
+    public short BitOffFunctionIndex { get; }
+
+    public short GetCountFunctionIndex { get; }
+    public short SetCountFunctionIndex { get; }
+
+    // Support flags
+    public bool SupportsTrace { get; }
+
+    public bool SupportsAiLocal { get; }
+
+    public bool SupportsAiGlobal { get; }
+
+    public bool SupportsBit { get; }
+    public bool SupportsCount { get; }
+
+    public IntrinsicSupport(Library registry)
     {
-        // Function indcies
-        public short PrintIntFunctionIndex { get; }
+        if (registry == null)
+            return;
 
-        public short PrintStringFunctionIndex { get; }
+        var functions = registry.FlowScriptModules.SelectMany(x => x.Functions)
+                                .ToDictionary(x => x.Name, StringComparer.InvariantCultureIgnoreCase);
 
-        public short PrintFloatFunctionIndex { get; }
+        PrintIntFunctionIndex = GetIndex(functions, "PUT");
+        PrintStringFunctionIndex = GetIndex(functions, "PUTS");
+        PrintFloatFunctionIndex = GetIndex(functions, "PUTF");
+        SupportsTrace = PrintIntFunctionIndex != -1 && PrintStringFunctionIndex != -1 && PrintFloatFunctionIndex != -1;
 
-        public short AiGetLocalFunctionIndex { get; }
+        AiGetLocalFunctionIndex = GetIndex(functions, "AI_GET_LOCAL_PARAM");
+        AiSetLocalFunctionIndex = GetIndex(functions, "AI_SET_LOCAL_PARAM");
+        SupportsAiLocal = AiGetLocalFunctionIndex != -1 && AiSetLocalFunctionIndex != -1;
 
-        public short AiSetLocalFunctionIndex { get; }
+        AiGetGlobalFunctionIndex = GetIndex(functions, "AI_GET_GLOBAL");
+        AiSetGlobalFunctionIndex = GetIndex(functions, "AI_SET_GLOBAL");
+        SupportsAiGlobal = AiGetGlobalFunctionIndex != -1 && AiSetGlobalFunctionIndex != -1;
 
-        public short AiGetGlobalFunctionIndex { get; }
+        BitCheckFunctionIndex = GetIndex(functions, "BIT_CHK");
+        BitOnFunctionIndex = GetIndex(functions, "BIT_ON");
+        BitOffFunctionIndex = GetIndex(functions, "BIT_OFF");
+        SupportsBit = BitCheckFunctionIndex != -1 && BitOnFunctionIndex != -1 && BitOffFunctionIndex != -1;
 
-        public short AiSetGlobalFunctionIndex { get; }
+        GetCountFunctionIndex = GetIndex(functions, "GET_COUNT");
+        SetCountFunctionIndex = GetIndex(functions, "SET_COUNT");
+        SupportsCount = GetCountFunctionIndex != -1 && SetCountFunctionIndex != -1;
+    }
 
-        public short BitCheckFunctionIndex { get; }
+    private static short GetIndex(Dictionary<string, FlowScriptModuleFunction> dictionary, string name)
+    {
+        if (!dictionary.TryGetValue(name, out var function))
+            return -1;
 
-        public short BitOnFunctionIndex { get; }
-
-        public short BitOffFunctionIndex { get; }
-
-        public short GetCountFunctionIndex { get; }
-        public short SetCountFunctionIndex { get; }
-
-        // Support flags
-        public bool SupportsTrace { get; }
-
-        public bool SupportsAiLocal { get; }
-
-        public bool SupportsAiGlobal { get; }
-
-        public bool SupportsBit { get; }
-        public bool SupportsCount { get; }
-
-        public IntrinsicSupport( Library registry )
-        {
-            if ( registry == null )
-                return;
-
-            var functions = registry.FlowScriptModules.SelectMany( x => x.Functions )
-                                    .ToDictionary( x => x.Name, StringComparer.InvariantCultureIgnoreCase );
-
-            PrintIntFunctionIndex = GetIndex( functions, "PUT" );
-            PrintStringFunctionIndex = GetIndex( functions, "PUTS" );
-            PrintFloatFunctionIndex = GetIndex( functions, "PUTF" );
-            SupportsTrace = PrintIntFunctionIndex != -1 && PrintStringFunctionIndex != -1 && PrintFloatFunctionIndex != -1;
-
-            AiGetLocalFunctionIndex = GetIndex( functions, "AI_GET_LOCAL_PARAM" );
-            AiSetLocalFunctionIndex = GetIndex( functions, "AI_SET_LOCAL_PARAM" );
-            SupportsAiLocal = AiGetLocalFunctionIndex != -1 && AiSetLocalFunctionIndex != -1;
-
-            AiGetGlobalFunctionIndex = GetIndex( functions, "AI_GET_GLOBAL" );
-            AiSetGlobalFunctionIndex = GetIndex( functions, "AI_SET_GLOBAL" );
-            SupportsAiGlobal = AiGetGlobalFunctionIndex != -1 && AiSetGlobalFunctionIndex != -1;
-
-            BitCheckFunctionIndex = GetIndex( functions, "BIT_CHK" );
-            BitOnFunctionIndex = GetIndex( functions, "BIT_ON" );
-            BitOffFunctionIndex = GetIndex( functions, "BIT_OFF" );
-            SupportsBit = BitCheckFunctionIndex != -1 && BitOnFunctionIndex != -1 && BitOffFunctionIndex != -1;
-
-            GetCountFunctionIndex = GetIndex( functions, "GET_COUNT" );
-            SetCountFunctionIndex = GetIndex( functions, "SET_COUNT" );
-            SupportsCount = GetCountFunctionIndex != -1 && SetCountFunctionIndex != -1;
-        }
-
-        private static short GetIndex( Dictionary< string, FlowScriptModuleFunction > dictionary, string name )
-        {
-            if ( !dictionary.TryGetValue( name, out var function ) )
-                return -1;
-
-            return (short)function.Index;
-        }
+        return (short)function.Index;
     }
 }

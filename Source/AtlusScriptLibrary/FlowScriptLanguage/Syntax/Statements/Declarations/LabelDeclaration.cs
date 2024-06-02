@@ -1,19 +1,18 @@
-﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax
+﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax;
+
+public class LabelDeclaration : Declaration
 {
-    public class LabelDeclaration : Declaration
+    public LabelDeclaration() : base(DeclarationType.Label)
     {
-        public LabelDeclaration() : base( DeclarationType.Label )
-        {
-        }
+    }
 
-        public LabelDeclaration( Identifier identifier ) : base( DeclarationType.Label, identifier )
-        {
+    public LabelDeclaration(Identifier identifier) : base(DeclarationType.Label, identifier)
+    {
 
-        }
+    }
 
-        public override string ToString()
-        {
-            return $"{Identifier}:";
-        }
+    public override string ToString()
+    {
+        return $"{Identifier}:";
     }
 }

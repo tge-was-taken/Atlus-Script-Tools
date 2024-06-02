@@ -6,7 +6,7 @@ namespace AtlusScriptDocGen.Exceptions
     {
         public string DocumentFormat { get; }
 
-        public InvalidDocumentationFormatException( string docFormatStr ) : base( $"No documentation format with name '{docFormatStr}' exists")
+        public InvalidDocumentationFormatException(string docFormatStr) : base($"No documentation format with name '{docFormatStr}' exists")
         {
             DocumentFormat = docFormatStr;
         }

@@ -12,16 +12,16 @@ namespace AtlusScriptDocGen.Exceptions
         {
         }
 
-        public InvalidLibraryException( string libraryName ) : base( libraryName, null )
+        public InvalidLibraryException(string libraryName) : base(libraryName, null)
         {
         }
 
-        public InvalidLibraryException( string libraryName, Exception innerException ) : base( $"No library with name '{libraryName}' exists.", innerException )
+        public InvalidLibraryException(string libraryName, Exception innerException) : base($"No library with name '{libraryName}' exists.", innerException)
         {
             LibraryName = libraryName;
         }
 
-        protected InvalidLibraryException( SerializationInfo info, StreamingContext context ) : base( info, context )
+        protected InvalidLibraryException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }

@@ -1,12 +1,11 @@
-﻿namespace AtlusScriptLibrary.Common.IO
+﻿namespace AtlusScriptLibrary.Common.IO;
+
+public enum StringBinaryFormat
 {
-    public enum StringBinaryFormat
-    {
-        Unknown,
-        NullTerminated,
-        FixedLength,
-        PrefixedLength8,
-        PrefixedLength16,
-        PrefixedLength32
-    }
+    Unknown,
+    NullTerminated,
+    FixedLength,
+    PrefixedLength8,
+    PrefixedLength16,
+    PrefixedLength32
 }

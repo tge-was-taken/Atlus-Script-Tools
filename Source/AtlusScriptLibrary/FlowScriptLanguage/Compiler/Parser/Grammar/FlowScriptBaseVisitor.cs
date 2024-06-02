@@ -19,7 +19,7 @@
 // Ambiguous reference in cref attribute
 #pragma warning disable 419
 
-namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser.Grammar {
+namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser.Grammar; 
 using Antlr4.Runtime.Misc;
 using Antlr4.Runtime.Tree;
 using IToken = Antlr4.Runtime.IToken;
@@ -614,4 +614,4 @@ public partial class FlowScriptBaseVisitor<Result> : AbstractParseTreeVisitor<Re
 	/// <return>The visitor result.</return>
 	public virtual Result VisitSwitchLabel([NotNull] FlowScriptParser.SwitchLabelContext context) { return VisitChildren(context); }
 }
-} // namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser.Grammar
+// namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser.Grammar

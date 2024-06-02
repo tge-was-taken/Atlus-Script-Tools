@@ -1,15 +1,14 @@
-﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax
+﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax;
+
+public abstract class CompoundAssignmentOperator : AssignmentOperatorBase
 {
-    public abstract class CompoundAssignmentOperator : AssignmentOperatorBase
+    protected CompoundAssignmentOperator()
     {
-        protected CompoundAssignmentOperator()
-        {
 
-        }
+    }
 
-        protected CompoundAssignmentOperator( Expression left, Expression right )
-            : base( left, right )
-        {
-        }
+    protected CompoundAssignmentOperator(Expression left, Expression right)
+        : base(left, right)
+    {
     }
 }
