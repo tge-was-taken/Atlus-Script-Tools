@@ -15,6 +15,7 @@ using AtlusScriptLibrary.MessageScriptLanguage;
 using AtlusScriptLibrary.MessageScriptLanguage.Compiler;
 using AtlusScriptLibrary.MessageScriptLanguage.Decompiler;
 using FormatVersion = AtlusScriptLibrary.FlowScriptLanguage.FormatVersion;
+using System.Diagnostics;
 
 namespace AtlusScriptCompiler
 {
