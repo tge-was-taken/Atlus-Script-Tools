@@ -8,7 +8,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel.Tests
     {
         private void FromFile_ResultNotNullAndFormatIsEqualToParameter(BinaryFormatVersion version, BinaryFormatVersion actualVersion)
         {
-            var script = FlowScriptBinary.FromFile($"TestResources\\{actualVersion}.bf", version);
+            var script = FlowScriptBinary.FromFile($"TestResources/{actualVersion}.bf", version);
 
             Assert.IsNotNull(script, "Script object should not be null");
             Assert.AreEqual(actualVersion, script.FormatVersion);
@@ -71,20 +71,20 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel.Tests
         [TestMethod]
         public void FromFileTest_InvalidFileFormat_Small()
         {
-            Assert.ThrowsException<InvalidDataException>(() => FlowScriptBinary.FromFile("TestResources\\dummy_small.bin", BinaryFormatVersion.Unknown));
+            Assert.ThrowsException<InvalidDataException>(() => FlowScriptBinary.FromFile("TestResources/dummy_small.bin", BinaryFormatVersion.Unknown));
         }
 
         [TestMethod]
         public void FromFileTest_InvalidFileFormat_Big()
         {
-            Assert.ThrowsException<InvalidDataException>(() => FlowScriptBinary.FromFile("TestResources\\dummy_big.bin", BinaryFormatVersion.Unknown));
+            Assert.ThrowsException<InvalidDataException>(() => FlowScriptBinary.FromFile("TestResources/dummy_big.bin", BinaryFormatVersion.Unknown));
         }
 
         [TestMethod]
         [Ignore]
         public void FromFileTest_Batch()
         {
-            foreach (var path in Directory.EnumerateFiles("TestResources\\Batch\\", "*.bf"))
+            foreach (var path in Directory.EnumerateFiles("TestResources/Batch/", "*.bf"))
             {
                 var script = FlowScriptBinary.FromFile(path, BinaryFormatVersion.Version3BigEndian);
 
@@ -95,7 +95,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel.Tests
         [TestMethod]
         public void FromStreamTest()
         {
-            using (var fileStream = File.OpenRead("TestResources\\Version3BigEndian.bf"))
+            using (var fileStream = File.OpenRead("TestResources/Version3BigEndian.bf"))
             {
                 var script = FlowScriptBinary.FromStream(fileStream, BinaryFormatVersion.Version3BigEndian);
 

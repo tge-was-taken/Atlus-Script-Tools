@@ -5,7 +5,7 @@
     "Description": "Non-domain specific commonly used functions.",
     "ConstantsPath": "",
     "EnumsPath": "",
-    "FunctionsPath": "PersonaQ2\\Modules\\Common\\Functions.json"
+    "FunctionsPath": "PersonaQ2/Modules/Common/Functions.json"
   },
   {
     "Name": "Window",
@@ -13,7 +13,7 @@
     "Description": "",
     "ConstantsPath": "",
     "EnumsPath": "",
-    "FunctionsPath": "PersonaQ2\\Modules\\Window\\Functions.json"
+    "FunctionsPath": "PersonaQ2/Modules/Window/Functions.json"
   },
   {
     "Name": "Dungeon",
@@ -21,7 +21,7 @@
     "Description": "",
     "ConstantsPath": "",
     "EnumsPath": "",
-    "FunctionsPath": "PersonaQ2\\Modules\\Dungeon\\Functions.json"
+    "FunctionsPath": "PersonaQ2/Modules/Dungeon/Functions.json"
   },
   {
     "Name": "Battle",
@@ -29,7 +29,7 @@
     "Description": "",
     "ConstantsPath": "",
     "EnumsPath": "",
-    "FunctionsPath": "PersonaQ2\\Modules\\Battle\\Functions.json"
+    "FunctionsPath": "PersonaQ2/Modules/Battle/Functions.json"
   },
   {
     "Name": "Event",
@@ -37,7 +37,7 @@
     "Description": "",
     "ConstantsPath": "",
     "EnumsPath": "",
-    "FunctionsPath": "PersonaQ2\\Modules\\Event\\Functions.json"
+    "FunctionsPath": "PersonaQ2/Modules/Event/Functions.json"
   },
   {
     "Name": "Script",
@@ -45,7 +45,7 @@
     "Description": "",
     "ConstantsPath": "",
     "EnumsPath": "",
-    "FunctionsPath": "PersonaQ2\\Modules\\Script\\Functions.json"
+    "FunctionsPath": "PersonaQ2/Modules/Script/Functions.json"
   },
   {
     "Name": "Facility",
@@ -53,7 +53,7 @@
     "Description": "",
     "ConstantsPath": "",
     "EnumsPath": "",
-    "FunctionsPath": "PersonaQ2\\Modules\\Facility\\Functions.json"
+    "FunctionsPath": "PersonaQ2/Modules/Facility/Functions.json"
   },
   {
     "Name": "Map",
@@ -61,7 +61,7 @@
     "Description": "",
     "ConstantsPath": "",
     "EnumsPath": "",
-    "FunctionsPath": "PersonaQ2\\Modules\\Map\\Functions.json"
+    "FunctionsPath": "PersonaQ2/Modules/Map/Functions.json"
   },
   {
     "Name": "Camp",
@@ -69,6 +69,6 @@
     "Description": "",
     "ConstantsPath": "",
     "EnumsPath": "",
-    "FunctionsPath": "PersonaQ2\\Modules\\Camp\\Functions.json"
+    "FunctionsPath": "PersonaQ2/Modules/Camp/Functions.json"
   },
 ]

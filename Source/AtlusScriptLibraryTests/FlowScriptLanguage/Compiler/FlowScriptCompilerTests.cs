@@ -24,6 +24,18 @@ namespace AtlusScriptLibraryTests.FlowScriptLanguage.Compiler
             }
 
             var compiledInstructions = script.EnumerateInstructions().ToList();
+
+            Console.WriteLine("Compiled Instructions:");
+            Console.WriteLine();
+            Console.WriteLine(string.Join('\n', compiledInstructions.Select(z => z.ToString())));
+
+            Console.WriteLine();
+            Console.WriteLine();
+
+            Console.WriteLine("Expected Instructions:");
+            Console.WriteLine();
+            Console.WriteLine(string.Join('\n', instructions.Select(z => z.ToString())));
+            
             Assert.IsTrue(compiledInstructions.SequenceEqual(instructions));
         }
 
