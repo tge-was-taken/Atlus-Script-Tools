@@ -1,4 +1,5 @@
 ﻿using AtlusScriptLibrary.Common.IO;
+using AtlusScriptLibrary.MessageScriptLanguage.IO;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -29,7 +30,7 @@ public sealed class MessageScriptBinaryReader : IDisposable
             mHeader = ReadHeader()
         };
 
-        binary.mDialogHeaders = ReadDialogHeaders(binary.mHeader.DialogCount);
+        binary.mDialogHeaders = ReadDialogHeaders(binary.mHeader);
         binary.mSpeakerTableHeader = ReadSpeakerTableHeader();
         binary.mFormatVersion = mVersion;
 
@@ -105,9 +106,10 @@ public sealed class MessageScriptBinaryReader : IDisposable
         EndiannessHelper.Swap(ref header.Version);
     }
 
-    public BinaryDialogHeader[] ReadDialogHeaders(int count)
+    public BinaryDialogHeader[] ReadDialogHeaders(BinaryHeader mHeader)
     {
-        BinaryDialogHeader[] headers = new BinaryDialogHeader[count];
+        BinaryDialogHeader[] headers = new BinaryDialogHeader[mHeader.DialogCount];
+        var offsets = RelocationTableEncoding.Decode(mHeader.RelocationTable.Value, 0);
 
         for (int i = 0; i < headers.Length; i++)
         {
@@ -116,7 +118,13 @@ public sealed class MessageScriptBinaryReader : IDisposable
             header.Data.Offset = mReader.ReadInt32();
 
             if (header.Data.Offset != 0)
-                header.Data.Value = ReadDialog(header.Kind, header.Data.Offset);
+            {
+                if (mHeader.IsRelocated) {
+                    header.Data.Value = ReadDialog(header.Kind, header.Data.Offset + offsets[i]);
+                } else {
+                    header.Data.Value = ReadDialog(header.Kind, header.Data.Offset);
+                }
+            }
         }
 
         return headers;
@@ -210,6 +218,8 @@ public sealed class MessageScriptBinaryReader : IDisposable
         {
             message.PageStartAddresses = mReader.ReadInt32s(message.PageCount);
             message.TextBufferSize = mReader.ReadInt32();
+            if(message.TextBufferSize < 0 || message.TextBufferSize > (1 << 24)) // Endianness for this value seems to be swapped in some files... not sure what triggers it
+              EndiannessHelper.Swap(ref message.TextBufferSize);
             message.TextBuffer = mReader.ReadBytes(message.TextBufferSize);
         }
         else
