@@ -1,17 +1,16 @@
-﻿namespace AtlusScriptLibrary.Common.Logging
+﻿namespace AtlusScriptLibrary.Common.Logging;
+
+public class LoggerPassthroughListener : LogListener
 {
-    public class LoggerPassthroughListener : LogListener
+    private Logger mLogger;
+
+    public LoggerPassthroughListener(Logger logger)
     {
-        private Logger mLogger;
+        mLogger = logger;
+    }
 
-        public LoggerPassthroughListener( Logger logger )
-        {
-            mLogger = logger;
-        }
-
-        protected override void OnLogCore( object sender, LogEventArgs e )
-        {
-            mLogger.Log( e.Level, e.Message );
-        }
+    protected override void OnLogCore(object sender, LogEventArgs e)
+    {
+        mLogger.Log(e.Level, e.Message);
     }
 }

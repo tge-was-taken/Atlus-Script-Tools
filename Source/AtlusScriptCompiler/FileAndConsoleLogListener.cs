@@ -11,28 +11,28 @@ namespace AtlusScriptCompiler
         private readonly LogLevel mConsoleLogFilter;
         private bool mDisposed;
 
-        public FileAndConsoleLogListener( bool useColors, LogLevel filter ) : base( useColors, LogLevel.All )
+        public FileAndConsoleLogListener(bool useColors, LogLevel filter) : base(useColors, LogLevel.All)
         {
-            mFileWriter = FileUtils.CreateText( Program.AssemblyName.Name + ".log" );
+            mFileWriter = FileUtils.CreateText(Program.AssemblyName.Name + ".log");
             mConsoleLogFilter = filter;
         }
 
-        public FileAndConsoleLogListener( string channelName, bool useColors ) : base( channelName, useColors )
+        public FileAndConsoleLogListener(string channelName, bool useColors) : base(channelName, useColors)
         {
-            mFileWriter = FileUtils.CreateText( Program.AssemblyName.Name + ".log" );
+            mFileWriter = FileUtils.CreateText(Program.AssemblyName.Name + ".log");
         }
 
-        protected override void OnLogCore( object sender, LogEventArgs e )
+        protected override void OnLogCore(object sender, LogEventArgs e)
         {
-            mFileWriter.WriteLine( $"{DateTime.Now} {e.ChannelName} {e.Level}: {e.Message}" );
+            mFileWriter.WriteLine($"{DateTime.Now} {e.ChannelName} {e.Level}: {e.Message}");
 
-            if ( mConsoleLogFilter.HasFlag(e.Level) )
-                base.OnLogCore( sender, e );
+            if (mConsoleLogFilter.HasFlag(e.Level))
+                base.OnLogCore(sender, e);
         }
 
-        protected virtual void Dispose( bool disposing )
+        protected virtual void Dispose(bool disposing)
         {
-            if ( !mDisposed && disposing )
+            if (!mDisposed && disposing)
             {
                 mFileWriter.Dispose();
                 mDisposed = true;
@@ -41,12 +41,12 @@ namespace AtlusScriptCompiler
 
         ~FileAndConsoleLogListener()
         {
-            Dispose( false );
+            Dispose(false);
         }
 
         public void Dispose()
         {
-            Dispose( true );
+            Dispose(true);
             GC.SuppressFinalize(this);
         }
     }

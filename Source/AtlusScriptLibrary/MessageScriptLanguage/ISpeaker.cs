@@ -1,13 +1,12 @@
-﻿namespace AtlusScriptLibrary.MessageScriptLanguage
+﻿namespace AtlusScriptLibrary.MessageScriptLanguage;
+
+/// <summary>
+/// Common interface for dialogue message speakers.
+/// </summary>
+public interface ISpeaker
 {
     /// <summary>
-    /// Common interface for dialogue message speakers.
+    /// Gets the speaker type.
     /// </summary>
-    public interface ISpeaker
-    {
-        /// <summary>
-        /// Gets the speaker type.
-        /// </summary>
-        SpeakerKind Kind { get; }
-    }
+    SpeakerKind Kind { get; }
 }

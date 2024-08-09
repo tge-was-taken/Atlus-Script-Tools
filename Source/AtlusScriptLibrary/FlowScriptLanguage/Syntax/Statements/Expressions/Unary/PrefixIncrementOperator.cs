@@ -1,20 +1,19 @@
-﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax
+﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax;
+
+public class PrefixIncrementOperator : PrefixOperator
 {
-    public class PrefixIncrementOperator : PrefixOperator
+    public PrefixIncrementOperator()
     {
-        public PrefixIncrementOperator()
-        {
 
-        }
+    }
 
-        public PrefixIncrementOperator( Expression operand ) : base( operand )
-        {
+    public PrefixIncrementOperator(Expression operand) : base(operand)
+    {
 
-        }
+    }
 
-        public override string ToString()
-        {
-            return $"++({Operand})";
-        }
+    public override string ToString()
+    {
+        return $"++({Operand})";
     }
 }

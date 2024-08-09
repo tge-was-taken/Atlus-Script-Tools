@@ -1,0 +1,3540 @@
+[
+  {
+    "Index": "0x1000",
+    "ReturnType": "void",
+    "Name": "AI_SEQUENCE_BEGIN",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1001",
+    "ReturnType": "void",
+    "Name": "AI_ACT_ATTACK",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1002",
+    "ReturnType": "void",
+    "Name": "AI_ACT_SKILL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1003",
+    "ReturnType": "void",
+    "Name": "AI_ACT_GUARDORDER",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1004",
+    "ReturnType": "void",
+    "Name": "AI_TAR_HERO",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1005",
+    "ReturnType": "void",
+    "Name": "AI_TAR_MINE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1006",
+    "ReturnType": "void",
+    "Name": "AI_TAR_RND",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1007",
+    "ReturnType": "void",
+    "Name": "AI_TAR_MYAI",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1008",
+    "ReturnType": "void",
+    "Name": "AI_TAR_HPMIN",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1009",
+    "ReturnType": "void",
+    "Name": "AI_TAR_HPMAX",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x100a",
+    "ReturnType": "void",
+    "Name": "AI_TAR_BAD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x100b",
+    "ReturnType": "void",
+    "Name": "AI_TAR_NOTBAD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x100c",
+    "ReturnType": "void",
+    "Name": "AI_TAR_HOJO",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x100d",
+    "ReturnType": "void",
+    "Name": "AI_TAR_NOTHOJO",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x100e",
+    "ReturnType": "void",
+    "Name": "AI_TAR_DOWN",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x100f",
+    "ReturnType": "void",
+    "Name": "AI_TAR_STAND",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1010",
+    "ReturnType": "void",
+    "Name": "AI_TAR_ID",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1011",
+    "ReturnType": "void",
+    "Name": "AI_TAR_NOTID",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1012",
+    "ReturnType": "void",
+    "Name": "AI_TAR_APPOINT",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1013",
+    "ReturnType": "void",
+    "Name": "AI_TAR_MPMAX",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1014",
+    "ReturnType": "void",
+    "Name": "AI_TAR_SPMAX",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1015",
+    "ReturnType": "int",
+    "Name": "AI_CHK_MORE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1016",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRID",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1017",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENID",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1018",
+    "ReturnType": "int",
+    "Name": "AI_CHK_TURN",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1019",
+    "ReturnType": "int",
+    "Name": "AI_CHK_TURN_O",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x101a",
+    "ReturnType": "int",
+    "Name": "AI_CHK_BOSS",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x101b",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ESCAPE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x101c",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ANALYZE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x101d",
+    "ReturnType": "int",
+    "Name": "AI_CHK_DOWN",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x101e",
+    "ReturnType": "int",
+    "Name": "AI_CHK_SLIP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x101f",
+    "ReturnType": "int",
+    "Name": "AI_CHK_MYWEAK",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1020",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRWEAK",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1021",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENWEAK",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1022",
+    "ReturnType": "int",
+    "Name": "AI_CHK_MYMUKOU",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1023",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRMUKOU",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1024",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENMUKOU",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1025",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENTAISEI",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1026",
+    "ReturnType": "int",
+    "Name": "AI_CHK_MYHANSYA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1027",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRHANSYA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1028",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENHANSYA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1029",
+    "ReturnType": "int",
+    "Name": "AI_CHK_MYKYUSYU",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x102a",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRKYUSYU",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x102b",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENKYUSYU",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x102c",
+    "ReturnType": "int",
+    "Name": "AI_CHK_PREV_ATK",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x102d",
+    "ReturnType": "int",
+    "Name": "AI_CHK_PREV_WAIT",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x102e",
+    "ReturnType": "int",
+    "Name": "AI_CHK_MYUSESKIL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x102f",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRUSESKIL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1030",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENUSESKIL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1031",
+    "ReturnType": "int",
+    "Name": "AI_CHK_MYHP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1032",
+    "ReturnType": "int",
+    "Name": "AI_CHK_MYMP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1033",
+    "ReturnType": "int",
+    "Name": "AI_CHK_MYSP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1034",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRHP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1035",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENHP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1036",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENHP_O",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1037",
+    "ReturnType": "int",
+    "Name": "AI_CHK_UNIHP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1038",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRCNT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1039",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENCNT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x103a",
+    "ReturnType": "int",
+    "Name": "AI_CHK_MYBAD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x103b",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRBAD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x103c",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENBAD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x103d",
+    "ReturnType": "int",
+    "Name": "AI_CHK_UNIBAD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x103e",
+    "ReturnType": "int",
+    "Name": "AI_CHK_NOTMYBAD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x103f",
+    "ReturnType": "int",
+    "Name": "AI_CHK_NOTFRBAD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1040",
+    "ReturnType": "int",
+    "Name": "AI_CHK_NOTENBAD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1041",
+    "ReturnType": "int",
+    "Name": "AI_CHK_MYHOJO",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1042",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRHOJO",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1043",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENHOJO",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1044",
+    "ReturnType": "int",
+    "Name": "AI_CHK_NOTMYHOJO",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1045",
+    "ReturnType": "int",
+    "Name": "AI_CHK_NOTFRHOJO",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1046",
+    "ReturnType": "int",
+    "Name": "AI_CHK_NOTENHOJO",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1047",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRIDHP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1048",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRIDBAD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1049",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRIDBAD_ALL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x104a",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRIDHOJO",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x104b",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRIDWEAK",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x104c",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRIDMUKOU",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x104d",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRIDHANSYA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x104e",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRIDKYUSYU",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x104f",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRIDUSESKIL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1050",
+    "ReturnType": "int",
+    "Name": "AI_GET_FIRST_ACTION",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1051",
+    "ReturnType": "int",
+    "Name": "AI_GET_ENBADOFF",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1052",
+    "ReturnType": "int",
+    "Name": "AI_GET_MYATTRATTACK",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1053",
+    "ReturnType": "int",
+    "Name": "AI_GET_ENID_MAXSERIAL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1054",
+    "ReturnType": "int",
+    "Name": "AI_GET_P_NUM",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1055",
+    "ReturnType": "int",
+    "Name": "AI_GET_E_NUM",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1056",
+    "ReturnType": "int",
+    "Name": "AI_GET_FRHP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1057",
+    "ReturnType": "int",
+    "Name": "AI_GET_UNIRANDOM",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1058",
+    "ReturnType": "int",
+    "Name": "AI_GET_UNIATAB",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1059",
+    "ReturnType": "int",
+    "Name": "AI_GET_UNIATAB_ST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x105a",
+    "ReturnType": "int",
+    "Name": "AI_GET_UNIATAB_DW",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x105b",
+    "ReturnType": "int",
+    "Name": "AI_GET_UNIWEAK",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x105c",
+    "ReturnType": "int",
+    "Name": "AI_GET_UNIWEAK_ST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x105d",
+    "ReturnType": "int",
+    "Name": "AI_GET_UNIWEAK_DW",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x105e",
+    "ReturnType": "int",
+    "Name": "AI_GET_UNIHANSYA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x105f",
+    "ReturnType": "int",
+    "Name": "AI_GET_UNIKYUSYU",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1060",
+    "ReturnType": "int",
+    "Name": "AI_GET_UNIMUKOU",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1061",
+    "ReturnType": "int",
+    "Name": "AI_GET_UNIRESIST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1062",
+    "ReturnType": "int",
+    "Name": "AI_RND",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1063",
+    "ReturnType": "int",
+    "Name": "AI_GET_GLOBAL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1064",
+    "ReturnType": "int",
+    "Name": "BTL_GET_COUNTER",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1065",
+    "ReturnType": "int",
+    "Name": "AI_SET_GLOBAL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1066",
+    "ReturnType": "int",
+    "Name": "BTL_SET_COUNTER",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1067",
+    "ReturnType": "int",
+    "Name": "BTL_GET_CURRENT_CHARAID",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1068",
+    "ReturnType": "void",
+    "Name": "CALL_FIELDBATTLE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1069",
+    "ReturnType": "void",
+    "Name": "CALL_EVENTBATTLE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x106a",
+    "ReturnType": "int",
+    "Name": "AI_CHK_MYGROUP",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x106b",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRGROUP",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x106c",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENGROUP",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x106d",
+    "ReturnType": "void",
+    "Name": "AI_ACT_ESCAPE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x106e",
+    "ReturnType": "void",
+    "Name": "AI_ADD_REINFORCEMENT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x106f",
+    "ReturnType": "int",
+    "Name": "AI_CHK_SUMMONCNT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1070",
+    "ReturnType": "void",
+    "Name": "AI_TAR_HANSYA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1071",
+    "ReturnType": "void",
+    "Name": "AI_TAR_KYUSYU",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1072",
+    "ReturnType": "void",
+    "Name": "AI_TAR_MUKOU",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1073",
+    "ReturnType": "void",
+    "Name": "AI_TAR_WEAK",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1074",
+    "ReturnType": "void",
+    "Name": "AI_TAR_NOTHANSYA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1075",
+    "ReturnType": "void",
+    "Name": "AI_TAR_NOTKYUSYU",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1076",
+    "ReturnType": "void",
+    "Name": "AI_TAR_NOTMUKOU",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1077",
+    "ReturnType": "void",
+    "Name": "AI_TAR_NOTWEAK",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1078",
+    "ReturnType": "void",
+    "Name": "AI_TAR_HANSYA_ST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1079",
+    "ReturnType": "void",
+    "Name": "AI_TAR_KYUSYU_ST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x107a",
+    "ReturnType": "void",
+    "Name": "AI_TAR_MUKOU_ST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x107b",
+    "ReturnType": "void",
+    "Name": "AI_TAR_WEAK_ST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x107c",
+    "ReturnType": "void",
+    "Name": "AI_TAR_NOTHANSYA_ST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x107d",
+    "ReturnType": "void",
+    "Name": "AI_TAR_NOTKYUSYU_ST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x107e",
+    "ReturnType": "void",
+    "Name": "AI_TAR_NOTMUKOU_ST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x107f",
+    "ReturnType": "void",
+    "Name": "AI_TAR_NOTWEAK_ST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1080",
+    "ReturnType": "void",
+    "Name": "AI_ACT_WAIT",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1081",
+    "ReturnType": "void",
+    "Name": "AI_ACT_SKIP",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1082",
+    "ReturnType": "void",
+    "Name": "AI_ACT_WAIT2",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1083",
+    "ReturnType": "void",
+    "Name": "BTL_SHUFFLE_DECIDE_MAJORARCANA",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1084",
+    "ReturnType": "void",
+    "Name": "BTL_SHUFFLE_CLEAN_FLAG_ALL",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1085",
+    "ReturnType": "void",
+    "Name": "BTL_SHUFFLE_CLEAN_FLAG_ENTRANCE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1086",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FMTPINCH",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1087",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FMTADVANTAGE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1088",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FMTNML",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1089",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRALLHP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x108a",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENALLHP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x108b",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENBAD_ALL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x108c",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRBAD_NOTALL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x108d",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENBAD_NOTALL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x108e",
+    "ReturnType": "int",
+    "Name": "AI_CHK_MYID",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x108f",
+    "ReturnType": "int",
+    "Name": "AI_CHK_MYTAISEI",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1090",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRTAISEI",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1091",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRWEAK_ST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1092",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENWEAK_ST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1093",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRMUKOU_ST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1094",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENMUKOU_ST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1095",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRTAISEI_ST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1096",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENTAISEI_ST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1097",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRHANSYA_ST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1098",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENHANSYA_ST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1099",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRKYUSYU_ST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x109a",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENKYUSYU_ST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x109b",
+    "ReturnType": "int",
+    "Name": "AI_CHK_MYUSEATTR",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x109c",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRUSEATTR",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x109d",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENUSEATTR",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x109e",
+    "ReturnType": "int",
+    "Name": "AI_CHK_MYABLESKIL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x109f",
+    "ReturnType": "int",
+    "Name": "AI_CHK_MYATTRSKIL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10a0",
+    "ReturnType": "int",
+    "Name": "AI_CHK_MYHREC",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x10a1",
+    "ReturnType": "int",
+    "Name": "AI_CHK_SUMMONED",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x10a2",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENCOUNT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10a3",
+    "ReturnType": "int",
+    "Name": "AI_TAR_MAN_RND",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x10a4",
+    "ReturnType": "int",
+    "Name": "AI_TAR_WOMAN_RND",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x10a5",
+    "ReturnType": "int",
+    "Name": "AI_TAR_NOTSUPPORTID",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10a6",
+    "ReturnType": "int",
+    "Name": "AI_TAR_NOTBADID",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10a7",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRIDSP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10a8",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRIDLV_O",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10a9",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRIDUSEATTR",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10aa",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRIDUSEGROUP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10ab",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRIDHREC",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10ac",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENIDHP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10ad",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENIDSP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10ae",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENIDLV_O",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10af",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENIDBAD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10b0",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENIDBAD_ALL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10b1",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENIDHOJO",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10b2",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENIDWEAK",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10b3",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENIDMUKOU",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10b4",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENIDHANSYA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10b5",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENIDKYUSYU",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10b6",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENIDUSESKIL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10b7",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENIDUSEATTR",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10b8",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENIDUSEGROUP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10b9",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENIDHREC",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10ba",
+    "ReturnType": "int",
+    "Name": "AI_CHK_SEQUENCE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10bb",
+    "ReturnType": "int",
+    "Name": "AI_CHK_TURNEQUAL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10bc",
+    "ReturnType": "int",
+    "Name": "AI_CHK_TURNDIVI",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10bd",
+    "ReturnType": "int",
+    "Name": "AI_GET_P_ORDER",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10be",
+    "ReturnType": "int",
+    "Name": "AI_GET_MY_ID",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x10bf",
+    "ReturnType": "int",
+    "Name": "AI_GET_UNI",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10c0",
+    "ReturnType": "void",
+    "Name": "BTL_COUNTDOWN_START",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10c1",
+    "ReturnType": "void",
+    "Name": "BTL_COUNTDOWN_STOP",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x10c2",
+    "ReturnType": "void",
+    "Name": "BTL_COUNTDOWN_PLAY",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x10c3",
+    "ReturnType": "void",
+    "Name": "BTL_COUNTDOWN_SPEED",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10c4",
+    "ReturnType": "void",
+    "Name": "BTL_CINEMASCOPE_START",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x10c5",
+    "ReturnType": "void",
+    "Name": "BTL_CINEMASCOPE_END",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x10c6",
+    "ReturnType": "int",
+    "Name": "BTL_CUTSCENE_LOAD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10c7",
+    "ReturnType": "void",
+    "Name": "BTL_CUTSCENE_LOADSYNC",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10c8",
+    "ReturnType": "void",
+    "Name": "BTL_CUTSCENE_PLAY",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10c9",
+    "ReturnType": "void",
+    "Name": "BTL_CUTSCENE_SYNC",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10ca",
+    "ReturnType": "void",
+    "Name": "BTL_CUTSCENE_END",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10cb",
+    "ReturnType": "void",
+    "Name": "BTL_COUNTDOWN_VISIBLE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x10cc",
+    "ReturnType": "void",
+    "Name": "BTL_COUNTDOWN_HIDDEN",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x10cd",
+    "ReturnType": "void",
+    "Name": "BTL_UI_VISIBLE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x10ce",
+    "ReturnType": "void",
+    "Name": "BTL_UI_HIDDEN",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x10cf",
+    "ReturnType": "void",
+    "Name": "BTL_PLAY_BG_RAIL_ANIM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10d0",
+    "ReturnType": "void",
+    "Name": "BTL_REQ_ASSIST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10d1",
+    "ReturnType": "void",
+    "Name": "BTL_PLAY_BG_STRAP_ANIM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10d2",
+    "ReturnType": "void",
+    "Name": "AI_ACT_SKILL_EX",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10d3",
+    "ReturnType": "void",
+    "Name": "BTL_PLAY_BG_ANIM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10d4",
+    "ReturnType": "void",
+    "Name": "BTL_CUTSCENE_PLAY_ACTOR3",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10d5",
+    "ReturnType": "int",
+    "Name": "AI_GET_ENID_ACTTURNCOUNT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10d6",
+    "ReturnType": "void",
+    "Name": "AI_SET_ENID_MAXACTTURN",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10d7",
+    "ReturnType": "int",
+    "Name": "AI_GET_FRID_ACTTURNCOUNT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10d8",
+    "ReturnType": "void",
+    "Name": "AI_SET_FRID_MAXACTTURN",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10d9",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRBAD_ALL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10da",
+    "ReturnType": "void",
+    "Name": "BTL_REQ_ASSIST_SEQ",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10db",
+    "ReturnType": "int",
+    "Name": "BTL_CHK_PARTYIN_ID",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10dc",
+    "ReturnType": "void",
+    "Name": "AI_ACT_TAKEOVER",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10dd",
+    "ReturnType": "int",
+    "Name": "AI_CHK_TAKEOVER",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10de",
+    "ReturnType": "int",
+    "Name": "BTL_GET_NYX_ID",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x10df",
+    "ReturnType": "int",
+    "Name": "AI_CHK_UNIATTACK",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10e0",
+    "ReturnType": "void",
+    "Name": "AI_TAR_UID",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10e1",
+    "ReturnType": "int",
+    "Name": "AI_GET_P_NOW_HP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10e2",
+    "ReturnType": "int",
+    "Name": "AI_GET_P_NOW_SP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10e3",
+    "ReturnType": "int",
+    "Name": "AI_GET_P_MAX_HP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10e4",
+    "ReturnType": "int",
+    "Name": "AI_GET_P_MAX_SP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10e5",
+    "ReturnType": "int",
+    "Name": "AI_GET_UNIHPMIN",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x10e6",
+    "ReturnType": "int",
+    "Name": "AI_CHK_UNIANALYZE_OPEN",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10e7",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ID_FRTARGET",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10e8",
+    "ReturnType": "int",
+    "Name": "AI_GET_UNI_NOANALYZE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10e9",
+    "ReturnType": "int",
+    "Name": "AI_GET_UNI_ATTACK",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10ea",
+    "ReturnType": "int",
+    "Name": "AI_CHK_UNINOMAL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10eb",
+    "ReturnType": "int",
+    "Name": "AI_GET_FRBAD_ON",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10ec",
+    "ReturnType": "int",
+    "Name": "AI_GET_ENBAD_ON",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10ed",
+    "ReturnType": "int",
+    "Name": "AI_CHK_UNIHOJO",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10ee",
+    "ReturnType": "int",
+    "Name": "AI_GET_ATTRSKIL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10ef",
+    "ReturnType": "int",
+    "Name": "AI_CHK_EXCEPT_ENCOUNT",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x10f0",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ABLEWEAK",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10f1",
+    "ReturnType": "int",
+    "Name": "AI_GET_UNIBESTATTRSKIL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10f2",
+    "ReturnType": "int",
+    "Name": "AI_ACT_HIGHSKILL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10f3",
+    "ReturnType": "int",
+    "Name": "AI_ACT_HEAL",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x10f4",
+    "ReturnType": "int",
+    "Name": "AI_ACT_ATTACK_WEAK",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x10f5",
+    "ReturnType": "int",
+    "Name": "AI_ACT_REZ",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x10f6",
+    "ReturnType": "int",
+    "Name": "AI_ACT_BADSKILL",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x10f7",
+    "ReturnType": "int",
+    "Name": "AI_ACT_BADSTATE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x10f8",
+    "ReturnType": "int",
+    "Name": "AI_ACT_DEBUFF",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10f9",
+    "ReturnType": "int",
+    "Name": "AI_ACT_FIXED",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x10fa",
+    "ReturnType": "int",
+    "Name": "AI_ACT_UNKNOWN_ATTR",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x10fb",
+    "ReturnType": "int",
+    "Name": "AI_CHK_THEURGIA",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x10fc",
+    "ReturnType": "void",
+    "Name": "AI_ACT_THEURGIA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10fd",
+    "ReturnType": "int",
+    "Name": "AI_GET_UNIQUE_HIT_HPMIN",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10fe",
+    "ReturnType": "void",
+    "Name": "BTL_KEY_ENABLE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x10ff",
+    "ReturnType": "int",
+    "Name": "AI_GET_ENCOUNT_ID",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1100",
+    "ReturnType": "void",
+    "Name": "AI_SET_MANUAL_OPERATE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1101",
+    "ReturnType": "void",
+    "Name": "AI_TAR_TAKAYAJOIN_ID",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1102",
+    "ReturnType": "void",
+    "Name": "BTL_RELOCATION",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1103",
+    "ReturnType": "void",
+    "Name": "BTL_PLAY_EVENT_VOICE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1104",
+    "ReturnType": "void",
+    "Name": "BTL_EVENT_RETURN_VALUE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1105",
+    "ReturnType": "int",
+    "Name": "BTL_GET_ERZ_ID",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1106",
+    "ReturnType": "int",
+    "Name": "AI_CHK_PREV_DAMAGE_ATTR",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1107",
+    "ReturnType": "void",
+    "Name": "BTL_COUNTDOWN_REDUCE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1108",
+    "ReturnType": "int",
+    "Name": "BTL_COUNTDOWN_TIME_GET",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1109",
+    "ReturnType": "int",
+    "Name": "BTL_TP_ANIMATION",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x110a",
+    "ReturnType": "void",
+    "Name": "BTL_PARTYPANEL_DISP",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x110b",
+    "ReturnType": "void",
+    "Name": "BTL_PARTYPANEL_HIDE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x110c",
+    "ReturnType": "void",
+    "Name": "BTL_END_FADE_IN",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x110d",
+    "ReturnType": "void",
+    "Name": "BTL_RELOCATION_BTLEND",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x110e",
+    "ReturnType": "void",
+    "Name": "BTL_SET_FORCE_MSG_MODE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x110f",
+    "ReturnType": "void",
+    "Name": "BTL_TUTORIAL_REQUEST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1110",
+    "ReturnType": "void",
+    "Name": "BTL_CUTSCENE_ALLLOAD",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1111",
+    "ReturnType": "void",
+    "Name": "BTL_CUTSCENE_ALLLOADSYNC",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1112",
+    "ReturnType": "void",
+    "Name": "AI_TAR_BAD_ST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1113",
+    "ReturnType": "void",
+    "Name": "AI_TAR_NOTBAD_ST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1114",
+    "ReturnType": "void",
+    "Name": "BTL_SET_SHOW_BADSTATUS_ICON",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1115",
+    "ReturnType": "void",
+    "Name": "BTL_WIPE_IN",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1116",
+    "ReturnType": "void",
+    "Name": "BTL_WIPE_SYNC",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x1117",
+    "ReturnType": "int",
+    "Name": "BTL_CHK_HIGH_ANALYZE",
+    "Description": "",
+    "Parameters": []
+  }
+]

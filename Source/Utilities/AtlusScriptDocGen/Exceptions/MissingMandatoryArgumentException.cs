@@ -6,7 +6,7 @@ namespace AtlusScriptDocGen
     {
         public string ArgumentName { get; }
 
-        public MissingMandatoryArgumentException( string name ) : base( $"Missing mandatory argument: {name}" )
+        public MissingMandatoryArgumentException(string name) : base($"Missing mandatory argument: {name}")
         {
             ArgumentName = name;
         }

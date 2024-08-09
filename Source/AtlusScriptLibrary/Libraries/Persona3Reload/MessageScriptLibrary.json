@@ -1,0 +1,843 @@
+﻿[
+  {
+    "Index": 0,
+    "Name": "",
+    "Description": "",
+    "Functions": [
+      {
+        "Index": 0,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 1,
+        "Name": "clr",
+        "Description": "Sets the current text color to the color specified by the given color index.",
+        "Parameters": [
+          {
+            "Name": "colorIndex",
+            "Description": "The index of the color to set the current text color to."
+          }
+        ]
+      },
+      {
+        "Index": 2,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 3,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 4,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 5,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 6,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 7,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      }
+    ]
+  },
+
+  {
+    "Index": 1,
+    "Name": "",
+    "Description": "",
+    "Functions": [
+      {
+        "Index": 0,
+        "Name": "",
+        "Semantic": "Unused",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 1,
+        "Name": "w",
+        "Description": "Wait for player input.",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 2,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 3,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 4,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 5,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 6,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 7,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 8,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 9,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 10,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 11,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 12,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 13,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      }
+    ]
+  },
+
+  {
+    "Index": 2,
+    "Name": "",
+    "Description": "",
+    "Functions": [
+      {
+        "Index": 0,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 1,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 2,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 3,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 4,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 5,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 6,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 7,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 8,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 9,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      }
+    ]
+  },
+
+  {
+    "Index": 3,
+    "Name": "",
+    "Description": "Voice playing functions.",
+    "Functions": [
+      {
+        "Index": 0,
+        "Name": "",
+        "Semantic": "Unused",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 1,
+        "Name": "vp",
+        "Description": "Plays a voice sound cue from a specified sound bank.",
+        "Parameters": [
+          {
+            "Name": "eventIdMajor",
+            "Description": "Major id of the event."
+          },
+          {
+            "Name": "eventIdMinor",
+            "Description": "Minor id of the event."
+          },
+          {
+            "Name": "eventIdSub",
+            "Description": "Sub id of the event."
+          },
+          {
+            "Name": "cueId",
+            "Description": "The id of the sound que in the sound bank."
+          },
+          {
+            "Name": "param5",
+            "Description": "Unknown value."
+          },
+          {
+            "Name": "param6",
+            "Description": "Unknown value."
+          }
+        ]
+      }
+    ]
+  },
+
+  {
+    "Index": 4,
+    "Name": "",
+    "Description": "",
+    "Functions": [
+      {
+        "Index": 0,
+        "Name": "",
+        "Semantic": "Unused",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 1,
+        "Name": "nl",
+        "Description": "Player's last name'",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 2,
+        "Name": "nf",
+        "Description": "Player's first name'",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 3,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 4,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 5,
+        "Name": "bup",
+        "Description": "Sets the bustup to display.",
+        "Parameters": [
+          {
+            "Name": "major",
+            "Description": "Character major ID from Xrd777/UI/Bustup/Texture"
+          },
+          {
+            "Name": "minor",
+            "Description": "minor ID from Xrd777/UI/Bustup/Texture"
+          },
+          {
+            "Name": "param3",
+            "Description": "Unknown value."
+          },
+          {
+            "Name": "param4",
+            "Description": "Unknown value."
+          },
+          {
+            "Name": "param5",
+            "Description": "Unknown value."
+          },
+          {
+            "Name": "param6",
+            "Description": "Unknown value."
+          }
+        ]
+      },
+      {
+        "Index": 6,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 7,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 8,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 9,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 10,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 11,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 12,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 13,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 14,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 15,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 16,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 17,
+        "Name": "cut",
+        "Description": "Character cut in",
+        "Parameters": [
+          {
+            "Name": "major",
+            "Description": "Major Character Id from Xrd777/UI/Cutin/Texture"
+          },
+          {
+            "Name": "minor",
+            "Description": "Minor Character Id from Xrd777/UI/Cutin/Texture"
+          },
+          {
+            "Name": "param3",
+            "Description": "Unknown value."
+          }
+        ]
+      },
+      {
+        "Index": 18,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 19,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 20,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 21,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 22,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 23,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 24,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 25,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 26,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 27,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 28,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 29,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 30,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 31,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 32,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      }
+    ]
+  },
+
+  {
+    "Index": 5,
+    "Name": "",
+    "Description": "",
+    "Functions": [
+      {
+        "Index": 0,
+        "Name": "",
+        "Semantic": "Unused",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 1,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 2,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 3,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 4,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 5,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 6,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 7,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 8,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 9,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 10,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 11,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 12,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 13,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 14,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 15,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 16,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 17,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 18,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 19,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 20,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 21,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      }
+    ]
+  },
+
+  {
+    "Index": 6,
+    "Name": "",
+    "Description": "",
+    "Functions": [
+      {
+        "Index": 0,
+        "Name": "",
+        "Semantic": "Unused",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 1,
+        "Name": "",
+        "Semantic": "Unused",
+        "Description": "",
+        "Parameters": [
+        ]
+      }
+    ]
+  },
+
+  {
+    "Index": 7,
+    "Name": "",
+    "Description": "",
+    "Functions": [
+      {
+        "Index": 0,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 1,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 2,
+        "Name": "",
+        "Description": "",
+        "Semantic": "Unused",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 3,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      }
+    ]
+  }
+
+]

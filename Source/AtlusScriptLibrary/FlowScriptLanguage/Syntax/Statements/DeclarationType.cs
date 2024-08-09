@@ -1,12 +1,11 @@
-﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax
+﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax;
+
+public enum DeclarationType
 {
-    public enum DeclarationType
-    {
-        Function,
-        Procedure,
-        Variable,
-        Enum,
-        EnumLabel,
-        Label
-    }
+    Function,
+    Procedure,
+    Variable,
+    Enum,
+    EnumLabel,
+    Label
 }
