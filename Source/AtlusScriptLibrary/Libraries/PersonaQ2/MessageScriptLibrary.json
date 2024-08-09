@@ -1,3 +1,557 @@
 [
+  {
+    "Index": 0,
+    "Name": "",
+    "Description": "",
+    "Fuctions": [
+      {
+        "Index": 0,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
 
+          }
+        ]
+      },
+      {
+        "Index": 1,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 2,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 3,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 4,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 5,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Index": 1,
+    "Name": "",
+    "Description": "",
+    "Fuctions": [
+      {
+        "Index": 0,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 1,
+        "Name": "w",
+        "Description": "Waits for button press.",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 2,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 3,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 4,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 5,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Index": 2,
+    "Name": "",
+    "Description": "",
+    "Fuctions": [
+      {
+        "Index": 0,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 1,
+        "Name": "s",
+        "Description": "Marks the start of a message.",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 2,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 3,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 4,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 5,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 6,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 7,
+        "Name": "unknown",
+        "Description": "",
+        "Parameters": [
+          {
+            "Name": "unknown",
+            "Description": ""
+          },
+          {
+            "Name": "modelID",
+            "Description": ""
+          },
+          {
+            "Name": "unknown",
+            "Description": ""
+          },
+          {
+            "Name": "unknown",
+            "Description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Index": 3,
+    "Name": "",
+    "Description": "",
+    "Fuctions": [
+      {
+        "Index": 0,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 1,
+        "Name": "vp",
+        "Description": "Plays a voice sound cue.",
+        "Parameters": [
+          {
+            "Name": "unknown",
+            "Description": "unknown"
+          },
+          {
+            "Name": "unknown",
+            "Description": "unknown"
+          },
+          {
+            "Name": "unknown",
+            "Description": "unknown"
+          },
+          {
+            "Name": "cueID",
+            "Description": "Cue ID of the voiceline."
+          }
+        ]
+      },
+      {
+        "Index": 2,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 3,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 4,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 5,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Index": 4,
+    "Name": "",
+    "Description": "",
+    "Fuctions": [
+      {
+        "Index": 0,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 1,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 2,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 3,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 4,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 5,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 6,
+        "Name": "bup",
+        "Description": "Sets the bustup to display.",
+        "Parameters": [
+          {
+            "Name": "modelID",
+            "Description": ""
+          },
+          {
+            "Name": "animID",
+            "Description": ""
+          },
+          {
+            "Name": "unknown",
+            "Description": ""
+          },
+          {
+            "Name": "location",
+            "Description": "Determines model's location on screen."
+          }
+        ]
+      },
+      {
+        "Index": 7,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Index": 5,
+    "Name": "",
+    "Description": "",
+    "Fuctions": [
+      {
+        "Index": 0,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 1,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 2,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 3,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 4,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 5,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Index": 6,
+    "Name": "",
+    "Description": "",
+    "Fuctions": [
+      {
+        "Index": 0,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 1,
+        "Name": "name",
+        "Description": "Displays a protagonist name.",
+        "Parameters": [
+          {
+            "Name": "id",
+            "Description": "Designates which PC name to call and whether to call first, last, or full name."
+          },
+          {
+            "Name": "unknown",
+            "Description": ""
+          },
+          {
+            "Name": "unknown",
+            "Description": ""
+          },
+          {
+            "Name": "unknown",
+            "Description": ""
+          }
+        ]
+      },
+      {
+        "Index": 2,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 3,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 4,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      },
+      {
+        "Index": 5,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+
+          }
+        ]
+      }
+    ]
+  }
 ]

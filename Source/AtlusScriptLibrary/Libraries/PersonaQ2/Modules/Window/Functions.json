@@ -150,7 +150,7 @@
   {
     "Index": "0x200b",
     "ReturnType": "void",
-    "Name": "WND_FUNCTION_000B",
+    "Name": "MSG",
     "Description": "",
     "Parameters": [
       {
@@ -158,24 +158,30 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "WND_FUNCTION_000B"
     ]
   },
   {
     "Index": "0x200c",
     "ReturnType": "int",
-    "Name": "WND_FUNCTION_000C",
+    "Name": "SEL",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "prompt",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "response",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "WND_FUNCTION_000C"
     ]
   },
   {
@@ -398,14 +404,17 @@
   {
     "Index": "0x201b",
     "ReturnType": "void",
-    "Name": "WND_FUNCTION_001B",
+    "Name": "MSG_PartyIntro",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "partyID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "WND_FUNCTION_001B"
     ]
   },
   {
