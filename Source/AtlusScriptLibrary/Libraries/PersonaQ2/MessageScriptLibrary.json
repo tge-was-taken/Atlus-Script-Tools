@@ -6,63 +6,17 @@
     "Fuctions": [
       {
         "Index": 0,
-        "Name": "",
+        "Name": "clr",
         "Description": "",
         "Parameters": [
           {
-
-          }
-        ]
-      },
-      {
-        "Index": 1,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
-          }
-        ]
-      },
-      {
-        "Index": 2,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
-          }
-        ]
-      },
-      {
-        "Index": 3,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
-          }
-        ]
-      },
-      {
-        "Index": 4,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
+            "Name": "color"
           }
         ]
       },
       {
         "Index": 5,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
-          }
-        ]
+        "Semantic": "Unused"
       }
     ]
   },
@@ -72,59 +26,17 @@
     "Description": "",
     "Fuctions": [
       {
-        "Index": 0,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
-          }
-        ]
-      },
-      {
         "Index": 1,
         "Name": "w",
         "Description": "Waits for button press.",
-        "Parameters": [
-        ]
-      },
-      {
-        "Index": 2,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
-          }
-        ]
+        "Parameters": []
       },
       {
         "Index": 3,
-        "Name": "",
         "Description": "",
         "Parameters": [
           {
-
-          }
-        ]
-      },
-      {
-        "Index": 4,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
-          }
-        ]
-      },
-      {
-        "Index": 5,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
+            "Name": "unknown"
           }
         ]
       }
@@ -136,70 +48,10 @@
     "Description": "",
     "Fuctions": [
       {
-        "Index": 0,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
-          }
-        ]
-      },
-      {
         "Index": 1,
         "Name": "s",
-        "Description": "Marks the start of a message.",
+        "Description": "Indicates the start of a line",
         "Parameters": [
-        ]
-      },
-      {
-        "Index": 2,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
-          }
-        ]
-      },
-      {
-        "Index": 3,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
-          }
-        ]
-      },
-      {
-        "Index": 4,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
-          }
-        ]
-      },
-      {
-        "Index": 5,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
-          }
-        ]
-      },
-      {
-        "Index": 6,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
-          }
         ]
       },
       {
@@ -233,16 +85,6 @@
     "Description": "",
     "Fuctions": [
       {
-        "Index": 0,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
-          }
-        ]
-      },
-      {
         "Index": 1,
         "Name": "vp",
         "Description": "Plays a voice sound cue.",
@@ -264,46 +106,6 @@
             "Description": "Cue ID of the voiceline."
           }
         ]
-      },
-      {
-        "Index": 2,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
-          }
-        ]
-      },
-      {
-        "Index": 3,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
-          }
-        ]
-      },
-      {
-        "Index": 4,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
-          }
-        ]
-      },
-      {
-        "Index": 5,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
-          }
-        ]
       }
     ]
   },
@@ -313,69 +115,9 @@
     "Description": "",
     "Fuctions": [
       {
-        "Index": 0,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
-          }
-        ]
-      },
-      {
-        "Index": 1,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
-          }
-        ]
-      },
-      {
-        "Index": 2,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
-          }
-        ]
-      },
-      {
-        "Index": 3,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
-          }
-        ]
-      },
-      {
-        "Index": 4,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
-          }
-        ]
-      },
-      {
-        "Index": 5,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
-          }
-        ]
-      },
-      {
         "Index": 6,
         "Name": "bup",
-        "Description": "Sets the bustup to display.",
+        "Description": "Displays a bustup.",
         "Parameters": [
           {
             "Name": "modelID",
@@ -401,74 +143,13 @@
         "Description": "",
         "Parameters": [
           {
-
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "Index": 5,
-    "Name": "",
-    "Description": "",
-    "Fuctions": [
-      {
-        "Index": 0,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
+            "Name": "unknown1"
+          },
           {
-
-          }
-        ]
-      },
-      {
-        "Index": 1,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
+            "Name": "unknown2"
+          },
           {
-
-          }
-        ]
-      },
-      {
-        "Index": 2,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
-          }
-        ]
-      },
-      {
-        "Index": 3,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
-          }
-        ]
-      },
-      {
-        "Index": 4,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
-          }
-        ]
-      },
-      {
-        "Index": 5,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
+            "Name": "unknown3"
           }
         ]
       }
@@ -479,16 +160,6 @@
     "Name": "",
     "Description": "",
     "Fuctions": [
-      {
-        "Index": 0,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
-          }
-        ]
-      },
       {
         "Index": 1,
         "Name": "name",
@@ -509,46 +180,6 @@
           {
             "Name": "unknown",
             "Description": ""
-          }
-        ]
-      },
-      {
-        "Index": 2,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
-          }
-        ]
-      },
-      {
-        "Index": 3,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
-          }
-        ]
-      },
-      {
-        "Index": 4,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
-          }
-        ]
-      },
-      {
-        "Index": 5,
-        "Name": "",
-        "Description": "",
-        "Parameters": [
-          {
-
           }
         ]
       }
