@@ -6455,15 +6455,18 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": "Time (in frames?) at which message appears.",
-        "Semantic": "frame"
+        "Description": "",
+        "Semantic": "msgID"
       },
       {
         "Type": "int",
         "Name": "param2",
-        "Description": "",
-        "Semantic": "msgID"
+        "Description": "Time (in frames?) at which message appears.",
+        "Semantic": "frame"
       }
+    ],
+    "Aliases": [
+      "BTL_FUNCTION_01A3"
     ]
   },
   {
@@ -6478,6 +6481,9 @@
         "Description": "",
         "Semantic": "duration"
       }
+    ],
+    "Aliases": [
+      "BTL_FUNCTION_01A4"
     ]
   }
 ]
