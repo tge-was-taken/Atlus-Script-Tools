@@ -106,33 +106,41 @@
   {
     "Index": "0x0008",
     "ReturnType": "void",
-    "Name": "FUNCTION_0008",
+    "Name": "BIT_ON",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "bitID"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0008"
     ]
   },
   {
     "Index": "0x0009",
     "ReturnType": "void",
-    "Name": "FUNCTION_0009",
+    "Name": "BIT_OFF",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "bitID"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0009"
     ]
   },
   {
     "Index": "0x000a",
-    "ReturnType": "int",
-    "Name": "FUNCTION_000A",
+    "ReturnType": "bool",
+    "Name": "BIT_CHK",
     "Description": "",
     "Parameters": [
       {
@@ -140,6 +148,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_000A"
     ]
   },
   {

@@ -6445,5 +6445,39 @@
         "Description": ""
       }
     ]
+  },
+  {
+    "Index": "0x31a3",
+    "ReturnType": "void",
+    "Name": "MSG_UNISON",
+    "Description": "Displays a message as a subtitle during a Unison Skill.",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Time (in frames?) at which message appears.",
+        "Semantic": "frame"
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": "",
+        "Semantic": "msgID"
+      }
+    ]
+  },
+  {
+    "Index": "0x31a4",
+    "ReturnType": "void",
+    "Name": "MSG_UNISON_SET_DURATION",
+    "Description": "Sets length of time for which messages during Unison Skills are displayed.",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "",
+        "Semantic": "duration"
+      }
+    ]
   }
 ]

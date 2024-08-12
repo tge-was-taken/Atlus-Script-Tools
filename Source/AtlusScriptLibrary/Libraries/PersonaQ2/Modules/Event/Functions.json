@@ -2,19 +2,24 @@
   {
     "Index": "0x4000",
     "ReturnType": "void",
-    "Name": "EVT_FUNCTION_0000",
+    "Name": "CALL_EVENT",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "majorID"
       },
       {
         "Type": "int",
         "Name": "param2",
-        "Description": ""
+        "Description": "",
+        "Semantic": "minorID"
       }
+    ],
+    "Aliases": [
+      "EVT_FUNCTION_0000"
     ]
   },
   {
