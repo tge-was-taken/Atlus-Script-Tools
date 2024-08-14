@@ -5181,7 +5181,7 @@
   {
     "Index": "0x3158",
     "ReturnType": "void",
-    "Name": "CALL_BGM",
+    "Name": "PLAY_BATTLE_BGM",
     "Description": "",
     "Parameters": [
       {
