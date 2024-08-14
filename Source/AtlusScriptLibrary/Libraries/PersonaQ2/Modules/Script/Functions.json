@@ -51,9 +51,12 @@
   {
     "Index": "0x5003",
     "ReturnType": "int",
-    "Name": "SCR_FUNCTION_0003",
-    "Description": "",
+    "Name": "GET_PARTY_SIZE",
+    "Description": "Gets current number of active party members.",
     "Parameters": [
+    ],
+    "Aliases": [
+      "SCR_FUNCTION_0003"
     ]
   },
   {
@@ -320,14 +323,18 @@
   {
     "Index": "0x5015",
     "ReturnType": "int",
-    "Name": "SCR_FUNCTION_0015",
-    "Description": "",
+    "Name": "GET_PARTY_ID",
+    "Description": "Returns ID of party member in formation slot.",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "fSlot"
       }
+    ],
+    "Aliases": [
+      "SCR_FUNCTION_0015"
     ]
   },
   {

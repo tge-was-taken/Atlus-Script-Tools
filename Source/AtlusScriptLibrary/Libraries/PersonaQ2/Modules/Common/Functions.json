@@ -231,14 +231,18 @@
   {
     "Index": "0x0010",
     "ReturnType": "int",
-    "Name": "FUNCTION_0010",
+    "Name": "GET_COUNT",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "countID"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0010"
     ]
   },
   {
@@ -416,14 +420,18 @@
   {
     "Index": "0x001a",
     "ReturnType": "int",
-    "Name": "FUNCTION_001A",
-    "Description": "",
+    "Name": "RND",
+    "Description": "Returns a random value between 0 and upperBound.",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "upperBound"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_001A"
     ]
   },
   {

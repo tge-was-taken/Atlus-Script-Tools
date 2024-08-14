@@ -1993,14 +1993,18 @@
   {
     "Index": "0x309d",
     "ReturnType": "int",
-    "Name": "BTL_FUNCTION_009D",
-    "Description": "",
+    "Name": "GET_ENEMY_ID",
+    "Description": "Get ID of enemy in formation slot.",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "fSlot"
       }
+    ],
+    "Aliases": [
+      "BTL_FUNCTION_009D"
     ]
   },
   {
@@ -5166,22 +5170,29 @@
   {
     "Index": "0x3157",
     "ReturnType": "int",
-    "Name": "BTL_FUNCTION_0157",
+    "Name": "GET_ENCOUNT_ID",
     "Description": "",
     "Parameters": [
+    ],
+    "Aliases": [
+      "BTL_FUNCTION_0157"
     ]
   },
   {
     "Index": "0x3158",
     "ReturnType": "void",
-    "Name": "BTL_FUNCTION_0158",
+    "Name": "CALL_BGM",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "cueID"
       }
+    ],
+    "Aliases": [
+      "BTL_FUNCTION_0158"
     ]
   },
   {
