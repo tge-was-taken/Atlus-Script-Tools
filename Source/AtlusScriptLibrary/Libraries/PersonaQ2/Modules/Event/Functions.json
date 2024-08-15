@@ -7,15 +7,13 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": "",
-        "Semantic": "majorID"
+        "Name": "majorID",
+        "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
-        "Description": "",
-        "Semantic": "minorID"
+        "Name": "minorID",
+        "Description": ""
       }
     ],
     "Aliases": [

@@ -324,13 +324,12 @@
     "Index": "0x5015",
     "ReturnType": "int",
     "Name": "GET_PARTY_ID",
-    "Description": "Returns ID of party member in formation slot.",
+    "Description": "Returns ID of party member in a given formation slot.",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": "",
-        "Semantic": "fSlot"
+        "Name": "fSlot",
+        "Description": ""
       }
     ],
     "Aliases": [

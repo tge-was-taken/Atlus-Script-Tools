@@ -111,9 +111,9 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "bitID",
         "Description": "",
-        "Semantic": "bitID"
+        "Semantic": "BitId"
       }
     ],
     "Aliases": [
@@ -128,9 +128,9 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "bitID",
         "Description": "",
-        "Semantic": "bitID"
+        "Semantic": "BitId"
       }
     ],
     "Aliases": [
@@ -145,8 +145,9 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "bitID",
+        "Description": "",
+        "Semantic": "BitId"
       }
     ],
     "Aliases": [
@@ -236,9 +237,8 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": "",
-        "Semantic": "countID"
+        "Name": "countID",
+        "Description": ""
       }
     ],
     "Aliases": [
@@ -425,9 +425,8 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": "",
-        "Semantic": "upperBound"
+        "Name": "upperBound",
+        "Description": ""
       }
     ],
     "Aliases": [

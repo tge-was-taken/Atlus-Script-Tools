@@ -7,9 +7,8 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": "",
-        "Semantic": "msgID"
+        "Name": "msgID",
+        "Description": ""
       }
     ],
     "Aliases": [
@@ -175,9 +174,9 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "msgID",
         "Description": "",
-        "Semantic": "msgID"
+        "Semantic": "MsgId"
       }
     ],
     "Aliases": [
@@ -192,15 +191,15 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "msgID",
         "Description": "The label of the message preceding the selection.",
-        "Semantic": "msgID"
+        "Semantic": "MsgId"
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "selID",
         "Description": "The label of the selection dialogue.",
-        "Semantic": "selID"
+        "Semantic": "SelId"
       }
     ],
     "Aliases": [
@@ -282,9 +281,8 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": "",
-        "Semantic": "msgID"
+        "Name": "msgID",
+        "Description": ""
       }
     ],
     "Aliases": [
@@ -320,9 +318,9 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "selID",
         "Description": "",
-        "Semantic": "selID"
+        "Semantic": "SelId"
       }
     ],
     "Aliases": [
@@ -453,9 +451,9 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "partyID",
         "Description": "",
-        "Semantic": "partyID"
+        "Semantic": ""
       }
     ],
     "Aliases": [
@@ -471,9 +469,9 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "msgID",
         "Description": "The label of the message to be displayed.",
-        "Semantic": "msgID"
+        "Semantic": "MsgId"
       }
     ],
     "Aliases": [
@@ -599,9 +597,8 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": "",
-        "Semantic": "msgID"
+        "Name": "msgID",
+        "Description": ""
       }
     ],
     "Aliases": [

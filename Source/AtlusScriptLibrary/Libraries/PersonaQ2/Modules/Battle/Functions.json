@@ -1994,13 +1994,12 @@
     "Index": "0x309d",
     "ReturnType": "int",
     "Name": "GET_ENEMY_ID",
-    "Description": "Get ID of enemy in formation slot.",
+    "Description": "Get ID of enemy in a given formation slot.",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": "",
-        "Semantic": "fSlot"
+        "Name": "fSlot",
+        "Description": ""
       }
     ],
     "Aliases": [
@@ -5186,9 +5185,8 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": "",
-        "Semantic": "cueID"
+        "Name": "cueID",
+        "Description": ""
       }
     ],
     "Aliases": [
@@ -6465,15 +6463,14 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "msgID",
         "Description": "",
-        "Semantic": "msgID"
+        "Semantic": "MsgId"
       },
       {
         "Type": "int",
-        "Name": "param2",
-        "Description": "Time (in frames?) at which message appears.",
-        "Semantic": "frame"
+        "Name": "frame",
+        "Description": "Time (in frames?) at which message appears."
       }
     ],
     "Aliases": [
@@ -6488,9 +6485,8 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": "",
-        "Semantic": "duration"
+        "Name": "duration",
+        "Description": ""
       }
     ],
     "Aliases": [
