@@ -68,11 +68,11 @@
       {
         "Index": 21,
         "Name": "vAuto2",
-        "Description": "Lets the game auto advance when the currently playing voice line finishes (seemingly exactly the same as vAuto except this one is used instead for the dungeon messages, like party members being nearly dead)",
+        "Description": "Lets the game auto advance when the currently playing voice line finishes (seemingly exactly the same as vAuto except this one is used instead for the dungeon messages, like party members being nearly dead; waits on specified time to pass or user input to advance message)",
         "Parameters": [
           {
             "Name": "waitTime",
-            "Description": "How long before the dialogue is automatically advanced (30 is 1 second). -1 waits until the voiceline ends"
+            "Description": "How long before the dialogue is automatically advanced (30 is 1 second, from voice line end). -1 waits until the voiceline ends"
           }
         ]
       },
@@ -241,7 +241,7 @@
         "Parameters": [
           {
             "Name": "waitTime",
-            "Description": "How long before the dialogue is automatically advanced (30 is 1 second). -1 waits until the voiceline ends"
+            "Description": "How long before the dialogue is automatically advanced (30 is 1 second, from voice line end). -1 waits until the voiceline ends"
           }
         ]
       },
