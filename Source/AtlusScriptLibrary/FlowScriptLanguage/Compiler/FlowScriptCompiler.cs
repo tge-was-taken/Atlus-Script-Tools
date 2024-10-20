@@ -126,11 +126,11 @@ public class FlowScriptCompiler
     }
 
     /// <summary>
-    /// Tries to get a list of all files imported (directly or transitively) by a list of base flow files.
+    /// Tries to get a list of all files that would be imported (directly or transitively) when compiling a flowscript file.
     /// </summary>
-    /// <param name="files">A List of paths to .bf, .flow, and .msg files that will be added on top of the base flow</param>
-    /// <param name="resolvedImports">A list of all imports found.</param>
-    /// <returns></returns>
+    /// <param name="files">A List of paths to .bf, .flow, and .msg files to be used as a base when checking for imports.</param>
+    /// <param name="resolvedImports">A list of all imports found. This includes the passed in <paramref name="files"/>.</param>
+    /// <returns>True if imports could be resolved, false otherwise</returns>
     public bool TryGetImports(List<string> files, out string[] resolvedImports)
     {
         CompilationUnit compilationUnit = new CompilationUnit();
