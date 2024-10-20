@@ -126,6 +126,37 @@ public class FlowScriptCompiler
     }
 
     /// <summary>
+    /// Tries to get a list of all files imported (directly or transitively) by a list of base flow files.
+    /// </summary>
+    /// <param name="files">A List of paths to .bf, .flow, and .msg files that will be added on top of the base flow</param>
+    /// <param name="resolvedImports">A list of all imports found.</param>
+    /// <returns></returns>
+    public bool TryGetImports(List<string> files, out string[] resolvedImports)
+    {
+        CompilationUnit compilationUnit = new CompilationUnit();
+        compilationUnit.Imports.AddRange(files.Select(import => new Import(import)));
+        mCurrentBaseDirectory = "";
+        InitializeCompilationState();
+
+        // Resolve imports
+        if (compilationUnit.Imports.Count > 0)
+        {
+            do
+            {
+                if (!TryResolveImports(compilationUnit))
+                {
+                    Error(compilationUnit, "Failed to resolve imports");
+                    resolvedImports = Array.Empty<string>();
+                    return false;
+                }
+            } while (mReresolveImports);
+        }
+
+        resolvedImports = compilationUnit.Imports.Select(import => import.CompilationUnitFileName).ToArray();
+        return true;
+    }
+
+    /// <summary>
     /// Tries to compile the provided FlowScript source with given imports. Returns a boolean indicating if the operation succeeded.
     /// </summary>
     /// <param name="baseBfStream">A FileStream of the base bf file</param>
