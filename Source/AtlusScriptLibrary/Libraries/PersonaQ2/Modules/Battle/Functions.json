@@ -56,8 +56,7 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0004",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3005",
@@ -95,56 +94,49 @@
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_0007",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3008",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_0008",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3009",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_0009",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x300a",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_000A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x300b",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_000B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x300c",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_000C",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x300d",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_000D",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x300e",
@@ -177,8 +169,7 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0010",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3011",
@@ -198,16 +189,14 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0012",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3013",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0013",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3014",
@@ -375,8 +364,7 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_001B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x301c",
@@ -447,88 +435,77 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_001F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3020",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0020",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3021",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0021",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3022",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0022",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3023",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0023",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3024",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0024",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3025",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0025",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3026",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0026",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3027",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0027",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3028",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0028",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3029",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0029",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x302a",
@@ -600,40 +577,35 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_002F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3030",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0030",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3031",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0031",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3032",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0032",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3033",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_0033",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3034",
@@ -728,32 +700,28 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_003A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x303b",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_003B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x303c",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_003C",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x303d",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_003D",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x303e",
@@ -934,8 +902,7 @@
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_004B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x304c",
@@ -1040,8 +1007,7 @@
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_0052",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3053",
@@ -1268,8 +1234,7 @@
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_0062",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3063",
@@ -1330,8 +1295,7 @@
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_0066",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3067",
@@ -1351,16 +1315,14 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0068",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3069",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0069",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x306a",
@@ -1406,16 +1368,14 @@
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_006D",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x306e",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_006E",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x306f",
@@ -1463,16 +1423,14 @@
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_0071",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3072",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0072",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3073",
@@ -1543,80 +1501,70 @@
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_0076",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3077",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_0077",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3078",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_0078",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3079",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_0079",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x307a",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_007A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x307b",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_007B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x307c",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_007C",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x307d",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_007D",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x307e",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_007E",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x307f",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_007F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3080",
@@ -1636,8 +1584,7 @@
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_0081",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3082",
@@ -1720,32 +1667,28 @@
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_0084",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3085",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_0085",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3086",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_0086",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3087",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_0087",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3088",
@@ -1891,104 +1834,91 @@
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_0090",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3091",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0091",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3092",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0092",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3093",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0093",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3094",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0094",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3095",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0095",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3096",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0096",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3097",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0097",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3098",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0098",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3099",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0099",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x309a",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_009A",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x309b",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_009B",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x309c",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_009C",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x309d",
@@ -2031,8 +1961,7 @@
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_009F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30a0",
@@ -2158,8 +2087,7 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_00A3",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30a4",
@@ -2214,8 +2142,7 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_00A5",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30a6",
@@ -2341,8 +2268,7 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_00A9",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30aa",
@@ -2443,16 +2369,14 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_00AD",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30ae",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_00AE",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30af",
@@ -2477,32 +2401,28 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_00B0",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30b1",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_00B1",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30b2",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_00B2",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30b3",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_00B3",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30b4",
@@ -2575,16 +2495,14 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_00B6",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30b7",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_00B7",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30b8",
@@ -2723,8 +2641,7 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_00BC",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30bd",
@@ -2744,8 +2661,7 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_00BE",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30bf",
@@ -2848,8 +2764,7 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_00C1",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30c2",
@@ -2935,16 +2850,14 @@
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_00C5",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30c6",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_00C6",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30c7",
@@ -2964,24 +2877,21 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_00C8",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30c9",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_00C9",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30ca",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_00CA",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30cb",
@@ -3001,8 +2911,7 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_00CC",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30cd",
@@ -3110,8 +3019,7 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_00D4",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30d5",
@@ -3170,8 +3078,7 @@
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_00D9",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30da",
@@ -3358,24 +3265,21 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_00DF",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30e0",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_00E0",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30e1",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_00E1",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30e2",
@@ -3408,8 +3312,7 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_00E4",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30e5",
@@ -3545,8 +3448,7 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_00ED",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30ee",
@@ -3584,8 +3486,7 @@
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_00F0",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30f1",
@@ -3605,16 +3506,14 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_00F2",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30f3",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_00F3",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30f4",
@@ -3670,24 +3569,21 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_00F7",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30f8",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_00F8",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30f9",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_00F9",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30fa",
@@ -3730,16 +3626,14 @@
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_00FC",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30fd",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_00FD",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x30fe",
@@ -3798,8 +3692,7 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0102",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3103",
@@ -4104,8 +3997,7 @@
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_010E",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x310f",
@@ -4145,16 +4037,14 @@
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_0110",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3111",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0111",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3112",
@@ -4284,8 +4174,7 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0118",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3119",
@@ -4387,8 +4276,7 @@
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_011E",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x311f",
@@ -4413,8 +4301,7 @@
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_0120",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3121",
@@ -4434,32 +4321,28 @@
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_0122",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3123",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_0123",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3124",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_0124",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3125",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_0125",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3126",
@@ -4551,8 +4434,7 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_012B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x312c",
@@ -4608,8 +4490,7 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_012F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3130",
@@ -4773,16 +4654,14 @@
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_0139",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x313a",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_013A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x313b",
@@ -4848,8 +4727,7 @@
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_013E",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x313f",
@@ -4910,16 +4788,14 @@
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_0142",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3143",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_0143",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3144",
@@ -4985,8 +4861,7 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0147",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3148",
@@ -5029,8 +4904,7 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_014A",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x314b",
@@ -5073,8 +4947,7 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_014D",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x314e",
@@ -5107,16 +4980,14 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0150",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3151",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0151",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3152",
@@ -5136,40 +5007,35 @@
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_0153",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3154",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_0154",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3155",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_0155",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3156",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_0156",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3157",
     "ReturnType": "int",
     "Name": "BTL_FUNCTION_0157",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3158",
@@ -5231,6 +5097,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "BTL_FUNCTION_015B"
     ]
   },
   {
@@ -5238,8 +5107,7 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_015C",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x315d",
@@ -5264,48 +5132,42 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_015E",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x315f",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_015F",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3160",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0160",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3161",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0161",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3162",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0162",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3163",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0163",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3164",
@@ -5393,72 +5255,63 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0166",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3167",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0167",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3168",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0168",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3169",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0169",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x316a",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_016A",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x316b",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_016B",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x316c",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_016C",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x316d",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_016D",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x316e",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_016E",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x316f",
@@ -6161,8 +6014,7 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_018F",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3190",
@@ -6218,16 +6070,14 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0193",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3194",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0194",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3195",
@@ -6288,8 +6138,7 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_0198",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x3199",
@@ -6332,32 +6181,28 @@
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_019B",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x319c",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_019C",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x319d",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_019D",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x319e",
     "ReturnType": "void",
     "Name": "BTL_FUNCTION_019E",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x319f",
@@ -6418,6 +6263,9 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "BTL_FUNCTION_01A0"
     ]
   },
   {

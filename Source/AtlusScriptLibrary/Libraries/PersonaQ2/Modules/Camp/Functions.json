@@ -197,16 +197,14 @@
     "ReturnType": "int",
     "Name": "CAMP_FUNCTION_000B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x800c",
     "ReturnType": "void",
     "Name": "CAMP_FUNCTION_000C",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x800d",
@@ -226,8 +224,7 @@
     "ReturnType": "int",
     "Name": "CAMP_FUNCTION_000E",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x800f",
@@ -273,32 +270,28 @@
     "ReturnType": "int",
     "Name": "CAMP_FUNCTION_0012",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x8013",
     "ReturnType": "int",
     "Name": "CAMP_FUNCTION_0013",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x8014",
     "ReturnType": "void",
     "Name": "CAMP_FUNCTION_0014",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x8015",
     "ReturnType": "void",
     "Name": "CAMP_FUNCTION_0015",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x8016",
@@ -357,15 +350,13 @@
     "ReturnType": "int",
     "Name": "CAMP_FUNCTION_001A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x801b",
     "ReturnType": "int",
     "Name": "CAMP_FUNCTION_001B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   }
 ]

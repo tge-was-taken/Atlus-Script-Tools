@@ -10,6 +10,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_0000"
     ]
   },
   {
@@ -166,6 +169,9 @@
         "Name": "statusID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_000C"
     ]
   },
   {
@@ -205,6 +211,9 @@
         "Name": "partyID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_000F"
     ]
   },
   {
@@ -218,6 +227,9 @@
         "Name": "Effect",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_0010"
     ]
   },
   {
@@ -231,6 +243,9 @@
         "Name": "effectID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_0011"
     ]
   },
   {
@@ -486,6 +501,9 @@
         "Name": "skill_ID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_0026"
     ]
   },
   {
@@ -540,7 +558,10 @@
     "ReturnType": "void",
     "Name": "AI_TAR_RND",
     "Description": "Address: 0x089FF0F0",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "AI_FUNCTION_002C"
+    ]
   },
   {
     "Index": "0x202d",
@@ -574,6 +595,9 @@
         "Name": "statusID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_0030"
     ]
   },
   {
@@ -587,6 +611,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_0031"
     ]
   },
   {
@@ -600,6 +627,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_0032"
     ]
   },
   {
@@ -607,7 +637,10 @@
     "ReturnType": "void",
     "Name": "AI_MINE",
     "Description": "Address: 0x089FF2D0",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "AI_FUNCTION_0033"
+    ]
   },
   {
     "Index": "0x2034",
@@ -666,6 +699,9 @@
         "Name": "affinityID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_0038"
     ]
   },
   {
@@ -725,7 +761,10 @@
     "ReturnType": "void",
     "Name": "AI_ACT_WEAPON",
     "Description": "Address: 0x089FC168",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "AI_FUNCTION_003D"
+    ]
   },
   {
     "Index": "0x203e",
@@ -738,6 +777,9 @@
         "Name": "skill_ID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_003E"
     ]
   },
   {
@@ -752,7 +794,10 @@
     "ReturnType": "void",
     "Name": "AI_ACT_WAIT",
     "Description": "Address: 0x089FC2AC",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "AI_FUNCTION_0040"
+    ]
   },
   {
     "Index": "0x2041",
@@ -807,7 +852,10 @@
     "ReturnType": "int",
     "Name": "AI_CHK_ONE_MORE",
     "Description": "Address: 0x089FD0B0",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "AI_FUNCTION_0047"
+    ]
   },
   {
     "Index": "0x2048",
@@ -1380,6 +1428,9 @@
         "Name": "affinityID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_006F"
     ]
   },
   {
@@ -1847,6 +1898,9 @@
         "Name": "enemy_ID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_0091"
     ]
   },
   {
@@ -1907,6 +1961,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_0097"
     ]
   },
   {
@@ -2096,6 +2153,9 @@
         "Name": "effectID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_00A4"
     ]
   },
   {
@@ -2204,6 +2264,9 @@
         "Name": "affinityID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_00AA"
     ]
   },
   {
@@ -2286,6 +2349,9 @@
         "Name": "skill_ID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_00B0"
     ]
   },
   {
@@ -2333,6 +2399,9 @@
         "Name": "skill_ID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_00B5"
     ]
   },
   {
@@ -2870,6 +2939,9 @@
         "Name": "Effect",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "AI_FUNCTION_00DB"
     ]
   },
   {
@@ -3041,7 +3113,10 @@
     "ReturnType": "int",
     "Name": "AI_CHK_TURN",
     "Description": "For enemies with multiple turns, true if it is equivalent to the turn number",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "AI_FUNCTION_00E8"
+    ]
   },
   {
     "Index": "0x20e9",
@@ -3412,6 +3487,9 @@
     "ReturnType": "int",
     "Name": "AI_CHK_HP_VALUE",
     "Description": "Address: 0x08A00038",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "AI_FUNCTION_0108"
+    ]
   }
 ]
