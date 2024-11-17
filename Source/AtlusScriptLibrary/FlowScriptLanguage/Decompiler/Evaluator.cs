@@ -53,7 +53,7 @@ public class Evaluator
     private int mEvaluatedInstructionIndex;
     private int mRealStackCount;
     private Stack<EvaluatedStatement> mEvaluationStatementStack;
-    private Stack<EvaluatedStatement> mExpressionStack;
+    private Stack<EvaluatedStatement> mEvaluationExpressionStack;
     private CallOperator mLastFunctionCall;
     private CallOperator mLastProcedureCall;
     private ValueKind mReturnKind;
@@ -470,7 +470,7 @@ public class Evaluator
                 }
                 break;
             case Opcode.POPIX:
-                if (stack.Count != 1)
+                if (stack.Count != 0)
                 {
                     stack.Pop();
                 }
@@ -481,7 +481,7 @@ public class Evaluator
                 --stackBalance;
                 break;
             case Opcode.POPFX:
-                if (stack.Count != 1)
+                if (stack.Count != 0)
                 {
                     stack.Pop();
                 }
@@ -538,7 +538,7 @@ public class Evaluator
             case Opcode.MUL:
             case Opcode.DIV:
                 {
-                    if (stack.Count != 1)
+                    if (stack.Count != 0)
                     {
                         stack.Pop();
                     }
@@ -561,7 +561,7 @@ public class Evaluator
             case Opcode.SE:
             case Opcode.LE:
                 {
-                    if (stack.Count != 1)
+                    if (stack.Count != 0)
                     {
                         stack.Pop();
                     }
@@ -574,7 +574,7 @@ public class Evaluator
                 break;
             case Opcode.IF:
                 {
-                    if (stack.Count != 1)
+                    if (stack.Count != 0)
                     {
                         stack.Pop();
                     }
@@ -598,7 +598,7 @@ public class Evaluator
                 ++stackBalance;
                 break;
             case Opcode.POPLIX:
-                if (stack.Count != 1)
+                if (stack.Count != 0)
                 {
                     stack.Pop();
                 }
@@ -609,7 +609,7 @@ public class Evaluator
                 --stackBalance;
                 break;
             case Opcode.POPLFX:
-                if (stack.Count != 1)
+                if (stack.Count != 0)
                 {
                     stack.Pop();
                 }
@@ -624,7 +624,7 @@ public class Evaluator
                 ++stackBalance;
                 break;
             case Opcode.POPREG:
-                if (stack.Count != 1)
+                if (stack.Count != 0)
                 {
                     regValueType = stack.Pop();
                 }
@@ -633,7 +633,6 @@ public class Evaluator
                     parameterTypes.Add(StackValueType.Any);
                     regValueType = StackValueType.Any;
                 }
-                stack.Push(regValueType);
                 lastFunction = null;
                 break;
         }
@@ -654,7 +653,7 @@ public class Evaluator
         mInstructions = procedure.Instructions;
         mEvaluatedInstructionIndex = 0;
         mEvaluationStatementStack = new Stack<EvaluatedStatement>();
-        mExpressionStack = new Stack<EvaluatedStatement>();
+        mEvaluationExpressionStack = new Stack<EvaluatedStatement>();
         mReturnKind = ValueKind.Void;
         mParameters = new List<Parameter>();
         mPreEvaluationInfo = mProcedurePreEvaluationInfos.Where(x => x.Procedure == procedure).FirstOrDefault();
@@ -676,13 +675,9 @@ public class Evaluator
         }
         mProcedureLocalVariables = new List<EvaluatedIdentifierReference>();
 
-        // Add symbolic return address onto the stack
-        PushStatement(
-            new Identifier("<>__ReturnAddress"));
-
         foreach (var param in mParameters.AsEnumerable().Reverse())
         {
-            PushStatement(param.Identifier);
+            PushExpression(param.Identifier);
         }
     }
 
@@ -696,6 +691,10 @@ public class Evaluator
         // Enter procedure scope
         PushScope();
 
+        // Add symbolic return address onto the stack
+        PushExpression(
+            new Identifier("__RETURN_ADDRESS"));
+
         // Evaluate instructions
         if (!TryEvaluateInstructions())
         {
@@ -705,13 +704,15 @@ public class Evaluator
         }
 
         // Statements, yay!
-        var evaluatedStatements = mEvaluationStatementStack.ToList();
-        evaluatedStatements.Reverse();
+        var evaluatedStatements = mEvaluationStatementStack
+            .Union(mEvaluationExpressionStack)
+            .OrderBy(x => x.InstructionIndex)
+            .ToList();
 
         var first = evaluatedStatements.FirstOrDefault();
         if (first != null && first.Statement is Identifier identifier)
         {
-            if (identifier.Text == "<>__ReturnAddress")
+            if (identifier.Text == "__RETURN_ADDRESS")
                 evaluatedStatements.Remove(first);
         }
 
@@ -761,13 +762,13 @@ public class Evaluator
         {
             // Push integer to stack
             case Opcode.PUSHI:
-                PushStatement(new IntLiteral(instruction.Operand.Int32Value));
+                PushExpression(new IntLiteral(instruction.Operand.Int32Value));
                 ++mRealStackCount;
                 break;
 
             // Push float to stack
             case Opcode.PUSHF:
-                PushStatement(new FloatLiteral(instruction.Operand.SingleValue));
+                PushExpression(new FloatLiteral(instruction.Operand.SingleValue));
                 ++mRealStackCount;
                 break;
 
@@ -787,7 +788,7 @@ public class Evaluator
                         }
                     }
 
-                    PushStatement(declaration.Identifier);
+                    PushExpression(declaration.Identifier);
                     ++mRealStackCount;
                 }
                 break;
@@ -808,7 +809,7 @@ public class Evaluator
                         }
                     }
 
-                    PushStatement(declaration.Identifier);
+                    PushExpression(declaration.Identifier);
                     ++mRealStackCount;
                 }
                 break;
@@ -823,11 +824,11 @@ public class Evaluator
                             LogError($"Result of void-returning function '{mLastFunctionCall.Identifier}' was used");
                         }
 
-                        PushStatement(mLastFunctionCall);
+                        PushExpression(mLastFunctionCall);
                     }
                     else
                     {
-                        PushStatement(new CallOperator(new Identifier("__PUSHREG")));
+                        PushExpression(new CallOperator(new Identifier("__PUSHREG")));
                     }
 
                     ++mRealStackCount;
@@ -855,7 +856,7 @@ public class Evaluator
                         return false;
                     }
 
-                    PushStatement(new AssignmentOperator(declaration.Identifier, value));
+                    PushExpression(new AssignmentOperator(declaration.Identifier, value));
                     --mRealStackCount;
                 }
                 break;
@@ -881,7 +882,7 @@ public class Evaluator
                         return false;
                     }
 
-                    PushStatement(new AssignmentOperator(declaration.Identifier, value));
+                    PushExpression(new AssignmentOperator(declaration.Identifier, value));
                     --mRealStackCount;
                 }
                 break;
@@ -940,7 +941,7 @@ public class Evaluator
                     if (!mInstructions.GetRange(mEvaluatedInstructionIndex, nextCommIndex - mEvaluatedInstructionIndex).Any(x => x.Opcode == Opcode.PUSHREG))
                     {
                         // If PUSHREG doesn't come before another COMM then the return value is unused
-                        PushStatement(callOperator);
+                        PushExpression(callOperator);
                     }
 
                     // Otherwise let PUSHREG push the call operator
@@ -1013,7 +1014,7 @@ public class Evaluator
                             arguments);
                     }
 
-                    PushStatement(callOperator);
+                    PushExpression(callOperator);
                     mLastProcedureCall = callOperator;
                 }
                 break;
@@ -1022,7 +1023,7 @@ public class Evaluator
                 {
                     // Todo:
                     LogError("Todo: RUN");
-                    PushStatement(new CallOperator(new Identifier("__RUN")));
+                    PushExpression(new CallOperator(new Identifier("__RUN")));
                 }
                 break;
 
@@ -1172,7 +1173,7 @@ public class Evaluator
 
             // Push short
             case Opcode.PUSHIS:
-                PushStatement(new IntLiteral(instruction.Operand.Int16Value));
+                PushExpression(new IntLiteral(instruction.Operand.Int16Value));
                 ++mRealStackCount;
                 break;
 
@@ -1193,7 +1194,7 @@ public class Evaluator
                         }
                     }
 
-                    PushStatement(declaration.Identifier);
+                    PushExpression(declaration.Identifier);
                     ++mRealStackCount;
                 }
                 break;
@@ -1212,7 +1213,7 @@ public class Evaluator
                         }
                     }
 
-                    PushStatement(declaration.Identifier);
+                    PushExpression(declaration.Identifier);
                     ++mRealStackCount;
                 }
                 break;
@@ -1236,7 +1237,7 @@ public class Evaluator
                         return false;
                     }
 
-                    PushStatement(new AssignmentOperator(declaration.Identifier, value));
+                    PushExpression(new AssignmentOperator(declaration.Identifier, value));
                     --mRealStackCount;
                 }
                 break;
@@ -1260,14 +1261,14 @@ public class Evaluator
                         return false;
                     }
 
-                    PushStatement(new AssignmentOperator(declaration.Identifier, value));
+                    PushExpression(new AssignmentOperator(declaration.Identifier, value));
                     --mRealStackCount;
                 }
                 break;
             case Opcode.PUSHSTR:
                 {
                     var stringValue = instruction.Operand.StringValue;
-                    PushStatement(new StringLiteral(stringValue));
+                    PushExpression(new StringLiteral(stringValue));
                     ++mRealStackCount;
                 }
                 break;
@@ -1306,7 +1307,7 @@ public class Evaluator
 
     private bool TryPopStatement(out Statement statement)
     {
-        if (mEvaluationStatementStack.Count == 1 /* return address */ )
+        if (mEvaluationStatementStack.Count == 0)
         {
             statement = null;
             return false;
@@ -1316,24 +1317,23 @@ public class Evaluator
         return true;
     }
 
-    private void PushExpression(Statement statement)
+    private void PushExpression(Expression expression)
     {
         var visitor = new StatementVisitor(this);
-        visitor.Visit(statement);
+        visitor.Visit(expression);
 
-        mExpressionStack.Push(
-            new EvaluatedStatement(statement, mEvaluatedInstructionIndex, null));
+        mEvaluationExpressionStack.Push(
+            new EvaluatedStatement(expression, mEvaluatedInstructionIndex, null));
     }
 
     private bool TryPopExpression(out Expression expression)
     {
-        if (!TryPopStatement(out var statement))
+        if (mEvaluationExpressionStack.Count == 0)
         {
             expression = null;
             return false;
         }
-
-        expression = statement as Expression;
+        expression = mEvaluationExpressionStack.Pop().Statement as Expression;
         return expression != null;
     }
 
@@ -1353,7 +1353,7 @@ public class Evaluator
         binaryExpression.Left = left;
         binaryExpression.Right = right;
 
-        PushStatement(binaryExpression);
+        PushExpression(binaryExpression);
         return true;
     }
 
@@ -1379,12 +1379,12 @@ public class Evaluator
                 // NEQ
                 if (intLiteral.Value == 0) //  x != false -> x
                 {
-                    PushStatement(left);
+                    PushExpression(left);
                     return true;
                 }
                 else if (intLiteral.Value == 1) // x != true -> !x
                 {
-                    PushStatement(new LogicalNotOperator(left));
+                    PushExpression(new LogicalNotOperator(left));
                     return true;
                 }
             }
@@ -1393,12 +1393,12 @@ public class Evaluator
                 // OR, AND, EQ
                 if (intLiteral.Value == 0) //  x == false -> !x
                 {
-                    PushStatement(new LogicalNotOperator(left));
+                    PushExpression(new LogicalNotOperator(left));
                     return true;
                 }
                 else if (intLiteral.Value == 1) // x == true -> x
                 {
-                    PushStatement(left);
+                    PushExpression(left);
                     return true;
                 }
             }
@@ -1407,7 +1407,7 @@ public class Evaluator
         binaryExpression.Left = left;
         binaryExpression.Right = right;
 
-        PushStatement(binaryExpression);
+        PushExpression(binaryExpression);
 
         return true;
     }
@@ -1422,7 +1422,7 @@ public class Evaluator
 
         uanryExpression.Operand = operand;
 
-        PushStatement(uanryExpression);
+        PushExpression(uanryExpression);
         return true;
     }
 

@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("AtlusScriptLibrary")]
 [assembly: AssemblyDescription("Library for parsing, compiling, decompiling, Atlus script formats and more.")]
 [assembly: AssemblyProduct("AtlusScriptLibrary")]
-[assembly: AssemblyCopyright("Copyright © TGE 2018")]
+[assembly: AssemblyCopyright("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
 // to COM components.  If you need to access a type in this assembly from

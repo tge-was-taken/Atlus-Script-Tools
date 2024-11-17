@@ -275,12 +275,13 @@ public class FlowScriptDecompiler
 
         mIfStatementBodyMap = new Dictionary<int, List<EvaluatedStatement>>();
         mIfStatementElseBodyMap = new Dictionary<int, List<EvaluatedStatement>>();
-        new Dictionary<int, int>();
     }
 
     private bool TryCompositeEvaluatedInstructions(List<EvaluatedStatement> evaluatedStatements, out List<Statement> statements)
     {
         InitializeCompositionState(evaluatedStatements);
+
+        RemovePOPREGAndPUSHREGPairs();
 
         if (mEvaluatedScript.FlowScript.MessageScript != null && DecompileMessageScript)
             ReplaceUnnamedMessageScriptConstants();
@@ -493,6 +494,29 @@ public class FlowScriptDecompiler
                 usedNames[dialog.Name] = 1;
             }
         }
+    }
+
+    /// <summary>
+    /// Removes POPREG/PUSHREG pairs introduced by procedure parameter passing.
+    /// Example:
+    /// void SUB_TutorialFloorEndCheck( int param0 ) // stack: (value of param0), (return address)
+    /// {
+    ///     int var124;
+    ///     __POPREG(__RETURN_ADDRESS );             // stack: (value of param0), reg: (return address)
+    ///     var124 = param0;                         // stack: empty
+    ///     __PUSHREG();                             // stack: (return address)
+    ///     // ... ommitted for brevity
+    /// }
+    /// </summary>
+    private void RemovePOPREGAndPUSHREGPairs()
+    {
+        mEvaluatedStatements.RemoveAll(evaluatedStatement =>
+        {
+            var instruction = mEvaluatedProcedure.Procedure.Instructions[evaluatedStatement.InstructionIndex];
+            if (instruction.Opcode == Opcode.POPREG || instruction.Opcode == Opcode.PUSHREG)
+                return true;
+            return false;
+        });
     }
 
     private void InsertFunctionCallEnumParameterValues()
