@@ -16,7 +16,7 @@ public class FlowScriptInterpreter
         MUL, DIV, MINUS, NOT, OR,
         AND, EQ, NEQ, S, L,
         SE, LE, IF, PUSHIS, PUSHLIX,
-        PUSHLFX, POPLIX, POPLFX, PUSHSTR
+        PUSHLFX, POPLIX, POPLFX, PUSHSTR, POPREG
     };
 
     // Static
@@ -601,6 +601,12 @@ public class FlowScriptInterpreter
     private static bool PUSHSTR(FlowScriptInterpreter instance)
     {
         instance.PushValue(instance.Instruction.Operand.StringValue);
+        return true;
+    }
+
+    private static bool POPREG(FlowScriptInterpreter instance)
+    {
+        instance.PushValue(instance.PopIntValue());
         return true;
     }
 }

@@ -3724,6 +3724,9 @@ public class FlowScriptCompiler
             case Opcode.PUSHREG:
                 ++mStackValueCount;
                 break;
+            case Opcode.POPREG:
+                --mStackValueCount;
+                break;
             case Opcode.POPIX:
             case Opcode.POPFX:
                 --mStackValueCount;

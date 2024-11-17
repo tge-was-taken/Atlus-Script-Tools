@@ -183,6 +183,7 @@ public class FlowScriptBinaryDisassembler : IDisposable
 
             // No operands
             case Opcode.PUSHREG:
+            case Opcode.END:
             case Opcode.ADD:
             case Opcode.SUB:
             case Opcode.MUL:
@@ -197,10 +198,7 @@ public class FlowScriptBinaryDisassembler : IDisposable
             case Opcode.L:
             case Opcode.SE:
             case Opcode.LE:
-                mWriter.Write(DisassembleInstructionWithNoOperand(CurrentInstruction));
-                break;
-
-            case Opcode.END:
+            case Opcode.POPREG:
                 mWriter.Write(DisassembleInstructionWithNoOperand(CurrentInstruction));
                 break;
 
