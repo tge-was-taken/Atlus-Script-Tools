@@ -395,9 +395,9 @@ public class Evaluator
         var snapshots = new List<StackSnapshot>();
 
         var previousSnapshot = new StackSnapshot();
-        //previousSnapshot.StackBalance = 1;
+        previousSnapshot.StackBalance = 1;
         previousSnapshot.Stack = new Stack<StackValueType>();
-        //previousSnapshot.Stack.Push(StackValueType.Return);
+        previousSnapshot.Stack.Push(StackValueType.Return);
 
         FunctionDeclaration lastFunction = null;
         StackValueType regValueType = StackValueType.None;
@@ -470,7 +470,7 @@ public class Evaluator
                 }
                 break;
             case Opcode.POPIX:
-                if (stack.Count != 0)
+                if (stack.Count != 1)
                 {
                     stack.Pop();
                 }
@@ -481,7 +481,7 @@ public class Evaluator
                 --stackBalance;
                 break;
             case Opcode.POPFX:
-                if (stack.Count != 0)
+                if (stack.Count != 1)
                 {
                     stack.Pop();
                 }
@@ -498,7 +498,7 @@ public class Evaluator
                     short index = instruction.Operand.Int16Value;
                     foreach (var parameter in mFunctions[index].Parameters)
                     {
-                        if (stack.Count != 0)
+                        if (stack.Count != 1)
                         {
                             stack.Pop();
                         }
@@ -538,7 +538,7 @@ public class Evaluator
             case Opcode.MUL:
             case Opcode.DIV:
                 {
-                    if (stack.Count != 0)
+                    if (stack.Count != 1)
                     {
                         stack.Pop();
                     }
@@ -561,7 +561,7 @@ public class Evaluator
             case Opcode.SE:
             case Opcode.LE:
                 {
-                    if (stack.Count != 0)
+                    if (stack.Count != 1)
                     {
                         stack.Pop();
                     }
@@ -574,7 +574,7 @@ public class Evaluator
                 break;
             case Opcode.IF:
                 {
-                    if (stack.Count != 0)
+                    if (stack.Count != 1)
                     {
                         stack.Pop();
                     }
@@ -598,7 +598,7 @@ public class Evaluator
                 ++stackBalance;
                 break;
             case Opcode.POPLIX:
-                if (stack.Count != 0)
+                if (stack.Count != 1)
                 {
                     stack.Pop();
                 }
@@ -609,7 +609,7 @@ public class Evaluator
                 --stackBalance;
                 break;
             case Opcode.POPLFX:
-                if (stack.Count != 0)
+                if (stack.Count != 1)
                 {
                     stack.Pop();
                 }
@@ -624,7 +624,7 @@ public class Evaluator
                 ++stackBalance;
                 break;
             case Opcode.POPREG:
-                if (stack.Count != 0)
+                if (stack.Count != 1)
                 {
                     regValueType = stack.Pop();
                 }
@@ -634,6 +634,7 @@ public class Evaluator
                     regValueType = StackValueType.Any;
                 }
                 stack.Push(regValueType);
+                lastFunction = null;
                 break;
         }
 
@@ -679,7 +680,7 @@ public class Evaluator
         PushStatement(
             new Identifier("<>__ReturnAddress"));
 
-        foreach (var param in mParameters)
+        foreach (var param in mParameters.AsEnumerable().Reverse())
         {
             PushStatement(param.Identifier);
         }
@@ -824,13 +825,9 @@ public class Evaluator
 
                         PushStatement(mLastFunctionCall);
                     }
-                    else if (mLastPopRegValue != null)
-                    {
-                        PushStatement(mLastPopRegValue);
-                    }
                     else
                     {
-                        PushStatement(new Identifier("UNKNOWN_PUSHREG_VALUE"));
+                        PushStatement(new CallOperator(new Identifier("__PUSHREG")));
                     }
 
                     ++mRealStackCount;
@@ -965,12 +962,6 @@ public class Evaluator
             // Call procedure
             case Opcode.CALL:
                 {
-                    if (instruction.Opcode == Opcode.JUMP)
-                    {
-                        LogInfo("JUMP not implemented! Emulating as CALL");
-                    }
-
-                    // Todo: arguments
                     short index = instruction.Operand.Int16Value;
                     if (index < 0 || index >= mScript.Procedures.Count)
                     {
@@ -979,47 +970,48 @@ public class Evaluator
                     }
 
                     var procedure = mScript.Procedures[index];
-                    int parameterCount;
+                    int parameterCount = 0;
                     var arguments = new List<Argument>();
-                    if (mProcedures.TryGetValue(index, out var declaration))
-                    {
-                        parameterCount = declaration.Parameters.Count;
-                    }
-                    else
-                    {
-                        // Number of parameters is unknown at this time
-
-                        //parameterCount = mRealStackCount;
-                        parameterCount = 0;
-                        var parameters = new List<Parameter>();
-                        for (int i = 0; i < parameterCount; i++)
-                            parameters.Add(new Parameter(ParameterModifier.None, new TypeIdentifier(ValueKind.Int), new Identifier($"param{i + 1}"), null));
-
-                        declaration = new ProcedureDeclaration(
-                            new TypeIdentifier(ValueKind.Void),
-                            new Identifier(ValueKind.Procedure, procedure.Name),
-                            parameters,
-                            null);
-
-                        mProcedures[index] = declaration;
-                    }
+                    var procedurePreEvalInfo = mProcedurePreEvaluationInfos.FirstOrDefault(p => p.Procedure == procedure);
+                    parameterCount = procedurePreEvalInfo?.ParameterTypes.Count ?? 0;
 
                     for (int i = 0; i < parameterCount; i++)
                     {
                         if (!TryPopExpression(out var expression))
                         {
                             LogError("Failed to pop expression for argument");
-                            return false;
+
+                            if (StrictMode)
+                                return false;
+
+                            // Try to recover
+                            expression = new Identifier("MISSING_ARGUMENT");
                         }
 
                         arguments.Add(new Argument(expression));
                         --mRealStackCount;
                     }
 
-                    var callOperator = new CallOperator(
-                        declaration.ReturnType.ValueKind,
-                        declaration.Identifier,
-                        arguments);
+                    CallOperator callOperator;
+                    if (instruction.Opcode == Opcode.JUMP)
+                    {
+                        var jumpCallArguments = new List<Argument>()
+                        {
+                            new(new Identifier(ValueKind.Procedure, procedure.Name))
+                        };
+                        jumpCallArguments.AddRange(arguments);
+                        callOperator = new CallOperator(
+                            ValueKind.Void,
+                            new Identifier("__JUMP"),
+                            jumpCallArguments);
+                    }
+                    else
+                    {
+                        callOperator = new CallOperator(
+                            ValueKind.Void,
+                            new Identifier(ValueKind.Procedure, procedure.Name),
+                            arguments);
+                    }
 
                     PushStatement(callOperator);
                     mLastProcedureCall = callOperator;
@@ -1030,8 +1022,9 @@ public class Evaluator
                 {
                     // Todo:
                     LogError("Todo: RUN");
-                    return false;
+                    PushStatement(new CallOperator(new Identifier("__RUN")));
                 }
+                break;
 
             case Opcode.GOTO:
                 {
@@ -1286,13 +1279,8 @@ public class Evaluator
                         return false;
                     }
 
-                    // TODO fix
-                    mLastPopRegValue = value;
+                    PushStatement(new CallOperator(new Identifier("__POPREG"), new Argument(value)));
                     mLastFunctionCall = null;
-                    //PushStatement(new CallOperator(new("__popreg")));
-
-                    PushStatement(value);
-                    //PushStatement(new AssignmentOperator(new Identifier("__REG"), value));
                     --mRealStackCount;
                 }
                 break;
