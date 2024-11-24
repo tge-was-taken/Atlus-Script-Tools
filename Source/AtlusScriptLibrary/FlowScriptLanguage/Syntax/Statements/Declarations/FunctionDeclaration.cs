@@ -7,7 +7,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax;
 
 public class FunctionDeclaration : Declaration
 {
-    public IntLiteral Index { get; set; }
+    public UIntLiteral Index { get; set; }
 
     public TypeIdentifier ReturnType { get; set; }
 
@@ -18,7 +18,7 @@ public class FunctionDeclaration : Declaration
         Parameters = new List<Parameter>();
     }
 
-    public FunctionDeclaration(IntLiteral index, TypeIdentifier returnType, Identifier identifier, params Parameter[] parameters)
+    public FunctionDeclaration(UIntLiteral index, TypeIdentifier returnType, Identifier identifier, params Parameter[] parameters)
         : base(DeclarationType.Function, identifier)
     {
         Index = index;
@@ -26,7 +26,7 @@ public class FunctionDeclaration : Declaration
         Parameters = parameters.ToList();
     }
 
-    public FunctionDeclaration(IntLiteral index, TypeIdentifier returnType, Identifier identifier, List<Parameter> parameters)
+    public FunctionDeclaration(UIntLiteral index, TypeIdentifier returnType, Identifier identifier, List<Parameter> parameters)
         : base(DeclarationType.Function, identifier)
     {
         Index = index;
@@ -66,7 +66,7 @@ public class FunctionDeclaration : Declaration
         }
 
         return new FunctionDeclaration(
-           new IntLiteral(libraryFunction.Index),
+           new UIntLiteral(libraryFunction.Index),
            new TypeIdentifier(libraryFunction.ReturnType),
            new Identifier(libraryFunction.Name),
            functionParameters);
@@ -87,7 +87,7 @@ public class FunctionDeclaration : Declaration
 
         var declarations = new FunctionDeclaration[(libraryFunction.Aliases != null ? libraryFunction.Aliases.Count : 0) + 1];
         declarations[0] = new FunctionDeclaration(
-           new IntLiteral(libraryFunction.Index),
+           new UIntLiteral(libraryFunction.Index),
            new TypeIdentifier(libraryFunction.ReturnType),
            new Identifier(libraryFunction.Name),
            functionParameters);
@@ -95,7 +95,7 @@ public class FunctionDeclaration : Declaration
         for (int i = 1; i < declarations.Length; i++)
         {
             declarations[i] = new FunctionDeclaration(
-               new IntLiteral(libraryFunction.Index),
+               new UIntLiteral(libraryFunction.Index),
                new TypeIdentifier(libraryFunction.ReturnType),
                new Identifier(libraryFunction.Aliases[i - 1]),
                functionParameters);
