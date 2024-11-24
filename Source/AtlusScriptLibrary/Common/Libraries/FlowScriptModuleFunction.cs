@@ -10,7 +10,7 @@ namespace AtlusScriptLibrary.Common.Libraries;
 public class FlowScriptModuleFunction : ICloneable
 {
     [JsonConverter(typeof(HexIntStringJsonConverter))]
-    public int Index { get; set; }
+    public uint Index { get; set; }
 
     public string ReturnType { get; set; }
 
