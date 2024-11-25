@@ -17,6 +17,7 @@ public sealed class FlowScriptBinaryWriter : IDisposable
     public FlowScriptBinaryWriter(Stream stream, BinaryFormatVersion version, bool leaveOpen = false)
     {
         mPositionBase = stream.Position;
+        System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
         mWriter = new EndianBinaryWriter(stream, Encoding.GetEncoding(932), leaveOpen, version.HasFlag(BinaryFormatVersion.BigEndian) ? Endianness.BigEndian : Endianness.LittleEndian);
         mVersion = version;
     }

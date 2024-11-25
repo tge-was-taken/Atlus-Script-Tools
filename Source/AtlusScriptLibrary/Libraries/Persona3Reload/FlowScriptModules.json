@@ -5,7 +5,7 @@
     "Description": "Battle related functions (AI + BTL)",
     "ConstantsPath": "",
     "EnumsPath": "",
-    "FunctionsPath": "Persona3Reload\\Modules\\Battle\\Functions.json"
+    "FunctionsPath": "Persona3Reload/Modules/Battle/Functions.json"
   },
   {
     "Name": "Common",
@@ -13,7 +13,7 @@
     "Description": "Non-domain specific commonly used functions.",
     "ConstantsPath": "",
     "EnumsPath": "",
-    "FunctionsPath": "Persona3Reload\\Modules\\Common\\Functions.json"
+    "FunctionsPath": "Persona3Reload/Modules/Common/Functions.json"
   },
   {
     "Name": "Community",
@@ -21,7 +21,7 @@
     "Description": "Social Link related functions.",
     "ConstantsPath": "",
     "EnumsPath": "",
-    "FunctionsPath": "Persona3Reload\\Modules\\Community\\Functions.json"
+    "FunctionsPath": "Persona3Reload/Modules/Community/Functions.json"
   },
   {
     "Name": "Event",
@@ -29,7 +29,7 @@
     "Description": "Event related functions",
     "ConstantsPath": "",
     "EnumsPath": "",
-    "FunctionsPath": "Persona3Reload\\Modules\\Event\\Functions.json"
+    "FunctionsPath": "Persona3Reload/Modules/Event/Functions.json"
   },
   {
     "Name": "Facility",
@@ -37,7 +37,7 @@
     "Description": "Facility related functions.",
     "ConstantsPath": "",
     "EnumsPath": "",
-    "FunctionsPath": "Persona3Reload\\Modules\\Facility\\Functions.json"
+    "FunctionsPath": "Persona3Reload/Modules/Facility/Functions.json"
   },
   {
     "Name": "Field",
@@ -45,6 +45,6 @@
     "Description": "Field related functions.",
     "ConstantsPath": "",
     "EnumsPath": "",
-    "FunctionsPath": "Persona3Reload\\Modules\\Field\\Functions.json"
+    "FunctionsPath": "Persona3Reload/Modules/Field/Functions.json"
   }
 ]

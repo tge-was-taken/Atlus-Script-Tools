@@ -26,6 +26,10 @@ public sealed class MessageScriptDecompiler : IDisposable
         {
             headerWriter = new FileTextWriter(fileTextWriter.Path + ".h");
         }
+        if (headerWriter == null && writer is StringWriter stringWriter)
+        {
+            headerWriter = new StringWriter();
+        }
 
         mHeaderWriter = headerWriter;
     }

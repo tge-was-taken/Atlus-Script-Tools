@@ -4,7 +4,7 @@
     "ShortName": "Common",
     "Description": "Non-domain specific commonly used functions.",
     "ConstantsPath": "",
-    "EnumsPath": "DigitalDevilSaga\\Modules\\Common\\Enums.json",
-    "FunctionsPath": "DigitalDevilSaga\\Modules\\Common\\Functions.json"
+    "EnumsPath": "DigitalDevilSaga/Modules/Common/Enums.json",
+    "FunctionsPath": "DigitalDevilSaga/Modules/Common/Functions.json"
   }
 ]

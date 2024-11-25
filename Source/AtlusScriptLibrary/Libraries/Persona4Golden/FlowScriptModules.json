@@ -4,8 +4,8 @@
     "ShortName": "Common",
     "Description": "Non-domain specific commonly used functions.",
     "ConstantsPath": "",
-    "EnumsPath": "Persona4Golden\\Modules\\Common\\Enums.json",
-    "FunctionsPath": "Persona4Golden\\Modules\\Common\\Functions.json"
+    "EnumsPath": "Persona4Golden/Modules/Common/Enums.json",
+    "FunctionsPath": "Persona4Golden/Modules/Common/Functions.json"
   },
   {
     "Name": "Field",
@@ -13,15 +13,15 @@
     "Description": "Field related functions.",
     "ConstantsPath": "",
     "EnumsPath": "",
-    "FunctionsPath": "Persona4Golden\\Modules\\Field\\Functions.json"
+    "FunctionsPath": "Persona4Golden/Modules/Field/Functions.json"
   },
   {
     "Name": "AI",
     "ShortName": "AI",
     "Description": "AI related functions.",
     "ConstantsPath": "",
-    "EnumsPath": "Persona4Golden\\Modules\\AI\\Enums.json",
-    "FunctionsPath": "Persona4Golden\\Modules\\AI\\Functions.json"
+    "EnumsPath": "Persona4Golden/Modules/AI/Enums.json",
+    "FunctionsPath": "Persona4Golden/Modules/AI/Functions.json"
   },
   {
     "Name": "Event",
@@ -29,7 +29,7 @@
     "Description": "Event related functions.",
     "ConstantsPath": "",
     "EnumsPath": "",
-    "FunctionsPath": "Persona4Golden\\Modules\\Event\\Functions.json"
+    "FunctionsPath": "Persona4Golden/Modules/Event/Functions.json"
   },
   {
     "Name": "Facility",
@@ -37,7 +37,7 @@
     "Description": "Facility based scene transition related functions.",
     "ConstantsPath": "",
     "EnumsPath": "",
-    "FunctionsPath": "Persona4Golden\\Modules\\Facility\\Functions.json"
+    "FunctionsPath": "Persona4Golden/Modules/Facility/Functions.json"
   },
   {
     "Name": "Net",
@@ -45,6 +45,6 @@
     "Description": "",
     "ConstantsPath": "",
     "EnumsPath": "",
-    "FunctionsPath": "Persona4Golden\\Modules\\Net\\Functions.json"
+    "FunctionsPath": "Persona4Golden/Modules/Net/Functions.json"
   },
 ]

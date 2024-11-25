@@ -11,7 +11,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Tests
     {
         private FlowScript FromFile_ResultNotNullAndFormatIsEqualToParameter(FormatVersion version, FormatVersion actualVersion)
         {
-            var script = FlowScript.FromFile($"TestResources\\{actualVersion}.bf", null, version);
+            var script = FlowScript.FromFile($"TestResources/{actualVersion}.bf", null, version);
 
             Assert.IsNotNull(script, "Script object should not be null");
             Assert.AreEqual((FormatVersion)actualVersion, script.FormatVersion);
@@ -91,20 +91,20 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Tests
         [TestMethod]
         public void FromFile_ShouldThrowInvalidDataException_InvalidFileFormatSmall()
         {
-            Assert.ThrowsException<InvalidDataException>(() => FlowScript.FromFile("TestResources\\dummy_small.bin", null, FormatVersion.Unknown));
+            Assert.ThrowsException<InvalidDataException>(() => FlowScript.FromFile("TestResources/dummy_small.bin", null, FormatVersion.Unknown));
         }
 
         [TestMethod]
         public void FromFile_ShouldThrowInvalidDataException_InvalidFileFormatBig()
         {
-            Assert.ThrowsException<InvalidDataException>(() => FlowScript.FromFile("TestResources\\dummy_big.bin", null, FormatVersion.Unknown));
+            Assert.ThrowsException<InvalidDataException>(() => FlowScript.FromFile("TestResources/dummy_big.bin", null, FormatVersion.Unknown));
         }
 
         [TestMethod]
         [Ignore]
         public void FromFile_ShouldNotThrow_Batch()
         {
-            foreach (var path in Directory.EnumerateFiles("TestResources\\Batch\\", "*.bf"))
+            foreach (var path in Directory.EnumerateFiles("TestResources/Batch/", "*.bf"))
             {
                 var script = FlowScript.FromFile(path);
             }
@@ -113,7 +113,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Tests
         [TestMethod]
         public void FromStream_ShouldNotBeNullAndIsSameVersion_Version3BigEndian()
         {
-            using (var fileStream = File.OpenRead("TestResources\\Version3BigEndian.bf"))
+            using (var fileStream = File.OpenRead("TestResources/Version3BigEndian.bf"))
             {
                 var script = FlowScript.FromStream(fileStream, null, FormatVersion.Version3BigEndian, false);
 
@@ -125,7 +125,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Tests
         [TestMethod]
         public void FromBinary_ContentsShouldMatchThatOfBinary_Version3BigEndian()
         {
-            var binary = FlowScriptBinary.FromFile("TestResources\\Version3BigEndian.bf", BinaryFormatVersion.Version3BigEndian);
+            var binary = FlowScriptBinary.FromFile("TestResources/Version3BigEndian.bf", BinaryFormatVersion.Version3BigEndian);
             var script = FlowScript.FromBinary(binary);
 
             Assert.AreEqual(script.UserId, binary.Header.UserId);
@@ -175,7 +175,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Tests
         [Ignore]
         public void ToBinary_ContentsShouldMatchThatOfSourceBinary_Version3BigEndian()
         {
-            var binaryIn = FlowScriptBinary.FromFile("TestResources\\Version3BigEndian.bf");
+            var binaryIn = FlowScriptBinary.FromFile("TestResources/Version3BigEndian.bf");
             var script = FlowScript.FromBinary(binaryIn);
             var binaryOut = script.ToBinary();
 
