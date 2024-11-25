@@ -5,6 +5,6 @@
     "Description": "Non-domain specific commonly used functions.",
     "ConstantsPath": "",
     "EnumsPath": "",
-    "FunctionsPath": "Persona3\\Modules\\Common\\Functions.json"
+    "FunctionsPath": "Persona3/Modules/Common/Functions.json"
   }
 ]

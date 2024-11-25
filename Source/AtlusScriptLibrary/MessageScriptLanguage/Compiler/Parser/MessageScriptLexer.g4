@@ -18,7 +18,7 @@ CloseText
 
 // match actual text
 Text
-	: ~( '[' | ']' )+
+	: ( '\\[' | '\\]' | ~( '[' | ']' ))+
 	;
 
 //

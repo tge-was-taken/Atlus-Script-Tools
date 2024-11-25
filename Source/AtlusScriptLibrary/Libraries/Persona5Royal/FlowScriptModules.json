@@ -4,8 +4,8 @@
     "ShortName": "Common",
     "Description": "",
     "ConstantsPath": "",
-    "EnumsPath": "Persona5Royal\\Modules\\Common\\Enums.json",
-    "FunctionsPath": "Persona5Royal\\Modules\\Common\\Functions.json"
+    "EnumsPath": "Persona5Royal/Modules/Common/Enums.json",
+    "FunctionsPath": "Persona5Royal/Modules/Common/Functions.json"
   },
   {
     "Name": "Field",
@@ -13,7 +13,7 @@
     "Description": "",
     "ConstantsPath": "",
     "EnumsPath": "",
-    "FunctionsPath": "Persona5Royal\\Modules\\Field\\Functions.json"
+    "FunctionsPath": "Persona5Royal/Modules/Field/Functions.json"
   },
   {
     "Name": "AI",
@@ -21,7 +21,7 @@
     "Description": "",
     "ConstantsPath": "",
     "EnumsPath": "",
-    "FunctionsPath": "Persona5Royal\\Modules\\AI\\Functions.json"
+    "FunctionsPath": "Persona5Royal/Modules/AI/Functions.json"
   },
   {
     "Name": "Social",
@@ -29,7 +29,7 @@
     "Description": "",
     "ConstantsPath": "",
     "EnumsPath": "",
-    "FunctionsPath": "Persona5Royal\\Modules\\Social\\Functions.json"
+    "FunctionsPath": "Persona5Royal/Modules/Social/Functions.json"
   },
   {
     "Name": "Facility",
@@ -37,7 +37,7 @@
     "Description": "",
     "ConstantsPath": "",
     "EnumsPath": "",
-    "FunctionsPath": "Persona5Royal\\Modules\\Facility\\Functions.json"
+    "FunctionsPath": "Persona5Royal/Modules/Facility/Functions.json"
   },
   {
     "Name": "Net",
@@ -45,6 +45,6 @@
     "Description": "",
     "ConstantsPath": "",
     "EnumsPath": "",
-    "FunctionsPath": "Persona5Royal\\Modules\\Net\\Functions.json"
+    "FunctionsPath": "Persona5Royal/Modules/Net/Functions.json"
   }
 ]

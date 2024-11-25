@@ -9,5 +9,4 @@ OpenText=8
 IntLiteral=9
 Identifier=10
 Whitespace=11
-BlockComment=12
 'sel'=5

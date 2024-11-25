@@ -15,6 +15,9 @@
         "Name": "MinorID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FCL_FUNCTION_0000"
     ]
   },
   {
@@ -43,6 +46,9 @@
         "Name": "param4",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FCL_FUNCTION_0001"
     ]
   },
   {
@@ -50,7 +56,10 @@
     "ReturnType": "void",
     "Name": "NEXT_TIME",
     "Description": "Progresses time of day; Address: 0x08995024",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FCL_FUNCTION_0002"
+    ]
   },
   {
     "Index": "0x4003",
@@ -63,6 +72,9 @@
         "Name": "StartingSelection",
         "Description": "Puts the cursor on given position"
       }
+    ],
+    "Aliases": [
+      "FCL_FUNCTION_0003"
     ]
   },
   {
@@ -101,28 +113,40 @@
     "ReturnType": "void",
     "Name": "CALL_TITLE",
     "Description": "Calls title screen; Address: 0x089733BC",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FCL_FUNCTION_0006"
+    ]
   },
   {
     "Index": "0x4007",
     "ReturnType": "void",
     "Name": "CALL_NAME_ENTRY",
     "Description": "Calls Protagonist name entry screen; Address: 0x089733FC",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FCL_FUNCTION_0007"
+    ]
   },
   {
     "Index": "0x4008",
     "ReturnType": "void",
     "Name": "SAVE_MENU",
     "Description": "Calls Save Data screen; Address: 0x08973740",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FCL_FUNCTION_0008"
+    ]
   },
   {
     "Index": "0x4009",
     "ReturnType": "void",
     "Name": "LOAD_MENU",
     "Description": "Calls Load Data screen; Address: 0x089737A8",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FCL_FUNCTION_0009"
+    ]
   },
   {
     "Index": "0x400a",
@@ -136,7 +160,10 @@
     "ReturnType": "void",
     "Name": "SAVE_NG_MENU",
     "Description": "Calls Save New Cycle Data screen; Address: 0x08A63E5C",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FCL_FUNCTION_000B"
+    ]
   },
   {
     "Index": "0x400c",
@@ -150,28 +177,40 @@
     "ReturnType": "void",
     "Name": "CALL_STAFF_ROLL",
     "Description": "Address: 0x0896F390",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FCL_FUNCTION_000D"
+    ]
   },
   {
     "Index": "0x400e",
     "ReturnType": "void",
     "Name": "CALL_WEAPON_SHOP",
     "Description": "Address: 0x0887262C",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FCL_FUNCTION_000E"
+    ]
   },
   {
     "Index": "0x400f",
     "ReturnType": "void",
     "Name": "CALL_ITEM_SHOP",
     "Description": "Address: 0x08872674",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FCL_FUNCTION_000F"
+    ]
   },
   {
     "Index": "0x4010",
     "ReturnType": "void",
     "Name": "CALL_COMBINE_SHOP",
     "Description": "Address: 0x08872704",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FCL_FUNCTION_0010"
+    ]
   },
   {
     "Index": "0x4011",
@@ -184,6 +223,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FCL_FUNCTION_0011"
     ]
   },
   {
@@ -191,14 +233,20 @@
     "ReturnType": "void",
     "Name": "WAIT_BATTLE",
     "Description": "Address: 0x089BA858",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FCL_FUNCTION_0012"
+    ]
   },
   {
     "Index": "0x4013",
     "ReturnType": "void",
     "Name": "CALL_TRADE_SHOP",
     "Description": "Address: 0x088726BC",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FCL_FUNCTION_0013"
+    ]
   },
   {
     "Index": "0x4014",
@@ -240,7 +288,10 @@
     "ReturnType": "void",
     "Name": "CALL_DARK_HOUR",
     "Description": "Address: 0x08973D98",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FCL_FUNCTION_0016"
+    ]
   },
   {
     "Index": "0x4017",
@@ -268,7 +319,10 @@
     "ReturnType": "void",
     "Name": "CALL_SEX_SELECT",
     "Description": "Address: 0x08878C80",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FCL_FUNCTION_001A"
+    ]
   },
   {
     "Index": "0x401b",

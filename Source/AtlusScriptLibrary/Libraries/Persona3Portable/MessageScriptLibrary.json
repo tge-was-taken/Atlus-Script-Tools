@@ -10,7 +10,8 @@
         "Description": "",
         "Parameters": [
           {
-            "Name": "color"
+            "Name": "colorIndex",
+            "Description": "The index of the color to set the current text color to."
           }
         ]
       },
@@ -28,8 +29,53 @@
       {
         "Index": 1,
         "Name": "w",
-        "Description": "",
+        "Description": "Wait for player input.",
         "Parameters": []
+      },
+      {
+        "Index": 2,
+        "Name": "auto",
+        "Description": "Automatically advance the text after the specified amount of time",
+        "Parameters": [
+          {
+            "Name": "waitTime",
+            "Description": "How long to wait before advancing automatically (30 is 1 second)"
+          }
+        ]
+      },
+      {
+        "Index": 3,
+        "Name": "vAuto",
+        "Description": "Lets the game auto advance when the currently playing voice line finishes",
+        "Parameters": [
+          {
+            "Name": "waitTime",
+            "Description": "How long before the dialogue is automatically advanced (30 is 1 second, from message start). -1 waits until the voiceline ends"
+          }
+        ]
+      },
+      {
+        "Index": 4,
+        "Name": "hideSpeaker",
+        "Description": "Hides the name of the speaker displayed at the top of the dialogue box for the current line and waits for player input. If you want to hide it for the rest of the message you can instead set speaker to nothing using [speaker][n]",
+        "Parameters": []
+      },
+      {
+        "Index": 5,
+        "Name": "speaker",
+        "Description": "Changes the name of the person speaking so there can be multiple speakers in a single message. Use at the start of a new dialogue like so:[s][speaker]New Speaker Name[n](Then continue as normal)",
+        "Parameters": []
+      },
+      {
+        "Index": 6,
+        "Name": "vAuto2",
+        "Description": "Lets the game auto advance when the currently playing voice line finishes (seemingly exactly the same as vAuto except this one is used instead for the dungeon messages, like party members being nearly dead; waits on specified time to pass or user input to advance message)",
+        "Parameters": [
+          {
+            "Name": "waitTime",
+            "Description": "How long before the dialogue is automatically advanced (30 is 1 second, from message start). -1 waits until the voiceline ends"
+          }
+        ]
       }
     ]
   },
@@ -41,8 +87,91 @@
       {
         "Index": 1,
         "Name": "s",
-        "Description": "Indicates the start of a line",
+        "Description": "Enables fast text scrolling (speed is nearly instant)",
         "Parameters": []
+      },
+      {
+        "Index": 4,
+        "Name": "var",
+        "Description": "Loads value previously defined by SET_MSG_VAR.",
+        "Parameters": [
+          {
+            "Name": "varID",
+            "Description": "The ID of the variable set by SET_MSG_VAR function."
+          }
+        ]
+      },
+      {
+        "Index": 5,
+        "Name": "itemVar",
+        "Description": "Displays an item that was set using SET_MSG_VAR(varId, itemId, 1)",
+        "Parameters": [
+          {
+            "Name": "colorIndex",
+            "Description": "The index of the color to set the item text to. Only has an effect if itemIconId isn't -1."
+          },
+          {
+            "Name": "itemIconId",
+            "Description": "The id of the icon that is displayed next to the item name, use -1 for the actual icon of the item. Using anything other than -1 also messes up the displayed name (so always use -1)."
+          },
+          {
+            "Name": "varID",
+            "Description": "The ID of the variable set by SET_MSG_VAR function."
+          }
+        ]
+      },
+      {
+        "Index": 7,
+        "Name": "flag",
+        "Description": "Turns a specified flag on or off, use at the end of a selection option. Does nothing if used in a message",
+        "Parameters": [
+          {
+            "Name": "param1",
+            "Description": "Always 0, setting to other value stops the flag from being changed although it's possible something else is being changed instead."
+          },
+          {
+            "Name": "categoryID",
+            "Description": "The id of flag category to modify. (1 == Community == 0x400, 2 == Field == 0xC00, etc.)"
+          },
+          {
+            "Name": "flagID",
+            "Description": "The id of the flag to set. Relative to start of category."
+          },
+          {
+            "Name": "state",
+            "Description": "The state to set the flag to (1 or 0, on or off)"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Index": 3,
+    "Name": "",
+    "Description": "",
+    "Functions": [
+      {
+        "Index": 1,
+        "Name": "vp",
+        "Description": "Plays a voice sound cue from the events sound bank.",
+        "Parameters": [
+          {
+            "Name": "param1",
+            "Description": ""
+          },
+          {
+            "Name": "param2",
+            "Description": ""
+          },
+          {
+            "Name": "param3",
+            "Description": ""
+          },
+          {
+            "Name": "cueId",
+            "Description": "The id of the sound que in the sound bank."
+          }
+        ]
       }
     ]
   },
@@ -52,21 +181,91 @@
     "Description": "",
     "Functions": [
       {
+        "Index": 1,
+        "Name": "lName",
+        "Description": "The player's last name",
+        "Parameters": []
+      },
+      {
+        "Index": 2,
+        "Name": "fName",
+        "Description": "The player's first name",
+        "Parameters": []
+      },
+      {
+        "Index": 3,
+        "Name": "pName",
+        "Description": "The player's full name",
+        "Parameters": []
+      },
+      {
+        "Index": 4,
+        "Name": "item",
+        "Description": "Displays the name of an item including the respective item icon and specified colour",
+        "Parameters": [
+          {
+            "Name": "colorIndex",
+            "Description": "The colour that the item text and icon is"
+          },
+          {
+            "Name": "param2",
+            "Description": ""
+          },
+          {
+            "Name": "itemID",
+            "Description": "The id of the item to be displayed"
+          }
+        ]
+      },
+      {
+        "Index": 5,
+        "Name": "giveItem",
+        "Description": "Gives the player a specified item",
+        "Parameters": [
+          {
+            "Name": "itemID",
+            "Description": "The id of the item to give to the player"
+          },
+          {
+            "Name": "itemAmount",
+            "Description": "The amount of items to give to the player"
+          }
+        ]
+      },
+      {
         "Index": 6,
         "Name": "bup",
         "Description": "",
         "Parameters": [
           {
-            "Name": "param1"
+            "Name": "charID"
+          },
+          {
+            "Name": "outfitID"
+          },
+          {
+            "Name": "emotionID"
+          },
+          {
+            "Name": "bustupPosition",
+            "Description": "1 == Bustup on right, other values seem to do both left or center if a bustup is present already"
+          }
+        ]
+      },
+      {
+        "Index": 7,
+        "Name": "remBup",
+        "Description": "Removes the currently displayed bustup.",
+        "Parameters": [
+          {
+            "Name": "bustupPosition",
+            "Description": "Which bustup to remove based on the position defined in [bup]. 0 hides all bustups"
           },
           {
             "Name": "param2"
           },
           {
             "Name": "param3"
-          },
-          {
-            "Name": "param4"
           }
         ]
       }

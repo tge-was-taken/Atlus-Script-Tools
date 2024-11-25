@@ -594,10 +594,32 @@
         "Name": "selTex",
         "Description": "overrides game logic deciding which dialogue select portrait to display",
         "Parameters": [
-			{
+          {
             "Name": "selMajorId",
             "Description": "the major id of the select portrait to display (FONT/SELECT/CUTIN_XXX_000.DDS)"
-			}
+          }
+        ]
+      },
+      {
+        "Index": 30,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 31,
+        "Name": "sumi",
+        "Description": "Yoshizawa name check.",
+        "Parameters": [
+          {
+            "Name": "partyID",
+            "Description": ""
+          },
+          {
+            "Name": "unknown",
+            "Description": ""
+          }
         ]
       }
     ]

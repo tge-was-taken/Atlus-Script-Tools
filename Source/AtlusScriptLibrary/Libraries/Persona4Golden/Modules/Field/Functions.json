@@ -4,8 +4,7 @@
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_0000",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1001",
@@ -18,6 +17,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FLD_FUNCTION_0001"
     ]
   },
   {
@@ -25,7 +27,9 @@
     "ReturnType": "int",
     "Name": "GET_FLOOR_ID",
     "Description": "Returns 0 if not in dungeon, ID of floor otherwise.",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FLD_FUNCTION_0002"
     ]
   },
   {
@@ -33,7 +37,9 @@
     "ReturnType": "void",
     "Name": "RESET_FLOOR",
     "Description": "Makes new floor",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FLD_FUNCTION_0003"
     ]
   },
   {
@@ -54,8 +60,7 @@
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_0005",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1006",
@@ -204,6 +209,9 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FLD_FUNCTION_000D"
     ]
   },
   {
@@ -314,16 +322,14 @@
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_0014",
     "Description": "Code function name: k_command____sub_810A880E",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1015",
     "ReturnType": "void",
     "Name": "FLD_FUNCTION_0015",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1016",
@@ -341,6 +347,9 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FLD_FUNCTION_0016"
     ]
   },
   {
@@ -384,56 +393,49 @@
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_0019",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x101a",
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_001A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x101b",
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_001B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x101c",
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_001C",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x101d",
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_001D",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x101e",
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_001E",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x101f",
     "ReturnType": "void",
     "Name": "FLD_FUNCTION_001F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1020",
@@ -476,7 +478,9 @@
     "ReturnType": "int",
     "Name": "GET_FIELD_MAJOR",
     "Description": "Returns major id of current field",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FLD_FUNCTION_0022"
     ]
   },
   {
@@ -484,7 +488,9 @@
     "ReturnType": "int",
     "Name": "GET_FIELD_MINOR",
     "Description": "Returns minor id of current field",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FLD_FUNCTION_0023"
     ]
   },
   {
@@ -492,39 +498,37 @@
     "ReturnType": "void",
     "Name": "FLD_FUNCTION_0024",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1025",
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_0025",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1026",
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_0026",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1027",
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_0027",
     "Description": "Code function name: k_command____sub_810A8834",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1028",
     "ReturnType": "void",
     "Name": "TRAESTO_VISUAL",
     "Description": "",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FLD_FUNCTION_0028"
     ]
   },
   {
@@ -556,6 +560,9 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FLD_FUNCTION_002A"
     ]
   },
   {
@@ -581,8 +588,7 @@
     "ReturnType": "void",
     "Name": "FLD_FUNCTION_002C",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x102d",
@@ -674,88 +680,77 @@
     "ReturnType": "void",
     "Name": "FLD_FUNCTION_0032",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1033",
     "ReturnType": "void",
     "Name": "FLD_FUNCTION_0033",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1034",
     "ReturnType": "void",
     "Name": "FLD_FUNCTION_0034",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1035",
     "ReturnType": "void",
     "Name": "FLD_FUNCTION_0035",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1036",
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_0036",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1037",
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_0037",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1038",
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_0038",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1039",
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_0039",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x103a",
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_003A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x103b",
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_003B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x103c",
     "ReturnType": "void",
     "Name": "FLD_FUNCTION_003C",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x103d",
@@ -785,16 +780,14 @@
     "ReturnType": "void",
     "Name": "FLD_FUNCTION_003E",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x103f",
     "ReturnType": "void",
     "Name": "FLD_FUNCTION_003F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1040",
@@ -832,8 +825,7 @@
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_0042",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1043",
@@ -884,8 +876,7 @@
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_0046",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1047",
@@ -920,16 +911,14 @@
     "ReturnType": "void",
     "Name": "FLD_FUNCTION_0048",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1049",
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_0049",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x104a",
@@ -949,8 +938,7 @@
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_004B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x104c",
@@ -970,8 +958,7 @@
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_004D",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x104e",
@@ -991,7 +978,6 @@
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_004F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   }
 ]

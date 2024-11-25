@@ -2,19 +2,22 @@
   {
     "Index": "0x4000",
     "ReturnType": "void",
-    "Name": "EVT_FUNCTION_0000",
+    "Name": "CALL_EVENT",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "majorID",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "minorID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "EVT_FUNCTION_0000"
     ]
   },
   {
@@ -40,24 +43,21 @@
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_0002",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x4003",
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_0003",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x4004",
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_0004",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x4005",
@@ -100,8 +100,7 @@
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_0007",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x4008",
@@ -134,8 +133,7 @@
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_000A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x400b",
@@ -155,16 +153,14 @@
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_000C",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x400d",
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_000D",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x400e",
@@ -320,8 +316,7 @@
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_0016",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x4017",
@@ -372,8 +367,7 @@
     "ReturnType": "int",
     "Name": "EVT_FUNCTION_001A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x401b",
@@ -488,8 +482,7 @@
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_0021",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x4022",
@@ -540,8 +533,7 @@
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_0025",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x4026",
@@ -600,8 +592,7 @@
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_002A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x402b",
@@ -636,8 +627,7 @@
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_002C",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x402d",
@@ -667,8 +657,7 @@
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_002E",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x402f",
@@ -755,8 +744,7 @@
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_0034",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x4035",
@@ -776,8 +764,7 @@
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_0036",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x4037",
@@ -797,8 +784,7 @@
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_0038",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x4039",
@@ -818,8 +804,7 @@
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_003A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x403b",
@@ -916,8 +901,7 @@
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_0040",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x4041",
@@ -1075,8 +1059,7 @@
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_0048",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x4049",
@@ -1096,8 +1079,7 @@
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_004A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x404b",
@@ -1130,8 +1112,7 @@
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_004D",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x404e",
@@ -1151,16 +1132,14 @@
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_004F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x4050",
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_0050",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x4051",
@@ -1180,8 +1159,7 @@
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_0052",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x4053",
@@ -1201,8 +1179,7 @@
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_0054",
     "Description": "Code function name: cmpMisc_sub_455E18",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x4055",
@@ -1235,64 +1212,56 @@
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_0057",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x4058",
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_0058",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x4059",
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_0059",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x405a",
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_005A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x405b",
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_005B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x405c",
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_005C",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x405d",
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_005D",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x405e",
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_005E",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x405f",
@@ -1312,8 +1281,7 @@
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_0060",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x4061",
@@ -1366,8 +1334,7 @@
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_0063",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x4064",
@@ -1444,24 +1411,21 @@
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_0069",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x406a",
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_006A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x406b",
     "ReturnType": "void",
     "Name": "EVT_FUNCTION_006B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x406c",

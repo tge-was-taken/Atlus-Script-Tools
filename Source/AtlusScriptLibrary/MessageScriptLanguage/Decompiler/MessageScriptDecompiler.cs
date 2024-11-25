@@ -26,6 +26,10 @@ public sealed class MessageScriptDecompiler : IDisposable
         {
             headerWriter = new FileTextWriter(fileTextWriter.Path + ".h");
         }
+        if (headerWriter == null && writer is StringWriter stringWriter)
+        {
+            headerWriter = new StringWriter();
+        }
 
         mHeaderWriter = headerWriter;
     }
@@ -217,7 +221,12 @@ public sealed class MessageScriptDecompiler : IDisposable
 
     public void Decompile(StringToken token)
     {
-        mWriter.Write(token.Value);
+        var textWithEscapeChars = token.Value;
+        foreach(var sequence in MessageScriptLanguage.Compiler.MessageScriptCompiler.ESCAPE_SEQUENCES)
+        {
+            textWithEscapeChars = textWithEscapeChars.Replace(sequence.Value, sequence.Key);
+        }
+        mWriter.Write(token.Value.Replace("[", "\\[").Replace("]", "\\]"));
     }
 
     public void Decompile(CodePointToken token)

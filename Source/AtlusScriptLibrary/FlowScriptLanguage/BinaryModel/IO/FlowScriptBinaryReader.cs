@@ -17,6 +17,7 @@ public sealed class FlowScriptBinaryReader : IDisposable
     public FlowScriptBinaryReader(Stream stream, BinaryFormatVersion version, bool leaveOpen = false)
     {
         mPositionBase = stream.Position;
+        System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
         mReader = new EndianBinaryReader(stream, Encoding.GetEncoding(932), leaveOpen, version.HasFlag(BinaryFormatVersion.BigEndian) ? Endianness.BigEndian : Endianness.LittleEndian);
         mVersion = version;
     }

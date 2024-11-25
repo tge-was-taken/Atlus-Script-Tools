@@ -51,9 +51,12 @@
   {
     "Index": "0x5003",
     "ReturnType": "int",
-    "Name": "SCR_FUNCTION_0003",
-    "Description": "",
+    "Name": "GET_PARTY_SIZE",
+    "Description": "Gets current number of active party members.",
     "Parameters": [
+    ],
+    "Aliases": [
+      "SCR_FUNCTION_0003"
     ]
   },
   {
@@ -136,16 +139,14 @@
     "ReturnType": "int",
     "Name": "SCR_FUNCTION_0009",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x500a",
     "ReturnType": "int",
     "Name": "SCR_FUNCTION_000A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x500b",
@@ -320,14 +321,17 @@
   {
     "Index": "0x5015",
     "ReturnType": "int",
-    "Name": "SCR_FUNCTION_0015",
-    "Description": "",
+    "Name": "GET_PARTY_ID",
+    "Description": "Returns ID of party member in a given formation slot.",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "fSlot",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "SCR_FUNCTION_0015"
     ]
   },
   {
@@ -348,8 +352,7 @@
     "ReturnType": "void",
     "Name": "SCR_FUNCTION_0017",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x5018",
@@ -387,24 +390,21 @@
     "ReturnType": "void",
     "Name": "SCR_FUNCTION_001A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x501b",
     "ReturnType": "void",
     "Name": "SCR_FUNCTION_001B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x501c",
     "ReturnType": "void",
     "Name": "SCR_FUNCTION_001C",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x501d",
@@ -424,8 +424,7 @@
     "ReturnType": "void",
     "Name": "SCR_FUNCTION_001E",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x501f",
@@ -450,8 +449,7 @@
     "ReturnType": "int",
     "Name": "SCR_FUNCTION_0020",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x5021",
@@ -567,8 +565,7 @@
     "ReturnType": "void",
     "Name": "SCR_FUNCTION_0024",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x5025",
@@ -631,64 +628,56 @@
     "ReturnType": "void",
     "Name": "SCR_FUNCTION_0027",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x5028",
     "ReturnType": "void",
     "Name": "SCR_FUNCTION_0028",
     "Description": "Code function name: fiction_sub_389A8C",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x5029",
     "ReturnType": "void",
     "Name": "SCR_FUNCTION_0029",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x502a",
     "ReturnType": "void",
     "Name": "SCR_FUNCTION_002A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x502b",
     "ReturnType": "int",
     "Name": "SCR_FUNCTION_002B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x502c",
     "ReturnType": "void",
     "Name": "SCR_FUNCTION_002C",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x502d",
     "ReturnType": "void",
     "Name": "SCR_FUNCTION_002D",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x502e",
     "ReturnType": "void",
     "Name": "SCR_FUNCTION_002E",
     "Description": "Code function name: shdPhoto_sub_38B414",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x502f",
@@ -713,8 +702,7 @@
     "ReturnType": "void",
     "Name": "SCR_FUNCTION_0030",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x5031",
@@ -757,24 +745,21 @@
     "ReturnType": "void",
     "Name": "SCR_FUNCTION_0033",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x5034",
     "ReturnType": "void",
     "Name": "SCR_FUNCTION_0034",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x5035",
     "ReturnType": "void",
     "Name": "SCR_FUNCTION_0035",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x5036",
@@ -794,8 +779,7 @@
     "ReturnType": "void",
     "Name": "SCR_FUNCTION_0037",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x5038",
@@ -828,8 +812,7 @@
     "ReturnType": "int",
     "Name": "SCR_FUNCTION_003A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x503b",
@@ -862,8 +845,7 @@
     "ReturnType": "int",
     "Name": "SCR_FUNCTION_003D",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x503e",
@@ -1053,16 +1035,14 @@
     "ReturnType": "int",
     "Name": "SCR_FUNCTION_0049",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x504a",
     "ReturnType": "int",
     "Name": "SCR_FUNCTION_004A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x504b",
@@ -1136,8 +1116,7 @@
     "ReturnType": "int",
     "Name": "SCR_FUNCTION_004F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x5050",
@@ -1214,8 +1193,7 @@
     "ReturnType": "int",
     "Name": "SCR_FUNCTION_0055",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x5056",
@@ -1448,24 +1426,21 @@
     "ReturnType": "void",
     "Name": "SCR_FUNCTION_0062",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x5063",
     "ReturnType": "void",
     "Name": "SCR_FUNCTION_0063",
     "Description": "Code function name: edBg_sub_46AB14",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x5064",
     "ReturnType": "void",
     "Name": "SCR_FUNCTION_0064",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x5065",

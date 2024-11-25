@@ -212,6 +212,9 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FLD_FUNCTION_0012"
     ]
   },
   {
@@ -1400,7 +1403,10 @@
     "ReturnType": "void",
     "Name": "CALL_CALENDAR",
     "Description": "Address: 0x089365C4",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FLD_FUNCTION_006A"
+    ]
   },
   {
     "Index": "0x106b",
@@ -1427,7 +1433,9 @@
     "ReturnType": "void",
     "Name": "HD_FLD_FUNCTION_006D",
     "Description": "",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FLD_FUNCTION_006D"
     ]
   },
   {
@@ -1435,7 +1443,9 @@
     "ReturnType": "void",
     "Name": "HD_FLD_FUNCTION_006E",
     "Description": "",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FLD_FUNCTION_006E"
     ]
   },
   {
@@ -1443,7 +1453,9 @@
     "ReturnType": "int",
     "Name": "HD_FLD_FUNCTION_006F",
     "Description": "",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FLD_FUNCTION_006F"
     ]
   }
 ]
