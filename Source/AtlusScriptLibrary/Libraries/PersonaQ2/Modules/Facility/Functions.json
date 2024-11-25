@@ -4,24 +4,21 @@
     "ReturnType": "void",
     "Name": "FCL_FUNCTION_0000",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x6001",
     "ReturnType": "void",
     "Name": "FCL_FUNCTION_0001",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x6002",
     "ReturnType": "void",
     "Name": "FCL_FUNCTION_0002",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x6003",
@@ -41,32 +38,28 @@
     "ReturnType": "void",
     "Name": "FCL_FUNCTION_0004",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x6005",
     "ReturnType": "void",
     "Name": "FCL_FUNCTION_0005",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x6006",
     "ReturnType": "void",
     "Name": "FCL_FUNCTION_0006",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x6007",
     "ReturnType": "void",
     "Name": "FCL_FUNCTION_0007",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x6008",
@@ -99,16 +92,14 @@
     "ReturnType": "int",
     "Name": "FCL_FUNCTION_000A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x600b",
     "ReturnType": "void",
     "Name": "FCL_FUNCTION_000B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x600c",
@@ -141,8 +132,7 @@
     "ReturnType": "void",
     "Name": "FCL_FUNCTION_000E",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x600f",
@@ -175,16 +165,14 @@
     "ReturnType": "void",
     "Name": "FCL_FUNCTION_0011",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x6012",
     "ReturnType": "void",
     "Name": "FCL_FUNCTION_0012",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x6013",
@@ -204,16 +192,14 @@
     "ReturnType": "void",
     "Name": "FCL_FUNCTION_0014",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x6015",
     "ReturnType": "void",
     "Name": "FCL_FUNCTION_0015",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x6016",
@@ -233,15 +219,13 @@
     "ReturnType": "void",
     "Name": "FCL_FUNCTION_0017",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x6018",
     "ReturnType": "int",
     "Name": "FCL_FUNCTION_0018",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   }
 ]
