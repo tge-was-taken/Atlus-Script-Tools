@@ -12,7 +12,7 @@
     "ShortName": "wnd",
     "Description": "",
     "ConstantsPath": "",
-    "EnumsPath": "",
+    "EnumsPath": "PersonaQ2/Modules/Window/Enums.json",
     "FunctionsPath": "PersonaQ2/Modules/Window/Functions.json"
   },
   {
@@ -44,7 +44,7 @@
     "ShortName": "scr",
     "Description": "",
     "ConstantsPath": "",
-    "EnumsPath": "",
+    "EnumsPath": "PersonaQ2/Modules/Script/Enums.json",
     "FunctionsPath": "PersonaQ2/Modules/Script/Functions.json"
   },
   {

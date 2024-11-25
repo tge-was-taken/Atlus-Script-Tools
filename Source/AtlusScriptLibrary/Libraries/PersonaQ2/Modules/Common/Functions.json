@@ -4,8 +4,7 @@
     "ReturnType": "void",
     "Name": "FUNCTION_0000",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0001",
@@ -31,6 +30,9 @@
         "Name": "value",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0002"
     ]
   },
   {
@@ -44,6 +46,9 @@
         "Name": "str",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0003"
     ]
   },
   {
@@ -100,46 +105,57 @@
     "ReturnType": "void",
     "Name": "FUNCTION_0007",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0008",
     "ReturnType": "void",
-    "Name": "FUNCTION_0008",
+    "Name": "BIT_ON",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "bitID",
+        "Description": "",
+        "Semantic": "BitId"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0008"
     ]
   },
   {
     "Index": "0x0009",
     "ReturnType": "void",
-    "Name": "FUNCTION_0009",
+    "Name": "BIT_OFF",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "bitID",
+        "Description": "",
+        "Semantic": "BitId"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0009"
     ]
   },
   {
     "Index": "0x000a",
-    "ReturnType": "int",
-    "Name": "FUNCTION_000A",
+    "ReturnType": "bool",
+    "Name": "BIT_CHK",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "bitID",
+        "Description": "",
+        "Semantic": "BitId"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_000A"
     ]
   },
   {
@@ -214,20 +230,22 @@
     "ReturnType": "void",
     "Name": "FUNCTION_000F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0010",
     "ReturnType": "int",
-    "Name": "FUNCTION_0010",
+    "Name": "GET_COUNT",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "countID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0010"
     ]
   },
   {
@@ -271,8 +289,7 @@
     "ReturnType": "void",
     "Name": "FUNCTION_0013",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0014",
@@ -399,20 +416,22 @@
     "ReturnType": "void",
     "Name": "FUNCTION_0019",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x001a",
     "ReturnType": "int",
-    "Name": "FUNCTION_001A",
-    "Description": "",
+    "Name": "RND",
+    "Description": "Returns a random value between 0 and upperBound.",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "upperBound",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_001A"
     ]
   },
   {
@@ -446,8 +465,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_001D",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x001e",
@@ -485,16 +503,14 @@
     "ReturnType": "void",
     "Name": "FUNCTION_0020",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0021",
     "ReturnType": "int",
     "Name": "FUNCTION_0021",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0022",
@@ -574,6 +590,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0026"
     ]
   },
   {
@@ -587,6 +606,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0027"
     ]
   },
   {
@@ -638,8 +660,7 @@
     "ReturnType": "void",
     "Name": "FUNCTION_002B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x002c",
@@ -685,7 +706,6 @@
     "ReturnType": "void",
     "Name": "FUNCTION_002F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   }
 ]

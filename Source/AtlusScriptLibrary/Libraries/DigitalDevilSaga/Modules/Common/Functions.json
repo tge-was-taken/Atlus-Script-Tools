@@ -1,4 +1,4 @@
-﻿[
+[
   {
     "Index": "0x0000",
     "ReturnType": "int",
@@ -11,6 +11,9 @@
         "Description": "",
         "Semantic": "MsgId"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0000"
     ]
   },
   {
@@ -18,7 +21,9 @@
     "ReturnType": "int",
     "Name": "MSG_WND_DSP",
     "Description": "",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0001"
     ]
   },
   {
@@ -26,7 +31,9 @@
     "ReturnType": "int",
     "Name": "MSG_WND_CLS",
     "Description": "",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0002"
     ]
   },
   {
@@ -47,16 +54,14 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0004",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0005",
     "ReturnType": "int",
     "Name": "FUNCTION_0005",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0006",
@@ -83,6 +88,9 @@
         "Description": "",
         "Semantic": "BitId"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0007"
     ]
   },
   {
@@ -97,6 +105,9 @@
         "Description": "",
         "Semantic": "BitId"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0008"
     ]
   },
   {
@@ -111,6 +122,9 @@
         "Description": "",
         "Semantic": "BitId"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0009"
     ]
   },
   {
@@ -124,6 +138,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_000A"
     ]
   },
   {
@@ -157,8 +174,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_000D",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x000e",
@@ -485,8 +501,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_001D",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x001e",
@@ -519,8 +534,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0020",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0021",
@@ -558,8 +572,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0023",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0024",
@@ -579,24 +592,21 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0025",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0026",
     "ReturnType": "int",
     "Name": "FUNCTION_0026",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0027",
     "ReturnType": "int",
     "Name": "FUNCTION_0027",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0028",
@@ -621,8 +631,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0029",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x002a",
@@ -681,8 +690,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_002E",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x002f",
@@ -702,7 +710,9 @@
     "ReturnType": "int",
     "Name": "AI_ACT_ATTACK",
     "Description": "",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0030"
     ]
   },
   {
@@ -710,16 +720,14 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0031",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0032",
     "ReturnType": "int",
     "Name": "FUNCTION_0032",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0033",
@@ -732,6 +740,9 @@
         "Name": "skill",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0033"
     ]
   },
   {
@@ -739,7 +750,9 @@
     "ReturnType": "int",
     "Name": "AI_TAR_RND",
     "Description": "",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0034"
     ]
   },
   {
@@ -747,8 +760,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0035",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0036",
@@ -833,15 +845,16 @@
     "ReturnType": "int",
     "Name": "FUNCTION_003C",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x003d",
     "ReturnType": "int",
     "Name": "AI_ACT_WAIT",
     "Description": "",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_003D"
     ]
   },
   {
@@ -849,16 +862,14 @@
     "ReturnType": "int",
     "Name": "FUNCTION_003E",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x003f",
     "ReturnType": "int",
     "Name": "FUNCTION_003F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0040",
@@ -904,8 +915,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0043",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0044",
@@ -930,16 +940,14 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0045",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0046",
     "ReturnType": "int",
     "Name": "FUNCTION_0046",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0047",
@@ -1072,16 +1080,14 @@
     "ReturnType": "int",
     "Name": "FUNCTION_004E",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x004f",
     "ReturnType": "int",
     "Name": "FUNCTION_004F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0050",
@@ -1101,16 +1107,14 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0051",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0052",
     "ReturnType": "int",
     "Name": "FUNCTION_0052",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0053",
@@ -1238,24 +1242,21 @@
     "ReturnType": "int",
     "Name": "FUNCTION_005A",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x005b",
     "ReturnType": "int",
     "Name": "FUNCTION_005B",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x005c",
     "ReturnType": "int",
     "Name": "FUNCTION_005C",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x005d",
@@ -1311,40 +1312,35 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0060",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0061",
     "ReturnType": "int",
     "Name": "FUNCTION_0061",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0062",
     "ReturnType": "int",
     "Name": "FUNCTION_0062",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0063",
     "ReturnType": "int",
     "Name": "FUNCTION_0063",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0064",
     "ReturnType": "int",
     "Name": "FUNCTION_0064",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0065",
@@ -1390,8 +1386,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0068",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0069",
@@ -1473,16 +1468,14 @@
     "ReturnType": "int",
     "Name": "FUNCTION_006E",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x006f",
     "ReturnType": "int",
     "Name": "FUNCTION_006F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0070",
@@ -1599,8 +1592,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0075",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0076",
@@ -1738,6 +1730,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_007B"
     ]
   },
   {
@@ -1758,8 +1753,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_007D",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x007e",
@@ -1772,6 +1766,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_007E"
     ]
   },
   {
@@ -1876,6 +1873,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0086"
     ]
   },
   {
@@ -1889,6 +1889,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0087"
     ]
   },
   {
@@ -1896,8 +1899,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0088",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0089",
@@ -1973,8 +1975,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_008C",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x008d",
@@ -2048,16 +2049,14 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0091",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0092",
     "ReturnType": "int",
     "Name": "FUNCTION_0092",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0093",
@@ -2192,8 +2191,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0099",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x009a",
@@ -2365,8 +2363,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00A4",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00a5",
@@ -2479,8 +2476,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00AC",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00ad",
@@ -2916,16 +2912,14 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00BF",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00c0",
     "ReturnType": "int",
     "Name": "FUNCTION_00C0",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00c1",
@@ -3475,16 +3469,14 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00E0",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00e1",
     "ReturnType": "int",
     "Name": "FUNCTION_00E1",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00e2",
@@ -3502,6 +3494,9 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_00E2"
     ]
   },
   {
@@ -3522,24 +3517,21 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00E4",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00e5",
     "ReturnType": "int",
     "Name": "FUNCTION_00E5",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00e6",
     "ReturnType": "int",
     "Name": "FUNCTION_00E6",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00e7",
@@ -3848,16 +3840,14 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00F5",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00f6",
     "ReturnType": "int",
     "Name": "FUNCTION_00F6",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00f7",
@@ -3903,48 +3893,42 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00FA",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00fb",
     "ReturnType": "int",
     "Name": "FUNCTION_00FB",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00fc",
     "ReturnType": "int",
     "Name": "FUNCTION_00FC",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00fd",
     "ReturnType": "int",
     "Name": "FUNCTION_00FD",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00fe",
     "ReturnType": "int",
     "Name": "FUNCTION_00FE",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x00ff",
     "ReturnType": "int",
     "Name": "FUNCTION_00FF",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0100",
@@ -4439,16 +4423,14 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0115",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0116",
     "ReturnType": "int",
     "Name": "FUNCTION_0116",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0117",
@@ -4473,8 +4455,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0118",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0119",
@@ -4520,8 +4501,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_011C",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x011d",
@@ -4554,32 +4534,28 @@
     "ReturnType": "int",
     "Name": "FUNCTION_011F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0120",
     "ReturnType": "int",
     "Name": "FUNCTION_0120",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0121",
     "ReturnType": "int",
     "Name": "FUNCTION_0121",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0122",
     "ReturnType": "int",
     "Name": "FUNCTION_0122",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0123",
@@ -4612,16 +4588,14 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0125",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0126",
     "ReturnType": "int",
     "Name": "FUNCTION_0126",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0127",
@@ -4994,40 +4968,35 @@
     "ReturnType": "int",
     "Name": "FUNCTION_013D",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x013e",
     "ReturnType": "int",
     "Name": "FUNCTION_013E",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x013f",
     "ReturnType": "int",
     "Name": "FUNCTION_013F",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0140",
     "ReturnType": "int",
     "Name": "FUNCTION_0140",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0141",
     "ReturnType": "int",
     "Name": "FUNCTION_0141",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0142",
@@ -5185,8 +5154,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0149",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x014a",
@@ -5219,128 +5187,112 @@
     "ReturnType": "bool",
     "Name": "FUNCTION_014C",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x014d",
     "ReturnType": "int",
     "Name": "FUNCTION_014D",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x014e",
     "ReturnType": "int",
     "Name": "FUNCTION_014E",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x014f",
     "ReturnType": "int",
     "Name": "FUNCTION_014F",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0150",
     "ReturnType": "int",
     "Name": "FUNCTION_0150",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0151",
     "ReturnType": "int",
     "Name": "FUNCTION_0151",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0152",
     "ReturnType": "int",
     "Name": "FUNCTION_0152",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0153",
     "ReturnType": "int",
     "Name": "FUNCTION_0153",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0154",
     "ReturnType": "int",
     "Name": "FUNCTION_0154",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0155",
     "ReturnType": "int",
     "Name": "FUNCTION_0155",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0156",
     "ReturnType": "int",
     "Name": "FUNCTION_0156",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0157",
     "ReturnType": "int",
     "Name": "FUNCTION_0157",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0158",
     "ReturnType": "int",
     "Name": "FUNCTION_0158",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0159",
     "ReturnType": "int",
     "Name": "FUNCTION_0159",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x015a",
     "ReturnType": "int",
     "Name": "FUNCTION_015A",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x015b",
     "ReturnType": "int",
     "Name": "FUNCTION_015B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x015c",
@@ -5360,16 +5312,14 @@
     "ReturnType": "int",
     "Name": "FUNCTION_015D",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x015e",
     "ReturnType": "int",
     "Name": "FUNCTION_015E",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x015f",
@@ -5417,32 +5367,28 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0161",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0162",
     "ReturnType": "int",
     "Name": "FUNCTION_0162",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0163",
     "ReturnType": "int",
     "Name": "FUNCTION_0163",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0164",
     "ReturnType": "int",
     "Name": "FUNCTION_0164",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0165",
@@ -5531,8 +5477,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0169",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x016a",
@@ -5552,8 +5497,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_016B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x016c",
@@ -5573,16 +5517,14 @@
     "ReturnType": "int",
     "Name": "FUNCTION_016D",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x016e",
     "ReturnType": "int",
     "Name": "FUNCTION_016E",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x016f",
@@ -5615,72 +5557,63 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0171",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0172",
     "ReturnType": "int",
     "Name": "FUNCTION_0172",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0173",
     "ReturnType": "int",
     "Name": "FUNCTION_0173",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0174",
     "ReturnType": "int",
     "Name": "FUNCTION_0174",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0175",
     "ReturnType": "int",
     "Name": "FUNCTION_0175",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0176",
     "ReturnType": "int",
     "Name": "FUNCTION_0176",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0177",
     "ReturnType": "int",
     "Name": "FUNCTION_0177",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0178",
     "ReturnType": "int",
     "Name": "FUNCTION_0178",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0179",
     "ReturnType": "int",
     "Name": "FUNCTION_0179",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x017a",
@@ -5700,16 +5633,14 @@
     "ReturnType": "int",
     "Name": "FUNCTION_017B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x017c",
     "ReturnType": "int",
     "Name": "FUNCTION_017C",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x017d",
@@ -5747,48 +5678,42 @@
     "ReturnType": "int",
     "Name": "FUNCTION_017F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0180",
     "ReturnType": "int",
     "Name": "FUNCTION_0180",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0181",
     "ReturnType": "int",
     "Name": "FUNCTION_0181",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0182",
     "ReturnType": "int",
     "Name": "FUNCTION_0182",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0183",
     "ReturnType": "int",
     "Name": "FUNCTION_0183",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0184",
     "ReturnType": "int",
     "Name": "FUNCTION_0184",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0185",
@@ -5818,72 +5743,63 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0186",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0187",
     "ReturnType": "int",
     "Name": "FUNCTION_0187",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0188",
     "ReturnType": "int",
     "Name": "FUNCTION_0188",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0189",
     "ReturnType": "int",
     "Name": "FUNCTION_0189",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x018a",
     "ReturnType": "int",
     "Name": "FUNCTION_018A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x018b",
     "ReturnType": "int",
     "Name": "FUNCTION_018B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x018c",
     "ReturnType": "int",
     "Name": "FUNCTION_018C",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x018d",
     "ReturnType": "int",
     "Name": "FUNCTION_018D",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x018e",
     "ReturnType": "int",
     "Name": "FUNCTION_018E",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x018f",
@@ -5978,16 +5894,14 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0195",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0196",
     "ReturnType": "int",
     "Name": "FUNCTION_0196",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0197",
@@ -6035,8 +5949,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0199",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x019a",
@@ -6101,6 +6014,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_019E"
     ]
   },
   {
@@ -6121,8 +6037,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01A0",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01a1",
@@ -6157,40 +6072,35 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01A2",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01a3",
     "ReturnType": "int",
     "Name": "FUNCTION_01A3",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01a4",
     "ReturnType": "int",
     "Name": "FUNCTION_01A4",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01a5",
     "ReturnType": "int",
     "Name": "FUNCTION_01A5",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01a6",
     "ReturnType": "int",
     "Name": "FUNCTION_01A6",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01a7",
@@ -6288,32 +6198,28 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01AE",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01af",
     "ReturnType": "int",
     "Name": "FUNCTION_01AF",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01b0",
     "ReturnType": "int",
     "Name": "FUNCTION_01B0",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01b1",
     "ReturnType": "int",
     "Name": "FUNCTION_01B1",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01b2",
@@ -6343,8 +6249,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01B3",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01b4",
@@ -6374,24 +6279,21 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01B5",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01b6",
     "ReturnType": "int",
     "Name": "FUNCTION_01B6",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01b7",
     "ReturnType": "int",
     "Name": "FUNCTION_01B7",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01b8",
@@ -6450,80 +6352,70 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01BC",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01bd",
     "ReturnType": "int",
     "Name": "FUNCTION_01BD",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01be",
     "ReturnType": "int",
     "Name": "FUNCTION_01BE",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01bf",
     "ReturnType": "int",
     "Name": "FUNCTION_01BF",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01c0",
     "ReturnType": "int",
     "Name": "FUNCTION_01C0",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01c1",
     "ReturnType": "int",
     "Name": "FUNCTION_01C1",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01c2",
     "ReturnType": "int",
     "Name": "FUNCTION_01C2",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01c3",
     "ReturnType": "int",
     "Name": "FUNCTION_01C3",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01c4",
     "ReturnType": "int",
     "Name": "FUNCTION_01C4",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01c5",
     "ReturnType": "int",
     "Name": "FUNCTION_01C5",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01c6",
@@ -6595,8 +6487,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01CB",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01cc",
@@ -6616,8 +6507,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01CD",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01ce",
@@ -6637,24 +6527,21 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01CF",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01d0",
     "ReturnType": "int",
     "Name": "FUNCTION_01D0",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01d1",
     "ReturnType": "int",
     "Name": "FUNCTION_01D1",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01d2",
@@ -6687,8 +6574,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01D4",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01d5",
@@ -6799,64 +6685,56 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01D8",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01d9",
     "ReturnType": "int",
     "Name": "FUNCTION_01D9",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01da",
     "ReturnType": "int",
     "Name": "FUNCTION_01DA",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01db",
     "ReturnType": "int",
     "Name": "FUNCTION_01DB",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01dc",
     "ReturnType": "int",
     "Name": "FUNCTION_01DC",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01dd",
     "ReturnType": "int",
     "Name": "FUNCTION_01DD",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01de",
     "ReturnType": "int",
     "Name": "FUNCTION_01DE",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01df",
     "ReturnType": "int",
     "Name": "FUNCTION_01DF",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01e0",
@@ -6925,8 +6803,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01E4",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01e5",
@@ -6956,80 +6833,70 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01E6",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01e7",
     "ReturnType": "int",
     "Name": "FUNCTION_01E7",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01e8",
     "ReturnType": "int",
     "Name": "FUNCTION_01E8",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01e9",
     "ReturnType": "int",
     "Name": "FUNCTION_01E9",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01ea",
     "ReturnType": "int",
     "Name": "FUNCTION_01EA",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01eb",
     "ReturnType": "int",
     "Name": "FUNCTION_01EB",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01ec",
     "ReturnType": "int",
     "Name": "FUNCTION_01EC",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01ed",
     "ReturnType": "int",
     "Name": "FUNCTION_01ED",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01ee",
     "ReturnType": "int",
     "Name": "FUNCTION_01EE",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01ef",
     "ReturnType": "int",
     "Name": "FUNCTION_01EF",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01f0",
@@ -7067,8 +6934,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01F2",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01f3",
@@ -7170,16 +7036,14 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01F8",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01f9",
     "ReturnType": "int",
     "Name": "FUNCTION_01F9",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01fa",
@@ -7212,24 +7076,21 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01FC",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01fd",
     "ReturnType": "int",
     "Name": "FUNCTION_01FD",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01fe",
     "ReturnType": "int",
     "Name": "FUNCTION_01FE",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x01ff",
@@ -7275,24 +7136,21 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0202",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0203",
     "ReturnType": "int",
     "Name": "FUNCTION_0203",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0204",
     "ReturnType": "int",
     "Name": "FUNCTION_0204",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0205",
@@ -7335,8 +7193,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0207",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0208",
@@ -7374,16 +7231,14 @@
     "ReturnType": "int",
     "Name": "FUNCTION_020A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x020b",
     "ReturnType": "int",
     "Name": "FUNCTION_020B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x020c",
@@ -7403,16 +7258,14 @@
     "ReturnType": "int",
     "Name": "FUNCTION_020D",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x020e",
     "ReturnType": "int",
     "Name": "FUNCTION_020E",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x020f",
@@ -7458,16 +7311,14 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0212",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0213",
     "ReturnType": "int",
     "Name": "FUNCTION_0213",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0214",
@@ -7500,8 +7351,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0216",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0217",
@@ -7521,24 +7371,21 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0218",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0219",
     "ReturnType": "int",
     "Name": "FUNCTION_0219",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x021a",
     "ReturnType": "int",
     "Name": "FUNCTION_021A",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x021b",
@@ -7597,7 +7444,6 @@
     "ReturnType": "int",
     "Name": "FUNCTION_021F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   }
 ]

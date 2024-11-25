@@ -22,6 +22,11 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler;
 /// </summary>
 public class MessageScriptCompiler
 {
+    public static readonly Dictionary<string, string> ESCAPE_SEQUENCES = new Dictionary<string, string>(){
+        { "\\[", "[" },
+        { "\\]", "]" }
+    };
+
     private readonly Logger mLogger;
     private readonly FormatVersion mVersion;
     private readonly HashSet<int> mImportedFileHashSet;
@@ -659,7 +664,13 @@ public class MessageScriptCompiler
                     if (textWithoutNewlines.Length == 0)
                         continue; // filter out standalone newlines
 
-                    lineToken = new StringToken(textWithoutNewlines);
+                    var textWithoutEscapeChars = textWithoutNewlines;
+                    foreach(var sequence in ESCAPE_SEQUENCES)
+                    {
+                        textWithoutEscapeChars = textWithoutEscapeChars.Replace(sequence.Key, sequence.Value);
+                    }
+
+                    lineToken = new StringToken(textWithoutEscapeChars);
                 }
                 else
                 {

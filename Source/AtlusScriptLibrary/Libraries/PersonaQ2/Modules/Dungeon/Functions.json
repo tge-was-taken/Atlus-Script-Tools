@@ -4,16 +4,14 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0000",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1001",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0001",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1002",
@@ -77,8 +75,7 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0006",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1007",
@@ -154,16 +151,14 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_000A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x100b",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_000B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x100c",
@@ -188,96 +183,84 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_000D",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x100e",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_000E",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x100f",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_000F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1010",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0010",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1011",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0011",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1012",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0012",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1013",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0013",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1014",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0014",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1015",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0015",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1016",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0016",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1017",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0017",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1018",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0018",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1019",
@@ -338,16 +321,14 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_001C",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x101d",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_001D",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x101e",
@@ -429,8 +410,7 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0023",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1024",
@@ -503,16 +483,14 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0026",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1027",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0027",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1028",
@@ -545,24 +523,21 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_002A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x102b",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_002B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x102c",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_002C",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x102d",
@@ -592,8 +567,7 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_002E",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x102f",
@@ -628,8 +602,7 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0030",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1031",
@@ -672,16 +645,14 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0033",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1034",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0034",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1035",
@@ -714,32 +685,28 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0037",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1038",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0038",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1039",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0039",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x103a",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_003A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x103b",
@@ -772,24 +739,21 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_003D",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x103e",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_003E",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x103f",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_003F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1040",
@@ -923,40 +887,35 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0044",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1045",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0045",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1046",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0046",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1047",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0047",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1048",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0048",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1049",
@@ -1001,16 +960,14 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_004A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x104b",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_004B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x104c",
@@ -1035,8 +992,7 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_004D",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x104e",
@@ -1071,24 +1027,21 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_004F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1050",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0050",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1051",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0051",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1052",
@@ -1164,8 +1117,7 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0055",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1056",
@@ -1236,8 +1188,7 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0059",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x105a",
@@ -1362,8 +1313,7 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0060",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1061",
@@ -1388,24 +1338,21 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0062",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1063",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0063",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1064",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0064",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1065",
@@ -1425,40 +1372,35 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0066",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1067",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0067",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1068",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0068",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1069",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0069",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x106a",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_006A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x106b",
@@ -1483,16 +1425,14 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_006C",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x106d",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_006D",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x106e",
@@ -1551,8 +1491,7 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0072",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1073",
@@ -1680,24 +1619,21 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_007A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x107b",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_007B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x107c",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_007C",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x107d",
@@ -1727,32 +1663,28 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_007E",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x107f",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_007F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1080",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0080",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1081",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0081",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1082",
@@ -1828,16 +1760,14 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0085",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1086",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0086",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1087",
@@ -1890,8 +1820,7 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0089",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x108a",
@@ -1924,8 +1853,7 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_008C",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x108d",
@@ -1963,8 +1891,7 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_008F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1090",
@@ -1994,8 +1921,7 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0091",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1092",
@@ -2025,40 +1951,35 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0093",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1094",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0094",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1095",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0095",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1096",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0096",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1097",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0097",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1098",
@@ -2428,24 +2349,21 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_00AD",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x10ae",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_00AE",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x10af",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_00AF",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x10b0",
@@ -2557,40 +2475,35 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_00B5",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x10b6",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_00B6",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x10b7",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_00B7",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x10b8",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_00B8",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x10b9",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_00B9",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x10ba",
@@ -2682,8 +2595,7 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_00BF",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x10c0",
@@ -2729,8 +2641,7 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_00C3",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x10c4",
@@ -2750,16 +2661,14 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_00C5",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x10c6",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_00C6",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x10c7",
@@ -2802,16 +2711,14 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_00C9",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x10ca",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_00CA",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x10cb",
@@ -3017,8 +2924,7 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_00D3",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x10d4",
@@ -3122,8 +3028,7 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_00D8",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x10d9",
@@ -3174,8 +3079,7 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_00DC",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x10dd",
@@ -3195,16 +3099,14 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_00DE",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x10df",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_00DF",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x10e0",
@@ -3247,8 +3149,7 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_00E2",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x10e3",
@@ -3278,8 +3179,7 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_00E4",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x10e5",
@@ -3363,8 +3263,7 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_00E9",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x10ea",
@@ -3384,16 +3283,14 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_00EB",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x10ec",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_00EC",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x10ed",
@@ -3423,8 +3320,7 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_00EE",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x10ef",
@@ -3539,16 +3435,14 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_00F5",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x10f6",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_00F6",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x10f7",
@@ -3607,16 +3501,14 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_00FB",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x10fc",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_00FC",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x10fd",
@@ -3636,40 +3528,35 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_00FE",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x10ff",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_00FF",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1100",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0100",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1101",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0101",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1102",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0102",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1103",
@@ -3737,8 +3624,7 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0105",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1106",
@@ -3758,8 +3644,7 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0107",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1108",
@@ -3815,8 +3700,7 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_010B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x110c",
@@ -3874,8 +3758,7 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_010E",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x110f",
@@ -4049,8 +3932,7 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0118",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1119",
@@ -4103,8 +3985,7 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_011B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x111c",
@@ -4177,56 +4058,49 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_011E",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x111f",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_011F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1120",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0120",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1121",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0121",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1122",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0122",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1123",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0123",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1124",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0124",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1125",
@@ -4272,64 +4146,56 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0128",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1129",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0129",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x112a",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_012A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x112b",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_012B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x112c",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_012C",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x112d",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_012D",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x112e",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_012E",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x112f",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_012F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1130",
@@ -4349,8 +4215,7 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0131",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1132",
@@ -4383,8 +4248,7 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0134",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1135",
@@ -4409,32 +4273,28 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0136",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1137",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0137",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1138",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0138",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1139",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0139",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x113a",
@@ -4454,16 +4314,14 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_013B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x113c",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_013C",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x113d",
@@ -4483,24 +4341,21 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_013E",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x113f",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_013F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1140",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0140",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1141",
@@ -4525,24 +4380,21 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0142",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1143",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0143",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1144",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0144",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1145",
@@ -4562,8 +4414,7 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0146",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1147",
@@ -4588,16 +4439,14 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0148",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1149",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0149",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x114a",
@@ -4650,8 +4499,7 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_014C",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x114d",
@@ -4671,24 +4519,21 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_014E",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x114f",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_014F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1150",
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_0150",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1151",
@@ -4708,24 +4553,21 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0152",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1153",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0153",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1154",
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0154",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1155",
@@ -4809,8 +4651,7 @@
     "ReturnType": "void",
     "Name": "DNG_FUNCTION_0159",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x115a",
@@ -4843,8 +4684,7 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_015C",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x115d",
@@ -4877,8 +4717,7 @@
     "ReturnType": "int",
     "Name": "DNG_FUNCTION_015F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1160",

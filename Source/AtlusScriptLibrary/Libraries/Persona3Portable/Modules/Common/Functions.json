@@ -11,6 +11,9 @@
         "Description": "",
         "Semantic": "MsgId"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0000"
     ]
   },
   {
@@ -18,14 +21,20 @@
     "ReturnType": "void",
     "Name": "MSG_WND_DSP",
     "Description": "Address: 0x08985078",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0001"
+    ]
   },
   {
     "Index": "0x0002",
     "ReturnType": "void",
     "Name": "MSG_WND_CLS",
     "Description": "Address: 0x08985470",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0002"
+    ]
   },
   {
     "Index": "0x0003",
@@ -39,6 +48,9 @@
         "Description": "",
         "Semantic": "SelId"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0003"
     ]
   },
   {
@@ -46,14 +58,20 @@
     "ReturnType": "void",
     "Name": "SEL_WND_DSP",
     "Description": "Null pointer",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0004"
+    ]
   },
   {
     "Index": "0x0005",
     "ReturnType": "void",
     "Name": "SEL_WND_CLS",
     "Description": "Null pointer",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0005"
+    ]
   },
   {
     "Index": "0x0006",
@@ -80,6 +98,9 @@
         "Description": "",
         "Semantic": "BitId"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0007"
     ]
   },
   {
@@ -94,6 +115,9 @@
         "Description": "",
         "Semantic": "BitId"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0008"
     ]
   },
   {
@@ -108,6 +132,9 @@
         "Description": "",
         "Semantic": "BitId"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0009"
     ]
   },
   {
@@ -121,6 +148,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_000A"
     ]
   },
   {
@@ -141,6 +171,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_000C"
     ]
   },
   {
@@ -172,6 +205,9 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_000E"
     ]
   },
   {
@@ -441,6 +477,9 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_001D"
     ]
   },
   {
@@ -504,6 +543,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0022"
     ]
   },
   {
@@ -517,6 +559,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0023"
     ]
   },
   {
@@ -679,6 +724,9 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_002C"
     ]
   },
   {
@@ -705,6 +753,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_002E"
     ]
   },
   {
@@ -723,6 +774,9 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_002F"
     ]
   },
   {
@@ -769,6 +823,9 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0034"
     ]
   },
   {
@@ -797,6 +854,9 @@
         "Name": "param4",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0035"
     ]
   },
   {
@@ -930,6 +990,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0040"
     ]
   },
   {
@@ -943,6 +1006,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0041"
     ]
   },
   {
@@ -1186,6 +1252,9 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0056"
     ]
   },
   {
@@ -1379,6 +1448,9 @@
         "Name": "param7",
         "Description": "Unknown type; assumed int"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0064"
     ]
   },
   {
@@ -1392,6 +1464,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0065"
     ]
   },
   {
@@ -1423,6 +1498,9 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0067"
     ]
   },
   {
@@ -1430,7 +1508,9 @@
     "ReturnType": "int",
     "Name": "HD_FUNCTION_0068",
     "Description": "",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0068"
     ]
   }
 ]

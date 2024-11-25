@@ -1,3 +1,188 @@
 [
-
+  {
+    "Index": 0,
+    "Name": "",
+    "Description": "",
+    "Functions": [
+      {
+        "Index": 0,
+        "Name": "clr",
+        "Description": "",
+        "Parameters": [
+          {
+            "Name": "color"
+          }
+        ]
+      },
+      {
+        "Index": 5,
+        "Semantic": "Unused"
+      }
+    ]
+  },
+  {
+    "Index": 1,
+    "Name": "",
+    "Description": "",
+    "Functions": [
+      {
+        "Index": 1,
+        "Name": "w",
+        "Description": "Waits for button press.",
+        "Parameters": []
+      },
+      {
+        "Index": 3,
+        "Description": "",
+        "Parameters": [
+          {
+            "Name": "unknown"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Index": 2,
+    "Name": "",
+    "Description": "",
+    "Functions": [
+      {
+        "Index": 1,
+        "Name": "s",
+        "Description": "Indicates the start of a line",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 7,
+        "Name": "unknown",
+        "Description": "",
+        "Parameters": [
+          {
+            "Name": "unknown",
+            "Description": ""
+          },
+          {
+            "Name": "modelID",
+            "Description": ""
+          },
+          {
+            "Name": "unknown",
+            "Description": ""
+          },
+          {
+            "Name": "unknown",
+            "Description": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Index": 3,
+    "Name": "",
+    "Description": "",
+    "Functions": [
+      {
+        "Index": 1,
+        "Name": "vp",
+        "Description": "Plays a voice sound cue.",
+        "Parameters": [
+          {
+            "Name": "unknown",
+            "Description": "unknown"
+          },
+          {
+            "Name": "unknown",
+            "Description": "unknown"
+          },
+          {
+            "Name": "unknown",
+            "Description": "unknown"
+          },
+          {
+            "Name": "cueID",
+            "Description": "Cue ID of the voiceline."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Index": 4,
+    "Name": "",
+    "Description": "",
+    "Functions": [
+      {
+        "Index": 6,
+        "Name": "bup",
+        "Description": "Displays a bustup.",
+        "Parameters": [
+          {
+            "Name": "modelID",
+            "Description": ""
+          },
+          {
+            "Name": "animID",
+            "Description": ""
+          },
+          {
+            "Name": "unknown",
+            "Description": ""
+          },
+          {
+            "Name": "location",
+            "Description": "Determines model's location on screen."
+          }
+        ]
+      },
+      {
+        "Index": 7,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+          {
+            "Name": "unknown1"
+          },
+          {
+            "Name": "unknown2"
+          },
+          {
+            "Name": "unknown3"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Index": 6,
+    "Name": "",
+    "Description": "",
+    "Functions": [
+      {
+        "Index": 1,
+        "Name": "name",
+        "Description": "Displays a protagonist name.",
+        "Parameters": [
+          {
+            "Name": "id",
+            "Description": "Designates which PC name to call and whether to call first, last, or full name."
+          },
+          {
+            "Name": "unknown",
+            "Description": ""
+          },
+          {
+            "Name": "unknown",
+            "Description": ""
+          },
+          {
+            "Name": "unknown",
+            "Description": ""
+          }
+        ]
+      }
+    ]
+  }
 ]

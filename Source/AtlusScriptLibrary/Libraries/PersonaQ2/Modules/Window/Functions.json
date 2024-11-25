@@ -2,30 +2,39 @@
   {
     "Index": "0x2000",
     "ReturnType": "void",
-    "Name": "WND_FUNCTION_0000",
+    "Name": "MSG_SIMPLE",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "msgID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "WND_FUNCTION_0000"
     ]
   },
   {
     "Index": "0x2001",
     "ReturnType": "void",
-    "Name": "WND_FUNCTION_0001",
+    "Name": "MSG_WND_DSP",
     "Description": "",
     "Parameters": [
+    ],
+    "Aliases": [
+      "WND_FUNCTION_0001"
     ]
   },
   {
     "Index": "0x2002",
     "ReturnType": "void",
-    "Name": "WND_FUNCTION_0002",
+    "Name": "MSG_WND_CLS",
     "Description": "",
     "Parameters": [
+    ],
+    "Aliases": [
+      "WND_FUNCTION_0002"
     ]
   },
   {
@@ -46,21 +55,19 @@
     "ReturnType": "void",
     "Name": "WND_FUNCTION_0004",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x2005",
     "ReturnType": "void",
     "Name": "WND_FUNCTION_0005",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x2006",
     "ReturnType": "void",
-    "Name": "WND_FUNCTION_0006",
+    "Name": "SET_MSG_VAR",
     "Description": "",
     "Parameters": [
       {
@@ -78,12 +85,15 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "WND_FUNCTION_0006"
     ]
   },
   {
     "Index": "0x2007",
     "ReturnType": "void",
-    "Name": "WND_FUNCTION_0007",
+    "Name": "SEL_DEFKEY",
     "Description": "",
     "Parameters": [
       {
@@ -96,6 +106,9 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "WND_FUNCTION_0007"
     ]
   },
   {
@@ -114,7 +127,7 @@
   {
     "Index": "0x2009",
     "ReturnType": "void",
-    "Name": "WND_FUNCTION_0009",
+    "Name": "MSG_INFO",
     "Description": "",
     "Parameters": [
       {
@@ -122,6 +135,10 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "WND_FUNCTION_0009",
+      "MSG_INFORMATION"
     ]
   },
   {
@@ -150,32 +167,41 @@
   {
     "Index": "0x200b",
     "ReturnType": "void",
-    "Name": "WND_FUNCTION_000B",
+    "Name": "MSG",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "msgID",
+        "Description": "",
+        "Semantic": "MsgId"
       }
+    ],
+    "Aliases": [
+      "WND_FUNCTION_000B"
     ]
   },
   {
     "Index": "0x200c",
     "ReturnType": "int",
-    "Name": "WND_FUNCTION_000C",
-    "Description": "",
+    "Name": "MSG_SEL",
+    "Description": "Displays a msg followed by a selection dialog.",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "msgID",
+        "Description": "The label of the message preceding the selection.",
+        "Semantic": "MsgId"
       },
       {
         "Type": "int",
-        "Name": "param2",
-        "Description": ""
+        "Name": "selID",
+        "Description": "The label of the selection dialogue.",
+        "Semantic": "SelId"
       }
+    ],
+    "Aliases": [
+      "WND_FUNCTION_000C"
     ]
   },
   {
@@ -183,8 +209,7 @@
     "ReturnType": "void",
     "Name": "WND_FUNCTION_000D",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x200e",
@@ -248,14 +273,17 @@
   {
     "Index": "0x2011",
     "ReturnType": "void",
-    "Name": "WND_FUNCTION_0011",
+    "Name": "MSG_CAPTION",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "msgID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "WND_FUNCTION_0011"
     ]
   },
   {
@@ -276,20 +304,23 @@
     "ReturnType": "void",
     "Name": "WND_FUNCTION_0013",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x2014",
     "ReturnType": "void",
-    "Name": "WND_FUNCTION_0014",
+    "Name": "SEL",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": "Unknown type; assumed int"
+        "Name": "selID",
+        "Description": "",
+        "Semantic": "SelId"
       }
+    ],
+    "Aliases": [
+      "WND_FUNCTION_0014"
     ]
   },
   {
@@ -328,7 +359,7 @@
   {
     "Index": "0x2016",
     "ReturnType": "void",
-    "Name": "WND_FUNCTION_0016",
+    "Name": "MSG_TUTORIAL",
     "Description": "",
     "Parameters": [
       {
@@ -341,12 +372,15 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "WND_FUNCTION_0016"
     ]
   },
   {
     "Index": "0x2017",
     "ReturnType": "void",
-    "Name": "WND_FUNCTION_0017",
+    "Name": "MSG_INFO2",
     "Description": "",
     "Parameters": [
       {
@@ -354,12 +388,16 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "WND_FUNCTION_0017",
+      "MSG_INFORMATION2"
     ]
   },
   {
     "Index": "0x2018",
     "ReturnType": "void",
-    "Name": "WND_FUNCTION_0018",
+    "Name": "MSG_OBTAINED",
     "Description": "",
     "Parameters": [
       {
@@ -372,6 +410,9 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "WND_FUNCTION_0018"
     ]
   },
   {
@@ -379,13 +420,12 @@
     "ReturnType": "void",
     "Name": "WND_FUNCTION_0019",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x201a",
     "ReturnType": "void",
-    "Name": "WND_FUNCTION_001A",
+    "Name": "MSG_NEWMEMBER",
     "Description": "",
     "Parameters": [
       {
@@ -393,32 +433,44 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "WND_FUNCTION_001A"
     ]
   },
   {
     "Index": "0x201b",
     "ReturnType": "void",
-    "Name": "WND_FUNCTION_001B",
+    "Name": "MSG_PartyIntro",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "partyID",
+        "Description": "",
+        "Semantic": ""
       }
+    ],
+    "Aliases": [
+      "WND_FUNCTION_001B",
+      "MSG_INTRODUCTION"
     ]
   },
   {
     "Index": "0x201c",
     "ReturnType": "void",
-    "Name": "WND_FUNCTION_001C",
-    "Description": "",
+    "Name": "MSG_MIND",
+    "Description": "Displays text as a thought bubble.",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "msgID",
+        "Description": "The label of the message to be displayed.",
+        "Semantic": "MsgId"
       }
+    ],
+    "Aliases": [
+      "WND_FUNCTION_001C"
     ]
   },
   {
@@ -442,7 +494,7 @@
   {
     "Index": "0x201e",
     "ReturnType": "void",
-    "Name": "WND_FUNCTION_001E",
+    "Name": "MSG_EX",
     "Description": "",
     "Parameters": [
       {
@@ -460,12 +512,15 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "WND_FUNCTION_001E"
     ]
   },
   {
     "Index": "0x201f",
     "ReturnType": "void",
-    "Name": "WND_FUNCTION_001F",
+    "Name": "MSG_MIND_EX",
     "Description": "",
     "Parameters": [
       {
@@ -483,12 +538,15 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "WND_FUNCTION_001F"
     ]
   },
   {
     "Index": "0x2020",
     "ReturnType": "void",
-    "Name": "WND_FUNCTION_0020",
+    "Name": "MSG_MISSION",
     "Description": "",
     "Parameters": [
       {
@@ -521,19 +579,25 @@
         "Name": "param6",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "WND_FUNCTION_0020"
     ]
   },
   {
     "Index": "0x2021",
     "ReturnType": "void",
-    "Name": "WND_FUNCTION_0021",
+    "Name": "MSG_SIMPLE_TUTORIAL",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "msgID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "WND_FUNCTION_0021"
     ]
   },
   {
@@ -559,8 +623,7 @@
     "ReturnType": "void",
     "Name": "WND_FUNCTION_0023",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x2024",
