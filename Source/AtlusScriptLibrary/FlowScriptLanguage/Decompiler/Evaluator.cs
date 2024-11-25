@@ -856,7 +856,7 @@ public class Evaluator
                         return false;
                     }
 
-                    PushExpression(new AssignmentOperator(declaration.Identifier, value));
+                    PushStatement(new AssignmentOperator(declaration.Identifier, value));
                     --mRealStackCount;
                 }
                 break;
@@ -882,7 +882,7 @@ public class Evaluator
                         return false;
                     }
 
-                    PushExpression(new AssignmentOperator(declaration.Identifier, value));
+                    PushStatement(new AssignmentOperator(declaration.Identifier, value));
                     --mRealStackCount;
                 }
                 break;
@@ -941,7 +941,7 @@ public class Evaluator
                     if (!mInstructions.GetRange(mEvaluatedInstructionIndex, nextCommIndex - mEvaluatedInstructionIndex).Any(x => x.Opcode == Opcode.PUSHREG))
                     {
                         // If PUSHREG doesn't come before another COMM then the return value is unused
-                        PushExpression(callOperator);
+                        PushStatement(callOperator);
                     }
 
                     // Otherwise let PUSHREG push the call operator
@@ -1014,7 +1014,7 @@ public class Evaluator
                             arguments);
                     }
 
-                    PushExpression(callOperator);
+                    PushStatement(callOperator);
                     mLastProcedureCall = callOperator;
                 }
                 break;
@@ -1023,7 +1023,7 @@ public class Evaluator
                 {
                     // Todo:
                     LogError("Todo: RUN");
-                    PushExpression(new CallOperator(new Identifier("__RUN")));
+                    PushStatement(new CallOperator(new Identifier("__RUN")));
                 }
                 break;
 
@@ -1237,7 +1237,7 @@ public class Evaluator
                         return false;
                     }
 
-                    PushExpression(new AssignmentOperator(declaration.Identifier, value));
+                    PushStatement(new AssignmentOperator(declaration.Identifier, value));
                     --mRealStackCount;
                 }
                 break;
@@ -1261,7 +1261,7 @@ public class Evaluator
                         return false;
                     }
 
-                    PushExpression(new AssignmentOperator(declaration.Identifier, value));
+                    PushStatement(new AssignmentOperator(declaration.Identifier, value));
                     --mRealStackCount;
                 }
                 break;
