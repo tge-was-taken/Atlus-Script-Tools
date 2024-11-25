@@ -25,6 +25,9 @@
         "Name": "param4",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "EVT_FUNCTION_0000"
     ]
   },
   {
@@ -85,6 +88,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "EVT_FUNCTION_0006"
     ]
   },
   {
@@ -545,6 +551,9 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "EVT_FUNCTION_002B"
     ]
   },
   {
@@ -1169,14 +1178,20 @@
     "ReturnType": "int",
     "Name": "FLD_GET_MAJOR",
     "Description": "Address: 0x08994F64",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "EVT_FUNCTION_0057"
+    ]
   },
   {
     "Index": "0x3058",
     "ReturnType": "int",
     "Name": "FLD_GET_MINOR",
     "Description": "Address: 0x08994FB0",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "EVT_FUNCTION_0058"
+    ]
   },
   {
     "Index": "0x3059",

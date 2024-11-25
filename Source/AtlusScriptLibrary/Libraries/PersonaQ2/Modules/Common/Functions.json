@@ -4,8 +4,7 @@
     "ReturnType": "void",
     "Name": "FUNCTION_0000",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0001",
@@ -31,6 +30,9 @@
         "Name": "value",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0002"
     ]
   },
   {
@@ -44,6 +46,9 @@
         "Name": "str",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0003"
     ]
   },
   {
@@ -100,8 +105,7 @@
     "ReturnType": "void",
     "Name": "FUNCTION_0007",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0008",
@@ -214,8 +218,7 @@
     "ReturnType": "void",
     "Name": "FUNCTION_000F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0010",
@@ -271,8 +274,7 @@
     "ReturnType": "void",
     "Name": "FUNCTION_0013",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0014",
@@ -399,8 +401,7 @@
     "ReturnType": "void",
     "Name": "FUNCTION_0019",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x001a",
@@ -446,8 +447,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_001D",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x001e",
@@ -485,16 +485,14 @@
     "ReturnType": "void",
     "Name": "FUNCTION_0020",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0021",
     "ReturnType": "int",
     "Name": "FUNCTION_0021",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x0022",
@@ -574,6 +572,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0026"
     ]
   },
   {
@@ -587,6 +588,9 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0027"
     ]
   },
   {
@@ -638,8 +642,7 @@
     "ReturnType": "void",
     "Name": "FUNCTION_002B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x002c",
@@ -685,7 +688,6 @@
     "ReturnType": "void",
     "Name": "FUNCTION_002F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   }
 ]

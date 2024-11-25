@@ -4,8 +4,7 @@
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_0000",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1001",
@@ -25,16 +24,14 @@
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_0002",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1003",
     "ReturnType": "void",
     "Name": "FLD_FUNCTION_0003",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1004",
@@ -54,8 +51,7 @@
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_0005",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1006",
@@ -204,6 +200,9 @@
         "Name": "minor",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FLD_FUNCTION_000D"
     ]
   },
   {
@@ -314,16 +313,14 @@
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_0014",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1015",
     "ReturnType": "void",
     "Name": "FLD_FUNCTION_0015",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1016",
@@ -341,6 +338,9 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FLD_FUNCTION_0016"
     ]
   },
   {
@@ -359,6 +359,9 @@
         "Name": "speed",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FLD_FUNCTION_0017"
     ]
   },
   {
@@ -377,6 +380,9 @@
         "Name": "speed",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FLD_FUNCTION_0018"
     ]
   },
   {
@@ -384,56 +390,49 @@
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_0019",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x101a",
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_001A",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x101b",
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_001B",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x101c",
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_001C",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x101d",
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_001D",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x101e",
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_001E",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x101f",
     "ReturnType": "void",
     "Name": "FLD_FUNCTION_001F",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1020",
@@ -476,55 +475,51 @@
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_0022",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1023",
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_0023",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1024",
     "ReturnType": "void",
     "Name": "FLD_FUNCTION_0024",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1025",
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_0025",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1026",
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_0026",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1027",
     "ReturnType": "int",
     "Name": "FLD_FUNCTION_0027",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x1028",
     "ReturnType": "void",
     "Name": "FLD_EFFECT_TRAESTO_START",
     "Description": "",
-    "Parameters": [
+    "Parameters": [],
+    "Aliases": [
+      "FLD_FUNCTION_0028"
     ]
   },
   {
@@ -581,8 +576,7 @@
     "ReturnType": "void",
     "Name": "FLD_FUNCTION_002C",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x102d",
@@ -674,7 +668,6 @@
     "ReturnType": "void",
     "Name": "FLD_FUNCTION_0032",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   }
 ]

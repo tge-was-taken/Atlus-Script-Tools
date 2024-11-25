@@ -17,16 +17,14 @@
     "ReturnType": "void",
     "Name": "WND_FUNCTION_0001",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x2002",
     "ReturnType": "void",
     "Name": "WND_FUNCTION_0002",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x2003",
@@ -46,16 +44,14 @@
     "ReturnType": "void",
     "Name": "WND_FUNCTION_0004",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x2005",
     "ReturnType": "void",
     "Name": "WND_FUNCTION_0005",
     "Description": "Null pointer",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x2006",
@@ -183,8 +179,7 @@
     "ReturnType": "void",
     "Name": "WND_FUNCTION_000D",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x200e",
@@ -276,8 +271,7 @@
     "ReturnType": "void",
     "Name": "WND_FUNCTION_0013",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x2014",
@@ -379,8 +373,7 @@
     "ReturnType": "void",
     "Name": "WND_FUNCTION_0019",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x201a",
@@ -559,8 +552,7 @@
     "ReturnType": "void",
     "Name": "WND_FUNCTION_0023",
     "Description": "",
-    "Parameters": [
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x2024",
