@@ -217,7 +217,12 @@ public sealed class MessageScriptDecompiler : IDisposable
 
     public void Decompile(StringToken token)
     {
-        mWriter.Write(token.Value);
+        var textWithEscapeChars = token.Value;
+        foreach(var sequence in MessageScriptLanguage.Compiler.MessageScriptCompiler.ESCAPE_SEQUENCES)
+        {
+            textWithEscapeChars = textWithEscapeChars.Replace(sequence.Value, sequence.Key);
+        }
+        mWriter.Write(token.Value.Replace("[", "\\[").Replace("]", "\\]"));
     }
 
     public void Decompile(CodePointToken token)
