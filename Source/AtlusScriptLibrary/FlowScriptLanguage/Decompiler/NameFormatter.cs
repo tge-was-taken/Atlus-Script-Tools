@@ -1,4 +1,5 @@
 ﻿using AtlusScriptLibrary.FlowScriptLanguage.Syntax;
+using System;
 using System.Diagnostics;
 
 namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler;
@@ -29,8 +30,7 @@ public static class NameFormatter
                 break;
         }
 
-        Debug.Assert(false);
-        return null;
+        throw new NotImplementedException($"Generating variable name for modifier {modifier}, kind {kind} not implemented");
     }
 
     public static string GenerateParameterName(ValueKind kind, int index)
@@ -43,7 +43,6 @@ public static class NameFormatter
                 return $"fParam{index}";
         }
 
-        Debug.Assert(false);
-        return null;
+        throw new NotImplementedException($"Generating parameter name for kind {kind} not implemented");
     }
 }

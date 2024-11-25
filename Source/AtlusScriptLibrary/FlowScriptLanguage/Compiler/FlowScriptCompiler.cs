@@ -563,8 +563,26 @@ public class FlowScriptCompiler
         return true;
     }
 
+    private bool TryEvaluateCompiledFlowScript(FlowScript flowScript, out EvaluationResult evaluationResult)
+    {
+        var evaluator = new Evaluator();
+        evaluator.Library = Library;
+        evaluator.AddListener(new LoggerPassthroughListener(mLogger));
+        if (!evaluator.TryEvaluateScript(flowScript, out evaluationResult))
+        {
+            Warning("Failed to evaluate script");
+            evaluationResult = null;
+            return false;
+        }
+
+        return true;
+    }
+
     private bool TryProcessCompiledFlowScriptImport(FlowScript compiledFlowScript)
     {
+        // Evaluate the compiled script to determine procedure parameter lists
+        var hasEvaluationResult = TryEvaluateCompiledFlowScript(compiledFlowScript, out var compiledFlowScriptEvaluationResult);
+
         // Register declarations for procedures declared in the imported script
         for (var i = 0; i < compiledFlowScript.Procedures.Count; i++)
         {
@@ -576,9 +594,20 @@ public class FlowScriptCompiler
 
             Debug.Assert(mScript.Procedures.Count == i, "Imported procedure index mismatch");
 
+            if (hasEvaluationResult)
+            {
+                // Copy over signature from evaluation result if possible
+                var procedureEvaluationResult = compiledFlowScriptEvaluationResult.Procedures[i];
+                procedureDecl.Parameters.AddRange(procedureEvaluationResult.Parameters);
+                procedureDecl.ReturnType = new TypeIdentifier(procedureEvaluationResult.ReturnKind);
+            }
+
             // Add compiled procedure
             if (!Scope.TryDeclareProcedure(procedureDecl, procedure, out var procedureInfo))
-                Debug.Assert(false);
+            {
+                Error($"Failed to declare procedure {procedure.Name} from imported script, as another procedure with the name already exists");
+                return false;
+            }
 
             AddCompiledProcedure(procedureInfo, procedure);
         }
