@@ -336,7 +336,7 @@ public class Evaluator
         LogInfo("Registering functions");
         foreach (var instruction in mScript.Procedures.SelectMany(x => x.Instructions).Where(x => x.Opcode == Opcode.COMM))
         {
-            var index = (ushort)instruction.Operand.Int16Value;
+            var index = instruction.Operand.UInt16Value;
             if (mFunctions.ContainsKey(index))
                 continue;
 
@@ -467,7 +467,7 @@ public class Evaluator
                 break;
             case Opcode.COMM:
                 {
-                    ushort index = (ushort)instruction.Operand.Int16Value;
+                    ushort index = instruction.Operand.UInt16Value;
                     foreach (var parameter in mFunctions[index].Parameters)
                     {
                         if (stack.Count != 0)
@@ -787,7 +787,7 @@ public class Evaluator
             // Call to function
             case Opcode.COMM:
                 {
-                    ushort index = (ushort)instruction.Operand.Int16Value;
+                    ushort index = instruction.Operand.UInt16Value;
                     if (!mFunctions.TryGetValue(index, out var function))
                     {
                         LogError("Unknown function: registration of functions must have failed");

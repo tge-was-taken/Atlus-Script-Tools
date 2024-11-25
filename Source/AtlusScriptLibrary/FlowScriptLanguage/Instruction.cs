@@ -57,6 +57,17 @@ public class Instruction : IEquatable<Instruction>
     }
 
     /// <summary>
+    /// Constructs a new instruction with a specified opcode with a ushort operand.
+    /// </summary>
+    /// <param name="opcode">The opcode of the instruction.</param>
+    /// <param name="value">The operand value.</param>
+    private Instruction(Opcode opcode, ushort value)
+    {
+        Opcode = opcode;
+        Operand = new Operand(value);
+    }
+
+    /// <summary>
     /// Constructs a new instruction with a specified opcode with an int operand.
     /// </summary>
     /// <param name="opcode">The opcode of the instruction.</param>
@@ -118,7 +129,7 @@ public class Instruction : IEquatable<Instruction>
                 return PROC(binary.OperandShort);
 
             case Opcode.COMM:
-                return COMM(binary.OperandShort);
+                return COMM(binary.OperandUShort);
 
             case Opcode.END:
                 return END();
@@ -290,7 +301,7 @@ public class Instruction : IEquatable<Instruction>
     /// </summary>
     /// <param name="value">The operand value.</param>
     /// <returns>A <see cref="Instruction"/> instance.</returns>
-    public static Instruction COMM(short functionId)
+    public static Instruction COMM(ushort functionId)
     {
         return new Instruction(Opcode.COMM, functionId);
     }

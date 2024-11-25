@@ -142,7 +142,7 @@ internal class ScopeContext
 
         var function = new FunctionInfo();
         function.Declaration = declaration;
-        function.Index = (short)declaration.Index.Value;
+        function.Index = (ushort)declaration.Index.Value;
 
         Functions[declaration.Identifier.Text] = function;
 

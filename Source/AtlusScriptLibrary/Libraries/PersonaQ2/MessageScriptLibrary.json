@@ -3,7 +3,7 @@
     "Index": 0,
     "Name": "",
     "Description": "",
-    "Fuctions": [
+    "Functions": [
       {
         "Index": 0,
         "Name": "clr",
@@ -24,7 +24,7 @@
     "Index": 1,
     "Name": "",
     "Description": "",
-    "Fuctions": [
+    "Functions": [
       {
         "Index": 1,
         "Name": "w",
@@ -46,7 +46,7 @@
     "Index": 2,
     "Name": "",
     "Description": "",
-    "Fuctions": [
+    "Functions": [
       {
         "Index": 1,
         "Name": "s",
@@ -83,7 +83,7 @@
     "Index": 3,
     "Name": "",
     "Description": "",
-    "Fuctions": [
+    "Functions": [
       {
         "Index": 1,
         "Name": "vp",
@@ -113,7 +113,7 @@
     "Index": 4,
     "Name": "",
     "Description": "",
-    "Fuctions": [
+    "Functions": [
       {
         "Index": 6,
         "Name": "bup",
@@ -159,7 +159,7 @@
     "Index": 6,
     "Name": "",
     "Description": "",
-    "Fuctions": [
+    "Functions": [
       {
         "Index": 1,
         "Name": "name",

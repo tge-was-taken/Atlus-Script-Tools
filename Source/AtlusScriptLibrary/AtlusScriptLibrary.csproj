@@ -65,7 +65,7 @@
     <Compile Include="Common\Libraries\FlowScriptModuleEnumMember.cs" />
     <Compile Include="Common\Libraries\FlowScriptModuleFunction.cs" />
     <Compile Include="Common\Libraries\FlowScriptModuleParameter.cs" />
-    <Compile Include="Common\Libraries\Serialization\HexIntStringJsonConverter.cs" />
+    <Compile Include="Common\Libraries\Serialization\HexUIntStringJsonConverter.cs" />
     <Compile Include="Common\Libraries\Library.cs" />
     <Compile Include="Common\Libraries\MessageScriptLibrary.cs" />
     <Compile Include="Common\Libraries\MessageScriptLibraryFunction.cs" />
@@ -114,6 +114,7 @@
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\ModulusAssignmentOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\ModulusOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\InitializerList.cs" />
+    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Literals\UIntLiteral.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\SubscriptOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\NullExpression.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\SyntaxNode.cs" />
@@ -267,6 +268,12 @@
     <None Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScript.tokens" />
     <None Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScriptLexer.tokens" />
     <None Include="FlowScriptLanguage\GenerateGrammarParserAndLexer.bat" />
+    <None Include="Libraries\PersonaQ2\Modules\Script\Enums.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Libraries\PersonaQ2\Modules\Window\Enums.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptLexer.g4" />
     <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptParser.g4" />
   </ItemGroup>
