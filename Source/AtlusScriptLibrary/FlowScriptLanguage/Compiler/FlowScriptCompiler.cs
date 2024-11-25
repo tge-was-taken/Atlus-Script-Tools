@@ -147,7 +147,7 @@ public class FlowScriptCompiler
                 mCurrentBaseDirectory = Path.GetDirectoryName(mFilePath);
 
                 // Add hash for current file
-                var hashAlgo = new MD5CryptoServiceProvider();
+                var hashAlgo = MD5.Create();
                 var hashBytes = hashAlgo.ComputeHash(file);
                 int hashInt = BitConverter.ToInt32(hashBytes, 0);
                 mImportedFileHashSet.Add(hashInt);
@@ -230,7 +230,7 @@ public class FlowScriptCompiler
         }
 
         // Add hash for current file
-        var hashAlgo = new MD5CryptoServiceProvider();
+        var hashAlgo = MD5.Create();
         var hashBytes = hashAlgo.ComputeHash(stream);
         int hashInt = BitConverter.ToInt32(hashBytes, 0);
         mImportedFileHashSet.Add(hashInt);
@@ -819,7 +819,7 @@ public class FlowScriptCompiler
             return false;
         }
 
-        var hashAlgo = new MD5CryptoServiceProvider();
+        var hashAlgo = MD5.Create();
         var hashBytes = hashAlgo.ComputeHash(flowScriptFileStream);
         int flowScriptSourceHash = BitConverter.ToInt32(hashBytes, 0);
         flowScriptFileStream.Position = 0;
@@ -872,7 +872,7 @@ public class FlowScriptCompiler
             return false;
         }
 
-        var hashAlgo = new MD5CryptoServiceProvider();
+        var hashAlgo = MD5.Create();
         var hashBytes = hashAlgo.ComputeHash(flowScriptFileStream);
         int flowScriptSourceHash = BitConverter.ToInt32(hashBytes, 0);
         flowScriptFileStream.Position = 0;

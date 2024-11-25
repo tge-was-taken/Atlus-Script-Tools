@@ -17,8 +17,4 @@ public class FlowScriptSyntaxParserFailureException : Exception
     public FlowScriptSyntaxParserFailureException(string message, Exception innerException) : base(message, innerException)
     {
     }
-
-    protected FlowScriptSyntaxParserFailureException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-    }
 }

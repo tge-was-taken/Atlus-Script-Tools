@@ -88,21 +88,15 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Tests
         [TestMethod]
         public void EscapeChars_CanDecompileAndRecompileWithBrackets()
         {
-            var library = LibraryLookup.GetLibrary("p3re");
-
             var binary = MessageScriptBinary.FromFile("TestResources/EscapeChar.bmd");
             var script = MessageScript.FromBinary(binary, FormatVersion.Version1Reload);
 
             var writer = new StringWriter();
             using (var decompiler = new MessageScriptDecompiler(writer))
-            {
-                decompiler.Library = library;
                 decompiler.Decompile(script);
-            }
             string text = writer.ToString();
 
             var compiler = new MessageScriptCompiler(FormatVersion.Version1Reload, System.Text.Encoding.UTF8);
-            compiler.Library = library;
             compiler.TryCompile(text, out var recompiledScript);
 
             var newBinary = recompiledScript.ToBinary();

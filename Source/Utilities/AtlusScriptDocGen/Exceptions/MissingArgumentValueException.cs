@@ -19,9 +19,5 @@ namespace AtlusScriptDocGen.Exceptions
             ArgumentName = argumentName;
             MissingValueDescription = missingValueDescription;
         }
-
-        protected MissingArgumentValueException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
     }
 }

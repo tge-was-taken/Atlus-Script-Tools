@@ -20,9 +20,5 @@ namespace AtlusScriptDocGen.Exceptions
         {
             LibraryName = libraryName;
         }
-
-        protected InvalidLibraryException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
     }
 }

@@ -17,8 +17,4 @@ internal class StackInbalanceException : Exception
     public StackInbalanceException(string message, Exception innerException) : base(message, innerException)
     {
     }
-
-    protected StackInbalanceException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-    }
 }
