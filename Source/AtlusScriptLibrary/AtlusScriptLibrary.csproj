@@ -1,43 +1,29 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{62EE486F-AE33-4DBB-AC4C-409A22CB04AD}</ProjectGuid>
+    <TargetFrameworks>netstandard2.0;net7.0</TargetFrameworks>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AtlusScriptLibrary</RootNamespace>
-    <AssemblyName>AtlusScriptLibrary</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
     <OutputPath>..\..\Build\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
     <OutputPath>..\..\Build\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="Microsoft.CSharp" />
+    <Compile Remove="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScriptBaseListener.cs" />
+    <Compile Remove="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScriptBaseVisitor.cs" />
+    <Compile Remove="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScriptLexer.cs" />
+    <Compile Remove="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScriptListener.cs" />
+    <Compile Remove="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScriptParser.cs" />
+    <Compile Remove="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScriptVisitor.cs" />
+    <Compile Remove="MessageScriptLanguage\Compiler\Parser\MessageScriptLexer.cs" />
+    <Compile Remove="MessageScriptLanguage\Compiler\Parser\MessageScriptParser.cs" />
+    <Compile Remove="MessageScriptLanguage\Compiler\Parser\MessageScriptParserBaseListener.cs" />
+    <Compile Remove="MessageScriptLanguage\Compiler\Parser\MessageScriptParserBaseVisitor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Archive.cs" />
@@ -65,7 +51,7 @@
     <Compile Include="Common\Libraries\FlowScriptModuleEnumMember.cs" />
     <Compile Include="Common\Libraries\FlowScriptModuleFunction.cs" />
     <Compile Include="Common\Libraries\FlowScriptModuleParameter.cs" />
-    <Compile Include="Common\Libraries\Serialization\HexUIntStringJsonConverter.cs" />
+    <Compile Include="Common\Libraries\Serialization\HexIntStringJsonConverter.cs" />
     <Compile Include="Common\Libraries\Library.cs" />
     <Compile Include="Common\Libraries\MessageScriptLibrary.cs" />
     <Compile Include="Common\Libraries\MessageScriptLibraryFunction.cs" />
@@ -114,7 +100,6 @@
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\ModulusAssignmentOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Binary\ModulusOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\InitializerList.cs" />
-    <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\Literals\UIntLiteral.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\SubscriptOperator.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\Statements\Expressions\NullExpression.cs" />
     <Compile Include="FlowScriptLanguage\Syntax\SyntaxNode.cs" />
@@ -265,17 +250,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScript.g4" />
-    <None Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScript.tokens" />
-    <None Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScriptLexer.tokens" />
-    <None Include="FlowScriptLanguage\GenerateGrammarParserAndLexer.bat" />
-    <None Include="Libraries\PersonaQ2\Modules\Script\Enums.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Libraries\PersonaQ2\Modules\Window\Enums.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScriptBaseListener.cs" />
+    <None Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScriptBaseVisitor.cs" />
+    <None Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScriptLexer.cs" />
+    <None Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScriptListener.cs" />
+    <None Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScriptParser.cs" />
+    <None Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScriptVisitor.cs" />
+    <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptLexer.cs" />
     <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptLexer.g4" />
+    <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptParser.cs" />
     <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptParser.g4" />
+    <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptParserBaseListener.cs" />
+    <None Include="MessageScriptLanguage\Compiler\Parser\MessageScriptParserBaseVisitor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Charsets\P3.tsv">
@@ -455,7 +441,13 @@
     <Content Include="Libraries\PersonaQ2\Modules\Map\Functions.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Libraries\PersonaQ2\Modules\Script\Enums.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Libraries\PersonaQ2\Modules\Script\Functions.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Libraries\PersonaQ2\Modules\Window\Enums.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Libraries\PersonaQ2\Modules\Window\Functions.json">
@@ -564,16 +556,11 @@
     <PackageReference Include="Antlr4.Runtime">
       <Version>4.6.6</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="morelinq">
       <Version>3.3.2</Version>
     </PackageReference>
-    <PackageReference Include="Newtonsoft.Json">
-      <Version>13.0.2</Version>
-    </PackageReference>
+    <PackageReference Include="System.Text.Json" Version="5.0.2" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
+  <PropertyGroup />
 </Project>
