@@ -110,40 +110,52 @@
   {
     "Index": "0x0008",
     "ReturnType": "void",
-    "Name": "FUNCTION_0008",
+    "Name": "BIT_ON",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "bitID",
+        "Description": "",
+        "Semantic": "BitId"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0008"
     ]
   },
   {
     "Index": "0x0009",
     "ReturnType": "void",
-    "Name": "FUNCTION_0009",
+    "Name": "BIT_OFF",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "bitID",
+        "Description": "",
+        "Semantic": "BitId"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0009"
     ]
   },
   {
     "Index": "0x000a",
-    "ReturnType": "int",
-    "Name": "FUNCTION_000A",
+    "ReturnType": "bool",
+    "Name": "BIT_CHK",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "bitID",
+        "Description": "",
+        "Semantic": "BitId"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_000A"
     ]
   },
   {
@@ -223,14 +235,17 @@
   {
     "Index": "0x0010",
     "ReturnType": "int",
-    "Name": "FUNCTION_0010",
+    "Name": "GET_COUNT",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "countID",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0010"
     ]
   },
   {
@@ -406,14 +421,17 @@
   {
     "Index": "0x001a",
     "ReturnType": "int",
-    "Name": "FUNCTION_001A",
-    "Description": "",
+    "Name": "RND",
+    "Description": "Returns a random value between 0 and upperBound.",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "upperBound",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_001A"
     ]
   },
   {

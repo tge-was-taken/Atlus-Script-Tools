@@ -1,0 +1,120 @@
+[
+  {
+    "Name": "Party",
+    "Description": "ID of each party member.",
+    "Members": [
+      {
+        "Name": "Yu",
+        "Value": 1
+      },
+      {
+        "Name": "Makoto3",
+        "Value": 2
+      },
+      {
+        "Name": "Yosuke",
+        "Value": 3
+      },
+      {
+        "Name": "Chie",
+        "Value": 4
+      },
+      {
+        "Name": "Yukiko",
+        "Value": 5
+      },
+      {
+        "Name": "Rise",
+        "Value": 6
+      },
+      {
+        "Name": "Kanji",
+        "Value": 7
+      },
+      {
+        "Name": "Naoto",
+        "Value": 8
+      },
+      {
+        "Name": "Teddie",
+        "Value": 9
+      },
+      {
+        "Name": "Yukari",
+        "Value": 10
+      },
+      {
+        "Name": "Junpei",
+        "Value": 11
+      },
+      {
+        "Name": "Akihiko",
+        "Value": 12
+      },
+      {
+        "Name": "Mitsuru",
+        "Value": 13
+      },
+      {
+        "Name": "Fuuka",
+        "Value": 14
+      },
+      {
+        "Name": "Aigis",
+        "Value": 15
+      },
+      {
+        "Name": "Ken",
+        "Value": 16
+      },
+      {
+        "Name": "Koromaru",
+        "Value": 17
+      },
+      {
+        "Name": "Shinjiro",
+        "Value": 18
+      },
+      {
+        "Name": "Kotone",
+        "Value": 19
+      },
+      {
+        "Name": "Ren",
+        "Value": 20
+      },
+      {
+        "Name": "Ryuji",
+        "Value": 21
+      },
+      {
+        "Name": "Ann",
+        "Value": 22
+      },
+      {
+        "Name": "Morgana",
+        "Value": 23
+      },
+      {
+        "Name": "Yusuke",
+        "Value": 24
+      },
+      {
+        "Name": "Makoto5",
+        "Value": 25
+      },
+      {
+        "Name": "Futaba",
+        "Value": 26
+      },
+      {
+        "Name": "Haru",
+        "Value": 27
+      },
+      {
+        "Name": "Akechi",
+        "Value": 28
+      }
+    ]
+  }
+]
