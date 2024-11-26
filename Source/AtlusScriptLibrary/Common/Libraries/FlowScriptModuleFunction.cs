@@ -20,8 +20,8 @@ public class FlowScriptModuleFunction : ICloneable
 
         public string Description { get; set; }
 
-    [JsonConverter(typeof(HexUIntStringJsonConverter))]
-    public uint Address { get; set; }
+    [JsonConverter(typeof(HexULongStringJsonConverter))]
+    public ulong Address { get; set; }
 
     [JsonConverter(typeof(CustomStringEnumConverter))]
     public FlowScriptModuleFunctionSemantic Semantic { get; set; }

@@ -18,3 +18,17 @@ internal class HexUIntStringJsonConverter : JsonConverter<uint>
         writer.WriteStringValue($"0x{value:X}");
     }
 }
+
+internal class HexULongStringJsonConverter : JsonConverter<ulong>
+{
+    public override ulong Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    {
+        var stringValue = reader.GetString();
+        return ulong.Parse(stringValue.Substring(2), NumberStyles.HexNumber);
+    }
+
+    public override void Write(Utf8JsonWriter writer, ulong value, JsonSerializerOptions options)
+    {
+        writer.WriteStringValue($"0x{value:X}");
+    }
+}
