@@ -52,30 +52,30 @@ internal class IntrinsicSupport
         PrintIntFunctionIndex = GetIndex(functions, "PUT");
         PrintStringFunctionIndex = GetIndex(functions, "PUTS");
         PrintFloatFunctionIndex = GetIndex(functions, "PUTF");
-        SupportsTrace = PrintIntFunctionIndex != 0xffff && PrintStringFunctionIndex != 0xffff && PrintFloatFunctionIndex != 0xffff;
+        SupportsTrace = PrintIntFunctionIndex != ushort.MaxValue && PrintStringFunctionIndex != ushort.MaxValue && PrintFloatFunctionIndex != ushort.MaxValue;
 
         AiGetLocalFunctionIndex = GetIndex(functions, "AI_GET_LOCAL_PARAM");
         AiSetLocalFunctionIndex = GetIndex(functions, "AI_SET_LOCAL_PARAM");
-        SupportsAiLocal = AiGetLocalFunctionIndex != 0xffff && AiSetLocalFunctionIndex != 0xffff;
+        SupportsAiLocal = AiGetLocalFunctionIndex != ushort.MaxValue && AiSetLocalFunctionIndex !=   ushort.MaxValue;
 
         AiGetGlobalFunctionIndex = GetIndex(functions, "AI_GET_GLOBAL");
         AiSetGlobalFunctionIndex = GetIndex(functions, "AI_SET_GLOBAL");
-        SupportsAiGlobal = AiGetGlobalFunctionIndex != 0xffff && AiSetGlobalFunctionIndex != 0xffff;
+        SupportsAiGlobal = AiGetGlobalFunctionIndex != ushort.MaxValue && AiSetGlobalFunctionIndex != ushort.MaxValue;
 
         BitCheckFunctionIndex = GetIndex(functions, "BIT_CHK");
         BitOnFunctionIndex = GetIndex(functions, "BIT_ON");
         BitOffFunctionIndex = GetIndex(functions, "BIT_OFF");
-        SupportsBit = BitCheckFunctionIndex != 0xffff && BitOnFunctionIndex != 0xffff && BitOffFunctionIndex != 0xffff;
+        SupportsBit = BitCheckFunctionIndex != ushort.MaxValue && BitOnFunctionIndex != ushort.MaxValue && BitOffFunctionIndex != ushort.MaxValue;
 
         GetCountFunctionIndex = GetIndex(functions, "GET_COUNT");
         SetCountFunctionIndex = GetIndex(functions, "SET_COUNT");
-        SupportsCount = GetCountFunctionIndex != 0xffff && SetCountFunctionIndex != 0xffff;
+        SupportsCount = GetCountFunctionIndex != ushort.MaxValue && SetCountFunctionIndex != ushort.MaxValue;
     }
 
     private static ushort GetIndex(Dictionary<string, FlowScriptModuleFunction> dictionary, string name)
     {
         if (!dictionary.TryGetValue(name, out var function))
-            return 0xffff;
+            return ushort.MaxValue;
 
         return (ushort)function.Index;
     }
