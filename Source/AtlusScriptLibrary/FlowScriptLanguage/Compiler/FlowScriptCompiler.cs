@@ -2235,14 +2235,14 @@ public class FlowScriptCompiler
             }
             return false;
         }
-        bool TryGetCommIndexArgument(CallOperator callExpression, out short index)
+        bool TryGetCommIndexArgument(CallOperator callExpression, out ushort index)
         {
-            index = short.MinValue;
+            index = ushort.MaxValue;
             if (callExpression.Arguments.Count == 1)
             {
                 if (callExpression.Arguments[0].Expression is IntLiteral intArg)
                 {
-                    index = (short)intArg.Value;
+                    index = (ushort)intArg.Value;
                     return true;
                 }
                 else if (callExpression.Arguments[0].Expression is Identifier identifierArg)
@@ -2342,7 +2342,7 @@ public class FlowScriptCompiler
             case "__COMM":
                 if (callExpression.Arguments.Count == 1 && TryGetCommIndexArgument(callExpression, out var commIndex))
                 {
-                    Emit(Instruction.COMM((short)commIndex));
+                    Emit(Instruction.COMM(commIndex));
                 }
                 else
                 {
