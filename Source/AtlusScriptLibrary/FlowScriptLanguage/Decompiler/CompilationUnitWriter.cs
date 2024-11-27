@@ -202,7 +202,7 @@ public class CompilationUnitWriter : SyntaxNodeVisitor
         {
             Write("function");
             WriteOpenParenthesis();
-            WriteHexIntegerLiteral(functionDeclaration.Index.Value);
+            WriteHexIntegerLiteral((int)functionDeclaration.Index.Value);
             WriteCloseParenthesis();
             Write(" ");
             Visit(functionDeclaration.ReturnType);

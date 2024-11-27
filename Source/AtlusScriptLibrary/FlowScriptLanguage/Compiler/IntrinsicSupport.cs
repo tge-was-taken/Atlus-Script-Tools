@@ -8,28 +8,28 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler;
 internal class IntrinsicSupport
 {
     // Function indcies
-    public short PrintIntFunctionIndex { get; }
+    public ushort PrintIntFunctionIndex { get; }
 
-    public short PrintStringFunctionIndex { get; }
+    public ushort PrintStringFunctionIndex { get; }
 
-    public short PrintFloatFunctionIndex { get; }
+    public ushort PrintFloatFunctionIndex { get; }
 
-    public short AiGetLocalFunctionIndex { get; }
+    public ushort AiGetLocalFunctionIndex { get; }
 
-    public short AiSetLocalFunctionIndex { get; }
+    public ushort AiSetLocalFunctionIndex { get; }
 
-    public short AiGetGlobalFunctionIndex { get; }
+    public ushort AiGetGlobalFunctionIndex { get; }
 
-    public short AiSetGlobalFunctionIndex { get; }
+    public ushort AiSetGlobalFunctionIndex { get; }
 
-    public short BitCheckFunctionIndex { get; }
+    public ushort BitCheckFunctionIndex { get; }
 
-    public short BitOnFunctionIndex { get; }
+    public ushort BitOnFunctionIndex { get; }
 
-    public short BitOffFunctionIndex { get; }
+    public ushort BitOffFunctionIndex { get; }
 
-    public short GetCountFunctionIndex { get; }
-    public short SetCountFunctionIndex { get; }
+    public ushort GetCountFunctionIndex { get; }
+    public ushort SetCountFunctionIndex { get; }
 
     // Support flags
     public bool SupportsTrace { get; }
@@ -52,31 +52,31 @@ internal class IntrinsicSupport
         PrintIntFunctionIndex = GetIndex(functions, "PUT");
         PrintStringFunctionIndex = GetIndex(functions, "PUTS");
         PrintFloatFunctionIndex = GetIndex(functions, "PUTF");
-        SupportsTrace = PrintIntFunctionIndex != -1 && PrintStringFunctionIndex != -1 && PrintFloatFunctionIndex != -1;
+        SupportsTrace = PrintIntFunctionIndex != ushort.MaxValue && PrintStringFunctionIndex != ushort.MaxValue && PrintFloatFunctionIndex != ushort.MaxValue;
 
         AiGetLocalFunctionIndex = GetIndex(functions, "AI_GET_LOCAL_PARAM");
         AiSetLocalFunctionIndex = GetIndex(functions, "AI_SET_LOCAL_PARAM");
-        SupportsAiLocal = AiGetLocalFunctionIndex != -1 && AiSetLocalFunctionIndex != -1;
+        SupportsAiLocal = AiGetLocalFunctionIndex != ushort.MaxValue && AiSetLocalFunctionIndex !=   ushort.MaxValue;
 
         AiGetGlobalFunctionIndex = GetIndex(functions, "AI_GET_GLOBAL");
         AiSetGlobalFunctionIndex = GetIndex(functions, "AI_SET_GLOBAL");
-        SupportsAiGlobal = AiGetGlobalFunctionIndex != -1 && AiSetGlobalFunctionIndex != -1;
+        SupportsAiGlobal = AiGetGlobalFunctionIndex != ushort.MaxValue && AiSetGlobalFunctionIndex != ushort.MaxValue;
 
         BitCheckFunctionIndex = GetIndex(functions, "BIT_CHK");
         BitOnFunctionIndex = GetIndex(functions, "BIT_ON");
         BitOffFunctionIndex = GetIndex(functions, "BIT_OFF");
-        SupportsBit = BitCheckFunctionIndex != -1 && BitOnFunctionIndex != -1 && BitOffFunctionIndex != -1;
+        SupportsBit = BitCheckFunctionIndex != ushort.MaxValue && BitOnFunctionIndex != ushort.MaxValue && BitOffFunctionIndex != ushort.MaxValue;
 
         GetCountFunctionIndex = GetIndex(functions, "GET_COUNT");
         SetCountFunctionIndex = GetIndex(functions, "SET_COUNT");
-        SupportsCount = GetCountFunctionIndex != -1 && SetCountFunctionIndex != -1;
+        SupportsCount = GetCountFunctionIndex != ushort.MaxValue && SetCountFunctionIndex != ushort.MaxValue;
     }
 
-    private static short GetIndex(Dictionary<string, FlowScriptModuleFunction> dictionary, string name)
+    private static ushort GetIndex(Dictionary<string, FlowScriptModuleFunction> dictionary, string name)
     {
         if (!dictionary.TryGetValue(name, out var function))
-            return -1;
+            return ushort.MaxValue;
 
-        return (short)function.Index;
+        return (ushort)function.Index;
     }
 }

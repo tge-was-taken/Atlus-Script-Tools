@@ -161,7 +161,8 @@ public sealed class FlowScriptBinaryReader : IDisposable
             else
             {
                 instruction.Opcode = (Opcode)mReader.ReadInt16();
-                instruction.OperandShort = mReader.ReadInt16();
+                if(instruction.Opcode == Opcode.COMM) { instruction.OperandUShort = mReader.ReadUInt16(); }
+                else { instruction.OperandShort = mReader.ReadInt16(); }
             }
 
             instructions[i] = instruction;

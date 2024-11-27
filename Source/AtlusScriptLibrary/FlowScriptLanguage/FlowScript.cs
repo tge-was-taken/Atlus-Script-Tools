@@ -397,6 +397,7 @@ public sealed class FlowScript
 
                         binaryInstruction.OperandShort = (short)procedureIndexRemap[oldIndex];
                     }
+                    else if (instruction.Opcode == Opcode.COMM) { binaryInstruction.OperandUShort = instruction.Operand.UInt16Value; }
                     else
                     {
                         // Handle regular instruction

@@ -4266,7 +4266,7 @@ public class FlowScriptCompiler
                 break;
             case Opcode.COMM:
                 {
-                    var functionCalled = mRootScope.Functions.Values.First(x => x.Index == instruction.Operand.Int16Value);
+                    var functionCalled = mRootScope.Functions.Values.First(x => x.Index == instruction.Operand.UInt16Value);
                     mStackValueCount -= functionCalled.Declaration.Parameters.Count;
                 }
                 break;

@@ -301,7 +301,7 @@ public class FlowScriptInterpreter
 
     private static bool COMM(FlowScriptInterpreter instance)
     {
-        var index = instance.Instruction.Operand.Int16Value;
+        var index = instance.Instruction.Operand.UInt16Value;
 
         // TODO
         switch (index)

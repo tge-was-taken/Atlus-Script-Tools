@@ -40,7 +40,7 @@ public class Evaluator
 
     // FlowScript evaluation
     private FlowScript mScript;
-    private Dictionary<int, FunctionDeclaration> mFunctions;
+    private Dictionary<uint, FunctionDeclaration> mFunctions;
     private Dictionary<int, ProcedureDeclaration> mProcedures;
     private List<ProcedurePreEvaluationInfo> mProcedurePreEvaluationInfos;
     private Stack<EvaluatedScope> mScopeStack;
@@ -149,7 +149,7 @@ public class Evaluator
     private void InitializeScriptEvaluationState(FlowScript flowScript)
     {
         mScript = flowScript;
-        mFunctions = new Dictionary<int, FunctionDeclaration>();
+        mFunctions = new Dictionary<uint, FunctionDeclaration>();
         mProcedures = new Dictionary<int, ProcedureDeclaration>();
         mScopeStack = new Stack<EvaluatedScope>();
     }
@@ -362,7 +362,7 @@ public class Evaluator
         LogInfo("Registering functions");
         foreach (var instruction in mScript.Procedures.SelectMany(x => x.Instructions).Where(x => x.Opcode == Opcode.COMM))
         {
-            var index = instruction.Operand.Int16Value;
+            var index = instruction.Operand.UInt16Value;
             if (mFunctions.ContainsKey(index))
                 continue;
 
@@ -513,7 +513,7 @@ public class Evaluator
                 break;
             case Opcode.COMM:
                 {
-                    short index = instruction.Operand.Int16Value;
+                    ushort index = instruction.Operand.UInt16Value;
                     foreach (var parameter in mFunctions[index].Parameters)
                     {
                         if (stack.Count != 1)
@@ -913,7 +913,7 @@ public class Evaluator
             // Call to function
             case Opcode.COMM:
                 {
-                    short index = instruction.Operand.Int16Value;
+                    ushort index = instruction.Operand.UInt16Value;
                     if (!mFunctions.TryGetValue(index, out var function))
                     {
                         LogError("Unknown function: registration of functions must have failed");

@@ -48,6 +48,11 @@ public enum ValueKind
     Int,
 
     /// <summary>
+    /// Unsigned integer primitive value type.
+    /// </summary>
+    UInt,
+
+    /// <summary>
     /// Float primitive value type.
     /// </summary>
     Float,
@@ -76,6 +81,7 @@ public static class ValueKindExtensions
         {
             case ValueKind.Bool:
             case ValueKind.Int:
+            case ValueKind.UInt:
             case ValueKind.String: // index of string in string table
                 return ValueKind.Int;
 

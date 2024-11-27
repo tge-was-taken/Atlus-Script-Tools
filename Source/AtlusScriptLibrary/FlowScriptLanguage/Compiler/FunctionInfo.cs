@@ -6,5 +6,5 @@ internal class FunctionInfo
 {
     public FunctionDeclaration Declaration { get; set; }
 
-    public short Index { get; set; }
+    public ushort Index { get; set; }
 }
