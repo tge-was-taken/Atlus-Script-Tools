@@ -108,6 +108,24 @@ public class Evaluator
 
         // Pre-evaluating stuff
         mProcedurePreEvaluationInfos = PreEvaluateProcedures(flowScript);
+        foreach (var proc in mProcedurePreEvaluationInfos)
+        {
+            for (int i = 0; i < proc.Procedure.Instructions.Count; i++)
+            {
+                var instr = proc.Procedure.Instructions[i];
+                // TODO: make this more flexible
+                // If a procedure only calls another procedure through CALL or JUMP, inherit its stack arguments
+                if ((i == 1 && (instr.Opcode == Opcode.CALL || instr.Opcode == Opcode.JUMP)) &&
+                    (
+                        (i + 1 == proc.Procedure.Instructions.Count) || 
+                        ((i + 1 == proc.Procedure.Instructions.Count - 1) && proc.Procedure.Instructions[i+1].Opcode == Opcode.END)
+                    ))
+                {
+                    var calledProcInfo = mProcedurePreEvaluationInfos[instr.Operand.Int16Value];
+                    proc.ParameterTypes.AddRange(calledProcInfo.ParameterTypes);
+                }
+            }
+        }
 
         // Evaluate procedures
         LogInfo("Evaluating procedures");
@@ -975,6 +993,12 @@ public class Evaluator
                     var arguments = new List<Argument>();
                     var procedurePreEvalInfo = mProcedurePreEvaluationInfos.FirstOrDefault(p => p.Procedure == procedure);
                     parameterCount = procedurePreEvalInfo?.ParameterTypes.Count ?? 0;
+
+                    if (instruction.Opcode == Opcode.JUMP)
+                    {
+                        // We're using the return address of the callee for this one, so pop that first so it does not get passed an as argument
+                        TryPopExpression(out var _);
+                    }
 
                     for (int i = 0; i < parameterCount; i++)
                     {

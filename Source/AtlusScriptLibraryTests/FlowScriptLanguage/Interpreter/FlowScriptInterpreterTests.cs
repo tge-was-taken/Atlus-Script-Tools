@@ -83,6 +83,11 @@ namespace AtlusScriptLibraryTests.FlowScriptLanguage.Interpreter
             RunTest(FormatVersion.Version3BigEndian, "p5", source, expectedOutput);
         }
 
+        public void RunP3RETest(string source, string expectedOutput = "")
+        {
+            RunTest(FormatVersion.Version4, "p3re", source, expectedOutput);
+        }
+
         [TestMethod]
         public void compare_int_variable_against_minus_one()
         {
@@ -460,6 +465,97 @@ void Test_hook()
     Test_unhooked();
 }";
             RunP5Test(source, "hook\nbar\n");
+        }
+
+        [TestMethod]
+        public void popreg_parameter_passing()
+        {
+            var source = @"
+global(0) int g0;
+void foo() {
+    bar(0, 1, 2);
+    PUTS(""after bar"");
+}
+
+void bar(int p0, int p1, int p2)
+{
+    g0 = (p0 + p1) + p2;
+    PUTS(""%d"", g0); 
+}
+";
+            RunP3RETest(source, "3\nafter bar\n");
+        }
+
+        [TestMethod]
+        public void popreg_hook()
+        {
+            var source = @"
+void Test()
+{
+    PUTS( ""bar"" );
+}
+
+void Test_hook()
+{
+    PUTS( ""hook"" );
+}";
+            RunP3RETest(source, "hook\n");
+        }
+
+        [TestMethod]
+        public void popreg_hookafter()
+        {
+            var source = @"
+void Test()
+{
+    int i = 0;
+    if ( i == 0 )
+    {
+        PUTS( ""qux"" );
+        return;
+    }
+
+    PUTS( ""bar"" );
+}
+
+void Test_hookafter()
+{
+    PUTS( ""hook"" );
+}";
+            RunP3RETest(source, "qux\nhook\n");
+        }
+
+        [TestMethod]
+        public void popreg_softhook()
+        {
+            var source = @"
+void Test()
+{
+    PUTS( ""bar"" );
+}
+
+void Test_softhook()
+{
+    PUTS( ""hook"" );
+}";
+            RunP3RETest(source, "hook\nbar\n");
+        }
+
+        [TestMethod]
+        public void popreg_hook_unhooked()
+        {
+            var source = @"
+void Test()
+{
+    PUTS( ""bar"" );
+}
+
+void Test_hook()
+{
+    PUTS( ""hook"" );
+    Test_unhooked();
+}";
+            RunP3RETest(source, "hook\nbar\n");
         }
     }
 }

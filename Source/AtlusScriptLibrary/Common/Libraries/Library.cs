@@ -13,6 +13,8 @@ public class Library : ICloneable
 
     public string ShortName { get; set; }
 
+    public bool UsePOPREG { get; set; }
+
     [JsonPropertyName("FlowScriptModulesPath")]
     [JsonConverter(typeof(ExternalJsonPathConverter))]
     public List<FlowScriptModule> FlowScriptModules { get; set; }
@@ -26,6 +28,7 @@ public class Library : ICloneable
         var clone = new Library();
         clone.Name = Name;
         clone.ShortName = ShortName;
+        clone.UsePOPREG = UsePOPREG;
         clone.FlowScriptModules = FlowScriptModules.Clone()?.ToList();
         clone.MessageScriptLibraries = MessageScriptLibraries.Clone()?.ToList();
         return clone;

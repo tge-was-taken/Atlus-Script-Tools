@@ -79,7 +79,7 @@ namespace AtlusScriptCompiler
             Console.WriteLine("        -TraceFunctionCalls                        Enables function call tracing. Only applies to compiler.");
             Console.WriteLine("        -StackCookie                               Enables stack cookie. Used for debugging stack corruptions.");
             Console.WriteLine("        -Hook                                      Enables hooking of procedures. Used to modify scripts without recompiling them entirely.");
-            Console.WriteLine("        -SumBits                                   Sums the bit id values passed to BIT_* function");
+            Console.WriteLine("        -SumBits                                   Sums the bit id values passed to BIT_* functions");
             Console.WriteLine("        -OverwriteMessages                         Causes messages with duplicate names to overwrite existing messages.");
             Console.WriteLine();
             Console.WriteLine("Parameter detailed info:");

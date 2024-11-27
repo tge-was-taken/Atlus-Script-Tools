@@ -1,4 +1,5 @@
 ﻿using AtlusScriptLibrary.Common.IO;
+using AtlusScriptLibrary.Common.Text.Encodings;
 using AtlusScriptLibrary.MessageScriptLanguage.IO;
 using System;
 using System.Collections.Generic;
@@ -19,8 +20,7 @@ public sealed class MessageScriptBinaryReader : IDisposable
     public MessageScriptBinaryReader(Stream stream, BinaryFormatVersion version, bool leaveOpen = false)
     {
         mPositionBase = stream.Position;
-        System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-        mReader = new EndianBinaryReader(stream, Encoding.GetEncoding(932), leaveOpen, version.HasFlag(BinaryFormatVersion.BigEndian) ? Endianness.BigEndian : Endianness.LittleEndian);
+        mReader = new EndianBinaryReader(stream, ShiftJISEncoding.Instance, leaveOpen, version.HasFlag(BinaryFormatVersion.BigEndian) ? Endianness.BigEndian : Endianness.LittleEndian);
         mVersion = version;
     }
 

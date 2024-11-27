@@ -2,7 +2,7 @@
   "profiles": {
     "AtlusScriptCompiler": {
       "commandName": "Project",
-      "commandLineArgs": "-Compile -In \"C:\\Users\\cweer\\Downloads\\Xrd777+Astrea-Extracted\\Xrd777+Astrea-Extracted\\Game\\Xrd777\\Field\\Data\\DataAsset\\Bf\\Dungeon\\Hit\\patch.flow\" -Library P3RE -OutFormat V4"
+      "commandLineArgs": "-Decompile -In \"C:\\Users\\cweer\\Downloads\\Xrd777+Astrea-Extracted\\Xrd777+Astrea-Extracted\\Game\\Xrd777\\Field\\Data\\DataAsset\\Bf\\Dungeon\\Hit\\patch.flow.bf\" -Library P3RE"
     }
   }
 }
