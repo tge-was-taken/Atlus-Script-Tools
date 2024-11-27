@@ -17,8 +17,4 @@ public class StackUnderflowException : InvalidOperationException
     public StackUnderflowException(string message, Exception innerException) : base(message, innerException)
     {
     }
-
-    protected StackUnderflowException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-    }
 }

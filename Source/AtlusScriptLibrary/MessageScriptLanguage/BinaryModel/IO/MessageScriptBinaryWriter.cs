@@ -1,4 +1,5 @@
 ﻿using AtlusScriptLibrary.Common.IO;
+using AtlusScriptLibrary.Common.Text.Encodings;
 using System;
 using System.IO;
 using System.Text;
@@ -14,8 +15,7 @@ public sealed class MessageScriptBinaryWriter : IDisposable
     public MessageScriptBinaryWriter(Stream stream, BinaryFormatVersion version, bool leaveOpen = false)
     {
         mPositionBase = stream.Position;
-        System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-        mWriter = new EndianBinaryWriter(stream, Encoding.GetEncoding(932), leaveOpen, version.HasFlag(BinaryFormatVersion.BigEndian) ? Endianness.BigEndian : Endianness.LittleEndian);
+        mWriter = new EndianBinaryWriter(stream, ShiftJISEncoding.Instance, leaveOpen, version.HasFlag(BinaryFormatVersion.BigEndian) ? Endianness.BigEndian : Endianness.LittleEndian);
     }
 
     public void Dispose()

@@ -17,8 +17,4 @@ public class InvalidStackValueTypeException : InvalidOperationException
     public InvalidStackValueTypeException(string message, Exception innerException) : base(message, innerException)
     {
     }
-
-    protected InvalidStackValueTypeException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-    }
 }

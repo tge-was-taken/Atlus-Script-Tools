@@ -16,7 +16,7 @@ public class FlowScriptInterpreter
         MUL, DIV, MINUS, NOT, OR,
         AND, EQ, NEQ, S, L,
         SE, LE, IF, PUSHIS, PUSHLIX,
-        PUSHLFX, POPLIX, POPLFX, PUSHSTR
+        PUSHLFX, POPLIX, POPLFX, PUSHSTR, POPREG
     };
 
     // Static
@@ -28,7 +28,7 @@ public class FlowScriptInterpreter
     private int mProcedureIndex;
     private int mInstructionIndex;
     private readonly Stack<StackValue> mStack;
-    private StackValue mCommReturnValue;
+    private StackValue mREGValue;
     private readonly int[] mLocalIntVariablePool;
     private readonly float[] mLocalFloatVariablePool;
 
@@ -62,7 +62,7 @@ public class FlowScriptInterpreter
         mProcedureIndex = 0;
         mInstructionIndex = 0;
         mStack = new Stack<StackValue>();
-        mCommReturnValue = new StackValue(StackValueKind.Int, 0);
+        mREGValue = new StackValue(StackValueKind.Int, 0);
         mLocalIntVariablePool = new int[CalculateLocalCount(mScript, true)];
         mLocalFloatVariablePool = new float[CalculateLocalCount(mScript, false)];
         TextOutput = Console.Out;
@@ -227,7 +227,7 @@ public class FlowScriptInterpreter
     // COMM pop/push stuff
     private void SetReturnValue(StackValue stackValue)
     {
-        mCommReturnValue = stackValue;
+        mREGValue = stackValue;
     }
 
     private void SetReturnValue(StackValueKind kind, object value)
@@ -277,7 +277,7 @@ public class FlowScriptInterpreter
 
     private static bool PUSHREG(FlowScriptInterpreter instance)
     {
-        instance.PushValue(instance.mCommReturnValue);
+        instance.PushValue(instance.mREGValue);
         return true;
     }
 
@@ -413,8 +413,8 @@ public class FlowScriptInterpreter
 
     private static bool JUMP(FlowScriptInterpreter instance)
     {
-        var index = instance.Instruction.Operand.Int16Value;
-        instance.InstructionIndex = instance.Procedure.Labels[index].InstructionIndex;
+        instance.ProcedureIndex = instance.Instruction.Operand.Int16Value;
+        instance.InstructionIndex = 0;
         return true;
     }
 
@@ -601,6 +601,12 @@ public class FlowScriptInterpreter
     private static bool PUSHSTR(FlowScriptInterpreter instance)
     {
         instance.PushValue(instance.Instruction.Operand.StringValue);
+        return true;
+    }
+
+    private static bool POPREG(FlowScriptInterpreter instance)
+    {
+        instance.mREGValue = instance.PopValue();
         return true;
     }
 }

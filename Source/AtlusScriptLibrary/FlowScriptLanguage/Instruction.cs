@@ -1,5 +1,6 @@
 ﻿using AtlusScriptLibrary.FlowScriptLanguage.BinaryModel;
 using System;
+using System.Diagnostics;
 
 // ReSharper disable InconsistentNaming
 
@@ -195,11 +196,9 @@ public class Instruction : IEquatable<Instruction>
             case Opcode.POPLFX:
                 return POPLFX(binary.OperandShort);
 
-            //case Opcode.POPREG:
-            //    return POPREG();
-
             case Opcode.POPREG:
-                throw new Exception("Pop Register Opcode WIP");
+                Debug.Assert(binary.OperandShort == 0);
+                return POPREG();
 
             default:
                 throw new Exception("Opcode not supported");

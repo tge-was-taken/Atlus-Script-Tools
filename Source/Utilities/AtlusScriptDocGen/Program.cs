@@ -1,5 +1,6 @@
 using System.Reflection;
 using AtlusScriptDocGen.Exceptions;
+using AtlusScriptDocGen.Generators;
 using AtlusScriptLibrary.Common.CLI;
 using AtlusScriptLibrary.Common.Libraries;
 

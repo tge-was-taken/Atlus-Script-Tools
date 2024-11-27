@@ -147,7 +147,7 @@ public class FlowScriptCompiler
                 mCurrentBaseDirectory = Path.GetDirectoryName(mFilePath);
 
                 // Add hash for current file
-                var hashAlgo = new MD5CryptoServiceProvider();
+                var hashAlgo = MD5.Create();
                 var hashBytes = hashAlgo.ComputeHash(file);
                 int hashInt = BitConverter.ToInt32(hashBytes, 0);
                 mImportedFileHashSet.Add(hashInt);
@@ -230,7 +230,7 @@ public class FlowScriptCompiler
         }
 
         // Add hash for current file
-        var hashAlgo = new MD5CryptoServiceProvider();
+        var hashAlgo = MD5.Create();
         var hashBytes = hashAlgo.ComputeHash(stream);
         int hashInt = BitConverter.ToInt32(hashBytes, 0);
         mImportedFileHashSet.Add(hashInt);
@@ -563,8 +563,26 @@ public class FlowScriptCompiler
         return true;
     }
 
+    private bool TryEvaluateCompiledFlowScript(FlowScript flowScript, out EvaluationResult evaluationResult)
+    {
+        var evaluator = new Evaluator();
+        evaluator.Library = Library;
+        evaluator.AddListener(new LoggerPassthroughListener(mLogger));
+        if (!evaluator.TryEvaluateScript(flowScript, out evaluationResult))
+        {
+            Warning("Failed to evaluate script");
+            evaluationResult = null;
+            return false;
+        }
+
+        return true;
+    }
+
     private bool TryProcessCompiledFlowScriptImport(FlowScript compiledFlowScript)
     {
+        // Evaluate the compiled script to determine procedure parameter lists
+        var hasEvaluationResult = TryEvaluateCompiledFlowScript(compiledFlowScript, out var compiledFlowScriptEvaluationResult);
+
         // Register declarations for procedures declared in the imported script
         for (var i = 0; i < compiledFlowScript.Procedures.Count; i++)
         {
@@ -576,9 +594,20 @@ public class FlowScriptCompiler
 
             Debug.Assert(mScript.Procedures.Count == i, "Imported procedure index mismatch");
 
+            if (hasEvaluationResult)
+            {
+                // Copy over signature from evaluation result if possible
+                var procedureEvaluationResult = compiledFlowScriptEvaluationResult.Procedures[i];
+                procedureDecl.Parameters.AddRange(procedureEvaluationResult.Parameters);
+                procedureDecl.ReturnType = new TypeIdentifier(procedureEvaluationResult.ReturnKind);
+            }
+
             // Add compiled procedure
             if (!Scope.TryDeclareProcedure(procedureDecl, procedure, out var procedureInfo))
-                Debug.Assert(false);
+            {
+                Error($"Failed to declare procedure {procedure.Name} from imported script, as another procedure with the name already exists");
+                return false;
+            }
 
             AddCompiledProcedure(procedureInfo, procedure);
         }
@@ -790,7 +819,7 @@ public class FlowScriptCompiler
             return false;
         }
 
-        var hashAlgo = new MD5CryptoServiceProvider();
+        var hashAlgo = MD5.Create();
         var hashBytes = hashAlgo.ComputeHash(flowScriptFileStream);
         int flowScriptSourceHash = BitConverter.ToInt32(hashBytes, 0);
         flowScriptFileStream.Position = 0;
@@ -843,7 +872,7 @@ public class FlowScriptCompiler
             return false;
         }
 
-        var hashAlgo = new MD5CryptoServiceProvider();
+        var hashAlgo = MD5.Create();
         var hashBytes = hashAlgo.ComputeHash(flowScriptFileStream);
         int flowScriptSourceHash = BitConverter.ToInt32(hashBytes, 0);
         flowScriptFileStream.Position = 0;
@@ -986,10 +1015,15 @@ public class FlowScriptCompiler
                             if (parameter.IsArray)
                                 count = (short)(((ArrayParameter)parameter).Size);
 
-                            if (parameter.Type.ValueKind.GetBaseKind() == ValueKind.Int)
-                                intParameterCount += count;
-                            else
-                                floatParameterCount += count;
+                            if (!Library.UsePOPREG || parameter.Modifier == ParameterModifier.Out)
+                            {
+                                // Parameters are passed via stack when using POPREG, however out parameters must always be passed
+                                // through variables.
+                                if (parameter.Type.ValueKind.GetBaseKind() == ValueKind.Int)
+                                    intParameterCount += count;
+                                else
+                                    floatParameterCount += count;
+                            }
                         }
 
                         maxIntParameterCount = Math.Max(intParameterCount, maxIntParameterCount);
@@ -1065,19 +1099,23 @@ public class FlowScriptCompiler
 
         // Set up indices
         mNextIntArgumentVariableIndex = mNextIntVariableIndex;
+        Debug.Assert(mNextIntVariableIndex >= 0);
         mNextIntVariableIndex += maxIntParameterCount;
+        Debug.Assert(mNextIntVariableIndex >= 0);
 
         mNextFloatArgumentVariableIndex = mNextFloatVariableIndex;
+        Debug.Assert(mNextFloatArgumentVariableIndex >= 0);
         mNextFloatVariableIndex += maxFloatParameterCount;
+        Debug.Assert(mNextFloatVariableIndex >= 0);
 
         return true;
     }
 
-    private void TryHookProcedure(string name)
+    private bool TryHookProcedure(string name)
     {
         if (!mRootScope.TryGetProcedure(name, out var procedureInfo) ||
              procedureInfo.Compiled == null)
-            return;
+            return false;
 
         if (mRootScope.TryGetProcedure(name + "_hook", out var hookProcedureInfo))
         {
@@ -1086,8 +1124,7 @@ public class FlowScriptCompiler
 
             procedureInfo.Compiled.Instructions.Clear();
             procedureInfo.Compiled.Instructions.Add(Instruction.PROC(procedureInfo.Index));
-            procedureInfo.Compiled.Instructions.Add(Instruction.CALL(hookProcedureInfo.Index));
-            procedureInfo.Compiled.Instructions.Add(Instruction.END());
+            procedureInfo.Compiled.Instructions.Add(Instruction.JUMP(hookProcedureInfo.Index));
         }
 
         if (mRootScope.TryGetProcedure(name + "_hookafter", out hookProcedureInfo))
@@ -1099,10 +1136,7 @@ public class FlowScriptCompiler
             for (int i = 0; i < procedureInfo.Compiled.Instructions.Count; i++)
             {
                 if (procedureInfo.Compiled.Instructions[i].Opcode == Opcode.END)
-                {
-                    procedureInfo.Compiled.Instructions.Insert(i, Instruction.CALL(hookProcedureInfo.Index));
-                    i++;
-                }
+                    procedureInfo.Compiled.Instructions[i] = Instruction.JUMP(hookProcedureInfo.Index);
             }
         }
 
@@ -1112,8 +1146,15 @@ public class FlowScriptCompiler
             BackupCompiledProcedure(procedureInfo);
 
             // Insert call to hook at start of the procedure without a return
+            if (Library.UsePOPREG && procedureInfo.Declaration.Parameters.Count > 0)
+            {
+                Error("Soft hooking a procedure with parameters not supported when using POPREG.");
+                return false;
+            }
             procedureInfo.Compiled.Instructions.Insert(1, Instruction.CALL(hookProcedureInfo.Index));
         }
+
+        return true;
 
         void BackupCompiledProcedure(ProcedureInfo _procedureInfo)
         {
@@ -1171,12 +1212,6 @@ public class FlowScriptCompiler
         if (EnableProcedureTracing)
             TraceProcedureStart();
 
-        if (EnableStackCookie)
-        {
-            // Emit stack cookie
-            Emit(Instruction.PUSHI(declaration.Identifier.Text.GetHashCode()));
-        }
-
         // Register / forward declare labels in procedure body before codegen
         Trace(declaration.Body, "Forward declaring labels in procedure body");
         if (!TryRegisterLabels(declaration.Body))
@@ -1194,6 +1229,12 @@ public class FlowScriptCompiler
                 Error(declaration, "Failed to emit procedure parameters");
                 return false;
             }
+        }
+
+        if (EnableStackCookie)
+        {
+            // Emit stack cookie
+            Emit(Instruction.PUSHI(declaration.Identifier.Text.GetHashCode()));
         }
 
         ReturnStatement returnStatement = new ReturnStatement();
@@ -1258,8 +1299,17 @@ public class FlowScriptCompiler
 
     private bool TryEmitProcedureParameters(List<Parameter> parameters)
     {
+        if (parameters.Count == 0)
+            return true;
+
         int intArgumentCount = 0;
         int floatArgumentCount = 0;
+
+        if (Library.UsePOPREG)
+        {
+            // Save return address so we can pop the arguments off the stack.
+            Emit(Instruction.POPREG());
+        }
 
         foreach (var parameter in parameters)
         {
@@ -1296,25 +1346,38 @@ public class FlowScriptCompiler
             // Push argument value
             for (int i = 0; i < count; i++)
             {
-                if (declaration.Type.ValueKind.GetBaseKind() == ValueKind.Int)
+                if (parameter.Modifier == ParameterModifier.Out)
                 {
-                    if (parameter.Modifier != ParameterModifier.Out)
-                        Emit(Instruction.PUSHLIX(mNextIntArgumentVariableIndex));
-
-                    ++mNextIntArgumentVariableIndex;
-                    ++intArgumentCount;
+                    if (declaration.Type.ValueKind.GetBaseKind() == ValueKind.Int)
+                    {
+                        ++mNextIntArgumentVariableIndex;
+                        ++intArgumentCount;
+                    }
+                    else
+                    {
+                        ++mNextFloatArgumentVariableIndex;
+                        ++floatArgumentCount;
+                    }
                 }
                 else
                 {
-                    if (parameter.Modifier != ParameterModifier.Out)
-                        Emit(Instruction.PUSHLFX(mNextFloatArgumentVariableIndex));
+                    if (!Library.UsePOPREG)
+                    {
+                        // Arguments are passed via hidden variables
+                        if (declaration.Type.ValueKind.GetBaseKind() == ValueKind.Int)
+                        {
+                            Emit(Instruction.PUSHLIX(mNextIntArgumentVariableIndex));
+                            ++mNextIntArgumentVariableIndex;
+                            ++intArgumentCount;
+                        }
+                        else
+                        {
+                            Emit(Instruction.PUSHLFX(mNextFloatArgumentVariableIndex));
+                            ++mNextFloatArgumentVariableIndex;
+                            ++floatArgumentCount;
+                        }
+                    }
 
-                    ++mNextFloatArgumentVariableIndex;
-                    ++floatArgumentCount;
-                }
-
-                if (parameter.Modifier != ParameterModifier.Out)
-                {
                     // Assign parameter with argument value
                     if (!TryEmitVariableAssignment(declaration, (short)(index + i)))
                         return false;
@@ -1322,9 +1385,17 @@ public class FlowScriptCompiler
             }
         }
 
+        if (Library.UsePOPREG)
+        {
+            // Restore return address
+            Emit(Instruction.PUSHREG());
+        }
+
         // Reset parameter indices
         mNextIntArgumentVariableIndex -= (short)intArgumentCount;
+        Debug.Assert(mNextIntArgumentVariableIndex >= 0);
         mNextFloatArgumentVariableIndex -= (short)floatArgumentCount;
+        Debug.Assert(mNextFloatArgumentVariableIndex >= 0);
 
         return true;
     }
@@ -1922,9 +1993,9 @@ public class FlowScriptCompiler
     {
         Trace(callExpression, $"Emitting call: {callExpression}");
 
-            if (mRootScope.TryGetFunction(callExpression.Identifier.Text, out var function))
-            {
-                var libFunc = Library.FlowScriptModules.SelectMany(x => x.Functions).FirstOrDefault(x => x.Name == function.Declaration.Identifier.Text || (x.Aliases != null && x.Aliases.Contains(function.Declaration.Identifier.Text)));
+        if (mRootScope.TryGetFunction(callExpression.Identifier.Text, out var function))
+        {
+            var libFunc = Library.FlowScriptModules.SelectMany(x => x.Functions).FirstOrDefault(x => x.Name == function.Declaration.Identifier.Text || (x.Aliases != null && x.Aliases.Contains(function.Declaration.Identifier.Text)));
 
             // Add default values
             var foundDefaultValue = false;
@@ -1969,7 +2040,7 @@ public class FlowScriptCompiler
                 {
                     var semantic = libFunc.Parameters[i].Semantic;
                     if (semantic != FlowScriptModuleParameterSemantic.MsgId &&
-                         semantic != FlowScriptModuleParameterSemantic.SelId)
+                            semantic != FlowScriptModuleParameterSemantic.SelId)
                         continue;
 
                     var arg = callExpression.Arguments[i];
@@ -2071,6 +2142,10 @@ public class FlowScriptCompiler
             if (!TryEmitProcedureCall(callExpression, isStatement, procedure))
                 return false;
         }
+        else if (TryEmitIntrinsicCall(callExpression, isStatement))
+        {
+            // fallthrough
+        }
         else
         {
             Error(callExpression, $"Invalid call expression. Expected function or procedure identifier, got: {callExpression.Identifier}");
@@ -2093,6 +2168,392 @@ public class FlowScriptCompiler
 
         mScript.Procedures[procedure.Index] = compiledProcedure;
         procedure.Compiled = compiledProcedure;
+    }
+
+    private bool TryEmitIntrinsicCall(CallOperator callExpression, bool isStatement)
+    {
+        bool TryGetProcedureIndexArgument(CallOperator callExpression, out short index)
+        {
+            index = short.MinValue;
+            if (callExpression.Arguments.Count == 1)
+            {
+                if (callExpression.Arguments[0].Expression is IntLiteral intArg)
+                {
+                    index = (short)intArg.Value;
+                    return true;
+                }
+                else if (callExpression.Arguments[0].Expression is Identifier identifierArg)
+                {
+                    if (!Scope.TryGetProcedure(identifierArg.Text, out var proc))
+                    {
+                        index = (short)proc.Index;
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        bool TryGetLabelIndexArgument(CallOperator callExpression, out short index)
+        {
+            index = short.MinValue;
+            if (callExpression.Arguments.Count == 1)
+            {
+                if (callExpression.Arguments[0].Expression is IntLiteral intArg)
+                {
+                    index = (short)intArg.Value;
+                    return true;
+                }
+                else if (callExpression.Arguments[0].Expression is Identifier identifierArg)
+                {
+                    if (!mLabels.TryGetValue(identifierArg.Text, out var label))
+                    {
+                        index = (short)label.Index;
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        bool TryGetVariableIndexArgument(CallOperator callExpression, out short index)
+        {
+            index = short.MinValue;
+            if (callExpression.Arguments.Count == 1)
+            {
+                if (callExpression.Arguments[0].Expression is IntLiteral intArg)
+                {
+                    index = (short)intArg.Value;
+                    return true;
+                }
+                else if (callExpression.Arguments[0].Expression is Identifier identifierArg)
+                {
+                    if (!Scope.TryGetVariable(identifierArg.Text, out var var))
+                    {
+                        index = var.Index;
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        bool TryGetCommIndexArgument(CallOperator callExpression, out short index)
+        {
+            index = short.MinValue;
+            if (callExpression.Arguments.Count == 1)
+            {
+                if (callExpression.Arguments[0].Expression is IntLiteral intArg)
+                {
+                    index = (short)intArg.Value;
+                    return true;
+                }
+                else if (callExpression.Arguments[0].Expression is Identifier identifierArg)
+                {
+                    if (!mRootScope.TryGetFunction(identifierArg.Text, out var func))
+                    {
+                        index = func.Index;
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        switch (callExpression.Identifier.Text)
+        {
+            case "__PUSHI":
+                if (callExpression.Arguments.Count == 1 && callExpression.Arguments[0].Expression is IntLiteral pushiArg)
+                {
+                    Emit(Instruction.PUSHI(pushiArg.Value));
+                }
+                else
+                {
+                    Error(callExpression, "__PUSHI requires exactly one integer argument.");
+                    return false;
+                }
+                break;
+            case "__PUSHF":
+                if (callExpression.Arguments.Count == 1 && callExpression.Arguments[0].Expression is FloatLiteral pushfArg)
+                {
+                    Emit(Instruction.PUSHF(pushfArg.Value));
+                }
+                else
+                {
+                    Error(callExpression, "__PUSHF requires exactly one float argument.");
+                    return false;
+                }
+                break;
+            case "__PUSHIX":
+                if (callExpression.Arguments.Count == 1 && TryGetVariableIndexArgument(callExpression, out var pushixIndex))
+                {
+                    Emit(Instruction.PUSHIX((short)pushixIndex));
+                }
+                else
+                {
+                    Error(callExpression, "__PUSHIX requires exactly one integer argument (global index).");
+                    return false;
+                }
+                break;
+            case "__PUSHIF":
+                if (callExpression.Arguments.Count == 1 && TryGetVariableIndexArgument(callExpression, out var pushifIndex))
+                {
+                    Emit(Instruction.PUSHIF((short)pushifIndex));
+                }
+                else
+                {
+                    Error(callExpression, "__PUSHIF requires exactly one integer argument (global index).");
+                    return false;
+                }
+                break;
+            case "__PUSHREG":
+                Emit(Instruction.PUSHREG());
+                break;
+            case "__POPIX":
+                if (callExpression.Arguments.Count == 1 && TryGetVariableIndexArgument(callExpression, out var popixIndex))
+                {
+                    Emit(Instruction.POPIX((short)popixIndex));
+                }
+                else
+                {
+                    Error(callExpression, "__POPIX requires exactly one integer argument (global index).");
+                    return false;
+                }
+                break;
+            case "__POPFX":
+                if (callExpression.Arguments.Count == 1 && TryGetVariableIndexArgument(callExpression, out var popfxIndex))
+                {
+                    Emit(Instruction.POPFX((short)popfxIndex));
+                }
+                else
+                {
+                    Error(callExpression, "__POPFX requires exactly one integer argument (global index).");
+                    return false;
+                }
+                break;
+            case "__PROC":
+                if (callExpression.Arguments.Count == 1 && TryGetProcedureIndexArgument(callExpression, out var procIndex))
+                {
+                    Emit(Instruction.PROC((short)procIndex));
+                }
+                else
+                {
+                    Error(callExpression, "__PROC requires exactly one integer argument (procedure index).");
+                    return false;
+                }
+                break;
+            case "__COMM":
+                if (callExpression.Arguments.Count == 1 && TryGetCommIndexArgument(callExpression, out var commIndex))
+                {
+                    Emit(Instruction.COMM((short)commIndex));
+                }
+                else
+                {
+                    Error(callExpression, "__COMM requires exactly one integer argument (function ID).");
+                    return false;
+                }
+                break;
+            case "__END":
+                Emit(Instruction.END());
+                break;
+            case "__JUMP":
+                if (callExpression.Arguments.Count >= 1 && callExpression.Arguments[0].Expression is Identifier jumpIdentifier)
+                {
+                    if (!Scope.TryGetProcedure(jumpIdentifier.Text, out var proc))
+                    {
+                        Error(callExpression, "__JUMP requires exactly one integer argument (label index).");
+                        return false;
+                    }
+                    var innerCallExpression = new CallOperator(
+                        jumpIdentifier,
+                        callExpression.Arguments.Skip(1).ToList());
+                    if (!TryEmitProcedureJump(innerCallExpression, isStatement, proc))
+                        return false;
+                }
+                else
+                {
+                    Error(callExpression, "__JUMP requires exactly one integer argument (label index).");
+                    return false;
+                }
+                break;
+            case "__CALL":
+                if (callExpression.Arguments.Count == 1 && TryGetProcedureIndexArgument(callExpression, out var callIndex))
+                {
+                    Emit(Instruction.CALL((short)callIndex));
+                }
+                else
+                {
+                    Error(callExpression, "__CALL requires exactly one integer argument (label index).");
+                    return false;
+                }
+                break;
+            case "__RUN":
+                Emit(Instruction.RUN());
+                break;
+            case "__GOTO":
+                if (callExpression.Arguments.Count == 1 && TryGetLabelIndexArgument(callExpression, out var gotoIndex))
+                {
+                    Emit(Instruction.GOTO((short)gotoIndex));
+                }
+                else
+                {
+                    Error(callExpression, "__GOTO requires exactly one integer argument (label index).");
+                    return false;
+                }
+                break;
+            case "__ADD":
+                Emit(Instruction.ADD());
+                break;
+            case "__SUB":
+                Emit(Instruction.SUB());
+                break;
+            case "__MUL":
+                Emit(Instruction.MUL());
+                break;
+            case "__DIV":
+                Emit(Instruction.DIV());
+                break;
+            case "__MINUS":
+                Emit(Instruction.MINUS());
+                break;
+            case "__NOT":
+                Emit(Instruction.NOT());
+                break;
+            case "__OR":
+                Emit(Instruction.OR());
+                break;
+            case "__AND":
+                Emit(Instruction.AND());
+                break;
+            case "__EQ":
+                Emit(Instruction.EQ());
+                break;
+            case "__NEQ":
+                Emit(Instruction.NEQ());
+                break;
+            case "__S":
+                Emit(Instruction.S());
+                break;
+            case "__L":
+                Emit(Instruction.L());
+                break;
+            case "__SE":
+                Emit(Instruction.SE());
+                break;
+            case "__LE":
+                Emit(Instruction.LE());
+                break;
+            case "__IF":
+                if (callExpression.Arguments.Count == 1 && TryGetLabelIndexArgument(callExpression, out var ifIndex))
+                {
+                    Emit(Instruction.IF((short)ifIndex));
+                }
+                else
+                {
+                    Error(callExpression, "__IF requires exactly one integer argument (label index).");
+                    return false;
+                }
+                break;
+            case "__PUSHIS":
+                if (callExpression.Arguments.Count == 1 && TryGetVariableIndexArgument(callExpression, out var pushisIndex))
+                {
+                    Emit(Instruction.PUSHIS((short)pushisIndex));
+                }
+                else
+                {
+                    Error(callExpression, "__PUSHIS requires exactly one short integer argument.");
+                    return false;
+                }
+                break;
+            case "__PUSHLIX":
+                if (callExpression.Arguments.Count == 1 && TryGetVariableIndexArgument(callExpression, out var pushlixIndex))
+                {
+                    Emit(Instruction.PUSHLIX((short)pushlixIndex));
+                }
+                else
+                {
+                    Error(callExpression, "__PUSHLIX requires exactly one integer argument (local index).");
+                    return false;
+                }
+                break;
+            case "__PUSHLFX":
+                if (callExpression.Arguments.Count == 1 && TryGetVariableIndexArgument(callExpression, out var pushlfxIndex))
+                {
+                    Emit(Instruction.PUSHLFX((short)pushlfxIndex));
+                }
+                else
+                {
+                    Error(callExpression, "__PUSHLFX requires exactly one integer argument (local index).");
+                    return false;
+                }
+                break;
+            case "__POPLIX":
+                if (callExpression.Arguments.Count == 1 && TryGetVariableIndexArgument(callExpression, out var poplixIndex))
+                {
+                    Emit(Instruction.POPLIX((short)poplixIndex));
+                }
+                else
+                {
+                    Error(callExpression, "__POPLIX requires exactly one integer argument (local index).");
+                    return false;
+                }
+                break;
+            case "__POPLFX":
+                if (callExpression.Arguments.Count == 1 && TryGetVariableIndexArgument(callExpression, out var poplfxIndex))
+                {
+                    Emit(Instruction.POPLFX((short)poplfxIndex));
+                }
+                else
+                {
+                    Error(callExpression, "__POPLFX requires exactly one integer argument (local index).");
+                    return false;
+                }
+                break;
+            case "__PUSHSTR":
+                if (callExpression.Arguments.Count == 1 && callExpression.Arguments[0].Expression is StringLiteral pushstrArg)
+                {
+                    Emit(Instruction.PUSHSTR(pushstrArg.Value));
+                }
+                else
+                {
+                    Error(callExpression, "__PUSHSTR requires exactly one string argument.");
+                    return false;
+                }
+                break;
+            case "__POPREG":
+                if (callExpression.Arguments.Count == 1)
+                {
+                    if (!TryEmitExpression(callExpression.Arguments[0].Expression, false))
+                    {
+                        Error(callExpression, "Failed to pop argument for __POPREG.");
+                        return false;
+                    }
+                    Emit(Instruction.POPREG());
+                }
+                else if (callExpression.Arguments.Count == 0)
+                {
+                    Emit(Instruction.POPREG());
+                }
+                else
+                {
+                    Error(callExpression, "__POPREG requires exactly one or no arguments.");
+                    return false;
+                }
+                break;
+            default:
+                return false; ;
+        }
+        return true;
+    }
+
+    private bool TryEmitProcedureJump(CallOperator callExpression, bool isStatement, ProcedureInfo procedure)
+    {
+        // TODO: handle this more gracefully
+        //if (callExpression.Arguments.Count != procedure.Declaration.Parameters.Count)
+        //{
+        //    Error($"Procedure '{procedure.Declaration}' expects {procedure.Declaration.Parameters.Count} arguments but {callExpression.Arguments.Count} are given");
+        //    return false;
+        //}
+
+        Emit(Instruction.JUMP(procedure.Index));
+        return true;
     }
 
     private bool TryEmitProcedureCall(CallOperator callExpression, bool isStatement, ProcedureInfo procedure)
@@ -2122,22 +2583,23 @@ public class FlowScriptCompiler
                 continue;
 
             // Copy value of local variable copy of out parameter to actual out parameter
-            var index = parameterIndices[i];
-            var identifier = (Identifier)callExpression.Arguments[i].Expression;
-            if (!Scope.TryGetVariable(identifier.Text, out var variable))
-                return false;
-
-            if (variable.Declaration.Type.ValueKind.GetBaseKind() == ValueKind.Int)
+            if (parameterIndices.TryGetValue(parameter, out var index))
             {
-                Emit(Instruction.PUSHLIX(index));
-                Emit(Instruction.POPLIX(variable.Index));
-            }
-            else
-            {
-                Emit(Instruction.PUSHLFX(index));
-                Emit(Instruction.POPLFX(variable.Index));
-            }
+                var identifier = (Identifier)callExpression.Arguments[i].Expression;
+                if (!Scope.TryGetVariable(identifier.Text, out var variable))
+                    return false;
 
+                if (variable.Declaration.Type.ValueKind.GetBaseKind() == ValueKind.Int)
+                {
+                    Emit(Instruction.PUSHLIX(index));
+                    Emit(Instruction.POPLIX(variable.Index));
+                }
+                else
+                {
+                    Emit(Instruction.PUSHLFX(index));
+                    Emit(Instruction.POPLFX(variable.Index));
+                }
+            }
         }
 
         // Emit return value
@@ -2183,50 +2645,58 @@ public class FlowScriptCompiler
         return true;
     }
 
-    private bool TryEmitParameterCallArguments(CallOperator callExpression, ProcedureDeclaration declaration, out List<short> argumentIndices)
+    private bool TryEmitParameterCallArguments(CallOperator callExpression, ProcedureDeclaration declaration, out Dictionary<Parameter, short> argumentIndices)
     {
         Trace("Emitting parameter call arguments");
 
         int intArgumentCount = 0;
         int floatArgumentCount = 0;
-        argumentIndices = new List<short>();
+        argumentIndices = new();
 
-        for (int i = 0; i < callExpression.Arguments.Count; i++)
+        for (int i = callExpression.Arguments.Count - 1; i >= 0; i--)
         {
             var argument = callExpression.Arguments[i];
             var parameter = declaration.Parameters[i];
 
             if (!parameter.IsArray)
             {
-                if (argument.Modifier != ArgumentModifier.Out)
+                if (argument.Modifier == ArgumentModifier.Out)
                 {
-                    if (!TryEmitExpression(argument.Expression, false))
+                    if (parameter.Type.ValueKind.GetBaseKind() == ValueKind.Int)
                     {
-                        Error(callExpression.Arguments[i], $"Failed to compile function call argument: {argument}");
-                        return false;
+                        argumentIndices.Add(parameter, mNextIntArgumentVariableIndex++);
+                        ++intArgumentCount;
                     }
-                }
-
-                // Assign each required argument variable
-                if (parameter.Type.ValueKind.GetBaseKind() == ValueKind.Int)
-                {
-                    if (argument.Modifier != ArgumentModifier.Out)
-                        Emit(Instruction.POPLIX(mNextIntArgumentVariableIndex));
-
-                    argumentIndices.Add(mNextIntArgumentVariableIndex);
-
-                    ++mNextIntArgumentVariableIndex;
-                    ++intArgumentCount;
+                    else
+                    {
+                        argumentIndices.Add(parameter, mNextFloatArgumentVariableIndex++);
+                        ++floatArgumentCount;
+                    }
                 }
                 else
                 {
-                    if (argument.Modifier != ArgumentModifier.Out)
-                        Emit(Instruction.POPLFX(mNextFloatArgumentVariableIndex));
+                    if (!TryEmitExpression(argument.Expression, false))
+                    {
+                        Error(argument, $"Failed to compile function call argument: {argument}");
+                        return false;
+                    }
 
-                    argumentIndices.Add(mNextFloatArgumentVariableIndex);
-
-                    ++mNextFloatArgumentVariableIndex;
-                    ++floatArgumentCount;
+                    if (!Library.UsePOPREG)
+                    {
+                        // Assign each required argument variable
+                        if (parameter.Type.ValueKind.GetBaseKind() == ValueKind.Int)
+                        {
+                            Emit(Instruction.POPLIX(mNextIntArgumentVariableIndex));
+                            argumentIndices.Add(parameter, mNextIntArgumentVariableIndex++);
+                            ++intArgumentCount;
+                        }
+                        else
+                        {
+                            Emit(Instruction.POPLFX(mNextFloatArgumentVariableIndex));
+                            argumentIndices.Add(parameter, mNextFloatArgumentVariableIndex++);
+                            ++floatArgumentCount;
+                        }
+                    }
                 }
             }
             else
@@ -2254,37 +2724,52 @@ public class FlowScriptCompiler
                 var count = ((ArrayParameter)parameter).Size;
                 for (int j = 0; j < count; j++)
                 {
-                    if (argument.Modifier != ArgumentModifier.Out)
+                    if (argument.Modifier == ArgumentModifier.Out)
                     {
-                        if (!TryEmitPushVariableValue(variable.Declaration.Modifier, variable.Declaration.Type.ValueKind, variable.GetArrayElementIndex(j), null))
+                        // Assign each required argument array variable, essentially copying the entire array
+                        if (parameter.Type.ValueKind.GetBaseKind() == ValueKind.Int)
                         {
-                            Error(callExpression.Arguments[i], $"Failed to compile function call argument: {argument}");
-                            return false;
+                            if (j == 0)
+                                argumentIndices.Add(parameter, mNextIntArgumentVariableIndex);
+                            ++mNextIntArgumentVariableIndex;
+                            ++intArgumentCount;
                         }
-                    }
-
-                    // Assign each required argument array variable, essentially copying the entire array
-                    if (parameter.Type.ValueKind.GetBaseKind() == ValueKind.Int)
-                    {
-                        if (argument.Modifier != ArgumentModifier.Out)
-                            Emit(Instruction.POPLIX(mNextIntArgumentVariableIndex));
-
-                        if (j == 0)
-                            argumentIndices.Add(mNextIntArgumentVariableIndex);
-
-                        ++mNextIntArgumentVariableIndex;
-                        ++intArgumentCount;
+                        else
+                        {
+                            if (j == 0)
+                                argumentIndices.Add(parameter, mNextFloatArgumentVariableIndex++);
+                            ++floatArgumentCount;
+                        }
                     }
                     else
                     {
-                        if (argument.Modifier != ArgumentModifier.Out)
-                            Emit(Instruction.POPLFX(mNextFloatArgumentVariableIndex));
+                        if (!TryEmitPushVariableValue(variable.Declaration.Modifier, variable.Declaration.Type.ValueKind, variable.GetArrayElementIndex(j), null))
+                        {
+                            Error(argument, $"Failed to compile function call argument: {argument}");
+                            return false;
+                        }
 
-                        if (j == 0)
-                            argumentIndices.Add(mNextFloatArgumentVariableIndex);
+                        if (!Library.UsePOPREG)
+                        {
+                            // Assign each required argument array variable, essentially copying the entire array
+                            if (parameter.Type.ValueKind.GetBaseKind() == ValueKind.Int)
+                            {
+                                Emit(Instruction.POPLIX(mNextIntArgumentVariableIndex));
+                                if (j == 0)
+                                    argumentIndices.Add(parameter, mNextIntArgumentVariableIndex);
+                                ++mNextIntArgumentVariableIndex;
+                                ++intArgumentCount;
+                            }
+                            else
+                            {
+                                Emit(Instruction.POPLFX(mNextFloatArgumentVariableIndex));
 
-                        ++mNextFloatArgumentVariableIndex;
-                        ++floatArgumentCount;
+                                if (j == 0)
+                                    argumentIndices.Add(parameter, mNextFloatArgumentVariableIndex);
+                                ++mNextFloatArgumentVariableIndex;
+                                ++floatArgumentCount;
+                            }
+                        }
                     }
                 }
             }
@@ -2292,7 +2777,9 @@ public class FlowScriptCompiler
 
         // Reset the parameter variable indices
         mNextIntArgumentVariableIndex -= (short)intArgumentCount;
+        Debug.Assert(mNextIntArgumentVariableIndex >= 0);
         mNextFloatArgumentVariableIndex -= (short)floatArgumentCount;
+        Debug.Assert(mNextFloatArgumentVariableIndex >= 0);
 
         return true;
     }
@@ -3724,6 +4211,9 @@ public class FlowScriptCompiler
             case Opcode.PUSHREG:
                 ++mStackValueCount;
                 break;
+            case Opcode.POPREG:
+                --mStackValueCount;
+                break;
             case Opcode.POPIX:
             case Opcode.POPFX:
                 --mStackValueCount;
@@ -3735,11 +4225,11 @@ public class FlowScriptCompiler
 
                     if (mStackValueCount < 1)
                     {
-                        mLogger.Error("Stack underflow!!!");
+                        mLogger.Warning("Possible stack underflow");
                     }
                     else if (mStackValueCount != 1)
                     {
-                        mLogger.Error("Return address corruption");
+                        mLogger.Warning("Possible return address corruption");
                     }
                 }
                 break;
