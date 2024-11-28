@@ -100,18 +100,17 @@ public struct BinaryInstruction
     // union 
     // {
     public Opcode Opcode;
-    public short OperandShort;
     public ushort OperandUShort;
     // }
 
     // union 
     // {
-    public int OperandInt;
+    public uint OperandUInt;
     public float OperandFloat;
     // }
 
     public override string ToString()
     {
-        return $"{Opcode} short: {OperandShort} ushort: {OperandUShort} int: {OperandInt} float: {OperandFloat}";
+        return $"{Opcode} ushort: {OperandUShort} int: {OperandUInt} float: {OperandFloat}";
     }
 }

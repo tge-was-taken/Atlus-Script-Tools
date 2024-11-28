@@ -48,8 +48,8 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Tests
             //Assert.AreEqual(77521, script.MessageScript);
             Assert.AreEqual(96, script.Procedures.Count);
             Assert.AreEqual(Opcode.COMM, instructions[2].Opcode);
-            Assert.AreEqual(102, instructions[2].Operand.Int16Value);
-            Assert.ThrowsException<InvalidOperationException>(() => instructions[2].Operand.Int32Value);
+            Assert.AreEqual(102, instructions[2].Operand.UInt16Value);
+            Assert.ThrowsException<InvalidOperationException>(() => instructions[2].Operand.UInt32Value);
         }
 
         [TestMethod]
@@ -154,12 +154,12 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Tests
                 {
                     switch (instruction.Operand.Kind)
                     {
-                        case Operand.ValueKind.Int16:
+                        case Operand.ValueKind.UInt16:
                             if (instruction.Opcode != Opcode.IF && instruction.Opcode != Opcode.GOTO)
-                                Assert.AreEqual(binaryInstruction.OperandShort, instruction.Operand.Int16Value);
+                                Assert.AreEqual(binaryInstruction.OperandUShort, instruction.Operand.UInt16Value);
                             break;
-                        case Operand.ValueKind.Int32:
-                            Assert.AreEqual(binary.TextSection[binaryIndex++].OperandInt, instruction.Operand.Int32Value);
+                        case Operand.ValueKind.UInt32:
+                            Assert.AreEqual(binary.TextSection[binaryIndex++].OperandUInt, instruction.Operand.UInt32Value);
                             break;
                         case Operand.ValueKind.Single:
                             Assert.AreEqual(binary.TextSection[binaryIndex++].OperandFloat, instruction.Operand.SingleValue);
@@ -233,11 +233,11 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Tests
 
                 if (inInstruction.Opcode == Opcode.IF || inInstruction.Opcode == Opcode.GOTO)
                 {
-                    Assert.AreEqual(binaryIn.JumpLabelSection[inInstruction.OperandShort].Name, binaryOut.JumpLabelSection[outInstruction.OperandShort].Name);
+                    Assert.AreEqual(binaryIn.JumpLabelSection[inInstruction.OperandUShort].Name, binaryOut.JumpLabelSection[outInstruction.OperandUShort].Name);
                 }
                 else
                 {
-                    Assert.AreEqual(inInstruction.OperandShort, outInstruction.OperandShort);
+                    Assert.AreEqual(inInstruction.OperandUShort, outInstruction.OperandUShort);
                 }
             }
 

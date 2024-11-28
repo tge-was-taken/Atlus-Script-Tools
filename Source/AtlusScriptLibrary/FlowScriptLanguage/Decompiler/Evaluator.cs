@@ -121,7 +121,7 @@ public class Evaluator
                         ((i + 1 == proc.Procedure.Instructions.Count - 1) && proc.Procedure.Instructions[i+1].Opcode == Opcode.END)
                     ))
                 {
-                    var calledProcInfo = mProcedurePreEvaluationInfos[instr.Operand.Int16Value];
+                    var calledProcInfo = mProcedurePreEvaluationInfos[instr.Operand.UInt16Value];
                     proc.ParameterTypes.AddRange(calledProcInfo.ParameterTypes);
                 }
             }
@@ -170,7 +170,7 @@ public class Evaluator
         mScopeStack.Push(mScopeStack.Pop());
     }
 
-    private bool TryDeclareVariable(VariableModifierKind modifierKind, ValueKind valueKind, short index, VariableIndexKind indexKind, out VariableDeclaration declaration)
+    private bool TryDeclareVariable(VariableModifierKind modifierKind, ValueKind valueKind, ushort index, VariableIndexKind indexKind, out VariableDeclaration declaration)
     {
         var modifier = indexKind == VariableIndexKind.Implicit
             ? new VariableModifier(modifierKind)
@@ -235,7 +235,7 @@ public class Evaluator
         }
     }
 
-    private bool IsVariableDeclared(VariableModifierKind modifierKind, ValueKind valueKind, short index)
+    private bool IsVariableDeclared(VariableModifierKind modifierKind, ValueKind valueKind, ushort index)
     {
         switch (modifierKind)
         {
@@ -271,7 +271,7 @@ public class Evaluator
         var foundIntVariables = new Dictionary<int, (Procedure Procedure, VariableModifierKind Modifier, ValueKind Type)>();
         var foundFloatVariables = new Dictionary<int, (Procedure Procedure, VariableModifierKind Modifier, ValueKind Type)>();
 
-        void DeclareVariableIfNotDeclared((Procedure Procedure, VariableModifierKind Modifier, ValueKind Type) context, short index, VariableIndexKind indexKind)
+        void DeclareVariableIfNotDeclared((Procedure Procedure, VariableModifierKind Modifier, ValueKind Type) context, ushort index, VariableIndexKind indexKind)
         {
             // If the procedures are different, then this variable can't be local to the scope of the procedure
             if (!IsVariableDeclared(context.Modifier, context.Type, index))
@@ -314,7 +314,7 @@ public class Evaluator
                                 modifier = VariableModifierKind.Local;
                             }
 
-                            var index = instruction.Operand.Int16Value;
+                            var index = instruction.Operand.UInt16Value;
 
                             if (modifier != VariableModifierKind.Global && type == ValueKind.Int && foundIntVariables.TryGetValue(index, out var context))
                             {
@@ -421,8 +421,9 @@ public class Evaluator
         StackValueType regValueType = StackValueType.None;
         var stackArguments = new List<StackValueType>();
 
-        foreach (var instruction in procedure.Instructions)
+        for (int i = 0; i < procedure.Instructions.Count; i++)
         {
+            var instruction = procedure.Instructions[i];
             var snapshot = PreEvaluateInstruction(instruction, previousSnapshot, stackArguments,
                 ref lastFunction, ref regValueType);
             snapshots.Add(snapshot);
@@ -446,23 +447,28 @@ public class Evaluator
 
         int stackBalance = previousSnapshot.StackBalance;
 
+        StackValueType PopStackValue(params StackValueType[] expectedTypes)
+        {
+            var type = stack.Pop();
+            if (expectedTypes.Contains(StackValueType.Any) && !expectedTypes.Contains(type))
+                LogWarning($"Popped {type} off stack when any of [{string.Join(", ", expectedTypes)}] were expected");
+            return type;
+        }
+
+
         switch (instruction.Opcode)
         {
             case Opcode.PUSHI:
                 stack.Push(StackValueType.Int);
-                ++stackBalance;
                 break;
             case Opcode.PUSHF:
                 stack.Push(StackValueType.Float);
-                ++stackBalance;
                 break;
             case Opcode.PUSHIX:
                 stack.Push(StackValueType.Int);
-                ++stackBalance;
                 break;
             case Opcode.PUSHIF:
                 stack.Push(StackValueType.Float);
-                ++stackBalance;
                 break;
             case Opcode.PUSHREG:
                 {
@@ -490,24 +496,22 @@ public class Evaluator
             case Opcode.POPIX:
                 if (stack.Count != 0)
                 {
-                    stack.Pop();
+                    PopStackValue(StackValueType.Int);
                 }
                 else
                 {
                     parameterTypes.Add(StackValueType.Int);
                 }
-                --stackBalance;
                 break;
             case Opcode.POPFX:
                 if (stack.Count != 0)
                 {
-                    stack.Pop();
+                    PopStackValue(StackValueType.Float);
                 }
                 else
                 {
                     parameterTypes.Add(StackValueType.Float);
                 }
-                --stackBalance;
                 break;
             case Opcode.PROC:
                 break;
@@ -516,9 +520,20 @@ public class Evaluator
                     ushort index = instruction.Operand.UInt16Value;
                     foreach (var parameter in mFunctions[index].Parameters)
                     {
-                        if (stack.Count != 1)
+                        if (stack.Count != 0)
                         {
-                            stack.Pop();
+                            switch (parameter.Type.ValueKind)
+                            {
+                                case ValueKind.Bool:
+                                case ValueKind.Int:
+                                    PopStackValue(StackValueType.Int);
+                                    break;
+                                case ValueKind.Float:
+                                    PopStackValue(StackValueType.Float);
+                                    break;
+                                default:
+                                    throw new NotImplementedException();
+                            }
                         }
                         else
                         {
@@ -535,7 +550,6 @@ public class Evaluator
                                     throw new NotImplementedException();
                             }
                         }
-                        --stackBalance;
                     }
 
                     lastFunction = mFunctions[index];
@@ -558,13 +572,28 @@ public class Evaluator
                 {
                     if (stack.Count != 0)
                     {
-                        stack.Pop();
+                        var typeA = PopStackValue(StackValueType.Int, StackValueType.Float);
+                        if (stack.Count != 0)
+                        {
+                            var typeB = PopStackValue(StackValueType.Int, StackValueType.Float);
+                            if (typeA == StackValueType.Float || typeB == StackValueType.Float)
+                            {
+                                stack.Push(StackValueType.Float);
+                            }
+                            else
+                            {
+                                stack.Push(StackValueType.Int);
+                            }    
+                        }
+                        else
+                        {
+                            LogError("Unable to pop value of stack");
+                        }
                     }
                     else
                     {
-                        throw new NotImplementedException();
+                        LogError("Unable to pop value of stack");
                     }
-                    --stackBalance;
                 }
                 break;
             case Opcode.MINUS:
@@ -581,65 +610,73 @@ public class Evaluator
                 {
                     if (stack.Count != 0)
                     {
-                        stack.Pop();
+                        var typeA = PopStackValue(StackValueType.Int, StackValueType.Float);
+                        if (stack.Count != 0)
+                        {
+                            var typeB = PopStackValue(StackValueType.Int, StackValueType.Float);
+                            if (typeA == StackValueType.Float || typeB == StackValueType.Float)
+                            {
+                                stack.Push(StackValueType.Float);
+                            }
+                            else
+                            {
+                                stack.Push(StackValueType.Int);
+                            }
+                        }
+                        else
+                        {
+                            LogError("Unable to pop value of stack");
+                        }
                     }
                     else
                     {
-                        throw new NotImplementedException();
+                        LogError("Unable to pop value of stack");
                     }
-                    --stackBalance;
                 }
                 break;
             case Opcode.IF:
                 {
                     if (stack.Count != 0)
                     {
-                        stack.Pop();
+                        PopStackValue(StackValueType.Int, StackValueType.Float);
                     }
                     else
                     {
-                        throw new NotImplementedException();
+                        LogError("Unable to pop value of stack");
                     }
-                    --stackBalance;
                 }
                 break;
             case Opcode.PUSHIS:
                 stack.Push(StackValueType.Int);
-                ++stackBalance;
                 break;
             case Opcode.PUSHLIX:
                 stack.Push(StackValueType.Int);
-                ++stackBalance;
                 break;
             case Opcode.PUSHLFX:
                 stack.Push(StackValueType.Float);
-                ++stackBalance;
                 break;
             case Opcode.POPLIX:
                 if (stack.Count != 0)
                 {
-                    stack.Pop();
+                    PopStackValue(StackValueType.Int);
                 }
                 else
                 {
                     parameterTypes.Add(StackValueType.Int);
                 }
-                --stackBalance;
                 break;
             case Opcode.POPLFX:
                 if (stack.Count != 0)
                 {
-                    stack.Pop();
+                    PopStackValue(StackValueType.Float);
                 }
                 else
                 {
                     parameterTypes.Add(StackValueType.Float);
                 }
-                --stackBalance;
                 break;
             case Opcode.PUSHSTR:
                 stack.Push(StackValueType.String);
-                ++stackBalance;
                 break;
             case Opcode.POPREG:
                 if (stack.Count != 0)
@@ -780,7 +817,7 @@ public class Evaluator
         {
             // Push integer to stack
             case Opcode.PUSHI:
-                PushExpression(new IntLiteral(instruction.Operand.Int32Value));
+                PushExpression(new UIntLiteral(instruction.Operand.UInt32Value));
                 ++mRealStackCount;
                 break;
 
@@ -793,7 +830,7 @@ public class Evaluator
             // Push value of global integer variable to stack
             case Opcode.PUSHIX:
                 {
-                    short index = instruction.Operand.Int16Value;
+                    var index = instruction.Operand.UInt16Value;
                     if (!Scope.TryGetGlobalIntVariable(index, out var declaration))
                     {
                         LogError($"Referenced undeclared global int variable: '{index}'");
@@ -814,7 +851,7 @@ public class Evaluator
             // Push value of global float variable to stack
             case Opcode.PUSHIF:
                 {
-                    short index = instruction.Operand.Int16Value;
+                    var index = instruction.Operand.UInt16Value;
                     if (!Scope.TryGetGlobalFloatVariable(index, out var declaration))
                     {
                         LogError($"Referenced undeclared global float variable: '{index}'");
@@ -856,7 +893,7 @@ public class Evaluator
             // Load top stack value into global integer variable
             case Opcode.POPIX:
                 {
-                    short index = instruction.Operand.Int16Value;
+                    var index = instruction.Operand.UInt16Value;
 
                     if (!Scope.TryGetGlobalIntVariable(index, out var declaration))
                     {
@@ -882,7 +919,7 @@ public class Evaluator
             // Load top stack value into global float variable
             case Opcode.POPFX:
                 {
-                    short index = instruction.Operand.Int16Value;
+                    var index = instruction.Operand.UInt16Value;
 
                     if (!Scope.TryGetGlobalFloatVariable(index, out var declaration))
                     {
@@ -981,7 +1018,7 @@ public class Evaluator
             // Call procedure
             case Opcode.CALL:
                 {
-                    short index = instruction.Operand.Int16Value;
+                    var index = instruction.Operand.UInt16Value;
                     if (index < 0 || index >= mScript.Procedures.Count)
                     {
                         LogError($"CALL referenced invalid procedure index: {index}");
@@ -1053,7 +1090,7 @@ public class Evaluator
 
             case Opcode.GOTO:
                 {
-                    short index = instruction.Operand.Int16Value;
+                    var index = instruction.Operand.UInt16Value;
                     var label = mProcedure.Labels[index];
                     PushStatement(
                         new GotoStatement(
@@ -1176,7 +1213,7 @@ public class Evaluator
             case Opcode.IF:
                 {
                     // Get label for when if condition is not met
-                    short index = instruction.Operand.Int16Value;
+                    var index = instruction.Operand.UInt16Value;
                     var label = mProcedure.Labels[index];
 
                     // Pop condition
@@ -1197,14 +1234,14 @@ public class Evaluator
 
             // Push short
             case Opcode.PUSHIS:
-                PushExpression(new IntLiteral(instruction.Operand.Int16Value));
+                PushExpression(new IntLiteral(instruction.Operand.UInt16Value));
                 ++mRealStackCount;
                 break;
 
             // Push local int variable value
             case Opcode.PUSHLIX:
                 {
-                    short index = instruction.Operand.Int16Value;
+                    var index = instruction.Operand.UInt16Value;
                     if (!Scope.TryGetLocalIntVariable(index, out var declaration))
                     {
                         // Probably a variable declared in the root scope
@@ -1224,7 +1261,7 @@ public class Evaluator
                 break;
             case Opcode.PUSHLFX:
                 {
-                    short index = instruction.Operand.Int16Value;
+                    var index = instruction.Operand.UInt16Value;
                     if (!Scope.TryGetLocalFloatVariable(index, out var declaration))
                     {
                         LogInfo($"Referenced undeclared local float variable: '{index}'");
@@ -1243,7 +1280,7 @@ public class Evaluator
                 break;
             case Opcode.POPLIX:
                 {
-                    short index = instruction.Operand.Int16Value;
+                    var index = instruction.Operand.UInt16Value;
 
                     if (!Scope.TryGetLocalIntVariable(index, out var declaration))
                     {
@@ -1267,7 +1304,7 @@ public class Evaluator
                 break;
             case Opcode.POPLFX:
                 {
-                    short index = instruction.Operand.Int16Value;
+                    var index = instruction.Operand.UInt16Value;
 
                     if (!Scope.TryGetLocalFloatVariable(index, out var declaration))
                     {
@@ -1457,6 +1494,17 @@ public class Evaluator
     {
         mLogger.Info($"{message}");
     }
+
+    private void LogWarning(string message)
+    {
+        mLogger.Warning($"{message}");
+
+        if (Debugger.IsAttached)
+        {
+            //Debugger.Break();
+        }
+    }
+
 
     private void LogError(string message)
     {

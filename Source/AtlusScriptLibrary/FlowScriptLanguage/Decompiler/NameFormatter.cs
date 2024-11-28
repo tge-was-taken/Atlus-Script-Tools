@@ -6,7 +6,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler;
 
 public static class NameFormatter
 {
-    public static string GenerateVariableName(VariableModifierKind modifier, ValueKind kind, short index, bool isTopLevel)
+    public static string GenerateVariableName(VariableModifierKind modifier, ValueKind kind, ushort index, bool isTopLevel)
     {
         switch (kind)
         {

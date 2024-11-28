@@ -151,7 +151,7 @@ public sealed class FlowScriptBinaryReader : IDisposable
             if (i != 0 && instructions[i - 1].Opcode == Opcode.PUSHI)
             {
                 instruction.Opcode = unchecked((Opcode)(-1));
-                instruction.OperandInt = mReader.ReadInt32();
+                instruction.OperandUInt = mReader.ReadUInt32();
             }
             else if (i != 0 && instructions[i - 1].Opcode == Opcode.PUSHF)
             {
@@ -161,8 +161,7 @@ public sealed class FlowScriptBinaryReader : IDisposable
             else
             {
                 instruction.Opcode = (Opcode)mReader.ReadInt16();
-                if(instruction.Opcode == Opcode.COMM) { instruction.OperandUShort = mReader.ReadUInt16(); }
-                else { instruction.OperandShort = mReader.ReadInt16(); }
+                instruction.OperandUShort = mReader.ReadUInt16();
             }
 
             instructions[i] = instruction;

@@ -4,7 +4,7 @@ internal class LabelInfo
 {
     public string Name { get; set; }
 
-    public short Index { get; set; }
+    public ushort Index { get; set; }
 
     public short InstructionIndex { get; set; }
 

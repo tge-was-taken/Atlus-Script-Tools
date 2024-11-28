@@ -47,17 +47,6 @@ public class Instruction : IEquatable<Instruction>
     }
 
     /// <summary>
-    /// Constructs a new instruction with a specified opcode with a short operand.
-    /// </summary>
-    /// <param name="opcode">The opcode of the instruction.</param>
-    /// <param name="value">The operand value.</param>
-    private Instruction(Opcode opcode, short value)
-    {
-        Opcode = opcode;
-        Operand = new Operand(value);
-    }
-
-    /// <summary>
     /// Constructs a new instruction with a specified opcode with a ushort operand.
     /// </summary>
     /// <param name="opcode">The opcode of the instruction.</param>
@@ -73,7 +62,7 @@ public class Instruction : IEquatable<Instruction>
     /// </summary>
     /// <param name="opcode">The opcode of the instruction.</param>
     /// <param name="value">The operand value.</param>
-    private Instruction(Opcode opcode, int value)
+    private Instruction(Opcode opcode, uint value)
     {
         Opcode = opcode;
         Operand = new Operand(value);
@@ -112,22 +101,22 @@ public class Instruction : IEquatable<Instruction>
         switch (binary.Opcode)
         {
             case Opcode.PUSHIX:
-                return PUSHIX(binary.OperandShort);
+                return PUSHIX(binary.OperandUShort);
 
             case Opcode.PUSHIF:
-                return PUSHIF(binary.OperandShort);
+                return PUSHIF(binary.OperandUShort);
 
             case Opcode.PUSHREG:
                 return PUSHREG();
 
             case Opcode.POPIX:
-                return POPIX(binary.OperandShort);
+                return POPIX(binary.OperandUShort);
 
             case Opcode.POPFX:
-                return POPFX(binary.OperandShort);
+                return POPFX(binary.OperandUShort);
 
             case Opcode.PROC:
-                return PROC(binary.OperandShort);
+                return PROC(binary.OperandUShort);
 
             case Opcode.COMM:
                 return COMM(binary.OperandUShort);
@@ -136,16 +125,16 @@ public class Instruction : IEquatable<Instruction>
                 return END();
 
             case Opcode.JUMP:
-                return JUMP(binary.OperandShort);
+                return JUMP(binary.OperandUShort);
 
             case Opcode.CALL:
-                return CALL(binary.OperandShort);
+                return CALL(binary.OperandUShort);
 
             case Opcode.RUN:
                 return RUN();
 
             case Opcode.GOTO:
-                return GOTO(binary.OperandShort);
+                return GOTO(binary.OperandUShort);
 
             case Opcode.ADD:
                 return ADD();
@@ -190,25 +179,25 @@ public class Instruction : IEquatable<Instruction>
                 return LE();
 
             case Opcode.IF:
-                return IF(binary.OperandShort);
+                return IF(binary.OperandUShort);
 
             case Opcode.PUSHIS:
-                return PUSHIS(binary.OperandShort);
+                return PUSHIS(binary.OperandUShort);
 
             case Opcode.PUSHLIX:
-                return PUSHLIX(binary.OperandShort);
+                return PUSHLIX(binary.OperandUShort);
 
             case Opcode.PUSHLFX:
-                return PUSHLFX(binary.OperandShort);
+                return PUSHLFX(binary.OperandUShort);
 
             case Opcode.POPLIX:
-                return POPLIX(binary.OperandShort);
+                return POPLIX(binary.OperandUShort);
 
             case Opcode.POPLFX:
-                return POPLFX(binary.OperandShort);
+                return POPLFX(binary.OperandUShort);
 
             case Opcode.POPREG:
-                Debug.Assert(binary.OperandShort == 0);
+                Debug.Assert(binary.OperandUShort == 0);
                 return POPREG();
 
             default:
@@ -221,7 +210,7 @@ public class Instruction : IEquatable<Instruction>
     /// </summary>
     /// <param name="value">The operand value.</param>
     /// <returns>A <see cref="Instruction"/> instance.</returns>
-    public static Instruction PUSHI(int value)
+    public static Instruction PUSHI(uint value)
     {
         return new Instruction(Opcode.PUSHI, value);
     }
@@ -241,7 +230,7 @@ public class Instruction : IEquatable<Instruction>
     /// </summary>
     /// <param name="value">The operand value.</param>
     /// <returns>A <see cref="Instruction"/> instance.</returns>
-    public static Instruction PUSHIX(short globalIntVariableIndex)
+    public static Instruction PUSHIX(ushort globalIntVariableIndex)
     {
         return new Instruction(Opcode.PUSHIX, globalIntVariableIndex);
     }
@@ -251,7 +240,7 @@ public class Instruction : IEquatable<Instruction>
     /// </summary>
     /// <param name="value">The operand value.</param>
     /// <returns>A <see cref="Instruction"/> instance.</returns>
-    public static Instruction PUSHIF(short globalFloatVariableIndex)
+    public static Instruction PUSHIF(ushort globalFloatVariableIndex)
     {
         return new Instruction(Opcode.PUSHIF, globalFloatVariableIndex);
     }
@@ -270,7 +259,7 @@ public class Instruction : IEquatable<Instruction>
     /// </summary>
     /// <param name="value">The operand value.</param>
     /// <returns>A <see cref="Instruction"/> instance.</returns>
-    public static Instruction POPIX(short globalIntVariableIndex)
+    public static Instruction POPIX(ushort globalIntVariableIndex)
     {
         return new Instruction(Opcode.POPIX, globalIntVariableIndex);
     }
@@ -280,7 +269,7 @@ public class Instruction : IEquatable<Instruction>
     /// </summary>
     /// <param name="value">The operand value.</param>
     /// <returns>A <see cref="Instruction"/> instance.</returns>
-    public static Instruction POPFX(short globalFloatVariableIndex)
+    public static Instruction POPFX(ushort globalFloatVariableIndex)
     {
         return new Instruction(Opcode.POPFX, globalFloatVariableIndex);
     }
@@ -290,7 +279,7 @@ public class Instruction : IEquatable<Instruction>
     /// </summary>
     /// <param name="value">The operand value.</param>
     /// <returns>A <see cref="Instruction"/> instance.</returns>
-    public static Instruction PROC(short procedureIndex)
+    public static Instruction PROC(ushort procedureIndex)
     {
         return new Instruction(Opcode.PROC, procedureIndex);
     }
@@ -320,7 +309,7 @@ public class Instruction : IEquatable<Instruction>
     /// </summary>
     /// <param name="value">The operand value.</param>
     /// <returns>A <see cref="Instruction"/> instance.</returns>
-    public static Instruction JUMP(short procedureLabelIndex)
+    public static Instruction JUMP(ushort procedureLabelIndex)
     {
         return new Instruction(Opcode.JUMP, procedureLabelIndex);
     }
@@ -330,7 +319,7 @@ public class Instruction : IEquatable<Instruction>
     /// </summary>
     /// <param name="value">The operand value.</param>
     /// <returns>A <see cref="Instruction"/> instance.</returns>
-    public static Instruction CALL(short procedureLabelIndex)
+    public static Instruction CALL(ushort procedureLabelIndex)
     {
         return new Instruction(Opcode.CALL, procedureLabelIndex);
     }
@@ -350,7 +339,7 @@ public class Instruction : IEquatable<Instruction>
     /// </summary>
     /// <param name="value">The operand value.</param>
     /// <returns>A <see cref="Instruction"/> instance.</returns>
-    public static Instruction GOTO(short jumpLabelIndex)
+    public static Instruction GOTO(ushort jumpLabelIndex)
     {
         return new Instruction(Opcode.GOTO, jumpLabelIndex);
     }
@@ -500,7 +489,7 @@ public class Instruction : IEquatable<Instruction>
     /// </summary>
     /// <param name="value">The operand value.</param>
     /// <returns>A <see cref="Instruction"/> instance.</returns>
-    public static Instruction IF(short jumpLabelIndexIfFalse)
+    public static Instruction IF(ushort jumpLabelIndexIfFalse)
     {
         return new Instruction(Opcode.IF, jumpLabelIndexIfFalse);
     }
@@ -510,7 +499,7 @@ public class Instruction : IEquatable<Instruction>
     /// </summary>
     /// <param name="value">The operand value.</param>
     /// <returns>A <see cref="Instruction"/> instance.</returns>
-    public static Instruction PUSHIS(short value)
+    public static Instruction PUSHIS(ushort value)
     {
         return new Instruction(Opcode.PUSHIS, value);
     }
@@ -520,7 +509,7 @@ public class Instruction : IEquatable<Instruction>
     /// </summary>
     /// <param name="value">The operand value.</param>
     /// <returns>A <see cref="Instruction"/> instance.</returns>
-    public static Instruction PUSHLIX(short localIntVariableIndex)
+    public static Instruction PUSHLIX(ushort localIntVariableIndex)
     {
         return new Instruction(Opcode.PUSHLIX, localIntVariableIndex);
     }
@@ -530,7 +519,7 @@ public class Instruction : IEquatable<Instruction>
     /// </summary>
     /// <param name="value">The operand value.</param>
     /// <returns>A <see cref="Instruction"/> instance.</returns>
-    public static Instruction PUSHLFX(short localFloatVariableIndex)
+    public static Instruction PUSHLFX(ushort localFloatVariableIndex)
     {
         return new Instruction(Opcode.PUSHLFX, localFloatVariableIndex);
     }
@@ -540,7 +529,7 @@ public class Instruction : IEquatable<Instruction>
     /// </summary>
     /// <param name="value">The operand value.</param>
     /// <returns>A <see cref="Instruction"/> instance.</returns>
-    public static Instruction POPLIX(short localIntVariableIndex)
+    public static Instruction POPLIX(ushort localIntVariableIndex)
     {
         return new Instruction(Opcode.POPLIX, localIntVariableIndex);
     }
@@ -550,7 +539,7 @@ public class Instruction : IEquatable<Instruction>
     /// </summary>
     /// <param name="value">The operand value.</param>
     /// <returns>A <see cref="Instruction"/> instance.</returns>
-    public static Instruction POPLFX(short localFloatVariableIndex)
+    public static Instruction POPLFX(ushort localFloatVariableIndex)
     {
         return new Instruction(Opcode.POPLFX, localFloatVariableIndex);
     }

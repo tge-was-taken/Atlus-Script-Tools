@@ -149,34 +149,34 @@ internal class ScopeContext
         return true;
     }
 
-        public bool TryDeclareFunctions(FunctionDeclaration[] declarations)
+    public bool TryDeclareFunctions(FunctionDeclaration[] declarations)
+    {
+        foreach (var declaration in declarations)
         {
-            foreach(var declaration in declarations)
-            {
-                if(!TryDeclareFunction(declaration))
-                    return false;
-            }
-            return true;
-        }
-
-
-        public bool TryDeclareProcedure( ProcedureDeclaration declaration, out ProcedureInfo procedure )
-        {
-            if ( TryGetProcedure( declaration.Identifier.Text, out procedure ) )
-            {
+            if (!TryDeclareFunction(declaration))
                 return false;
-            }
+        }
+        return true;
+    }
+
+
+    public bool TryDeclareProcedure(ProcedureDeclaration declaration, out ProcedureInfo procedure)
+    {
+        if (TryGetProcedure(declaration.Identifier.Text, out procedure))
+        {
+            return false;
+        }
 
         var p = new ProcedureInfo();
         p.Declaration = declaration;
         p.IndexForced = declaration.Index != null;
-        p.Index = !p.IndexForced ? (short)Procedures.Count : (short)declaration.Index.Value;
+        p.Index = !p.IndexForced ? (ushort)Procedures.Count : (ushort)declaration.Index.Value;
         if (Procedures.Any(x => x.Value.Index == p.Index))
         {
             var duplicate = !p.IndexForced ? p : Procedures.Values.FirstOrDefault(x => x.Index == p.Index && !x.IndexForced);
             if (duplicate == null)
                 duplicate = p; // If there's nothing else that can be replaced then this just can't have its index forced
-            short newIndex = 0;
+            ushort newIndex = 0;
             while (Procedures.Any(x => x.Value.Index == newIndex))
                 newIndex++;
             duplicate.Index = newIndex;
@@ -198,10 +198,10 @@ internal class ScopeContext
 
     public bool TryDeclareVariable(VariableDeclaration declaration)
     {
-        return TryDeclareVariable(declaration, -1);
+        return TryDeclareVariable(declaration, ushort.MaxValue);
     }
 
-    public bool TryDeclareVariable(VariableDeclaration declaration, short index, int size = 1)
+    public bool TryDeclareVariable(VariableDeclaration declaration, ushort index, int size = 1)
     {
         if (TryGetVariable(declaration.Identifier.Text, out _))
             return false;
@@ -276,7 +276,7 @@ internal class ScopeContext
         return false;
     }
 
-    public VariableInfo GenerateVariable(ValueKind kind, short index)
+    public VariableInfo GenerateVariable(ValueKind kind, ushort index)
     {
         var declaration = new VariableDeclaration(
             new VariableModifier(VariableModifierKind.Local),

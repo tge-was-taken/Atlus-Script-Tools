@@ -82,11 +82,11 @@ public sealed class FlowScript
         // to reference the instructions in the list, and not the instructions in the array of instructions in the binary
 
         // assign strings before instructions so we can assign proper string indices as we convert the instructions
-        var stringBinaryIndexToListIndexMap = new Dictionary<short, short>();
+        var stringBinaryIndexToListIndexMap = new Dictionary<ushort, ushort>();
         var strings = new List<string>();
         if (binary.StringSection != null)
         {
-            short curStringBinaryIndex = 0;
+            ushort curStringBinaryIndex = 0;
             var curStringBytes = new List<byte>();
 
             for (short i = 0; i < binary.StringSection.Count; i++)
@@ -95,10 +95,10 @@ public sealed class FlowScript
                 if (binary.StringSection[i] == 0 || i + 1 == binary.StringSection.Count)
                 {
                     strings.Add(ShiftJISEncoding.Instance.GetString(curStringBytes.ToArray()));
-                    stringBinaryIndexToListIndexMap[curStringBinaryIndex] = (short)(strings.Count - 1);
+                    stringBinaryIndexToListIndexMap[curStringBinaryIndex] = (ushort)(strings.Count - 1);
 
                     // next string will start at the next byte if there are any left
-                    curStringBinaryIndex = (short)(i + 1);
+                    curStringBinaryIndex = (ushort)(i + 1);
                     curStringBytes = new List<byte>();
                 }
                 else
@@ -129,11 +129,11 @@ public sealed class FlowScript
                 if (binaryInstruction.Opcode == Opcode.PUSHSTR)
                 {
                     // Update the string offset to reference the strings inside of the string list
-                    instruction = Instruction.PUSHSTR(strings[stringBinaryIndexToListIndexMap[binaryInstruction.OperandShort]]);
+                    instruction = Instruction.PUSHSTR(strings[stringBinaryIndexToListIndexMap[binaryInstruction.OperandUShort]]);
                 }
                 else if (binaryInstruction.Opcode == Opcode.PUSHI)
                 {
-                    instruction = Instruction.PUSHI(binary.TextSection[instructionBinaryIndex + 1].OperandInt);
+                    instruction = Instruction.PUSHI(binary.TextSection[instructionBinaryIndex + 1].OperandUInt);
                 }
                 else if (binaryInstruction.Opcode == Opcode.PUSHF)
                 {
@@ -223,11 +223,11 @@ public sealed class FlowScript
                         var instruction = procedure.Instructions[j];
                         if (instruction.Opcode == Opcode.GOTO || instruction.Opcode == Opcode.IF)
                         {
-                            short globalIndex = instruction.Operand.Int16Value;
+                            var globalIndex = instruction.Operand.UInt16Value;
                             var binaryLabel = binary.JumpLabelSection[globalIndex];
 
-                            short localIndex = (short)procedureJumpLabelNameToLocalIndexMap[binaryLabel.Name];
-                            instruction.Operand.Int16Value = localIndex;
+                            var localIndex = (ushort)procedureJumpLabelNameToLocalIndexMap[binaryLabel.Name];
+                            instruction.Operand.UInt16Value = localIndex;
 
                             Debug.Assert(procedure.Labels[localIndex].Name == binaryLabel.Name);
                         }
@@ -340,17 +340,17 @@ public sealed class FlowScript
         // Convert string table before the instructions so we can fix up string instructions later
         // by building an index remap table
         // TODO: optimize instructions usage
-        var stringIndexToBinaryStringIndexMap = new Dictionary<short, short>();
+        var stringIndexToBinaryStringIndexMap = new Dictionary<ushort, ushort>();
         var strings = EnumerateInstructions()
             .Where(x => x.Opcode == Opcode.PUSHSTR)
             .Select(x => x.Operand.StringValue)
             .Distinct()
             .ToList();
 
-        for (short stringIndex = 0; stringIndex < strings.Count; stringIndex++)
+        for (ushort stringIndex = 0; stringIndex < strings.Count; stringIndex++)
         {
             builder.AddString(strings[stringIndex], out int binaryIndex);
-            stringIndexToBinaryStringIndexMap[stringIndex] = (short)binaryIndex;
+            stringIndexToBinaryStringIndexMap[stringIndex] = (ushort)binaryIndex;
         }
 
         // Convert procedures
@@ -380,29 +380,28 @@ public sealed class FlowScript
                     if (instruction.Opcode == Opcode.PUSHSTR)
                     {
                         // Handle PUSHSTR seperately due to difference in string index usage
-                        short stringIndex = (short)strings.IndexOf(instruction.Operand.StringValue);
+                        var stringIndex = (short)strings.IndexOf(instruction.Operand.StringValue);
                         if (stringIndex == -1)
                             throw new InvalidDataException("String could not be found??");
 
-                        binaryInstruction.OperandShort = stringIndexToBinaryStringIndexMap[stringIndex];
+                        binaryInstruction.OperandUShort = stringIndexToBinaryStringIndexMap[(ushort)stringIndex];
                     }
                     else if (instruction.Opcode == Opcode.GOTO || instruction.Opcode == Opcode.IF)
                     {
                         // Convert procedure-local label index to global label index
-                        int oldIndex = instruction.Operand.Int16Value;
+                        var oldIndex = instruction.Operand.UInt16Value;
                         if (!procedureIndexRemap.ContainsKey(oldIndex))
                         {
                             procedureIndexRemap[oldIndex] = nextBinaryLabelIndex++;
                         }
 
-                        binaryInstruction.OperandShort = (short)procedureIndexRemap[oldIndex];
+                        binaryInstruction.OperandUShort = (ushort)procedureIndexRemap[oldIndex];
                     }
-                    else if (instruction.Opcode == Opcode.COMM) { binaryInstruction.OperandUShort = instruction.Operand.UInt16Value; }
                     else
                     {
                         // Handle regular instruction
                         if (instruction.Operand != null)
-                            binaryInstruction.OperandShort = instruction.Operand.Int16Value;
+                            binaryInstruction.OperandUShort = instruction.Operand.UInt16Value;
                     }
 
                     builder.AddInstruction(binaryInstruction);
@@ -416,8 +415,8 @@ public sealed class FlowScript
 
                     switch (instruction.Operand.Kind)
                     {
-                        case Operand.ValueKind.Int32:
-                            binaryInstruction2.OperandInt = instruction.Operand.Int32Value;
+                        case Operand.ValueKind.UInt32:
+                            binaryInstruction2.OperandUInt = instruction.Operand.UInt32Value;
                             break;
                         case Operand.ValueKind.Single:
                             binaryInstruction2.OperandFloat = instruction.Operand.SingleValue;

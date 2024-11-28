@@ -56,7 +56,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Disassembler.Tests
         public void DisassembleInstructionWithIntOperandTest()
         {
             var opcode = Opcode.PUSHI;
-            var disassemblyText = FlowScriptBinaryDisassembler.DisassembleInstructionWithIntOperand(new BinaryInstruction { Opcode = opcode }, new BinaryInstruction { OperandInt = 42 });
+            var disassemblyText = FlowScriptBinaryDisassembler.DisassembleInstructionWithIntOperand(new BinaryInstruction { Opcode = opcode }, new BinaryInstruction { OperandUInt = 42 });
             var expectedDisassemblyText = "PUSHI	0000002A";
             Assert.AreEqual(expectedDisassemblyText, disassemblyText);
         }
@@ -74,7 +74,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Disassembler.Tests
         public void DisassembleInstructionWithShortOperandTest()
         {
             var opcode = Opcode.PUSHIS;
-            var disassemblyText = FlowScriptBinaryDisassembler.DisassembleInstructionWithShortOperand(new BinaryInstruction { Opcode = opcode, OperandShort = 42 });
+            var disassemblyText = FlowScriptBinaryDisassembler.DisassembleInstructionWithShortOperand(new BinaryInstruction { Opcode = opcode, OperandUShort = 42 });
             var expectedDisassemblyText = "PUSHIS	002A";
             Assert.AreEqual(expectedDisassemblyText, disassemblyText);
         }
@@ -84,7 +84,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Disassembler.Tests
         {
             var opcode = Opcode.PUSHSTR;
             var disassemblyText = FlowScriptBinaryDisassembler.DisassembleInstructionWithStringReferenceOperand(
-                new BinaryInstruction { Opcode = opcode, OperandShort = 0 },
+                new BinaryInstruction { Opcode = opcode, OperandUShort = 0 },
                 Encoding.ASCII.GetBytes("foobar")
                 );
 
@@ -99,7 +99,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Disassembler.Tests
             var opcode = Opcode.PROC;
             var expectedDisassemblyText = $"PROC		{labelName}";
             var disassemblyText = FlowScriptBinaryDisassembler.DisassembleInstructionWithLabelReferenceOperand(
-                new BinaryInstruction { Opcode = opcode, OperandShort = 0 },
+                new BinaryInstruction { Opcode = opcode, OperandUShort = 0 },
                 new List<BinaryLabel> { new BinaryLabel { InstructionIndex = 0, Name = labelName, Reserved = 0 } }
                 );
 
@@ -120,7 +120,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Disassembler.Tests
         public void DisassembleInstructionWithCommReferenceTest()
         {
             var opcode = Opcode.COMM;
-            var disassemblyText = FlowScriptBinaryDisassembler.DisassembleInstructionWithCommReferenceOperand(new BinaryInstruction { Opcode = opcode, OperandShort = 0 });
+            var disassemblyText = FlowScriptBinaryDisassembler.DisassembleInstructionWithCommReferenceOperand(new BinaryInstruction { Opcode = opcode, OperandUShort = 0 });
             var expectedDisassemblyText = "COMM		0000";
             Assert.AreEqual(expectedDisassemblyText, disassemblyText);
         }
