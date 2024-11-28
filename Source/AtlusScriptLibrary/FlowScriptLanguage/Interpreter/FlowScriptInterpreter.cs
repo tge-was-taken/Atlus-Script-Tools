@@ -70,11 +70,11 @@ public class FlowScriptInterpreter
 
     private static int CalculateLocalCount(FlowScript script, bool isInt)
     {
-        int highestIndex = script.Procedures.SelectMany(x => x.Instructions)
+        var highestIndex = script.Procedures.SelectMany(x => x.Instructions)
                                  .Where(x => isInt
                                              ? x.Opcode == Opcode.PUSHLIX || x.Opcode == Opcode.POPLIX
                                              : x.Opcode == Opcode.PUSHLFX || x.Opcode == Opcode.POPLFX)
-                                 .Aggregate(-1, (current, instruction) => Math.Max(current, instruction.Operand.Int16Value));
+                                 .Aggregate(-1, (current, instruction) => Math.Max(current, instruction.Operand.UInt16Value));
 
         return highestIndex + 1;
     }
@@ -253,7 +253,7 @@ public class FlowScriptInterpreter
     // Opcode handlers
     private static bool PUSHI(FlowScriptInterpreter instance)
     {
-        instance.PushValue(instance.Instruction.Operand.Int32Value);
+        instance.PushValue(instance.Instruction.Operand.UInt32Value);
         return true;
     }
 
@@ -265,13 +265,13 @@ public class FlowScriptInterpreter
 
     private static bool PUSHIX(FlowScriptInterpreter instance)
     {
-        instance.PushValue(GlobalIntVariablePool[instance.Instruction.Operand.Int16Value]);
+        instance.PushValue(GlobalIntVariablePool[instance.Instruction.Operand.UInt16Value]);
         return true;
     }
 
     private static bool PUSHIF(FlowScriptInterpreter instance)
     {
-        instance.PushValue(GlobalFloatVariablePool[instance.Instruction.Operand.Int16Value]);
+        instance.PushValue(GlobalFloatVariablePool[instance.Instruction.Operand.UInt16Value]);
         return true;
     }
 
@@ -283,13 +283,13 @@ public class FlowScriptInterpreter
 
     private static bool POPIX(FlowScriptInterpreter instance)
     {
-        GlobalIntVariablePool[instance.Instruction.Operand.Int16Value] = instance.PopIntValue();
+        GlobalIntVariablePool[instance.Instruction.Operand.UInt16Value] = instance.PopIntValue();
         return true;
     }
 
     private static bool POPFX(FlowScriptInterpreter instance)
     {
-        GlobalFloatVariablePool[instance.Instruction.Operand.Int16Value] = instance.PopFloatValue();
+        GlobalFloatVariablePool[instance.Instruction.Operand.UInt16Value] = instance.PopFloatValue();
         return true;
     }
 
@@ -413,7 +413,7 @@ public class FlowScriptInterpreter
 
     private static bool JUMP(FlowScriptInterpreter instance)
     {
-        instance.ProcedureIndex = instance.Instruction.Operand.Int16Value;
+        instance.ProcedureIndex = instance.Instruction.Operand.UInt16Value;
         instance.InstructionIndex = 0;
         return true;
     }
@@ -421,7 +421,7 @@ public class FlowScriptInterpreter
     private static bool CALL(FlowScriptInterpreter instance)
     {
         instance.PushValue(StackValueKind.ReturnIndex, ((long)instance.ProcedureIndex << 32) | (long)instance.InstructionIndex);
-        instance.ProcedureIndex = instance.Instruction.Operand.Int16Value;
+        instance.ProcedureIndex = instance.Instruction.Operand.UInt16Value;
         instance.InstructionIndex = 0;
         return true;
     }
@@ -433,7 +433,7 @@ public class FlowScriptInterpreter
 
     private static bool GOTO(FlowScriptInterpreter instance)
     {
-        var index = instance.Instruction.Operand.Int16Value;
+        var index = instance.Instruction.Operand.UInt16Value;
         instance.InstructionIndex = instance.Procedure.Labels[index].InstructionIndex;
         return true;
     }
@@ -555,7 +555,7 @@ public class FlowScriptInterpreter
             return true;
 
         // Jump to false label
-        var index = instance.Instruction.Operand.Int16Value;
+        var index = instance.Instruction.Operand.UInt16Value;
         var label = instance.Procedure.Labels[index];
         instance.InstructionIndex = label.InstructionIndex;
         return true;
@@ -563,14 +563,14 @@ public class FlowScriptInterpreter
 
     private static bool PUSHIS(FlowScriptInterpreter instance)
     {
-        var value = instance.Instruction.Operand.Int16Value;
+        var value = instance.Instruction.Operand.UInt16Value;
         instance.PushValue(value);
         return true;
     }
 
     private static bool PUSHLIX(FlowScriptInterpreter instance)
     {
-        var index = instance.Instruction.Operand.Int16Value;
+        var index = instance.Instruction.Operand.UInt16Value;
         var value = instance.LocalIntVariables[index];
         instance.PushValue(value);
         return true;
@@ -578,7 +578,7 @@ public class FlowScriptInterpreter
 
     private static bool PUSHLFX(FlowScriptInterpreter instance)
     {
-        var index = instance.Instruction.Operand.Int16Value;
+        var index = instance.Instruction.Operand.UInt16Value;
         var value = instance.LocalFloatVariables[index];
         instance.PushValue(value);
         return true;
@@ -586,14 +586,14 @@ public class FlowScriptInterpreter
 
     private static bool POPLIX(FlowScriptInterpreter instance)
     {
-        var index = instance.Instruction.Operand.Int16Value;
+        var index = instance.Instruction.Operand.UInt16Value;
         instance.LocalIntVariables[index] = instance.PopIntValue();
         return true;
     }
 
     private static bool POPLFX(FlowScriptInterpreter instance)
     {
-        var index = instance.Instruction.Operand.Int16Value;
+        var index = instance.Instruction.Operand.UInt16Value;
         instance.LocalFloatVariables[index] = instance.PopFloatValue();
         return true;
     }

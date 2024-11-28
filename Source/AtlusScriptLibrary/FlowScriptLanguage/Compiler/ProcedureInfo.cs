@@ -10,7 +10,7 @@ internal class ProcedureInfo
 
     public Procedure OriginalCompiled { get; set; }
 
-    public short Index { get; set; }
+    public ushort Index { get; set; }
 
     public bool IndexForced { get; set; }
 }

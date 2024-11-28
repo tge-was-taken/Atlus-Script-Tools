@@ -410,6 +410,14 @@ public class SyntaxNodeCollector<T> : SyntaxNodeVisitor where T : SyntaxNode
         base.Visit(literal);
     }
 
+    public override void Visit(UIntLiteral literal)
+    {
+        if (typeof(T) == typeof(UIntLiteral))
+            mCollectedNodes.Add(literal as T);
+
+        base.Visit(literal);
+    }
+
     public override void Visit(StringLiteral literal)
     {
         if (typeof(T) == typeof(StringLiteral))

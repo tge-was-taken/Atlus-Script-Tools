@@ -101,14 +101,14 @@ public sealed class FlowScriptBinaryWriter : IDisposable
         {
             ref var instruction = ref instructions[i];
 
-            mWriter.Write((short)instruction.Opcode);
-            mWriter.Write(instruction.OperandShort);
+            mWriter.Write((ushort)instruction.Opcode);
+            mWriter.Write(instruction.OperandUShort);
 
             // Write large operands immediately afterwards
             if (instruction.Opcode == Opcode.PUSHI)
             {
                 Trace.Assert(i + 1 < instructions.Length, "Missing operand value for PUSHI");
-                mWriter.Write(instructions[++i].OperandInt);
+                mWriter.Write(instructions[++i].OperandUInt);
             }
             else if (instruction.Opcode == Opcode.PUSHF)
             {

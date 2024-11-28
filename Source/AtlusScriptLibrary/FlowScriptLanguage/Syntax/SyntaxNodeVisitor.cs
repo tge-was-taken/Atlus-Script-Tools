@@ -321,6 +321,10 @@ public abstract class SyntaxNodeVisitor
     {
     }
 
+    public virtual void Visit(UIntLiteral literal)
+    {
+    }
+
     public virtual void Visit(StringLiteral literal)
     {
     }

@@ -1,5 +1,7 @@
 ﻿using AtlusScriptLibrary.FlowScriptLanguage.Syntax;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace AtlusScriptLibrary.FlowScriptLanguage.Decompiler;
 
@@ -19,6 +21,8 @@ public class EvaluatedScope
 
     public EvaluatedScope(EvaluatedScope parent)
     {
+        if (parent == this)
+            throw new ArgumentException(nameof(parent));
         Parent = parent;
         StaticIntVariables = new Dictionary<int, VariableDeclaration>();
         StaticFloatVariables = new Dictionary<int, VariableDeclaration>();

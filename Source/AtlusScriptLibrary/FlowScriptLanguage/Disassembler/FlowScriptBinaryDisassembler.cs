@@ -221,9 +221,9 @@ public class FlowScriptBinaryDisassembler : IDisposable
 
     public static string DisassembleInstructionWithNoOperand(BinaryInstruction instruction)
     {
-        if (instruction.OperandShort != 0)
+        if (instruction.OperandUShort != 0)
         {
-            throw new ArgumentOutOfRangeException(nameof(instruction.OperandShort), $"{instruction.Opcode} should not have any operands");
+            throw new ArgumentOutOfRangeException(nameof(instruction.OperandUShort), $"{instruction.Opcode} should not have any operands");
         }
 
         return $"{instruction.Opcode}";
@@ -231,7 +231,7 @@ public class FlowScriptBinaryDisassembler : IDisposable
 
     public static string DisassembleInstructionWithIntOperand(BinaryInstruction instruction, BinaryInstruction operand)
     {
-        return $"{instruction.Opcode}\t{operand.OperandInt:X8}";
+        return $"{instruction.Opcode}\t{operand.OperandUInt:X8}";
     }
 
     public static string DisassembleInstructionWithFloatOperand(BinaryInstruction instruction, BinaryInstruction operand)
@@ -241,13 +241,13 @@ public class FlowScriptBinaryDisassembler : IDisposable
 
     public static string DisassembleInstructionWithShortOperand(BinaryInstruction instruction)
     {
-        return $"{instruction.Opcode}\t{instruction.OperandShort:X4}";
+        return $"{instruction.Opcode}\t{instruction.OperandUShort:X4}";
     }
 
     public static string DisassembleInstructionWithStringReferenceOperand(BinaryInstruction instruction, IList<byte> stringTable)
     {
         string value = string.Empty;
-        for (int i = instruction.OperandShort; i < stringTable.Count; i++)
+        for (int i = instruction.OperandUShort; i < stringTable.Count; i++)
         {
             if (stringTable[i] == 0)
                 break;
@@ -260,17 +260,17 @@ public class FlowScriptBinaryDisassembler : IDisposable
 
     public static string DisassembleInstructionWithLabelReferenceOperand(BinaryInstruction instruction, IList<BinaryLabel> labels)
     {
-        if (instruction.OperandShort >= labels.Count)
+        if (instruction.OperandUShort >= labels.Count)
         {
-            throw new ArgumentOutOfRangeException(nameof(instruction.OperandShort), $"No label for label reference id {instruction.OperandShort} present in {nameof(labels)}");
+            throw new ArgumentOutOfRangeException(nameof(instruction.OperandUShort), $"No label for label reference id {instruction.OperandUShort} present in {nameof(labels)}");
         }
 
-        return $"{instruction.Opcode}\t\t{labels[instruction.OperandShort].Name}";
+        return $"{instruction.Opcode}\t\t{labels[instruction.OperandUShort].Name}";
     }
 
     public static string DisassembleInstructionWithCommReferenceOperand(BinaryInstruction instruction)
     {
-        return $"{instruction.Opcode}\t\t{instruction.OperandShort:X4}";
+        return $"{instruction.Opcode}\t\t{instruction.OperandUShort:X4}";
     }
 
     public void Dispose()

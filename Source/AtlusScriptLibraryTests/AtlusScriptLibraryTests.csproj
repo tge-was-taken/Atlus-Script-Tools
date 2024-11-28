@@ -24,4 +24,10 @@
     <Content Include="TestResources/*.*" CopyToOutputDirectory="Always" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="TestResources\Complex.BF" />
+    <None Remove="TestResources\JumpInstruction2.bf" />
+    <None Remove="TestResources\POPREG.bf" />
+  </ItemGroup>
+
 </Project>

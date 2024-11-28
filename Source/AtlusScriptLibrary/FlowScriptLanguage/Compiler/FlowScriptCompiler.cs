@@ -40,15 +40,15 @@ public class FlowScriptCompiler
     private (Import, FlowScript) mBaseBfImport;
 
     // variable indices
-    private short mNextIntVariableIndex;
-    private short mNextFloatVariableIndex;
-    private short mNextGlobalIntVariableIndex = 255;   // We count the indices for the static variables *down* to
-    private short mNextGlobalFloatVariableIndex = 255; // reduce the chance of conflict with the game's original scripts
-    private short mNextIntArgumentVariableIndex;
-    private short mNextFloatArgumentVariableIndex;
-    private short mNextAiLocalVariableIndex;
-    private short mNextAiGlobalVariableIndex;
-    private short mNextCounterVariableIndex;
+    private ushort mNextIntVariableIndex;
+    private ushort mNextFloatVariableIndex;
+    private ushort mNextGlobalIntVariableIndex = 255;   // We count the indices for the static variables *down* to
+    private ushort mNextGlobalFloatVariableIndex = 255; // reduce the chance of conflict with the game's original scripts
+    private ushort mNextIntArgumentVariableIndex;
+    private ushort mNextFloatArgumentVariableIndex;
+    private ushort mNextAiLocalVariableIndex;
+    private ushort mNextAiGlobalVariableIndex;
+    private ushort mNextCounterVariableIndex;
 
     //
     // procedure state
@@ -319,7 +319,7 @@ public class FlowScriptCompiler
             var nameParts = declaration.Identifier.Text.Split('_');
             if (nameParts.Length < 2) continue;
             if (!nameParts[nameParts.Length - 2].Equals("index", StringComparison.OrdinalIgnoreCase)) continue;
-            if (!int.TryParse(nameParts[nameParts.Length - 1], out var index))
+            if (!uint.TryParse(nameParts[nameParts.Length - 1], out var index))
             {
                 Error($"Unable to parse procedure index {nameParts[nameParts.Length - 1]}. Index will not be changed");
                 continue;
@@ -340,7 +340,7 @@ public class FlowScriptCompiler
             if (!Scope.Procedures.Any(x => x.Value.Index == i))
             {
                 // Add dummy procedure
-                var procedure = new ProcedureDeclaration(i, TypeIdentifier.Void, new Identifier($"procedure_{i}"), new List<Parameter>(), new CompoundStatement());
+                var procedure = new ProcedureDeclaration((uint)i, TypeIdentifier.Void, new Identifier($"procedure_{i}"), new List<Parameter>(), new CompoundStatement());
                 compilationUnit.Declarations.Add(procedure);
                 Scope.TryDeclareProcedure(procedure, out _);
             }
@@ -588,7 +588,7 @@ public class FlowScriptCompiler
         {
             // Add a declaration for the imported procedure
             var procedure = compiledFlowScript.Procedures[i];
-            var procedureDecl = new ProcedureDeclaration(new IntLiteral(i), TypeIdentifier.Void,
+            var procedureDecl = new ProcedureDeclaration(new UIntLiteral((uint)i), TypeIdentifier.Void,
                                                           new Identifier(procedure.Name),
                                                           new List<Parameter>(), null);
 
@@ -624,19 +624,19 @@ public class FlowScriptCompiler
                 {
                     case Opcode.PUSHIX:
                     case Opcode.POPIX:
-                        key = (VariableModifierKind.Global, ValueKind.Int, inst.Operand.Int16Value);
+                        key = (VariableModifierKind.Global, ValueKind.Int, inst.Operand.UInt16Value);
                         break;
                     case Opcode.PUSHIF:
                     case Opcode.POPFX:
-                        key = (VariableModifierKind.Global, ValueKind.Float, inst.Operand.Int16Value);
+                        key = (VariableModifierKind.Global, ValueKind.Float, inst.Operand.UInt16Value);
                         break;
                     case Opcode.PUSHLIX:
                     case Opcode.POPLIX:
-                        key = (VariableModifierKind.Local, ValueKind.Int, inst.Operand.Int16Value);
+                        key = (VariableModifierKind.Local, ValueKind.Int, inst.Operand.UInt16Value);
                         break;
                     case Opcode.PUSHLFX:
                     case Opcode.POPLFX:
-                        key = (VariableModifierKind.Local, ValueKind.Float, inst.Operand.Int16Value);
+                        key = (VariableModifierKind.Local, ValueKind.Float, inst.Operand.UInt16Value);
                         break;
                     default:
                         continue;
@@ -657,9 +657,9 @@ public class FlowScriptCompiler
             }
 
             // Add variable declaration to script
-            var decl = new VariableDeclaration(new VariableModifier(modifier, new IntLiteral(index)),
+            var decl = new VariableDeclaration(new VariableModifier(modifier, new UIntLiteral((uint)index)),
                 new TypeIdentifier(valueKind),
-                new Identifier(valueKind, NameFormatter.GenerateVariableName(modifier, valueKind, (short)index, true)),
+                new Identifier(valueKind, NameFormatter.GenerateVariableName(modifier, valueKind, (ushort)index, true)),
                 null);
 
             if (!TryRegisterVariableDeclaration(decl, out _, out _))
@@ -678,15 +678,15 @@ public class FlowScriptCompiler
         var maxCountVarIdx = varProcedureAccessesMap.Where(x => x.Key.Item1 == VariableModifierKind.Count).MaxOrDefault(x => x.Key.Item3, -1);
         var maxGlobalIntVarIdx = varProcedureAccessesMap.Where(x => x.Key.Item1 == VariableModifierKind.Global && x.Key.Item2 == ValueKind.Int).MaxOrDefault(x => x.Key.Item3, -1);
         var maxGlobalFloatVarIdx = varProcedureAccessesMap.Where(x => x.Key.Item1 == VariableModifierKind.Global && x.Key.Item2 == ValueKind.Float).MaxOrDefault(x => x.Key.Item3, -1);
-        var maxLabelIdx = compiledFlowScript.EnumerateInstructions().Where(x => x.Opcode == Opcode.GOTO).MaxOrDefault(x => x.Operand.Int16Value, -1);
+        var maxLabelIdx = compiledFlowScript.EnumerateInstructions().Where(x => x.Opcode == Opcode.GOTO).MaxOrDefault(x => x.Operand.UInt16Value, -1);
 
-        mNextIntVariableIndex = Math.Max(mNextIntVariableIndex, (short)(maxIntVarIdx + 1));
-        mNextFloatVariableIndex = Math.Max(mNextFloatVariableIndex, (short)(maxFloatVarIdx + 1));
-        mNextAiGlobalVariableIndex = Math.Max(mNextAiGlobalVariableIndex, (short)(maxAiGlobalVarIdx + 1));
-        mNextAiLocalVariableIndex = Math.Max(mNextAiLocalVariableIndex, (short)(maxAiLocalVarIdx + 1));
-        mNextCounterVariableIndex = Math.Max(mNextCounterVariableIndex, (short)(maxCountVarIdx + 1));
-        mNextGlobalIntVariableIndex = Math.Max(mNextGlobalIntVariableIndex, (short)(maxGlobalIntVarIdx + 1));
-        mNextGlobalFloatVariableIndex = Math.Max(mNextGlobalFloatVariableIndex, (short)(maxGlobalFloatVarIdx + 1));
+        mNextIntVariableIndex = Math.Max(mNextIntVariableIndex, (ushort)(maxIntVarIdx + 1));
+        mNextFloatVariableIndex = Math.Max(mNextFloatVariableIndex, (ushort)(maxFloatVarIdx + 1));
+        mNextAiGlobalVariableIndex = Math.Max(mNextAiGlobalVariableIndex, (ushort)(maxAiGlobalVarIdx + 1));
+        mNextAiLocalVariableIndex = Math.Max(mNextAiLocalVariableIndex, (ushort)(maxAiLocalVarIdx + 1));
+        mNextCounterVariableIndex = Math.Max(mNextCounterVariableIndex, (ushort)(maxCountVarIdx + 1));
+        mNextGlobalIntVariableIndex = Math.Max(mNextGlobalIntVariableIndex, (ushort)(maxGlobalIntVarIdx + 1));
+        mNextGlobalFloatVariableIndex = Math.Max(mNextGlobalFloatVariableIndex, (ushort)(maxGlobalFloatVarIdx + 1));
         mNextLabelIndex = Math.Max(mNextLabelIndex, maxLabelIdx + 1);
 
         if (compiledFlowScript.MessageScript != null)
@@ -946,7 +946,7 @@ public class FlowScriptCompiler
                     new VariableModifier(VariableModifierKind.Constant),
                     new TypeIdentifier(ValueKind.Int),
                     new Identifier(ValueKind.Int, dialog.Name),
-                    new IntLiteral(i)
+                    new UIntLiteral((uint)i)
                 );
 
                 if (!Scope.TryDeclareVariable(declaration))
@@ -962,8 +962,8 @@ public class FlowScriptCompiler
 
         bool hasIntReturnValue = false;
         bool hasFloatReturnValue = false;
-        short maxIntParameterCount = 0;
-        short maxFloatParameterCount = 0;
+        ushort maxIntParameterCount = 0;
+        ushort maxFloatParameterCount = 0;
 
         // top-level only
         Trace("Registering script declarations");
@@ -1006,14 +1006,14 @@ public class FlowScriptCompiler
                         }
 
                         // Count parameter by type.
-                        short intParameterCount = 0;
-                        short floatParameterCount = 0;
+                        ushort intParameterCount = 0;
+                        ushort floatParameterCount = 0;
 
                         foreach (var parameter in procedureDeclaration.Parameters)
                         {
-                            short count = 1;
+                            ushort count = 1;
                             if (parameter.IsArray)
-                                count = (short)(((ArrayParameter)parameter).Size);
+                                count = (ushort)(((ArrayParameter)parameter).Size);
 
                             if (!Library.UsePOPREG || parameter.Modifier == ParameterModifier.Out)
                             {
@@ -1026,8 +1026,8 @@ public class FlowScriptCompiler
                             }
                         }
 
-                        maxIntParameterCount = Math.Max(intParameterCount, maxIntParameterCount);
-                        maxFloatParameterCount = Math.Max(floatParameterCount, maxFloatParameterCount);
+                        maxIntParameterCount = (ushort)Math.Max(intParameterCount, maxIntParameterCount);
+                        maxFloatParameterCount = (ushort)Math.Max(floatParameterCount, maxFloatParameterCount);
 
                         //if ( ProcedureHookMode == ProcedureHookMode.ImportedOnly )
                         //{
@@ -1234,7 +1234,7 @@ public class FlowScriptCompiler
         if (EnableStackCookie)
         {
             // Emit stack cookie
-            Emit(Instruction.PUSHI(declaration.Identifier.Text.GetHashCode()));
+            Emit(Instruction.PUSHI((uint)declaration.Identifier.Text.GetHashCode()));
         }
 
         ReturnStatement returnStatement = new ReturnStatement();
@@ -1269,7 +1269,7 @@ public class FlowScriptCompiler
                     if (parameter.Modifier == ParameterModifier.Out)
                     {
                         Emit(Instruction.PUSHLIX(variable.Index));
-                        Emit(Instruction.POPLIX((short)(startIntArgumentVariableIndex + intVariableCount)));
+                        Emit(Instruction.POPLIX((ushort)(startIntArgumentVariableIndex + intVariableCount)));
                     }
 
                     ++intVariableCount;
@@ -1279,7 +1279,7 @@ public class FlowScriptCompiler
                     if (parameter.Modifier == ParameterModifier.Out)
                     {
                         Emit(Instruction.PUSHLFX(variable.Index));
-                        Emit(Instruction.POPLFX((short)(startFloatArgumentVariableIndex + floatVariableCount)));
+                        Emit(Instruction.POPLFX((ushort)(startFloatArgumentVariableIndex + floatVariableCount)));
                     }
 
                     ++floatVariableCount;
@@ -1317,7 +1317,7 @@ public class FlowScriptCompiler
 
             // Create declaration
             VariableDeclaration declaration;
-            int count = 1;
+            uint count = 1;
 
             if (!parameter.IsArray)
             {
@@ -1379,7 +1379,7 @@ public class FlowScriptCompiler
                     }
 
                     // Assign parameter with argument value
-                    if (!TryEmitVariableAssignment(declaration, (short)(index + i)))
+                    if (!TryEmitVariableAssignment(declaration, (ushort)(index + i)))
                         return false;
                 }
             }
@@ -1392,9 +1392,9 @@ public class FlowScriptCompiler
         }
 
         // Reset parameter indices
-        mNextIntArgumentVariableIndex -= (short)intArgumentCount;
+        mNextIntArgumentVariableIndex -= (ushort)intArgumentCount;
         Debug.Assert(mNextIntArgumentVariableIndex >= 0);
-        mNextFloatArgumentVariableIndex -= (short)floatArgumentCount;
+        mNextFloatArgumentVariableIndex -= (ushort)floatArgumentCount;
         Debug.Assert(mNextFloatArgumentVariableIndex >= 0);
 
         return true;
@@ -1568,11 +1568,11 @@ public class FlowScriptCompiler
     //
     // Variable stuff
     //        
-    private bool TryGetVariableIndex(VariableDeclaration declaration, out short variableIndex)
+    private bool TryGetVariableIndex(VariableDeclaration declaration, out ushort variableIndex)
     {
-        short count = 1;
+        ushort count = 1;
         if (declaration.IsArray)
-            count = (short)(((ArrayVariableDeclaration)declaration).Size);
+            count = (ushort)(((ArrayVariableDeclaration)declaration).Size);
 
         if (declaration.Modifier == null || declaration.Modifier.Kind == VariableModifierKind.Local)
         {
@@ -1592,7 +1592,7 @@ public class FlowScriptCompiler
             }
             else
             {
-                variableIndex = (short)declaration.Modifier.Index.Value;
+                variableIndex = (ushort)declaration.Modifier.Index.Value;
             }
         }
         else if (declaration.Modifier.Kind == VariableModifierKind.Global)
@@ -1615,20 +1615,20 @@ public class FlowScriptCompiler
             }
             else
             {
-                variableIndex = (short)declaration.Modifier.Index.Value;
+                variableIndex = (ushort)declaration.Modifier.Index.Value;
             }
         }
         else if (declaration.Modifier.Kind == VariableModifierKind.Constant)
         {
             // Constant
-            variableIndex = -1;
+            variableIndex = ushort.MaxValue;
         }
         else if (declaration.Modifier.Kind == VariableModifierKind.AiLocal)
         {
             if (!mInstrinsic.SupportsAiLocal)
             {
                 Error(declaration.Modifier, "ai_local modifier is not supported by the specified library");
-                variableIndex = -1;
+                variableIndex = ushort.MaxValue;
                 return false;
             }
 
@@ -1639,7 +1639,7 @@ public class FlowScriptCompiler
             }
             else
             {
-                variableIndex = (short)declaration.Modifier.Index.Value;
+                variableIndex = (ushort)declaration.Modifier.Index.Value;
             }
         }
         else if (declaration.Modifier.Kind == VariableModifierKind.AiGlobal)
@@ -1647,7 +1647,7 @@ public class FlowScriptCompiler
             if (!mInstrinsic.SupportsAiGlobal)
             {
                 Error(declaration.Modifier, "ai_global modifier is not supported by the specified library");
-                variableIndex = -1;
+                variableIndex = ushort.MaxValue;
                 return false;
             }
 
@@ -1658,7 +1658,7 @@ public class FlowScriptCompiler
             }
             else
             {
-                variableIndex = (short)declaration.Modifier.Index.Value;
+                variableIndex = (ushort)declaration.Modifier.Index.Value;
             }
         }
         else if (declaration.Modifier.Kind == VariableModifierKind.Bit)
@@ -1666,40 +1666,40 @@ public class FlowScriptCompiler
             if (!mInstrinsic.SupportsBit)
             {
                 Error(declaration.Modifier, "bit modifier is not supported by the specified library");
-                variableIndex = -1;
+                variableIndex = ushort.MaxValue;
                 return false;
             }
 
-            variableIndex = (short)declaration.Modifier.Index.Value;
+            variableIndex = (ushort)declaration.Modifier.Index.Value;
         }
         else if (declaration.Modifier.Kind == VariableModifierKind.Count)
         {
             if (!mInstrinsic.SupportsCount)
             {
                 Error(declaration.Modifier, "count modifier is not supported by the specified library");
-                variableIndex = -1;
+                variableIndex = ushort.MaxValue;
                 return false;
             }
 
-            variableIndex = (short)declaration.Modifier.Index.Value;
+            variableIndex = (ushort)declaration.Modifier.Index.Value;
         }
         else
         {
             Error(declaration.Modifier, $"Unexpected variable modifier: {declaration.Modifier}");
-            variableIndex = -1;
+            variableIndex = ushort.MaxValue;
             return false;
         }
 
         return true;
     }
 
-    private bool TryRegisterVariableDeclaration(VariableDeclaration declaration, out short index, out bool byReference)
+    private bool TryRegisterVariableDeclaration(VariableDeclaration declaration, out ushort index, out bool byReference)
     {
         Trace(declaration, $"Registering variable declaration: {declaration}");
 
         // Get variable index
         byReference = false;
-        index = -1;
+        index = ushort.MaxValue;
         if (declaration.IsArray && declaration.Initializer != null)
         {
             var identifier = declaration.Initializer as Identifier;
@@ -1720,9 +1720,9 @@ public class FlowScriptCompiler
         }
 
         // Declare variable in scope
-        short size = 1;
+        ushort size = 1;
         if (declaration.IsArray)
-            size = (short)(((ArrayVariableDeclaration)declaration).Size);
+            size = (ushort)(((ArrayVariableDeclaration)declaration).Size);
 
         if (!Scope.TryDeclareVariable(declaration, index, size))
         {
@@ -1733,7 +1733,7 @@ public class FlowScriptCompiler
         return true;
     }
 
-    private bool TryEmitVariableDeclaration(VariableDeclaration declaration, out short index)
+    private bool TryEmitVariableDeclaration(VariableDeclaration declaration, out ushort index)
     {
         Trace(declaration, $"Emitting variable declaration: {declaration}");
 
@@ -1741,14 +1741,14 @@ public class FlowScriptCompiler
         if (!TryRegisterVariableDeclaration(declaration, out index, out var byReference))
         {
             Error(declaration, "Failed to register variable declaration");
-            index = -1;
+            index = ushort.MaxValue;
             return false;
         }
 
         // Nothing to emit for constants
         if (declaration.Modifier.Kind == VariableModifierKind.Constant)
         {
-            index = -1;
+            index = ushort.MaxValue;
             return true;
         }
 
@@ -1760,7 +1760,7 @@ public class FlowScriptCompiler
             if (!TryEmitVariableAssignment(declaration.Identifier, declaration.Initializer, true))
             {
                 Error(declaration.Initializer, "Failed to emit code for variable initializer");
-                index = -1;
+                index = ushort.MaxValue;
                 return false;
             }
         }
@@ -1846,7 +1846,7 @@ public class FlowScriptCompiler
 
                 EmitPushBoolLiteral(boolLiteral);
                 break;
-            case IntLiteral intLiteral:
+            case IIntLiteral intLiteral:
                 if (isStatement)
                 {
                     Error(intLiteral, "A integer literal is an invalid statement");
@@ -1899,15 +1899,15 @@ public class FlowScriptCompiler
 
         InitializerList arrayInitializer = variable.Declaration.Initializer as InitializerList;
 
-        if (subscriptOperator.Index is IntLiteral intLiteral)
+        if (subscriptOperator.Index is IIntLiteral intLiteral)
         {
             // Known index
             Expression initializer = null;
             if (arrayInitializer != null)
-                initializer = arrayInitializer.Expressions[intLiteral];
+                initializer = arrayInitializer.Expressions[(int)intLiteral.Value];
 
             if (!TryEmitPushVariableValue(variable.Declaration.Modifier, variable.Declaration.Type.ValueKind,
-                                            variable.GetArrayElementIndex(intLiteral),
+                                            variable.GetArrayElementIndex((int)intLiteral.Value),
                                             initializer))
             {
                 return false;
@@ -1923,7 +1923,7 @@ public class FlowScriptCompiler
                 var falseLabel = CreateLabel($"SubscriptIfNot{i}");
 
                 // Emit current index
-                EmitPushIntLiteral(i);
+                EmitPushIntLiteral(new UIntLiteral((uint)i));
 
                 // Emit index expression
                 if (!TryEmitExpression(subscriptOperator.Index, false))
@@ -2044,13 +2044,11 @@ public class FlowScriptCompiler
                         continue;
 
                     var arg = callExpression.Arguments[i];
-                    if (!(arg.Expression is IntLiteral argInt))
-                    {
-                        // only check constants for now
-                        // TODO: evaluate expressions
-                        continue;
-                    }
 
+                    // only check constants for now
+                    // TODO: evaluate expressions
+                    if (!(arg is IIntLiteral argInt))
+                        continue;
                     var index = argInt.Value;
                     if (index < 0 || index >= mScript.MessageScript.Dialogs.Count)
                     {
@@ -2062,7 +2060,7 @@ public class FlowScriptCompiler
                         ? DialogKind.Message
                         : DialogKind.Selection;
 
-                    var dialog = mScript.MessageScript.Dialogs[index];
+                    var dialog = mScript.MessageScript.Dialogs[(int)index];
                     if (dialog.Kind != expectedDialogKind)
                     {
                         Error($"Function call to {callExpression.Identifier.Text} doesn't reference a {expectedDialogKind} dialog, got dialog of type: {dialog.Kind} index: {index}");
@@ -2172,56 +2170,56 @@ public class FlowScriptCompiler
 
     private bool TryEmitIntrinsicCall(CallOperator callExpression, bool isStatement)
     {
-        bool TryGetProcedureIndexArgument(CallOperator callExpression, out short index)
+        bool TryGetProcedureIndexArgument(CallOperator callExpression, out ushort index)
         {
-            index = short.MinValue;
+            index = ushort.MaxValue;
             if (callExpression.Arguments.Count == 1)
             {
-                if (callExpression.Arguments[0].Expression is IntLiteral intArg)
+                if (callExpression.Arguments[0].Expression is IIntLiteral intArg)
                 {
-                    index = (short)intArg.Value;
+                    index = (ushort)intArg.Value;
                     return true;
                 }
                 else if (callExpression.Arguments[0].Expression is Identifier identifierArg)
                 {
                     if (!Scope.TryGetProcedure(identifierArg.Text, out var proc))
                     {
-                        index = (short)proc.Index;
+                        index = (ushort)proc.Index;
                         return true;
                     }
                 }
             }
             return false;
         }
-        bool TryGetLabelIndexArgument(CallOperator callExpression, out short index)
+        bool TryGetLabelIndexArgument(CallOperator callExpression, out ushort index)
         {
-            index = short.MinValue;
+            index = ushort.MaxValue;
             if (callExpression.Arguments.Count == 1)
             {
-                if (callExpression.Arguments[0].Expression is IntLiteral intArg)
+                if (callExpression.Arguments[0].Expression is IIntLiteral intArg)
                 {
-                    index = (short)intArg.Value;
+                    index = (ushort)intArg.Value;
                     return true;
                 }
                 else if (callExpression.Arguments[0].Expression is Identifier identifierArg)
                 {
                     if (!mLabels.TryGetValue(identifierArg.Text, out var label))
                     {
-                        index = (short)label.Index;
+                        index = (ushort)label.Index;
                         return true;
                     }
                 }
             }
             return false;
         }
-        bool TryGetVariableIndexArgument(CallOperator callExpression, out short index)
+        bool TryGetVariableIndexArgument(CallOperator callExpression, out ushort index)
         {
-            index = short.MinValue;
+            index = ushort.MaxValue;
             if (callExpression.Arguments.Count == 1)
             {
-                if (callExpression.Arguments[0].Expression is IntLiteral intArg)
+                if (callExpression.Arguments[0].Expression is IIntLiteral intArg)
                 {
-                    index = (short)intArg.Value;
+                    index = (ushort)intArg.Value;
                     return true;
                 }
                 else if (callExpression.Arguments[0].Expression is Identifier identifierArg)
@@ -2240,7 +2238,7 @@ public class FlowScriptCompiler
             index = ushort.MaxValue;
             if (callExpression.Arguments.Count == 1)
             {
-                if (callExpression.Arguments[0].Expression is IntLiteral intArg)
+                if (callExpression.Arguments[0].Expression is IIntLiteral intArg)
                 {
                     index = (ushort)intArg.Value;
                     return true;
@@ -2256,13 +2254,18 @@ public class FlowScriptCompiler
             }
             return false;
         }
-
         switch (callExpression.Identifier.Text)
         {
             case "__PUSHI":
-                if (callExpression.Arguments.Count == 1 && callExpression.Arguments[0].Expression is IntLiteral pushiArg)
+                if (callExpression.Arguments.Count == 1)
                 {
-                    Emit(Instruction.PUSHI(pushiArg.Value));
+                    if (callExpression.Arguments[0].Expression is IIntLiteral pushiArg)
+                        Emit(Instruction.PUSHI((uint)pushiArg.Value));
+                    else
+                    {
+                        Error(callExpression, "__PUSHI requires exactly one integer argument.");
+                        return false;
+                    }
                 }
                 else
                 {
@@ -2284,7 +2287,7 @@ public class FlowScriptCompiler
             case "__PUSHIX":
                 if (callExpression.Arguments.Count == 1 && TryGetVariableIndexArgument(callExpression, out var pushixIndex))
                 {
-                    Emit(Instruction.PUSHIX((short)pushixIndex));
+                    Emit(Instruction.PUSHIX((ushort)pushixIndex));
                 }
                 else
                 {
@@ -2295,7 +2298,7 @@ public class FlowScriptCompiler
             case "__PUSHIF":
                 if (callExpression.Arguments.Count == 1 && TryGetVariableIndexArgument(callExpression, out var pushifIndex))
                 {
-                    Emit(Instruction.PUSHIF((short)pushifIndex));
+                    Emit(Instruction.PUSHIF((ushort)pushifIndex));
                 }
                 else
                 {
@@ -2309,7 +2312,7 @@ public class FlowScriptCompiler
             case "__POPIX":
                 if (callExpression.Arguments.Count == 1 && TryGetVariableIndexArgument(callExpression, out var popixIndex))
                 {
-                    Emit(Instruction.POPIX((short)popixIndex));
+                    Emit(Instruction.POPIX((ushort)popixIndex));
                 }
                 else
                 {
@@ -2320,7 +2323,7 @@ public class FlowScriptCompiler
             case "__POPFX":
                 if (callExpression.Arguments.Count == 1 && TryGetVariableIndexArgument(callExpression, out var popfxIndex))
                 {
-                    Emit(Instruction.POPFX((short)popfxIndex));
+                    Emit(Instruction.POPFX((ushort)popfxIndex));
                 }
                 else
                 {
@@ -2331,7 +2334,7 @@ public class FlowScriptCompiler
             case "__PROC":
                 if (callExpression.Arguments.Count == 1 && TryGetProcedureIndexArgument(callExpression, out var procIndex))
                 {
-                    Emit(Instruction.PROC((short)procIndex));
+                    Emit(Instruction.PROC((ushort)procIndex));
                 }
                 else
                 {
@@ -2376,7 +2379,7 @@ public class FlowScriptCompiler
             case "__CALL":
                 if (callExpression.Arguments.Count == 1 && TryGetProcedureIndexArgument(callExpression, out var callIndex))
                 {
-                    Emit(Instruction.CALL((short)callIndex));
+                    Emit(Instruction.CALL((ushort)callIndex));
                 }
                 else
                 {
@@ -2390,7 +2393,7 @@ public class FlowScriptCompiler
             case "__GOTO":
                 if (callExpression.Arguments.Count == 1 && TryGetLabelIndexArgument(callExpression, out var gotoIndex))
                 {
-                    Emit(Instruction.GOTO((short)gotoIndex));
+                    Emit(Instruction.GOTO((ushort)gotoIndex));
                 }
                 else
                 {
@@ -2443,7 +2446,7 @@ public class FlowScriptCompiler
             case "__IF":
                 if (callExpression.Arguments.Count == 1 && TryGetLabelIndexArgument(callExpression, out var ifIndex))
                 {
-                    Emit(Instruction.IF((short)ifIndex));
+                    Emit(Instruction.IF((ushort)ifIndex));
                 }
                 else
                 {
@@ -2454,7 +2457,7 @@ public class FlowScriptCompiler
             case "__PUSHIS":
                 if (callExpression.Arguments.Count == 1 && TryGetVariableIndexArgument(callExpression, out var pushisIndex))
                 {
-                    Emit(Instruction.PUSHIS((short)pushisIndex));
+                    Emit(Instruction.PUSHIS((ushort)pushisIndex));
                 }
                 else
                 {
@@ -2465,7 +2468,7 @@ public class FlowScriptCompiler
             case "__PUSHLIX":
                 if (callExpression.Arguments.Count == 1 && TryGetVariableIndexArgument(callExpression, out var pushlixIndex))
                 {
-                    Emit(Instruction.PUSHLIX((short)pushlixIndex));
+                    Emit(Instruction.PUSHLIX((ushort)pushlixIndex));
                 }
                 else
                 {
@@ -2476,7 +2479,7 @@ public class FlowScriptCompiler
             case "__PUSHLFX":
                 if (callExpression.Arguments.Count == 1 && TryGetVariableIndexArgument(callExpression, out var pushlfxIndex))
                 {
-                    Emit(Instruction.PUSHLFX((short)pushlfxIndex));
+                    Emit(Instruction.PUSHLFX((ushort)pushlfxIndex));
                 }
                 else
                 {
@@ -2487,7 +2490,7 @@ public class FlowScriptCompiler
             case "__POPLIX":
                 if (callExpression.Arguments.Count == 1 && TryGetVariableIndexArgument(callExpression, out var poplixIndex))
                 {
-                    Emit(Instruction.POPLIX((short)poplixIndex));
+                    Emit(Instruction.POPLIX((ushort)poplixIndex));
                 }
                 else
                 {
@@ -2498,7 +2501,7 @@ public class FlowScriptCompiler
             case "__POPLFX":
                 if (callExpression.Arguments.Count == 1 && TryGetVariableIndexArgument(callExpression, out var poplfxIndex))
                 {
-                    Emit(Instruction.POPLFX((short)poplfxIndex));
+                    Emit(Instruction.POPLFX((ushort)poplfxIndex));
                 }
                 else
                 {
@@ -2645,7 +2648,7 @@ public class FlowScriptCompiler
         return true;
     }
 
-    private bool TryEmitParameterCallArguments(CallOperator callExpression, ProcedureDeclaration declaration, out Dictionary<Parameter, short> argumentIndices)
+    private bool TryEmitParameterCallArguments(CallOperator callExpression, ProcedureDeclaration declaration, out Dictionary<Parameter, ushort> argumentIndices)
     {
         Trace("Emitting parameter call arguments");
 
@@ -2776,9 +2779,9 @@ public class FlowScriptCompiler
         }
 
         // Reset the parameter variable indices
-        mNextIntArgumentVariableIndex -= (short)intArgumentCount;
+        mNextIntArgumentVariableIndex -= (ushort)intArgumentCount;
         Debug.Assert(mNextIntArgumentVariableIndex >= 0);
-        mNextFloatArgumentVariableIndex -= (short)floatArgumentCount;
+        mNextFloatArgumentVariableIndex -= (ushort)floatArgumentCount;
         Debug.Assert(mNextFloatArgumentVariableIndex >= 0);
 
         return true;
@@ -2823,7 +2826,7 @@ public class FlowScriptCompiler
             return false;
         }
 
-        short index;
+        ushort index;
         if (variable.Declaration.Type.ValueKind != ValueKind.Float)
         {
             index = mNextIntVariableIndex++;
@@ -3147,7 +3150,7 @@ public class FlowScriptCompiler
         return true;
     }
 
-    private bool TryEmitPushVariableValue(VariableModifier modifier, ValueKind valueKind, short index, Expression initializer)
+    private bool TryEmitPushVariableValue(VariableModifier modifier, ValueKind valueKind, ushort index, Expression initializer)
     {
         if (modifier == null || modifier.Kind == VariableModifierKind.Local)
         {
@@ -3257,10 +3260,10 @@ public class FlowScriptCompiler
             return false;
         }
 
-        if (subscriptOperator.Index is IntLiteral intLiteral)
+        if (subscriptOperator.Index is IIntLiteral intLiteral)
         {
             // Known index
-            if (!TryEmitVariableAssignment(variable.Declaration, variable.GetArrayElementIndex(intLiteral)))
+            if (!TryEmitVariableAssignment(variable.Declaration, variable.GetArrayElementIndex((int)intLiteral.Value)))
                 return false;
         }
         else
@@ -3273,7 +3276,7 @@ public class FlowScriptCompiler
                 var falseLabel = CreateLabel($"SubscriptAssignmentIfNot{i}");
 
                 // Emit current index
-                EmitPushIntLiteral(i);
+                EmitPushIntLiteral(new UIntLiteral((uint)i));
 
                 // Emit index expression
                 if (!TryEmitExpression(subscriptOperator.Index, false))
@@ -3483,7 +3486,7 @@ public class FlowScriptCompiler
         return true;
     }
 
-    private bool TryEmitVariableAssignment(VariableDeclaration declaration, short index)
+    private bool TryEmitVariableAssignment(VariableDeclaration declaration, ushort index)
     {
         // load the value into the variable
         if (declaration.Modifier == null || declaration.Modifier.Kind == VariableModifierKind.Local)
@@ -3568,7 +3571,7 @@ public class FlowScriptCompiler
             Emit(Instruction.PUSHIS(0));
     }
 
-    private void EmitPushIntLiteral(IntLiteral intLiteral)
+    private void EmitPushIntLiteral(IIntLiteral intLiteral)
     {
         Trace(intLiteral, $"Pushing int literal: {intLiteral}");
 
@@ -3584,12 +3587,23 @@ public class FlowScriptCompiler
         }
 
         if ((value & ~0x7FFF) == 0)
-            Emit(Instruction.PUSHIS((short)value));
+            Emit(Instruction.PUSHIS((ushort)value));
         else
-            Emit(Instruction.PUSHI(value));
+            Emit(Instruction.PUSHI((uint)value));
 
         if (isNegative)
             Emit(Instruction.MINUS());
+    }
+
+    private void EmitPushUIntLiteral(UIntLiteral intLiteral)
+    {
+        Trace(intLiteral, $"Pushing int literal: {intLiteral}");
+
+        var value = intLiteral.Value;
+        if ((value & ~0x7FFF) == 0)
+            Emit(Instruction.PUSHIS((ushort)value));
+        else
+            Emit(Instruction.PUSHI((uint)value));
     }
 
     private void EmitPushFloatLiteral(FloatLiteral floatLiteral)
@@ -3972,7 +3986,7 @@ public class FlowScriptCompiler
         if (EnableStackCookie)
         {
             // Check stack cookie
-            Emit(Instruction.PUSHI(mProcedureDeclaration.Identifier.Text.GetHashCode()));
+            Emit(Instruction.PUSHI((uint)mProcedureDeclaration.Identifier.Text.GetHashCode()));
             Emit(Instruction.NEQ());
             var label = CreateLabel("IfStackCookieIsValid");
             Emit(Instruction.IF(label.Index));
@@ -4142,27 +4156,27 @@ public class FlowScriptCompiler
             {
                 if (parameter.Type.ValueKind == ValueKind.Int)
                 {
-                    Emit(Instruction.PUSHLIX((short)(mNextIntArgumentVariableIndex + intParameterCount)));
+                    Emit(Instruction.PUSHLIX((ushort)(mNextIntArgumentVariableIndex + intParameterCount)));
                 }
                 if (parameter.Type.ValueKind == ValueKind.Bool)
                 {
-                    Emit(Instruction.PUSHLIX((short)(mNextIntArgumentVariableIndex + intParameterCount)));
+                    Emit(Instruction.PUSHLIX((ushort)(mNextIntArgumentVariableIndex + intParameterCount)));
                 }
-                Emit(Instruction.PUSHLFX((short)(mNextFloatArgumentVariableIndex + floatParameterCount)));
+                Emit(Instruction.PUSHLFX((ushort)(mNextFloatArgumentVariableIndex + floatParameterCount)));
 
                 EmitTracePrintValue(parameter.Type.ValueKind);
 
                 if (parameter.Type.ValueKind == ValueKind.Int)
                 {
-                    Emit(Instruction.POPLIX((short)(mNextIntArgumentVariableIndex + intParameterCount)));
+                    Emit(Instruction.POPLIX((ushort)(mNextIntArgumentVariableIndex + intParameterCount)));
                     ++intParameterCount;
                 }
                 if (parameter.Type.ValueKind == ValueKind.Bool)
                 {
-                    Emit(Instruction.POPLIX((short)(mNextIntArgumentVariableIndex + intParameterCount)));
+                    Emit(Instruction.POPLIX((ushort)(mNextIntArgumentVariableIndex + intParameterCount)));
                     ++intParameterCount;
                 }
-                Emit(Instruction.POPLFX((short)(mNextFloatArgumentVariableIndex + floatParameterCount)));
+                Emit(Instruction.POPLFX((ushort)(mNextFloatArgumentVariableIndex + floatParameterCount)));
                 ++floatParameterCount;
             }
         }
@@ -4417,7 +4431,7 @@ public class FlowScriptCompiler
     private LabelInfo CreateLabel(string name)
     {
         var label = new LabelInfo();
-        label.Index = (short)mLabels.Count;
+        label.Index = (ushort)mLabels.Count;
         label.Name = name + "_" + mNextLabelIndex++;
 
         mLabels.Add(label.Name, label);
@@ -4450,7 +4464,7 @@ public class FlowScriptCompiler
     //
     // Logging
     //
-    private void Trace(SyntaxNode node, string message)
+    private void Trace(ISyntaxNode node, string message)
     {
         if (node.SourceInfo != null)
             Trace($"({node.SourceInfo.Line:D4}:{node.SourceInfo.Column:D4}) {message}");
@@ -4463,7 +4477,7 @@ public class FlowScriptCompiler
         mLogger.Trace($"{message}");
     }
 
-    private void Info(SyntaxNode node, string message)
+    private void Info(ISyntaxNode node, string message)
     {
         if (node.SourceInfo != null)
             Info($"({node.SourceInfo.Line:D4}:{node.SourceInfo.Column:D4}) {message}");
@@ -4476,7 +4490,7 @@ public class FlowScriptCompiler
         mLogger.Info($"{message}");
     }
 
-    private void Error(SyntaxNode node, string message)
+    private void Error(ISyntaxNode node, string message)
     {
         if (node.SourceInfo != null)
             Error($"({node.SourceInfo.Line:D4}:{node.SourceInfo.Column:D4}) {message}");
@@ -4495,7 +4509,7 @@ public class FlowScriptCompiler
         //    Debugger.Break();
     }
 
-    private void Warning(SyntaxNode node, string message)
+    private void Warning(ISyntaxNode node, string message)
     {
         if (node.SourceInfo != null)
             Warning($"({node.SourceInfo.Line:D4}:{node.SourceInfo.Column:D4}) {message}");

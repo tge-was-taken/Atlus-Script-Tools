@@ -31,7 +31,7 @@ public class Parameter : SyntaxNode
 
 public class ArrayParameter : Parameter
 {
-    public IntLiteral Size { get; set; }
+    public UIntLiteral Size { get; set; }
 
     public override bool IsArray => true;
 
@@ -40,7 +40,7 @@ public class ArrayParameter : Parameter
 
     }
 
-    public ArrayParameter(ParameterModifier modifier, TypeIdentifier type, Identifier identifier, IntLiteral size) : base(modifier, type, identifier, null)
+    public ArrayParameter(ParameterModifier modifier, TypeIdentifier type, Identifier identifier, UIntLiteral size) : base(modifier, type, identifier, null)
     {
         Size = size;
     }

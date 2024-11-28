@@ -149,34 +149,34 @@ internal class ScopeContext
         return true;
     }
 
-        public bool TryDeclareFunctions(FunctionDeclaration[] declarations)
+    public bool TryDeclareFunctions(FunctionDeclaration[] declarations)
+    {
+        foreach (var declaration in declarations)
         {
-            foreach(var declaration in declarations)
-            {
-                if(!TryDeclareFunction(declaration))
-                    return false;
-            }
-            return true;
-        }
-
-
-        public bool TryDeclareProcedure( ProcedureDeclaration declaration, out ProcedureInfo procedure )
-        {
-            if ( TryGetProcedure( declaration.Identifier.Text, out procedure ) )
-            {
+            if (!TryDeclareFunction(declaration))
                 return false;
-            }
+        }
+        return true;
+    }
+
+
+    public bool TryDeclareProcedure(ProcedureDeclaration declaration, out ProcedureInfo procedure)
+    {
+        if (TryGetProcedure(declaration.Identifier.Text, out procedure))
+        {
+            return false;
+        }
 
         var p = new ProcedureInfo();
         p.Declaration = declaration;
         p.IndexForced = declaration.Index != null;
-        p.Index = !p.IndexForced ? (short)Procedures.Count : (short)declaration.Index.Value;
+        p.Index = !p.IndexForced ? (ushort)Procedures.Count : (ushort)declaration.Index.Value;
         if (Procedures.Any(x => x.Value.Index == p.Index))
         {
             var duplicate = !p.IndexForced ? p : Procedures.Values.FirstOrDefault(x => x.Index == p.Index && !x.IndexForced);
             if (duplicate == null)
                 duplicate = p; // If there's nothing else that can be replaced then this just can't have its index forced
-            short newIndex = 0;
+            ushort newIndex = 0;
             while (Procedures.Any(x => x.Value.Index == newIndex))
                 newIndex++;
             duplicate.Index = newIndex;
@@ -198,10 +198,10 @@ internal class ScopeContext
 
     public bool TryDeclareVariable(VariableDeclaration declaration)
     {
-        return TryDeclareVariable(declaration, -1);
+        return TryDeclareVariable(declaration, ushort.MaxValue);
     }
 
-    public bool TryDeclareVariable(VariableDeclaration declaration, short index, int size = 1)
+    public bool TryDeclareVariable(VariableDeclaration declaration, ushort index, int size = 1)
     {
         if (TryGetVariable(declaration.Identifier.Text, out _))
             return false;
@@ -227,7 +227,7 @@ internal class ScopeContext
             Members = declaration.Values.ToDictionary(x => x.Identifier.Text, y => y.Value)
         };
 
-        int nextMemberValue = 0;
+        long nextMemberValue = 0;
         bool anyImplicitValues = false;
 
         for (int i = 0; i < enumType.Members.Count; i++)
@@ -237,7 +237,8 @@ internal class ScopeContext
 
             if (value == null)
             {
-                enumType.Members[key] = new IntLiteral(nextMemberValue++);
+                enumType.Members[key] = nextMemberValue < 0 ? new IntLiteral((int)nextMemberValue) : new UIntLiteral((uint)nextMemberValue);
+                nextMemberValue++;
                 anyImplicitValues = true;
             }
             else
@@ -256,9 +257,9 @@ internal class ScopeContext
         return true;
     }
 
-    private bool TryGetNextMemberValue(Dictionary<string, Expression> members, Expression enumValue, out int nextMemberValue)
+    private bool TryGetNextMemberValue(Dictionary<string, Expression> members, Expression enumValue, out long nextMemberValue)
     {
-        if (enumValue is IntLiteral intLiteral)
+        if (enumValue is IIntLiteral intLiteral)
         {
             nextMemberValue = intLiteral.Value + 1;
             return true;
@@ -276,7 +277,7 @@ internal class ScopeContext
         return false;
     }
 
-    public VariableInfo GenerateVariable(ValueKind kind, short index)
+    public VariableInfo GenerateVariable(ValueKind kind, ushort index)
     {
         var declaration = new VariableDeclaration(
             new VariableModifier(VariableModifierKind.Local),

@@ -7,9 +7,8 @@ namespace AtlusScriptLibrary.FlowScriptLanguage;
 /// </summary>
 public class Operand : IEquatable<Operand>
 {
-    private short mShortValue;
     private ushort mUshortValue;
-    private int mIntValue;
+    private uint mUIntValue;
     private float mFloatValue;
     private string mStringValue;
 
@@ -17,16 +16,6 @@ public class Operand : IEquatable<Operand>
     /// Gets the value type of the operand.
     /// </summary>
     public ValueKind Kind { get; }
-
-    /// <summary>
-    /// Constructs a new operand value.
-    /// </summary>
-    /// <param name="value">The operand value.</param>
-    public Operand(short value)
-    {
-        Kind = ValueKind.Int16;
-        mShortValue = value;
-    }
 
     /// <summary>
     /// Constructs a new operand value.
@@ -42,10 +31,10 @@ public class Operand : IEquatable<Operand>
     /// Constructs a new operand value.
     /// </summary>
     /// <param name="value">The operand value.</param>
-    public Operand(int value)
+    public Operand(uint value)
     {
-        Kind = ValueKind.Int32;
-        mIntValue = value;
+        Kind = ValueKind.UInt32;
+        mUIntValue = value;
     }
 
     /// <summary>
@@ -81,14 +70,11 @@ public class Operand : IEquatable<Operand>
                 case ValueKind.None:
                     throw new InvalidOperationException("This operand has no value");
 
-                case ValueKind.Int16:
-                    return mShortValue;
-
                 case ValueKind.UInt16:
                     return mUshortValue;
 
-                case ValueKind.Int32:
-                    return mIntValue;
+                case ValueKind.UInt32:
+                    return mUIntValue;
 
                 case ValueKind.Single:
                     return mFloatValue;
@@ -108,16 +94,12 @@ public class Operand : IEquatable<Operand>
                 case ValueKind.None:
                     throw new InvalidOperationException("This operand has no value");
 
-                case ValueKind.Int16:
-                    mShortValue = (short)value;
-                    break;
-
                 case ValueKind.UInt16:
                     mUshortValue = (ushort)value;
                     break;
 
-                case ValueKind.Int32:
-                    mIntValue = (int)value;
+                case ValueKind.UInt32:
+                    mUIntValue = (uint)value;
                     break;
 
                 case ValueKind.Single:
@@ -131,29 +113,6 @@ public class Operand : IEquatable<Operand>
                 default:
                     throw new Exception("Invalid value type");
             }
-        }
-    }
-
-    /// <summary>
-    /// Gets the <see cref="Int16"/> operand value.
-    /// </summary>
-    /// <returns>The <see cref="Int16"/> operand value.</returns>
-    public short Int16Value
-    {
-        get
-        {
-            if (Kind != ValueKind.Int16)
-                throw new InvalidOperationException($"This operand does not have a value of type {ValueKind.Int16}");
-
-            return mShortValue;
-        }
-
-        set
-        {
-            if (Kind != ValueKind.Int16)
-                throw new InvalidOperationException($"This operand does not have a value of type {ValueKind.Int16}");
-
-            mShortValue = value;
         }
     }
 
@@ -184,22 +143,22 @@ public class Operand : IEquatable<Operand>
     /// Gets the <see cref="Int32"/> operand value.
     /// </summary>
     /// <returns>The <see cref="Int32"/> operand value.</returns>
-    public int Int32Value
+    public uint UInt32Value
     {
         get
         {
-            if (Kind != ValueKind.Int32)
-                throw new InvalidOperationException($"This operand does not have a value of type {ValueKind.Int32}");
+            if (Kind != ValueKind.UInt32)
+                throw new InvalidOperationException($"This operand does not have a value of type {ValueKind.UInt32}");
 
-            return mIntValue;
+            return mUIntValue;
         }
 
         set
         {
-            if (Kind != ValueKind.Int32)
-                throw new InvalidOperationException($"This operand does not have a value of type {ValueKind.Int32}");
+            if (Kind != ValueKind.UInt32)
+                throw new InvalidOperationException($"This operand does not have a value of type {ValueKind.UInt32}");
 
-            mIntValue = value;
+            mUIntValue = value;
         }
     }
 
@@ -254,9 +213,8 @@ public class Operand : IEquatable<Operand>
     public enum ValueKind
     {
         None,
-        Int16,
         UInt16,
-        Int32,
+        UInt32,
         Single,
         String
     }
@@ -276,14 +234,11 @@ public class Operand : IEquatable<Operand>
             case ValueKind.None:
                 return true;
 
-            case ValueKind.Int16:
-                return mShortValue == other.mShortValue;
-
             case ValueKind.UInt16:
                 return mUshortValue == other.mUshortValue;
 
-            case ValueKind.Int32:
-                return mIntValue == other.mIntValue;
+            case ValueKind.UInt32:
+                return mUIntValue == other.mUIntValue;
 
             case ValueKind.Single:
                 return mFloatValue == other.mFloatValue;
@@ -300,12 +255,10 @@ public class Operand : IEquatable<Operand>
     {
         switch (Kind)
         {
-            case ValueKind.Int16:
-                return new Operand(mShortValue);
             case ValueKind.UInt16:
                 return new Operand(mUshortValue);
-            case ValueKind.Int32:
-                return new Operand(mIntValue);
+            case ValueKind.UInt32:
+                return new Operand(mUIntValue);
             case ValueKind.Single:
                 return new Operand(mFloatValue);
             case ValueKind.String:

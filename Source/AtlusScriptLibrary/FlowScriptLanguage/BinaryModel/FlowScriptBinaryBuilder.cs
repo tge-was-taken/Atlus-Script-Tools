@@ -317,8 +317,8 @@ public sealed class FlowScriptBinaryBuilder
                     continue;
                 }
 
-                if (instruction.OperandShort > highestIndex)
-                    highestIndex = instruction.OperandShort;
+                if (instruction.OperandUShort > highestIndex)
+                    highestIndex = instruction.OperandUShort;
             }
         }
 
@@ -343,8 +343,8 @@ public sealed class FlowScriptBinaryBuilder
                     continue;
                 }
 
-                if (instruction.OperandShort > highestIndex)
-                    highestIndex = instruction.OperandShort;
+                if (instruction.OperandUShort > highestIndex)
+                    highestIndex = instruction.OperandUShort;
             }
         }
 

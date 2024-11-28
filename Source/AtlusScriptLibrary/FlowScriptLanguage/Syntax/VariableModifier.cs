@@ -4,7 +4,7 @@ public class VariableModifier : SyntaxNode
 {
     public VariableModifierKind Kind { get; set; }
 
-    public IntLiteral Index { get; set; }
+    public UIntLiteral Index { get; set; }
 
     public VariableModifier()
     {
@@ -18,7 +18,7 @@ public class VariableModifier : SyntaxNode
         Index = null;
     }
 
-    public VariableModifier(VariableModifierKind kind, IntLiteral index)
+    public VariableModifier(VariableModifierKind kind, UIntLiteral index)
     {
         Kind = kind;
         Index = index;

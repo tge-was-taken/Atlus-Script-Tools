@@ -5,7 +5,7 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax;
 
 public class ProcedureDeclaration : Declaration
 {
-    public IntLiteral Index { get; set; }
+    public UIntLiteral Index { get; set; }
 
     public TypeIdentifier ReturnType { get; set; }
 
@@ -25,7 +25,7 @@ public class ProcedureDeclaration : Declaration
         Body = body;
     }
 
-    public ProcedureDeclaration(IntLiteral index, TypeIdentifier returnType, Identifier identifier, List<Parameter> parameters, CompoundStatement body) : base(DeclarationType.Procedure, identifier)
+    public ProcedureDeclaration(UIntLiteral index, TypeIdentifier returnType, Identifier identifier, List<Parameter> parameters, CompoundStatement body) : base(DeclarationType.Procedure, identifier)
     {
         Index = index;
         ReturnType = returnType;

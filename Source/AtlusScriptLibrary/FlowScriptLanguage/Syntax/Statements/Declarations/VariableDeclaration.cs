@@ -55,7 +55,7 @@ public class VariableDeclaration : Declaration
 
 public class ArrayVariableDeclaration : VariableDeclaration
 {
-    public IntLiteral Size { get; set; }
+    public UIntLiteral Size { get; set; }
 
     public override bool IsArray => true;
 
@@ -63,7 +63,7 @@ public class ArrayVariableDeclaration : VariableDeclaration
     {
     }
 
-    public ArrayVariableDeclaration(VariableModifier modifier, TypeIdentifier type, Identifier identifier, IntLiteral size, Expression initializer)
+    public ArrayVariableDeclaration(VariableModifier modifier, TypeIdentifier type, Identifier identifier, UIntLiteral size, Expression initializer)
         : base(modifier, type, identifier, initializer)
     {
         Size = size;

@@ -53,6 +53,8 @@ public class FlowScriptDecompiler
     /// </summary>
     public bool SumBits { get; set; }
 
+    public bool StrictMode { get; set; }
+
     /// <summary>
     /// Initializes a FlowScript decompiler.
     /// </summary>
@@ -154,6 +156,7 @@ public class FlowScriptDecompiler
     {
         var evaluator = new Evaluator();
         evaluator.Library = Library;
+        evaluator.StrictMode = StrictMode;
         evaluator.AddListener(new LoggerPassthroughListener(mLogger));
         if (!evaluator.TryEvaluateScript(flowScript, out evaluationResult))
         {
@@ -251,7 +254,7 @@ public class FlowScriptDecompiler
         }
 
         declaration = new ProcedureDeclaration(
-            new IntLiteral(mEvaluatedScript.Procedures.IndexOf(evaluatedProcedure)),
+            new UIntLiteral((uint)mEvaluatedScript.Procedures.IndexOf(evaluatedProcedure)),
             new TypeIdentifier(evaluatedProcedure.ReturnKind),
             new Identifier(ValueKind.Procedure, evaluatedProcedure.Procedure.Name),
             evaluatedProcedure.Parameters,
@@ -361,8 +364,9 @@ public class FlowScriptDecompiler
                         continue;
 
                     // sum literals
-                    var literals = SyntaxNodeCollector<IntLiteral>.Collect(arg.Expression);
-                    var sum = 0;
+                    var literals = SyntaxNodeCollector<IntLiteral>.Collect(arg.Expression).Select(x => (IIntLiteral)x)
+                        .Concat(SyntaxNodeCollector<UIntLiteral>.Collect(arg.Expression).Select(x => (IIntLiteral)x));
+                    long sum = 0;
                     foreach (var literal in literals)
                         sum += literal.Value;
 
@@ -371,7 +375,7 @@ public class FlowScriptDecompiler
                     if (SumBits)
                     {
                         // Replace expression with sum of the expression
-                        arg.Expression = new IntLiteral(sum);
+                        arg.Expression = new UIntLiteral((uint)sum);
                     }
                     else
                     {
@@ -410,8 +414,8 @@ public class FlowScriptDecompiler
 
                         var arg = call.Arguments[argIndex];
                         var defaultValue = Expression.FromText(libFunc.Parameters[i].DefaultValue);
-                        if (arg.Expression is IntLiteral argLiteral &&
-                             defaultValue is IntLiteral defaultValueLiteral &&
+                        if (arg.Expression is IIntLiteral argLiteral &&
+                             defaultValue is IIntLiteral defaultValueLiteral &&
                              argLiteral.Equals(defaultValueLiteral))
                         {
                             call.Arguments.RemoveAt(argIndex);
@@ -452,14 +456,14 @@ public class FlowScriptDecompiler
                         }
 
                         var arg = call.Arguments[i];
-                        if (!(arg.Expression is IntLiteral dialogIndex))
+                        if (!(arg.Expression is IIntLiteral dialogIndex))
                         {
                             // only handle literals for now
                             // TODO: name constants in compound expressions used to initialize msg variables
                             continue;
                         }
 
-                        if (dialogIndex >= mEvaluatedScript.FlowScript.MessageScript.Dialogs.Count)
+                        if (dialogIndex.Value >= mEvaluatedScript.FlowScript.MessageScript.Dialogs.Count)
                         {
                             // out of bounds index... weird
                             continue;
@@ -468,7 +472,7 @@ public class FlowScriptDecompiler
                         // rewrite expression to be a reference to the dialog name
                         arg.Expression = new Identifier(
                             ValueKind.Int,
-                            mEvaluatedScript.FlowScript.MessageScript.Dialogs[dialogIndex.Value].Name);
+                            mEvaluatedScript.FlowScript.MessageScript.Dialogs[(int)dialogIndex.Value].Name);
                     }
                 }
             }
@@ -556,7 +560,7 @@ public class FlowScriptDecompiler
                         continue;
                     }
 
-                    if (!(argument is IntLiteral argumentValue))
+                    if (!(argument is IIntLiteral argumentValue))
                         continue;
 
                     var libraryEnum = Library.FlowScriptModules
@@ -978,7 +982,7 @@ public class FlowScriptDecompiler
                     // So we insert declaration before if statement in which it was used
 
                     // Just to be safe
-                    declaration.Initializer = new IntLiteral(0);
+                    declaration.Initializer = new UIntLiteral(0);
 
                     evaluatedStatements.Insert(insertionIndex,
                         new EvaluatedStatement(declaration, instructionIndex, null));
@@ -992,7 +996,7 @@ public class FlowScriptDecompiler
                     {
                         // Reference to undeclared variable
                         LogInfo($"Reference to uninitialized variable! Adding 0 initializer: {declaration}");
-                        initializer = new IntLiteral(0);
+                        initializer = new UIntLiteral(0);
                     }
 
                     // Coagulate assignment with declaration

@@ -2,7 +2,7 @@
 
 namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax;
 
-public class IntLiteral : Literal<int>, IEquatable<IntLiteral>
+public class IntLiteral : Literal<int>, IEquatable<IntLiteral>, IIntLiteral
 {
     public IntLiteral() : base(ValueKind.Int)
     {
@@ -11,6 +11,8 @@ public class IntLiteral : Literal<int>, IEquatable<IntLiteral>
     public IntLiteral(int value) : base(ValueKind.Int, value)
     {
     }
+
+    long IIntLiteral.Value => Value;
 
     public bool Equals(IntLiteral other)
     {
