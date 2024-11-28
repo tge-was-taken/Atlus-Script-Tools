@@ -202,7 +202,7 @@ public class CompilationUnitWriter : SyntaxNodeVisitor
         {
             Write("function");
             WriteOpenParenthesis();
-            WriteHexIntegerLiteral((int)functionDeclaration.Index.Value);
+            WriteHexIntegerLiteral((uint)functionDeclaration.Index.Value);
             WriteCloseParenthesis();
             Write(" ");
             Visit(functionDeclaration.ReturnType);
@@ -219,7 +219,7 @@ public class CompilationUnitWriter : SyntaxNodeVisitor
                 if (variableDeclaration.Modifier.Index != null)
                 {
                     WriteOpenParenthesis();
-                    WriteIntegerLiteral(variableDeclaration.Modifier.Index);
+                    WriteUnsignedIntegerLiteral(variableDeclaration.Modifier.Index);
                     WriteCloseParenthesis();
                 }
 
@@ -569,6 +569,11 @@ public class CompilationUnitWriter : SyntaxNodeVisitor
             WriteIntegerLiteral(literal);
         }
 
+        public override void Visit(UIntLiteral literal)
+        {
+            WriteUnsignedIntegerLiteral(literal);
+        }
+
         public override void Visit(StringLiteral literal)
         {
             WriteStringLiteral(literal);
@@ -740,7 +745,7 @@ public class CompilationUnitWriter : SyntaxNodeVisitor
 
         // Literals
         // Integer literal
-        private void WriteIntegerLiteral(IntLiteral intLiteral)
+        private void WriteUnsignedIntegerLiteral(UIntLiteral intLiteral)
         {
             if (IsPowerOfTwo(intLiteral.Value) && (intLiteral.Value & 0xF) == 0)
             {
@@ -752,7 +757,19 @@ public class CompilationUnitWriter : SyntaxNodeVisitor
             }
         }
 
-        private void WriteHexIntegerLiteral(int value)
+        private void WriteIntegerLiteral(IntLiteral intLiteral)
+        {
+            if (intLiteral.Value >= 0 && IsPowerOfTwo((uint)intLiteral.Value) && (intLiteral.Value & 0xF) == 0)
+            {
+                WriteHexIntegerLiteral((uint)intLiteral.Value);
+            }
+            else
+            {
+                Write(intLiteral.Value.ToString());
+            }
+        }
+
+        private void WriteHexIntegerLiteral(uint value)
         {
             if (FitsInByte(value))
                 Write($"0x{value:X2}");
@@ -762,17 +779,17 @@ public class CompilationUnitWriter : SyntaxNodeVisitor
                 Write($"0x{value:X8}");
         }
 
-        private bool IsPowerOfTwo(int x)
+        private bool IsPowerOfTwo(uint x)
         {
             return (x != 0) && ((x & (x - 1)) == 0);
         }
 
-        private bool FitsInShort(int value)
+        private bool FitsInShort(uint value)
         {
             return (((value & 0xffff8000) + 0x8000) & 0xffff7fff) == 0;
         }
 
-        private bool FitsInByte(int value)
+        private bool FitsInByte(uint value)
         {
             // doesn't catch negative values but that doesn't matter in this context
             return (value & ~0xFF) == 0;

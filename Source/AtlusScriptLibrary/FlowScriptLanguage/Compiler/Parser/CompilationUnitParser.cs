@@ -424,8 +424,8 @@ public class CompilationUnitParser
             if (!TryGet(context, "Expected function index", context.IntLiteral, out var indexNode))
                 return false;
 
-            IntLiteral indexIntLiteral = null;
-            if (!TryFunc(indexNode, "Failed to parse function index", () => TryParseIntLiteral(indexNode, out indexIntLiteral)))
+            UIntLiteral indexIntLiteral = null;
+            if (!TryFunc(indexNode, "Failed to parse function index", () => TryParseUIntLiteral(indexNode, out indexIntLiteral)))
                 return false;
 
             functionDeclaration.Index = indexIntLiteral;
@@ -584,7 +584,7 @@ public class CompilationUnitParser
         {
             // Parse size
             var sizeLiteral = context.arraySignifier().IntLiteral();
-            if (!(sizeLiteral != null && TryParseIntLiteral(sizeLiteral, out var size)))
+            if (!(sizeLiteral != null && TryParseUIntLiteral(sizeLiteral, out var size)))
             {
                 var arrayInitializer = variableDeclaration.Initializer as InitializerList;
                 if (arrayInitializer == null)
@@ -593,7 +593,7 @@ public class CompilationUnitParser
                     return false;
                 }
 
-                size = arrayInitializer.Expressions.Count;
+                size = (uint)arrayInitializer.Expressions.Count;
             }
 
             ((ArrayVariableDeclaration)variableDeclaration).Size = size;
@@ -653,7 +653,7 @@ public class CompilationUnitParser
     {
         if (TryGet(context, context.IntLiteral, out var indexNode))
         {
-            if (!TryParseIntLiteral(indexNode, out var index))
+            if (!TryParseUIntLiteral(indexNode, out var index))
             {
                 LogError(indexNode.Symbol, "Invalid variable index");
                 return false;
@@ -1480,6 +1480,37 @@ public class CompilationUnitParser
         return true;
     }
 
+    private bool TryParseUIntLiteral(ITerminalNode node, out UIntLiteral literal)
+    {
+        literal = CreateAstNode<UIntLiteral>(node);
+
+        uint value = 0;
+        string intString = node.Symbol.Text;
+
+        if (intString.StartsWith("0x", StringComparison.InvariantCultureIgnoreCase))
+        {
+            // hex number
+            if (!uint.TryParse(intString.Substring(2), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out value))
+            {
+                LogError(node.Symbol, "Invalid hexidecimal integer value");
+                return false;
+            }
+        }
+        else
+        {
+            // assume decimal
+            if (!uint.TryParse(intString, out value))
+            {
+                LogError(node.Symbol, "Invalid decimal integer value");
+                return false;
+            }
+        }
+
+        literal.Value = value;
+
+        return true;
+    }
+
     private bool TryParseFloatLiteral(ITerminalNode node, out FloatLiteral literal)
     {
         literal = CreateAstNode<FloatLiteral>(node);
@@ -1579,7 +1610,7 @@ public class CompilationUnitParser
         else
         {
             var sizeLiteral = context.arraySignifier().IntLiteral();
-            if (!(sizeLiteral != null && TryParseIntLiteral(sizeLiteral, out var size)))
+            if (!(sizeLiteral != null && TryParseUIntLiteral(sizeLiteral, out var size)))
             {
                 LogError(context, "Array parameter must have array size specified");
                 return false;

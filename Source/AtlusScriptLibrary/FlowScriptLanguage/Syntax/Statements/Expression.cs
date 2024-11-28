@@ -5,7 +5,7 @@ using AtlusScriptLibrary.FlowScriptLanguage.Compiler.Processing;
 
 namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax;
 
-public abstract class Expression : Statement
+public abstract class Expression : Statement, IExpression
 {
     public ValueKind ExpressionValueKind { get; set; }
 

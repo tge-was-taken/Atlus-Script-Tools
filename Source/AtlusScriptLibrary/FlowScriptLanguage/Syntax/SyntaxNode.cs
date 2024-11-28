@@ -1,6 +1,6 @@
 ﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax;
 
-public abstract class SyntaxNode
+public abstract class SyntaxNode : ISyntaxNode
 {
     public SourceInfo SourceInfo { get; internal set; }
 

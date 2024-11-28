@@ -1,6 +1,7 @@
 ﻿using AtlusScriptLibrary.Common.Libraries;
 using AtlusScriptLibrary.Common.Logging;
 using AtlusScriptLibrary.FlowScriptLanguage.Syntax;
+using MoreLinq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -174,7 +175,7 @@ public class Evaluator
     {
         var modifier = indexKind == VariableIndexKind.Implicit
             ? new VariableModifier(modifierKind)
-            : new VariableModifier(modifierKind, new IntLiteral(index));
+            : new VariableModifier(modifierKind, new UIntLiteral(index));
 
         var type = new TypeIdentifier(valueKind);
         var identifier = new Identifier(valueKind, NameFormatter.GenerateVariableName(modifierKind, valueKind, index, Scope.Parent == null));
@@ -455,6 +456,10 @@ public class Evaluator
             return type;
         }
 
+        bool CanPopStackValue()
+        {
+            return stack.Count != 0 && stack.Peek() != StackValueType.Return;
+        }
 
         switch (instruction.Opcode)
         {
@@ -471,30 +476,10 @@ public class Evaluator
                 stack.Push(StackValueType.Float);
                 break;
             case Opcode.PUSHREG:
-                {
-                    if (lastFunction != null)
-                    {
-                        // Assume the REG was set through a COMM function
-                        switch (lastFunction.ReturnType.ValueKind)
-                        {
-                            case ValueKind.Bool:
-                            case ValueKind.Int:
-                                stack.Push(StackValueType.Int);
-                                break;
-                            case ValueKind.Float:
-                                stack.Push(StackValueType.Float);
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        // Assume the REG was set by the callee
-                        stack.Push(regValueType);
-                    }
-                }
+                stack.Push(regValueType);
                 break;
             case Opcode.POPIX:
-                if (stack.Count != 0)
+                if (CanPopStackValue())
                 {
                     PopStackValue(StackValueType.Int);
                 }
@@ -504,7 +489,7 @@ public class Evaluator
                 }
                 break;
             case Opcode.POPFX:
-                if (stack.Count != 0)
+                if (CanPopStackValue())
                 {
                     PopStackValue(StackValueType.Float);
                 }
@@ -520,7 +505,7 @@ public class Evaluator
                     ushort index = instruction.Operand.UInt16Value;
                     foreach (var parameter in mFunctions[index].Parameters)
                     {
-                        if (stack.Count != 0)
+                        if (CanPopStackValue())
                         {
                             switch (parameter.Type.ValueKind)
                             {
@@ -530,6 +515,9 @@ public class Evaluator
                                     break;
                                 case ValueKind.Float:
                                     PopStackValue(StackValueType.Float);
+                                    break;
+                                case ValueKind.String:
+                                    PopStackValue(StackValueType.String);
                                     break;
                                 default:
                                     throw new NotImplementedException();
@@ -546,6 +534,9 @@ public class Evaluator
                                 case ValueKind.Float:
                                     parameterTypes.Add(StackValueType.Float);
                                     break;
+                                case ValueKind.String:
+                                    parameterTypes.Add(StackValueType.String);
+                                    break;
                                 default:
                                     throw new NotImplementedException();
                             }
@@ -553,6 +544,16 @@ public class Evaluator
                     }
 
                     lastFunction = mFunctions[index];
+                    switch (lastFunction.ReturnType.ValueKind)
+                    {
+                        case ValueKind.Bool:
+                        case ValueKind.Int:
+                            regValueType = StackValueType.Int;
+                            break;
+                        case ValueKind.Float:
+                            regValueType = StackValueType.Float;
+                            break;
+                    }
                 }
                 break;
             case Opcode.END:
@@ -570,10 +571,10 @@ public class Evaluator
             case Opcode.MUL:
             case Opcode.DIV:
                 {
-                    if (stack.Count != 0)
+                    if (CanPopStackValue())
                     {
                         var typeA = PopStackValue(StackValueType.Int, StackValueType.Float);
-                        if (stack.Count != 0)
+                        if (CanPopStackValue())
                         {
                             var typeB = PopStackValue(StackValueType.Int, StackValueType.Float);
                             if (typeA == StackValueType.Float || typeB == StackValueType.Float)
@@ -608,10 +609,10 @@ public class Evaluator
             case Opcode.SE:
             case Opcode.LE:
                 {
-                    if (stack.Count != 0)
+                    if (CanPopStackValue())
                     {
                         var typeA = PopStackValue(StackValueType.Int, StackValueType.Float);
-                        if (stack.Count != 0)
+                        if (CanPopStackValue())
                         {
                             var typeB = PopStackValue(StackValueType.Int, StackValueType.Float);
                             if (typeA == StackValueType.Float || typeB == StackValueType.Float)
@@ -636,7 +637,7 @@ public class Evaluator
                 break;
             case Opcode.IF:
                 {
-                    if (stack.Count != 0)
+                    if (CanPopStackValue())
                     {
                         PopStackValue(StackValueType.Int, StackValueType.Float);
                     }
@@ -656,7 +657,7 @@ public class Evaluator
                 stack.Push(StackValueType.Float);
                 break;
             case Opcode.POPLIX:
-                if (stack.Count != 0)
+                if (CanPopStackValue())
                 {
                     PopStackValue(StackValueType.Int);
                 }
@@ -666,7 +667,7 @@ public class Evaluator
                 }
                 break;
             case Opcode.POPLFX:
-                if (stack.Count != 0)
+                if (CanPopStackValue())
                 {
                     PopStackValue(StackValueType.Float);
                 }
@@ -688,7 +689,6 @@ public class Evaluator
                     parameterTypes.Add(StackValueType.Any);
                     regValueType = StackValueType.Any;
                 }
-                lastFunction = null;
                 break;
         }
 
@@ -796,10 +796,14 @@ public class Evaluator
         // Evaluate each instruction
         foreach (var instruction in mProcedure.Instructions)
         {
+            LogDebug($"Evaluating instruction {instruction} at index {mEvaluatedInstructionIndex}");
             if (!TryEvaluateInstruction(instruction))
             {
                 LogError($"Failed to evaluate instruction: {instruction}");
-                return false;
+                if (StrictMode)
+                    return false;
+                else
+                    mEvaluationStatementStack.Push(new EvaluatedStatement(new StringLiteral($"Failed to evaluate instruction {instruction} at index {mEvaluatedInstructionIndex}"), mEvaluatedInstructionIndex, null));
             }
 
             ++mEvaluatedInstructionIndex;
@@ -1234,7 +1238,7 @@ public class Evaluator
 
             // Push short
             case Opcode.PUSHIS:
-                PushExpression(new IntLiteral(instruction.Operand.UInt16Value));
+                PushExpression(new UIntLiteral(instruction.Operand.UInt16Value));
                 ++mRealStackCount;
                 break;
 
@@ -1433,7 +1437,7 @@ public class Evaluator
 
         // Check if the left expression is already returns a boolean value, and if so
         // omit the x == 0 or x == 1 expression
-        if (left.ExpressionValueKind == ValueKind.Bool && right is IntLiteral intLiteral)
+        if (left.ExpressionValueKind == ValueKind.Bool && right is IIntLiteral intLiteral)
         {
             if (typeof(T) == typeof(NonEqualityOperator))
             {
@@ -1505,6 +1509,15 @@ public class Evaluator
         }
     }
 
+    private void LogDebug(string message)
+    {
+        mLogger.Debug($"{message}");
+
+        if (Debugger.IsAttached)
+        {
+            //Debugger.Break();
+        }
+    }
 
     private void LogError(string message)
     {

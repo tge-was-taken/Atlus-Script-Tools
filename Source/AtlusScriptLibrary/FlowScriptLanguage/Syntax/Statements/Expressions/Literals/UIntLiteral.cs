@@ -2,9 +2,9 @@
 
 namespace AtlusScriptLibrary.FlowScriptLanguage.Syntax;
 
-public class UIntLiteral : Literal<uint>, IEquatable<UIntLiteral>
+public class UIntLiteral : Literal<uint>, IEquatable<UIntLiteral>, IIntLiteral
 {
-    public UIntLiteral() : base(ValueKind.Int)
+    public UIntLiteral() : base(ValueKind.UInt)
     {
     }
 
@@ -12,11 +12,12 @@ public class UIntLiteral : Literal<uint>, IEquatable<UIntLiteral>
     {
     }
 
+    long IIntLiteral.Value => Value;
+
     public bool Equals(UIntLiteral other)
     {
         return Value == other?.Value;
     }
 
     public static implicit operator UIntLiteral(uint value) => new UIntLiteral(value);
-    public static implicit operator UIntLiteral(IntLiteral _intLiteral) => new UIntLiteral((uint)_intLiteral.Value);
 }

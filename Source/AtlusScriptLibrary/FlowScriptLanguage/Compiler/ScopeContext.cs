@@ -227,7 +227,7 @@ internal class ScopeContext
             Members = declaration.Values.ToDictionary(x => x.Identifier.Text, y => y.Value)
         };
 
-        int nextMemberValue = 0;
+        long nextMemberValue = 0;
         bool anyImplicitValues = false;
 
         for (int i = 0; i < enumType.Members.Count; i++)
@@ -237,7 +237,8 @@ internal class ScopeContext
 
             if (value == null)
             {
-                enumType.Members[key] = new IntLiteral(nextMemberValue++);
+                enumType.Members[key] = nextMemberValue < 0 ? new IntLiteral((int)nextMemberValue) : new UIntLiteral((uint)nextMemberValue);
+                nextMemberValue++;
                 anyImplicitValues = true;
             }
             else
@@ -256,9 +257,9 @@ internal class ScopeContext
         return true;
     }
 
-    private bool TryGetNextMemberValue(Dictionary<string, Expression> members, Expression enumValue, out int nextMemberValue)
+    private bool TryGetNextMemberValue(Dictionary<string, Expression> members, Expression enumValue, out long nextMemberValue)
     {
-        if (enumValue is IntLiteral intLiteral)
+        if (enumValue is IIntLiteral intLiteral)
         {
             nextMemberValue = intLiteral.Value + 1;
             return true;
