@@ -1,6 +1,7 @@
 ﻿using AtlusScriptLibrary.Common.IO;
 using AtlusScriptLibrary.Common.Text.Encodings;
 using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel;
+using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V1;
 using System;
 using System.IO;
 using System.Linq;
@@ -171,7 +172,7 @@ public sealed class FlowScriptBinaryReader : IDisposable
         return instructions;
     }
 
-    public MessageScriptBinary ReadMessageScriptSection(ref BinarySectionHeader sectionHeader)
+    public IMessageScriptBinary ReadMessageScriptSection(ref BinarySectionHeader sectionHeader)
     {
         EnsureSectionHeaderInitialValidState(ref sectionHeader);
 
@@ -185,7 +186,7 @@ public sealed class FlowScriptBinaryReader : IDisposable
             var bytes = mReader.ReadBytes(sectionHeader.ElementCount);
             using (var memoryStream = new MemoryStream(bytes))
             {
-                return MessageScriptBinary.FromStream(memoryStream);
+                return MessageScriptBinaryFactory.FromStream(memoryStream);
             }
         }
         return null;

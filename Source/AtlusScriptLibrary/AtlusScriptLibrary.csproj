@@ -25,6 +25,11 @@
     <Compile Remove="MessageScriptLanguage\Compiler\Parser\MessageScriptParserBaseVisitor.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Libraries\Catherine.json" />
+    <None Remove="Libraries\Catherine\FlowScriptModules.json" />
+    <None Remove="Libraries\Catherine\MessageScriptLibrary.json" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Charsets\P3P_CHT.tsv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -35,6 +40,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Charsets\P5_Korean.tsv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Libraries\Catherine.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Libraries\Catherine\FlowScriptModules.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Libraries\Catherine\MessageScriptLibrary.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="FlowScriptLanguage\Compiler\Parser\Grammar\FlowScript.g4" />
@@ -353,6 +367,18 @@
     <PackageReference Include="System.Text.Json" Version="9.0.0" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="Libraries\Catherine\Modules\Common\Functions.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Libraries\Catherine\Modules\Event\Functions.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Libraries\Catherine\Modules\Puzzle\Functions.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Libraries\Catherine\Modules\Unknown\Functions.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Libraries\Persona3Reload.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -383,6 +409,9 @@
     <None Update="Libraries\Persona3Reload\Modules\Field\Functions.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MessageScriptLanguage\BinaryModel\NewFolder\" />
   </ItemGroup>
   <PropertyGroup />
 </Project>

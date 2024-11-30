@@ -89,6 +89,7 @@ namespace AtlusScriptCompiler
             Console.WriteLine("            V1DDS           Used by Digital Devil Saga 1 & 2");
             Console.WriteLine("            V1BE            Used by Persona 5 PS3");
             Console.WriteLine("            V1RE            Used by Persona 3 Reload");
+            Console.WriteLine("            V2BE            Used by Catherine");
             Console.WriteLine();
             Console.WriteLine("        -Encoding");
             Console.WriteLine("            Below is a list of different available standard encodings.");
@@ -346,6 +347,13 @@ namespace AtlusScriptCompiler
                             case "ut":
                             case "utf-8":
                                 MessageScriptEncoding = Encoding.UTF8;
+                                break;
+                            case "unicode":
+                            case "utf-16":
+                                MessageScriptEncoding = Encoding.Unicode;
+                                break;
+                            case "utf-16-be":
+                                MessageScriptEncoding = Encoding.BigEndianUnicode;
                                 break;
                             default:
                                 try
@@ -716,6 +724,12 @@ namespace AtlusScriptCompiler
                     break;
                 case OutputFileFormat.V1RE:
                     version = AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Version1Reload;
+                    break;
+                case OutputFileFormat.V2:
+                    version = AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Version2;
+                    break;
+                case OutputFileFormat.V2BE:
+                    version = AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Version2BigEndian;
                     break;
                 default:
                     version = AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Detect;

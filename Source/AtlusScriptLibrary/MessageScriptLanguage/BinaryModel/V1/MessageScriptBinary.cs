@@ -1,13 +1,13 @@
 ﻿using AtlusScriptLibrary.Common.IO;
-using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.IO;
+using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V1.IO;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 
-namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel;
+namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V1;
 
-public class MessageScriptBinary
+public class MessageScriptBinary : IMessageScriptBinary
 {
     public static MessageScriptBinary FromFile(string path)
     {
@@ -73,6 +73,8 @@ public class MessageScriptBinary
     public BinarySpeakerTableHeader SpeakerTableHeader => mSpeakerTableHeader;
 
     public BinaryFormatVersion FormatVersion => mFormatVersion;
+
+    public int FileSize => (int)Header.FileSize;
 
     // this constructor is internal because it is used by the builder, reader & writer
     internal MessageScriptBinary()

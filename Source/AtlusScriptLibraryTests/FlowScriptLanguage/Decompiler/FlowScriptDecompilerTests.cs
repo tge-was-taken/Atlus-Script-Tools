@@ -21,7 +21,7 @@ public class FlowScriptDecompilerTests
         {
             Library = LibraryLookup.GetLibrary(libraryName),
             DecompileMessageScript = false,
-            StrictMode = true
+            StrictMode = true,
         };
         decompiler.AddListener(new DebugLogListener());
         var result = decompiler.TryDecompile(script, out var compilationUnit);
@@ -52,4 +52,9 @@ public class FlowScriptDecompilerTests
     [TestMethod]
     public void can_decompile_script_complex()
         => DecompileScript("TestResources/Complex.bf", "p5r");
+
+
+    [TestMethod]
+    public void can_decompile_script_cat()
+        => DecompileScript("TestResources/Cat.bf", "cat");
 }

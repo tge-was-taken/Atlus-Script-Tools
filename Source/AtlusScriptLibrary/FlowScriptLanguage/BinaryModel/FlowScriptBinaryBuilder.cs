@@ -1,6 +1,6 @@
 ﻿using AtlusScriptLibrary.Common.Text.Encodings;
 using AtlusScriptLibrary.MessageScriptLanguage;
-using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel;
+using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V1;
 using System;
 using System.Collections.Generic;
 using System.Linq;

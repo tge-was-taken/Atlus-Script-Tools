@@ -1,10 +1,7 @@
-﻿using System;
-using System.IO;
-using AtlusScriptLibrary.Common.Libraries;
-using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel;
+﻿using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel;
+using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V1;
 using AtlusScriptLibrary.MessageScriptLanguage.Compiler;
 using AtlusScriptLibrary.MessageScriptLanguage.Decompiler;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AtlusScriptLibrary.MessageScriptLanguage.Tests
 {
@@ -35,6 +32,12 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Tests
         public void FromFile_ShouldNotThrow_Version1BigEndian()
         {
             var script = MessageScript.FromFile("TestResources/Version1BigEndian.bmd");
+        }
+
+        [TestMethod]
+        public void FromFile_ShouldNotThrow_Version2BigEndian()
+        {
+            var script = MessageScript.FromFile("TestResources/Version2BigEndian.bmd");
         }
 
         [TestMethod]
