@@ -126,13 +126,58 @@ public class FlowScriptCompiler
     }
 
     /// <summary>
+    /// Tries to get a list of all files that would be imported (directly or transitively) when compiling a flowscript file.
+    /// </summary>
+    /// <param name="files">A List of paths to .bf, .flow, and .msg files to be used as a base when checking for imports.</param>
+    /// <param name="resolvedImports">A list of all imports found. This includes the passed in <paramref name="files"/>.</param>
+    /// <returns>True if imports could be resolved, false otherwise</returns>
+    public bool TryGetImports(List<string> files, out string[] resolvedImports)
+    {
+        var imports = files.Select(import => new Import(import)).ToList();
+        mCurrentBaseDirectory = "";
+        InitializeCompilationState();
+
+        // Resolve imports
+        if (imports.Count > 0)
+        {
+            do
+            {
+                if (!TryResolveImportsSimple(imports))
+                {
+                    Error("Failed to resolve imports");
+                    resolvedImports = Array.Empty<string>();
+                    return false;
+                }
+            } while (mReresolveImports);
+        }
+
+        resolvedImports = imports.Select(import => import.CompilationUnitFileName).ToArray();
+        return true;
+    }
+
+    /// <summary>
     /// Tries to compile the provided FlowScript source with given imports. Returns a boolean indicating if the operation succeeded.
     /// </summary>
     /// <param name="baseBfStream">A FileStream of the base bf file</param>
     /// <param name="imports">A List of paths to .bf, .flow, and .msg files that will be forcibly imported</param>
+    /// <param name="baseFlow">A full path to the base .flow file to use for compilation</param>
     /// <param name="flowScript">The compiled FlowScript</param>
     /// <returns>True if the file successfully compiled, false otherwise</returns>
     public bool TryCompileWithImports(FileStream baseBfStream, List<string> imports, string baseFlow, out FlowScript flowScript)
+    {
+        return TryCompileWithImports(baseBfStream, imports, baseFlow, out flowScript, out _);
+    }
+
+    /// <summary>
+    /// Tries to compile the provided FlowScript source with given imports. Returns a boolean indicating if the operation succeeded.
+    /// </summary>
+    /// <param name="baseBfStream">A FileStream of the base bf file</param>
+    /// <param name="imports">A List of paths to .bf, .flow, and .msg files that will be forcibly imported</param>
+    /// <param name="baseFlow">A full path to the base .flow file to use for compilation</param>
+    /// <param name="flowScript">The compiled FlowScript or null if compilation failed</param>
+    /// <param name="sources">A list of full paths to all source files used to compile this bf or null if compilation failed</param>
+    /// <returns>True if the file successfully compiled, false otherwise</returns>
+    public bool TryCompileWithImports(FileStream baseBfStream, List<string> imports, string baseFlow, out FlowScript flowScript, out List<string> sources)
     {
         // Parse base flow file
         CompilationUnit compilationUnit;
@@ -160,6 +205,7 @@ public class FlowScriptCompiler
                 {
                     Error("Failed to parse compilation unit");
                     flowScript = null;
+                    sources = null;
                     return false;
                 }
             }
@@ -178,7 +224,17 @@ public class FlowScriptCompiler
 
         compilationUnit.Imports.AddRange(imports.Select(import => new Import(import)));
         mCurrentBaseDirectory = "";
-        return TryCompile(compilationUnit, out flowScript);
+        if (TryCompile(compilationUnit, out flowScript))
+        {
+            sources = compilationUnit.Imports.Select(import => import.CompilationUnitFileName).ToList();
+            sources.Add(baseFlow);
+            return true;
+        }
+        else
+        {
+            sources = null;
+            return false;
+        }
     }
 
     /// <summary>
@@ -442,7 +498,101 @@ public class FlowScriptCompiler
             import.CompilationUnitFileName = Path.Combine(baseDirectory, import.CompilationUnitFileName);
         }
     }
+    
+    private void ExpandImportStatementsPaths(List<Import> imports, string baseDirectory)
+    {
+        foreach (var import in imports)
+        {
+            import.CompilationUnitFileName = Path.Combine(baseDirectory, import.CompilationUnitFileName);
+        }
+    }
 
+    /// <summary>
+    /// Tries to resolve a list of imports whilst only parsing flowscript files (since they can contain additional imports).
+    /// Compiled flowscript and message files are not parsed, they are just added to the list of imports.
+    /// 
+    /// This can be used to determine a list of all imports starting from some initial ones.
+    /// It is not sufficient to actually compile the flowscript.
+    ///
+    /// <see cref="mReresolveImports"/> is set to true this should be run again to determine additional imports from
+    /// flowscript files.
+    /// </summary>
+    /// <param name="imports">The imports to resolve. Newly found imports are added to this.</param>
+    /// <returns>True if imports could be resolved, false otherwise</returns>
+    private bool TryResolveImportsSimple(List<Import> imports)
+    {
+        Info("Resolving imports");
+
+        ExpandImportStatementsPaths(imports, mCurrentBaseDirectory);
+
+        var importedFlowScripts = new List<CompilationUnit>();
+        var importedMsgAndBfs = new List<Import>();
+        
+        foreach (var import in imports)
+        {
+            var ext = Path.GetExtension(import.CompilationUnitFileName).ToLowerInvariant();
+
+            switch (ext)
+            {
+                case ".msg" or ".bf":
+                    {
+                        if (!TryGetFullImportPath(import, out var compilationUnitFilePath))
+                        {
+                            Error($"Failed to resolve import: {import.CompilationUnitFileName}");
+                            return false;
+                        }
+                        importedMsgAndBfs.Add(new Import(compilationUnitFilePath));
+                    }
+                    break;
+
+                case ".flow":
+                    {
+                        // FlowScript
+                        if (!TryResolveFlowScriptImport(import, out var importedCompilationUnit))
+                        {
+                            Error(import, $"Failed to resolve FlowScript import: {import.CompilationUnitFileName}");
+                            return false;
+                        }
+
+                        // Will be null if it was already imported before
+                        if (importedCompilationUnit != null)
+                            importedFlowScripts.Add(importedCompilationUnit);
+                    }
+                    break;
+
+                default:
+                    // Unknown
+                    Error(import, $"Unknown import file type: {import.CompilationUnitFileName}");
+                    return false;
+            }
+        }
+        
+        // Resolve FlowScript imports
+        bool shouldReresolveImports = false;
+        if (importedFlowScripts.Count > 0)
+        {
+            // Merge compilation units
+            foreach (var importedFlowScript in importedFlowScripts)
+            {
+                if (importedFlowScript.Imports.Count > 0)
+                {
+                    // If any of the imported FlowScripts have import, we have to re-resolve the imports again
+                    shouldReresolveImports = true;
+                    imports.AddRange(importedFlowScript.Imports);
+                }
+            }
+        }
+
+        mReresolveImports = shouldReresolveImports;
+
+        if (!mReresolveImports)
+            Info("Done resolving imports");
+        
+        imports.AddRange(importedMsgAndBfs);
+
+        return true;
+    }
+    
     //
     // Resolving imports
     //
