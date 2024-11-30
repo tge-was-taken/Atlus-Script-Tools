@@ -53,7 +53,7 @@
   },
   {
     "Index": "0x0004",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "GET_COUNTER",
     "Description": "",
     "Parameters": [
@@ -84,7 +84,7 @@
   },
   {
     "Index": "0x0006",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "RND",
     "Description": "",
     "Parameters": [
@@ -730,17 +730,17 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param2",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param3",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param4",
         "Description": ""
       }
@@ -769,7 +769,7 @@
   {
     "Index": "0x0038",
     "ReturnType": "void",
-    "Name": "CALL_MOVIE2",
+    "Name": "Exception",
     "Description": "",
     "Parameters": [
       {
@@ -863,15 +863,8 @@
   },
   {
     "Index": "0x0043",
-    "ReturnType": "int",
-    "Name": "AWORD_RETRY",
-    "Description": "",
-    "Parameters": []
-  },
-  {
-    "Index": "0x0044",
     "ReturnType": "void",
-    "Name": "MSG_PZL_YOFS_ZENINA",
+    "Name": "AWORD_RETRY",
     "Description": "",
     "Parameters": [
       {
@@ -882,9 +875,143 @@
     ]
   },
   {
+    "Index": "0x0044",
+    "ReturnType": "void",
+    "Name": "CALL_EDITMENU",
+    "Description": "",
+    "Parameters": []
+  },
+  {
     "Index": "0x0045",
     "ReturnType": "void",
-    "Name": "GET_LANGUAGE_ZENINA",
+    "Name": "MSG_SEL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0046",
+    "ReturnType": "void",
+    "Name": "GET_GAME_MODE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0047",
+    "ReturnType": "void",
+    "Name": "MSG_BABEL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0048",
+    "ReturnType": "void",
+    "Name": "MSG_BABEL_SYNC",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0049",
+    "ReturnType": "void",
+    "Name": "GENERAL_WINDOW",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x004A",
+    "ReturnType": "void",
+    "Name": "GENERAL_WINDOW_SYNC",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x004B",
+    "ReturnType": "void",
+    "Name": "CALL_SEQUENCE_AFTER_PUZZLE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x004C",
+    "ReturnType": "void",
+    "Name": "GET_PLATFORM_TYPE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x004D",
+    "ReturnType": "void",
+    "Name": "SHARE_ENABLE_ALL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x004E",
+    "ReturnType": "void",
+    "Name": "IFTIME_FADE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x004F",
+    "ReturnType": "void",
+    "Name": "MSG_SEL_EVT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0050",
+    "ReturnType": "void",
+    "Name": "IS_JAPANVOICE",
     "Description": "",
     "Parameters": []
   }

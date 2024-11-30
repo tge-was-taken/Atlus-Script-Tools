@@ -7,16 +7,14 @@ import idc
 import ida_hexrays
 
 #
-# scrGetIntPara is at 0x0078CA10
-# scrGetFloatPara is at 0x0078CA70
-# nowpwork is at 0x03F73EE8
-# nowpwork->regType is at 0x4F,
-# nowpwork->regValue is at 0x10C 
-#
+# scrGetIntPara is at 0x272C40
+# scrGetFloatPara is at 0x272CE0
+# scrSetIntReturnValue is at 0x272D80
+# scrSetFloatReturnValue is at 0x272DA0
 
 # Address of the scrCommandTableArray with 4 elements
-COMMAND_TABLE_ARRAY_ADDR = 0x013ED4A8 # 0x00B3D4A8
-CATEGORY_NAMES = ["Common", "Unknown", "Puzzle", "Event"]
+COMMAND_TABLE_ARRAY_ADDR = 0xAE7608
+CATEGORY_NAMES = ["Common", "Misc", "Puzzle", "Event"]
 ARRAY_COUNT = len(CATEGORY_NAMES)
 
 # Output directory for JSON files
@@ -29,7 +27,7 @@ if not os.path.exists(OUTPUT_DIR):
 
 # Regex patterns for parameter analysis and return type
 INDEX_REGEX = re.compile(r'scrGet(Int|Float)Para\s*\(\s*(?:\(.*?\)\s*)?(\d+)\s*\)')
-REGTYPE_REGEX = re.compile(r'nowpwork->regType\s*=\s*(\d);')
+RESULT_REGEX = re.compile(r'scrSet(Int|Float)ReturnValue\(.+?\)')
 
 # Helper function to read a null-terminated string
 def read_cstring(addr):
@@ -89,10 +87,10 @@ def analyze_function(func_addr):
                 parameter_map[index] = "int" if param_type == "Int" else "float"
             
             # Use regex to check for regType assignments
-            regtype_match = REGTYPE_REGEX.search(text)
-            if regtype_match:
-                reg_type = int(regtype_match.group(1))
-                return_type = "float" if reg_type == 1 else "int"
+            result_match = RESULT_REGEX.search(text)
+            if result_match:
+                result_type = result_match.group(1)
+                return_type = "int" if result_type == "Int" else "float"
         
         # Return the parameter map and the return type
         return parameter_map, return_type
@@ -104,14 +102,15 @@ def analyze_function(func_addr):
 def dump_command_table(category, index, table_addr, count):
     commands = []
     for i in range(count):
-        entry_addr = table_addr + (i * 0xC)  # sizeof(scrCommandTable_t) = 0xC
+        entry_addr = table_addr + (i * 24)  # sizeof(scrCommandTable_t) = 24
         
         # Read the pFunc
-        p_func = idc.get_wide_dword(entry_addr)
+        p_func = idc.get_qword(entry_addr)
 
-        parameter_count = idc.get_wide_dword(entry_addr + 4)
+        parameter_count = idc.get_qword(entry_addr + 8)
+        
         # Read the command name
-        name_ptr = idc.get_wide_dword(entry_addr + 8)
+        name_ptr = idc.get_qword(entry_addr + 16)
         command_name = read_cstring(name_ptr)
         
         # Analyze the function for parameters and return type
@@ -131,7 +130,6 @@ def dump_command_table(category, index, table_addr, count):
         
         # Calculate the index
         calculated_index = (0x1000 * index) + i
-        print(calculated_index)
         
         # Add command details to the list
         commands.append({
@@ -148,13 +146,16 @@ def dump_command_table(category, index, table_addr, count):
 def main():
     # Iterate through the categories
     for i in range(ARRAY_COUNT):
-        element_addr = COMMAND_TABLE_ARRAY_ADDR + (i * 0x8)  # sizeof(scrCommandTableArray_t) = 0x8
+        element_addr = COMMAND_TABLE_ARRAY_ADDR + (i * 16)  # sizeof(scrCommandTableArray_t) = 16
         
         # Read the scrCommandTable_t pointer
-        table_ptr = idc.get_wide_dword(element_addr)
+        table_ptr = idc.get_qword(element_addr)
         
         # Read the count
-        count = idc.get_wide_dword(element_addr + 4)
+        count = idc.get_qword(element_addr + 8)
+        
+        if table_ptr == 0 or count == 0:
+            continue  # Skip if the pointer or count is invalid
         
         # Get category name
         category = CATEGORY_NAMES[i]

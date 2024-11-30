@@ -192,17 +192,17 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param2",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param3",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param4",
         "Description": ""
       }
@@ -220,7 +220,7 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param2",
         "Description": ""
       }
@@ -342,12 +342,12 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param3",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param4",
         "Description": ""
       }
@@ -388,12 +388,12 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param2",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param3",
         "Description": ""
       }
@@ -566,14 +566,14 @@
   },
   {
     "Index": "0x2026",
-    "ReturnType": "void",
+    "ReturnType": "float",
     "Name": "PZL_FOG_GET_FAR",
     "Description": "",
     "Parameters": []
   },
   {
     "Index": "0x2027",
-    "ReturnType": "void",
+    "ReturnType": "float",
     "Name": "PZL_FOG_GET_NEAR",
     "Description": "",
     "Parameters": []
@@ -953,22 +953,22 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param2",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param3",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param4",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param5",
         "Description": ""
       },
@@ -978,7 +978,7 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param7",
         "Description": ""
       }
@@ -1084,7 +1084,7 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param2",
         "Description": ""
       }
@@ -1107,7 +1107,7 @@
   {
     "Index": "0x2048",
     "ReturnType": "void",
-    "Name": "RPZL_EVT_SKIP",
+    "Name": "RPZL_EVT",
     "Description": "",
     "Parameters": [
       {
@@ -1270,17 +1270,12 @@
   {
     "Index": "0x2056",
     "ReturnType": "void",
-    "Name": "PZL_CHAR_FREEZE",
+    "Name": "PZL_SET_INITIAL_ITEM",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param2",
         "Description": ""
       }
     ]
@@ -1526,6 +1521,11 @@
         "Type": "int",
         "Name": "param2",
         "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
       }
     ]
   },
@@ -1597,7 +1597,7 @@
   },
   {
     "Index": "0x206F",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "PZL_GET_WIN",
     "Description": "",
     "Parameters": [
@@ -1610,7 +1610,7 @@
   },
   {
     "Index": "0x2070",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "PZL_GET_ITEMID",
     "Description": "",
     "Parameters": [
@@ -1671,7 +1671,7 @@
   },
   {
     "Index": "0x2077",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "PZL_GET_PRIZE",
     "Description": "",
     "Parameters": [
@@ -1717,5 +1717,687 @@
         "Description": ""
       }
     ]
+  },
+  {
+    "Index": "0x207A",
+    "ReturnType": "void",
+    "Name": "PZL_CAMERA_WAIT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x207B",
+    "ReturnType": "void",
+    "Name": "PZL_MODEL_ANIM_EX",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x207C",
+    "ReturnType": "void",
+    "Name": "PZL_MODEL_GROUP_ANIM_EX",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x207D",
+    "ReturnType": "void",
+    "Name": "PZL_MODEL_GROUP_NEXT_ANIM_EX",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x207E",
+    "ReturnType": "void",
+    "Name": "PZL_CALL_SET_STAT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x207F",
+    "ReturnType": "void",
+    "Name": "PZL_ITEM_GET_FIRST_TIME",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2080",
+    "ReturnType": "void",
+    "Name": "PZL_CHECK_ITEM_GET_FIRST_TIME",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2081",
+    "ReturnType": "void",
+    "Name": "PZL_ISONLINE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2082",
+    "ReturnType": "void",
+    "Name": "PZL_MODEL_READ_GMD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2083",
+    "ReturnType": "void",
+    "Name": "PZL_CHECK_TUTORIAL_CONFIG",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2084",
+    "ReturnType": "void",
+    "Name": "PZL_DEAD_EFFECT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2085",
+    "ReturnType": "void",
+    "Name": "PZL_GET_STAGE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2086",
+    "ReturnType": "void",
+    "Name": "PZL_GET_AREA",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2087",
+    "ReturnType": "void",
+    "Name": "PZL_GET_MY_PLAYER_ID",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2088",
+    "ReturnType": "void",
+    "Name": "PZL_GET_CHAR_ID",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2089",
+    "ReturnType": "void",
+    "Name": "PZL_COMPE_DRAW_RESULT",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x208A",
+    "ReturnType": "void",
+    "Name": "PZL_COMPE_DRAW_ROSE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x208B",
+    "ReturnType": "void",
+    "Name": "PZL_MODEL_ANIM_SET_WAIT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x208C",
+    "ReturnType": "void",
+    "Name": "PZL_COMPE_START_WINNING_SCREEN",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x208D",
+    "ReturnType": "void",
+    "Name": "PZL_COMPE_END_WINNING_SCREEN",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x208E",
+    "ReturnType": "void",
+    "Name": "PZL_COMPE_SYNC_WINNING_SCREEN",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x208F",
+    "ReturnType": "void",
+    "Name": "PZL_1P2P_DISP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2090",
+    "ReturnType": "void",
+    "Name": "PZL_EFFECT_DISP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2091",
+    "ReturnType": "void",
+    "Name": "PZL_EFFECT_TRANSLATE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2092",
+    "ReturnType": "void",
+    "Name": "PZL_MODEL_SYNC_WITH_LIGHT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2093",
+    "ReturnType": "void",
+    "Name": "PZL_DODGE_ANIM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2094",
+    "ReturnType": "void",
+    "Name": "PZL_DODGE_SYNC",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2095",
+    "ReturnType": "void",
+    "Name": "PZL_BURN_ANIM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2096",
+    "ReturnType": "void",
+    "Name": "PZL_BURN_SYNC",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2097",
+    "ReturnType": "void",
+    "Name": "PZL_PLAYER_MY_NO",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x2098",
+    "ReturnType": "void",
+    "Name": "PZL_DOF_ANIM3",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param6",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x2099",
+    "ReturnType": "void",
+    "Name": "PZL_PUSH_DISP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x209A",
+    "ReturnType": "void",
+    "Name": "PZL_FILTER_ACTIVE2",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x209B",
+    "ReturnType": "void",
+    "Name": "PZL_COMPE_CALL_RESULT_END",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x209C",
+    "ReturnType": "void",
+    "Name": "PZL_COMPE_CALL_RESULT_NEXT",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x209D",
+    "ReturnType": "void",
+    "Name": "PZL_COMPE_RESULT_SYNC",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x209E",
+    "ReturnType": "void",
+    "Name": "PZL_COMPE_RESULT_END_SYNC",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x209F",
+    "ReturnType": "void",
+    "Name": "PZL_1P2P_DISP_EA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x20A0",
+    "ReturnType": "void",
+    "Name": "PZL_GET_UNDO_MAX",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20A1",
+    "ReturnType": "void",
+    "Name": "PZL_GET_UNDO_NUM",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20A2",
+    "ReturnType": "void",
+    "Name": "PZL_TUTO_2",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x20A3",
+    "ReturnType": "void",
+    "Name": "PZL_MODEL_ANIM_WAIT_FRAME",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x20A4",
+    "ReturnType": "void",
+    "Name": "PZL_IS_RIN_ROUTE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x20A5",
+    "ReturnType": "void",
+    "Name": "PZL_GET_GOAL_GRID_Y",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20A6",
+    "ReturnType": "void",
+    "Name": "PZL_GET_GOAL_GRID_X",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20A7",
+    "ReturnType": "void",
+    "Name": "PZL_GET_GOAL_GRID_Z",
+    "Description": "",
+    "Parameters": []
   }
 ]

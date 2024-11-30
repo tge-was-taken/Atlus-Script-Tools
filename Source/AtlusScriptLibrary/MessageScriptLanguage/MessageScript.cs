@@ -158,28 +158,9 @@ public class MessageScript
                         {
                             message = new MessageDialog(name);
                         }
-                        else if ((binaryMessage.SpeakerId & 0x8000) == 0x8000)
-                        {
-                            Trace.WriteLine(binaryMessage.SpeakerId.ToString("X4"));
-
-                            message = new MessageDialog(name, new VariableSpeaker(binaryMessage.SpeakerId & 0x0FFF));
-                        }
                         else
                         {
-                            // TODO
                             message = new MessageDialog(name, new VariableSpeaker(binaryMessage.SpeakerId));
-
-                            //if (binary.SpeakerTableHeader.SpeakerNameArray.Value == null)
-                            //    throw new InvalidDataException("Speaker name array is null while being referenced");
-
-                            //TokenText speakerName = null;
-                            //if (binaryMessage.SpeakerId < binary.SpeakerTableHeader.SpeakerCount)
-                            //{
-                            //    speakerName = ParseSpeakerText(binary.SpeakerTableHeader.SpeakerNameArray
-                            //        .Value[binaryMessage.SpeakerId].Value, instance.FormatVersion, encoding == null ? Encoding.ASCII : encoding);
-                            //}
-
-                            //message = new MessageDialog(name, new NamedSpeaker(speakerName));
                         }
                     }
                     break;
