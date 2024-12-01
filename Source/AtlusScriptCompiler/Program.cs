@@ -89,6 +89,7 @@ namespace AtlusScriptCompiler
             Console.WriteLine("            V1DDS           Used by Digital Devil Saga 1 & 2");
             Console.WriteLine("            V1BE            Used by Persona 5 PS3");
             Console.WriteLine("            V1RE            Used by Persona 3 Reload");
+            Console.WriteLine("            V2              Used by Catherine: Full Body");
             Console.WriteLine("            V2BE            Used by Catherine");
             Console.WriteLine();
             Console.WriteLine("        -Encoding");
@@ -653,6 +654,43 @@ namespace AtlusScriptCompiler
             return version;
         }
 
+        private static OutputFileFormat GetOutputFileFormat(FormatVersion version)
+        {
+            OutputFileFormat outputFileFormat;
+            switch (version)
+            {
+                case FormatVersion.Version1:
+                    outputFileFormat = OutputFileFormat.V1;
+                    break;
+                case FormatVersion.Version1BigEndian:
+                    outputFileFormat = OutputFileFormat.V1BE;
+                    break;
+                case FormatVersion.Version2:
+                    outputFileFormat = OutputFileFormat.V2;
+                    break;
+                case FormatVersion.Version2BigEndian:
+                    outputFileFormat = OutputFileFormat.V2BE;
+                    break;
+                case FormatVersion.Version3:
+                    outputFileFormat = OutputFileFormat.V3;
+                    break;
+                case FormatVersion.Version3BigEndian:
+                    outputFileFormat = OutputFileFormat.V3BE;
+                    break;
+                case FormatVersion.Version4:
+                    outputFileFormat = OutputFileFormat.V4;
+                    break;
+                case FormatVersion.Version4BigEndian:
+                    outputFileFormat = OutputFileFormat.V4BE;
+                    break;
+                default:
+                    outputFileFormat = OutputFileFormat.None;
+                    break;
+            }
+
+            return outputFileFormat;
+        }
+
         private static bool TryDoMessageScriptCompilation()
         {
             // Compile source
@@ -739,6 +777,38 @@ namespace AtlusScriptCompiler
             return version;
         }
 
+        private static OutputFileFormat GetOutputFileFormatFromMessageScriptVersion(AtlusScriptLibrary.MessageScriptLanguage.FormatVersion version)
+        {
+            OutputFileFormat outputFileFormat;
+
+            switch (version)
+            {
+                case AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Version1:
+                    outputFileFormat = OutputFileFormat.V1;
+                    break;
+                case AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Version1DDS:
+                    outputFileFormat = OutputFileFormat.V1DDS;
+                    break;
+                case AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Version1BigEndian:
+                    outputFileFormat = OutputFileFormat.V1BE;
+                    break;
+                case AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Version1Reload:
+                    outputFileFormat = OutputFileFormat.V1RE;
+                    break;
+                case AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Version2:
+                    outputFileFormat = OutputFileFormat.V2;
+                    break;
+                case AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Version2BigEndian:
+                    outputFileFormat = OutputFileFormat.V2BE;
+                    break;
+                default:
+                    outputFileFormat = OutputFileFormat.None;
+                    break;
+            }
+
+            return outputFileFormat;
+        }
+
         private static bool TryDoDecompilation()
         {
             switch (InputFileFormat)
@@ -797,6 +867,10 @@ namespace AtlusScriptCompiler
                 return false;
             }
 
+            var outFormat = GetOutputFileFormat(flowScript!.FormatVersion);
+            if (outFormat != OutputFileFormat.None)
+                Logger.Info($"FlowScript version {outFormat} decompiled.");
+
             return true;
         }
 
@@ -835,6 +909,11 @@ namespace AtlusScriptCompiler
             {
                 return false;
             }
+
+
+            var outFormat = GetOutputFileFormatFromMessageScriptVersion(script.FormatVersion);
+            if (outFormat != OutputFileFormat.None)
+                Logger.Info($"MessageScript version {outFormat} decompiled.");
 
             return true;
         }
