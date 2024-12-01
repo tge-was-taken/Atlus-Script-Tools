@@ -58,6 +58,7 @@ public abstract class CustomUnicodeEncoding : Encoding
     public override int GetChars(byte[] bytes, int byteIndex, int byteCount, char[] chars, int charIndex)
     {
         int charsWritten = 0;
+        char[] fallbackChar = new char[1];
         for (int i = 0; i < byteCount; i += 2)
         {
             ushort code = _isBigEndian
@@ -71,7 +72,7 @@ public abstract class CustomUnicodeEncoding : Encoding
             else
             {
                 // Fallback to base decoding for unmapped codes
-                char[] fallbackChar = new char[1];
+                fallbackChar[0] = default;
                 _baseEncoding.GetChars(bytes, byteIndex + i, 2, fallbackChar, 0);
                 chars[charIndex + charsWritten++] = fallbackChar[0];
             }
