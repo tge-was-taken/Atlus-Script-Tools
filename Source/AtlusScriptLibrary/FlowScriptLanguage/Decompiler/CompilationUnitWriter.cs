@@ -115,8 +115,7 @@ public class CompilationUnitWriter : SyntaxNodeVisitor
             // Write header comments
             WriteNewLine();
             WriteComment("");
-            WriteComment("FlowScript decompiled using Atlus Script Tools by TGE (2017-2021)");
-            WriteComment("In the unfortunate case of any bugs, please report them back to me.");
+            WriteComment("FlowScript decompiled using Atlus Script Tools");
             WriteComment("");
             WriteNewLine();
 
@@ -707,12 +706,12 @@ public class CompilationUnitWriter : SyntaxNodeVisitor
 
         private void WriteOpenParenthesis()
         {
-            Write("( ");
+            Write("(");
         }
 
         private void WriteCloseParenthesis()
         {
-            Write(" )");
+            Write(")");
         }
 
         // Statements
