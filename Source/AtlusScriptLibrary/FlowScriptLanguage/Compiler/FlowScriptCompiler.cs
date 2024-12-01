@@ -1,5 +1,6 @@
 ﻿using AtlusScriptLibrary.Common.Libraries;
 using AtlusScriptLibrary.Common.Logging;
+using AtlusScriptLibrary.Common.Text.Encodings;
 using AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser;
 using AtlusScriptLibrary.FlowScriptLanguage.Compiler.Processing;
 using AtlusScriptLibrary.FlowScriptLanguage.Decompiler;
@@ -59,13 +60,18 @@ public class FlowScriptCompiler
 
     private int mStackValueCount; // for debugging
     private IntrinsicSupport mInstrinsic;
+    private Encoding encoding;
 
     private ScopeContext Scope => mScopeStack.Peek();
 
     /// <summary>
     /// Gets or sets the encoding to use for any imported MessageScripts.
     /// </summary>
-    public Encoding Encoding { get; set; }
+    public Encoding Encoding 
+    {
+        get => encoding; 
+        set => encoding = EncodingHelper.GetEncodingForEndianness(encoding, mFormatVersion.HasFlag(FormatVersion.BigEndian)); 
+    }
 
     /// <summary>
     /// Gets or sets the library registry to use for any imported MessageScripts.

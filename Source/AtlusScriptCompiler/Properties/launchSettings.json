@@ -2,7 +2,7 @@
   "profiles": {
     "AtlusScriptCompiler": {
       "commandName": "Project",
-      "commandLineArgs": "-Decompile -In \"C:\\Users\\cweer\\Downloads\\Xrd777+Astrea-Extracted\\Xrd777+Astrea-Extracted\\Game\\Xrd777\\Field\\Data\\DataAsset\\Bf\\Dungeon\\Hit\\patch.flow.bf\" -Library P3RE"
+      "commandLineArgs": "-Decompile -In \"F:\\Software\\Games\\PC\\SteamLibrary\\steamapps\\common\\CatherineClassic\\data\\event\\e003\\010\\m000.bmd\" -Encoding cat"
     }
   }
 }

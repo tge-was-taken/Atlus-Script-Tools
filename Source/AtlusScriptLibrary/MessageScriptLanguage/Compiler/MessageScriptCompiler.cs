@@ -2,6 +2,7 @@
 using Antlr4.Runtime.Tree;
 using AtlusScriptLibrary.Common.Libraries;
 using AtlusScriptLibrary.Common.Logging;
+using AtlusScriptLibrary.Common.Text.Encodings;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -52,7 +53,7 @@ public class MessageScriptCompiler
     public MessageScriptCompiler(FormatVersion version, Encoding encoding = null)
     {
         mVersion = version;
-        mEncoding = encoding;
+        mEncoding = EncodingHelper.GetEncodingForEndianness(encoding, version.HasFlag(FormatVersion.BigEndian));
         mLogger = new Logger(nameof(MessageScriptCompiler));
         mVariables = new Dictionary<string, int>();
         mImports = new List<MessageScript>();

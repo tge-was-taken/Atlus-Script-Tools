@@ -1,4 +1,5 @@
 ﻿using AtlusScriptLibrary.Common.IO;
+using AtlusScriptLibrary.Common.Text.Encodings;
 using System;
 using System.Buffers.Binary;
 using System.Collections.Generic;
@@ -29,11 +30,15 @@ public class MessageScriptBinaryV2Builder
         mSpeakerNames = new List<byte[]>();
         mPosition = BinaryHeaderV2.SIZE+BinaryHeader2.SIZE;
         mDialogs = new List<Tuple<BinaryDialogKind, object>>();
+        mEncoding = EncodingHelper.GetEncodingForEndianness(Encoding.Unicode, mFormatVersion.HasFlag(BinaryFormatVersion.BigEndian));
     }
 
     internal void SetEncoding(Encoding encoding)
     {
-        mEncoding = encoding;
+        if (encoding == null) throw new ArgumentNullException(nameof(encoding));
+        if (encoding.IsSingleByte)
+            throw new ArgumentException($"Single byte encoding not supported", nameof(encoding));
+        mEncoding = EncodingHelper.GetEncodingForEndianness(encoding, mFormatVersion.HasFlag(BinaryFormatVersion.BigEndian));
     }
 
     public void AddDialog(MessageDialog message)
@@ -267,11 +272,7 @@ public class MessageScriptBinaryV2Builder
     private void ProcessTextToken(StringToken token, List<byte> bytes)
     {
         var text = token.Value;
-        text = text.Replace(" ", "\uFFE3"); // hack: replace space character
-
-        var textBytes = mFormatVersion.HasFlag(BinaryFormatVersion.BigEndian) ?
-            Encoding.BigEndianUnicode.GetBytes(text) :
-            Encoding.Unicode.GetBytes(text);
+        var textBytes = mEncoding.GetBytes(text);
 
         // simple add to the list of bytes
         bytes.AddRange(textBytes);

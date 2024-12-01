@@ -1,4 +1,5 @@
 ﻿using AtlusScriptLibrary.Common.IO;
+using AtlusScriptLibrary.Common.Text.Encodings;
 using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel;
 using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V1;
 using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V2;
@@ -43,8 +44,8 @@ public class MessageScript
         {
             Id = binary.Header.UserId,
             FormatVersion = version == FormatVersion.Detect ? (FormatVersion)binary.FormatVersion : version,
-            Encoding = encoding
         };
+        instance.Encoding = EncodingHelper.GetEncodingForEndianness(encoding, version.HasFlag(FormatVersion.BigEndian)) ?? Encoding.ASCII;
 
         // Convert the binary messages to their counterpart
         var labelOccurences = new Dictionary<string, int>();
@@ -86,7 +87,7 @@ public class MessageScript
                             if (binaryMessage.SpeakerId < binary.SpeakerTableHeader.SpeakerCount)
                             {
                                 speakerName = ParseSpeakerText(binary.SpeakerTableHeader.SpeakerNameArray
-                                    .Value[binaryMessage.SpeakerId].Value, instance.FormatVersion, encoding == null ? Encoding.ASCII : encoding);
+                                    .Value[binaryMessage.SpeakerId].Value, instance.FormatVersion, instance.Encoding);
                             }
 
                             message = new MessageDialog(name, new NamedSpeaker(speakerName));
@@ -112,7 +113,7 @@ public class MessageScript
             if (pageCount != 0)
             {
                 // Parse the line data
-                ParsePages(message, pageStartAddresses, buffer, instance.FormatVersion, encoding == null ? Encoding.ASCII : encoding);
+                ParsePages(message, pageStartAddresses, buffer, instance.FormatVersion, instance.Encoding);
             }
 
             // Add it to the message list
@@ -127,12 +128,16 @@ public class MessageScript
         if (binary == null)
             throw new ArgumentNullException(nameof(binary));
 
+
         // Create new script instance & set user id, format version
         var instance = new MessageScript
         {
             FormatVersion = version == FormatVersion.Detect ? (FormatVersion)binary.FormatVersion : version,
-            Encoding = encoding
         };
+        var isBigEndian = instance.FormatVersion.HasFlag(FormatVersion.BigEndian);
+        instance.Encoding =
+            EncodingHelper.GetEncodingForEndianness(encoding, isBigEndian)
+            ?? EncodingHelper.GetEncodingForEndianness(Encoding.Unicode, isBigEndian);
 
         // Convert the binary messages to their counterpart
         var labelOccurences = new Dictionary<string, int>();
@@ -182,7 +187,7 @@ public class MessageScript
             if (pageCount != 0)
             {
                 // Parse the line data
-                ParsePages(message, pageStartAddresses, buffer, instance.FormatVersion, encoding == null ? Encoding.ASCII : encoding);
+                ParsePages(message, pageStartAddresses, buffer, instance.FormatVersion, instance.Encoding);
             }
 
             // Add it to the message list
@@ -195,26 +200,26 @@ public class MessageScript
     /// <summary>
     /// Deserializes and creates a <see cref="MessageScript"/> from a file.
     /// </summary>
-    public static MessageScript FromFile(string path, FormatVersion version = FormatVersion.Version1, Encoding encoding = null)
+    public static MessageScript FromFile(string path, FormatVersion version = FormatVersion.Detect, Encoding encoding = null)
     {
         if (path == null)
             throw new ArgumentNullException(nameof(path));
 
         var binary = MessageScriptBinaryFactory.FromFile(path);
-        return FromBinary(binary);
+        return FromBinary(binary, version, encoding);
     }
 
     /// <summary>
     /// Deserializes and creates a <see cref="MessageScript"/> from a stream.
     /// </summary>
-    public static MessageScript FromStream(Stream stream, FormatVersion version = FormatVersion.Version1, Encoding encoding = null, bool leaveOpen = false)
+    public static MessageScript FromStream(Stream stream, FormatVersion version = FormatVersion.Detect, Encoding encoding = null, bool leaveOpen = false)
     {
         if (stream == null)
             throw new ArgumentNullException(nameof(stream));
 
 
         var binary = MessageScriptBinaryFactory.FromStream(stream);
-        return FromBinary(binary);
+        return FromBinary(binary, version, encoding);
     }
 
     private static string ResolveName(Dictionary<string, int> labelOccurences, string name)
@@ -317,49 +322,48 @@ public class MessageScript
         {
             return ((ushort)(c + 0x2800)) > 0x7FF;
         }
-        static char MapToUnicodeCharacter(ushort c)
+        static char MapToUnicodeCharacter(ushort c, Encoding encoding)
         {
-            if (c == 0xFFE3)
+            if (encoding is CustomUnicodeEncoding cue)
             {
-                return ' ';
+                if (cue.CustomCodeToChar.TryGetValue(c, out var ch))
+                    return ch;
             }
-            else
-            {
-                return (char)c;
-            }
+            return (char)c;
         }
-        static bool IsSafeCharacter(ushort c)
+        static bool IsSafeCharacter(ushort c, Encoding encoding)
         {
-            return (c >= 21 && c <= 126) || (c == 0xFFE3);
+            var result = (c >= 21 && c <= 126);
+            if (encoding is CustomUnicodeEncoding cue)
+                result = result || cue.CustomCodeToChar.ContainsKey(c);
+            return result;
         }
 
         tokens = [];
 
         if (!TryReadUInt16(buffer, ref bufferIndex, version, out var c))
             return false;
-        //if (c == 0)
-        //    return false;
 
         if (IsUnicodeCharacter(c))
         {
-            if (!IsSafeCharacter(c))
+            if (!IsSafeCharacter(c, encoding))
             {
                 tokens.Add(new CodePointToken((byte)((c & 0xFF00) >> 8), (byte)(c & 0xFF)));
             }
             else
             {
                 var stringBuilder = new StringBuilder();
-                stringBuilder.Append(MapToUnicodeCharacter(c));
+                stringBuilder.Append(MapToUnicodeCharacter(c, encoding));
                 while (true)
                 {
                     if (!TryReadUInt16(buffer, ref bufferIndex, version, out c))
                         break;
-                    if (!(IsUnicodeCharacter(c) && IsSafeCharacter(c)))
+                    if (!(IsUnicodeCharacter(c) && IsSafeCharacter(c, encoding)))
                     {
                         bufferIndex -= 2;
                         break;
                     }
-                    stringBuilder.Append(MapToUnicodeCharacter(c));
+                    stringBuilder.Append(MapToUnicodeCharacter(c, encoding));
                 }
                 tokens.Add(new StringToken(stringBuilder.ToString()));
             }
@@ -677,7 +681,9 @@ public class MessageScript
         var builder = new MessageScriptBinaryBuilder((BinaryFormatVersion)FormatVersion);
 
         builder.SetUserId(Id);
-        builder.SetEncoding(Encoding);
+
+        if (Encoding != null)
+            builder.SetEncoding(Encoding);
 
         foreach (var dialog in Dialogs)
         {
@@ -702,7 +708,8 @@ public class MessageScript
     {
         var builder = new MessageScriptBinaryV2Builder((BinaryFormatVersion)FormatVersion);
 
-        builder.SetEncoding(Encoding);
+        if (Encoding != null)
+            builder.SetEncoding(Encoding);
 
         foreach (var dialog in Dialogs)
         {

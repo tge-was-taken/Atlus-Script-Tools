@@ -199,4 +199,5 @@ public enum FormatVersion : uint
     Version3BigEndian = BinaryFormatVersion.Version3BigEndian,
     Version4 = BinaryFormatVersion.Version4,
     Version4BigEndian = BinaryFormatVersion.Version4BigEndian,
+    BigEndian = BinaryFormatVersion.BigEndian,
 }

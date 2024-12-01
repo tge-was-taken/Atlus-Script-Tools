@@ -101,6 +101,8 @@ namespace AtlusScriptCompiler
             Console.WriteLine("            P3                                Persona 3's custom encoding");
             Console.WriteLine("            P4                                Persona 4's custom encoding");
             Console.WriteLine("            P5                                Persona 5's custom encoding");
+            Console.WriteLine("            CAT                               Catherine's custom encoding");
+            Console.WriteLine("            CFB                               Catherine: Full Body's custom encoding");
             Console.WriteLine("            UT (utf-8)                        UTF-8 Encoding. Used by Persona 3 Reload");
             Console.WriteLine("            Unicode (utf-16)                  UTF-16 Encoding.");
             Console.WriteLine("            Unicode Big Endian (utf-16-be)    Big Endian UTF-16 Encoding.");
@@ -385,6 +387,12 @@ namespace AtlusScriptCompiler
                             case "utf-16-be":
                                 MessageScriptEncoding = Encoding.BigEndianUnicode;
                                 break;
+                            case "cat":
+                                MessageScriptEncoding = CatherineEncoding.Instance;
+                                break;
+                            case "cfb":
+                                MessageScriptEncoding = CatherineFullBodyEncoding.Instance;
+                                break;
                             default:
                                 try
                                 {
@@ -556,7 +564,6 @@ namespace AtlusScriptCompiler
             }
 
             if (!UEWrapped) Logger.Info($"Output file path is set to {OutputFilePath}");
-
             return true;
         }
 
@@ -1099,6 +1106,6 @@ namespace AtlusScriptCompiler
         V3,
         V3BE,
         V4,
-        V4BE
+        V4BE,
     }
 }
