@@ -1,7 +1,7 @@
 ﻿using AtlusScriptLibrary.Common.IO;
 using System.Collections.Generic;
 
-namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel;
+namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V1;
 
 public struct BinaryHeader
 {

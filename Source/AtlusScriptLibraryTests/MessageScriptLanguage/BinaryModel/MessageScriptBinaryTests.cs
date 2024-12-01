@@ -1,8 +1,5 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Diagnostics;
+using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V1;
 
 namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.Tests
 {

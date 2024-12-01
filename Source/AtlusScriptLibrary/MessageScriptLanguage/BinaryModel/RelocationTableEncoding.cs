@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AtlusScriptLibrary.MessageScriptLanguage.IO;
+namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel;
 
 public static class RelocationTableEncoding
 {
@@ -20,7 +20,7 @@ public static class RelocationTableEncoding
             int reloc = relocationTable[i];
 
             // Check if the value is odd
-            if ((reloc % 2) != 0)
+            if (reloc % 2 != 0)
             {
                 // Check if the value indicates a sequence run of addresses
                 if ((reloc & SEQ_BASE) == SEQ_BASE)
@@ -70,7 +70,7 @@ public static class RelocationTableEncoding
         for (int addressLocationIndex = 0; addressLocationIndex < addressLocations.Count; addressLocationIndex++)
         {
             int seqIdx = sequences.FindIndex(item => item.AddressLocationListStartIndex == addressLocationIndex);
-            int reloc = (addressLocations[addressLocationIndex] - prevRelocSum) - addressBaseOffset;
+            int reloc = addressLocations[addressLocationIndex] - prevRelocSum - addressBaseOffset;
 
             // Check if a matching sequence was found
             if (seqIdx == -1)
@@ -101,7 +101,7 @@ public static class RelocationTableEncoding
                     // Get the loop number to encode, base loop number is 2
                     int loop = numberOfAddressesToAdd - SEQ_BASE_NUM_LOOP;
 
-                    reloc = (loop << 3) | SEQ_BASE;
+                    reloc = loop << 3 | SEQ_BASE;
 
                     relocationTable.Add((byte)reloc);
 

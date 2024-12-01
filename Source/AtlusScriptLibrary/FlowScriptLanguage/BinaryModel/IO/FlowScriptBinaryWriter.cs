@@ -1,6 +1,7 @@
 ﻿using AtlusScriptLibrary.Common.IO;
 using AtlusScriptLibrary.Common.Text.Encodings;
 using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel;
+using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V1;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -119,7 +120,7 @@ public sealed class FlowScriptBinaryWriter : IDisposable
         //if (mVersion == BinaryFormatVersion.Version4) mWriter.Endianness = Endianness.LittleEndian;
     }
 
-    public void WriteMessageScriptSection(ref BinarySectionHeader sectionHeader, MessageScriptBinary messageScript)
+    public void WriteMessageScriptSection(ref BinarySectionHeader sectionHeader, IMessageScriptBinary messageScript)
     {
         mWriter.SeekBegin(mPositionBase + sectionHeader.FirstElementAddress);
         messageScript.ToStream(mWriter.BaseStream, true);

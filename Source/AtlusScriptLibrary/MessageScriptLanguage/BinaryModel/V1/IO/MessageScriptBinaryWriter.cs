@@ -1,10 +1,11 @@
 ﻿using AtlusScriptLibrary.Common.IO;
 using AtlusScriptLibrary.Common.Text.Encodings;
+using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V1;
 using System;
 using System.IO;
 using System.Text;
 
-namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.IO;
+namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V1.IO;
 
 public sealed class MessageScriptBinaryWriter : IDisposable
 {

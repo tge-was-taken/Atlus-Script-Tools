@@ -36,7 +36,7 @@ public sealed class MessageScriptDecompiler : IDisposable
 
     public void Decompile(MessageScript script)
     {
-        WriteHeaderComment("Decompiled by Atlus Script Tools (2017-2021) © TGE");
+        WriteHeaderComment("Decompiled by Atlus Script Tools");
 
         for (var i = 0; i < script.Dialogs.Count; i++)
         {

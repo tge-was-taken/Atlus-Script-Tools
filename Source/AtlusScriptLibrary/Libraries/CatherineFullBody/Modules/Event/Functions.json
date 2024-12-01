@@ -1,0 +1,63 @@
+[
+  {
+    "Index": "0x3000",
+    "ReturnType": "void",
+    "Name": "CALL_TOOLEVENT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3001",
+    "ReturnType": "void",
+    "Name": "CALL_FALLASLEEP",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x3002",
+    "ReturnType": "void",
+    "Name": "PREREAD_TOOLEVENT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x3003",
+    "ReturnType": "void",
+    "Name": "TRY_PREREAD_TOOLEVENT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  }
+]

@@ -1,0 +1,34 @@
+[
+  {
+    "Name": "Common",
+    "ShortName": "cmn",
+    "Description": "Non-domain specific commonly used functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "",
+    "FunctionsPath": "Catherine/Modules/Common/Functions.json"
+  },
+  {
+    "Name": "Unknown",
+    "ShortName": "unk",
+    "Description": "Unknown functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "",
+    "FunctionsPath": "Catherine/Modules/Unknown/Functions.json"
+  },
+  {
+    "Name": "Puzzle",
+    "ShortName": "pzl",
+    "Description": "Non-domain specific commonly used functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "",
+    "FunctionsPath": "Catherine/Modules/Puzzle/Functions.json"
+  },
+  {
+    "Name": "Event",
+    "ShortName": "evt",
+    "Description": "Event functions.",
+    "ConstantsPath": "",
+    "EnumsPath": "",
+    "FunctionsPath": "Catherine/Modules/Event/Functions.json"
+  }
+]

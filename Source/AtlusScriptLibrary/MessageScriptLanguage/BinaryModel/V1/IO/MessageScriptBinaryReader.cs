@@ -1,6 +1,6 @@
 ﻿using AtlusScriptLibrary.Common.IO;
 using AtlusScriptLibrary.Common.Text.Encodings;
-using AtlusScriptLibrary.MessageScriptLanguage.IO;
+using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V1;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,7 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.IO;
+namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V1.IO;
 
 public sealed class MessageScriptBinaryReader : IDisposable
 {
@@ -88,9 +88,9 @@ public sealed class MessageScriptBinaryReader : IDisposable
 
         if (header.RelocationTable.Offset != 0)
         {
-            mReader.EnqueuePositionAndSeekBegin(mPositionBase + header.RelocationTable.Offset);
+            mReader.PushPositionAndSeekBegin(mPositionBase + header.RelocationTable.Offset);
             header.RelocationTable.Value = mReader.ReadBytes(header.RelocationTableSize);
-            mReader.SeekBeginToDequedPosition();
+            mReader.SeekBeginToPoppedPosition();
         }
 
         return header;
@@ -120,9 +120,12 @@ public sealed class MessageScriptBinaryReader : IDisposable
 
             if (header.Data.Offset != 0)
             {
-                if (mHeader.IsRelocated) {
+                if (mHeader.IsRelocated)
+                {
                     header.Data.Value = ReadDialog(header.Kind, header.Data.Offset + offsets[i]);
-                } else {
+                }
+                else
+                {
                     header.Data.Value = ReadDialog(header.Kind, header.Data.Offset);
                 }
             }
@@ -186,7 +189,7 @@ public sealed class MessageScriptBinaryReader : IDisposable
     {
         object dialog;
 
-        mReader.EnqueuePositionAndSeekBegin(mPositionBase + BinaryHeader.SIZE + address);
+        mReader.PushPositionAndSeekBegin(mPositionBase + BinaryHeader.SIZE + address);
 
         switch (type)
         {
@@ -202,7 +205,7 @@ public sealed class MessageScriptBinaryReader : IDisposable
                 throw new InvalidDataException($"Unknown message type: {type}");
         }
 
-        mReader.SeekBeginToDequedPosition();
+        mReader.SeekBeginToPoppedPosition();
 
         return dialog;
     }
@@ -219,8 +222,8 @@ public sealed class MessageScriptBinaryReader : IDisposable
         {
             message.PageStartAddresses = mReader.ReadInt32s(message.PageCount);
             message.TextBufferSize = mReader.ReadInt32();
-            if(message.TextBufferSize < 0 || message.TextBufferSize > (1 << 24)) // Endianness for this value seems to be swapped in some files... not sure what triggers it
-              EndiannessHelper.Swap(ref message.TextBufferSize);
+            if (message.TextBufferSize < 0 || message.TextBufferSize > 1 << 24) // Endianness for this value seems to be swapped in some files... not sure what triggers it
+                EndiannessHelper.Swap(ref message.TextBufferSize);
             message.TextBuffer = mReader.ReadBytes(message.TextBufferSize);
         }
         else

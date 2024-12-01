@@ -12,7 +12,7 @@ public class EndianBinaryReader : BinaryReader
     private Endianness mEndianness;
     private bool mSwap;
     private Encoding mEncoding;
-    private Queue<long> mPosQueue;
+    private Stack<long> mPosStack;
     private List<byte> mByteBuffer;
 
     public Endianness Endianness
@@ -67,7 +67,7 @@ public class EndianBinaryReader : BinaryReader
     {
         mStringBuilder = new StringBuilder();
         mEncoding = encoding;
-        mPosQueue = new Queue<long>();
+        mPosStack = new Stack<long>();
         Endianness = endianness;
         mByteBuffer = new List<byte>(128);
     }
@@ -92,30 +92,30 @@ public class EndianBinaryReader : BinaryReader
         BaseStream.Seek(offset, SeekOrigin.End);
     }
 
-    public void EnqueuePosition()
+    public void PushPosition()
     {
-        mPosQueue.Enqueue(Position);
+        mPosStack.Push(Position);
     }
 
-    public long PeekEnqueuedPosition()
+    public long PeekPositionStack()
     {
-        return mPosQueue.Peek();
+        return mPosStack.Peek();
     }
 
-    public void EnqueuePositionAndSeekBegin(long offset)
+    public void PushPositionAndSeekBegin(long offset)
     {
-        mPosQueue.Enqueue(Position);
+        mPosStack.Push(Position);
         SeekBegin(offset);
     }
 
-    public void SeekBeginToDequedPosition()
+    public void SeekBeginToPoppedPosition()
     {
-        SeekBegin(mPosQueue.Dequeue());
+        SeekBegin(mPosStack.Pop());
     }
 
-    public long DequeuePosition()
+    public long PopPosition()
     {
-        return mPosQueue.Dequeue();
+        return mPosStack.Pop();
     }
 
     public sbyte[] ReadSBytes(int count)

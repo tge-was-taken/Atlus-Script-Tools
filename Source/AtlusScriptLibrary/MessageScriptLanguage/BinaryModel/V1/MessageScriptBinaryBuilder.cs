@@ -1,11 +1,10 @@
 ﻿using AtlusScriptLibrary.Common.IO;
-using AtlusScriptLibrary.MessageScriptLanguage.IO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel;
+namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V1;
 
 public class MessageScriptBinaryBuilder
 {
@@ -84,7 +83,7 @@ public class MessageScriptBinaryBuilder
 
         var textBuffer = new List<byte>();
         {
-            int lineStartAddress = 0x1C + (binary.PageCount * 4) + 4;
+            int lineStartAddress = 0x1C + binary.PageCount * 4 + 4;
 
             for (int i = 0; i < message.Pages.Count; i++)
             {
@@ -120,7 +119,7 @@ public class MessageScriptBinaryBuilder
 
         var textBuffer = new List<byte>();
         {
-            int lineStartAddress = 0x20 + (binary.OptionCount * 4) + 4;
+            int lineStartAddress = 0x20 + binary.OptionCount * 4 + 4;
             for (int i = 0; i < message.Options.Count; i++)
             {
                 binary.OptionStartAddresses[i] = lineStartAddress;
@@ -230,11 +229,11 @@ public class MessageScriptBinaryBuilder
 
         if (mFormatVersion.HasFlag(BinaryFormatVersion.Version1))
         {
-            functionSignifier = (byte)(0xF0 | (((token.Arguments.Count * sizeof(short)) / 2) + 1) & 0x0F);
+            functionSignifier = (byte)(0xF0 | token.Arguments.Count * sizeof(short) / 2 + 1 & 0x0F);
         }
         else if (mFormatVersion == BinaryFormatVersion.Version1DDS)
         {
-            byte argumentByteCount = (byte)((token.Arguments.Count * 2) & 0x0F);
+            byte argumentByteCount = (byte)(token.Arguments.Count * 2 & 0x0F);
             if (argumentByteCount == 0)
                 argumentByteCount = 1; // tested
 
@@ -246,7 +245,7 @@ public class MessageScriptBinaryBuilder
         }
 
         // AAAB BBBB where A is the table index and B is the function index
-        byte functionId = (byte)(((token.FunctionTableIndex & 0x07) << 5) | token.FunctionIndex & 0x1F);
+        byte functionId = (byte)((token.FunctionTableIndex & 0x07) << 5 | token.FunctionIndex & 0x1F);
 
         byte[] argumentBytes = new byte[token.Arguments.Count * 2];
 
@@ -417,7 +416,7 @@ public class MessageScriptBinaryBuilder
 
     private void AlignPosition()
     {
-        mPosition = (mPosition + 3) & ~3;
+        mPosition = mPosition + 3 & ~3;
     }
 
     private int GetAddress()

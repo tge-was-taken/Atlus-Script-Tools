@@ -1,0 +1,1018 @@
+[
+  {
+    "Index": "0x0000",
+    "ReturnType": "void",
+    "Name": "SCRTEST",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0001",
+    "ReturnType": "int",
+    "Name": "BIT_CHK",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0002",
+    "ReturnType": "void",
+    "Name": "BIT_ON",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0003",
+    "ReturnType": "void",
+    "Name": "BIT_OFF",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0004",
+    "ReturnType": "int",
+    "Name": "GET_COUNTER",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0005",
+    "ReturnType": "void",
+    "Name": "SET_COUNTER",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0006",
+    "ReturnType": "int",
+    "Name": "RND",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0007",
+    "ReturnType": "float",
+    "Name": "SQRT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0008",
+    "ReturnType": "void",
+    "Name": "SYNC",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0009",
+    "ReturnType": "void",
+    "Name": "WAIT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x000A",
+    "ReturnType": "void",
+    "Name": "PUT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x000B",
+    "ReturnType": "void",
+    "Name": "PUTS",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x000C",
+    "ReturnType": "void",
+    "Name": "SEL_JMP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param7",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param8",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x000D",
+    "ReturnType": "void",
+    "Name": "SCR_RUN",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x000E",
+    "ReturnType": "void",
+    "Name": "SCR_KILL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x000F",
+    "ReturnType": "void",
+    "Name": "SCR_WAIT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0010",
+    "ReturnType": "int",
+    "Name": "SCR_STAT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0011",
+    "ReturnType": "int",
+    "Name": "SCR_TIME",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0012",
+    "ReturnType": "void",
+    "Name": "CALL_GAMESEQUENCE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0013",
+    "ReturnType": "void",
+    "Name": "CALL_TITLE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0014",
+    "ReturnType": "void",
+    "Name": "NEXT_DAY",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0015",
+    "ReturnType": "void",
+    "Name": "CALL_LOUNGE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0016",
+    "ReturnType": "void",
+    "Name": "MSG",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0017",
+    "ReturnType": "void",
+    "Name": "CALL_MIDDLE_FLOOR",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0018",
+    "ReturnType": "void",
+    "Name": "CALL_MOVIE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0019",
+    "ReturnType": "void",
+    "Name": "FADE_IN",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x001A",
+    "ReturnType": "void",
+    "Name": "FADE_OUT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x001B",
+    "ReturnType": "void",
+    "Name": "FADE_SYNC",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x001C",
+    "ReturnType": "void",
+    "Name": "FADE_COLOR",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x001D",
+    "ReturnType": "void",
+    "Name": "BG_COLOR",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x001E",
+    "ReturnType": "void",
+    "Name": "MSG_EVT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x001F",
+    "ReturnType": "void",
+    "Name": "MSG_SYNC",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0020",
+    "ReturnType": "void",
+    "Name": "IFTIME_START",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0021",
+    "ReturnType": "void",
+    "Name": "CALL_MAKAIMURA",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0022",
+    "ReturnType": "void",
+    "Name": "START_QUAKE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0023",
+    "ReturnType": "void",
+    "Name": "STOP_QUAKE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0024",
+    "ReturnType": "void",
+    "Name": "ACHIEVEMENT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0025",
+    "ReturnType": "int",
+    "Name": "GET_DAY",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0026",
+    "ReturnType": "void",
+    "Name": "SET_TIME",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0027",
+    "ReturnType": "int",
+    "Name": "GET_TIME",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0028",
+    "ReturnType": "void",
+    "Name": "CALL_RPZLSEQUENCE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0029",
+    "ReturnType": "void",
+    "Name": "SET_RPZL_STAGE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x002A",
+    "ReturnType": "int",
+    "Name": "GET_RPZL_STAGE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x002B",
+    "ReturnType": "void",
+    "Name": "SET_RPZL_STAGE_MAX",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x002C",
+    "ReturnType": "int",
+    "Name": "GET_RPZL_STAGE_MAX",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x002D",
+    "ReturnType": "void",
+    "Name": "SET_DIFFICULTY",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x002E",
+    "ReturnType": "int",
+    "Name": "GET_DIFFICULTY",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x002F",
+    "ReturnType": "void",
+    "Name": "CALL_RPZL_TITLE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0030",
+    "ReturnType": "void",
+    "Name": "MSG_PZL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0031",
+    "ReturnType": "void",
+    "Name": "MSG_RPZL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0032",
+    "ReturnType": "void",
+    "Name": "MSG_RPZL_FREE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0033",
+    "ReturnType": "void",
+    "Name": "FNT_RPZL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0034",
+    "ReturnType": "void",
+    "Name": "CALL_STAGESEL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0035",
+    "ReturnType": "void",
+    "Name": "DUALSHOCK",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0036",
+    "ReturnType": "void",
+    "Name": "PADOK",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0037",
+    "ReturnType": "void",
+    "Name": "NOW_LOADING",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0038",
+    "ReturnType": "void",
+    "Name": "Exception",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0039",
+    "ReturnType": "void",
+    "Name": "SAVELOAD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x003A",
+    "ReturnType": "void",
+    "Name": "SAVELOAD_SYNC",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x003B",
+    "ReturnType": "void",
+    "Name": "AUTO_SAVE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x003C",
+    "ReturnType": "void",
+    "Name": "AUTO_SAVE_SYNC",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x003D",
+    "ReturnType": "void",
+    "Name": "ADD_TIMESTAMP",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x003E",
+    "ReturnType": "void",
+    "Name": "CALL_END",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x003F",
+    "ReturnType": "void",
+    "Name": "CALL_TITLE2",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0040",
+    "ReturnType": "void",
+    "Name": "ZANGE_ENDING_PUSH",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0041",
+    "ReturnType": "void",
+    "Name": "ZANGE_ENDING_POP",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0042",
+    "ReturnType": "void",
+    "Name": "SAVE_CLEAR_SCORE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0043",
+    "ReturnType": "int",
+    "Name": "AWORD_RETRY",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0044",
+    "ReturnType": "void",
+    "Name": "CALL_EDITMENU",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0045",
+    "ReturnType": "int",
+    "Name": "MSG_SEL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0046",
+    "ReturnType": "int",
+    "Name": "GET_GAME_MODE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0047",
+    "ReturnType": "void",
+    "Name": "MSG_BABEL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0048",
+    "ReturnType": "void",
+    "Name": "MSG_BABEL_SYNC",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0049",
+    "ReturnType": "void",
+    "Name": "GENERAL_WINDOW",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x004A",
+    "ReturnType": "void",
+    "Name": "GENERAL_WINDOW_SYNC",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x004B",
+    "ReturnType": "void",
+    "Name": "CALL_SEQUENCE_AFTER_PUZZLE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x004C",
+    "ReturnType": "int",
+    "Name": "GET_PLATFORM_TYPE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x004D",
+    "ReturnType": "void",
+    "Name": "SHARE_ENABLE_ALL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x004E",
+    "ReturnType": "void",
+    "Name": "IFTIME_FADE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x004F",
+    "ReturnType": "int",
+    "Name": "MSG_SEL_EVT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0050",
+    "ReturnType": "int",
+    "Name": "IS_JAPANVOICE",
+    "Description": "",
+    "Parameters": []
+  }
+]

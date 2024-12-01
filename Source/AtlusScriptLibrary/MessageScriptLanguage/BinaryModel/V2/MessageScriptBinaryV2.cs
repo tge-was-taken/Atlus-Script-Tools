@@ -1,15 +1,15 @@
 ﻿using AtlusScriptLibrary.Common.IO;
-using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.IO;
+using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V2.IO;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 
-namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel;
+namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V2;
 
-public class MessageScriptBinary
+public class MessageScriptBinaryV2 : IMessageScriptBinary
 {
-    public static MessageScriptBinary FromFile(string path)
+    public static MessageScriptBinaryV2 FromFile(string path)
     {
         if (path == null)
             throw new ArgumentNullException(nameof(path));
@@ -20,7 +20,7 @@ public class MessageScriptBinary
         return FromFile(path, BinaryFormatVersion.Unknown);
     }
 
-    public static MessageScriptBinary FromFile(string path, BinaryFormatVersion version)
+    public static MessageScriptBinaryV2 FromFile(string path, BinaryFormatVersion version)
     {
         if (path == null)
             throw new ArgumentNullException(nameof(path));
@@ -36,15 +36,15 @@ public class MessageScriptBinary
             return FromStream(fileStream, version);
     }
 
-    public static MessageScriptBinary FromStream(Stream stream, bool leaveOpen = false)
+    public static MessageScriptBinaryV2 FromStream(Stream stream, bool leaveOpen = false)
     {
         if (stream == null)
             throw new ArgumentNullException(nameof(stream));
 
-        return FromStream(stream, BinaryFormatVersion.Unknown, leaveOpen);
+        return FromStream(stream, BinaryFormatVersion.Version2, leaveOpen);
     }
 
-    public static MessageScriptBinary FromStream(Stream stream, BinaryFormatVersion version, bool leaveOpen = false)
+    public static MessageScriptBinaryV2 FromStream(Stream stream, BinaryFormatVersion version, bool leaveOpen = false)
     {
         if (stream == null)
             throw new ArgumentNullException(nameof(stream));
@@ -53,29 +53,27 @@ public class MessageScriptBinary
             throw new InvalidEnumArgumentException(nameof(version), (int)version,
                 typeof(BinaryFormatVersion));
 
-        using (var reader = new MessageScriptBinaryReader(stream, version, leaveOpen))
+        using (var reader = new MessageScriptBinaryV2Reader(stream, version, leaveOpen))
         {
             return reader.ReadBinary();
         }
     }
 
-    // these fields are internal because they are used by the builder, reader & writer
-    internal BinaryHeader mHeader;
-    internal BinaryDialogHeader[] mDialogHeaders;
-    internal BinarySpeakerTableHeader mSpeakerTableHeader;
+    // internal fields for use by builder, reader, and writer
+    internal BinaryHeaderV2 mHeader;
+    internal BinaryHeader2 mHeader2;
     internal BinaryFormatVersion mFormatVersion;
 
-    public BinaryHeader Header => mHeader;
+    public BinaryHeaderV2 Header => mHeader;
 
-    public ReadOnlyCollection<BinaryDialogHeader> DialogHeaders
-        => new ReadOnlyCollection<BinaryDialogHeader>(mDialogHeaders);
-
-    public BinarySpeakerTableHeader SpeakerTableHeader => mSpeakerTableHeader;
+    public BinaryHeader2 Header2 => mHeader2;
 
     public BinaryFormatVersion FormatVersion => mFormatVersion;
 
-    // this constructor is internal because it is used by the builder, reader & writer
-    internal MessageScriptBinary()
+    public int FileSize => (int)Header.FileSize;
+
+    // internal constructor for use by builder, reader, and writer
+    internal MessageScriptBinaryV2()
     {
     }
 
@@ -100,7 +98,7 @@ public class MessageScriptBinary
 
     public void ToStream(Stream stream, bool leaveOpen = false)
     {
-        using (var writer = new MessageScriptBinaryWriter(stream, mFormatVersion, leaveOpen))
+        using (var writer = new MessageScriptBinaryV2Writer(stream, mFormatVersion, leaveOpen))
         {
             writer.WriteBinary(this);
         }

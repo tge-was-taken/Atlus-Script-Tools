@@ -1,6 +1,7 @@
 ﻿using AtlusScriptLibrary.Common.IO;
 using AtlusScriptLibrary.FlowScriptLanguage.BinaryModel.IO;
 using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel;
+using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V1;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -40,7 +41,7 @@ public sealed class FlowScriptBinary
     internal BinaryLabel[] mProcedureLabelSection;
     internal BinaryLabel[] mJumpLabelSection;
     internal BinaryInstruction[] mTextSection;
-    internal MessageScriptBinary mMessageScriptSection;
+    internal IMessageScriptBinary mMessageScriptSection;
     internal byte[] mStringSection;
     internal BinaryFormatVersion mFormatVersion;
 
@@ -89,13 +90,13 @@ public sealed class FlowScriptBinary
         }
     }
 
-    public MessageScriptBinary MessageScriptSection
+    public IMessageScriptBinary MessageScriptSection
     {
         get { return mMessageScriptSection; }
         set
         {
             // Fixup size
-            int sizeDifference = value.Header.FileSize - mMessageScriptSection.Header.FileSize;
+            int sizeDifference = value.FileSize - mMessageScriptSection.FileSize;
 
             if (sizeDifference != 0)
             {
@@ -103,7 +104,7 @@ public sealed class FlowScriptBinary
 
                 if (sectionHeaderIndex != -1)
                 {
-                    mSectionHeaders[sectionHeaderIndex].ElementCount = mMessageScriptSection.Header.FileSize;
+                    mSectionHeaders[sectionHeaderIndex].ElementCount = mMessageScriptSection.FileSize;
 
                     int lastHeaderIndex = mSectionHeaders.Length - 1;
                     if (sectionHeaderIndex != lastHeaderIndex)

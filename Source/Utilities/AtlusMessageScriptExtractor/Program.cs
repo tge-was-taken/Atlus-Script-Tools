@@ -6,9 +6,9 @@ using AtlusScriptLibrary.Common.IO;
 using AtlusScriptLibrary.Common.Text.Encodings;
 using AtlusScriptLibrary.FlowScriptLanguage.BinaryModel;
 using AtlusScriptLibrary.MessageScriptLanguage;
-using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel;
+using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V1;
 using AtlusScriptLibrary.MessageScriptLanguage.Decompiler;
-using BinaryHeader = AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.BinaryHeader;
+using BinaryHeader = AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V1.BinaryHeader;
 
 namespace AtlusMessageScriptExtractor;
 
