@@ -25,6 +25,7 @@ namespace AtlusScriptCompiler
         protected override void OnLogCore(object sender, LogEventArgs e)
         {
             mFileWriter.WriteLine($"{DateTime.Now} {e.ChannelName} {e.Level}: {e.Message}");
+            mFileWriter.Flush();
 
             if (mConsoleLogFilter.HasFlag(e.Level))
                 base.OnLogCore(sender, e);
