@@ -96,18 +96,24 @@ namespace AtlusScriptCompiler
             Console.WriteLine("            Below is a list of different available standard encodings.");
             Console.WriteLine("            Note that ASCII characters don't really differ from the standard, so this mostly applies to special characters and japanese characters.");
             Console.WriteLine();
-            Console.WriteLine("            SJ                  Shift-JIS encoding (CP932). Used by Persona Q(2)");
-            Console.WriteLine("            P3                  Persona 3's custom encoding");
-            Console.WriteLine("            P4                  Persona 4's custom encoding");
-            Console.WriteLine("            P5                  Persona 5's custom encoding");
-            Console.WriteLine("            UT                  UTF-8 Encoding. Used by Persona 3 Reload");
-            Console.WriteLine("            <charset file name> Custom encodings can be used by placing them in the charset folder. The TSV files are tab separated.");
+            Console.WriteLine("            ASCII                             Standard ASCII encoding.");
+            Console.WriteLine("            SJ (shift-jis)                    Shift-JIS encoding (CP932). Used by Persona Q(2)");
+            Console.WriteLine("            P3                                Persona 3's custom encoding");
+            Console.WriteLine("            P4                                Persona 4's custom encoding");
+            Console.WriteLine("            P5                                Persona 5's custom encoding");
+            Console.WriteLine("            UT (utf-8)                        UTF-8 Encoding. Used by Persona 3 Reload");
+            Console.WriteLine("            Unicode (utf-16)                  UTF-16 Encoding.");
+            Console.WriteLine("            Unicode Big Endian (utf-16-be)    Big Endian UTF-16 Encoding.");
+            Console.WriteLine("            <charset file name>               Custom encodings can be used by placing them in the charset folder. The TSV files are tab separated.");
+            Console.WriteLine("            See below for all available charsets.");
             Console.WriteLine();
             Console.WriteLine("        -Library");
             Console.WriteLine("            For MessageScripts the libraries used for the compiler and decompiler to emit the proper [f] tags for each aliased function.");
             Console.WriteLine("            If you don't use any aliased functions, you don't need to specify this, but if you do without specifying it, you'll get a compiler error.");
             Console.WriteLine("            Not specifying a library definition registry means that the decompiler will not try to look up aliases for functions.");
             Console.WriteLine("            Libraries can be found in the Libraries directory");
+            Console.WriteLine("            Either the full name enclosed with quotes, or the shorthand name can be used.");
+            Console.WriteLine("            See below for all available libraries.");
             Console.WriteLine();
             Console.WriteLine("    FlowScript:");
             Console.WriteLine("        -OutFormat");
@@ -125,6 +131,26 @@ namespace AtlusScriptCompiler
             Console.WriteLine("            For FlowScripts the libraries is used for the decompiler to decompile binary scripts, but it is also used to generate documentation.");
             Console.WriteLine("            Without a specified registry you cannot decompile scripts.");
             Console.WriteLine("            Libraries can be found in the Libraries directory");
+            Console.WriteLine("            Either the full name enclosed with quotes, or the shorthand name can be used.");
+            Console.WriteLine("            See below for all available libraries.");
+            Console.WriteLine();
+            Console.WriteLine("Available libraries:");
+            foreach (var lib in LibraryLookup.Libraries)
+                Console.WriteLine($"    {lib.Name} ({lib.ShortName})");
+            Console.WriteLine();
+            Console.WriteLine("Available charsets:");
+            foreach (var item in AtlusEncoding.AvailableCharsets)
+            {
+                if (AtlusEncoding.CharsetAliases.TryGetValue(item, out var aliases))
+                {
+                    Console.WriteLine($"    {item} ({string.Join(", ", aliases)})");
+                }
+                else
+                {
+                    Console.WriteLine($"    {item}");
+                }
+            }
+            Console.WriteLine();
         }
 
         public static void Main(string[] args)
@@ -340,6 +366,9 @@ namespace AtlusScriptCompiler
 
                         switch (MessageScriptTextEncodingName.ToLower())
                         {
+                            case "ascii":
+                                MessageScriptEncoding = Encoding.ASCII;
+                                break;
                             case "sj":
                             case "shiftjis":
                             case "shift-jis":
@@ -359,7 +388,7 @@ namespace AtlusScriptCompiler
                             default:
                                 try
                                 {
-                                    MessageScriptEncoding = AtlusEncoding.GetByName(MessageScriptTextEncodingName);
+                                    MessageScriptEncoding = AtlusEncoding.Create(MessageScriptTextEncodingName);
                                 }
                                 catch (ArgumentException)
                                 {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace AtlusScriptLibrary.Common.Text.Encodings;
@@ -31,81 +32,44 @@ public class AtlusEncoding : Encoding
 
     // Ease of use accessors
     private static string sCharsetsBaseDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Charsets");
-    private static AtlusEncoding sPersona3;
-    private static AtlusEncoding sPersona3PortableEFIGS;
-    private static AtlusEncoding sPersona4;
-    private static AtlusEncoding sPersona5;
-    private static AtlusEncoding sPersona5Chinese;
-    private static AtlusEncoding sPersona5RoyalEFIGS;
-    private static AtlusEncoding sPersona5RoyalJapanese;
-    private static AtlusEncoding sPersona5RoyalChinese;
+    private static readonly Dictionary<string, AtlusEncoding> sCache = new();
 
     public static void SetCharsetDirectory(string directory)
     {
         sCharsetsBaseDirectoryPath = directory;
     }
 
-    public static AtlusEncoding Persona3 => sPersona3 ?? (sPersona3 = new AtlusEncoding("P3"));
-    public static AtlusEncoding Persona3PortableEFIGS => sPersona3PortableEFIGS ?? (sPersona3PortableEFIGS = new AtlusEncoding("P3P_EFIGS"));
-    public static AtlusEncoding Persona4 => sPersona4 ?? (sPersona4 = new AtlusEncoding("P4"));
-    public static AtlusEncoding Persona5 => sPersona5 ?? (sPersona5 = new AtlusEncoding("P5"));
-    public static AtlusEncoding Persona5Chinese => sPersona5Chinese ?? (sPersona5Chinese = new AtlusEncoding("P5_Chinese"));
-    public static AtlusEncoding Persona5RoyalEFIGS => sPersona5RoyalEFIGS ?? (sPersona5RoyalEFIGS = new AtlusEncoding("P5R_EFIGS"));
-    public static AtlusEncoding Persona5RoyalJapanese => sPersona5RoyalJapanese ?? (sPersona5RoyalJapanese = new AtlusEncoding("P5R_Japanese"));
-    public static AtlusEncoding Persona5RoyalChinese => sPersona5RoyalChinese ?? (sPersona5RoyalChinese = new AtlusEncoding("P5R_Chinese"));
+    public static AtlusEncoding Persona3 => Create("P3");
+    public static AtlusEncoding Persona3PortableEFIGS => Create("P3P_EFIGS");
+    public static AtlusEncoding Persona4 => Create("P4");
+    public static AtlusEncoding Persona5 => Create("P5");
+    public static AtlusEncoding Persona5Chinese => Create("P5_Chinese");
+    public static AtlusEncoding Persona5RoyalEFIGS => Create("P5R_EFIGS");
+    public static AtlusEncoding Persona5RoyalJapanese => Create("P5R_Japanese");
+    public static AtlusEncoding Persona5RoyalChinese => Create("P5R_Chinese");
 
-    public static AtlusEncoding GetByName(string name)
+    public static IEnumerable<string> AvailableCharsets =>
+        Directory.EnumerateFiles(sCharsetsBaseDirectoryPath, "*.tsv")
+            .Select(Path.GetFileNameWithoutExtension);
+
+    public static bool CharsetExists(string name) => File.Exists(Path.Combine(sCharsetsBaseDirectoryPath, Path.ChangeExtension(name, ".tsv")));
+
+    public static IReadOnlyDictionary<string, IEnumerable<string>> CharsetAliases { get; } = new Dictionary<string, IEnumerable<string>>()
     {
-        // Normalize name
-        var nameNormalized = name.ToLowerInvariant().Replace(" ", "");
-
-        switch (nameNormalized)
-        {
-            case "p3":
-            case "persona3":
-                return Persona3;
-
-            case "p3p":
-            case "p3p_efigs":
-                return Persona3PortableEFIGS;
-
-            case "p4":
-            case "persona4":
-                return Persona4;
-
-            case "p5":
-            case "persona5":
-                return Persona5;
-
-            case "p5chi":
-            case "p5chinese":
-            case "persona5chi":
-            case "persona5chinese":
-                return Persona5Chinese;
-
-            case "p5r":
-            case "p5r_m5":
-            case "p5r_efigs":
-                return Persona5RoyalEFIGS;
-
-            case "p5r_jp":
-            case "p5r_japanese":
-                return Persona5RoyalJapanese;
-
-            case "p5r_chi":
-            case "p5r_chinese":
-                return Persona5RoyalChinese;
-
-            default:
-                {
-                    // Try load from charsets directory
-                    return new AtlusEncoding(name);
-                }
-        }
-    }
+        { "P3", ["p3", "persona3"] },
+        { "P3P", ["p3p", "p3p_efigs"] },
+        { "P4", ["p4", "persona4"] },
+        { "P5", ["p5", "persona5"] },
+        { "P5_Chinese", ["p5chi", "p5chinese", "persona5chi", "persona5chinese" ] },
+        { "P5R_EFIGS", ["p5r", "p5r_m5", "p5r_efigs"] },
+        { "P5R_Japanese", ["p5r_jp", "p5r_japanese"] },
+        { "P5R_Chinese", ["p5r_chi", "p5r_chinese"] }
+    };
 
     private Dictionary<string, CodePoint> mCharToCodePoint;
     private Dictionary<CodePoint, string> mCodePointToChar;
+
+    public string CharsetName { get; }
 
     public override int GetByteCount(char[] chars, int index, int count)
     {
@@ -234,8 +198,29 @@ public class AtlusEncoding : Encoding
         return true;
     }
 
-    public AtlusEncoding(string tableName)
+    public static AtlusEncoding Create(string name)
     {
+        if (sCache.TryGetValue(name, out var encoding))
+            return encoding;
+
+        var tableName = name;
+        if (!CharsetExists(name))
+        {
+            var nameNormalized = name.ToLowerInvariant().Replace(" ", "");
+            var foundTableName = CharsetAliases
+                .Where(x => x.Value.Contains(nameNormalized))
+                .Select(x => x.Key)
+                .FirstOrDefault();
+            if (foundTableName is not null)
+                tableName = foundTableName;
+        }
+
+        return sCache[tableName] = new AtlusEncoding(tableName);
+    }
+
+    private AtlusEncoding(string tableName)
+    {
+        CharsetName = tableName;
         var tableFilePath = Path.Combine(sCharsetsBaseDirectoryPath, $"{tableName}.tsv");
         if (!File.Exists(tableFilePath))
             throw new ArgumentException($"Unknown encoding: {tableName} ({tableFilePath})", nameof(tableName));
