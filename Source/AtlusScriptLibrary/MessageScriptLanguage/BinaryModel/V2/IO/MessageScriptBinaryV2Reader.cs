@@ -71,6 +71,10 @@ public sealed class MessageScriptBinaryV2Reader : IDisposable
         header.RelocationTable.Offset = mReader.ReadInt32();
         header.RelocationTableSize = mReader.ReadUInt32();
 
+        Trace.Assert(header.Field04 == 1);
+        Trace.Assert(header.Field06 == 0);
+        Trace.Assert(header.Field0C == 0);
+
         if (header.RelocationTable.Offset != 0)
         {
             mReader.PushPositionAndSeekBegin(mPositionBase + header.RelocationTable.Offset);
@@ -89,6 +93,8 @@ public sealed class MessageScriptBinaryV2Reader : IDisposable
         header.DialogCount = mReader.ReadUInt32();
         header.DialogArrayEndOffset = mReader.ReadUInt32();
         header.Field28 = mReader.ReadUInt32();
+
+        Trace.Assert(header.Field28 == 0);
 
         if (header.DialogArray.Offset != 0)
         {
@@ -180,6 +186,8 @@ public sealed class MessageScriptBinaryV2Reader : IDisposable
         message.OptionStartAddresses = mReader.ReadInt32s(message.OptionCount);
         message.TextBufferSize = mReader.ReadUInt32();
         message.TextBuffer = mReader.ReadBytes((int)message.TextBufferSize);
+
+        Trace.Assert(message.SpeakerId == 0);
 
         return message;
     }

@@ -98,10 +98,9 @@ public class MessageScriptBinaryV2 : IMessageScriptBinary
 
     public void ToStream(Stream stream, bool leaveOpen = false)
     {
-        throw new NotImplementedException();
-        //using (var writer = new MessageScriptBinaryWriter(stream, mFormatVersion, leaveOpen))
-        //{
-        //    writer.WriteBinary(this);
-        //}
+        using (var writer = new MessageScriptBinaryV2Writer(stream, mFormatVersion, leaveOpen))
+        {
+            writer.WriteBinary(this);
+        }
     }
 }

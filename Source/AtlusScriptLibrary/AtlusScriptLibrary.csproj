@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net8.0;netstandard2.0</TargetFrameworks>
     <OutputType>Library</OutputType>
@@ -26,6 +26,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Libraries\Catherine.json" />
+    <None Remove="Libraries\CatherineFullBody.json" />
     <None Remove="Libraries\Catherine\FlowScriptModules.json" />
     <None Remove="Libraries\Catherine\MessageScriptLibrary.json" />
   </ItemGroup>
@@ -367,6 +368,27 @@
     <PackageReference Include="System.Text.Json" Version="9.0.0" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
   </ItemGroup>
   <ItemGroup>
+	<Content Include="Libraries\CatherineFullBody.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+	<None Update="Libraries\CatherineFullBody\FlowScriptModules.json">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Libraries\CatherineFullBody\MessageScriptLibrary.json">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Libraries\CatherineFullBody\Modules\Common\Functions.json">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Libraries\CatherineFullBody\Modules\Event\Functions.json">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Libraries\CatherineFullBody\Modules\Misc\Functions.json">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+	<None Update="Libraries\CatherineFullBody\Modules\Puzzle\Functions.json">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
     <None Update="Libraries\Catherine\Modules\Common\Functions.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

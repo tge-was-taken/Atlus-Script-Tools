@@ -337,8 +337,8 @@ public class MessageScript
 
         if (!TryReadUInt16(buffer, ref bufferIndex, version, out var c))
             return false;
-        if (c == 0)
-            return false;
+        //if (c == 0)
+        //    return false;
 
         if (IsUnicodeCharacter(c))
         {
@@ -664,7 +664,15 @@ public class MessageScript
     /// Converts this <see cref="MessageScript"/> instance to a <see cref="MessageScriptBinary"/> instance.
     /// </summary>
     /// <returns></returns>
-    public MessageScriptBinary ToBinary()
+    public IMessageScriptBinary ToBinary()
+    {
+        if (FormatVersion.HasFlag(FormatVersion.Version2))
+            return ToBinaryV2();
+        else
+            return ToBinaryV1();
+    }
+
+    private MessageScriptBinary ToBinaryV1()
     {
         var builder = new MessageScriptBinaryBuilder((BinaryFormatVersion)FormatVersion);
 
@@ -689,6 +697,32 @@ public class MessageScript
 
         return builder.Build();
     }
+
+    private MessageScriptBinaryV2 ToBinaryV2()
+    {
+        var builder = new MessageScriptBinaryV2Builder((BinaryFormatVersion)FormatVersion);
+
+        builder.SetEncoding(Encoding);
+
+        foreach (var dialog in Dialogs)
+        {
+            switch (dialog.Kind)
+            {
+                case DialogKind.Message:
+                    builder.AddDialog((MessageDialog)dialog);
+                    break;
+                case DialogKind.Selection:
+                    builder.AddDialog((SelectionDialog)dialog);
+                    break;
+
+                default:
+                    throw new NotImplementedException(dialog.Kind.ToString());
+            }
+        }
+
+        return builder.Build();
+    }
+
 
     /// <summary>
     /// Serializes and writes this <see cref="MessageScript"/> instance to the specified file.

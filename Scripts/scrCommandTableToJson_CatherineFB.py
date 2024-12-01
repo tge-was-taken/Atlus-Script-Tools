@@ -27,7 +27,7 @@ if not os.path.exists(OUTPUT_DIR):
 
 # Regex patterns for parameter analysis and return type
 INDEX_REGEX = re.compile(r'scrGet(Int|Float)Para\s*\(\s*(?:\(.*?\)\s*)?(\d+)\s*\)')
-RESULT_REGEX = re.compile(r'scrSet(Int|Float)ReturnValue\(.+?\)')
+RESULT_REGEX = re.compile(r'scrSet(Int|Float)ReturnValue')
 
 # Helper function to read a null-terminated string
 def read_cstring(addr):

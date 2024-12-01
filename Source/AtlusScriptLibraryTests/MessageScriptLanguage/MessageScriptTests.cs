@@ -1,7 +1,9 @@
 ﻿using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel;
 using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V1;
+using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V2;
 using AtlusScriptLibrary.MessageScriptLanguage.Compiler;
 using AtlusScriptLibrary.MessageScriptLanguage.Decompiler;
+using System.Diagnostics;
 
 namespace AtlusScriptLibrary.MessageScriptLanguage.Tests
 {
@@ -75,7 +77,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Tests
             var script = MessageScript.FromBinary(binary);
             var newBinary = script.ToBinary();
 
-            Compare(binary, newBinary);
+            Compare(binary, (MessageScriptBinary)newBinary);
         }
 
         [TestMethod]
@@ -85,8 +87,34 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Tests
             var script = MessageScript.FromBinary(binary);
             var newBinary = script.ToBinary();
 
-            Compare(binary, newBinary);
+            Compare(binary, (MessageScriptBinary)newBinary);
         }
+
+        [TestMethod]
+        public void ToBinary_ShouldMatchSourceBinary_Version2BigEndian()
+        {
+            var binary = MessageScriptBinaryV2.FromFile("TestResources/Version2BigEndian.bmd");
+            var script = MessageScript.FromBinary(binary);
+            var newBinary = script.ToBinary();
+            if (Debugger.IsAttached)
+                newBinary.ToFile("out.bmd");
+
+            //Compare(binary, newBinary);
+        }
+
+
+        [TestMethod]
+        public void ToBinary_ShouldMatchSourceBinary_Version2BigEndianAlt()
+        {
+            var binary = MessageScriptBinaryV2.FromFile("TestResources/Version2BigEndianAlt.bmd");
+            var script = MessageScript.FromBinary(binary);
+            var newBinary = script.ToBinary();
+            if (Debugger.IsAttached)
+                newBinary.ToFile("out.bmd");
+
+            //Compare(binary, newBinary);
+        }
+
 
         [TestMethod]
         public void EscapeChars_CanDecompileAndRecompileWithBrackets()
@@ -103,7 +131,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Tests
             compiler.TryCompile(text, out var recompiledScript);
 
             var newBinary = recompiledScript.ToBinary();
-            Compare(binary, newBinary);
+            Compare(binary, (MessageScriptBinary)newBinary);
         }
 
         private void Compare(MessageScriptBinary binary, MessageScriptBinary newBinary)

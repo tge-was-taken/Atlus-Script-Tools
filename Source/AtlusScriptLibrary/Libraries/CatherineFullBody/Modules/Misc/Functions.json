@@ -1,14 +1,14 @@
 [
   {
     "Index": "0x1000",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "KF_DLC_IS_PURCHASE_ERO_GLASSES",
     "Description": "",
     "Parameters": []
   },
   {
     "Index": "0x1001",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "KF_MATH_GET_RANDOM",
     "Description": "",
     "Parameters": [
@@ -73,7 +73,7 @@
   },
   {
     "Index": "0x1006",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "KF_MSG_GET_SEL_NO",
     "Description": "",
     "Parameters": []
@@ -87,7 +87,7 @@
   },
   {
     "Index": "0x1008",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "KF_MSG_IS_READ",
     "Description": "",
     "Parameters": [
@@ -100,28 +100,28 @@
   },
   {
     "Index": "0x1009",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "PAD_TRIG_RU",
     "Description": "",
     "Parameters": []
   },
   {
     "Index": "0x100A",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "PAD_TRIG_RR",
     "Description": "",
     "Parameters": []
   },
   {
     "Index": "0x100B",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "PAD_TRIG_RD",
     "Description": "",
     "Parameters": []
   },
   {
     "Index": "0x100C",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "PAD_TRIG_RL",
     "Description": "",
     "Parameters": []
@@ -194,7 +194,7 @@
   },
   {
     "Index": "0x1013",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "KF_SOUND_GET_BGM",
     "Description": "",
     "Parameters": []
@@ -374,7 +374,7 @@
   },
   {
     "Index": "0x1026",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "LG_GAME_GET_CREDITS",
     "Description": "",
     "Parameters": []
@@ -402,35 +402,35 @@
   },
   {
     "Index": "0x102A",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "LG_EVENT_SCHEDULE_GET_DAY",
     "Description": "",
     "Parameters": []
   },
   {
     "Index": "0x102B",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "LG_EVENT_SCHEDULE_GET_TIME",
     "Description": "",
     "Parameters": []
   },
   {
     "Index": "0x102C",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "LG_EVENT_SCHEDULE_IS_EARLY",
     "Description": "",
     "Parameters": []
   },
   {
     "Index": "0x102D",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "LG_EVENT_SCHEDULE_IS_LATE",
     "Description": "",
     "Parameters": []
   },
   {
     "Index": "0x102E",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "LG_EVENT_SCHEDULE_IS_MIDNIGHT",
     "Description": "",
     "Parameters": []
@@ -510,7 +510,7 @@
   },
   {
     "Index": "0x1037",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "LG_CAMERA_GET_MODE",
     "Description": "",
     "Parameters": []
@@ -545,14 +545,14 @@
   },
   {
     "Index": "0x1039",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "LG_VIN_IS_STD",
     "Description": "",
     "Parameters": []
   },
   {
     "Index": "0x103A",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "LG_VIN_IS_SIT",
     "Description": "",
     "Parameters": []
@@ -572,14 +572,14 @@
   },
   {
     "Index": "0x103C",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "LG_VIN_GET_GOINGHOME_MODE",
     "Description": "",
     "Parameters": []
   },
   {
     "Index": "0x103D",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "LG_VIN_IS_WEARING_GLASSES",
     "Description": "",
     "Parameters": []
@@ -815,7 +815,7 @@
   },
   {
     "Index": "0x1050",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "LG_VIN_GET_SEAT_GROUP_ID",
     "Description": "",
     "Parameters": []
@@ -843,7 +843,7 @@
   },
   {
     "Index": "0x1054",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "LG_VIN_GET_DRUNKARD_LEVEL",
     "Description": "",
     "Parameters": []
@@ -863,7 +863,7 @@
   },
   {
     "Index": "0x1056",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "LG_VIN_GET_DRINK_ID",
     "Description": "",
     "Parameters": []
@@ -883,7 +883,7 @@
   },
   {
     "Index": "0x1058",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "LG_VIN_GET_DRINK_AMOUNT",
     "Description": "",
     "Parameters": []
@@ -982,21 +982,21 @@
   },
   {
     "Index": "0x1063",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "LG_VIN_IN_LOUNGE",
     "Description": "",
     "Parameters": []
   },
   {
     "Index": "0x1064",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "LG_VIN_IN_TOILET",
     "Description": "",
     "Parameters": []
   },
   {
     "Index": "0x1065",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "LG_NPC_IS_MEET",
     "Description": "",
     "Parameters": [
@@ -1022,7 +1022,7 @@
   },
   {
     "Index": "0x1067",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "LG_NPC_IS_DEAD",
     "Description": "",
     "Parameters": [
@@ -1048,7 +1048,7 @@
   },
   {
     "Index": "0x1069",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "LG_NPC_IS_EXIST",
     "Description": "",
     "Parameters": [
@@ -1061,7 +1061,7 @@
   },
   {
     "Index": "0x106A",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "LG_NPC_GET_SEATINGCHART_ID",
     "Description": "",
     "Parameters": [
@@ -1074,7 +1074,7 @@
   },
   {
     "Index": "0x106B",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "LG_NPC_GET_SEAT_GROUP_ID",
     "Description": "",
     "Parameters": [
@@ -1087,7 +1087,7 @@
   },
   {
     "Index": "0x106C",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "LG_NPC_GET_SITTING_NPC_ID",
     "Description": "",
     "Parameters": [
@@ -1100,7 +1100,7 @@
   },
   {
     "Index": "0x106D",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "LG_NPC_IS_SITTING_WITH_PLAYER",
     "Description": "",
     "Parameters": [
@@ -1713,7 +1713,7 @@
   },
   {
     "Index": "0x1096",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "LG_ORDER_GET_SELECT",
     "Description": "",
     "Parameters": []
@@ -1762,7 +1762,7 @@
   },
   {
     "Index": "0x109D",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "MF_STAGE_GET_STAGE_ID",
     "Description": "",
     "Parameters": []
@@ -1846,7 +1846,7 @@
   },
   {
     "Index": "0x10A4",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "MF_CAMERA_GET_MODE",
     "Description": "",
     "Parameters": []
