@@ -5,6 +5,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V2;
 public struct BinaryHeaderV2
 {
     public const int SIZE = 0x18;
+    public const uint VERSION = 0x10000;
     public static byte[] MAGIC { get; } = { (byte)0x78, (byte)0x56, (byte)0x34, (byte)0x12 };
     public static byte[] MAGIC_BE { get; } = { (byte)0x12, (byte)0x34, (byte)0x56, (byte)0x78 };
 
@@ -12,10 +13,7 @@ public struct BinaryHeaderV2
     public byte[] Magic;
 
     // 0x04
-    public ushort Field04;
-
-    // 0x06
-    public ushort Field06;
+    public uint Version;
 
     // 0x08
     public uint Field0C;

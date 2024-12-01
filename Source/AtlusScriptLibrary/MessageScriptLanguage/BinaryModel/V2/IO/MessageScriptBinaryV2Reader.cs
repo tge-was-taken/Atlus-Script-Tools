@@ -64,15 +64,13 @@ public sealed class MessageScriptBinaryV2Reader : IDisposable
             mVersion = BinaryFormatVersion.Version2BigEndian;
         }
 
-        header.Field04 = mReader.ReadUInt16();
-        header.Field06 = mReader.ReadUInt16();
+        header.Version = mReader.ReadUInt32();
         header.Field0C = mReader.ReadUInt32();
         header.FileSize = mReader.ReadUInt32();
         header.RelocationTable.Offset = mReader.ReadInt32();
         header.RelocationTableSize = mReader.ReadUInt32();
 
-        Trace.Assert(header.Field04 == 1);
-        Trace.Assert(header.Field06 == 0);
+        Trace.Assert(header.Version == BinaryHeaderV2.VERSION);
         Trace.Assert(header.Field0C == 0);
 
         if (header.RelocationTable.Offset != 0)

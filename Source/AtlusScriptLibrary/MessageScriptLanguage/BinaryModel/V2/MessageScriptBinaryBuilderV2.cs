@@ -150,7 +150,7 @@ public class MessageScriptBinaryV2Builder
 
         // note: DONT CHANGE THE ORDER
         binary.mHeader.Magic = mFormatVersion.HasFlag(BinaryFormatVersion.BigEndian) ? BinaryHeaderV2.MAGIC_BE : BinaryHeaderV2.MAGIC;
-        binary.mHeader.Field04 = 1;
+        binary.mHeader.Version = BinaryHeaderV2.VERSION;
         binary.mHeader2.DialogCount = (ushort)(mDialogs?.Count ?? 0);
 
         mPosition = BinaryHeaderV2.SIZE;

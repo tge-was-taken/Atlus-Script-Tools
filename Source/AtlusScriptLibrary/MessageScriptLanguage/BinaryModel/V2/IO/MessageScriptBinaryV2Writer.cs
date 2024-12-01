@@ -30,8 +30,7 @@ public sealed class MessageScriptBinaryV2Writer : IDisposable
     public void WriteHeader(BinaryHeaderV2 header)
     {
         mWriter.Write(header.Magic);
-        mWriter.Write(header.Field04);
-        mWriter.Write(header.Field06);
+        mWriter.Write(header.Version);
         mWriter.Write(header.Field0C);
         mWriter.Write(header.FileSize);
         mWriter.Write(header.RelocationTable.Offset);
