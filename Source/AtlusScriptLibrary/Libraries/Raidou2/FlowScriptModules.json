@@ -4,7 +4,7 @@
     "ShortName": "Common",
     "Description": "Non-domain specific commonly used functions.",
     "ConstantsPath": "",
-    "EnumsPath": "Raidou2/Modules/Common/Enums.json",
+    "EnumsPath": "",
     "FunctionsPath": "Raidou2/Modules/Common/Functions.json"
   }
 ]
