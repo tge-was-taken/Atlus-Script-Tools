@@ -1,0 +1,6 @@
+{
+  "Name": "Digital Devil Saga 2",
+  "ShortName": "dds2",
+  "FlowScriptModulesPath": "DigitalDevilSaga2/FlowScriptModules.json",
+  "MessageScriptLibraryPath": "DigitalDevilSaga2/MessageScriptLibrary.json"
+}

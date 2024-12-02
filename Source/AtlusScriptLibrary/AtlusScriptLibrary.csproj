@@ -432,8 +432,5 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MessageScriptLanguage\BinaryModel\NewFolder\" />
-  </ItemGroup>
   <PropertyGroup />
 </Project>
