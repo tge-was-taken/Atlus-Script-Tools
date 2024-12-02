@@ -2,141 +2,132 @@ from idaapi import *
 import idautils
 import idc
 
-MIPS_JR = 0x03E00008;
+MIPS_JR = 0x03E00008
 
-def IsBranchToFunctionAddress( address, funcAddress ):
-	operandValue = GetOperandValue( address, 0 )
-	#print "%04X" % operandValue
-
-	return operandValue == funcAddress
+def IsBranchToFunctionAddress(address, funcAddress):
+    operandValue = idc.get_operand_value(address, 0)
+    # print("{:04X}".format(operandValue))
+    return operandValue == funcAddress
 
 def GetLastImmediateRegisterValue(address, regIndex):
-	while True:
+    while True:
+        if idc.get_operand_value(address, 0) == regIndex:
+            mnem = idc.print_insn_mnem(address)
 
-		if (GetOperandValue(address, 0) == regIndex):
-			mnem = GetMnem(address)
+            if mnem == "li":
+                return idc.get_operand_value(address, 1)
+            elif mnem == "move":
+                regIndex = idc.get_operand_value(address, 1)
+                if regIndex == 0:
+                    return 0
+                return GetLastImmediateRegisterValue(address - 4, regIndex)
+            else:
+                return GetLastImmediateRegisterValue(address - 4, regIndex)
 
-			if (mnem == "li"):
-				return GetOperandValue( address, 1 )
-			elif (mnem == "move"):
-				regIndex = GetOperandValue( address, 1 )
-				if ( regIndex == 0 ):
-					return 0
+        address -= 4
 
-				return GetLastImmediateRegisterValue( address - 4, regIndex )
-			else:
-				return GetLastImmediateRegisterValue( address - 4, regIndex )
-
-		address -= 4
-	
 def GetFunctionArgument(funcAddress, index):
-	return GetLastImmediateRegisterValue(funcAddress + 4, index + 4)
+    return GetLastImmediateRegisterValue(funcAddress + 4, index + 4)
 
-def ParseCOMMTable( address, getIntArgFuncAddress, getFloatArgFuncAddress, getStringArgFuncAddress, setIntRetValueFuncAddress, setFloatRetValueFuncAddress, entryCount ):
+def ParseCOMMTable(address, getIntArgFuncAddress, getFloatArgFuncAddress, getStringArgFuncAddress, setIntRetValueFuncAddress, setFloatRetValueFuncAddress, entryCount):
+    print("[")
+    for i in range(entryCount):
+        entryAddress = address + (i * 8)
 
-	print "["
+        functionAddress = idc.get_wide_dword(entryAddress)
+        parameterCount = idc.get_wide_dword(entryAddress + 4)
 
-	for i in range( 0, entryCount ):
+        functionName = "FUNCTION_{:04X}".format(i)
+        functionDescription = ""
+        functionReturnType = "void"
 
-		entryAddress = address + ( i * 8 )
+        # Fill parameter types
+        parameterTypes = ["unk"] * parameterCount
 
-		functionAddress = get_32bit( entryAddress )
-		parameterCount = get_32bit( entryAddress + 4 )
+        if functionAddress == 0:
+            functionDescription = "Null pointer"
+        else:
+            # Traverse function body to infer argument types
+            currentInstructionAddress = functionAddress
 
-		functionName = "FUNCTION_%04X" % i
-		functionDescription = ""
-		functionReturnType = "void"
+            while True:
+                instruction = idc.get_wide_dword(currentInstructionAddress)
 
-		# Fill parameter types
-		parameterTypes = []
-		for j in range( 0, parameterCount ):
-			parameterTypes.append( "unk" )
+                # Stop looping when we hit a return instruction
+                if instruction == MIPS_JR:
+                    break
 
-		if ( functionAddress == 0 ):
-			functionDescription = "Null pointer"
-		else:
+                # Check if it's a branch to the get int argument function address
+                if IsBranchToFunctionAddress(currentInstructionAddress, getIntArgFuncAddress):
+                    parameterIndex = GetFunctionArgument(currentInstructionAddress, 0)
+                    if 0 <= parameterIndex < parameterCount:
+                        parameterTypes[parameterIndex] = "int"
 
-			# Traverse function body to infer argument types
-			currentInstructionAddress = functionAddress
-			a0Register = 0
+                # Check if it's a branch to the get float argument function address
+                if IsBranchToFunctionAddress(currentInstructionAddress, getFloatArgFuncAddress):
+                    parameterIndex = GetFunctionArgument(currentInstructionAddress, 0)
+                    if 0 <= parameterIndex < parameterCount:
+                        parameterTypes[parameterIndex] = "float"
 
-			while True:
-				instruction = get_32bit( currentInstructionAddress )
+                # Check if it's a branch to the get string argument function address
+                if IsBranchToFunctionAddress(currentInstructionAddress, getStringArgFuncAddress):
+                    parameterIndex = GetFunctionArgument(currentInstructionAddress, 0)
+                    if 0 <= parameterIndex < parameterCount:
+                        parameterTypes[parameterIndex] = "string"
 
-				# Stop looping when we hit a return instruction
-				if ( instruction == MIPS_JR ):
-					break;
+                # Check if it's a branch to the set int return value function address
+                if IsBranchToFunctionAddress(currentInstructionAddress, setIntRetValueFuncAddress):
+                    functionReturnType = "int"
 
-				# Check if it's a branch to the get int argument function address
-				if ( IsBranchToFunctionAddress( currentInstructionAddress, getIntArgFuncAddress ) ):
-					parameterIndex = GetFunctionArgument( currentInstructionAddress, 0 )
-					if ( parameterIndex >= 0 and parameterIndex < parameterCount ):
-						parameterTypes[ parameterIndex ] = "int"
+                # Check if it's a branch to the set float return value function address
+                if IsBranchToFunctionAddress(currentInstructionAddress, setFloatRetValueFuncAddress):
+                    functionReturnType = "float"
 
-				# Check if it's a branch to the get float argument function address
-				if ( IsBranchToFunctionAddress( currentInstructionAddress, getFloatArgFuncAddress ) ):
-					parameterIndex = GetFunctionArgument( currentInstructionAddress, 0 )
-					if ( parameterIndex >= 0 and parameterIndex < parameterCount ):
-						parameterTypes[ parameterIndex ] = "float"
+                currentInstructionAddress += 4
 
-				# Check if it's a branch to the get float argument function address
-				if ( IsBranchToFunctionAddress( currentInstructionAddress, getStringArgFuncAddress ) ):
-					parameterIndex = GetFunctionArgument( currentInstructionAddress, 0 )
-					if ( parameterIndex >= 0 and parameterIndex < parameterCount ):
-						parameterTypes[ parameterIndex ] = "string"
+        print("    {")
+        print('        "Index": "0x{:04x}",'.format(i))
+        print('        "ReturnType": "{}",'.format(functionReturnType))
+        print('        "Name": "{}",'.format(functionName))
+        print('        "Description": "{}",'.format(functionDescription))
+        print('        "Parameters":')
+        print("        [")
 
-				# Check if it's a branch to the set int return value function address
-				if ( IsBranchToFunctionAddress( currentInstructionAddress, setIntRetValueFuncAddress ) ):
-					functionReturnType = "int"
+        for j in range(parameterCount):
+            parameterDescription = ""
+            parameterType = parameterTypes[j]
+            if parameterType == "unk":
+                parameterDescription = "Unknown type; assumed int"
+                parameterType = "int"
 
-				# Check if it's a branch to the set float return value function address
-				if ( IsBranchToFunctionAddress( currentInstructionAddress, setFloatRetValueFuncAddress ) ):
-					functionReturnType = "float"
+            parameterName = "param{}".format(j + 1)
 
-				currentInstructionAddress += 4
-					
+            print("            {")
+            print('                "Type": "{}",'.format(parameterType))
+            print('                "Name": "{}",'.format(parameterName))
+            print('                "Description": "{}"'.format(parameterDescription))
 
-		print '    {'
-		print '        "Index": "0x%04x",' % i
-		print '        "ReturnType": "%s",' % functionReturnType
-		print '        "Name": "%s",' % functionName
-		print '        "Description": "%s",' % functionDescription
-		print '        "Parameters":'
-		print '        ['
+            if j != parameterCount - 1:
+                print("            },")
+            else:
+                print("            }")
 
-		for j in range( 0, parameterCount ):
+        print("        ]")
 
-			parameterDescription = ""
-			parameterType = parameterTypes[ j ]
-			if ( parameterType == "unk" ):
-				parameterDescription = "Unknown type; assumed int"
-				parameterType = "int"
+        if i != entryCount - 1:
+            print("    },")
+        else:
+            print("    }")
 
-			parameterName = "param%s" % ( j + 1 )
+    print("]")
 
-			print '			{'
-			print '				"Type": "%s",' % parameterType
-			print '				"Name": "%s",' % parameterName
-			print '				"Description": "%s"' % parameterDescription
-
-			if ( j != parameterCount - 1 ):
-				print '			},'
-			else:
-				print '			}'
-
-		print '        ]'
-
-		if ( i != entryCount - 1 ):
-			print '    },'
-		else:
-			print '    }'
-
-	print "]"
-
-	return
+    return
 
 # DDS 1
-#ParseCOMMTable( 0x0039E388, 0, 0, 0, 544 )
+# ParseCOMMTable(0x0039E388, 0, 0, 0, 544)
+
+# DDS 2
+ParseCOMMTable(0x00411408, 0x0010D650, 0x0010D718, 0x0010D7D0, 0x0010D818, 0x0010D830, 544)
 
 # Nocturne
-ParseCOMMTable( 0x0052E350, 0x0010B5C8, 0x0010B690, 0x0010B748, 0x0010B790, 0x0010B7A8, 544 )
+# ParseCOMMTable(0x0052E350, 0x0010B5C8, 0x0010B690, 0x0010B748, 0x0010B790, 0x0010B7A8, 544)
