@@ -2248,5 +2248,455 @@
         "Description": ""
       }
     ]
+  },
+  {
+    "Index": "0x009a",
+    "ReturnType": "void",
+    "Name": "ASTREA_DUMMY1",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x009b",
+    "ReturnType": "void",
+    "Name": "ASTREA_DUMMY2",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x009c",
+    "ReturnType": "void",
+    "Name": "ASTREA_DUMMY3",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x009d",
+    "ReturnType": "void",
+    "Name": "ASTREA_DUMMY4",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x009e",
+    "ReturnType": "void",
+    "Name": "ASTREA_DUMMY5",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x009f",
+    "ReturnType": "void",
+    "Name": "ASTREA_DUMMY6",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00a0",
+    "ReturnType": "void",
+    "Name": "ASTREA_DUMMY7",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00a1",
+    "ReturnType": "void",
+    "Name": "ASTREA_DUMMY8",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00a2",
+    "ReturnType": "void",
+    "Name": "ASTREA_DUMMY9",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00a3",
+    "ReturnType": "void",
+    "Name": "ASTREA_DUMMY10",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00a4",
+    "ReturnType": "void",
+    "Name": "ASTREA_DUMMY11",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00a5",
+    "ReturnType": "void",
+    "Name": "ASTREA_DUMMY12",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00a6",
+    "ReturnType": "void",
+    "Name": "ASTREA_DUMMY13",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00a7",
+    "ReturnType": "void",
+    "Name": "ASTREA_DUMMY14",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00a8",
+    "ReturnType": "void",
+    "Name": "ASTREA_DUMMY15",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00a9",
+    "ReturnType": "void",
+    "Name": "ASTREA_DUMMY16",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00aa",
+    "ReturnType": "void",
+    "Name": "ASTREA_DUMMY17",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00ab",
+    "ReturnType": "void",
+    "Name": "ASTREA_DUMMY18",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00ac",
+    "ReturnType": "void",
+    "Name": "ASTREA_DUMMY19",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00ad",
+    "ReturnType": "void",
+    "Name": "ASTREA_DUMMY20",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00ae",
+    "ReturnType": "void",
+    "Name": "ASTREA_DUMMY21",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00af",
+    "ReturnType": "void",
+    "Name": "ASTREA_DUMMY22",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00b0",
+    "ReturnType": "void",
+    "Name": "DBG_SET_PLAYING_ASTREA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00b1",
+    "ReturnType": "void",
+    "Name": "DBG_RESIDENT_RELOAD_REQ",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00b2",
+    "ReturnType": "void",
+    "Name": "DBG_RESIDENT_RELOAD_SYNC",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00b3",
+    "ReturnType": "void",
+    "Name": "CALL_ASTREA_PROGRESS",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00b4",
+    "ReturnType": "int",
+    "Name": "GET_PROGRESS_ASTREA",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00b5",
+    "ReturnType": "int",
+    "Name": "CHK_PROGRESS_ASTREA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00b6",
+    "ReturnType": "int",
+    "Name": "CHK_PROGRESS_STARTEND_ASTREA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00b7",
+    "ReturnType": "void",
+    "Name": "DEBUG_SET_PROGRESS_ASTREA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00b8",
+    "ReturnType": "void",
+    "Name": "START_NEXTPROGRESS_ASTREA",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00b9",
+    "ReturnType": "int",
+    "Name": "CHK_PROGRESS_UNDER_ASTREA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00ba",
+    "ReturnType": "int",
+    "Name": "CHK_PROGRESS_OVER_ASTREA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00bb",
+    "ReturnType": "void",
+    "Name": "REQUEST_DAY_CHANGE_EFFECT_START_END",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00bc",
+    "ReturnType": "void",
+    "Name": "REQUEST_TIME_CHANGE_EFFECT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00bd",
+    "ReturnType": "void",
+    "Name": "START_PROGRESS_ASTREA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00be",
+    "ReturnType": "void",
+    "Name": "SET_INITIAL_PERSONABOOK_ASTREA",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00bf",
+    "ReturnType": "void",
+    "Name": "INITIALIZE_TUTORIAL_AND_DICTIONALY_FLAG_ASTREA",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00c0",
+    "ReturnType": "int",
+    "Name": "CALC_CURRENT_DESIGN_TYPE_ID_ASTREA",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00c1",
+    "ReturnType": "int",
+    "Name": "CALC_WEIGHTED_RANDOM_PLAYERID_ASTREA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param7",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00c2",
+    "ReturnType": "void",
+    "Name": "END_CLEAR_SAVE_DATA",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00c3",
+    "ReturnType": "void",
+    "Name": "DUNGEON_HIDDEN_DIRECT_SYMBOL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00c4",
+    "ReturnType": "void",
+    "Name": "DUNGEON_VISIBLE_DIRECT_SYMBOL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00c5",
+    "ReturnType": "void",
+    "Name": "UPDATE_DIFFICULTY_TEMP_CLEAR_SAVE_DATA",
+    "Description": "",
+    "Parameters": []
   }
 ]

@@ -2846,5 +2846,26 @@
         "Description": ""
       }
     ]
+  },
+  {
+    "Index": "0x20d7",
+    "ReturnType": "void",
+    "Name": "FLD_SAVE_ASTREA_LAST_BOSS_ROLLBACK_DATA",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20d8",
+    "ReturnType": "void",
+    "Name": "FLD_FADE_OUT_DUNGEON_FILTER",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x20d9",
+    "ReturnType": "void",
+    "Name": "WAIT_DUNGEON_SUPPORT_SKILL",
+    "Description": "",
+    "Parameters": []
   }
 ]
