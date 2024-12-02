@@ -3536,5 +3536,61 @@
     "Name": "BTL_CHK_HIGH_ANALYZE",
     "Description": "",
     "Parameters": []
+  },
+  {
+    "Index": "0x1118",
+    "ReturnType": "void",
+    "Name": "CALL_FIELDBATTLE_OF_SERIALENCOUNT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x1119",
+    "ReturnType": "int",
+    "Name": "AI_CHK_CONTINUOUS_ENCOUNTER",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x111a",
+    "ReturnType": "int",
+    "Name": "AI_CHK_MONADO_DIFFICULTY",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x111b",
+    "ReturnType": "int",
+    "Name": "DUNGEON_CHECK_GK_BEFORE_FLOOR",
+    "Description": "",
+    "Parameters": []
   }
 ]

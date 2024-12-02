@@ -924,5 +924,198 @@
     "Name": "RESET_FOOT_MINIMAP",
     "Description": "",
     "Parameters": []
+  },
+  {
+    "Index": "0x505d",
+    "ReturnType": "void",
+    "Name": "UI_DUMMY_ASTREA1",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x505e",
+    "ReturnType": "void",
+    "Name": "UI_DUMMY_ASTREA2",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x505f",
+    "ReturnType": "void",
+    "Name": "UI_DUMMY_ASTREA3",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5060",
+    "ReturnType": "void",
+    "Name": "UI_DUMMY_ASTREA4",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5061",
+    "ReturnType": "void",
+    "Name": "UI_DUMMY_ASTREA5",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5062",
+    "ReturnType": "void",
+    "Name": "UI_DUMMY_ASTREA6",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5063",
+    "ReturnType": "void",
+    "Name": "UI_DUMMY_ASTREA7",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5064",
+    "ReturnType": "void",
+    "Name": "UI_DUMMY_ASTREA8",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5065",
+    "ReturnType": "void",
+    "Name": "UI_DUMMY_ASTREA9",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5066",
+    "ReturnType": "void",
+    "Name": "UI_DUMMY_ASTREA10",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5067",
+    "ReturnType": "void",
+    "Name": "UI_DUMMY_ASTREA11",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5068",
+    "ReturnType": "void",
+    "Name": "UI_DUMMY_ASTREA12",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5069",
+    "ReturnType": "void",
+    "Name": "UI_DUMMY_ASTREA13",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x506a",
+    "ReturnType": "void",
+    "Name": "UI_DUMMY_ASTREA14",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x506b",
+    "ReturnType": "void",
+    "Name": "UI_DUMMY_ASTREA15",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x506c",
+    "ReturnType": "void",
+    "Name": "UI_DUMMY_ASTREA16",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x506d",
+    "ReturnType": "void",
+    "Name": "UI_DUMMY_ASTREA17",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x506e",
+    "ReturnType": "void",
+    "Name": "UI_DUMMY_ASTREA18",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x506f",
+    "ReturnType": "void",
+    "Name": "UI_DUMMY_ASTREA19",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5070",
+    "ReturnType": "void",
+    "Name": "FAKE_DATE_SET_UNKNOWN",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5071",
+    "ReturnType": "int",
+    "Name": "GET_AVAILABLE_WEAPONSHOP_AWARD_ID",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x5072",
+    "ReturnType": "void",
+    "Name": "GET_WEAPONSHOP_AWARD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x5073",
+    "ReturnType": "void",
+    "Name": "ADD_GET_ITEM_LIST_RAFFLESIYA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param0",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
   }
 ]
