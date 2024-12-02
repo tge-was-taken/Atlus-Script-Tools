@@ -1,6 +1,10 @@
 import json
 import glob
 
+# This scripts syncs FlowScript function names from Nocturne (HD) to other PS2 SMT games.
+# These games share a lot of functions, so even though some will be incorrect, most will be correct.
+# This takes function index & parameter count into account, so the library is guaranteed to function correctly regardless.
+
 def load_json(file_path):
     """Load JSON data from a file."""
     with open(file_path, 'r', encoding='utf-8-sig') as f:
@@ -13,7 +17,7 @@ def save_json(file_path, data):
 
 def compare_and_update_jsons(base_file, other_files):
     """
-    Compare the base JSON file with other JSON files and update the base
+    Compare the base JSON file with other JSON files and update the other
     file where Index and Parameters count match.
     """
     # Load the base JSON file
@@ -36,7 +40,7 @@ def compare_and_update_jsons(base_file, other_files):
                     other_item.update({
                         "ReturnType": base_item["ReturnType"],
                         "Name": base_item["Name"],
-                        "Description": base_item["Description"] + '(Copied from Nocturne. May be incorrect.)',
+                        "Description": base_item["Description"] + ' (Copied from Nocturne. May be incorrect.)',
                         "Parameters": base_item["Parameters"],
                         "FullName": base_item["FullName"]
                     })
@@ -52,9 +56,8 @@ if __name__ == "__main__":
         "Source/AtlusScriptLibrary/Libraries/DigitalDevilSaga/Modules/Common/Functions.json",
         "Source/AtlusScriptLibrary/Libraries/DigitalDevilSaga2/Modules/Common/Functions.json",
         "Source/AtlusScriptLibrary/Libraries/Raidou/Modules/Common/Functions.json",
+        "Source/AtlusScriptLibrary/Libraries/Raidou2/Modules/Common/Functions.json",
     ]
     
     # Compare and update the base file
     compare_and_update_jsons(base_file, json_files)
-
-    print(f"Updated {base_file} based on matching JSON files")
