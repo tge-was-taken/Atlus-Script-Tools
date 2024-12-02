@@ -17,14 +17,16 @@ import json
 ## ======================================================================
 
 # Path to the libraries
-folder_path = '../Source/AtlusScriptLibrary/Libraries'
+folder_path = 'Source/AtlusScriptLibrary/Libraries'
     
 # Folders to ignore since the game's contained the real function names
 ignoredFolders = [
     "Nocturne",
     "Persona5",
     "Persona5Royal",
-    "Persona3Reload"
+    "Persona3Reload",
+    "Catherine",
+    "CatherineFullBody"
 ]
 
 def is_ignored_folder(folder: str) -> bool:

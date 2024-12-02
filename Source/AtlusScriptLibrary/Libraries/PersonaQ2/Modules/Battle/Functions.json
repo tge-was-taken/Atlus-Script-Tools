@@ -5038,8 +5038,7 @@
     "ReturnType": "int",
     "Name": "GET_ENCOUNT_ID",
     "Description": "",
-    "Parameters": [
-    ],
+    "Parameters": [],
     "Aliases": [
       "BTL_FUNCTION_0157"
     ]

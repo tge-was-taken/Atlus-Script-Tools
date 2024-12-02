@@ -20,8 +20,7 @@
     "ReturnType": "void",
     "Name": "MSG_WND_DSP",
     "Description": "",
-    "Parameters": [
-    ],
+    "Parameters": [],
     "Aliases": [
       "WND_FUNCTION_0001"
     ]
@@ -31,8 +30,7 @@
     "ReturnType": "void",
     "Name": "MSG_WND_CLS",
     "Description": "",
-    "Parameters": [
-    ],
+    "Parameters": [],
     "Aliases": [
       "WND_FUNCTION_0002"
     ]

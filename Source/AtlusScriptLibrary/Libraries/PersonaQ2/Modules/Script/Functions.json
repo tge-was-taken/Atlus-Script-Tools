@@ -53,8 +53,7 @@
     "ReturnType": "int",
     "Name": "GET_PARTY_SIZE",
     "Description": "Gets current number of active party members.",
-    "Parameters": [
-    ],
+    "Parameters": [],
     "Aliases": [
       "SCR_FUNCTION_0003"
     ]
