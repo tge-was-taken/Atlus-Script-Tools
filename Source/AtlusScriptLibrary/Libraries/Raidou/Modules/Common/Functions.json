@@ -1,0 +1,7730 @@
+[
+    {
+        "Index": "0x0000",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0000",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0001",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0001",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0002",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0002",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0003",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0003",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0004",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0004",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0005",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0005",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0006",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0006",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0007",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0007",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0008",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0008",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0009",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0009",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x000a",
+        "ReturnType": "int",
+        "Name": "FUNCTION_000A",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x000b",
+        "ReturnType": "void",
+        "Name": "FUNCTION_000B",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x000c",
+        "ReturnType": "void",
+        "Name": "FUNCTION_000C",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x000d",
+        "ReturnType": "void",
+        "Name": "FUNCTION_000D",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x000e",
+        "ReturnType": "void",
+        "Name": "FUNCTION_000E",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x000f",
+        "ReturnType": "void",
+        "Name": "FUNCTION_000F",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0010",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0010",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0011",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0011",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": "Unknown type; assumed int"
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": "Unknown type; assumed int"
+            },
+            {
+                "Type": "int",
+                "Name": "param4",
+                "Description": "Unknown type; assumed int"
+            },
+            {
+                "Type": "int",
+                "Name": "param5",
+                "Description": "Unknown type; assumed int"
+            },
+            {
+                "Type": "int",
+                "Name": "param6",
+                "Description": "Unknown type; assumed int"
+            },
+            {
+                "Type": "int",
+                "Name": "param7",
+                "Description": "Unknown type; assumed int"
+            },
+            {
+                "Type": "int",
+                "Name": "param8",
+                "Description": "Unknown type; assumed int"
+            }
+        ]
+    },
+    {
+        "Index": "0x0012",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0012",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0013",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0013",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0014",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0014",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0015",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0015",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0016",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0016",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0017",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0017",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param4",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param5",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0018",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0018",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param4",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0019",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0019",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x001a",
+        "ReturnType": "void",
+        "Name": "FUNCTION_001A",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x001b",
+        "ReturnType": "void",
+        "Name": "FUNCTION_001B",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param4",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x001c",
+        "ReturnType": "int",
+        "Name": "FUNCTION_001C",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x001d",
+        "ReturnType": "void",
+        "Name": "FUNCTION_001D",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x001e",
+        "ReturnType": "void",
+        "Name": "FUNCTION_001E",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x001f",
+        "ReturnType": "void",
+        "Name": "FUNCTION_001F",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0020",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0020",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0021",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0021",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0022",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0022",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0023",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0023",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0024",
+        "ReturnType": "void",
+        "Name": "PUT",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0025",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0025",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0026",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0026",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0027",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0027",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0028",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0028",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0029",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0029",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x002a",
+        "ReturnType": "int",
+        "Name": "FUNCTION_002A",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "string",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x002b",
+        "ReturnType": "void",
+        "Name": "FUNCTION_002B",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x002c",
+        "ReturnType": "void",
+        "Name": "FUNCTION_002C",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x002d",
+        "ReturnType": "void",
+        "Name": "FUNCTION_002D",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x002e",
+        "ReturnType": "void",
+        "Name": "FUNCTION_002E",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x002f",
+        "ReturnType": "void",
+        "Name": "FUNCTION_002F",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0030",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0030",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0031",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0031",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0032",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0032",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0033",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0033",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0034",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0034",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0035",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0035",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0036",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0036",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0037",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0037",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0038",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0038",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0039",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0039",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x003a",
+        "ReturnType": "void",
+        "Name": "FUNCTION_003A",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x003b",
+        "ReturnType": "void",
+        "Name": "FUNCTION_003B",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x003c",
+        "ReturnType": "void",
+        "Name": "FUNCTION_003C",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x003d",
+        "ReturnType": "void",
+        "Name": "FUNCTION_003D",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x003e",
+        "ReturnType": "void",
+        "Name": "FUNCTION_003E",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x003f",
+        "ReturnType": "void",
+        "Name": "FUNCTION_003F",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0040",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0040",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0041",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0041",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0042",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0042",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0043",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0043",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0044",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0044",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0045",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0045",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0046",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0046",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0047",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0047",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0048",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0048",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0049",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0049",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x004a",
+        "ReturnType": "void",
+        "Name": "FUNCTION_004A",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x004b",
+        "ReturnType": "void",
+        "Name": "FUNCTION_004B",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x004c",
+        "ReturnType": "void",
+        "Name": "FUNCTION_004C",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x004d",
+        "ReturnType": "void",
+        "Name": "FUNCTION_004D",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x004e",
+        "ReturnType": "void",
+        "Name": "FUNCTION_004E",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x004f",
+        "ReturnType": "void",
+        "Name": "FUNCTION_004F",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0050",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0050",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0051",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0051",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0052",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0052",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0053",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0053",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0054",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0054",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0055",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0055",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0056",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0056",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0057",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0057",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0058",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0058",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0059",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0059",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": "Unknown type; assumed int"
+            }
+        ]
+    },
+    {
+        "Index": "0x005a",
+        "ReturnType": "void",
+        "Name": "FUNCTION_005A",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x005b",
+        "ReturnType": "void",
+        "Name": "FUNCTION_005B",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x005c",
+        "ReturnType": "void",
+        "Name": "FUNCTION_005C",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "string",
+                "Name": "param4",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x005d",
+        "ReturnType": "void",
+        "Name": "FUNCTION_005D",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x005e",
+        "ReturnType": "int",
+        "Name": "FUNCTION_005E",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": "Unknown type; assumed int"
+            }
+        ]
+    },
+    {
+        "Index": "0x005f",
+        "ReturnType": "int",
+        "Name": "FUNCTION_005F",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": "Unknown type; assumed int"
+            }
+        ]
+    },
+    {
+        "Index": "0x0060",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0060",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0061",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0061",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0062",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0062",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0063",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0063",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0064",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0064",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0065",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0065",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0066",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0066",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0067",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0067",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0068",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0068",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0069",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0069",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x006a",
+        "ReturnType": "void",
+        "Name": "FUNCTION_006A",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x006b",
+        "ReturnType": "void",
+        "Name": "FUNCTION_006B",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x006c",
+        "ReturnType": "void",
+        "Name": "FUNCTION_006C",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x006d",
+        "ReturnType": "void",
+        "Name": "FUNCTION_006D",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "float",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x006e",
+        "ReturnType": "void",
+        "Name": "FUNCTION_006E",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x006f",
+        "ReturnType": "int",
+        "Name": "FUNCTION_006F",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0070",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0070",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0071",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0071",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0072",
+        "ReturnType": "void",
+        "Name": "PUTS",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "string",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0073",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0073",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param4",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param5",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0074",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0074",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0075",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0075",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0076",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0076",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0077",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0077",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param4",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0078",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0078",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param4",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0079",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0079",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param4",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x007a",
+        "ReturnType": "void",
+        "Name": "FUNCTION_007A",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param4",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x007b",
+        "ReturnType": "int",
+        "Name": "FUNCTION_007B",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "string",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x007c",
+        "ReturnType": "int",
+        "Name": "FUNCTION_007C",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x007d",
+        "ReturnType": "void",
+        "Name": "FUNCTION_007D",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x007e",
+        "ReturnType": "void",
+        "Name": "FUNCTION_007E",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param4",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param5",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x007f",
+        "ReturnType": "void",
+        "Name": "FUNCTION_007F",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0080",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0080",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0081",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0081",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "string",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0082",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0082",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0083",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0083",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0084",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0084",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0085",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0085",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0086",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0086",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0087",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0087",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0088",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0088",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0089",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0089",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x008a",
+        "ReturnType": "void",
+        "Name": "FUNCTION_008A",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x008b",
+        "ReturnType": "void",
+        "Name": "FUNCTION_008B",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param4",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param5",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param6",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param7",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x008c",
+        "ReturnType": "int",
+        "Name": "FUNCTION_008C",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x008d",
+        "ReturnType": "void",
+        "Name": "FUNCTION_008D",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x008e",
+        "ReturnType": "void",
+        "Name": "FUNCTION_008E",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x008f",
+        "ReturnType": "void",
+        "Name": "FUNCTION_008F",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0090",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0090",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0091",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0091",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0092",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0092",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0093",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0093",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0094",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0094",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "string",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0095",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0095",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param4",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param5",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param6",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0096",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0096",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0097",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0097",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0098",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0098",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param4",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0099",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0099",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x009a",
+        "ReturnType": "int",
+        "Name": "FUNCTION_009A",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "string",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x009b",
+        "ReturnType": "void",
+        "Name": "FUNCTION_009B",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x009c",
+        "ReturnType": "void",
+        "Name": "FUNCTION_009C",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param4",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x009d",
+        "ReturnType": "void",
+        "Name": "FUNCTION_009D",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x009e",
+        "ReturnType": "void",
+        "Name": "FUNCTION_009E",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x009f",
+        "ReturnType": "void",
+        "Name": "FUNCTION_009F",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00a0",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00A0",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00a1",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00A1",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00a2",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00A2",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00a3",
+        "ReturnType": "int",
+        "Name": "FUNCTION_00A3",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param4",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00a4",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00A4",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00a5",
+        "ReturnType": "int",
+        "Name": "FUNCTION_00A5",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00a6",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00A6",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00a7",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00A7",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00a8",
+        "ReturnType": "int",
+        "Name": "FUNCTION_00A8",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00a9",
+        "ReturnType": "int",
+        "Name": "FUNCTION_00A9",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00aa",
+        "ReturnType": "int",
+        "Name": "FUNCTION_00AA",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00ab",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00AB",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00ac",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00AC",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x00ad",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00AD",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00ae",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00AE",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00af",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00AF",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param4",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param5",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param6",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param7",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param8",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00b0",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00B0",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param4",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param5",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00b1",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00B1",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00b2",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00B2",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param4",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param5",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00b3",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00B3",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00b4",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00B4",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param4",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00b5",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00B5",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": "Unknown type; assumed int"
+            },
+            {
+                "Type": "float",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param4",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00b6",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00B6",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param4",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00b7",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00B7",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00b8",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00B8",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00b9",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00B9",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00ba",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00BA",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00bb",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00BB",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param4",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00bc",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00BC",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param4",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param5",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00bd",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00BD",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00be",
+        "ReturnType": "int",
+        "Name": "FUNCTION_00BE",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x00bf",
+        "ReturnType": "int",
+        "Name": "FUNCTION_00BF",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x00c0",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00C0",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00c1",
+        "ReturnType": "int",
+        "Name": "FUNCTION_00C1",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00c2",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00C2",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00c3",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00C3",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00c4",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00C4",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00c5",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00C5",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00c6",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00C6",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00c7",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00C7",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00c8",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00C8",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00c9",
+        "ReturnType": "int",
+        "Name": "FUNCTION_00C9",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00ca",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00CA",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00cb",
+        "ReturnType": "int",
+        "Name": "FUNCTION_00CB",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00cc",
+        "ReturnType": "int",
+        "Name": "FUNCTION_00CC",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00cd",
+        "ReturnType": "int",
+        "Name": "FUNCTION_00CD",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "string",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00ce",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00CE",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00cf",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00CF",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param4",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00d0",
+        "ReturnType": "int",
+        "Name": "FUNCTION_00D0",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00d1",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00D1",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": "Unknown type; assumed int"
+            }
+        ]
+    },
+    {
+        "Index": "0x00d2",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00D2",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00d3",
+        "ReturnType": "int",
+        "Name": "FUNCTION_00D3",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "string",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00d4",
+        "ReturnType": "int",
+        "Name": "FUNCTION_00D4",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00d5",
+        "ReturnType": "int",
+        "Name": "FUNCTION_00D5",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "string",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00d6",
+        "ReturnType": "int",
+        "Name": "FUNCTION_00D6",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00d7",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00D7",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": "Unknown type; assumed int"
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00d8",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00D8",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param4",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param5",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00d9",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00D9",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00da",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00DA",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param4",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param5",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00db",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00DB",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00dc",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00DC",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00dd",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00DD",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00de",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00DE",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x00df",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00DF",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x00e0",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00E0",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x00e1",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00E1",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00e2",
+        "ReturnType": "int",
+        "Name": "FUNCTION_00E2",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00e3",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00E3",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00e4",
+        "ReturnType": "int",
+        "Name": "FUNCTION_00E4",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x00e5",
+        "ReturnType": "int",
+        "Name": "FUNCTION_00E5",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x00e6",
+        "ReturnType": "int",
+        "Name": "FUNCTION_00E6",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00e7",
+        "ReturnType": "int",
+        "Name": "FUNCTION_00E7",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00e8",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00E8",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00e9",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00E9",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00ea",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00EA",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "float",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00eb",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00EB",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param4",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00ec",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00EC",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00ed",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00ED",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00ee",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00EE",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00ef",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00EF",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param4",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param5",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param6",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param7",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00f0",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00F0",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param4",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00f1",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00F1",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00f2",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00F2",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00f3",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00F3",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00f4",
+        "ReturnType": "int",
+        "Name": "FUNCTION_00F4",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x00f5",
+        "ReturnType": "int",
+        "Name": "FUNCTION_00F5",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00f6",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00F6",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x00f7",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00F7",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00f8",
+        "ReturnType": "int",
+        "Name": "FUNCTION_00F8",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00f9",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00F9",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x00fa",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00FA",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x00fb",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00FB",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x00fc",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00FC",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x00fd",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00FD",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x00fe",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00FE",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x00ff",
+        "ReturnType": "void",
+        "Name": "FUNCTION_00FF",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0100",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0100",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0101",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0101",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0102",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0102",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0103",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0103",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0104",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0104",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0105",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0105",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0106",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0106",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0107",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0107",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0108",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0108",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0109",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0109",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x010a",
+        "ReturnType": "void",
+        "Name": "FUNCTION_010A",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x010b",
+        "ReturnType": "void",
+        "Name": "FUNCTION_010B",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x010c",
+        "ReturnType": "void",
+        "Name": "FUNCTION_010C",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x010d",
+        "ReturnType": "void",
+        "Name": "FUNCTION_010D",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x010e",
+        "ReturnType": "void",
+        "Name": "FUNCTION_010E",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x010f",
+        "ReturnType": "void",
+        "Name": "FUNCTION_010F",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0110",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0110",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "string",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0111",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0111",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0112",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0112",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0113",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0113",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0114",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0114",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0115",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0115",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0116",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0116",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0117",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0117",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0118",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0118",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0119",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0119",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x011a",
+        "ReturnType": "void",
+        "Name": "FUNCTION_011A",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x011b",
+        "ReturnType": "void",
+        "Name": "FUNCTION_011B",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x011c",
+        "ReturnType": "void",
+        "Name": "FUNCTION_011C",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x011d",
+        "ReturnType": "void",
+        "Name": "FUNCTION_011D",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x011e",
+        "ReturnType": "void",
+        "Name": "FUNCTION_011E",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x011f",
+        "ReturnType": "void",
+        "Name": "FUNCTION_011F",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0120",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0120",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0121",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0121",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0122",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0122",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0123",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0123",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0124",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0124",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0125",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0125",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0126",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0126",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0127",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0127",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0128",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0128",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0129",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0129",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "float",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x012a",
+        "ReturnType": "void",
+        "Name": "FUNCTION_012A",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param4",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x012b",
+        "ReturnType": "void",
+        "Name": "FUNCTION_012B",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x012c",
+        "ReturnType": "void",
+        "Name": "FUNCTION_012C",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x012d",
+        "ReturnType": "void",
+        "Name": "FUNCTION_012D",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x012e",
+        "ReturnType": "void",
+        "Name": "FUNCTION_012E",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param4",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x012f",
+        "ReturnType": "void",
+        "Name": "FUNCTION_012F",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0130",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0130",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0131",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0131",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0132",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0132",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0133",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0133",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param4",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0134",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0134",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0135",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0135",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0136",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0136",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0137",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0137",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0138",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0138",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0139",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0139",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x013a",
+        "ReturnType": "void",
+        "Name": "FUNCTION_013A",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x013b",
+        "ReturnType": "void",
+        "Name": "FUNCTION_013B",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x013c",
+        "ReturnType": "void",
+        "Name": "FUNCTION_013C",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x013d",
+        "ReturnType": "void",
+        "Name": "FUNCTION_013D",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x013e",
+        "ReturnType": "int",
+        "Name": "FUNCTION_013E",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x013f",
+        "ReturnType": "void",
+        "Name": "FUNCTION_013F",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0140",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0140",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0141",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0141",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0142",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0142",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0143",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0143",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0144",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0144",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param4",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param5",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param6",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param7",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0145",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0145",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param4",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0146",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0146",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0147",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0147",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0148",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0148",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0149",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0149",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x014a",
+        "ReturnType": "void",
+        "Name": "FUNCTION_014A",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x014b",
+        "ReturnType": "void",
+        "Name": "FUNCTION_014B",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x014c",
+        "ReturnType": "void",
+        "Name": "FUNCTION_014C",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x014d",
+        "ReturnType": "void",
+        "Name": "FUNCTION_014D",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x014e",
+        "ReturnType": "void",
+        "Name": "FUNCTION_014E",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x014f",
+        "ReturnType": "void",
+        "Name": "FUNCTION_014F",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0150",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0150",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0151",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0151",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0152",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0152",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0153",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0153",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0154",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0154",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0155",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0155",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0156",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0156",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0157",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0157",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0158",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0158",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0159",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0159",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x015a",
+        "ReturnType": "void",
+        "Name": "FUNCTION_015A",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x015b",
+        "ReturnType": "void",
+        "Name": "FUNCTION_015B",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x015c",
+        "ReturnType": "void",
+        "Name": "FUNCTION_015C",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x015d",
+        "ReturnType": "void",
+        "Name": "FUNCTION_015D",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x015e",
+        "ReturnType": "void",
+        "Name": "FUNCTION_015E",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x015f",
+        "ReturnType": "void",
+        "Name": "FUNCTION_015F",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0160",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0160",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0161",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0161",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0162",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0162",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0163",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0163",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0164",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0164",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0165",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0165",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0166",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0166",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0167",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0167",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": "Unknown type; assumed int"
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": "Unknown type; assumed int"
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": "Unknown type; assumed int"
+            }
+        ]
+    },
+    {
+        "Index": "0x0168",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0168",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0169",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0169",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x016a",
+        "ReturnType": "void",
+        "Name": "FUNCTION_016A",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x016b",
+        "ReturnType": "void",
+        "Name": "FUNCTION_016B",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x016c",
+        "ReturnType": "void",
+        "Name": "FUNCTION_016C",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x016d",
+        "ReturnType": "void",
+        "Name": "FUNCTION_016D",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x016e",
+        "ReturnType": "void",
+        "Name": "FUNCTION_016E",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x016f",
+        "ReturnType": "void",
+        "Name": "FUNCTION_016F",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0170",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0170",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0171",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0171",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0172",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0172",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0173",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0173",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0174",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0174",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0175",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0175",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0176",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0176",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0177",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0177",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0178",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0178",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0179",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0179",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x017a",
+        "ReturnType": "void",
+        "Name": "FUNCTION_017A",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x017b",
+        "ReturnType": "void",
+        "Name": "FUNCTION_017B",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x017c",
+        "ReturnType": "void",
+        "Name": "FUNCTION_017C",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x017d",
+        "ReturnType": "void",
+        "Name": "FUNCTION_017D",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x017e",
+        "ReturnType": "void",
+        "Name": "FUNCTION_017E",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x017f",
+        "ReturnType": "void",
+        "Name": "FUNCTION_017F",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0180",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0180",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0181",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0181",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0182",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0182",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0183",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0183",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0184",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0184",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0185",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0185",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0186",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0186",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0187",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0187",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0188",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0188",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0189",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0189",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x018a",
+        "ReturnType": "void",
+        "Name": "FUNCTION_018A",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x018b",
+        "ReturnType": "void",
+        "Name": "FUNCTION_018B",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x018c",
+        "ReturnType": "void",
+        "Name": "FUNCTION_018C",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x018d",
+        "ReturnType": "void",
+        "Name": "FUNCTION_018D",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x018e",
+        "ReturnType": "void",
+        "Name": "FUNCTION_018E",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x018f",
+        "ReturnType": "int",
+        "Name": "FUNCTION_018F",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0190",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0190",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0191",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0191",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0192",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0192",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0193",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0193",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0194",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0194",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0195",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0195",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0196",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0196",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0197",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0197",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0198",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0198",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0199",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0199",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x019a",
+        "ReturnType": "void",
+        "Name": "FUNCTION_019A",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x019b",
+        "ReturnType": "void",
+        "Name": "FUNCTION_019B",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x019c",
+        "ReturnType": "void",
+        "Name": "FUNCTION_019C",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x019d",
+        "ReturnType": "void",
+        "Name": "FUNCTION_019D",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x019e",
+        "ReturnType": "void",
+        "Name": "FUNCTION_019E",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x019f",
+        "ReturnType": "void",
+        "Name": "FUNCTION_019F",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01a0",
+        "ReturnType": "int",
+        "Name": "FUNCTION_01A0",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01a1",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01A1",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01a2",
+        "ReturnType": "int",
+        "Name": "FUNCTION_01A2",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01a3",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01A3",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01a4",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01A4",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01a5",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01A5",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01a6",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01A6",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01a7",
+        "ReturnType": "int",
+        "Name": "FUNCTION_01A7",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01a8",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01A8",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01a9",
+        "ReturnType": "int",
+        "Name": "FUNCTION_01A9",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01aa",
+        "ReturnType": "int",
+        "Name": "FUNCTION_01AA",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01ab",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01AB",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01ac",
+        "ReturnType": "int",
+        "Name": "FUNCTION_01AC",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01ad",
+        "ReturnType": "int",
+        "Name": "FUNCTION_01AD",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01ae",
+        "ReturnType": "int",
+        "Name": "FUNCTION_01AE",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01af",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01AF",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01b0",
+        "ReturnType": "int",
+        "Name": "FUNCTION_01B0",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01b1",
+        "ReturnType": "int",
+        "Name": "FUNCTION_01B1",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01b2",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01B2",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01b3",
+        "ReturnType": "int",
+        "Name": "FUNCTION_01B3",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01b4",
+        "ReturnType": "int",
+        "Name": "FUNCTION_01B4",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01b5",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01B5",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01b6",
+        "ReturnType": "int",
+        "Name": "FUNCTION_01B6",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01b7",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01B7",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01b8",
+        "ReturnType": "int",
+        "Name": "FUNCTION_01B8",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01b9",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01B9",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01ba",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01BA",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01bb",
+        "ReturnType": "int",
+        "Name": "FUNCTION_01BB",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01bc",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01BC",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01bd",
+        "ReturnType": "int",
+        "Name": "FUNCTION_01BD",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01be",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01BE",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param4",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01bf",
+        "ReturnType": "int",
+        "Name": "FUNCTION_01BF",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01c0",
+        "ReturnType": "int",
+        "Name": "FUNCTION_01C0",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01c1",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01C1",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01c2",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01C2",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01c3",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01C3",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01c4",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01C4",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01c5",
+        "ReturnType": "int",
+        "Name": "FUNCTION_01C5",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01c6",
+        "ReturnType": "int",
+        "Name": "FUNCTION_01C6",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01c7",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01C7",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01c8",
+        "ReturnType": "int",
+        "Name": "FUNCTION_01C8",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01c9",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01C9",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01ca",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01CA",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01cb",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01CB",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01cc",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01CC",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01cd",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01CD",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01ce",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01CE",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01cf",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01CF",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01d0",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01D0",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01d1",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01D1",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01d2",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01D2",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01d3",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01D3",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01d4",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01D4",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01d5",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01D5",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01d6",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01D6",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01d7",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01D7",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01d8",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01D8",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01d9",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01D9",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01da",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01DA",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01db",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01DB",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01dc",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01DC",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01dd",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01DD",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01de",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01DE",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01df",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01DF",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01e0",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01E0",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01e1",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01E1",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01e2",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01E2",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01e3",
+        "ReturnType": "int",
+        "Name": "FUNCTION_01E3",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01e4",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01E4",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01e5",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01E5",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01e6",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01E6",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01e7",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01E7",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01e8",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01E8",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01e9",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01E9",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01ea",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01EA",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01eb",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01EB",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01ec",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01EC",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01ed",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01ED",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01ee",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01EE",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01ef",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01EF",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01f0",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01F0",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01f1",
+        "ReturnType": "int",
+        "Name": "FUNCTION_01F1",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01f2",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01F2",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": "Unknown type; assumed int"
+            }
+        ]
+    },
+    {
+        "Index": "0x01f3",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01F3",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01f4",
+        "ReturnType": "int",
+        "Name": "FUNCTION_01F4",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01f5",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01F5",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01f6",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01F6",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01f7",
+        "ReturnType": "int",
+        "Name": "FUNCTION_01F7",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01f8",
+        "ReturnType": "int",
+        "Name": "FUNCTION_01F8",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01f9",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01F9",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01fa",
+        "ReturnType": "int",
+        "Name": "FUNCTION_01FA",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01fb",
+        "ReturnType": "int",
+        "Name": "FUNCTION_01FB",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x01fc",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01FC",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01fd",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01FD",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01fe",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01FE",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x01ff",
+        "ReturnType": "void",
+        "Name": "FUNCTION_01FF",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0200",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0200",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0201",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0201",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0202",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0202",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0203",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0203",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0204",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0204",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0205",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0205",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0206",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0206",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0207",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0207",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0208",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0208",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0209",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0209",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x020a",
+        "ReturnType": "void",
+        "Name": "FUNCTION_020A",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": "Unknown type; assumed int"
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": "Unknown type; assumed int"
+            }
+        ]
+    },
+    {
+        "Index": "0x020b",
+        "ReturnType": "int",
+        "Name": "FUNCTION_020B",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x020c",
+        "ReturnType": "int",
+        "Name": "FUNCTION_020C",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x020d",
+        "ReturnType": "void",
+        "Name": "FUNCTION_020D",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x020e",
+        "ReturnType": "void",
+        "Name": "FUNCTION_020E",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x020f",
+        "ReturnType": "void",
+        "Name": "FUNCTION_020F",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0210",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0210",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0211",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0211",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0212",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0212",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0213",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0213",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "float",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0214",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0214",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "float",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0215",
+        "ReturnType": "float",
+        "Name": "FUNCTION_0215",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0216",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0216",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0217",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0217",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0218",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0218",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0219",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0219",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x021a",
+        "ReturnType": "void",
+        "Name": "FUNCTION_021A",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x021b",
+        "ReturnType": "int",
+        "Name": "FUNCTION_021B",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x021c",
+        "ReturnType": "void",
+        "Name": "FUNCTION_021C",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x021d",
+        "ReturnType": "int",
+        "Name": "FUNCTION_021D",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x021e",
+        "ReturnType": "void",
+        "Name": "FUNCTION_021E",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "float",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x021f",
+        "ReturnType": "void",
+        "Name": "FUNCTION_021F",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0220",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0220",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0221",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0221",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0222",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0222",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "float",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0223",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0223",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0224",
+        "ReturnType": "float",
+        "Name": "FUNCTION_0224",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0225",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0225",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0226",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0226",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0227",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0227",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0228",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0228",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0229",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0229",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x022a",
+        "ReturnType": "int",
+        "Name": "FUNCTION_022A",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x022b",
+        "ReturnType": "void",
+        "Name": "FUNCTION_022B",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x022c",
+        "ReturnType": "void",
+        "Name": "FUNCTION_022C",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x022d",
+        "ReturnType": "int",
+        "Name": "FUNCTION_022D",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x022e",
+        "ReturnType": "void",
+        "Name": "FUNCTION_022E",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x022f",
+        "ReturnType": "int",
+        "Name": "FUNCTION_022F",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0230",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0230",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0231",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0231",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0232",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0232",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0233",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0233",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0234",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0234",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0235",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0235",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0236",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0236",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0237",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0237",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param3",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0238",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0238",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0239",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0239",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x023a",
+        "ReturnType": "int",
+        "Name": "FUNCTION_023A",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x023b",
+        "ReturnType": "void",
+        "Name": "FUNCTION_023B",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x023c",
+        "ReturnType": "int",
+        "Name": "FUNCTION_023C",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x023d",
+        "ReturnType": "void",
+        "Name": "FUNCTION_023D",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "float",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x023e",
+        "ReturnType": "float",
+        "Name": "FUNCTION_023E",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x023f",
+        "ReturnType": "void",
+        "Name": "FUNCTION_023F",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0240",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0240",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0241",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0241",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0242",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0242",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            },
+            {
+                "Type": "int",
+                "Name": "param2",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0243",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0243",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0244",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0244",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0245",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0245",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0246",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0246",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0247",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0247",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0248",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0248",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x0249",
+        "ReturnType": "int",
+        "Name": "FUNCTION_0249",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x024a",
+        "ReturnType": "void",
+        "Name": "FUNCTION_024A",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x024b",
+        "ReturnType": "void",
+        "Name": "FUNCTION_024B",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x024c",
+        "ReturnType": "void",
+        "Name": "FUNCTION_024C",
+        "Description": "",
+        "Parameters": []
+    },
+    {
+        "Index": "0x024d",
+        "ReturnType": "int",
+        "Name": "FUNCTION_024D",
+        "Description": "",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ]
+    },
+    {
+        "Index": "0x024e",
+        "ReturnType": "void",
+        "Name": "FUNCTION_024E",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x024f",
+        "ReturnType": "void",
+        "Name": "FUNCTION_024F",
+        "Description": "Null pointer",
+        "Parameters": []
+    },
+    {
+        "Index": "0x0250",
+        "ReturnType": "void",
+        "Name": "FUNCTION_0250",
+        "Description": "Null pointer",
+        "Parameters": []
+    }
+]
