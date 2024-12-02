@@ -1,7 +1,7 @@
 import json
 import glob
 
-# This scripts syncs FlowScript function names from Nocturne (HD) to other PS2 SMT games.
+# This scripts syncs FlowScript function names from SMT3 (HD) to other PS2 SMT games.
 # These games share a lot of functions, so even though some will be incorrect, most will be correct.
 # This takes function index & parameter count into account, so the library is guaranteed to function correctly regardless.
 
@@ -40,7 +40,7 @@ def compare_and_update_jsons(base_file, other_files):
                     other_item.update({
                         "ReturnType": base_item["ReturnType"],
                         "Name": base_item["Name"],
-                        "Description": base_item["Description"] + ' (Copied from Nocturne. May be incorrect.)',
+                        "Description": base_item["Description"] + ' (Copied from SMT3. May be incorrect.)',
                         "Parameters": base_item["Parameters"],
                         "FullName": base_item["FullName"]
                     })
@@ -50,7 +50,7 @@ def compare_and_update_jsons(base_file, other_files):
 # Example usage
 if __name__ == "__main__":
     # Base JSON file to be updated
-    base_file = "Source/AtlusScriptLibrary/Libraries/Nocturne/Modules/Common/Functions.json"
+    base_file = "Source/AtlusScriptLibrary/Libraries/SMT3/Modules/Common/Functions.json"
     
     json_files = [
         "Source/AtlusScriptLibrary/Libraries/DigitalDevilSaga/Modules/Common/Functions.json",

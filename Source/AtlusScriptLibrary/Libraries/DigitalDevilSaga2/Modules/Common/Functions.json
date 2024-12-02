@@ -3,7 +3,7 @@
         "Index": "0x0000",
         "ReturnType": "int",
         "Name": "MSG",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -21,7 +21,7 @@
         "Index": "0x0001",
         "ReturnType": "int",
         "Name": "MSG_WND_DSP",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "itfMesManager_itfMesMngOpenWindow",
         "Aliases": [
@@ -32,7 +32,7 @@
         "Index": "0x0002",
         "ReturnType": "int",
         "Name": "MSG_WND_CLS",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "itfMesManager_itfMesMngCloseWindow",
         "Aliases": [
@@ -43,7 +43,7 @@
         "Index": "0x0003",
         "ReturnType": "int",
         "Name": "SEL",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -61,7 +61,7 @@
         "Index": "0x0004",
         "ReturnType": "int",
         "Name": "SEL_WND_DSP",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "itfMesManager_itfMesMngOpenSelectWindow",
         "Aliases": [
@@ -72,7 +72,7 @@
         "Index": "0x0005",
         "ReturnType": "int",
         "Name": "SEL_WND_CLS",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "itfMesManager_itfMesMngCloseSelectWindow",
         "Aliases": [
@@ -83,7 +83,7 @@
         "Index": "0x0006",
         "ReturnType": "int",
         "Name": "SEL_MASK",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -100,7 +100,7 @@
         "Index": "0x0007",
         "ReturnType": "bool",
         "Name": "BIT_CHK",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -118,7 +118,7 @@
         "Index": "0x0008",
         "ReturnType": "int",
         "Name": "BIT_ON",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -136,7 +136,7 @@
         "Index": "0x0009",
         "ReturnType": "int",
         "Name": "BIT_OFF",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -154,7 +154,7 @@
         "Index": "0x000a",
         "ReturnType": "int",
         "Name": "RND",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -171,7 +171,7 @@
         "Index": "0x000b",
         "ReturnType": "int",
         "Name": "SE_PLAY",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -188,7 +188,7 @@
         "Index": "0x000c",
         "ReturnType": "int",
         "Name": "BGM_PLAY",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -205,7 +205,7 @@
         "Index": "0x000d",
         "ReturnType": "int",
         "Name": "SYNC",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "scrCommonCommand_scrCommand_SYNC",
         "Aliases": [
@@ -216,7 +216,7 @@
         "Index": "0x000e",
         "ReturnType": "int",
         "Name": "WAIT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -233,7 +233,7 @@
         "Index": "0x000f",
         "ReturnType": "int",
         "Name": "FADE_IN",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -255,7 +255,7 @@
         "Index": "0x0010",
         "ReturnType": "int",
         "Name": "FADE_OUT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -277,7 +277,7 @@
         "Index": "0x0011",
         "ReturnType": "int",
         "Name": "SEL_JMP",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -329,7 +329,7 @@
         "Index": "0x0012",
         "ReturnType": "int",
         "Name": "CAM_SEL",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -346,7 +346,7 @@
         "Index": "0x0013",
         "ReturnType": "int",
         "Name": "CAM_PATH_MOVE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -368,7 +368,7 @@
         "Index": "0x0014",
         "ReturnType": "int",
         "Name": "SET_SKY",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -395,7 +395,7 @@
         "Index": "0x0015",
         "ReturnType": "int",
         "Name": "MODEL_DSP",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -417,7 +417,7 @@
         "Index": "0x0016",
         "ReturnType": "int",
         "Name": "MODEL_CLS",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -434,7 +434,7 @@
         "Index": "0x0017",
         "ReturnType": "int",
         "Name": "MODEL_MOVE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -471,7 +471,7 @@
         "Index": "0x0018",
         "ReturnType": "int",
         "Name": "MODEL_MOTION",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -503,7 +503,7 @@
         "Index": "0x0019",
         "ReturnType": "int",
         "Name": "CAM_SEL_FOVY",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -520,7 +520,7 @@
         "Index": "0x001a",
         "ReturnType": "int",
         "Name": "PAD_ACT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -547,7 +547,7 @@
         "Index": "0x001b",
         "ReturnType": "int",
         "Name": "MODEL_SCL_XYZ",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -579,7 +579,7 @@
         "Index": "0x001c",
         "ReturnType": "int",
         "Name": "MAKA_CHECK",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -653,7 +653,7 @@
         "Index": "0x0021",
         "ReturnType": "int",
         "Name": "PMV_LOAD",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -675,7 +675,7 @@
         "Index": "0x0022",
         "ReturnType": "int",
         "Name": "PMV_RUN2",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -692,7 +692,7 @@
         "Index": "0x0023",
         "ReturnType": "int",
         "Name": "FIELD_CLS_STOP",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "evtCommand_evtCommand_FIELD_CLS_STOP",
         "Aliases": [
@@ -703,7 +703,7 @@
         "Index": "0x0024",
         "ReturnType": "int",
         "Name": "PUT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -720,7 +720,7 @@
         "Index": "0x0025",
         "ReturnType": "int",
         "Name": "GET_MOON",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "evtCommand_evtCommand_GET_MOON",
         "Aliases": [
@@ -731,7 +731,7 @@
         "Index": "0x0026",
         "ReturnType": "int",
         "Name": "UNIT_CLS",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "evtCommand_evtCommand_UNIT_CLS",
         "Aliases": [
@@ -742,7 +742,7 @@
         "Index": "0x0027",
         "ReturnType": "int",
         "Name": "GET_MOON16",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "evtCommand_evtCommand_GET_MOON16",
         "Aliases": [
@@ -753,7 +753,7 @@
         "Index": "0x0028",
         "ReturnType": "int",
         "Name": "RESTORE_BATTLE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -775,7 +775,7 @@
         "Index": "0x0029",
         "ReturnType": "int",
         "Name": "UNIT_CLS_STOP",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "evtCommand_evtCommand_UNIT_CLS_STOP",
         "Aliases": [
@@ -786,7 +786,7 @@
         "Index": "0x002a",
         "ReturnType": "int",
         "Name": "TEX_LOAD",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "string",
@@ -803,7 +803,7 @@
         "Index": "0x002b",
         "ReturnType": "int",
         "Name": "TEX_ON",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -820,7 +820,7 @@
         "Index": "0x002c",
         "ReturnType": "int",
         "Name": "TEX_OFF",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -837,7 +837,7 @@
         "Index": "0x002d",
         "ReturnType": "int",
         "Name": "TEX_CLS",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -854,7 +854,7 @@
         "Index": "0x002e",
         "ReturnType": "int",
         "Name": "EXIT_EVENT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "evtCommand_evtCommand_EXIT_EVENT",
         "Aliases": [
@@ -865,7 +865,7 @@
         "Index": "0x002f",
         "ReturnType": "int",
         "Name": "AI_TBL",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -882,7 +882,7 @@
         "Index": "0x0030",
         "ReturnType": "int",
         "Name": "AI_ACT_ATTACK",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_AI_ACT_ATTACK",
         "Aliases": [
@@ -893,7 +893,7 @@
         "Index": "0x0031",
         "ReturnType": "int",
         "Name": "AI_ACT_ESCAPE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_AI_ACT_ESCAPE",
         "Aliases": [
@@ -904,7 +904,7 @@
         "Index": "0x0032",
         "ReturnType": "int",
         "Name": "AI_ACT_WAIT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_AI_ACT_WAIT",
         "Aliases": [
@@ -915,7 +915,7 @@
         "Index": "0x0033",
         "ReturnType": "int",
         "Name": "AI_ACT_SKILL",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "BattleSkill",
@@ -932,7 +932,7 @@
         "Index": "0x0034",
         "ReturnType": "int",
         "Name": "AI_TAR_AI",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_AI_TAR_AI",
         "Aliases": [
@@ -943,7 +943,7 @@
         "Index": "0x0035",
         "ReturnType": "int",
         "Name": "AI_TAR_LIFEMIN",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_AI_TAR_LIFEMIN",
         "Aliases": [
@@ -954,7 +954,7 @@
         "Index": "0x0036",
         "ReturnType": "int",
         "Name": "AI_TAR_BAD",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -971,7 +971,7 @@
         "Index": "0x0037",
         "ReturnType": "int",
         "Name": "AI_TAR_ID",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -988,7 +988,7 @@
         "Index": "0x0038",
         "ReturnType": "int",
         "Name": "BTL_EVENT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1044,7 +1044,7 @@
         "Index": "0x003c",
         "ReturnType": "int",
         "Name": "AI_TAR_RND",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_AI_TAR_RND",
         "Aliases": [
@@ -1055,7 +1055,7 @@
         "Index": "0x003d",
         "ReturnType": "int",
         "Name": "AI",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_AI",
         "Aliases": [
@@ -1066,7 +1066,7 @@
         "Index": "0x003e",
         "ReturnType": "int",
         "Name": "BTL_PNL_OFF",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_BTL_PNL_OFF",
         "Aliases": [
@@ -1077,7 +1077,7 @@
         "Index": "0x003f",
         "ReturnType": "int",
         "Name": "BTL_PNL_ON",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_BTL_PNL_ON",
         "Aliases": [
@@ -1088,7 +1088,7 @@
         "Index": "0x0040",
         "ReturnType": "int",
         "Name": "SEL_SELNO",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1105,7 +1105,7 @@
         "Index": "0x0041",
         "ReturnType": "int",
         "Name": "BLUR2_ON",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1122,7 +1122,7 @@
         "Index": "0x0042",
         "ReturnType": "int",
         "Name": "BLUR2_OFF",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1139,7 +1139,7 @@
         "Index": "0x0043",
         "ReturnType": "int",
         "Name": "BLUR_ALLOFF",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "scrCommonCommand_scrCommand_BLUR_ALLOFF",
         "Aliases": [
@@ -1150,7 +1150,7 @@
         "Index": "0x0044",
         "ReturnType": "int",
         "Name": "MODEL_EXWAIT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1172,7 +1172,7 @@
         "Index": "0x0045",
         "ReturnType": "int",
         "Name": "BGM_STOP",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "sndScript_sndScrCmd_BGM_STOP",
         "Aliases": [
@@ -1183,7 +1183,7 @@
         "Index": "0x0046",
         "ReturnType": "int",
         "Name": "RTRN_TITLE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "evtCommand_evtCommand_RTRN_TITLE",
         "Aliases": [
@@ -1194,7 +1194,7 @@
         "Index": "0x0047",
         "ReturnType": "int",
         "Name": "SOFTEN_BIAS",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1221,7 +1221,7 @@
         "Index": "0x0048",
         "ReturnType": "int",
         "Name": "SET_SKY_A",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1243,7 +1243,7 @@
         "Index": "0x0049",
         "ReturnType": "int",
         "Name": "MODEL_WAIT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1260,7 +1260,7 @@
         "Index": "0x004a",
         "ReturnType": "int",
         "Name": "MODEL_POS",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1282,7 +1282,7 @@
         "Index": "0x004b",
         "ReturnType": "int",
         "Name": "MODEL_WAIT_MOT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1304,7 +1304,7 @@
         "Index": "0x004c",
         "ReturnType": "int",
         "Name": "MODEL_MOVE_MOT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1326,7 +1326,7 @@
         "Index": "0x004d",
         "ReturnType": "int",
         "Name": "FIELD_DSP",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1348,7 +1348,7 @@
         "Index": "0x004e",
         "ReturnType": "int",
         "Name": "FIELD_CLS",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "evtCommand_evtCommand_FIELD_CLS",
         "Aliases": [
@@ -1359,7 +1359,7 @@
         "Index": "0x004f",
         "ReturnType": "int",
         "Name": "CAMP",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "itfMisc_itfCamp",
         "Aliases": [
@@ -1370,7 +1370,7 @@
         "Index": "0x0050",
         "ReturnType": "int",
         "Name": "MOVIE_PLAY",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1387,7 +1387,7 @@
         "Index": "0x0051",
         "ReturnType": "int",
         "Name": "MOVIE_STOP",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "mviScript_mviScrCmd_MOVIE_STOP",
         "Aliases": [
@@ -1398,7 +1398,7 @@
         "Index": "0x0052",
         "ReturnType": "int",
         "Name": "MOVIE_CHK",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "mviScript_mviScrCmd_MOVIE_CHK",
         "Aliases": [
@@ -1409,7 +1409,7 @@
         "Index": "0x0053",
         "ReturnType": "int",
         "Name": "PAD_TRIG",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1426,7 +1426,7 @@
         "Index": "0x0054",
         "ReturnType": "int",
         "Name": "PAD_PRESS",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1443,7 +1443,7 @@
         "Index": "0x0055",
         "ReturnType": "int",
         "Name": "CAM_PATH_WAIT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1460,7 +1460,7 @@
         "Index": "0x0056",
         "ReturnType": "int",
         "Name": "MODEL_ROT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1528,7 +1528,7 @@
         "Index": "0x0059",
         "ReturnType": "int",
         "Name": "CALL_SAVE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1564,7 +1564,7 @@
         "Index": "0x005c",
         "ReturnType": "int",
         "Name": "CALL_RAG",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "string",
@@ -1581,7 +1581,7 @@
         "Index": "0x005d",
         "ReturnType": "int",
         "Name": "CALL_FIELD",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1608,7 +1608,7 @@
         "Index": "0x005e",
         "ReturnType": "int",
         "Name": "ACT_WIN_DSP",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1625,7 +1625,7 @@
         "Index": "0x005f",
         "ReturnType": "int",
         "Name": "DIR_HIT_CNTR",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1642,7 +1642,7 @@
         "Index": "0x0060",
         "ReturnType": "int",
         "Name": "PAD_DISABLE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "fldCommand_fldCommand_PAD_DISABLE",
         "Aliases": [
@@ -1653,7 +1653,7 @@
         "Index": "0x0061",
         "ReturnType": "int",
         "Name": "PAD_ENABLE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "fldCommand_fldCommand_PAD_ENABLE",
         "Aliases": [
@@ -1664,7 +1664,7 @@
         "Index": "0x0062",
         "ReturnType": "int",
         "Name": "CALL_TITLE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "dds3TitleMain_dds3Title",
         "Aliases": [
@@ -1675,7 +1675,7 @@
         "Index": "0x0063",
         "ReturnType": "int",
         "Name": "MOON_START",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "evtCommand_evtCommand_MOON_START",
         "Aliases": [
@@ -1686,7 +1686,7 @@
         "Index": "0x0064",
         "ReturnType": "int",
         "Name": "MOON_STOP",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "evtCommand_evtCommand_MOON_STOP",
         "Aliases": [
@@ -1697,7 +1697,7 @@
         "Index": "0x0065",
         "ReturnType": "int",
         "Name": "CHG_MOON",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1714,7 +1714,7 @@
         "Index": "0x0066",
         "ReturnType": "int",
         "Name": "CALL_EVENT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1731,7 +1731,7 @@
         "Index": "0x0067",
         "ReturnType": "int",
         "Name": "CALL_BATTLE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1748,7 +1748,7 @@
         "Index": "0x0068",
         "ReturnType": "int",
         "Name": "MODEL_PLAYER",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "evtCommand_evtCommand_MODEL_PLAYER",
         "Aliases": [
@@ -1759,7 +1759,7 @@
         "Index": "0x0069",
         "ReturnType": "int",
         "Name": "MODEL_ON",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1776,7 +1776,7 @@
         "Index": "0x006a",
         "ReturnType": "int",
         "Name": "MODEL_OFF",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1793,7 +1793,7 @@
         "Index": "0x006b",
         "ReturnType": "int",
         "Name": "OBJ_PATH_MOVE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1820,7 +1820,7 @@
         "Index": "0x006c",
         "ReturnType": "int",
         "Name": "OBJ_PATH_WAIT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1837,7 +1837,7 @@
         "Index": "0x006d",
         "ReturnType": "int",
         "Name": "SET_FOVY",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "float",
@@ -1854,7 +1854,7 @@
         "Index": "0x006e",
         "ReturnType": "int",
         "Name": "ENCOUNT_ON",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "fldCommand_fldCommand_ENCOUNT_ON",
         "Aliases": [
@@ -1865,7 +1865,7 @@
         "Index": "0x006f",
         "ReturnType": "int",
         "Name": "ENCOUNT_OFF",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "fldCommand_fldCommand_ENCOUNT_OFF",
         "Aliases": [
@@ -1876,7 +1876,7 @@
         "Index": "0x0070",
         "ReturnType": "int",
         "Name": "ITEM_PLUS",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1898,7 +1898,7 @@
         "Index": "0x0071",
         "ReturnType": "int",
         "Name": "SET_MSG_VAR",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1925,7 +1925,7 @@
         "Index": "0x0072",
         "ReturnType": "int",
         "Name": "PUTS",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "string",
@@ -1942,7 +1942,7 @@
         "Index": "0x0073",
         "ReturnType": "int",
         "Name": "MODEL_MOTION2",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1979,7 +1979,7 @@
         "Index": "0x0074",
         "ReturnType": "int",
         "Name": "MODEL_WAIT_HOKAN",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2006,7 +2006,7 @@
         "Index": "0x0075",
         "ReturnType": "int",
         "Name": "CAM_CREATE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "evtCommand_evtCommand_CAM_CREATE",
         "Aliases": [
@@ -2017,7 +2017,7 @@
         "Index": "0x0076",
         "ReturnType": "int",
         "Name": "CAM_CLS",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2034,7 +2034,7 @@
         "Index": "0x0077",
         "ReturnType": "int",
         "Name": "CAM_POS_XYZ",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2066,7 +2066,7 @@
         "Index": "0x0078",
         "ReturnType": "int",
         "Name": "CAM_ROT_XYZ",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2098,7 +2098,7 @@
         "Index": "0x0079",
         "ReturnType": "int",
         "Name": "MODEL_POS_XYZ",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2130,7 +2130,7 @@
         "Index": "0x007a",
         "ReturnType": "int",
         "Name": "MODEL_ROT_XYZ",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2162,7 +2162,7 @@
         "Index": "0x007b",
         "ReturnType": "bool",
         "Name": "AI_CHK_MYHP",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2179,7 +2179,7 @@
         "Index": "0x007c",
         "ReturnType": "int",
         "Name": "AI_CHK_FRHP",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2203,7 +2203,7 @@
         "Index": "0x007e",
         "ReturnType": "bool",
         "Name": "AI_CHK_FRCNT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2220,7 +2220,7 @@
         "Index": "0x007f",
         "ReturnType": "int",
         "Name": "AI_CHK_ENCNT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2237,7 +2237,7 @@
         "Index": "0x0080",
         "ReturnType": "int",
         "Name": "AI_CHK_MYBAD",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2254,7 +2254,7 @@
         "Index": "0x0081",
         "ReturnType": "int",
         "Name": "AI_CHK_FRBAD",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2271,7 +2271,7 @@
         "Index": "0x0082",
         "ReturnType": "int",
         "Name": "AI_CHK_ENBAD",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2288,7 +2288,7 @@
         "Index": "0x0083",
         "ReturnType": "int",
         "Name": "AI_CHK_ENALLBAD",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2305,7 +2305,7 @@
         "Index": "0x0084",
         "ReturnType": "int",
         "Name": "AI_CHK_ENID",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2322,7 +2322,7 @@
         "Index": "0x0085",
         "ReturnType": "int",
         "Name": "AI_CHK_FRID",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2339,7 +2339,7 @@
         "Index": "0x0086",
         "ReturnType": "bool",
         "Name": "AI_CHK_ENHOJO",
-        "Description": "Returns if enemy has the specified support skill active(Copied from Nocturne. May be incorrect.)",
+        "Description": "Returns if enemy has the specified support skill active(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2356,7 +2356,7 @@
         "Index": "0x0087",
         "ReturnType": "bool",
         "Name": "AI_CHK_FRHOJO",
-        "Description": "Returns if an ally has the specified support skill active(Copied from Nocturne. May be incorrect.)",
+        "Description": "Returns if an ally has the specified support skill active(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2373,7 +2373,7 @@
         "Index": "0x0088",
         "ReturnType": "int",
         "Name": "AI_CHK_BA",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_AI_CHK_BA",
         "Aliases": [
@@ -2410,7 +2410,7 @@
         "Index": "0x008b",
         "ReturnType": "int",
         "Name": "MODEL_MOVE2",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2457,7 +2457,7 @@
         "Index": "0x008c",
         "ReturnType": "int",
         "Name": "AI_CHK_POW",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_AI_CHK_POW",
         "Aliases": [
@@ -2468,7 +2468,7 @@
         "Index": "0x008d",
         "ReturnType": "int",
         "Name": "LOAD_SOUND_E",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2485,7 +2485,7 @@
         "Index": "0x008e",
         "ReturnType": "int",
         "Name": "BGM_PLAY_E",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2507,7 +2507,7 @@
         "Index": "0x008f",
         "ReturnType": "int",
         "Name": "SE_PLAY_E",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2529,7 +2529,7 @@
         "Index": "0x0090",
         "ReturnType": "int",
         "Name": "FADEOUT_E",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2551,7 +2551,7 @@
         "Index": "0x0091",
         "ReturnType": "int",
         "Name": "BGM_VOL_DOWN",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "evtCommand_evtCommand_BGM_VOL_DOWN",
         "Aliases": [
@@ -2562,7 +2562,7 @@
         "Index": "0x0092",
         "ReturnType": "int",
         "Name": "BGM_VOL_UP",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "evtCommand_evtCommand_BGM_VOL_UP",
         "Aliases": [
@@ -2573,7 +2573,7 @@
         "Index": "0x0093",
         "ReturnType": "int",
         "Name": "MSG_IGNORE_CONFIG",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2590,7 +2590,7 @@
         "Index": "0x0094",
         "ReturnType": "int",
         "Name": "SEARCH_ID",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "string",
@@ -2607,7 +2607,7 @@
         "Index": "0x0095",
         "ReturnType": "int",
         "Name": "MODEL_EXMOTION",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2649,7 +2649,7 @@
         "Index": "0x0096",
         "ReturnType": "int",
         "Name": "MODEL_WAIT_EXMOT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2676,7 +2676,7 @@
         "Index": "0x0097",
         "ReturnType": "int",
         "Name": "CALL_NEXT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2703,7 +2703,7 @@
         "Index": "0x0098",
         "ReturnType": "int",
         "Name": "CALL_FIELD2",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2725,7 +2725,7 @@
         "Index": "0x0099",
         "ReturnType": "int",
         "Name": "FILTER_ALLOFF",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "scrCommonCommand_scrCommand_FILTER_ALLOFF",
         "Aliases": [
@@ -2736,7 +2736,7 @@
         "Index": "0x009a",
         "ReturnType": "int",
         "Name": "EFFECT_LOAD",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "string",
@@ -2753,7 +2753,7 @@
         "Index": "0x009b",
         "ReturnType": "int",
         "Name": "EFFECT_CLS",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2770,7 +2770,7 @@
         "Index": "0x009c",
         "ReturnType": "int",
         "Name": "EFFECT_POS_XYZ",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2802,7 +2802,7 @@
         "Index": "0x009d",
         "ReturnType": "int",
         "Name": "EFFECT_POS",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2824,7 +2824,7 @@
         "Index": "0x009e",
         "ReturnType": "int",
         "Name": "EFFECT_ON",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2841,7 +2841,7 @@
         "Index": "0x009f",
         "ReturnType": "int",
         "Name": "EFFECT_OFF",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2858,7 +2858,7 @@
         "Index": "0x00a0",
         "ReturnType": "int",
         "Name": "EFFECT_LINK",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2880,7 +2880,7 @@
         "Index": "0x00a1",
         "ReturnType": "int",
         "Name": "EFFECT_LINK2",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2907,7 +2907,7 @@
         "Index": "0x00a2",
         "ReturnType": "int",
         "Name": "EFFECT_UNLINK",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2924,7 +2924,7 @@
         "Index": "0x00a3",
         "ReturnType": "int",
         "Name": "SET_FIX_CAMERA",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2941,7 +2941,7 @@
         "Index": "0x00a4",
         "ReturnType": "int",
         "Name": "SET_CHASE_CAMERA",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "fldCommand_fldCommand_SET_CHASE_CAMERA",
         "Aliases": [
@@ -2952,7 +2952,7 @@
         "Index": "0x00a5",
         "ReturnType": "int",
         "Name": "SCR_RUN",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2974,7 +2974,7 @@
         "Index": "0x00a6",
         "ReturnType": "int",
         "Name": "SCR_KILL",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2991,7 +2991,7 @@
         "Index": "0x00a7",
         "ReturnType": "int",
         "Name": "SCR_WAIT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3008,7 +3008,7 @@
         "Index": "0x00a8",
         "ReturnType": "int",
         "Name": "SCR_STAT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3025,7 +3025,7 @@
         "Index": "0x00a9",
         "ReturnType": "int",
         "Name": "SCR_TIME",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3042,7 +3042,7 @@
         "Index": "0x00aa",
         "ReturnType": "int",
         "Name": "PMV_RUN",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3064,7 +3064,7 @@
         "Index": "0x00ab",
         "ReturnType": "int",
         "Name": "QUAKE_ON",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3086,7 +3086,7 @@
         "Index": "0x00ac",
         "ReturnType": "int",
         "Name": "QUAKE_OFF",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "scrCommonCommand_scrCommand_QUAKE_OFF",
         "Aliases": [
@@ -3097,7 +3097,7 @@
         "Index": "0x00ad",
         "ReturnType": "int",
         "Name": "MODEL_LIGHT_OFF",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3119,7 +3119,7 @@
         "Index": "0x00ae",
         "ReturnType": "int",
         "Name": "MODEL_LIGHT_ON",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3136,7 +3136,7 @@
         "Index": "0x00af",
         "ReturnType": "int",
         "Name": "MODEL_LIGHT_RGB",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3188,7 +3188,7 @@
         "Index": "0x00b0",
         "ReturnType": "int",
         "Name": "MODEL_LIGHT_DIR",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3225,7 +3225,7 @@
         "Index": "0x00b1",
         "ReturnType": "int",
         "Name": "MODEL_LIGHT_WAIT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3242,7 +3242,7 @@
         "Index": "0x00b2",
         "ReturnType": "int",
         "Name": "MODEL_RGB",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3279,7 +3279,7 @@
         "Index": "0x00b3",
         "ReturnType": "int",
         "Name": "MODEL_A",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3306,7 +3306,7 @@
         "Index": "0x00b4",
         "ReturnType": "int",
         "Name": "SCENE_LIGHT_RGB",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3338,7 +3338,7 @@
         "Index": "0x00b5",
         "ReturnType": "int",
         "Name": "SCENE_LIGHT_DIR",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3370,7 +3370,7 @@
         "Index": "0x00b6",
         "ReturnType": "int",
         "Name": "SCENE_AMBIENT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3402,7 +3402,7 @@
         "Index": "0x00b7",
         "ReturnType": "int",
         "Name": "PATH_STOP",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3419,7 +3419,7 @@
         "Index": "0x00b8",
         "ReturnType": "int",
         "Name": "PATH_START",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3436,7 +3436,7 @@
         "Index": "0x00b9",
         "ReturnType": "int",
         "Name": "PATH_RATE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3458,7 +3458,7 @@
         "Index": "0x00ba",
         "ReturnType": "int",
         "Name": "PATH_DIR",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3480,7 +3480,7 @@
         "Index": "0x00bb",
         "ReturnType": "int",
         "Name": "SCENE_FOG_RGB",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3512,7 +3512,7 @@
         "Index": "0x00bc",
         "ReturnType": "int",
         "Name": "SCENE_FOG_PARA",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3549,7 +3549,7 @@
         "Index": "0x00bd",
         "ReturnType": "int",
         "Name": "BLUR",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3576,7 +3576,7 @@
         "Index": "0x00be",
         "ReturnType": "int",
         "Name": "SET_CASH_F",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3598,7 +3598,7 @@
         "Index": "0x00bf",
         "ReturnType": "int",
         "Name": "FREE_CASH_F",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "fldCommand_fldCommand_FREE_CASH_F",
         "Aliases": [
@@ -3609,7 +3609,7 @@
         "Index": "0x00c0",
         "ReturnType": "int",
         "Name": "SET_LOCK_CAMERA",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "fldCommand_fldCommand_SET_LOCK_CAMERA",
         "Aliases": [
@@ -3620,7 +3620,7 @@
         "Index": "0x00c1",
         "ReturnType": "int",
         "Name": "CAM_DIR",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3637,7 +3637,7 @@
         "Index": "0x00c2",
         "ReturnType": "int",
         "Name": "CAM_SEL_PHOKAN",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3659,7 +3659,7 @@
         "Index": "0x00c3",
         "ReturnType": "int",
         "Name": "SET_ALLPANEL",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3676,7 +3676,7 @@
         "Index": "0x00c4",
         "ReturnType": "int",
         "Name": "MODEL_LIGHT_LINK",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3703,7 +3703,7 @@
         "Index": "0x00c5",
         "ReturnType": "int",
         "Name": "MODEL_LIGHT_UNLINK",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3725,7 +3725,7 @@
         "Index": "0x00c6",
         "ReturnType": "int",
         "Name": "LIGHT_PATH_MOVE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3747,7 +3747,7 @@
         "Index": "0x00c7",
         "ReturnType": "int",
         "Name": "LIGHT_PATH_WAIT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3764,7 +3764,7 @@
         "Index": "0x00c8",
         "ReturnType": "int",
         "Name": "LOAD_BE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3781,7 +3781,7 @@
         "Index": "0x00c9",
         "ReturnType": "int",
         "Name": "MODEL_BE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3803,7 +3803,7 @@
         "Index": "0x00ca",
         "ReturnType": "int",
         "Name": "FIELD_BE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3825,7 +3825,7 @@
         "Index": "0x00cb",
         "ReturnType": "int",
         "Name": "EFFECT_BE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3847,7 +3847,7 @@
         "Index": "0x00cc",
         "ReturnType": "int",
         "Name": "TEX_BE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3869,7 +3869,7 @@
         "Index": "0x00cd",
         "ReturnType": "int",
         "Name": "EFFBED_LOAD",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "string",
@@ -3886,7 +3886,7 @@
         "Index": "0x00ce",
         "ReturnType": "int",
         "Name": "EFFBED_START",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3908,7 +3908,7 @@
         "Index": "0x00cf",
         "ReturnType": "int",
         "Name": "EFFECT_ROT_XYZ",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3940,7 +3940,7 @@
         "Index": "0x00d0",
         "ReturnType": "int",
         "Name": "EFFBED_BE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3962,7 +3962,7 @@
         "Index": "0x00d1",
         "ReturnType": "int",
         "Name": "EFFECT_PATH_MOVE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3984,7 +3984,7 @@
         "Index": "0x00d2",
         "ReturnType": "int",
         "Name": "EFFECT_PATH_WAIT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4001,7 +4001,7 @@
         "Index": "0x00d3",
         "ReturnType": "int",
         "Name": "EFFMG1_LOAD",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "string",
@@ -4018,7 +4018,7 @@
         "Index": "0x00d4",
         "ReturnType": "int",
         "Name": "EFFMG1_BE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4040,7 +4040,7 @@
         "Index": "0x00d5",
         "ReturnType": "int",
         "Name": "EFFMG2_LOAD",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "string",
@@ -4057,7 +4057,7 @@
         "Index": "0x00d6",
         "ReturnType": "int",
         "Name": "EFFMG2_BE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4079,7 +4079,7 @@
         "Index": "0x00d7",
         "ReturnType": "int",
         "Name": "EFFMG1_POS",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4106,7 +4106,7 @@
         "Index": "0x00d8",
         "ReturnType": "int",
         "Name": "EFFMG2_POS",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4143,7 +4143,7 @@
         "Index": "0x00d9",
         "ReturnType": "int",
         "Name": "SE_STOP_E",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4165,7 +4165,7 @@
         "Index": "0x00da",
         "ReturnType": "int",
         "Name": "CAM_ROT_Q",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4202,7 +4202,7 @@
         "Index": "0x00db",
         "ReturnType": "int",
         "Name": "FIELD_ANIME_START",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4219,7 +4219,7 @@
         "Index": "0x00dc",
         "ReturnType": "int",
         "Name": "FIELD_ANIME_STOP",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4236,7 +4236,7 @@
         "Index": "0x00dd",
         "ReturnType": "int",
         "Name": "MODEL_SHADOW_ON2",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4253,7 +4253,7 @@
         "Index": "0x00de",
         "ReturnType": "int",
         "Name": "AI_CHK_PLV",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4270,7 +4270,7 @@
         "Index": "0x00df",
         "ReturnType": "int",
         "Name": "AI_CHK_PPARTYLV",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4287,7 +4287,7 @@
         "Index": "0x00e0",
         "ReturnType": "int",
         "Name": "AI_GET_TURN",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_AI_GET_TURN",
         "Aliases": [
@@ -4311,7 +4311,7 @@
         "Index": "0x00e2",
         "ReturnType": "int",
         "Name": "AI_ACT_SUMMON",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "BattleSkill",
@@ -4333,7 +4333,7 @@
         "Index": "0x00e3",
         "ReturnType": "int",
         "Name": "EFFMG2_PRESET",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4350,7 +4350,7 @@
         "Index": "0x00e4",
         "ReturnType": "int",
         "Name": "BTL_TAIKYO",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_BTL_TAIKYO",
         "Aliases": [
@@ -4361,7 +4361,7 @@
         "Index": "0x00e5",
         "ReturnType": "int",
         "Name": "BTL_ALLTAIKYO",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_BTL_ALLTAIKYO",
         "Aliases": [
@@ -4372,7 +4372,7 @@
         "Index": "0x00e6",
         "ReturnType": "int",
         "Name": "BTL_PRESS",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_BTL_PRESS",
         "Aliases": [
@@ -4396,7 +4396,7 @@
         "Index": "0x00e8",
         "ReturnType": "int",
         "Name": "PATH_LOOP_ON",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4413,7 +4413,7 @@
         "Index": "0x00e9",
         "ReturnType": "int",
         "Name": "PATH_LOOP_OFF",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4430,7 +4430,7 @@
         "Index": "0x00ea",
         "ReturnType": "int",
         "Name": "MUL_BLUR_PARA",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "float",
@@ -4457,7 +4457,7 @@
         "Index": "0x00eb",
         "ReturnType": "int",
         "Name": "MUL_BLUR_RGBA",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4489,7 +4489,7 @@
         "Index": "0x00ec",
         "ReturnType": "int",
         "Name": "MUL_BLUR_AREA",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4516,7 +4516,7 @@
         "Index": "0x00ed",
         "ReturnType": "int",
         "Name": "MUL_BLUR_ON",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4533,7 +4533,7 @@
         "Index": "0x00ee",
         "ReturnType": "int",
         "Name": "MUL_BLUR_OFF",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4550,7 +4550,7 @@
         "Index": "0x00ef",
         "ReturnType": "int",
         "Name": "DIST_BLUR_PARA",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4597,7 +4597,7 @@
         "Index": "0x00f0",
         "ReturnType": "int",
         "Name": "DIST_BLUR_RGBA",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4629,7 +4629,7 @@
         "Index": "0x00f1",
         "ReturnType": "int",
         "Name": "DIST_BLUR_AREA",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4656,7 +4656,7 @@
         "Index": "0x00f2",
         "ReturnType": "int",
         "Name": "DIST_BLUR_ON",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4673,7 +4673,7 @@
         "Index": "0x00f3",
         "ReturnType": "int",
         "Name": "DIST_BLUR_OFF",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4690,7 +4690,7 @@
         "Index": "0x00f4",
         "ReturnType": "int",
         "Name": "BTL_CAM_SET",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "float",
@@ -4737,7 +4737,7 @@
         "Index": "0x00f5",
         "ReturnType": "int",
         "Name": "BTL_CAM_ORG",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_BTL_CAM_ORG",
         "Aliases": [
@@ -4748,7 +4748,7 @@
         "Index": "0x00f6",
         "ReturnType": "int",
         "Name": "AI_SET_CRITICAL",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_AI_SET_CRITICAL",
         "Aliases": [
@@ -4759,7 +4759,7 @@
         "Index": "0x00f7",
         "ReturnType": "int",
         "Name": "READ_BE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4776,7 +4776,7 @@
         "Index": "0x00f8",
         "ReturnType": "int",
         "Name": "CHK_BE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4793,7 +4793,7 @@
         "Index": "0x00f9",
         "ReturnType": "int",
         "Name": "DEL_BE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4810,7 +4810,7 @@
         "Index": "0x00fa",
         "ReturnType": "int",
         "Name": "BTL_CAM_1SHOT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_BTL_CAM_1SHOT",
         "Aliases": [
@@ -4821,7 +4821,7 @@
         "Index": "0x00fb",
         "ReturnType": "int",
         "Name": "BTL_CAM_2SHOT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_BTL_CAM_2SHOT",
         "Aliases": [
@@ -4832,7 +4832,7 @@
         "Index": "0x00fc",
         "ReturnType": "int",
         "Name": "BTL_CAM_BOUGAI",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_BTL_CAM_BOUGAI",
         "Aliases": [
@@ -4843,7 +4843,7 @@
         "Index": "0x00fd",
         "ReturnType": "int",
         "Name": "FLD_CHK_BTL",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "fldCommand_fldCommand_FLD_CHK_BTL",
         "Aliases": [
@@ -4854,7 +4854,7 @@
         "Index": "0x00fe",
         "ReturnType": "int",
         "Name": "FLD_CHK_ANA",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "fldCommand_fldCommand_FLD_CHK_ANA",
         "Aliases": [
@@ -4865,7 +4865,7 @@
         "Index": "0x00ff",
         "ReturnType": "int",
         "Name": "FLD_CHK_SISETU",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "fldCommand_fldCommand_FLD_CHK_SISETU",
         "Aliases": [
@@ -4876,7 +4876,7 @@
         "Index": "0x0100",
         "ReturnType": "int",
         "Name": "CALL_FIELD3",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4898,7 +4898,7 @@
         "Index": "0x0101",
         "ReturnType": "int",
         "Name": "FLD_KANKYO",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4920,7 +4920,7 @@
         "Index": "0x0102",
         "ReturnType": "int",
         "Name": "FLD_FILTER",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4952,7 +4952,7 @@
         "Index": "0x0103",
         "ReturnType": "int",
         "Name": "FLD_MODEL_ON",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4984,7 +4984,7 @@
         "Index": "0x0104",
         "ReturnType": "int",
         "Name": "FLD_MODEL_OFF",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5016,7 +5016,7 @@
         "Index": "0x0105",
         "ReturnType": "int",
         "Name": "FLD_ANIME_ON",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5048,7 +5048,7 @@
         "Index": "0x0106",
         "ReturnType": "int",
         "Name": "FLD_ANIME_OFF",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5080,7 +5080,7 @@
         "Index": "0x0107",
         "ReturnType": "int",
         "Name": "FLD_ATARI_ON",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5107,7 +5107,7 @@
         "Index": "0x0108",
         "ReturnType": "int",
         "Name": "FLD_ATARI_OFF",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5134,7 +5134,7 @@
         "Index": "0x0109",
         "ReturnType": "int",
         "Name": "FLD_MODEL_ON2",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5161,7 +5161,7 @@
         "Index": "0x010a",
         "ReturnType": "int",
         "Name": "FLD_MODEL_OFF2",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5188,7 +5188,7 @@
         "Index": "0x010b",
         "ReturnType": "int",
         "Name": "FLD_ANIME_ON2",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5215,7 +5215,7 @@
         "Index": "0x010c",
         "ReturnType": "int",
         "Name": "FLD_ANIME_OFF2",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5242,7 +5242,7 @@
         "Index": "0x010d",
         "ReturnType": "int",
         "Name": "FLD_ANIME_ID2",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5274,7 +5274,7 @@
         "Index": "0x010e",
         "ReturnType": "int",
         "Name": "FLD_NPC_ON",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5301,7 +5301,7 @@
         "Index": "0x010f",
         "ReturnType": "int",
         "Name": "FLD_NPC_OFF",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5328,7 +5328,7 @@
         "Index": "0x0110",
         "ReturnType": "int",
         "Name": "FLD_GIMIC_HOJI",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5360,7 +5360,7 @@
         "Index": "0x0111",
         "ReturnType": "int",
         "Name": "FLD_MAP_ON",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5387,7 +5387,7 @@
         "Index": "0x0112",
         "ReturnType": "int",
         "Name": "FLD_MAP_OFF",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5414,7 +5414,7 @@
         "Index": "0x0113",
         "ReturnType": "int",
         "Name": "SET_CAMTBL",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5431,7 +5431,7 @@
         "Index": "0x0114",
         "ReturnType": "int",
         "Name": "FLD_GET_TAKARA_TBL",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5448,7 +5448,7 @@
         "Index": "0x0115",
         "ReturnType": "int",
         "Name": "FLD_SET_TAKARA_OPEN",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "fldCommand_fldCommand_FLD_SET_TAKARA_OPEN",
         "Aliases": [
@@ -5459,7 +5459,7 @@
         "Index": "0x0116",
         "ReturnType": "int",
         "Name": "FLD_CHK_TAKARA_OPEN",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "fldCommand_fldCommand_FLD_CHK_TAKARA_OPEN",
         "Aliases": [
@@ -5470,7 +5470,7 @@
         "Index": "0x0117",
         "ReturnType": "int",
         "Name": "MSG_SET_POS_SCR",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5492,7 +5492,7 @@
         "Index": "0x0118",
         "ReturnType": "int",
         "Name": "MSG_SET_POS_DEF",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "itfMesManager_itfMesMngSetMesPosDefault",
         "Aliases": [
@@ -5503,7 +5503,7 @@
         "Index": "0x0119",
         "ReturnType": "int",
         "Name": "MSG_VALID_NEXT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5533,7 +5533,7 @@
         "Index": "0x011b",
         "ReturnType": "int",
         "Name": "FCL_TERM_MENU_MASK",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5550,7 +5550,7 @@
         "Index": "0x011c",
         "ReturnType": "int",
         "Name": "FCL_TERM_MENU_MASK_DEF",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "fclTerminalInit_fclTerminalMenuMaskDef",
         "Aliases": [
@@ -5561,7 +5561,7 @@
         "Index": "0x011d",
         "ReturnType": "int",
         "Name": "FCL_SIGNAL",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5578,7 +5578,7 @@
         "Index": "0x011e",
         "ReturnType": "int",
         "Name": "FCL_GET_VAL",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5595,7 +5595,7 @@
         "Index": "0x011f",
         "ReturnType": "int",
         "Name": "FCL_TERM_ENABLE_TALK",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "fclTerminalInit_fclTerminalEnableTalk",
         "Aliases": [
@@ -5606,7 +5606,7 @@
         "Index": "0x0120",
         "ReturnType": "int",
         "Name": "FCL_TERM_DISABLE_TALK",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "fclTerminalInit_fclTerminalDisableTalk",
         "Aliases": [
@@ -5631,7 +5631,7 @@
         "Index": "0x0123",
         "ReturnType": "int",
         "Name": "MODEL_SHADOW_ON",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5648,7 +5648,7 @@
         "Index": "0x0124",
         "ReturnType": "int",
         "Name": "MODEL_SHADOW_OFF",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5665,7 +5665,7 @@
         "Index": "0x0125",
         "ReturnType": "int",
         "Name": "BOKASI_ON",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "evtCommand_evtCommand_BOKASI_ON",
         "Aliases": [
@@ -5676,7 +5676,7 @@
         "Index": "0x0126",
         "ReturnType": "int",
         "Name": "BOKASI_OFF",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "evtCommand_evtCommand_BOKASI_OFF",
         "Aliases": [
@@ -5687,7 +5687,7 @@
         "Index": "0x0127",
         "ReturnType": "int",
         "Name": "MUL_BLUR_SWAP",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5704,7 +5704,7 @@
         "Index": "0x0128",
         "ReturnType": "int",
         "Name": "DIST_BLUR_SWAP",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5721,7 +5721,7 @@
         "Index": "0x0129",
         "ReturnType": "int",
         "Name": "BLUR2_PARA",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "float",
@@ -5748,7 +5748,7 @@
         "Index": "0x012a",
         "ReturnType": "int",
         "Name": "BLUR2_RGBA",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5780,7 +5780,7 @@
         "Index": "0x012b",
         "ReturnType": "int",
         "Name": "BLUR2_AREA",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5802,7 +5802,7 @@
         "Index": "0x012c",
         "ReturnType": "int",
         "Name": "BLUR2_SWAP",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5819,7 +5819,7 @@
         "Index": "0x012d",
         "ReturnType": "int",
         "Name": "FILTER2_PARA",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5836,7 +5836,7 @@
         "Index": "0x012e",
         "ReturnType": "int",
         "Name": "FILTER2_RGBA",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5868,7 +5868,7 @@
         "Index": "0x012f",
         "ReturnType": "int",
         "Name": "FILTER2_SWAP",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5885,7 +5885,7 @@
         "Index": "0x0130",
         "ReturnType": "int",
         "Name": "FILTER2_ON",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5902,7 +5902,7 @@
         "Index": "0x0131",
         "ReturnType": "int",
         "Name": "FILTER2_OFF",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5919,7 +5919,7 @@
         "Index": "0x0132",
         "ReturnType": "int",
         "Name": "MFILTER_PARA",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5936,7 +5936,7 @@
         "Index": "0x0133",
         "ReturnType": "int",
         "Name": "MFILTER_RGBA",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5968,7 +5968,7 @@
         "Index": "0x0134",
         "ReturnType": "int",
         "Name": "MFILTER_AREA",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5995,7 +5995,7 @@
         "Index": "0x0135",
         "ReturnType": "int",
         "Name": "MFILTER_SWAP",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -6012,7 +6012,7 @@
         "Index": "0x0136",
         "ReturnType": "int",
         "Name": "MFILTER_ON",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -6029,7 +6029,7 @@
         "Index": "0x0137",
         "ReturnType": "int",
         "Name": "MFILTER_OFF",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -6046,7 +6046,7 @@
         "Index": "0x0138",
         "ReturnType": "int",
         "Name": "BGM_TRANS_E",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -6068,7 +6068,7 @@
         "Index": "0x0139",
         "ReturnType": "int",
         "Name": "MAKA_PLUS",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -6085,7 +6085,7 @@
         "Index": "0x013a",
         "ReturnType": "int",
         "Name": "PARTY_DAMAGE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -6102,7 +6102,7 @@
         "Index": "0x013b",
         "ReturnType": "int",
         "Name": "MSG_WND_TYPE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -6119,7 +6119,7 @@
         "Index": "0x013c",
         "ReturnType": "int",
         "Name": "SEL_DEFKEY",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -6148,7 +6148,7 @@
         "Index": "0x013e",
         "ReturnType": "int",
         "Name": "POINT_GET",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -6196,7 +6196,7 @@
         "Index": "0x0141",
         "ReturnType": "int",
         "Name": "POINT_3RD",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "evtCommand_evtCommand_POINT_3RD",
         "Aliases": [
@@ -6207,7 +6207,7 @@
         "Index": "0x0142",
         "ReturnType": "int",
         "Name": "RIP_BLUR_ON",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -6224,7 +6224,7 @@
         "Index": "0x0143",
         "ReturnType": "int",
         "Name": "RIP_BLUR_OFF",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -6241,7 +6241,7 @@
         "Index": "0x0144",
         "ReturnType": "int",
         "Name": "RIP_BLUR_PARA",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -6288,7 +6288,7 @@
         "Index": "0x0145",
         "ReturnType": "int",
         "Name": "RIP_BLUR_RGBA",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -6320,7 +6320,7 @@
         "Index": "0x0146",
         "ReturnType": "int",
         "Name": "RIP_BLUR_AREA",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -6347,7 +6347,7 @@
         "Index": "0x0147",
         "ReturnType": "int",
         "Name": "RIP_BLUR_SWAP",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -6364,7 +6364,7 @@
         "Index": "0x0148",
         "ReturnType": "int",
         "Name": "DIST_BLUR_TEX_BE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -6386,7 +6386,7 @@
         "Index": "0x0149",
         "ReturnType": "int",
         "Name": "DIST_BLUR_TEX_DEF",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "evtCommand_evtCommand_DIST_BLUR_TEX_DEF",
         "Aliases": [
@@ -6397,7 +6397,7 @@
         "Index": "0x014a",
         "ReturnType": "int",
         "Name": "EFFECT_PRESET",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -6414,7 +6414,7 @@
         "Index": "0x014b",
         "ReturnType": "int",
         "Name": "AI_CHK_MYMP",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -6431,7 +6431,7 @@
         "Index": "0x014c",
         "ReturnType": "bool",
         "Name": "AI_GET_PRESSKOUDO",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_AI_GET_PRESSKOUDO",
         "Aliases": [
@@ -6442,7 +6442,7 @@
         "Index": "0x014d",
         "ReturnType": "int",
         "Name": "AI_GET_ALLKOUDO",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_AI_GET_ALLKOUDO",
         "Aliases": [
@@ -6453,7 +6453,7 @@
         "Index": "0x014e",
         "ReturnType": "int",
         "Name": "AI_GET_MYLV",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_AI_GET_MYLV",
         "Aliases": [
@@ -6464,7 +6464,7 @@
         "Index": "0x014f",
         "ReturnType": "int",
         "Name": "UDV_LEAVE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -6481,7 +6481,7 @@
         "Index": "0x0150",
         "ReturnType": "int",
         "Name": "UDV_CHECK",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -6498,7 +6498,7 @@
         "Index": "0x0151",
         "ReturnType": "int",
         "Name": "UDV_DELETE_OK",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -6522,7 +6522,7 @@
         "Index": "0x0153",
         "ReturnType": "int",
         "Name": "BTL_FORM_ALL_ON",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_BTL_FORM_ALL_ON",
         "Aliases": [
@@ -6533,7 +6533,7 @@
         "Index": "0x0154",
         "ReturnType": "int",
         "Name": "BTL_FORM_PLY_ON",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_BTL_FORM_PLY_ON",
         "Aliases": [
@@ -6544,7 +6544,7 @@
         "Index": "0x0155",
         "ReturnType": "int",
         "Name": "BTL_FORM_ENE_ON",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_BTL_FORM_ENE_ON",
         "Aliases": [
@@ -6555,7 +6555,7 @@
         "Index": "0x0156",
         "ReturnType": "int",
         "Name": "AI_GET_MYAISYO",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_AI_GET_MYAISYO",
         "Aliases": [
@@ -6566,7 +6566,7 @@
         "Index": "0x0157",
         "ReturnType": "int",
         "Name": "CALL_STAFF",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "evtCommand_evtCommand_CALL_STAFF",
         "Aliases": [
@@ -6584,7 +6584,7 @@
         "Index": "0x0159",
         "ReturnType": "int",
         "Name": "AI_TAR_BAARLV",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_AI_TAR_BAARLV",
         "Aliases": [
@@ -6602,7 +6602,7 @@
         "Index": "0x015b",
         "ReturnType": "int",
         "Name": "AI_TAR_LVMIN",
-        "Description": "Targets unit that isn't the main character(Copied from Nocturne. May be incorrect.)",
+        "Description": "Targets unit that isn't the main character(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_AI_TAR_LVMIN",
         "Aliases": [
@@ -6613,7 +6613,7 @@
         "Index": "0x015c",
         "ReturnType": "int",
         "Name": "PLAYER_GET_PARAM",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -6630,7 +6630,7 @@
         "Index": "0x015d",
         "ReturnType": "int",
         "Name": "AI_GET_FUREA",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_AI_GET_FUREA",
         "Aliases": [
@@ -6641,7 +6641,7 @@
         "Index": "0x015e",
         "ReturnType": "int",
         "Name": "CALL_ENDSAVE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "evtCommand_evtCommand_CALL_ENDSAVE",
         "Aliases": [
@@ -6652,7 +6652,7 @@
         "Index": "0x015f",
         "ReturnType": "int",
         "Name": "KUTI",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -6679,7 +6679,7 @@
         "Index": "0x0160",
         "ReturnType": "int",
         "Name": "MSG_WND_TYPE_ALPHA",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -6701,7 +6701,7 @@
         "Index": "0x0161",
         "ReturnType": "int",
         "Name": "FLD_ANAHORI_INIT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "fldCommand_fldCommand_FLD_ANAHORI_INIT",
         "Aliases": [
@@ -6712,7 +6712,7 @@
         "Index": "0x0162",
         "ReturnType": "int",
         "Name": "FLD_ANAHORI_GET",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "fldCommand_fldCommand_FLD_ANAHORI_GET",
         "Aliases": [
@@ -6737,7 +6737,7 @@
         "Index": "0x0165",
         "ReturnType": "int",
         "Name": "KUTISET",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -6764,7 +6764,7 @@
         "Index": "0x0166",
         "ReturnType": "int",
         "Name": "CALL_BATTLE2",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -6781,7 +6781,7 @@
         "Index": "0x0167",
         "ReturnType": "int",
         "Name": "EFFBED_BE_EVO",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -6808,7 +6808,7 @@
         "Index": "0x0168",
         "ReturnType": "int",
         "Name": "EFFBED_START_EVO",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -6835,7 +6835,7 @@
         "Index": "0x0169",
         "ReturnType": "int",
         "Name": "AI_CHK_ESCAPE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_AI_CHK_ESCAPE",
         "Aliases": [
@@ -6846,7 +6846,7 @@
         "Index": "0x016a",
         "ReturnType": "int",
         "Name": "DRAWSTOP",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -6863,7 +6863,7 @@
         "Index": "0x016b",
         "ReturnType": "int",
         "Name": "MOVIE_CHKDRAW",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "mviScript_mviScrCmd_MOVIE_CHKDRAW",
         "Aliases": [
@@ -6934,7 +6934,7 @@
         "Index": "0x0172",
         "ReturnType": "int",
         "Name": "PLAYER_GET_LND",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "scrParameterCommand_prm_PLAYER_GET_LND",
         "Aliases": [
@@ -6959,7 +6959,7 @@
         "Index": "0x0175",
         "ReturnType": "int",
         "Name": "PIKUKO_GETID",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "scrParameterCommand_prm_PIKUKO_GETID",
         "Aliases": [
@@ -6970,7 +6970,7 @@
         "Index": "0x0176",
         "ReturnType": "int",
         "Name": "PARTY_KAIFUKU",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "scrParameterCommand_prm_PARTY_KAIFUKU",
         "Aliases": [
@@ -6988,7 +6988,7 @@
         "Index": "0x0178",
         "ReturnType": "int",
         "Name": "BTL_AI_ROT_CLR",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_BTL_AI_ROT_CLR",
         "Aliases": [
@@ -7064,7 +7064,7 @@
         "Index": "0x017f",
         "ReturnType": "int",
         "Name": "AI_CHK_ENHAMAMHK",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_AI_CHK_ENHAMAMHK",
         "Aliases": [
@@ -7075,7 +7075,7 @@
         "Index": "0x0180",
         "ReturnType": "int",
         "Name": "AI_TAR_JOKEN",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "nbAiScript_nbCommand_AI_TAR_JOKEN",
         "Aliases": [
@@ -7093,7 +7093,7 @@
         "Index": "0x0182",
         "ReturnType": "int",
         "Name": "PLAYER_GET_LEVEL",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "scrParameterCommand_prm_PLAYER_GET_LEVEL",
         "Aliases": [
@@ -7141,7 +7141,7 @@
         "Index": "0x0186",
         "ReturnType": "int",
         "Name": "PARTY_KAIFUKU2",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "scrParameterCommand_prm_PARTY_KAIFUKU2",
         "Aliases": [
@@ -7239,7 +7239,7 @@
         "Index": "0x0191",
         "ReturnType": "int",
         "Name": "HD_GET_RESUME",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -7360,7 +7360,7 @@
         "Index": "0x0199",
         "ReturnType": "int",
         "Name": "HD_GET_MACHINE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "evtCommand_evtCommand_GET_MACHINE",
         "Aliases": [
@@ -7371,7 +7371,7 @@
         "Index": "0x019a",
         "ReturnType": "int",
         "Name": "HD_BIT_CHK2",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -8360,7 +8360,7 @@
         "Index": "0x01f0",
         "ReturnType": "int",
         "Name": "FLD_TITLE_START2",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -8382,7 +8382,7 @@
         "Index": "0x01f1",
         "ReturnType": "int",
         "Name": "FLD_GET_KIRETA",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -8399,7 +8399,7 @@
         "Index": "0x01f2",
         "ReturnType": "int",
         "Name": "FLD_GET_ITEMBOX_RND",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "fldCommand_fldCommand_FLD_GET_ITEMBOX_RND",
         "Aliases": [
@@ -8410,7 +8410,7 @@
         "Index": "0x01f3",
         "ReturnType": "int",
         "Name": "FLD_MSE_PLAY2",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -8432,7 +8432,7 @@
         "Index": "0x01f4",
         "ReturnType": "int",
         "Name": "FLD_MSE_STOP2",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -8454,7 +8454,7 @@
         "Index": "0x01f5",
         "ReturnType": "int",
         "Name": "SET_NPC_CAMERA",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "string",
@@ -8504,7 +8504,7 @@
         "Index": "0x01f7",
         "ReturnType": "int",
         "Name": "FLD_DANTE_AI_STOP",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "fldCommand_fldCommand_FLD_DANTE_AI_STOP",
         "Aliases": [
@@ -8528,7 +8528,7 @@
         "Index": "0x01f9",
         "ReturnType": "int",
         "Name": "FLD_DANTE_STANCE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -8647,7 +8647,7 @@
         "Index": "0x0200",
         "ReturnType": "int",
         "Name": "FLD_WARP_ELV_GETTBL",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -8664,7 +8664,7 @@
         "Index": "0x0201",
         "ReturnType": "int",
         "Name": "FLD_WARP_ELV_EXIT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -8681,7 +8681,7 @@
         "Index": "0x0202",
         "ReturnType": "int",
         "Name": "FLD_WARP_CALL_FIELD",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "fldCommand_fldCommand_FLD_WARP_CALL_FIELD",
         "Aliases": [
@@ -8692,7 +8692,7 @@
         "Index": "0x0203",
         "ReturnType": "int",
         "Name": "FLD_WARP_CASH_F",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "fldCommand_fldCommand_FLD_WARP_CASH_F",
         "Aliases": [
@@ -8703,7 +8703,7 @@
         "Index": "0x0204",
         "ReturnType": "int",
         "Name": "FLD_WARP_RUN_START",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "fldCommand_fldCommand_FLD_WARP_RUN_START",
         "Aliases": [
@@ -8714,7 +8714,7 @@
         "Index": "0x0205",
         "ReturnType": "int",
         "Name": "FLD_INF_NEXT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -8736,7 +8736,7 @@
         "Index": "0x0206",
         "ReturnType": "int",
         "Name": "FLD_INF_GET",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -8758,7 +8758,7 @@
         "Index": "0x0207",
         "ReturnType": "int",
         "Name": "FLD_INF_GETPANEL",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "fldCommand_fldCommand_FLD_INF_GETPANEL",
         "Aliases": [
@@ -8769,7 +8769,7 @@
         "Index": "0x0208",
         "ReturnType": "int",
         "Name": "FLD_WARP_HASIGO_GETTBL",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -8786,7 +8786,7 @@
         "Index": "0x0209",
         "ReturnType": "int",
         "Name": "FLD_ELV_FLOORSTART",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -8808,7 +8808,7 @@
         "Index": "0x020a",
         "ReturnType": "int",
         "Name": "FLD_ELV_FLOOREND",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "fldCommand_fldCommand_FLD_ELV_FLOOREND",
         "Aliases": [
@@ -8819,7 +8819,7 @@
         "Index": "0x020b",
         "ReturnType": "int",
         "Name": "FLD_ELV_ENDCHK",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "fldCommand_fldCommand_FLD_ELV_ENDCHK",
         "Aliases": [
@@ -8830,7 +8830,7 @@
         "Index": "0x020c",
         "ReturnType": "int",
         "Name": "FLD_WARP_GET_DOOR",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -8847,7 +8847,7 @@
         "Index": "0x020d",
         "ReturnType": "int",
         "Name": "FLD_EXIT_CAMERA",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "fldCommand_fldCommand_FLD_EXIT_CAMERA",
         "Aliases": [
@@ -8858,7 +8858,7 @@
         "Index": "0x020e",
         "ReturnType": "int",
         "Name": "FLD_INF_GOWAP",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "fldCommand_fldCommand_FLD_INF_GOWAP",
         "Aliases": [
@@ -8869,7 +8869,7 @@
         "Index": "0x020f",
         "ReturnType": "int",
         "Name": "FLD_CALL_WAPEX",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -8886,7 +8886,7 @@
         "Index": "0x0210",
         "ReturnType": "int",
         "Name": "FLD_BGM_PLAY",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -8903,7 +8903,7 @@
         "Index": "0x0211",
         "ReturnType": "int",
         "Name": "FLD_BGM_CONTINUE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -8920,7 +8920,7 @@
         "Index": "0x0212",
         "ReturnType": "int",
         "Name": "FLD_BGM_PAUSE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "fldCommand_fldCommand_FLD_BGM_PAUSE",
         "Aliases": [
@@ -8931,7 +8931,7 @@
         "Index": "0x0213",
         "ReturnType": "int",
         "Name": "FLD_BGM_STOP",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "fldCommand_fldCommand_FLD_BGM_STOP",
         "Aliases": [
@@ -8942,7 +8942,7 @@
         "Index": "0x0214",
         "ReturnType": "int",
         "Name": "FLD_SE_PLAY",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -8959,7 +8959,7 @@
         "Index": "0x0215",
         "ReturnType": "int",
         "Name": "FLD_SE_STOP",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -8976,7 +8976,7 @@
         "Index": "0x0216",
         "ReturnType": "int",
         "Name": "FLD_BGM_FADE",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "fldCommand_fldCommand_FLD_BGM_FADE",
         "Aliases": [
@@ -8987,7 +8987,7 @@
         "Index": "0x0217",
         "ReturnType": "int",
         "Name": "FLD_MSE_PLAY",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -9011,7 +9011,7 @@
         "Index": "0x0219",
         "ReturnType": "int",
         "Name": "FLD_WARP_GET_WARPEFF",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [],
         "FullName": "fldCommand_fldCommand_FLD_WARP_GET_WARPEFF",
         "Aliases": [
@@ -9029,7 +9029,7 @@
         "Index": "0x021b",
         "ReturnType": "int",
         "Name": "ACT_WIN_DSP2",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -9046,7 +9046,7 @@
         "Index": "0x021c",
         "ReturnType": "int",
         "Name": "FLD_SET_ENCOUNT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -9063,7 +9063,7 @@
         "Index": "0x021d",
         "ReturnType": "int",
         "Name": "ACT_WIN_DSP3",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -9080,7 +9080,7 @@
         "Index": "0x021e",
         "ReturnType": "int",
         "Name": "FLD_MODEL_LIGHT",
-        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Description": "(Copied from SMT3. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",

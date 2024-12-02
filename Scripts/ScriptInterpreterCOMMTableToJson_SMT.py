@@ -134,5 +134,5 @@ def ParseCOMMTable(address, getIntArgFuncAddress, getFloatArgFuncAddress, getStr
 
 ParseCOMMTable(0x004A76E8, 0x00116240, 0x00116308, 0x001163C0, 0x00116408, 0x00116420, 592)
 
-# Nocturne
+# SMT3
 # ParseCOMMTable(0x0052E350, 0x0010B5C8, 0x0010B690, 0x0010B748, 0x0010B790, 0x0010B7A8, 544)

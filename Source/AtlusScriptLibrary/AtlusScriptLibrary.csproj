@@ -142,19 +142,19 @@
     <Content Include="Libraries\DigitalDevilSaga\MessageScriptLibrary.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Libraries\Nocturne.json">
+    <Content Include="Libraries\SMT3.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Libraries\Nocturne\Modules\Common\Functions.json">
+    <Content Include="Libraries\SMT3\Modules\Common\Functions.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Libraries\Nocturne\FlowScriptModules.json">
+    <Content Include="Libraries\SMT3\FlowScriptModules.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Libraries\Nocturne\MessageScriptLibrary.json">
+    <Content Include="Libraries\SMT3\MessageScriptLibrary.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Libraries\Nocturne\Modules\Common\Enums.json">
+    <Content Include="Libraries\SMT3\Modules\Common\Enums.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Libraries\DigitalDevilSaga\Modules\Common\Enums.json">

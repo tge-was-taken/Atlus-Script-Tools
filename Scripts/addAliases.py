@@ -21,7 +21,7 @@ folder_path = 'Source/AtlusScriptLibrary/Libraries'
     
 # Folders to ignore since the game's contained the real function names
 ignoredFolders = [
-    "Nocturne",
+    "SMT3",
     "Persona5",
     "Persona5Royal",
     "Persona3Reload",
