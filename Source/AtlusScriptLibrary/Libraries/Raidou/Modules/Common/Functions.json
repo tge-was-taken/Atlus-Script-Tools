@@ -1,174 +1,194 @@
-[
+﻿[
     {
         "Index": "0x0000",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0000",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MSG",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
-                "Name": "param1",
-                "Description": ""
+                "Name": "messageId",
+                "Description": "",
+                "Semantic": "MsgId"
             }
-        ]
+        ],
+        "FullName": "itfMesManager_itfMesMngMessage"
     },
     {
         "Index": "0x0001",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0001",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "MSG_WND_DSP",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "itfMesManager_itfMesMngOpenWindow"
     },
     {
         "Index": "0x0002",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0002",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "MSG_WND_CLS",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "itfMesManager_itfMesMngCloseWindow"
     },
     {
         "Index": "0x0003",
         "ReturnType": "int",
-        "Name": "FUNCTION_0003",
-        "Description": "",
+        "Name": "SEL",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
-                "Description": ""
+                "Description": "",
+                "Semantic": "SelId"
             }
-        ]
+        ],
+        "FullName": "itfMesManager_itfMesMngSelect"
     },
     {
         "Index": "0x0004",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0004",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "SEL_WND_DSP",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "itfMesManager_itfMesMngOpenSelectWindow"
     },
     {
         "Index": "0x0005",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0005",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "SEL_WND_CLS",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "itfMesManager_itfMesMngCloseSelectWindow"
     },
     {
         "Index": "0x0006",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0006",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "SEL_MASK",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "itfMesManager_itfMesMngMaskSelect"
     },
     {
         "Index": "0x0007",
-        "ReturnType": "int",
-        "Name": "FUNCTION_0007",
-        "Description": "",
+        "ReturnType": "bool",
+        "Name": "BIT_CHK",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
-                "Description": ""
+                "Description": "",
+                "Semantic": "BitId"
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_BIT_CHK"
     },
     {
         "Index": "0x0008",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0008",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "BIT_ON",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
-                "Description": ""
+                "Description": "",
+                "Semantic": "BitId"
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_BIT_ON"
     },
     {
         "Index": "0x0009",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0009",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "BIT_OFF",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
-                "Description": ""
+                "Description": "",
+                "Semantic": "BitId"
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_BIT_OFF"
     },
     {
         "Index": "0x000a",
         "ReturnType": "int",
-        "Name": "FUNCTION_000A",
-        "Description": "",
+        "Name": "RND",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_RND"
     },
     {
         "Index": "0x000b",
-        "ReturnType": "void",
-        "Name": "FUNCTION_000B",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "SE_PLAY",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "sndScript_sndScrCmd_SE_PLAY"
     },
     {
         "Index": "0x000c",
-        "ReturnType": "void",
-        "Name": "FUNCTION_000C",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "BGM_PLAY",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "sndScript_sndScrCmd_BGM_PLAY"
     },
     {
         "Index": "0x000d",
-        "ReturnType": "void",
-        "Name": "FUNCTION_000D",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "SYNC",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "scrCommonCommand_scrCommand_SYNC"
     },
     {
         "Index": "0x000e",
-        "ReturnType": "void",
-        "Name": "FUNCTION_000E",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "WAIT",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_WAIT"
     },
     {
         "Index": "0x000f",
-        "ReturnType": "void",
-        "Name": "FUNCTION_000F",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "FADE_IN",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -180,13 +200,14 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_FADE_IN"
     },
     {
         "Index": "0x0010",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0010",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "FADE_OUT",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -198,13 +219,14 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_FADE_OUT"
     },
     {
         "Index": "0x0011",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0011",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "SEL_JMP",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -246,26 +268,28 @@
                 "Name": "param8",
                 "Description": "Unknown type; assumed int"
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_SEL_JMP"
     },
     {
         "Index": "0x0012",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0012",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "CAM_SEL",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_CAM_SEL"
     },
     {
         "Index": "0x0013",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0013",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "CAM_PATH_MOVE",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -277,13 +301,14 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_CAM_PATH_MOVE"
     },
     {
         "Index": "0x0014",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0014",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "SET_SKY",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -300,13 +325,14 @@
                 "Name": "param3",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_SET_SKY"
     },
     {
         "Index": "0x0015",
         "ReturnType": "int",
-        "Name": "FUNCTION_0015",
-        "Description": "",
+        "Name": "MODEL_DSP",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -318,26 +344,28 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_DSP"
     },
     {
         "Index": "0x0016",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0016",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MODEL_CLS",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_CLS"
     },
     {
         "Index": "0x0017",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0017",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MODEL_MOVE",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -364,13 +392,14 @@
                 "Name": "param5",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_MOVE"
     },
     {
         "Index": "0x0018",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0018",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MODEL_MOTION",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -392,26 +421,28 @@
                 "Name": "param4",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_MOTION"
     },
     {
         "Index": "0x0019",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0019",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "CAM_SEL_FOVY",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_CAM_SEL_FOVY"
     },
     {
         "Index": "0x001a",
-        "ReturnType": "void",
-        "Name": "FUNCTION_001A",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "PAD_ACT",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -428,13 +459,14 @@
                 "Name": "param3",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_PAD_ACT"
     },
     {
         "Index": "0x001b",
-        "ReturnType": "void",
-        "Name": "FUNCTION_001B",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MODEL_SCL_XYZ",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -456,20 +488,22 @@
                 "Name": "param4",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_SCL_XYZ"
     },
     {
         "Index": "0x001c",
         "ReturnType": "int",
-        "Name": "FUNCTION_001C",
-        "Description": "",
+        "Name": "MAKA_CHECK",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrParameterCommand_prm_MAKA_CHECK"
     },
     {
         "Index": "0x001d",
@@ -518,21 +552,22 @@
     {
         "Index": "0x0020",
         "ReturnType": "int",
-        "Name": "FUNCTION_0020",
-        "Description": "",
+        "Name": "DH_EQUIP",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrParameterCommand_prm_DH_EQUIP"
     },
     {
         "Index": "0x0021",
         "ReturnType": "int",
-        "Name": "FUNCTION_0021",
-        "Description": "",
+        "Name": "PMV_LOAD",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -544,27 +579,30 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_PMV_LOAD"
     },
     {
         "Index": "0x0022",
         "ReturnType": "int",
-        "Name": "FUNCTION_0022",
-        "Description": "",
+        "Name": "PMV_RUN2",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_PMV_RUN2"
     },
     {
         "Index": "0x0023",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0023",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "FIELD_CLS_STOP",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "evtCommand_evtCommand_FIELD_CLS_STOP"
     },
     {
         "Index": "0x0024",
@@ -582,29 +620,32 @@
     {
         "Index": "0x0025",
         "ReturnType": "int",
-        "Name": "FUNCTION_0025",
-        "Description": "",
-        "Parameters": []
+        "Name": "GET_MOON",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "evtCommand_evtCommand_GET_MOON"
     },
     {
         "Index": "0x0026",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0026",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "UNIT_CLS",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "evtCommand_evtCommand_UNIT_CLS"
     },
     {
         "Index": "0x0027",
         "ReturnType": "int",
-        "Name": "FUNCTION_0027",
-        "Description": "",
-        "Parameters": []
+        "Name": "GET_MOON16",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "evtCommand_evtCommand_GET_MOON16"
     },
     {
         "Index": "0x0028",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0028",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "RESTORE_BATTLE",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -616,86 +657,94 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_RESTORE_BATTLE"
     },
     {
         "Index": "0x0029",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0029",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "UNIT_CLS_STOP",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "evtCommand_evtCommand_UNIT_CLS_STOP"
     },
     {
         "Index": "0x002a",
         "ReturnType": "int",
-        "Name": "FUNCTION_002A",
-        "Description": "",
+        "Name": "TEX_LOAD",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "string",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_TEX_LOAD"
     },
     {
         "Index": "0x002b",
-        "ReturnType": "void",
-        "Name": "FUNCTION_002B",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "TEX_ON",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_TEX_ON"
     },
     {
         "Index": "0x002c",
-        "ReturnType": "void",
-        "Name": "FUNCTION_002C",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "TEX_OFF",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_TEX_OFF"
     },
     {
         "Index": "0x002d",
-        "ReturnType": "void",
-        "Name": "FUNCTION_002D",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "TEX_CLS",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_TEX_CLS"
     },
     {
         "Index": "0x002e",
-        "ReturnType": "void",
-        "Name": "FUNCTION_002E",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "EXIT_EVENT",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "evtCommand_evtCommand_EXIT_EVENT"
     },
     {
         "Index": "0x002f",
-        "ReturnType": "void",
-        "Name": "FUNCTION_002F",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "AI_TBL",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "nbAiScript_nbCommand_AI_TBL"
     },
     {
         "Index": "0x0030",
@@ -712,10 +761,11 @@
     },
     {
         "Index": "0x0031",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0031",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "AI_ACT_ESCAPE",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "nbAiScript_nbCommand_AI_ACT_ESCAPE"
     },
     {
         "Index": "0x0032",
@@ -770,29 +820,31 @@
     },
     {
         "Index": "0x0036",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0036",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "AI_TAR_BAD",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "nbAiScript_nbCommand_AI_TAR_BAD"
     },
     {
         "Index": "0x0037",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0037",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "AI_TAR_ID",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "nbAiScript_nbCommand_AI_TAR_ID"
     },
     {
         "Index": "0x0038",
@@ -816,10 +868,11 @@
     },
     {
         "Index": "0x003a",
-        "ReturnType": "void",
-        "Name": "FUNCTION_003A",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "AI_TAR_DARK",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "nbAiScript_nbCommand_AI_TAR_DARK"
     },
     {
         "Index": "0x003b",
@@ -854,10 +907,11 @@
     },
     {
         "Index": "0x003d",
-        "ReturnType": "void",
-        "Name": "FUNCTION_003D",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "AI",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "nbAiScript_nbCommand_AI"
     },
     {
         "Index": "0x003e",
@@ -875,55 +929,59 @@
     },
     {
         "Index": "0x0040",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0040",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "SEL_SELNO",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "itfMesManager_itfMesMng_SEL_SELNO"
     },
     {
         "Index": "0x0041",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0041",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "BLUR2_ON",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_BLUR2_ON"
     },
     {
         "Index": "0x0042",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0042",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "BLUR2_OFF",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_BLUR2_OFF"
     },
     {
         "Index": "0x0043",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0043",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "BLUR_ALLOFF",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "scrCommonCommand_scrCommand_BLUR_ALLOFF"
     },
     {
         "Index": "0x0044",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0044",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MODEL_EXWAIT",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -935,27 +993,30 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_EXWAIT"
     },
     {
         "Index": "0x0045",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0045",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "BGM_STOP",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "sndScript_sndScrCmd_BGM_STOP"
     },
     {
         "Index": "0x0046",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0046",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "RTRN_TITLE",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "evtCommand_evtCommand_RTRN_TITLE"
     },
     {
         "Index": "0x0047",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0047",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "SOFTEN_BIAS",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -972,13 +1033,14 @@
                 "Name": "param3",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_SOFTEN_BIAS"
     },
     {
         "Index": "0x0048",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0048",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "SET_SKY_A",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -990,26 +1052,28 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_SET_SKY_A"
     },
     {
         "Index": "0x0049",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0049",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MODEL_WAIT",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_WAIT"
     },
     {
         "Index": "0x004a",
-        "ReturnType": "void",
-        "Name": "FUNCTION_004A",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MODEL_POS",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1021,13 +1085,14 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_POS"
     },
     {
         "Index": "0x004b",
-        "ReturnType": "void",
-        "Name": "FUNCTION_004B",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MODEL_WAIT_MOT",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1039,13 +1104,14 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_WAIT_MOT"
     },
     {
         "Index": "0x004c",
-        "ReturnType": "void",
-        "Name": "FUNCTION_004C",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MODEL_MOVE_MOT",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1057,13 +1123,14 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_MOVE_MOT"
     },
     {
         "Index": "0x004d",
-        "ReturnType": "void",
-        "Name": "FUNCTION_004D",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "FIELD_DSP",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1075,93 +1142,102 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_FIELD_DSP"
     },
     {
         "Index": "0x004e",
-        "ReturnType": "void",
-        "Name": "FUNCTION_004E",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "FIELD_CLS",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "evtCommand_evtCommand_FIELD_CLS"
     },
     {
         "Index": "0x004f",
-        "ReturnType": "void",
-        "Name": "FUNCTION_004F",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "CAMP",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "itfMisc_itfCamp"
     },
     {
         "Index": "0x0050",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0050",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MOVIE_PLAY",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "mviScript_mviScrCmd_MOVIE_PLAY"
     },
     {
         "Index": "0x0051",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0051",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "MOVIE_STOP",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "mviScript_mviScrCmd_MOVIE_STOP"
     },
     {
         "Index": "0x0052",
         "ReturnType": "int",
-        "Name": "FUNCTION_0052",
-        "Description": "",
-        "Parameters": []
+        "Name": "MOVIE_CHK",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "mviScript_mviScrCmd_MOVIE_CHK"
     },
     {
         "Index": "0x0053",
         "ReturnType": "int",
-        "Name": "FUNCTION_0053",
-        "Description": "",
+        "Name": "PAD_TRIG",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_PAD_TRIG"
     },
     {
         "Index": "0x0054",
         "ReturnType": "int",
-        "Name": "FUNCTION_0054",
-        "Description": "",
+        "Name": "PAD_PRESS",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_PAD_PRESS"
     },
     {
         "Index": "0x0055",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0055",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "CAM_PATH_WAIT",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_CAM_PATH_WAIT"
     },
     {
         "Index": "0x0056",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0056",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MODEL_ROT",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1178,7 +1254,8 @@
                 "Name": "param3",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_ROT"
     },
     {
         "Index": "0x0057",
@@ -1254,16 +1331,17 @@
     },
     {
         "Index": "0x005b",
-        "ReturnType": "void",
-        "Name": "FUNCTION_005B",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "CALL_SHOP",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
-                "Type": "int",
+                "Type": "string",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_CALL_SHOP"
     },
     {
         "Index": "0x005c",
@@ -1295,9 +1373,9 @@
     },
     {
         "Index": "0x005d",
-        "ReturnType": "void",
-        "Name": "FUNCTION_005D",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "CALL_FIELD",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1310,150 +1388,164 @@
                 "Description": ""
             },
             {
-                "Type": "int",
+                "Type": "string",
                 "Name": "param3",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_CALL_FIELD"
     },
     {
         "Index": "0x005e",
         "ReturnType": "int",
-        "Name": "FUNCTION_005E",
-        "Description": "",
+        "Name": "ACT_WIN_DSP",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
-                "Description": "Unknown type; assumed int"
+                "Description": ""
             }
-        ]
+        ],
+        "FullName": "fldCommand_fldCommand_ACT_WIN_DSP"
     },
     {
         "Index": "0x005f",
         "ReturnType": "int",
-        "Name": "FUNCTION_005F",
-        "Description": "",
+        "Name": "DIR_HIT_CNTR",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": "Unknown type; assumed int"
             }
-        ]
+        ],
+        "FullName": "fldCommand_fldCommand_DIR_HIT_CNTR"
     },
     {
         "Index": "0x0060",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0060",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "PAD_DISABLE",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "fldCommand_fldCommand_PAD_DISABLE"
     },
     {
         "Index": "0x0061",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0061",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "PAD_ENABLE",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "fldCommand_fldCommand_PAD_ENABLE"
     },
     {
         "Index": "0x0062",
         "ReturnType": "int",
-        "Name": "FUNCTION_0062",
-        "Description": "",
-        "Parameters": []
+        "Name": "CALL_TITLE",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "dds3TitleMain_dds3Title"
     },
     {
         "Index": "0x0063",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0063",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "MOON_START",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "evtCommand_evtCommand_MOON_START"
     },
     {
         "Index": "0x0064",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0064",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "MOON_STOP",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "evtCommand_evtCommand_MOON_STOP"
     },
     {
         "Index": "0x0065",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0065",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "CHG_MOON",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_CHG_MOON"
     },
     {
         "Index": "0x0066",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0066",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "CALL_EVENT",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_CALL_EVENT"
     },
     {
         "Index": "0x0067",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0067",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "CALL_BATTLE",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_CALL_BATTLE"
     },
     {
         "Index": "0x0068",
         "ReturnType": "int",
-        "Name": "FUNCTION_0068",
-        "Description": "",
-        "Parameters": []
+        "Name": "MODEL_PLAYER",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "evtCommand_evtCommand_MODEL_PLAYER"
     },
     {
         "Index": "0x0069",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0069",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MODEL_ON",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_ON"
     },
     {
         "Index": "0x006a",
-        "ReturnType": "void",
-        "Name": "FUNCTION_006A",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MODEL_OFF",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_OFF"
     },
     {
         "Index": "0x006b",
-        "ReturnType": "void",
-        "Name": "FUNCTION_006B",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "OBJ_PATH_MOVE",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1470,33 +1562,36 @@
                 "Name": "param3",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_OBJ_PATH_MOVE"
     },
     {
         "Index": "0x006c",
-        "ReturnType": "void",
-        "Name": "FUNCTION_006C",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "OBJ_PATH_WAIT",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_OBJ_PATH_WAIT"
     },
     {
         "Index": "0x006d",
-        "ReturnType": "void",
-        "Name": "FUNCTION_006D",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "SET_FOVY",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "float",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_SET_FOVY"
     },
     {
         "Index": "0x006e",
@@ -1531,9 +1626,9 @@
     },
     {
         "Index": "0x0070",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0070",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "ITEM_PLUS",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1545,13 +1640,14 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrParameterCommand_prm_ITEM_PLUS"
     },
     {
         "Index": "0x0071",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0071",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "SET_MSG_VAR",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1568,7 +1664,8 @@
                 "Name": "param3",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "itfMesManager_itfMesMngSetVarScr"
     },
     {
         "Index": "0x0072",
@@ -1585,9 +1682,9 @@
     },
     {
         "Index": "0x0073",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0073",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MODEL_MOTION2",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1614,13 +1711,14 @@
                 "Name": "param5",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_MOTION2"
     },
     {
         "Index": "0x0074",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0074",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MODEL_WAIT_HOKAN",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1637,33 +1735,36 @@
                 "Name": "param3",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_WAIT_HOKAN"
     },
     {
         "Index": "0x0075",
         "ReturnType": "int",
-        "Name": "FUNCTION_0075",
-        "Description": "",
-        "Parameters": []
+        "Name": "CAM_CREATE",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "evtCommand_evtCommand_CAM_CREATE"
     },
     {
         "Index": "0x0076",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0076",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "CAM_CLS",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_CAM_CLS"
     },
     {
         "Index": "0x0077",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0077",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "CAM_POS_XYZ",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1685,13 +1786,14 @@
                 "Name": "param4",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_CAM_POS_XYZ"
     },
     {
         "Index": "0x0078",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0078",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "CAM_ROT_XYZ",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1713,13 +1815,14 @@
                 "Name": "param4",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_CAM_ROT_XYZ"
     },
     {
         "Index": "0x0079",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0079",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MODEL_POS_XYZ",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1741,13 +1844,14 @@
                 "Name": "param4",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_POS_XYZ"
     },
     {
         "Index": "0x007a",
-        "ReturnType": "void",
-        "Name": "FUNCTION_007A",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MODEL_ROT_XYZ",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -1769,33 +1873,36 @@
                 "Name": "param4",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_ROT_XYZ"
     },
     {
         "Index": "0x007b",
-        "ReturnType": "int",
-        "Name": "FUNCTION_007B",
-        "Description": "",
+        "ReturnType": "bool",
+        "Name": "AI_CHK_MYHP",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
-                "Type": "string",
+                "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "nbAiScript_nbCommand_AI_CHK_MYHP"
     },
     {
         "Index": "0x007c",
         "ReturnType": "int",
-        "Name": "FUNCTION_007C",
-        "Description": "",
+        "Name": "AI_CHK_FRHP",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "nbAiScript_nbCommand_AI_CHK_FRHP"
     },
     {
         "Index": "0x007d",
@@ -1855,16 +1962,17 @@
     },
     {
         "Index": "0x007f",
-        "ReturnType": "void",
-        "Name": "FUNCTION_007F",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "AI_CHK_ENCNT",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "nbAiScript_nbCommand_AI_CHK_ENCNT"
     },
     {
         "Index": "0x0080",
@@ -1887,54 +1995,58 @@
     {
         "Index": "0x0081",
         "ReturnType": "int",
-        "Name": "FUNCTION_0081",
-        "Description": "",
-        "Parameters": [
-            {
-                "Type": "string",
-                "Name": "param1",
-                "Description": ""
-            }
-        ]
-    },
-    {
-        "Index": "0x0082",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0082",
-        "Description": "",
+        "Name": "AI_CHK_FRBAD",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "nbAiScript_nbCommand_AI_CHK_FRBAD"
+    },
+    {
+        "Index": "0x0082",
+        "ReturnType": "int",
+        "Name": "AI_CHK_ENBAD",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [
+            {
+                "Type": "int",
+                "Name": "param1",
+                "Description": ""
+            }
+        ],
+        "FullName": "nbAiScript_nbCommand_AI_CHK_ENBAD"
     },
     {
         "Index": "0x0083",
         "ReturnType": "int",
-        "Name": "FUNCTION_0083",
-        "Description": "",
+        "Name": "AI_CHK_ENALLBAD",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "nbAiScript_nbCommand_AI_CHK_ENALLBAD"
     },
     {
         "Index": "0x0084",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0084",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "AI_CHK_ENID",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "nbAiScript_nbCommand_AI_CHK_ENID"
     },
     {
         "Index": "0x0085",
@@ -2046,9 +2158,9 @@
     },
     {
         "Index": "0x008b",
-        "ReturnType": "void",
-        "Name": "FUNCTION_008B",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MODEL_MOVE2",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2085,7 +2197,8 @@
                 "Name": "param7",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_MOVE2"
     },
     {
         "Index": "0x008c",
@@ -2112,22 +2225,23 @@
     },
     {
         "Index": "0x008d",
-        "ReturnType": "void",
-        "Name": "FUNCTION_008D",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "LOAD_SOUND_E",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_LOAD_SOUND_E"
     },
     {
         "Index": "0x008e",
-        "ReturnType": "void",
-        "Name": "FUNCTION_008E",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "BGM_PLAY_E",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2139,13 +2253,14 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_BGM_PLAY_E"
     },
     {
         "Index": "0x008f",
-        "ReturnType": "void",
-        "Name": "FUNCTION_008F",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "SE_PLAY_E",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2157,13 +2272,14 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_SE_PLAY_E"
     },
     {
         "Index": "0x0090",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0090",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "FADEOUT_E",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2175,53 +2291,58 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_FADEOUT_E"
     },
     {
         "Index": "0x0091",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0091",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "BGM_VOL_DOWN",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "evtCommand_evtCommand_BGM_VOL_DOWN"
     },
     {
         "Index": "0x0092",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0092",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "BGM_VOL_UP",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "evtCommand_evtCommand_BGM_VOL_UP"
     },
     {
         "Index": "0x0093",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0093",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MSG_IGNORE_CONFIG",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "itfMesManager_itfMesMngIgnoreConfig"
     },
     {
         "Index": "0x0094",
         "ReturnType": "int",
-        "Name": "FUNCTION_0094",
-        "Description": "",
+        "Name": "SEARCH_ID",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "string",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_SEARCH_ID"
     },
     {
         "Index": "0x0095",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0095",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MODEL_EXMOTION",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2253,13 +2374,14 @@
                 "Name": "param6",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_EXMOTION"
     },
     {
         "Index": "0x0096",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0096",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MODEL_WAIT_EXMOT",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2276,13 +2398,14 @@
                 "Name": "param3",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_WAIT_EXMOT"
     },
     {
         "Index": "0x0097",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0097",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "CALL_NEXT",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2299,7 +2422,8 @@
                 "Name": "param3",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_CALL_NEXT"
     },
     {
         "Index": "0x0098",
@@ -2331,42 +2455,45 @@
     },
     {
         "Index": "0x0099",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0099",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "FILTER_ALLOFF",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "scrCommonCommand_scrCommand_FILTER_ALLOFF"
     },
     {
         "Index": "0x009a",
         "ReturnType": "int",
-        "Name": "FUNCTION_009A",
-        "Description": "",
+        "Name": "EFFECT_LOAD",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "string",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_EFFECT_LOAD"
     },
     {
         "Index": "0x009b",
-        "ReturnType": "void",
-        "Name": "FUNCTION_009B",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "EFFECT_CLS",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_EFFECT_CLS"
     },
     {
         "Index": "0x009c",
-        "ReturnType": "void",
-        "Name": "FUNCTION_009C",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "EFFECT_POS_XYZ",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2388,13 +2515,14 @@
                 "Name": "param4",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_EFFECT_POS_XYZ"
     },
     {
         "Index": "0x009d",
-        "ReturnType": "void",
-        "Name": "FUNCTION_009D",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "EFFECT_POS",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2406,39 +2534,42 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_EFFECT_POS"
     },
     {
         "Index": "0x009e",
-        "ReturnType": "void",
-        "Name": "FUNCTION_009E",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "EFFECT_ON",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_EFFECT_ON"
     },
     {
         "Index": "0x009f",
-        "ReturnType": "void",
-        "Name": "FUNCTION_009F",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "EFFECT_OFF",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_EFFECT_OFF"
     },
     {
         "Index": "0x00a0",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00A0",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "EFFECT_LINK",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2450,13 +2581,14 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_EFFECT_LINK"
     },
     {
         "Index": "0x00a1",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00A1",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "EFFECT_LINK2",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2473,20 +2605,22 @@
                 "Name": "param3",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_EFFECT_LINK2"
     },
     {
         "Index": "0x00a2",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00A2",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "EFFECT_UNLINK",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_EFFECT_UNLINK"
     },
     {
         "Index": "0x00a3",
@@ -2532,8 +2666,8 @@
     {
         "Index": "0x00a5",
         "ReturnType": "int",
-        "Name": "FUNCTION_00A5",
-        "Description": "",
+        "Name": "SCR_RUN",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2545,59 +2679,64 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_SCR_RUN"
     },
     {
         "Index": "0x00a6",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00A6",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "SCR_KILL",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_SCR_KILL"
     },
     {
         "Index": "0x00a7",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00A7",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "SCR_WAIT",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_SCR_WAIT"
     },
     {
         "Index": "0x00a8",
         "ReturnType": "int",
-        "Name": "FUNCTION_00A8",
-        "Description": "",
+        "Name": "SCR_STAT",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_SCR_STAT"
     },
     {
         "Index": "0x00a9",
         "ReturnType": "int",
-        "Name": "FUNCTION_00A9",
-        "Description": "",
+        "Name": "SCR_TIME",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_SCR_TIME"
     },
     {
         "Index": "0x00aa",
@@ -2624,9 +2763,9 @@
     },
     {
         "Index": "0x00ab",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00AB",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "QUAKE_ON",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2638,20 +2777,22 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_QUAKE_ON"
     },
     {
         "Index": "0x00ac",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00AC",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "QUAKE_OFF",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "scrCommonCommand_scrCommand_QUAKE_OFF"
     },
     {
         "Index": "0x00ad",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00AD",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MODEL_LIGHT_OFF",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2663,26 +2804,28 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_LIGHT_OFF"
     },
     {
         "Index": "0x00ae",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00AE",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MODEL_LIGHT_ON",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_LIGHT_ON"
     },
     {
         "Index": "0x00af",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00AF",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MODEL_LIGHT_RGB",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2724,13 +2867,14 @@
                 "Name": "param8",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_LIGHT_RGB"
     },
     {
         "Index": "0x00b0",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00B0",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MODEL_LIGHT_DIR",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2757,26 +2901,28 @@
                 "Name": "param5",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_LIGHT_DIR"
     },
     {
         "Index": "0x00b1",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00B1",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MODEL_LIGHT_WAIT",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_LIGHT_WAIT"
     },
     {
         "Index": "0x00b2",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00B2",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MODEL_RGB",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2803,13 +2949,14 @@
                 "Name": "param5",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_RGB"
     },
     {
         "Index": "0x00b3",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00B3",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MODEL_A",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2826,13 +2973,14 @@
                 "Name": "param3",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_A"
     },
     {
         "Index": "0x00b4",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00B4",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "SCENE_LIGHT_RGB",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2854,18 +3002,19 @@
                 "Name": "param4",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_SCENE_LIGHT_RGB"
     },
     {
         "Index": "0x00b5",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00B5",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "SCENE_LIGHT_DIR",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
-                "Description": "Unknown type; assumed int"
+                "Description": ""
             },
             {
                 "Type": "float",
@@ -2882,13 +3031,14 @@
                 "Name": "param4",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_SCENE_LIGHT_DIR"
     },
     {
         "Index": "0x00b6",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00B6",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "SCENE_AMBIENT",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2910,39 +3060,42 @@
                 "Name": "param4",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_SCENE_AMBIENT"
     },
     {
         "Index": "0x00b7",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00B7",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "PATH_STOP",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_PATH_STOP"
     },
     {
         "Index": "0x00b8",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00B8",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "PATH_START",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_PATH_START"
     },
     {
         "Index": "0x00b9",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00B9",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "PATH_RATE",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2954,13 +3107,14 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_PATH_RATE"
     },
     {
         "Index": "0x00ba",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00BA",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "PATH_DIR",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -2972,13 +3126,14 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_PATH_DIR"
     },
     {
         "Index": "0x00bb",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00BB",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "SCENE_FOG_RGB",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3000,13 +3155,14 @@
                 "Name": "param4",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_SCENE_FOG_RGB"
     },
     {
         "Index": "0x00bc",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00BC",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "SCENE_FOG_PARA",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3033,13 +3189,14 @@
                 "Name": "param5",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_SCENE_FOG_PARA"
     },
     {
         "Index": "0x00bd",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00BD",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "BLUR",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3056,7 +3213,8 @@
                 "Name": "param3",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_BLUR"
     },
     {
         "Index": "0x00be",
@@ -3068,9 +3226,10 @@
     {
         "Index": "0x00bf",
         "ReturnType": "int",
-        "Name": "FUNCTION_00BF",
-        "Description": "",
-        "Parameters": []
+        "Name": "FREE_CASH_F",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "fldCommand_fldCommand_FREE_CASH_F"
     },
     {
         "Index": "0x00c0",
@@ -3088,15 +3247,16 @@
     {
         "Index": "0x00c1",
         "ReturnType": "int",
-        "Name": "FUNCTION_00C1",
-        "Description": "",
+        "Name": "CAM_DIR",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "fldCommand_fldCommand_CAM_DIR"
     },
     {
         "Index": "0x00c2",
@@ -3123,22 +3283,23 @@
     },
     {
         "Index": "0x00c3",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00C3",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "SET_ALLPANEL",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "fldCommand_fldCommand_SET_ALLPANEL"
     },
     {
         "Index": "0x00c4",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00C4",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MODEL_LIGHT_LINK",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3155,13 +3316,14 @@
                 "Name": "param3",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_LIGHT_LINK"
     },
     {
         "Index": "0x00c5",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00C5",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MODEL_LIGHT_UNLINK",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3173,13 +3335,14 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_LIGHT_UNLINK"
     },
     {
         "Index": "0x00c6",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00C6",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "LIGHT_PATH_MOVE",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3191,39 +3354,42 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_LIGHT_PATH_MOVE"
     },
     {
         "Index": "0x00c7",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00C7",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "LIGHT_PATH_WAIT",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_LIGHT_PATH_WAIT"
     },
     {
         "Index": "0x00c8",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00C8",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "LOAD_BE",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_LOAD_BE"
     },
     {
         "Index": "0x00c9",
         "ReturnType": "int",
-        "Name": "FUNCTION_00C9",
-        "Description": "",
+        "Name": "MODEL_BE",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3235,13 +3401,14 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_BE"
     },
     {
         "Index": "0x00ca",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00CA",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "FIELD_BE",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3253,13 +3420,14 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_FIELD_BE"
     },
     {
         "Index": "0x00cb",
         "ReturnType": "int",
-        "Name": "FUNCTION_00CB",
-        "Description": "",
+        "Name": "EFFECT_BE",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3271,13 +3439,14 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_EFFECT_BE"
     },
     {
         "Index": "0x00cc",
         "ReturnType": "int",
-        "Name": "FUNCTION_00CC",
-        "Description": "",
+        "Name": "TEX_BE",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3289,26 +3458,28 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_TEX_BE"
     },
     {
         "Index": "0x00cd",
         "ReturnType": "int",
-        "Name": "FUNCTION_00CD",
-        "Description": "",
+        "Name": "EFFBED_LOAD",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "string",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_EFFBED_LOAD"
     },
     {
         "Index": "0x00ce",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00CE",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "EFFBED_START",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3320,13 +3491,14 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_EFFBED_START"
     },
     {
         "Index": "0x00cf",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00CF",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "EFFECT_ROT_XYZ",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3348,13 +3520,14 @@
                 "Name": "param4",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_EFFECT_ROT_XYZ"
     },
     {
         "Index": "0x00d0",
         "ReturnType": "int",
-        "Name": "FUNCTION_00D0",
-        "Description": "",
+        "Name": "EFFBED_BE",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3366,13 +3539,14 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_EFFBED_BE"
     },
     {
         "Index": "0x00d1",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00D1",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "EFFECT_PATH_MOVE",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3382,41 +3556,44 @@
             {
                 "Type": "int",
                 "Name": "param2",
-                "Description": "Unknown type; assumed int"
+                "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_EFFECT_PATH_MOVE"
     },
     {
         "Index": "0x00d2",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00D2",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "EFFECT_PATH_WAIT",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_EFFECT_PATH_WAIT"
     },
     {
         "Index": "0x00d3",
         "ReturnType": "int",
-        "Name": "FUNCTION_00D3",
-        "Description": "",
+        "Name": "EFFMG1_LOAD",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "string",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_EFFMG1_LOAD"
     },
     {
         "Index": "0x00d4",
         "ReturnType": "int",
-        "Name": "FUNCTION_00D4",
-        "Description": "",
+        "Name": "EFFMG1_BE",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3428,26 +3605,28 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_EFFMG1_BE"
     },
     {
         "Index": "0x00d5",
         "ReturnType": "int",
-        "Name": "FUNCTION_00D5",
-        "Description": "",
+        "Name": "EFFMG2_LOAD",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "string",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_EFFMG2_LOAD"
     },
     {
         "Index": "0x00d6",
         "ReturnType": "int",
-        "Name": "FUNCTION_00D6",
-        "Description": "",
+        "Name": "EFFMG2_BE",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3459,13 +3638,14 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_EFFMG2_BE"
     },
     {
         "Index": "0x00d7",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00D7",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "EFFMG1_POS",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3475,20 +3655,21 @@
             {
                 "Type": "int",
                 "Name": "param2",
-                "Description": "Unknown type; assumed int"
+                "Description": ""
             },
             {
                 "Type": "int",
                 "Name": "param3",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_EFFMG1_POS"
     },
     {
         "Index": "0x00d8",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00D8",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "EFFMG2_POS",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3515,13 +3696,14 @@
                 "Name": "param5",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_EFFMG2_POS"
     },
     {
         "Index": "0x00d9",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00D9",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "SE_STOP_E",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3533,13 +3715,14 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_SE_STOP_E"
     },
     {
         "Index": "0x00da",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00DA",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "CAM_ROT_Q",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3566,46 +3749,50 @@
                 "Name": "param5",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_CAM_ROT_Q"
     },
     {
         "Index": "0x00db",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00DB",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "FIELD_ANIME_START",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_FIELD_ANIME_START"
     },
     {
         "Index": "0x00dc",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00DC",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "FIELD_ANIME_STOP",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_FIELD_ANIME_STOP"
     },
     {
         "Index": "0x00dd",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00DD",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MODEL_SHADOW_ON2",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_SHADOW_ON2"
     },
     {
         "Index": "0x00de",
@@ -3623,10 +3810,11 @@
     },
     {
         "Index": "0x00e0",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00E0",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "AI_GET_TURN",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "nbAiScript_nbCommand_AI_GET_TURN"
     },
     {
         "Index": "0x00e1",
@@ -3656,30 +3844,33 @@
     },
     {
         "Index": "0x00e3",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00E3",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "EFFMG2_PRESET",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_EFFMG2_PRESET"
     },
     {
         "Index": "0x00e4",
         "ReturnType": "int",
-        "Name": "FUNCTION_00E4",
-        "Description": "",
-        "Parameters": []
+        "Name": "BTL_TAIKYO",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "nbAiScript_nbCommand_BTL_TAIKYO"
     },
     {
         "Index": "0x00e5",
         "ReturnType": "int",
-        "Name": "FUNCTION_00E5",
-        "Description": "",
-        "Parameters": []
+        "Name": "BTL_ALLTAIKYO",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "nbAiScript_nbCommand_BTL_ALLTAIKYO"
     },
     {
         "Index": "0x00e6",
@@ -3709,35 +3900,37 @@
     },
     {
         "Index": "0x00e8",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00E8",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "PATH_LOOP_ON",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_PATH_LOOP_ON"
     },
     {
         "Index": "0x00e9",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00E9",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "PATH_LOOP_OFF",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_PATH_LOOP_OFF"
     },
     {
         "Index": "0x00ea",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00EA",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MUL_BLUR_PARA",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "float",
@@ -3754,13 +3947,14 @@
                 "Name": "param3",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_MUL_BLUR_PARA"
     },
     {
         "Index": "0x00eb",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00EB",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MUL_BLUR_RGBA",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3782,13 +3976,14 @@
                 "Name": "param4",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_MUL_BLUR_RGBA"
     },
     {
         "Index": "0x00ec",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00EC",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MUL_BLUR_AREA",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3805,39 +4000,42 @@
                 "Name": "param3",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_MUL_BLUR_AREA"
     },
     {
         "Index": "0x00ed",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00ED",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MUL_BLUR_ON",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_MUL_BLUR_ON"
     },
     {
         "Index": "0x00ee",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00EE",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MUL_BLUR_OFF",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_MUL_BLUR_OFF"
     },
     {
         "Index": "0x00ef",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00EF",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "DIST_BLUR_PARA",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3874,13 +4072,14 @@
                 "Name": "param7",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_DIST_BLUR_PARA"
     },
     {
         "Index": "0x00f0",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00F0",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "DIST_BLUR_RGBA",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3902,13 +4101,14 @@
                 "Name": "param4",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_DIST_BLUR_RGBA"
     },
     {
         "Index": "0x00f1",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00F1",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "DIST_BLUR_AREA",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -3925,33 +4125,36 @@
                 "Name": "param3",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_DIST_BLUR_AREA"
     },
     {
         "Index": "0x00f2",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00F2",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "DIST_BLUR_ON",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_DIST_BLUR_ON"
     },
     {
         "Index": "0x00f3",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00F3",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "DIST_BLUR_OFF",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_DIST_BLUR_OFF"
     },
     {
         "Index": "0x00f4",
@@ -3982,42 +4185,45 @@
     },
     {
         "Index": "0x00f7",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00F7",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "READ_BE",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_READ_BE"
     },
     {
         "Index": "0x00f8",
         "ReturnType": "int",
-        "Name": "FUNCTION_00F8",
-        "Description": "",
+        "Name": "CHK_BE",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_CHK_BE"
     },
     {
         "Index": "0x00f9",
-        "ReturnType": "void",
-        "Name": "FUNCTION_00F9",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "DEL_BE",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_DEL_BE"
     },
     {
         "Index": "0x00fa",
@@ -4214,16 +4420,17 @@
     },
     {
         "Index": "0x0113",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0113",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "SET_CAMTBL",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "fldCommand_fldCommand_SET_CAMTBL"
     },
     {
         "Index": "0x0114",
@@ -4234,23 +4441,25 @@
     },
     {
         "Index": "0x0115",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0115",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "FLD_SET_TAKARA_OPEN",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "fldCommand_fldCommand_FLD_SET_TAKARA_OPEN"
     },
     {
         "Index": "0x0116",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0116",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "FLD_CHK_TAKARA_OPEN",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "fldCommand_fldCommand_FLD_CHK_TAKARA_OPEN"
     },
     {
         "Index": "0x0117",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0117",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MSG_SET_POS_SCR",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4262,27 +4471,30 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "itfMesManager_itfMesMngSetMesPositionScript"
     },
     {
         "Index": "0x0118",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0118",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "MSG_SET_POS_DEF",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "itfMesManager_itfMesMngSetMesPosDefault"
     },
     {
         "Index": "0x0119",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0119",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MSG_VALID_NEXT",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "itfMesManager_itfMesMngValidateNext"
     },
     {
         "Index": "0x011a",
@@ -4299,23 +4511,25 @@
     },
     {
         "Index": "0x011b",
-        "ReturnType": "void",
-        "Name": "FUNCTION_011B",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "FCL_TERM_MENU_MASK",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "fclTerminalInit_fclTerminalMenuMask"
     },
     {
         "Index": "0x011c",
-        "ReturnType": "void",
-        "Name": "FUNCTION_011C",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "FCL_TERM_MENU_MASK_DEF",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "fclTerminalInit_fclTerminalMenuMaskDef"
     },
     {
         "Index": "0x011d",
@@ -4333,17 +4547,19 @@
     },
     {
         "Index": "0x011f",
-        "ReturnType": "void",
-        "Name": "FUNCTION_011F",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "FCL_TERM_ENABLE_TALK",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "fclTerminalInit_fclTerminalEnableTalk"
     },
     {
         "Index": "0x0120",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0120",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "FCL_TERM_DISABLE_TALK",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "fclTerminalInit_fclTerminalDisableTalk"
     },
     {
         "Index": "0x0121",
@@ -4355,87 +4571,94 @@
     {
         "Index": "0x0122",
         "ReturnType": "int",
-        "Name": "FUNCTION_0122",
-        "Description": "",
+        "Name": "DH_PLUS",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrParameterCommand_prm_DH_PLUS"
     },
     {
         "Index": "0x0123",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0123",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MODEL_SHADOW_ON",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_SHADOW_ON"
     },
     {
         "Index": "0x0124",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0124",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MODEL_SHADOW_OFF",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_MODEL_SHADOW_OFF"
     },
     {
         "Index": "0x0125",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0125",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "BOKASI_ON",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "evtCommand_evtCommand_BOKASI_ON"
     },
     {
         "Index": "0x0126",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0126",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "BOKASI_OFF",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "evtCommand_evtCommand_BOKASI_OFF"
     },
     {
         "Index": "0x0127",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0127",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MUL_BLUR_SWAP",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_MUL_BLUR_SWAP"
     },
     {
         "Index": "0x0128",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0128",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "DIST_BLUR_SWAP",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_DIST_BLUR_SWAP"
     },
     {
         "Index": "0x0129",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0129",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "BLUR2_PARA",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "float",
@@ -4452,13 +4675,14 @@
                 "Name": "param3",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_BLUR2_PARA"
     },
     {
         "Index": "0x012a",
-        "ReturnType": "void",
-        "Name": "FUNCTION_012A",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "BLUR2_RGBA",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4480,13 +4704,14 @@
                 "Name": "param4",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_BLUR2_RGBA"
     },
     {
         "Index": "0x012b",
-        "ReturnType": "void",
-        "Name": "FUNCTION_012B",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "BLUR2_AREA",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4498,39 +4723,42 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_BLUR2_AREA"
     },
     {
         "Index": "0x012c",
-        "ReturnType": "void",
-        "Name": "FUNCTION_012C",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "BLUR2_SWAP",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_BLUR2_SWAP"
     },
     {
         "Index": "0x012d",
-        "ReturnType": "void",
-        "Name": "FUNCTION_012D",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "FILTER2_PARA",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_FILTER2_PARA"
     },
     {
         "Index": "0x012e",
-        "ReturnType": "void",
-        "Name": "FUNCTION_012E",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "FILTER2_RGBA",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4552,65 +4780,70 @@
                 "Name": "param4",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_FILTER2_RGBA"
     },
     {
         "Index": "0x012f",
-        "ReturnType": "void",
-        "Name": "FUNCTION_012F",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "FILTER2_SWAP",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_FILTER2_SWAP"
     },
     {
         "Index": "0x0130",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0130",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "FILTER2_ON",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_FILTER2_ON"
     },
     {
         "Index": "0x0131",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0131",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "FILTER2_OFF",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_FILTER2_OFF"
     },
     {
         "Index": "0x0132",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0132",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MFILTER_PARA",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_MFILTER_PARA"
     },
     {
         "Index": "0x0133",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0133",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MFILTER_RGBA",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4632,13 +4865,14 @@
                 "Name": "param4",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_MFILTER_RGBA"
     },
     {
         "Index": "0x0134",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0134",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MFILTER_AREA",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4655,52 +4889,56 @@
                 "Name": "param3",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_MFILTER_AREA"
     },
     {
         "Index": "0x0135",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0135",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MFILTER_SWAP",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_MFILTER_SWAP"
     },
     {
         "Index": "0x0136",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0136",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MFILTER_ON",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_MFILTER_ON"
     },
     {
         "Index": "0x0137",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0137",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MFILTER_OFF",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_MFILTER_OFF"
     },
     {
         "Index": "0x0138",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0138",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "BGM_TRANS_E",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4712,52 +4950,56 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_BGM_TRANS_E"
     },
     {
         "Index": "0x0139",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0139",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MAKA_PLUS",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrParameterCommand_prm_MAKA_PLUS"
     },
     {
         "Index": "0x013a",
-        "ReturnType": "void",
-        "Name": "FUNCTION_013A",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "PARTY_DAMAGE",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrParameterCommand_prm_PARTY_DAMAGE"
     },
     {
         "Index": "0x013b",
-        "ReturnType": "void",
-        "Name": "FUNCTION_013B",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MSG_WND_TYPE",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "itfMesManager_itfMesMngWindowType"
     },
     {
         "Index": "0x013c",
-        "ReturnType": "void",
-        "Name": "FUNCTION_013C",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "SEL_DEFKEY",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4769,7 +5011,8 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "itfMesManager_itfMesMngSelectDefKey"
     },
     {
         "Index": "0x013d",
@@ -4781,15 +5024,16 @@
     {
         "Index": "0x013e",
         "ReturnType": "int",
-        "Name": "FUNCTION_013E",
-        "Description": "",
+        "Name": "POINT_GET",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_POINT_GET"
     },
     {
         "Index": "0x013f",
@@ -4814,35 +5058,37 @@
     },
     {
         "Index": "0x0142",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0142",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "RIP_BLUR_ON",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_RIP_BLUR_ON"
     },
     {
         "Index": "0x0143",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0143",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "RIP_BLUR_OFF",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_RIP_BLUR_OFF"
     },
     {
         "Index": "0x0144",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0144",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "RIP_BLUR_PARA",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4879,13 +5125,14 @@
                 "Name": "param7",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_RIP_BLUR_PARA"
     },
     {
         "Index": "0x0145",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0145",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "RIP_BLUR_RGBA",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4907,13 +5154,14 @@
                 "Name": "param4",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_RIP_BLUR_RGBA"
     },
     {
         "Index": "0x0146",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0146",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "RIP_BLUR_AREA",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4930,26 +5178,28 @@
                 "Name": "param3",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_RIP_BLUR_AREA"
     },
     {
         "Index": "0x0147",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0147",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "RIP_BLUR_SWAP",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "scrCommonCommand_scrCommand_RIP_BLUR_SWAP"
     },
     {
         "Index": "0x0148",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0148",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "DIST_BLUR_TEX_BE",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -4961,27 +5211,30 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_DIST_BLUR_TEX_BE"
     },
     {
         "Index": "0x0149",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0149",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "DIST_BLUR_TEX_DEF",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "evtCommand_evtCommand_DIST_BLUR_TEX_DEF"
     },
     {
         "Index": "0x014a",
-        "ReturnType": "void",
-        "Name": "FUNCTION_014A",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "EFFECT_PRESET",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_EFFECT_PRESET"
     },
     {
         "Index": "0x014b",
@@ -5091,10 +5344,11 @@
     },
     {
         "Index": "0x0157",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0157",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "CALL_STAFF",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "evtCommand_evtCommand_CALL_STAFF"
     },
     {
         "Index": "0x0158",
@@ -5140,16 +5394,17 @@
     },
     {
         "Index": "0x015e",
-        "ReturnType": "void",
-        "Name": "FUNCTION_015E",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "CALL_ENDSAVE",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "evtCommand_evtCommand_CALL_ENDSAVE"
     },
     {
         "Index": "0x015f",
-        "ReturnType": "void",
-        "Name": "FUNCTION_015F",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "KUTI",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5166,13 +5421,14 @@
                 "Name": "param3",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_KUTI"
     },
     {
         "Index": "0x0160",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0160",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "MSG_WND_TYPE_ALPHA",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5184,7 +5440,8 @@
                 "Name": "param2",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "itfMesManager_itfMesMngWindowTypeAlpha"
     },
     {
         "Index": "0x0161",
@@ -5216,9 +5473,9 @@
     },
     {
         "Index": "0x0165",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0165",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "KUTISET",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5235,26 +5492,28 @@
                 "Name": "param3",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_KUTISET"
     },
     {
         "Index": "0x0166",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0166",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "CALL_BATTLE2",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_CALL_BATTLE2"
     },
     {
         "Index": "0x0167",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0167",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "EFFBED_BE_EVO",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5271,13 +5530,14 @@
                 "Name": "param3",
                 "Description": "Unknown type; assumed int"
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_EFFBED_BE_EVO"
     },
     {
         "Index": "0x0168",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0168",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "EFFBED_START_EVO",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
@@ -5294,7 +5554,8 @@
                 "Name": "param3",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_EFFBED_START_EVO"
     },
     {
         "Index": "0x0169",
@@ -5305,23 +5566,25 @@
     },
     {
         "Index": "0x016a",
-        "ReturnType": "void",
-        "Name": "FUNCTION_016A",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "DRAWSTOP",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_DRAWSTOP"
     },
     {
         "Index": "0x016b",
-        "ReturnType": "void",
-        "Name": "FUNCTION_016B",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "MOVIE_CHKDRAW",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "mviScript_mviScrCmd_MOVIE_CHKDRAW"
     },
     {
         "Index": "0x016c",
@@ -5607,15 +5870,16 @@
     {
         "Index": "0x0191",
         "ReturnType": "int",
-        "Name": "FUNCTION_0191",
-        "Description": "",
+        "Name": "HD_GET_RESUME",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "evtCommand_evtCommand_GET_RESUME"
     },
     {
         "Index": "0x0192",
@@ -6605,15 +6869,16 @@
     {
         "Index": "0x01f1",
         "ReturnType": "int",
-        "Name": "FUNCTION_01F1",
-        "Description": "",
+        "Name": "FLD_GET_KIRETA",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "fldCommand_fldCommand_FLD_GET_KIRETA"
     },
     {
         "Index": "0x01f2",
@@ -6710,16 +6975,18 @@
     {
         "Index": "0x01fa",
         "ReturnType": "int",
-        "Name": "FUNCTION_01FA",
-        "Description": "",
-        "Parameters": []
+        "Name": "FLD_BGM_RELOAD",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "fldCommand_fldCommand_FLD_BGM_RELOAD"
     },
     {
         "Index": "0x01fb",
         "ReturnType": "int",
-        "Name": "FUNCTION_01FB",
-        "Description": "",
-        "Parameters": []
+        "Name": "FLD_BGM_RELOAD_WAIT",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "fldCommand_fldCommand_FLD_BGM_RELOAD_WAIT"
     },
     {
         "Index": "0x01fc",
@@ -6809,10 +7076,11 @@
     },
     {
         "Index": "0x0202",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0202",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "FLD_WARP_CALL_FIELD",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "fldCommand_fldCommand_FLD_WARP_CALL_FIELD"
     },
     {
         "Index": "0x0203",
@@ -6856,10 +7124,11 @@
     },
     {
         "Index": "0x0207",
-        "ReturnType": "void",
-        "Name": "FUNCTION_0207",
-        "Description": "",
-        "Parameters": []
+        "ReturnType": "int",
+        "Name": "FLD_INF_GETPANEL",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "fldCommand_fldCommand_FLD_INF_GETPANEL"
     },
     {
         "Index": "0x0208",
@@ -6896,9 +7165,10 @@
     {
         "Index": "0x020b",
         "ReturnType": "int",
-        "Name": "FUNCTION_020B",
-        "Description": "",
-        "Parameters": []
+        "Name": "FLD_ELV_ENDCHK",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "fldCommand_fldCommand_FLD_ELV_ENDCHK"
     },
     {
         "Index": "0x020c",
@@ -7023,9 +7293,10 @@
     {
         "Index": "0x0216",
         "ReturnType": "int",
-        "Name": "FUNCTION_0216",
-        "Description": "",
-        "Parameters": []
+        "Name": "FLD_BGM_FADE",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
+        "Parameters": [],
+        "FullName": "fldCommand_fldCommand_FLD_BGM_FADE"
     },
     {
         "Index": "0x0217",
@@ -7086,16 +7357,17 @@
     },
     {
         "Index": "0x021c",
-        "ReturnType": "void",
-        "Name": "FUNCTION_021C",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "FLD_SET_ENCOUNT",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "fldCommand_fldCommand_FLD_SET_ENCOUNT"
     },
     {
         "Index": "0x021d",
@@ -7124,16 +7396,17 @@
     },
     {
         "Index": "0x021f",
-        "ReturnType": "void",
-        "Name": "FUNCTION_021F",
-        "Description": "",
+        "ReturnType": "int",
+        "Name": "FLD_SAGASI_AKUMA",
+        "Description": "(Copied from Nocturne. May be incorrect.)",
         "Parameters": [
             {
                 "Type": "int",
                 "Name": "param1",
                 "Description": ""
             }
-        ]
+        ],
+        "FullName": "fldCommand_fldCommand_FLD_SAGASI_AKUMA"
     },
     {
         "Index": "0x0220",
