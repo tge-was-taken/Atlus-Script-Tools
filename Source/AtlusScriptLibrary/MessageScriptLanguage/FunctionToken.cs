@@ -21,7 +21,7 @@ public struct FunctionToken : IToken
     /// <summary>
     /// Gets the list of arguments.
     /// </summary>
-    public List<ushort> Arguments { get; }
+    public List<ushort> Arguments { get; } = new();
 
     /// <summary>
     /// Prefixes every message function with an 0xFE byte (Persona 3 Reload)

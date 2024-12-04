@@ -41,5 +41,7 @@ public enum FormatVersion : uint
     Version1Reload,
     Version2 = BinaryFormatVersion.Version2,
     Version2BigEndian = BinaryFormatVersion.Version2BigEndian,
+    Version3 = BinaryFormatVersion.Version3,
+    Version3BigEndian = BinaryFormatVersion.Version3BigEndian,
     Unknown = BinaryFormatVersion.Unknown
 }

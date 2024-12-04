@@ -198,7 +198,7 @@ public class MessageScriptBinaryBuilder
                 break;
 
             case TokenKind.NewLine:
-                bytes.Add(NewLineToken.Value);
+                bytes.Add(NewLineToken.ASCIIValue);
                 break;
 
             default:
@@ -267,8 +267,7 @@ public class MessageScriptBinaryBuilder
 
     private void ProcessCodePoint(CodePointToken token, List<byte> bytes)
     {
-        bytes.Add(token.HighSurrogate);
-        bytes.Add(token.LowSurrogate);
+        bytes.AddRange(token.Bytes);
     }
 
     private void BuildHeaderFirstPass(ref BinaryHeader header)

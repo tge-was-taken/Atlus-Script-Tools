@@ -498,7 +498,7 @@ class Program
 
         if (Encoding != null)
         {
-            str = Encoding.GetString(new[] { token.HighSurrogate, token.LowSurrogate });
+            str = Encoding.GetString(new[] { token.Bytes[0], token.Bytes[1] });
 
             // check if it's a glyph with no equivalent
             if (str == "\0")
@@ -509,7 +509,7 @@ class Program
 
         if (str == null)
         {
-            str = $"[{token.HighSurrogate:X2} {token.LowSurrogate:X2}]";
+            str = $"[{token.Bytes[0]:X2} {token.Bytes[1]:X2}]";
         }
 
         Writer.Write(str);

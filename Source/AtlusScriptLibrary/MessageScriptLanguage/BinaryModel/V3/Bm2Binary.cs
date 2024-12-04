@@ -1,24 +1,24 @@
-﻿using AtlusScriptLibrary.Common.IO;
-using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V2.IO;
+﻿using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V3.IO;
 using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 
-namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V2;
+namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V3;
 
-public class MessageScriptBinaryV2 : IMessageScriptBinary
+public class Bm2Binary : IMessageScriptBinary
 {
     public static bool IsValidStream(Stream stream)
     {
         var magic = new byte[4];
+        stream.Position = 4;
         stream.Read(magic, 0, magic.Length);
         stream.Position = 0;
-        return magic.SequenceEqual(BinaryHeaderV2.MAGIC_BE) || magic.SequenceEqual(BinaryHeaderV2.MAGIC);
+        return magic.SequenceEqual(Bm2Header.MAGIC_BE) || magic.SequenceEqual(Bm2Header.MAGIC);
     }
 
-    public static MessageScriptBinaryV2 FromFile(string path)
+    public static Bm2Binary FromFile(string path)
     {
         if (path == null)
             throw new ArgumentNullException(nameof(path));
@@ -29,7 +29,7 @@ public class MessageScriptBinaryV2 : IMessageScriptBinary
         return FromFile(path, BinaryFormatVersion.Unknown);
     }
 
-    public static MessageScriptBinaryV2 FromFile(string path, BinaryFormatVersion version)
+    public static Bm2Binary FromFile(string path, BinaryFormatVersion version)
     {
         if (path == null)
             throw new ArgumentNullException(nameof(path));
@@ -45,15 +45,15 @@ public class MessageScriptBinaryV2 : IMessageScriptBinary
             return FromStream(fileStream, version);
     }
 
-    public static MessageScriptBinaryV2 FromStream(Stream stream, bool leaveOpen = false)
+    public static Bm2Binary FromStream(Stream stream, bool leaveOpen = false)
     {
         if (stream == null)
             throw new ArgumentNullException(nameof(stream));
 
-        return FromStream(stream, BinaryFormatVersion.Version2, leaveOpen);
+        return FromStream(stream, BinaryFormatVersion.Unknown, leaveOpen);
     }
 
-    public static MessageScriptBinaryV2 FromStream(Stream stream, BinaryFormatVersion version, bool leaveOpen = false)
+    public static Bm2Binary FromStream(Stream stream, BinaryFormatVersion version, bool leaveOpen = false)
     {
         if (stream == null)
             throw new ArgumentNullException(nameof(stream));
@@ -62,27 +62,23 @@ public class MessageScriptBinaryV2 : IMessageScriptBinary
             throw new InvalidEnumArgumentException(nameof(version), (int)version,
                 typeof(BinaryFormatVersion));
 
-        using (var reader = new MessageScriptBinaryV2Reader(stream, version, leaveOpen))
+        using (var reader = new Bm2BinaryReader(stream, version, leaveOpen))
         {
             return reader.ReadBinary();
         }
     }
 
-    // internal fields for use by builder, reader, and writer
-    internal BinaryHeaderV2 mHeader;
-    internal BinaryHeader2 mHeader2;
-    internal BinaryFormatVersion mFormatVersion;
 
-    public BinaryHeaderV2 Header => mHeader;
-
-    public BinaryHeader2 Header2 => mHeader2;
-
-    public BinaryFormatVersion FormatVersion => mFormatVersion;
+    public Bm2Header Header { get; set; }
+    public Bm2Header2 Header2 { get; set; }
+    public List<Bm2Speaker> Speakers { get; set; }
+    public List<Bm2Message> Messages { get; set; }
+    public BinaryFormatVersion FormatVersion { get; set; }
 
     public int FileSize => (int)Header.FileSize;
 
-    // internal constructor for use by builder, reader, and writer
-    internal MessageScriptBinaryV2()
+    // Internal constructor for use by builder, reader, and writer
+    internal Bm2Binary()
     {
     }
 
@@ -94,7 +90,7 @@ public class MessageScriptBinaryV2 : IMessageScriptBinary
         if (string.IsNullOrEmpty(path))
             throw new ArgumentException("Value cannot be null or empty.", nameof(path));
 
-        using (var stream = FileUtils.Create(path))
+        using (var stream = File.Open(path, FileMode.Create, FileAccess.Write))
             ToStream(stream);
     }
 
@@ -107,7 +103,10 @@ public class MessageScriptBinaryV2 : IMessageScriptBinary
 
     public void ToStream(Stream stream, bool leaveOpen = false)
     {
-        using (var writer = new MessageScriptBinaryV2Writer(stream, mFormatVersion, leaveOpen))
+        if (stream == null)
+            throw new ArgumentNullException(nameof(stream));
+
+        using (var writer = new Bm2BinaryWriter(stream, FormatVersion, leaveOpen))
         {
             writer.WriteBinary(this);
         }

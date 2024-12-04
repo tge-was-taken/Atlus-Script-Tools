@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using MessageScriptParser = AtlusScriptLibrary.MessageScriptLanguage.Compiler.Parser.MessageScriptParser;
 using MessageScriptParserHelper = AtlusScriptLibrary.MessageScriptLanguage.Compiler.Parser.MessageScriptParserHelper;
@@ -776,16 +777,18 @@ public class MessageScriptCompiler
 
         codePointToken = new CodePointToken();
 
-        if (!TryGetFatal(context, context.expression, "Expected code point surrogate pair", out var argumentNodes))
+        if (!TryGetFatal(context, context.expression, "Expected code point", out var argumentNodes))
             return false;
 
-        if (!TryParseByteIntLiteral(context, "Expected code point high surrogate", () => argumentNodes[0].IntLiteral(), out var highSurrogate))
-            return false;
+        var bytes = new List<byte>();
+        foreach (var item in argumentNodes)
+        {
+            if (!TryParseByteIntLiteral(context, "Expected code point byte", () => item.IntLiteral(), out var value))
+                return false;
+            bytes.Add(value);
+        }
 
-        if (!TryParseByteIntLiteral(context, "Expected code point low surrogate", () => argumentNodes[1].IntLiteral(), out var lowSurrogate))
-            return false;
-
-        codePointToken = new CodePointToken(highSurrogate, lowSurrogate);
+        codePointToken = new CodePointToken(bytes);
 
         return true;
     }

@@ -1,19 +1,14 @@
-﻿namespace AtlusScriptLibrary.MessageScriptLanguage;
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace AtlusScriptLibrary.MessageScriptLanguage;
 
 /// <summary>
 /// Represents a code point token. This maps to a glyph on the game's font.
 /// </summary>
 public struct CodePointToken : IToken
 {
-    /// <summary>
-    /// Gets the high surrogate byte of the code point.
-    /// </summary>
-    public byte HighSurrogate { get; }
-
-    /// <summary>
-    /// Gets the low surrogate byte of the code point.
-    /// </summary>
-    public byte LowSurrogate { get; }
+    public IReadOnlyList<byte> Bytes { get; }
 
     /// <summary>
     /// Constructs a new code point token from a high and low surrogate byte.
@@ -22,8 +17,23 @@ public struct CodePointToken : IToken
     /// <param name="low">The low surrogate byte.</param>
     public CodePointToken(byte high, byte low)
     {
-        HighSurrogate = high;
-        LowSurrogate = low;
+        Bytes = new List<byte>() { high, low };
+    }
+
+    /// <summary>
+    /// Constructs a new code point token from a byte.
+    /// </summary>
+    public CodePointToken(byte value)
+    {
+        Bytes = new List<byte>() { value };
+    }
+
+    /// <summary>
+    /// Constructs a new code point token from a list of bytes.
+    /// </summary>
+    public CodePointToken(List<byte> bytes)
+    {
+        Bytes = bytes;
     }
 
     /// <summary>
@@ -37,6 +47,6 @@ public struct CodePointToken : IToken
     /// <returns></returns>
     public override string ToString()
     {
-        return $"[{HighSurrogate:X2} {LowSurrogate:X2}]";
+        return $"[{string.Join(" ", Bytes.Select(x => x.ToString("X2")))}]";
     }
 }

@@ -33,7 +33,7 @@ public class MessageScriptBinaryV2Builder
         mEncoding = EncodingHelper.GetEncodingForEndianness(Encoding.Unicode, mFormatVersion.HasFlag(BinaryFormatVersion.BigEndian));
     }
 
-    internal void SetEncoding(Encoding encoding)
+    public void SetEncoding(Encoding encoding)
     {
         if (encoding == null) throw new ArgumentNullException(nameof(encoding));
         if (encoding.IsSingleByte)
@@ -261,7 +261,7 @@ public class MessageScriptBinaryV2Builder
                 break;
 
             case TokenKind.NewLine:
-                bytes.Add(NewLineToken.Value);
+                bytes.Add(NewLineToken.ASCIIValue);
                 break;
 
             default:
@@ -301,7 +301,14 @@ public class MessageScriptBinaryV2Builder
 
     private void ProcessCodePoint(CodePointToken token, List<byte> bytes)
     {
-        WriteUInt16(bytes, (ushort)(token.HighSurrogate << 8 | token.LowSurrogate));
+        if (token.Bytes.Count == 2)
+        {
+            WriteUInt16(bytes, (ushort)(token.Bytes[0] << 8 | token.Bytes[1]));
+        }
+        else
+        {
+            bytes.AddRange(token.Bytes);
+        }
     }
 
     private void AddAddressLocation()
