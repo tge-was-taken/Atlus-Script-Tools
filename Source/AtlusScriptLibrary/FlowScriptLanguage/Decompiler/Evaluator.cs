@@ -368,7 +368,7 @@ public class Evaluator
                 continue;
 
             // Declare function
-            var function = Library.FlowScriptModules
+            var function = Library?.FlowScriptModules
                                           .SelectMany(x => x.Functions)
                                           .SingleOrDefault(x => x.Index == index);
 
