@@ -16,9 +16,9 @@ public class FlowScriptModuleFunction : ICloneable
 
     public string Name { get; set; }
 
-        public List<string> Aliases { get; set; }
+    public List<string> Aliases { get; set; }
 
-        public string Description { get; set; }
+    public string Description { get; set; }
 
     [JsonConverter(typeof(HexULongStringJsonConverter))]
     public ulong Address { get; set; }
@@ -26,7 +26,8 @@ public class FlowScriptModuleFunction : ICloneable
     [JsonConverter(typeof(CustomStringEnumConverter))]
     public FlowScriptModuleFunctionSemantic Semantic { get; set; }
 
-    public List<FlowScriptModuleParameter> Parameters { get; set; }
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
+    public List<FlowScriptModuleParameter> Parameters { get; set; } = new();
 
     public object Clone()
     {

@@ -17,15 +17,15 @@ public class FlowScriptModule : ICloneable
 
     [JsonPropertyName("ConstantsPath")]
     [JsonConverter(typeof(ExternalJsonPathConverter))]
-    public List<FlowScriptModuleConstant> Constants { get; set; }
+    public List<FlowScriptModuleConstant> Constants { get; set; } = new();
 
     [JsonPropertyName("EnumsPath")]
     [JsonConverter(typeof(ExternalJsonPathConverter))]
-    public List<FlowScriptModuleEnum> Enums { get; set; }
+    public List<FlowScriptModuleEnum> Enums { get; set; } = new();
 
     [JsonPropertyName("FunctionsPath")]
     [JsonConverter(typeof(ExternalJsonPathConverter))]
-    public List<FlowScriptModuleFunction> Functions { get; set; }
+    public List<FlowScriptModuleFunction> Functions { get; set; } = new();
 
     public object Clone()
     {

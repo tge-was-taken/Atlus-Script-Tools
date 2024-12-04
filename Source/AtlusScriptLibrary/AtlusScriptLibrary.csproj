@@ -69,6 +69,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Libraries\TraumaCenter3.json" />
+    <None Remove="Libraries\TraumaCenter3\FlowScriptModules.json" />
+    <None Remove="Libraries\TraumaCenter3\MessageScriptLibrary.json" />
+    <None Remove="Libraries\TraumaCenter3\Modules\Common\Functions.json" />
     <None Remove="Libraries\TraumaCenter2.json" />
     <None Remove="Libraries\TraumaCenter2\FlowScriptModules.json" />
     <None Remove="Libraries\TraumaCenter2\MessageScriptLibrary.json" />
@@ -90,5 +94,13 @@
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.0" />
     <PackageReference Include="System.Text.Json" Version="9.0.0" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="Libraries\TraumaCenter2\MessageScriptLibrary.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Libraries\TraumaCenter3\MessageScriptLibrary.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>

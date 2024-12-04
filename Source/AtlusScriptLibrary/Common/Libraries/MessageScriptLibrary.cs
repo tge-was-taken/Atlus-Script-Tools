@@ -2,6 +2,7 @@ using AtlusScriptLibrary.FlowScriptLanguage.Compiler;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace AtlusScriptLibrary.Common.Libraries;
 
@@ -13,7 +14,8 @@ public class MessageScriptLibrary : ICloneable
 
     public string Description { get; set; }
 
-    public List<MessageScriptLibraryFunction> Functions { get; set; }
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
+    public List<MessageScriptLibraryFunction> Functions { get; set; } = new();
 
     public object Clone()
     {
