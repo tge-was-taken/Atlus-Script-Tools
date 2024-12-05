@@ -1,4 +1,4 @@
-﻿[
+[
   {
     "Index": "0x0004",
     "ReturnType": "int",
@@ -11,6 +11,9 @@
         "Description": "",
         "Semantic": "MsgId"
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0004"
     ]
   }
 ]

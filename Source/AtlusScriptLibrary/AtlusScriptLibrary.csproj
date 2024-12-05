@@ -69,6 +69,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Libraries\EO2.json" />
+    <None Remove="Libraries\EO2\FlowScriptModules.json" />
+    <None Remove="Libraries\EO2\MessageScriptLibrary.json" />
+    <None Remove="Libraries\EO2\Modules\Common\Functions.json" />
     <None Remove="Libraries\TraumaCenter3.json" />
     <None Remove="Libraries\TraumaCenter3\FlowScriptModules.json" />
     <None Remove="Libraries\TraumaCenter3\MessageScriptLibrary.json" />
