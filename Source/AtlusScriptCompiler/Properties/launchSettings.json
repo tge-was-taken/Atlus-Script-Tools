@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "AtlusScriptCompiler": {
-      "commandName": "Project",
-      "commandLineArgs": "-Decompile -In \"F:\\Software\\Games\\PC\\SteamLibrary\\steamapps\\common\\CatherineClassic\\data\\event\\e003\\010\\m000.bmd\" -Encoding cat"
-    }
-  }
-}

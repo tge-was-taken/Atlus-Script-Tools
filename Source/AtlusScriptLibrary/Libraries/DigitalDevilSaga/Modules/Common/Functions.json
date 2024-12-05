@@ -1016,23 +1016,14 @@
   {
     "Index": "0x003c",
     "ReturnType": "int",
-    "Name": "AI_TAR_RND",
-    "Description": "(Copied from SMT3. May be incorrect.)",
-    "Parameters": [],
-    "FullName": "nbAiScript_nbCommand_AI_TAR_RND",
-    "Aliases": [
-      "FUNCTION_003C"
-    ]
+    "Name": "FUNCTION_003C"
   },
   {
     "Index": "0x003d",
     "ReturnType": "int",
-    "Name": "AI_ACT_WAIT",
+    "Name": "FUNCTION_003D",
     "Description": "",
-    "Parameters": [],
-    "Aliases": [
-      "FUNCTION_003D"
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x003e",
@@ -6815,13 +6806,7 @@
   {
     "Index": "0x0172",
     "ReturnType": "int",
-    "Name": "PLAYER_GET_LND",
-    "Description": "(Copied from SMT3. May be incorrect.)",
-    "Parameters": [],
-    "FullName": "scrParameterCommand_prm_PLAYER_GET_LND",
-    "Aliases": [
-      "FUNCTION_0172"
-    ]
+    "Name": "FUNCTION_0172"
   },
   {
     "Index": "0x0173",
@@ -6840,13 +6825,7 @@
   {
     "Index": "0x0175",
     "ReturnType": "int",
-    "Name": "PIKUKO_GETID",
-    "Description": "(Copied from SMT3. May be incorrect.)",
-    "Parameters": [],
-    "FullName": "scrParameterCommand_prm_PIKUKO_GETID",
-    "Aliases": [
-      "FUNCTION_0175"
-    ]
+    "Name": "FUNCTION_0175"
   },
   {
     "Index": "0x0176",
@@ -6945,24 +6924,12 @@
   {
     "Index": "0x017f",
     "ReturnType": "int",
-    "Name": "AI_CHK_ENHAMAMHK",
-    "Description": "(Copied from SMT3. May be incorrect.)",
-    "Parameters": [],
-    "FullName": "nbAiScript_nbCommand_AI_CHK_ENHAMAMHK",
-    "Aliases": [
-      "FUNCTION_017F"
-    ]
+    "Name": "FUNCTION_017F"
   },
   {
     "Index": "0x0180",
     "ReturnType": "int",
-    "Name": "AI_TAR_JOKEN",
-    "Description": "(Copied from SMT3. May be incorrect.)",
-    "Parameters": [],
-    "FullName": "nbAiScript_nbCommand_AI_TAR_JOKEN",
-    "Aliases": [
-      "FUNCTION_0180"
-    ]
+    "Name": "FUNCTION_0180"
   },
   {
     "Index": "0x0181",
@@ -7022,13 +6989,8 @@
   {
     "Index": "0x0186",
     "ReturnType": "int",
-    "Name": "PARTY_KAIFUKU2",
-    "Description": "(Copied from SMT3. May be incorrect.)",
-    "Parameters": [],
-    "FullName": "scrParameterCommand_prm_PARTY_KAIFUKU2",
-    "Aliases": [
-      "FUNCTION_0186"
-    ]
+    "Name": "FUNCTION_0186",
+    "Parameters": []
   },
   {
     "Index": "0x0187",
@@ -7115,19 +7077,7 @@
   {
     "Index": "0x0191",
     "ReturnType": "int",
-    "Name": "HD_GET_RESUME",
-    "Description": "(Copied from SMT3. May be incorrect.)",
-    "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
-    ],
-    "FullName": "evtCommand_evtCommand_GET_RESUME",
-    "Aliases": [
-      "FUNCTION_0191"
-    ]
+    "Name": "FUNCTION_0191"
   },
   {
     "Index": "0x0192",
@@ -7168,19 +7118,7 @@
   {
     "Index": "0x0194",
     "ReturnType": "int",
-    "Name": "HD_MODEL_CLS2",
-    "Description": "(Copied from SMT3. May be incorrect.)",
-    "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
-    ],
-    "FullName": "evtCommand_evtCommand_MODEL_CLS2",
-    "Aliases": [
-      "FUNCTION_0194"
-    ]
+    "Name": "FUNCTION_0194"
   },
   {
     "Index": "0x0195",
@@ -7240,30 +7178,18 @@
   {
     "Index": "0x0199",
     "ReturnType": "int",
-    "Name": "HD_GET_MACHINE",
-    "Description": "(Copied from SMT3. May be incorrect.)",
-    "Parameters": [],
-    "FullName": "evtCommand_evtCommand_GET_MACHINE",
-    "Aliases": [
-      "FUNCTION_0199"
-    ]
+    "Name": "FUNCTION_0199"
   },
   {
     "Index": "0x019a",
     "ReturnType": "int",
-    "Name": "HD_BIT_CHK2",
-    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Name": "FUNCTION_019A",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
-        "Description": "",
-        "Semantic": "BitId"
+        "Description": ""
       }
-    ],
-    "FullName": "scrCommonCommand_scrCommand_BIT_CHK2",
-    "Aliases": [
-      "FUNCTION_019A"
     ]
   },
   {
