@@ -232,7 +232,7 @@ internal class Program
             LogException( "Unhandled exception thrown", e );
             success = false;
 
-            if ( Debugger.IsAttached )
+            if ( System.Diagnostics.Debugger.IsAttached )
                 throw;
         }
 #endif
