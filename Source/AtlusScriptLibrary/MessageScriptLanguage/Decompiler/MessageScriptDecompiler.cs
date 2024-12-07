@@ -231,7 +231,7 @@ public sealed class MessageScriptDecompiler : IDisposable
 
     public void Decompile(CodePointToken token)
     {
-        WriteTag($"x {string.Join(" ", token.Bytes.Select(x => x.ToString("X2")))}");
+        WriteTag($"x {string.Join(" ", token.Bytes.Select(x => $"0x{x:X2}"))}");
     }
 
     public void Decompile(NewLineToken token)
