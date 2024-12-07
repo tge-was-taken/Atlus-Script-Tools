@@ -30,6 +30,7 @@
     <None Remove="TestResources\POPREG.bf" />
     <None Remove="TestResources\Version2BigEndian.bmd" />
     <None Remove="TestResources\Version2BigEndianAlt.bmd" />
+    <None Remove="TestResources\Version3BigEndian.bm2" />
   </ItemGroup>
 
 </Project>

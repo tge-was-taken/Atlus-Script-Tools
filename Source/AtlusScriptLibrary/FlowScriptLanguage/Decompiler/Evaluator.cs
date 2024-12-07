@@ -368,7 +368,7 @@ public class Evaluator
                 continue;
 
             // Declare function
-            var function = Library.FlowScriptModules
+            var function = Library?.FlowScriptModules
                                           .SelectMany(x => x.Functions)
                                           .SingleOrDefault(x => x.Index == index);
 
@@ -770,6 +770,31 @@ public class Evaluator
             if (identifier.Text == "__RETURN_ADDRESS")
                 evaluatedStatements.Remove(first);
         }
+
+        // Generates incorrect code in some cases
+        // Needs to be done in pre-eval
+        //if (Library is null)
+        //{
+        //    foreach (var item in evaluatedStatements.ToList())
+        //    {
+        //        if (mInstructions[item.InstructionIndex].Opcode == Opcode.COMM)
+        //        {
+        //            if (item.Statement is CallOperator callExpr)
+        //            {
+        //                var argumentExpressions = evaluatedStatements
+        //                    .Where(x => mEvaluationExpressionStack.Contains(x))
+        //                    .Where(x => x.InstructionIndex < item.InstructionIndex && x.Statement is Expression)
+        //                    .ToList();
+        //                argumentExpressions.Reverse();
+        //                foreach (var expr in argumentExpressions)
+        //                {
+        //                    evaluatedStatements.Remove(expr);
+        //                    callExpr.Arguments.Add(new Argument() { Expression = (Expression)expr.Statement });
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
 
         // Build result
         evaluatedProcedure = new EvaluatedProcedure

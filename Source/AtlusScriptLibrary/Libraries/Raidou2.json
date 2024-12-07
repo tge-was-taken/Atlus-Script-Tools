@@ -1,0 +1,6 @@
+{
+  "Name": "Shin Megami Tensei - Devil Summoner 2 - Raidou Kuzunoha vs. King Abaddon",
+  "ShortName": "raidou2",
+  "FlowScriptModulesPath": "Raidou2/FlowScriptModules.json",
+  "MessageScriptLibraryPath": "Raidou2/MessageScriptLibrary.json"
+}

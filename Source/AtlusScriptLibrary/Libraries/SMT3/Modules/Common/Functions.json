@@ -9,7 +9,7 @@
         "Type": "int",
         "Name": "messageId",
         "Description": "",
-        "Semantic": "MsgId",
+        "Semantic": "MsgId"
       }
     ],
     "FullName": "itfMesManager_itfMesMngMessage"

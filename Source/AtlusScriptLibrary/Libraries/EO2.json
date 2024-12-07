@@ -1,0 +1,6 @@
+{
+  "Name": "Etrian Odyssey II: Heroes of Lagaard",
+  "ShortName": "eo2",
+  "FlowScriptModulesPath": "EO2/FlowScriptModules.json",
+  "MessageScriptLibraryPath": "EO2/MessageScriptLibrary.json"
+}

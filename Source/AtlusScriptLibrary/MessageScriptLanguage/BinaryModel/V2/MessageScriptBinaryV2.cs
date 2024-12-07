@@ -4,11 +4,20 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 
 namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V2;
 
 public class MessageScriptBinaryV2 : IMessageScriptBinary
 {
+    public static bool IsValidStream(Stream stream)
+    {
+        var magic = new byte[4];
+        stream.Read(magic, 0, magic.Length);
+        stream.Position = 0;
+        return magic.SequenceEqual(BinaryHeaderV2.MAGIC_BE) || magic.SequenceEqual(BinaryHeaderV2.MAGIC);
+    }
+
     public static MessageScriptBinaryV2 FromFile(string path)
     {
         if (path == null)

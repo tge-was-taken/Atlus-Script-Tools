@@ -338,7 +338,7 @@ public class FlowScriptDecompiler
 
             foreach (var call in calls)
             {
-                var libFunc = Library.FlowScriptModules.SelectMany(x => x.Functions).FirstOrDefault(x => x.Name == call.Identifier.Text);
+                var libFunc = Library?.FlowScriptModules.SelectMany(x => x.Functions).FirstOrDefault(x => x.Name == call.Identifier.Text);
                 if (libFunc == null)
                 {
                     // procedure call or unknown function
@@ -396,7 +396,7 @@ public class FlowScriptDecompiler
             {
                 foreach (var call in calls)
                 {
-                    var libFunc = Library.FlowScriptModules.SelectMany(x => x.Functions).FirstOrDefault(x => x.Name == call.Identifier.Text);
+                    var libFunc = Library?.FlowScriptModules.SelectMany(x => x.Functions).FirstOrDefault(x => x.Name == call.Identifier.Text);
                     if (libFunc == null)
                     {
                         // procedure call or unknown function
@@ -439,7 +439,7 @@ public class FlowScriptDecompiler
             {
                 foreach (var call in calls)
                 {
-                    var libFunc = Library.FlowScriptModules.SelectMany(x => x.Functions).FirstOrDefault(x => x.Name == call.Identifier.Text);
+                    var libFunc = Library?.FlowScriptModules.SelectMany(x => x.Functions).FirstOrDefault(x => x.Name == call.Identifier.Text);
                     if (libFunc == null)
                     {
                         // procedure call or unknown function
@@ -530,12 +530,12 @@ public class FlowScriptDecompiler
             var calls = SyntaxNodeCollector<CallOperator>.Collect(evaluatedStatement.Statement);
             foreach (var call in calls)
             {
-                var libraryFunctions = Library.FlowScriptModules
+                var libraryFunctions = Library?.FlowScriptModules
                                               .SelectMany(x => x.Functions)
                                               .Where(x => x.Name == call.Identifier.Text)
                                               .ToList();
 
-                if (libraryFunctions.Count == 0)
+                if (libraryFunctions == null || libraryFunctions.Count == 0)
                     continue;
 
                 if (libraryFunctions.Count != 1)
@@ -563,7 +563,7 @@ public class FlowScriptDecompiler
                     if (!(argument is IIntLiteral argumentValue))
                         continue;
 
-                    var libraryEnum = Library.FlowScriptModules
+                    var libraryEnum = Library?.FlowScriptModules
                                                      .Where(x => x.Enums != null)
                                                      .SelectMany(x => x.Enums)
                                                      .FirstOrDefault(x => x.Name == parameter.Type);

@@ -37,6 +37,7 @@ internal class Program
     public static bool DoDisassemble;
     public static InputFileFormat InputFileFormat;
     public static OutputFileFormat OutputFileFormat;
+    public static MessageScriptBinaryVariant MessageScriptBinaryVariant;
     public static string MessageScriptTextEncodingName;
     public static Encoding MessageScriptEncoding;
     public static string LibraryName;
@@ -485,6 +486,12 @@ internal class Program
 
                 case ".bmd":
                     InputFileFormat = InputFileFormat.MessageScriptBinary;
+                    MessageScriptBinaryVariant = MessageScriptBinaryVariant.BMD;
+                    break;
+
+                case ".bm2":
+                    InputFileFormat = InputFileFormat.MessageScriptBinary;
+                    MessageScriptBinaryVariant = MessageScriptBinaryVariant.BM2;
                     break;
 
                 case ".msg":
@@ -499,6 +506,12 @@ internal class Program
                     Logger.Error("Unable to detect input file format");
                     return false;
             }
+        }
+
+        if (InputFileFormat == InputFileFormat.MessageScriptTextSource &&
+            (OutputFileFormat == OutputFileFormat.V3 || OutputFileFormat == OutputFileFormat.V3BE))
+        {
+            MessageScriptBinaryVariant = MessageScriptBinaryVariant.BM2;
         }
 
         if (Path.GetExtension(InputFilePath).ToLowerInvariant().Equals(".uasset"))
@@ -541,7 +554,10 @@ internal class Program
                         OutputFilePath = InputFilePath + ".bf";
                         break;
                     case InputFileFormat.MessageScriptTextSource:
-                        OutputFilePath = InputFilePath + ".bmd";
+                        if (MessageScriptBinaryVariant == MessageScriptBinaryVariant.BMD)
+                            OutputFilePath = InputFilePath + ".bmd";
+                        else if (MessageScriptBinaryVariant == MessageScriptBinaryVariant.BM2)
+                            OutputFilePath = InputFilePath + ".bm2";
                         break;
                 }
             }
@@ -810,6 +826,12 @@ internal class Program
             case OutputFileFormat.V2BE:
                 version = AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Version2BigEndian;
                 break;
+            case OutputFileFormat.V3:
+                version = AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Version3;
+                break;
+            case OutputFileFormat.V3BE:
+                version = AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Version3BigEndian;
+                break;
             default:
                 version = AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Detect;
                 break;
@@ -841,6 +863,12 @@ internal class Program
                 break;
             case AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Version2BigEndian:
                 outputFileFormat = OutputFileFormat.V2BE;
+                break;
+            case AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Version3:
+                outputFileFormat = OutputFileFormat.V3;
+                break;
+            case AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Version3BigEndian:
+                outputFileFormat = OutputFileFormat.V3BE;
                 break;
             default:
                 outputFileFormat = OutputFileFormat.None;
@@ -1063,7 +1091,11 @@ internal class Program
             case InputFileFormat.FlowScriptBinary:
                 return ".bf";
             case InputFileFormat.MessageScriptBinary:
-                return ".bmd";
+                if (MessageScriptBinaryVariant == MessageScriptBinaryVariant.BMD)
+                    return ".bmd";
+                else if (MessageScriptBinaryVariant == MessageScriptBinaryVariant.BM2)
+                    return ".bm2";
+                else goto default;
             default:
                 throw new Exception("Couldn't determine an input file extension");
         }
@@ -1077,8 +1109,11 @@ internal class Program
             case InputFileFormat.FlowScriptAssemblerSource:
                 return ".bf";
             case InputFileFormat.MessageScriptTextSource:
-                return ".bmd";
-
+                if (MessageScriptBinaryVariant == MessageScriptBinaryVariant.BMD)
+                    return ".bmd";
+                else if (MessageScriptBinaryVariant == MessageScriptBinaryVariant.BM2)
+                    return ".bm2";
+                else goto default;
             case InputFileFormat.FlowScriptBinary:
                 if (DoDecompile) return ".flow";
                 return ".flowasm";
@@ -1089,6 +1124,12 @@ internal class Program
                 throw new Exception("Couldn't determine an output file extension");
         }
     }
+}
+
+public enum MessageScriptBinaryVariant
+{
+    BMD,
+    BM2
 }
 
 public enum InputFileFormat

@@ -57,6 +57,6 @@ def ParseStringTableToEnum(enumName, address, count):
     print('}')
 
 # Example usage
-# Nocturne
+# SMT3
 # ParseStringTableToEnum("BattleSkill", 0x003E83F0, 512)
 ParseStringTableToEnum("BattleUnit", 0x003E7328, 386)

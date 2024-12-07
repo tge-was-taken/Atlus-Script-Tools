@@ -1,6 +1,7 @@
 ﻿using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel;
 using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V1;
 using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V2;
+using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V3;
 using AtlusScriptLibrary.MessageScriptLanguage.Compiler;
 using AtlusScriptLibrary.MessageScriptLanguage.Decompiler;
 using System.Diagnostics;
@@ -111,6 +112,20 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Tests
             var newBinary = script.ToBinary();
             if (Debugger.IsAttached)
                 newBinary.ToFile("out.bmd");
+
+            //Compare(binary, newBinary);
+        }
+
+        [TestMethod]
+        public void ToBinary_ShouldMatchSourceBinary_Version3BigEndian()
+        {
+            var binary = Bm2Binary.FromFile("TestResources/Version3BigEndian.bm2");
+            if (Debugger.IsAttached)
+                binary.ToFile("out_orig.bm2");
+            var script = MessageScript.FromBinary(binary);
+            var newBinary = script.ToBinary();
+            if (Debugger.IsAttached)
+                newBinary.ToFile("out_new.bm2");
 
             //Compare(binary, newBinary);
         }

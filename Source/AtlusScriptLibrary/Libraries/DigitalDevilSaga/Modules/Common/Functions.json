@@ -39,41 +39,58 @@
   {
     "Index": "0x0003",
     "ReturnType": "int",
-    "Name": "FUNCTION_0003",
-    "Description": "",
+    "Name": "SEL",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "",
+        "Semantic": "SelId"
       }
+    ],
+    "FullName": "itfMesManager_itfMesMngSelect",
+    "Aliases": [
+      "FUNCTION_0003"
     ]
   },
   {
     "Index": "0x0004",
     "ReturnType": "int",
-    "Name": "FUNCTION_0004",
-    "Description": "",
-    "Parameters": []
+    "Name": "SEL_WND_DSP",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "itfMesManager_itfMesMngOpenSelectWindow",
+    "Aliases": [
+      "FUNCTION_0004"
+    ]
   },
   {
     "Index": "0x0005",
     "ReturnType": "int",
-    "Name": "FUNCTION_0005",
-    "Description": "",
-    "Parameters": []
+    "Name": "SEL_WND_CLS",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "itfMesManager_itfMesMngCloseSelectWindow",
+    "Aliases": [
+      "FUNCTION_0005"
+    ]
   },
   {
     "Index": "0x0006",
     "ReturnType": "int",
-    "Name": "FUNCTION_0006",
-    "Description": "",
+    "Name": "SEL_MASK",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "itfMesManager_itfMesMngMaskSelect",
+    "Aliases": [
+      "FUNCTION_0006"
     ]
   },
   {
@@ -146,54 +163,70 @@
   {
     "Index": "0x000b",
     "ReturnType": "int",
-    "Name": "FUNCTION_000B",
-    "Description": "",
+    "Name": "SE_PLAY",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "sndScript_sndScrCmd_SE_PLAY",
+    "Aliases": [
+      "FUNCTION_000B"
     ]
   },
   {
     "Index": "0x000c",
     "ReturnType": "int",
-    "Name": "FUNCTION_000C",
-    "Description": "",
+    "Name": "BGM_PLAY",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "sndScript_sndScrCmd_BGM_PLAY",
+    "Aliases": [
+      "FUNCTION_000C"
     ]
   },
   {
     "Index": "0x000d",
     "ReturnType": "int",
-    "Name": "FUNCTION_000D",
-    "Description": "",
-    "Parameters": []
+    "Name": "SYNC",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "scrCommonCommand_scrCommand_SYNC",
+    "Aliases": [
+      "FUNCTION_000D"
+    ]
   },
   {
     "Index": "0x000e",
     "ReturnType": "int",
-    "Name": "FUNCTION_000E",
-    "Description": "",
+    "Name": "WAIT",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_WAIT",
+    "Aliases": [
+      "FUNCTION_000E"
     ]
   },
   {
     "Index": "0x000f",
     "ReturnType": "int",
-    "Name": "FUNCTION_000F",
-    "Description": "",
+    "Name": "FADE_IN",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -205,13 +238,17 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_FADE_IN",
+    "Aliases": [
+      "FUNCTION_000F"
     ]
   },
   {
     "Index": "0x0010",
     "ReturnType": "int",
-    "Name": "FUNCTION_0010",
-    "Description": "",
+    "Name": "FADE_OUT",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -223,13 +260,17 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_FADE_OUT",
+    "Aliases": [
+      "FUNCTION_0010"
     ]
   },
   {
     "Index": "0x0011",
     "ReturnType": "int",
-    "Name": "FUNCTION_0011",
-    "Description": "",
+    "Name": "SEL_JMP",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -239,58 +280,66 @@
       {
         "Type": "int",
         "Name": "param2",
-        "Description": ""
+        "Description": "Unknown type; assumed int"
       },
       {
         "Type": "int",
         "Name": "param3",
-        "Description": ""
+        "Description": "Unknown type; assumed int"
       },
       {
         "Type": "int",
         "Name": "param4",
-        "Description": ""
+        "Description": "Unknown type; assumed int"
       },
       {
         "Type": "int",
         "Name": "param5",
-        "Description": ""
+        "Description": "Unknown type; assumed int"
       },
       {
         "Type": "int",
         "Name": "param6",
-        "Description": ""
+        "Description": "Unknown type; assumed int"
       },
       {
         "Type": "int",
         "Name": "param7",
-        "Description": ""
+        "Description": "Unknown type; assumed int"
       },
       {
         "Type": "int",
         "Name": "param8",
-        "Description": ""
+        "Description": "Unknown type; assumed int"
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_SEL_JMP",
+    "Aliases": [
+      "FUNCTION_0011"
     ]
   },
   {
     "Index": "0x0012",
     "ReturnType": "int",
-    "Name": "FUNCTION_0012",
-    "Description": "",
+    "Name": "CAM_SEL",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_CAM_SEL",
+    "Aliases": [
+      "FUNCTION_0012"
     ]
   },
   {
     "Index": "0x0013",
     "ReturnType": "int",
-    "Name": "FUNCTION_0013",
-    "Description": "",
+    "Name": "CAM_PATH_MOVE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -302,13 +351,17 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_CAM_PATH_MOVE",
+    "Aliases": [
+      "FUNCTION_0013"
     ]
   },
   {
     "Index": "0x0014",
     "ReturnType": "int",
-    "Name": "FUNCTION_0014",
-    "Description": "",
+    "Name": "SET_SKY",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -325,13 +378,17 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_SET_SKY",
+    "Aliases": [
+      "FUNCTION_0014"
     ]
   },
   {
     "Index": "0x0015",
     "ReturnType": "int",
-    "Name": "FUNCTION_0015",
-    "Description": "",
+    "Name": "MODEL_DSP",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -343,26 +400,34 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_DSP",
+    "Aliases": [
+      "FUNCTION_0015"
     ]
   },
   {
     "Index": "0x0016",
     "ReturnType": "int",
-    "Name": "FUNCTION_0016",
-    "Description": "",
+    "Name": "MODEL_CLS",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_CLS",
+    "Aliases": [
+      "FUNCTION_0016"
     ]
   },
   {
     "Index": "0x0017",
     "ReturnType": "int",
-    "Name": "FUNCTION_0017",
-    "Description": "",
+    "Name": "MODEL_MOVE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -389,13 +454,17 @@
         "Name": "param5",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_MOVE",
+    "Aliases": [
+      "FUNCTION_0017"
     ]
   },
   {
     "Index": "0x0018",
     "ReturnType": "int",
-    "Name": "FUNCTION_0018",
-    "Description": "",
+    "Name": "MODEL_MOTION",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -417,26 +486,34 @@
         "Name": "param4",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_MOTION",
+    "Aliases": [
+      "FUNCTION_0018"
     ]
   },
   {
     "Index": "0x0019",
     "ReturnType": "int",
-    "Name": "FUNCTION_0019",
-    "Description": "",
+    "Name": "CAM_SEL_FOVY",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_CAM_SEL_FOVY",
+    "Aliases": [
+      "FUNCTION_0019"
     ]
   },
   {
     "Index": "0x001a",
     "ReturnType": "int",
-    "Name": "FUNCTION_001A",
-    "Description": "",
+    "Name": "PAD_ACT",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -453,13 +530,17 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_PAD_ACT",
+    "Aliases": [
+      "FUNCTION_001A"
     ]
   },
   {
     "Index": "0x001b",
     "ReturnType": "int",
-    "Name": "FUNCTION_001B",
-    "Description": "",
+    "Name": "MODEL_SCL_XYZ",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -467,33 +548,41 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param2",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param3",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param4",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_SCL_XYZ",
+    "Aliases": [
+      "FUNCTION_001B"
     ]
   },
   {
     "Index": "0x001c",
     "ReturnType": "int",
-    "Name": "FUNCTION_001C",
-    "Description": "",
+    "Name": "MAKA_CHECK",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrParameterCommand_prm_MAKA_CHECK",
+    "Aliases": [
+      "FUNCTION_001C"
     ]
   },
   {
@@ -539,8 +628,8 @@
   {
     "Index": "0x0021",
     "ReturnType": "int",
-    "Name": "FUNCTION_0021",
-    "Description": "",
+    "Name": "PMV_LOAD",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -552,67 +641,95 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_PMV_LOAD",
+    "Aliases": [
+      "FUNCTION_0021"
     ]
   },
   {
     "Index": "0x0022",
     "ReturnType": "int",
-    "Name": "FUNCTION_0022",
-    "Description": "",
+    "Name": "PMV_RUN2",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_PMV_RUN2",
+    "Aliases": [
+      "FUNCTION_0022"
     ]
   },
   {
     "Index": "0x0023",
     "ReturnType": "int",
-    "Name": "FUNCTION_0023",
-    "Description": "",
-    "Parameters": []
+    "Name": "FIELD_CLS_STOP",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_FIELD_CLS_STOP",
+    "Aliases": [
+      "FUNCTION_0023"
+    ]
   },
   {
     "Index": "0x0024",
     "ReturnType": "int",
-    "Name": "FUNCTION_0024",
-    "Description": "",
+    "Name": "PUT",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_PUT",
+    "Aliases": [
+      "FUNCTION_0024"
     ]
   },
   {
     "Index": "0x0025",
     "ReturnType": "int",
-    "Name": "FUNCTION_0025",
-    "Description": "",
-    "Parameters": []
+    "Name": "GET_MOON",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_GET_MOON",
+    "Aliases": [
+      "FUNCTION_0025"
+    ]
   },
   {
     "Index": "0x0026",
     "ReturnType": "int",
-    "Name": "FUNCTION_0026",
-    "Description": "",
-    "Parameters": []
+    "Name": "UNIT_CLS",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_UNIT_CLS",
+    "Aliases": [
+      "FUNCTION_0026"
+    ]
   },
   {
     "Index": "0x0027",
     "ReturnType": "int",
-    "Name": "FUNCTION_0027",
-    "Description": "",
-    "Parameters": []
+    "Name": "GET_MOON16",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_GET_MOON16",
+    "Aliases": [
+      "FUNCTION_0027"
+    ]
   },
   {
     "Index": "0x0028",
     "ReturnType": "int",
-    "Name": "FUNCTION_0028",
-    "Description": "",
+    "Name": "RESTORE_BATTLE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -624,85 +741,117 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_RESTORE_BATTLE",
+    "Aliases": [
+      "FUNCTION_0028"
     ]
   },
   {
     "Index": "0x0029",
     "ReturnType": "int",
-    "Name": "FUNCTION_0029",
-    "Description": "",
-    "Parameters": []
+    "Name": "UNIT_CLS_STOP",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_UNIT_CLS_STOP",
+    "Aliases": [
+      "FUNCTION_0029"
+    ]
   },
   {
     "Index": "0x002a",
     "ReturnType": "int",
-    "Name": "FUNCTION_002A",
-    "Description": "",
+    "Name": "TEX_LOAD",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
-        "Type": "int",
+        "Type": "string",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_TEX_LOAD",
+    "Aliases": [
+      "FUNCTION_002A"
     ]
   },
   {
     "Index": "0x002b",
     "ReturnType": "int",
-    "Name": "FUNCTION_002B",
-    "Description": "",
+    "Name": "TEX_ON",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_TEX_ON",
+    "Aliases": [
+      "FUNCTION_002B"
     ]
   },
   {
     "Index": "0x002c",
     "ReturnType": "int",
-    "Name": "FUNCTION_002C",
-    "Description": "",
+    "Name": "TEX_OFF",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_TEX_OFF",
+    "Aliases": [
+      "FUNCTION_002C"
     ]
   },
   {
     "Index": "0x002d",
     "ReturnType": "int",
-    "Name": "FUNCTION_002D",
-    "Description": "",
+    "Name": "TEX_CLS",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_TEX_CLS",
+    "Aliases": [
+      "FUNCTION_002D"
     ]
   },
   {
     "Index": "0x002e",
     "ReturnType": "int",
-    "Name": "FUNCTION_002E",
-    "Description": "",
-    "Parameters": []
+    "Name": "EXIT_EVENT",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_EXIT_EVENT",
+    "Aliases": [
+      "FUNCTION_002E"
+    ]
   },
   {
     "Index": "0x002f",
     "ReturnType": "int",
-    "Name": "FUNCTION_002F",
-    "Description": "",
+    "Name": "AI_TBL",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "nbAiScript_nbCommand_AI_TBL",
+    "Aliases": [
+      "FUNCTION_002F"
     ]
   },
   {
@@ -718,16 +867,24 @@
   {
     "Index": "0x0031",
     "ReturnType": "int",
-    "Name": "FUNCTION_0031",
-    "Description": "",
-    "Parameters": []
+    "Name": "AI_ACT_ESCAPE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_AI_ACT_ESCAPE",
+    "Aliases": [
+      "FUNCTION_0031"
+    ]
   },
   {
     "Index": "0x0032",
     "ReturnType": "int",
-    "Name": "FUNCTION_0032",
-    "Description": "",
-    "Parameters": []
+    "Name": "AI_ACT_WAIT",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_AI_ACT_WAIT",
+    "Aliases": [
+      "FUNCTION_0032"
+    ]
   },
   {
     "Index": "0x0033",
@@ -758,47 +915,63 @@
   {
     "Index": "0x0035",
     "ReturnType": "int",
-    "Name": "FUNCTION_0035",
-    "Description": "",
-    "Parameters": []
+    "Name": "AI_TAR_LIFEMIN",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_AI_TAR_LIFEMIN",
+    "Aliases": [
+      "FUNCTION_0035"
+    ]
   },
   {
     "Index": "0x0036",
     "ReturnType": "int",
-    "Name": "FUNCTION_0036",
-    "Description": "",
+    "Name": "AI_TAR_BAD",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "nbAiScript_nbCommand_AI_TAR_BAD",
+    "Aliases": [
+      "FUNCTION_0036"
     ]
   },
   {
     "Index": "0x0037",
     "ReturnType": "int",
-    "Name": "FUNCTION_0037",
-    "Description": "",
+    "Name": "AI_TAR_ID",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "nbAiScript_nbCommand_AI_TAR_ID",
+    "Aliases": [
+      "FUNCTION_0037"
     ]
   },
   {
     "Index": "0x0038",
     "ReturnType": "int",
-    "Name": "FUNCTION_0038",
-    "Description": "",
+    "Name": "BTL_EVENT",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "nbAiScript_nbCommand_BTL_EVENT",
+    "Aliases": [
+      "FUNCTION_0038"
     ]
   },
   {
@@ -843,85 +1016,104 @@
   {
     "Index": "0x003c",
     "ReturnType": "int",
-    "Name": "FUNCTION_003C",
-    "Description": "",
-    "Parameters": []
+    "Name": "FUNCTION_003C"
   },
   {
     "Index": "0x003d",
     "ReturnType": "int",
-    "Name": "AI_ACT_WAIT",
+    "Name": "FUNCTION_003D",
     "Description": "",
-    "Parameters": [],
-    "Aliases": [
-      "FUNCTION_003D"
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x003e",
     "ReturnType": "int",
-    "Name": "FUNCTION_003E",
-    "Description": "",
-    "Parameters": []
+    "Name": "BTL_PNL_OFF",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_BTL_PNL_OFF",
+    "Aliases": [
+      "FUNCTION_003E"
+    ]
   },
   {
     "Index": "0x003f",
     "ReturnType": "int",
-    "Name": "FUNCTION_003F",
-    "Description": "",
-    "Parameters": []
+    "Name": "BTL_PNL_ON",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_BTL_PNL_ON",
+    "Aliases": [
+      "FUNCTION_003F"
+    ]
   },
   {
     "Index": "0x0040",
     "ReturnType": "int",
-    "Name": "FUNCTION_0040",
-    "Description": "",
+    "Name": "SEL_SELNO",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "itfMesManager_itfMesMng_SEL_SELNO",
+    "Aliases": [
+      "FUNCTION_0040"
     ]
   },
   {
     "Index": "0x0041",
     "ReturnType": "int",
-    "Name": "FUNCTION_0041",
-    "Description": "",
+    "Name": "BLUR2_ON",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_BLUR2_ON",
+    "Aliases": [
+      "FUNCTION_0041"
     ]
   },
   {
     "Index": "0x0042",
     "ReturnType": "int",
-    "Name": "FUNCTION_0042",
-    "Description": "",
+    "Name": "BLUR2_OFF",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_BLUR2_OFF",
+    "Aliases": [
+      "FUNCTION_0042"
     ]
   },
   {
     "Index": "0x0043",
     "ReturnType": "int",
-    "Name": "FUNCTION_0043",
-    "Description": "",
-    "Parameters": []
+    "Name": "BLUR_ALLOFF",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "scrCommonCommand_scrCommand_BLUR_ALLOFF",
+    "Aliases": [
+      "FUNCTION_0043"
+    ]
   },
   {
     "Index": "0x0044",
     "ReturnType": "int",
-    "Name": "FUNCTION_0044",
-    "Description": "",
+    "Name": "MODEL_EXWAIT",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -933,27 +1125,39 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_EXWAIT",
+    "Aliases": [
+      "FUNCTION_0044"
     ]
   },
   {
     "Index": "0x0045",
     "ReturnType": "int",
-    "Name": "FUNCTION_0045",
-    "Description": "",
-    "Parameters": []
+    "Name": "BGM_STOP",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "sndScript_sndScrCmd_BGM_STOP",
+    "Aliases": [
+      "FUNCTION_0045"
+    ]
   },
   {
     "Index": "0x0046",
     "ReturnType": "int",
-    "Name": "FUNCTION_0046",
-    "Description": "",
-    "Parameters": []
+    "Name": "RTRN_TITLE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_RTRN_TITLE",
+    "Aliases": [
+      "FUNCTION_0046"
+    ]
   },
   {
     "Index": "0x0047",
     "ReturnType": "int",
-    "Name": "FUNCTION_0047",
-    "Description": "",
+    "Name": "SOFTEN_BIAS",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -961,22 +1165,26 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param2",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_SOFTEN_BIAS",
+    "Aliases": [
+      "FUNCTION_0047"
     ]
   },
   {
     "Index": "0x0048",
     "ReturnType": "int",
-    "Name": "FUNCTION_0048",
-    "Description": "",
+    "Name": "SET_SKY_A",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -988,26 +1196,34 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_SET_SKY_A",
+    "Aliases": [
+      "FUNCTION_0048"
     ]
   },
   {
     "Index": "0x0049",
     "ReturnType": "int",
-    "Name": "FUNCTION_0049",
-    "Description": "",
+    "Name": "MODEL_WAIT",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_WAIT",
+    "Aliases": [
+      "FUNCTION_0049"
     ]
   },
   {
     "Index": "0x004a",
     "ReturnType": "int",
-    "Name": "FUNCTION_004A",
-    "Description": "",
+    "Name": "MODEL_POS",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -1019,13 +1235,17 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_POS",
+    "Aliases": [
+      "FUNCTION_004A"
     ]
   },
   {
     "Index": "0x004b",
     "ReturnType": "int",
-    "Name": "FUNCTION_004B",
-    "Description": "",
+    "Name": "MODEL_WAIT_MOT",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -1037,13 +1257,17 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_WAIT_MOT",
+    "Aliases": [
+      "FUNCTION_004B"
     ]
   },
   {
     "Index": "0x004c",
     "ReturnType": "int",
-    "Name": "FUNCTION_004C",
-    "Description": "",
+    "Name": "MODEL_MOVE_MOT",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -1055,13 +1279,17 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_MOVE_MOT",
+    "Aliases": [
+      "FUNCTION_004C"
     ]
   },
   {
     "Index": "0x004d",
     "ReturnType": "int",
-    "Name": "FUNCTION_004D",
-    "Description": "",
+    "Name": "FIELD_DSP",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -1073,93 +1301,129 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_FIELD_DSP",
+    "Aliases": [
+      "FUNCTION_004D"
     ]
   },
   {
     "Index": "0x004e",
     "ReturnType": "int",
-    "Name": "FUNCTION_004E",
-    "Description": "",
-    "Parameters": []
+    "Name": "FIELD_CLS",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_FIELD_CLS",
+    "Aliases": [
+      "FUNCTION_004E"
+    ]
   },
   {
     "Index": "0x004f",
     "ReturnType": "int",
-    "Name": "FUNCTION_004F",
-    "Description": "",
-    "Parameters": []
+    "Name": "CAMP",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "itfMisc_itfCamp",
+    "Aliases": [
+      "FUNCTION_004F"
+    ]
   },
   {
     "Index": "0x0050",
     "ReturnType": "int",
-    "Name": "FUNCTION_0050",
-    "Description": "",
+    "Name": "MOVIE_PLAY",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "mviScript_mviScrCmd_MOVIE_PLAY",
+    "Aliases": [
+      "FUNCTION_0050"
     ]
   },
   {
     "Index": "0x0051",
     "ReturnType": "int",
-    "Name": "FUNCTION_0051",
-    "Description": "",
-    "Parameters": []
+    "Name": "MOVIE_STOP",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "mviScript_mviScrCmd_MOVIE_STOP",
+    "Aliases": [
+      "FUNCTION_0051"
+    ]
   },
   {
     "Index": "0x0052",
     "ReturnType": "int",
-    "Name": "FUNCTION_0052",
-    "Description": "",
-    "Parameters": []
+    "Name": "MOVIE_CHK",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "mviScript_mviScrCmd_MOVIE_CHK",
+    "Aliases": [
+      "FUNCTION_0052"
+    ]
   },
   {
     "Index": "0x0053",
     "ReturnType": "int",
-    "Name": "FUNCTION_0053",
-    "Description": "",
+    "Name": "PAD_TRIG",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_PAD_TRIG",
+    "Aliases": [
+      "FUNCTION_0053"
     ]
   },
   {
     "Index": "0x0054",
     "ReturnType": "int",
-    "Name": "FUNCTION_0054",
-    "Description": "",
+    "Name": "PAD_PRESS",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_PAD_PRESS",
+    "Aliases": [
+      "FUNCTION_0054"
     ]
   },
   {
     "Index": "0x0055",
     "ReturnType": "int",
-    "Name": "FUNCTION_0055",
-    "Description": "",
+    "Name": "CAM_PATH_WAIT",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_CAM_PATH_WAIT",
+    "Aliases": [
+      "FUNCTION_0055"
     ]
   },
   {
     "Index": "0x0056",
     "ReturnType": "int",
-    "Name": "FUNCTION_0056",
-    "Description": "",
+    "Name": "MODEL_ROT",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -1176,6 +1440,10 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_ROT",
+    "Aliases": [
+      "FUNCTION_0056"
     ]
   },
   {
@@ -1222,8 +1490,8 @@
   {
     "Index": "0x0059",
     "ReturnType": "int",
-    "Name": "FUNCTION_0059",
-    "Description": "",
+    "Name": "CALL_SAVE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -1235,6 +1503,10 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_CALL_SAVE",
+    "Aliases": [
+      "FUNCTION_0059"
     ]
   },
   {
@@ -1261,8 +1533,8 @@
   {
     "Index": "0x005d",
     "ReturnType": "int",
-    "Name": "FUNCTION_005D",
-    "Description": "",
+    "Name": "CALL_FIELD",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -1275,150 +1547,206 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "string",
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_CALL_FIELD",
+    "Aliases": [
+      "FUNCTION_005D"
     ]
   },
   {
     "Index": "0x005e",
     "ReturnType": "int",
-    "Name": "FUNCTION_005E",
-    "Description": "",
+    "Name": "ACT_WIN_DSP",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_ACT_WIN_DSP",
+    "Aliases": [
+      "FUNCTION_005E"
     ]
   },
   {
     "Index": "0x005f",
     "ReturnType": "int",
-    "Name": "FUNCTION_005F",
-    "Description": "",
+    "Name": "DIR_HIT_CNTR",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "Unknown type; assumed int"
       }
+    ],
+    "FullName": "fldCommand_fldCommand_DIR_HIT_CNTR",
+    "Aliases": [
+      "FUNCTION_005F"
     ]
   },
   {
     "Index": "0x0060",
     "ReturnType": "int",
-    "Name": "FUNCTION_0060",
-    "Description": "",
-    "Parameters": []
+    "Name": "PAD_DISABLE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_PAD_DISABLE",
+    "Aliases": [
+      "FUNCTION_0060"
+    ]
   },
   {
     "Index": "0x0061",
     "ReturnType": "int",
-    "Name": "FUNCTION_0061",
-    "Description": "",
-    "Parameters": []
+    "Name": "PAD_ENABLE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_PAD_ENABLE",
+    "Aliases": [
+      "FUNCTION_0061"
+    ]
   },
   {
     "Index": "0x0062",
     "ReturnType": "int",
-    "Name": "FUNCTION_0062",
-    "Description": "",
-    "Parameters": []
+    "Name": "CALL_TITLE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "dds3TitleMain_dds3Title",
+    "Aliases": [
+      "FUNCTION_0062"
+    ]
   },
   {
     "Index": "0x0063",
     "ReturnType": "int",
-    "Name": "FUNCTION_0063",
-    "Description": "",
-    "Parameters": []
+    "Name": "MOON_START",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_MOON_START",
+    "Aliases": [
+      "FUNCTION_0063"
+    ]
   },
   {
     "Index": "0x0064",
     "ReturnType": "int",
-    "Name": "FUNCTION_0064",
-    "Description": "",
-    "Parameters": []
+    "Name": "MOON_STOP",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_MOON_STOP",
+    "Aliases": [
+      "FUNCTION_0064"
+    ]
   },
   {
     "Index": "0x0065",
     "ReturnType": "int",
-    "Name": "FUNCTION_0065",
-    "Description": "",
+    "Name": "CHG_MOON",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_CHG_MOON",
+    "Aliases": [
+      "FUNCTION_0065"
     ]
   },
   {
     "Index": "0x0066",
     "ReturnType": "int",
-    "Name": "FUNCTION_0066",
-    "Description": "",
+    "Name": "CALL_EVENT",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_CALL_EVENT",
+    "Aliases": [
+      "FUNCTION_0066"
     ]
   },
   {
     "Index": "0x0067",
     "ReturnType": "int",
-    "Name": "FUNCTION_0067",
-    "Description": "",
+    "Name": "CALL_BATTLE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_CALL_BATTLE",
+    "Aliases": [
+      "FUNCTION_0067"
     ]
   },
   {
     "Index": "0x0068",
     "ReturnType": "int",
-    "Name": "FUNCTION_0068",
-    "Description": "",
-    "Parameters": []
+    "Name": "MODEL_PLAYER",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_MODEL_PLAYER",
+    "Aliases": [
+      "FUNCTION_0068"
+    ]
   },
   {
     "Index": "0x0069",
     "ReturnType": "int",
-    "Name": "FUNCTION_0069",
-    "Description": "",
+    "Name": "MODEL_ON",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_ON",
+    "Aliases": [
+      "FUNCTION_0069"
     ]
   },
   {
     "Index": "0x006a",
     "ReturnType": "int",
-    "Name": "FUNCTION_006A",
-    "Description": "",
+    "Name": "MODEL_OFF",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_OFF",
+    "Aliases": [
+      "FUNCTION_006A"
     ]
   },
   {
     "Index": "0x006b",
     "ReturnType": "int",
-    "Name": "FUNCTION_006B",
-    "Description": "",
+    "Name": "OBJ_PATH_MOVE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -1435,53 +1763,73 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_OBJ_PATH_MOVE",
+    "Aliases": [
+      "FUNCTION_006B"
     ]
   },
   {
     "Index": "0x006c",
     "ReturnType": "int",
-    "Name": "FUNCTION_006C",
-    "Description": "",
+    "Name": "OBJ_PATH_WAIT",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_OBJ_PATH_WAIT",
+    "Aliases": [
+      "FUNCTION_006C"
     ]
   },
   {
     "Index": "0x006d",
     "ReturnType": "int",
-    "Name": "FUNCTION_006D",
-    "Description": "",
+    "Name": "SET_FOVY",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_SET_FOVY",
+    "Aliases": [
+      "FUNCTION_006D"
     ]
   },
   {
     "Index": "0x006e",
     "ReturnType": "int",
-    "Name": "FUNCTION_006E",
-    "Description": "",
-    "Parameters": []
+    "Name": "ENCOUNT_ON",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_ENCOUNT_ON",
+    "Aliases": [
+      "FUNCTION_006E"
+    ]
   },
   {
     "Index": "0x006f",
     "ReturnType": "int",
-    "Name": "FUNCTION_006F",
-    "Description": "",
-    "Parameters": []
+    "Name": "ENCOUNT_OFF",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_ENCOUNT_OFF",
+    "Aliases": [
+      "FUNCTION_006F"
+    ]
   },
   {
     "Index": "0x0070",
     "ReturnType": "int",
-    "Name": "FUNCTION_0070",
-    "Description": "",
+    "Name": "ITEM_PLUS",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -1493,13 +1841,17 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "scrParameterCommand_prm_ITEM_PLUS",
+    "Aliases": [
+      "FUNCTION_0070"
     ]
   },
   {
     "Index": "0x0071",
     "ReturnType": "int",
-    "Name": "FUNCTION_0071",
-    "Description": "",
+    "Name": "SET_MSG_VAR",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -1516,26 +1868,34 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "itfMesManager_itfMesMngSetVarScr",
+    "Aliases": [
+      "FUNCTION_0071"
     ]
   },
   {
     "Index": "0x0072",
     "ReturnType": "int",
-    "Name": "FUNCTION_0072",
-    "Description": "",
+    "Name": "PUTS",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
-        "Type": "int",
+        "Type": "string",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_PUTS",
+    "Aliases": [
+      "FUNCTION_0072"
     ]
   },
   {
     "Index": "0x0073",
     "ReturnType": "int",
-    "Name": "FUNCTION_0073",
-    "Description": "",
+    "Name": "MODEL_MOTION2",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -1562,13 +1922,17 @@
         "Name": "param5",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_MOTION2",
+    "Aliases": [
+      "FUNCTION_0073"
     ]
   },
   {
     "Index": "0x0074",
     "ReturnType": "int",
-    "Name": "FUNCTION_0074",
-    "Description": "",
+    "Name": "MODEL_WAIT_HOKAN",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -1585,33 +1949,45 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_WAIT_HOKAN",
+    "Aliases": [
+      "FUNCTION_0074"
     ]
   },
   {
     "Index": "0x0075",
     "ReturnType": "int",
-    "Name": "FUNCTION_0075",
-    "Description": "",
-    "Parameters": []
+    "Name": "CAM_CREATE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_CAM_CREATE",
+    "Aliases": [
+      "FUNCTION_0075"
+    ]
   },
   {
     "Index": "0x0076",
     "ReturnType": "int",
-    "Name": "FUNCTION_0076",
-    "Description": "",
+    "Name": "CAM_CLS",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_CAM_CLS",
+    "Aliases": [
+      "FUNCTION_0076"
     ]
   },
   {
     "Index": "0x0077",
     "ReturnType": "int",
-    "Name": "FUNCTION_0077",
-    "Description": "",
+    "Name": "CAM_POS_XYZ",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -1619,27 +1995,31 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param2",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param3",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param4",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_CAM_POS_XYZ",
+    "Aliases": [
+      "FUNCTION_0077"
     ]
   },
   {
     "Index": "0x0078",
     "ReturnType": "int",
-    "Name": "FUNCTION_0078",
-    "Description": "",
+    "Name": "CAM_ROT_XYZ",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -1647,27 +2027,31 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param2",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param3",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param4",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_CAM_ROT_XYZ",
+    "Aliases": [
+      "FUNCTION_0078"
     ]
   },
   {
     "Index": "0x0079",
     "ReturnType": "int",
-    "Name": "FUNCTION_0079",
-    "Description": "",
+    "Name": "MODEL_POS_XYZ",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -1675,27 +2059,31 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param2",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param3",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param4",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_POS_XYZ",
+    "Aliases": [
+      "FUNCTION_0079"
     ]
   },
   {
     "Index": "0x007a",
     "ReturnType": "int",
-    "Name": "FUNCTION_007A",
-    "Description": "",
+    "Name": "MODEL_ROT_XYZ",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -1703,20 +2091,24 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param2",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param3",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param4",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_ROT_XYZ",
+    "Aliases": [
+      "FUNCTION_007A"
     ]
   },
   {
@@ -1738,14 +2130,18 @@
   {
     "Index": "0x007c",
     "ReturnType": "int",
-    "Name": "FUNCTION_007C",
-    "Description": "",
+    "Name": "AI_CHK_FRHP",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "nbAiScript_nbCommand_AI_CHK_FRHP",
+    "Aliases": [
+      "FUNCTION_007C"
     ]
   },
   {
@@ -1774,92 +2170,120 @@
   {
     "Index": "0x007f",
     "ReturnType": "int",
-    "Name": "FUNCTION_007F",
-    "Description": "",
+    "Name": "AI_CHK_ENCNT",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "nbAiScript_nbCommand_AI_CHK_ENCNT",
+    "Aliases": [
+      "FUNCTION_007F"
     ]
   },
   {
     "Index": "0x0080",
     "ReturnType": "int",
-    "Name": "FUNCTION_0080",
-    "Description": "",
+    "Name": "AI_CHK_MYBAD",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "nbAiScript_nbCommand_AI_CHK_MYBAD",
+    "Aliases": [
+      "FUNCTION_0080"
     ]
   },
   {
     "Index": "0x0081",
     "ReturnType": "int",
-    "Name": "FUNCTION_0081",
-    "Description": "",
+    "Name": "AI_CHK_FRBAD",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "nbAiScript_nbCommand_AI_CHK_FRBAD",
+    "Aliases": [
+      "FUNCTION_0081"
     ]
   },
   {
     "Index": "0x0082",
     "ReturnType": "int",
-    "Name": "FUNCTION_0082",
-    "Description": "",
+    "Name": "AI_CHK_ENBAD",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "nbAiScript_nbCommand_AI_CHK_ENBAD",
+    "Aliases": [
+      "FUNCTION_0082"
     ]
   },
   {
     "Index": "0x0083",
     "ReturnType": "int",
-    "Name": "FUNCTION_0083",
-    "Description": "",
+    "Name": "AI_CHK_ENALLBAD",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "nbAiScript_nbCommand_AI_CHK_ENALLBAD",
+    "Aliases": [
+      "FUNCTION_0083"
     ]
   },
   {
     "Index": "0x0084",
     "ReturnType": "int",
-    "Name": "FUNCTION_0084",
-    "Description": "",
+    "Name": "AI_CHK_ENID",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "nbAiScript_nbCommand_AI_CHK_ENID",
+    "Aliases": [
+      "FUNCTION_0084"
     ]
   },
   {
     "Index": "0x0085",
     "ReturnType": "int",
-    "Name": "FUNCTION_0085",
-    "Description": "",
+    "Name": "AI_CHK_FRID",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "nbAiScript_nbCommand_AI_CHK_FRID",
+    "Aliases": [
+      "FUNCTION_0085"
     ]
   },
   {
@@ -1897,9 +2321,13 @@
   {
     "Index": "0x0088",
     "ReturnType": "int",
-    "Name": "FUNCTION_0088",
-    "Description": "",
-    "Parameters": []
+    "Name": "AI_CHK_BA",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_AI_CHK_BA",
+    "Aliases": [
+      "FUNCTION_0088"
+    ]
   },
   {
     "Index": "0x0089",
@@ -1930,8 +2358,8 @@
   {
     "Index": "0x008b",
     "ReturnType": "int",
-    "Name": "FUNCTION_008B",
-    "Description": "",
+    "Name": "MODEL_MOVE2",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -1968,33 +2396,45 @@
         "Name": "param7",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_MOVE2",
+    "Aliases": [
+      "FUNCTION_008B"
     ]
   },
   {
     "Index": "0x008c",
     "ReturnType": "int",
-    "Name": "FUNCTION_008C",
-    "Description": "",
-    "Parameters": []
+    "Name": "AI_CHK_POW",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_AI_CHK_POW",
+    "Aliases": [
+      "FUNCTION_008C"
+    ]
   },
   {
     "Index": "0x008d",
     "ReturnType": "int",
-    "Name": "FUNCTION_008D",
-    "Description": "",
+    "Name": "LOAD_SOUND_E",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_LOAD_SOUND_E",
+    "Aliases": [
+      "FUNCTION_008D"
     ]
   },
   {
     "Index": "0x008e",
     "ReturnType": "int",
-    "Name": "FUNCTION_008E",
-    "Description": "",
+    "Name": "BGM_PLAY_E",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -2006,13 +2446,17 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_BGM_PLAY_E",
+    "Aliases": [
+      "FUNCTION_008E"
     ]
   },
   {
     "Index": "0x008f",
     "ReturnType": "int",
-    "Name": "FUNCTION_008F",
-    "Description": "",
+    "Name": "SE_PLAY_E",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -2024,13 +2468,17 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_SE_PLAY_E",
+    "Aliases": [
+      "FUNCTION_008F"
     ]
   },
   {
     "Index": "0x0090",
     "ReturnType": "int",
-    "Name": "FUNCTION_0090",
-    "Description": "",
+    "Name": "FADEOUT_E",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -2042,53 +2490,73 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_FADEOUT_E",
+    "Aliases": [
+      "FUNCTION_0090"
     ]
   },
   {
     "Index": "0x0091",
     "ReturnType": "int",
-    "Name": "FUNCTION_0091",
-    "Description": "",
-    "Parameters": []
+    "Name": "BGM_VOL_DOWN",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_BGM_VOL_DOWN",
+    "Aliases": [
+      "FUNCTION_0091"
+    ]
   },
   {
     "Index": "0x0092",
     "ReturnType": "int",
-    "Name": "FUNCTION_0092",
-    "Description": "",
-    "Parameters": []
+    "Name": "BGM_VOL_UP",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_BGM_VOL_UP",
+    "Aliases": [
+      "FUNCTION_0092"
+    ]
   },
   {
     "Index": "0x0093",
     "ReturnType": "int",
-    "Name": "FUNCTION_0093",
-    "Description": "",
+    "Name": "MSG_IGNORE_CONFIG",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "itfMesManager_itfMesMngIgnoreConfig",
+    "Aliases": [
+      "FUNCTION_0093"
     ]
   },
   {
     "Index": "0x0094",
     "ReturnType": "int",
-    "Name": "FUNCTION_0094",
-    "Description": "",
+    "Name": "SEARCH_ID",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
-        "Type": "int",
+        "Type": "string",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_SEARCH_ID",
+    "Aliases": [
+      "FUNCTION_0094"
     ]
   },
   {
     "Index": "0x0095",
     "ReturnType": "int",
-    "Name": "FUNCTION_0095",
-    "Description": "",
+    "Name": "MODEL_EXMOTION",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -2120,13 +2588,17 @@
         "Name": "param6",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_EXMOTION",
+    "Aliases": [
+      "FUNCTION_0095"
     ]
   },
   {
     "Index": "0x0096",
     "ReturnType": "int",
-    "Name": "FUNCTION_0096",
-    "Description": "",
+    "Name": "MODEL_WAIT_EXMOT",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -2143,13 +2615,17 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_WAIT_EXMOT",
+    "Aliases": [
+      "FUNCTION_0096"
     ]
   },
   {
     "Index": "0x0097",
     "ReturnType": "int",
-    "Name": "FUNCTION_0097",
-    "Description": "",
+    "Name": "CALL_NEXT",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -2166,13 +2642,17 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_CALL_NEXT",
+    "Aliases": [
+      "FUNCTION_0097"
     ]
   },
   {
     "Index": "0x0098",
     "ReturnType": "int",
-    "Name": "FUNCTION_0098",
-    "Description": "",
+    "Name": "CALL_FIELD2",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -2180,50 +2660,66 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "string",
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_CALL_FIELD2",
+    "Aliases": [
+      "FUNCTION_0098"
     ]
   },
   {
     "Index": "0x0099",
     "ReturnType": "int",
-    "Name": "FUNCTION_0099",
-    "Description": "",
-    "Parameters": []
+    "Name": "FILTER_ALLOFF",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "scrCommonCommand_scrCommand_FILTER_ALLOFF",
+    "Aliases": [
+      "FUNCTION_0099"
+    ]
   },
   {
     "Index": "0x009a",
     "ReturnType": "int",
-    "Name": "FUNCTION_009A",
-    "Description": "",
+    "Name": "EFFECT_LOAD",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
-        "Type": "int",
+        "Type": "string",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFECT_LOAD",
+    "Aliases": [
+      "FUNCTION_009A"
     ]
   },
   {
     "Index": "0x009b",
     "ReturnType": "int",
-    "Name": "FUNCTION_009B",
-    "Description": "",
+    "Name": "EFFECT_CLS",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFECT_CLS",
+    "Aliases": [
+      "FUNCTION_009B"
     ]
   },
   {
     "Index": "0x009c",
     "ReturnType": "int",
-    "Name": "FUNCTION_009C",
-    "Description": "",
+    "Name": "EFFECT_POS_XYZ",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -2231,27 +2727,31 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param2",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param3",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param4",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFECT_POS_XYZ",
+    "Aliases": [
+      "FUNCTION_009C"
     ]
   },
   {
     "Index": "0x009d",
     "ReturnType": "int",
-    "Name": "FUNCTION_009D",
-    "Description": "",
+    "Name": "EFFECT_POS",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -2263,39 +2763,51 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFECT_POS",
+    "Aliases": [
+      "FUNCTION_009D"
     ]
   },
   {
     "Index": "0x009e",
     "ReturnType": "int",
-    "Name": "FUNCTION_009E",
-    "Description": "",
+    "Name": "EFFECT_ON",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFECT_ON",
+    "Aliases": [
+      "FUNCTION_009E"
     ]
   },
   {
     "Index": "0x009f",
     "ReturnType": "int",
-    "Name": "FUNCTION_009F",
-    "Description": "",
+    "Name": "EFFECT_OFF",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFECT_OFF",
+    "Aliases": [
+      "FUNCTION_009F"
     ]
   },
   {
     "Index": "0x00a0",
     "ReturnType": "int",
-    "Name": "FUNCTION_00A0",
-    "Description": "",
+    "Name": "EFFECT_LINK",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -2307,13 +2819,17 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFECT_LINK",
+    "Aliases": [
+      "FUNCTION_00A0"
     ]
   },
   {
     "Index": "0x00a1",
     "ReturnType": "int",
-    "Name": "FUNCTION_00A1",
-    "Description": "",
+    "Name": "EFFECT_LINK2",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -2330,46 +2846,62 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFECT_LINK2",
+    "Aliases": [
+      "FUNCTION_00A1"
     ]
   },
   {
     "Index": "0x00a2",
     "ReturnType": "int",
-    "Name": "FUNCTION_00A2",
-    "Description": "",
+    "Name": "EFFECT_UNLINK",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFECT_UNLINK",
+    "Aliases": [
+      "FUNCTION_00A2"
     ]
   },
   {
     "Index": "0x00a3",
     "ReturnType": "int",
-    "Name": "FUNCTION_00A3",
-    "Description": "",
+    "Name": "SET_FIX_CAMERA",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_SET_FIX_CAMERA",
+    "Aliases": [
+      "FUNCTION_00A3"
     ]
   },
   {
     "Index": "0x00a4",
     "ReturnType": "int",
-    "Name": "FUNCTION_00A4",
-    "Description": "",
-    "Parameters": []
+    "Name": "SET_CHASE_CAMERA",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_SET_CHASE_CAMERA",
+    "Aliases": [
+      "FUNCTION_00A4"
+    ]
   },
   {
     "Index": "0x00a5",
     "ReturnType": "int",
-    "Name": "FUNCTION_00A5",
-    "Description": "",
+    "Name": "SCR_RUN",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -2381,65 +2913,85 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_SCR_RUN",
+    "Aliases": [
+      "FUNCTION_00A5"
     ]
   },
   {
     "Index": "0x00a6",
     "ReturnType": "int",
-    "Name": "FUNCTION_00A6",
-    "Description": "",
+    "Name": "SCR_KILL",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_SCR_KILL",
+    "Aliases": [
+      "FUNCTION_00A6"
     ]
   },
   {
     "Index": "0x00a7",
     "ReturnType": "int",
-    "Name": "FUNCTION_00A7",
-    "Description": "",
+    "Name": "SCR_WAIT",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_SCR_WAIT",
+    "Aliases": [
+      "FUNCTION_00A7"
     ]
   },
   {
     "Index": "0x00a8",
     "ReturnType": "int",
-    "Name": "FUNCTION_00A8",
-    "Description": "",
+    "Name": "SCR_STAT",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_SCR_STAT",
+    "Aliases": [
+      "FUNCTION_00A8"
     ]
   },
   {
     "Index": "0x00a9",
     "ReturnType": "int",
-    "Name": "FUNCTION_00A9",
-    "Description": "",
+    "Name": "SCR_TIME",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_SCR_TIME",
+    "Aliases": [
+      "FUNCTION_00A9"
     ]
   },
   {
     "Index": "0x00aa",
     "ReturnType": "int",
-    "Name": "FUNCTION_00AA",
-    "Description": "",
+    "Name": "PMV_RUN",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -2451,13 +3003,17 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_PMV_RUN",
+    "Aliases": [
+      "FUNCTION_00AA"
     ]
   },
   {
     "Index": "0x00ab",
     "ReturnType": "int",
-    "Name": "FUNCTION_00AB",
-    "Description": "",
+    "Name": "QUAKE_ON",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -2469,20 +3025,28 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_QUAKE_ON",
+    "Aliases": [
+      "FUNCTION_00AB"
     ]
   },
   {
     "Index": "0x00ac",
     "ReturnType": "int",
-    "Name": "FUNCTION_00AC",
-    "Description": "",
-    "Parameters": []
+    "Name": "QUAKE_OFF",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "scrCommonCommand_scrCommand_QUAKE_OFF",
+    "Aliases": [
+      "FUNCTION_00AC"
+    ]
   },
   {
     "Index": "0x00ad",
     "ReturnType": "int",
-    "Name": "FUNCTION_00AD",
-    "Description": "",
+    "Name": "MODEL_LIGHT_OFF",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -2494,26 +3058,34 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_LIGHT_OFF",
+    "Aliases": [
+      "FUNCTION_00AD"
     ]
   },
   {
     "Index": "0x00ae",
     "ReturnType": "int",
-    "Name": "FUNCTION_00AE",
-    "Description": "",
+    "Name": "MODEL_LIGHT_ON",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_LIGHT_ON",
+    "Aliases": [
+      "FUNCTION_00AE"
     ]
   },
   {
     "Index": "0x00af",
     "ReturnType": "int",
-    "Name": "FUNCTION_00AF",
-    "Description": "",
+    "Name": "MODEL_LIGHT_RGB",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -2526,42 +3098,46 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param3",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param4",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param5",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param6",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param7",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param8",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_LIGHT_RGB",
+    "Aliases": [
+      "FUNCTION_00AF"
     ]
   },
   {
     "Index": "0x00b0",
     "ReturnType": "int",
-    "Name": "FUNCTION_00B0",
-    "Description": "",
+    "Name": "MODEL_LIGHT_DIR",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -2574,40 +3150,48 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param3",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param4",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param5",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_LIGHT_DIR",
+    "Aliases": [
+      "FUNCTION_00B0"
     ]
   },
   {
     "Index": "0x00b1",
     "ReturnType": "int",
-    "Name": "FUNCTION_00B1",
-    "Description": "",
+    "Name": "MODEL_LIGHT_WAIT",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_LIGHT_WAIT",
+    "Aliases": [
+      "FUNCTION_00B1"
     ]
   },
   {
     "Index": "0x00b2",
     "ReturnType": "int",
-    "Name": "FUNCTION_00B2",
-    "Description": "",
+    "Name": "MODEL_RGB",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -2620,27 +3204,31 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param3",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param4",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param5",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_RGB",
+    "Aliases": [
+      "FUNCTION_00B2"
     ]
   },
   {
     "Index": "0x00b3",
     "ReturnType": "int",
-    "Name": "FUNCTION_00B3",
-    "Description": "",
+    "Name": "MODEL_A",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -2653,17 +3241,21 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_A",
+    "Aliases": [
+      "FUNCTION_00B3"
     ]
   },
   {
     "Index": "0x00b4",
     "ReturnType": "int",
-    "Name": "FUNCTION_00B4",
-    "Description": "",
+    "Name": "SCENE_LIGHT_RGB",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -2671,27 +3263,31 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param2",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param3",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param4",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_SCENE_LIGHT_RGB",
+    "Aliases": [
+      "FUNCTION_00B4"
     ]
   },
   {
     "Index": "0x00b5",
     "ReturnType": "int",
-    "Name": "FUNCTION_00B5",
-    "Description": "",
+    "Name": "SCENE_LIGHT_DIR",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -2699,27 +3295,31 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param2",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param3",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param4",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_SCENE_LIGHT_DIR",
+    "Aliases": [
+      "FUNCTION_00B5"
     ]
   },
   {
     "Index": "0x00b6",
     "ReturnType": "int",
-    "Name": "FUNCTION_00B6",
-    "Description": "",
+    "Name": "SCENE_AMBIENT",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -2727,53 +3327,65 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param2",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param3",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param4",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_SCENE_AMBIENT",
+    "Aliases": [
+      "FUNCTION_00B6"
     ]
   },
   {
     "Index": "0x00b7",
     "ReturnType": "int",
-    "Name": "FUNCTION_00B7",
-    "Description": "",
+    "Name": "PATH_STOP",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_PATH_STOP",
+    "Aliases": [
+      "FUNCTION_00B7"
     ]
   },
   {
     "Index": "0x00b8",
     "ReturnType": "int",
-    "Name": "FUNCTION_00B8",
-    "Description": "",
+    "Name": "PATH_START",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_PATH_START",
+    "Aliases": [
+      "FUNCTION_00B8"
     ]
   },
   {
     "Index": "0x00b9",
     "ReturnType": "int",
-    "Name": "FUNCTION_00B9",
-    "Description": "",
+    "Name": "PATH_RATE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -2781,17 +3393,21 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_PATH_RATE",
+    "Aliases": [
+      "FUNCTION_00B9"
     ]
   },
   {
     "Index": "0x00ba",
     "ReturnType": "int",
-    "Name": "FUNCTION_00BA",
-    "Description": "",
+    "Name": "PATH_DIR",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -2803,13 +3419,17 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_PATH_DIR",
+    "Aliases": [
+      "FUNCTION_00BA"
     ]
   },
   {
     "Index": "0x00bb",
     "ReturnType": "int",
-    "Name": "FUNCTION_00BB",
-    "Description": "",
+    "Name": "SCENE_FOG_RGB",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -2817,27 +3437,31 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param2",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param3",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param4",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_SCENE_FOG_RGB",
+    "Aliases": [
+      "FUNCTION_00BB"
     ]
   },
   {
     "Index": "0x00bc",
     "ReturnType": "int",
-    "Name": "FUNCTION_00BC",
-    "Description": "",
+    "Name": "SCENE_FOG_PARA",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -2864,13 +3488,17 @@
         "Name": "param5",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_SCENE_FOG_PARA",
+    "Aliases": [
+      "FUNCTION_00BC"
     ]
   },
   {
     "Index": "0x00bd",
     "ReturnType": "int",
-    "Name": "FUNCTION_00BD",
-    "Description": "",
+    "Name": "BLUR",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -2887,13 +3515,17 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_BLUR",
+    "Aliases": [
+      "FUNCTION_00BD"
     ]
   },
   {
     "Index": "0x00be",
     "ReturnType": "int",
-    "Name": "FUNCTION_00BE",
-    "Description": "",
+    "Name": "SET_CASH_F",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -2905,40 +3537,56 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_SET_CASH_F",
+    "Aliases": [
+      "FUNCTION_00BE"
     ]
   },
   {
     "Index": "0x00bf",
     "ReturnType": "int",
-    "Name": "FUNCTION_00BF",
-    "Description": "",
-    "Parameters": []
+    "Name": "FREE_CASH_F",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FREE_CASH_F",
+    "Aliases": [
+      "FUNCTION_00BF"
+    ]
   },
   {
     "Index": "0x00c0",
     "ReturnType": "int",
-    "Name": "FUNCTION_00C0",
-    "Description": "",
-    "Parameters": []
+    "Name": "SET_LOCK_CAMERA",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_SET_LOCK_CAMERA",
+    "Aliases": [
+      "FUNCTION_00C0"
+    ]
   },
   {
     "Index": "0x00c1",
     "ReturnType": "int",
-    "Name": "FUNCTION_00C1",
-    "Description": "",
+    "Name": "CAM_DIR",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_CAM_DIR",
+    "Aliases": [
+      "FUNCTION_00C1"
     ]
   },
   {
     "Index": "0x00c2",
     "ReturnType": "int",
-    "Name": "FUNCTION_00C2",
-    "Description": "",
+    "Name": "CAM_SEL_PHOKAN",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -2950,26 +3598,34 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_CAM_SEL_PHOKAN",
+    "Aliases": [
+      "FUNCTION_00C2"
     ]
   },
   {
     "Index": "0x00c3",
     "ReturnType": "int",
-    "Name": "FUNCTION_00C3",
-    "Description": "",
+    "Name": "SET_ALLPANEL",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_SET_ALLPANEL",
+    "Aliases": [
+      "FUNCTION_00C3"
     ]
   },
   {
     "Index": "0x00c4",
     "ReturnType": "int",
-    "Name": "FUNCTION_00C4",
-    "Description": "",
+    "Name": "MODEL_LIGHT_LINK",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -2986,13 +3642,17 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_LIGHT_LINK",
+    "Aliases": [
+      "FUNCTION_00C4"
     ]
   },
   {
     "Index": "0x00c5",
     "ReturnType": "int",
-    "Name": "FUNCTION_00C5",
-    "Description": "",
+    "Name": "MODEL_LIGHT_UNLINK",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -3004,13 +3664,17 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_LIGHT_UNLINK",
+    "Aliases": [
+      "FUNCTION_00C5"
     ]
   },
   {
     "Index": "0x00c6",
     "ReturnType": "int",
-    "Name": "FUNCTION_00C6",
-    "Description": "",
+    "Name": "LIGHT_PATH_MOVE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -3022,39 +3686,51 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_LIGHT_PATH_MOVE",
+    "Aliases": [
+      "FUNCTION_00C6"
     ]
   },
   {
     "Index": "0x00c7",
     "ReturnType": "int",
-    "Name": "FUNCTION_00C7",
-    "Description": "",
+    "Name": "LIGHT_PATH_WAIT",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_LIGHT_PATH_WAIT",
+    "Aliases": [
+      "FUNCTION_00C7"
     ]
   },
   {
     "Index": "0x00c8",
     "ReturnType": "int",
-    "Name": "FUNCTION_00C8",
-    "Description": "",
+    "Name": "LOAD_BE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_LOAD_BE",
+    "Aliases": [
+      "FUNCTION_00C8"
     ]
   },
   {
     "Index": "0x00c9",
     "ReturnType": "int",
-    "Name": "FUNCTION_00C9",
-    "Description": "",
+    "Name": "MODEL_BE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -3066,13 +3742,17 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_BE",
+    "Aliases": [
+      "FUNCTION_00C9"
     ]
   },
   {
     "Index": "0x00ca",
     "ReturnType": "int",
-    "Name": "FUNCTION_00CA",
-    "Description": "",
+    "Name": "FIELD_BE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -3084,13 +3764,17 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_FIELD_BE",
+    "Aliases": [
+      "FUNCTION_00CA"
     ]
   },
   {
     "Index": "0x00cb",
     "ReturnType": "int",
-    "Name": "FUNCTION_00CB",
-    "Description": "",
+    "Name": "EFFECT_BE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -3102,13 +3786,17 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFECT_BE",
+    "Aliases": [
+      "FUNCTION_00CB"
     ]
   },
   {
     "Index": "0x00cc",
     "ReturnType": "int",
-    "Name": "FUNCTION_00CC",
-    "Description": "",
+    "Name": "TEX_BE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -3120,26 +3808,34 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_TEX_BE",
+    "Aliases": [
+      "FUNCTION_00CC"
     ]
   },
   {
     "Index": "0x00cd",
     "ReturnType": "int",
-    "Name": "FUNCTION_00CD",
-    "Description": "",
+    "Name": "EFFBED_LOAD",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
-        "Type": "int",
+        "Type": "string",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFBED_LOAD",
+    "Aliases": [
+      "FUNCTION_00CD"
     ]
   },
   {
     "Index": "0x00ce",
     "ReturnType": "int",
-    "Name": "FUNCTION_00CE",
-    "Description": "",
+    "Name": "EFFBED_START",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -3151,13 +3847,17 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFBED_START",
+    "Aliases": [
+      "FUNCTION_00CE"
     ]
   },
   {
     "Index": "0x00cf",
     "ReturnType": "int",
-    "Name": "FUNCTION_00CF",
-    "Description": "",
+    "Name": "EFFECT_ROT_XYZ",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -3165,27 +3865,31 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param2",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param3",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param4",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFECT_ROT_XYZ",
+    "Aliases": [
+      "FUNCTION_00CF"
     ]
   },
   {
     "Index": "0x00d0",
     "ReturnType": "int",
-    "Name": "FUNCTION_00D0",
-    "Description": "",
+    "Name": "EFFBED_BE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -3197,13 +3901,17 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFBED_BE",
+    "Aliases": [
+      "FUNCTION_00D0"
     ]
   },
   {
     "Index": "0x00d1",
     "ReturnType": "int",
-    "Name": "FUNCTION_00D1",
-    "Description": "",
+    "Name": "EFFECT_PATH_MOVE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -3215,39 +3923,51 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFECT_PATH_MOVE",
+    "Aliases": [
+      "FUNCTION_00D1"
     ]
   },
   {
     "Index": "0x00d2",
     "ReturnType": "int",
-    "Name": "FUNCTION_00D2",
-    "Description": "",
+    "Name": "EFFECT_PATH_WAIT",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFECT_PATH_WAIT",
+    "Aliases": [
+      "FUNCTION_00D2"
     ]
   },
   {
     "Index": "0x00d3",
     "ReturnType": "int",
-    "Name": "FUNCTION_00D3",
-    "Description": "",
+    "Name": "EFFMG1_LOAD",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
-        "Type": "int",
+        "Type": "string",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFMG1_LOAD",
+    "Aliases": [
+      "FUNCTION_00D3"
     ]
   },
   {
     "Index": "0x00d4",
     "ReturnType": "int",
-    "Name": "FUNCTION_00D4",
-    "Description": "",
+    "Name": "EFFMG1_BE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -3259,26 +3979,34 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFMG1_BE",
+    "Aliases": [
+      "FUNCTION_00D4"
     ]
   },
   {
     "Index": "0x00d5",
     "ReturnType": "int",
-    "Name": "FUNCTION_00D5",
-    "Description": "",
+    "Name": "EFFMG2_LOAD",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
-        "Type": "int",
+        "Type": "string",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFMG2_LOAD",
+    "Aliases": [
+      "FUNCTION_00D5"
     ]
   },
   {
     "Index": "0x00d6",
     "ReturnType": "int",
-    "Name": "FUNCTION_00D6",
-    "Description": "",
+    "Name": "EFFMG2_BE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -3290,13 +4018,17 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFMG2_BE",
+    "Aliases": [
+      "FUNCTION_00D6"
     ]
   },
   {
     "Index": "0x00d7",
     "ReturnType": "int",
-    "Name": "FUNCTION_00D7",
-    "Description": "",
+    "Name": "EFFMG1_POS",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -3313,13 +4045,17 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFMG1_POS",
+    "Aliases": [
+      "FUNCTION_00D7"
     ]
   },
   {
     "Index": "0x00d8",
     "ReturnType": "int",
-    "Name": "FUNCTION_00D8",
-    "Description": "",
+    "Name": "EFFMG2_POS",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -3346,13 +4082,17 @@
         "Name": "param5",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFMG2_POS",
+    "Aliases": [
+      "FUNCTION_00D8"
     ]
   },
   {
     "Index": "0x00d9",
     "ReturnType": "int",
-    "Name": "FUNCTION_00D9",
-    "Description": "",
+    "Name": "SE_STOP_E",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -3364,13 +4104,17 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_SE_STOP_E",
+    "Aliases": [
+      "FUNCTION_00D9"
     ]
   },
   {
     "Index": "0x00da",
     "ReturnType": "int",
-    "Name": "FUNCTION_00DA",
-    "Description": "",
+    "Name": "CAM_ROT_Q",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -3378,98 +4122,126 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param2",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param3",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param4",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param5",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_CAM_ROT_Q",
+    "Aliases": [
+      "FUNCTION_00DA"
     ]
   },
   {
     "Index": "0x00db",
     "ReturnType": "int",
-    "Name": "FUNCTION_00DB",
-    "Description": "",
+    "Name": "FIELD_ANIME_START",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_FIELD_ANIME_START",
+    "Aliases": [
+      "FUNCTION_00DB"
     ]
   },
   {
     "Index": "0x00dc",
     "ReturnType": "int",
-    "Name": "FUNCTION_00DC",
-    "Description": "",
+    "Name": "FIELD_ANIME_STOP",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_FIELD_ANIME_STOP",
+    "Aliases": [
+      "FUNCTION_00DC"
     ]
   },
   {
     "Index": "0x00dd",
     "ReturnType": "int",
-    "Name": "FUNCTION_00DD",
-    "Description": "",
+    "Name": "MODEL_SHADOW_ON2",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_SHADOW_ON2",
+    "Aliases": [
+      "FUNCTION_00DD"
     ]
   },
   {
     "Index": "0x00de",
     "ReturnType": "int",
-    "Name": "FUNCTION_00DE",
-    "Description": "",
+    "Name": "AI_CHK_PLV",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "nbAiScript_nbCommand_AI_CHK_PLV",
+    "Aliases": [
+      "FUNCTION_00DE"
     ]
   },
   {
     "Index": "0x00df",
     "ReturnType": "int",
-    "Name": "FUNCTION_00DF",
-    "Description": "",
+    "Name": "AI_CHK_PPARTYLV",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "nbAiScript_nbCommand_AI_CHK_PPARTYLV",
+    "Aliases": [
+      "FUNCTION_00DF"
     ]
   },
   {
     "Index": "0x00e0",
     "ReturnType": "int",
-    "Name": "FUNCTION_00E0",
-    "Description": "",
-    "Parameters": []
+    "Name": "AI_GET_TURN",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_AI_GET_TURN",
+    "Aliases": [
+      "FUNCTION_00E0"
+    ]
   },
   {
     "Index": "0x00e1",
@@ -3502,36 +4274,52 @@
   {
     "Index": "0x00e3",
     "ReturnType": "int",
-    "Name": "FUNCTION_00E3",
-    "Description": "",
+    "Name": "EFFMG2_PRESET",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFMG2_PRESET",
+    "Aliases": [
+      "FUNCTION_00E3"
     ]
   },
   {
     "Index": "0x00e4",
     "ReturnType": "int",
-    "Name": "FUNCTION_00E4",
-    "Description": "",
-    "Parameters": []
+    "Name": "BTL_TAIKYO",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_BTL_TAIKYO",
+    "Aliases": [
+      "FUNCTION_00E4"
+    ]
   },
   {
     "Index": "0x00e5",
     "ReturnType": "int",
-    "Name": "FUNCTION_00E5",
-    "Description": "",
-    "Parameters": []
+    "Name": "BTL_ALLTAIKYO",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_BTL_ALLTAIKYO",
+    "Aliases": [
+      "FUNCTION_00E5"
+    ]
   },
   {
     "Index": "0x00e6",
     "ReturnType": "int",
-    "Name": "FUNCTION_00E6",
-    "Description": "",
-    "Parameters": []
+    "Name": "BTL_PRESS",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_BTL_PRESS",
+    "Aliases": [
+      "FUNCTION_00E6"
+    ]
   },
   {
     "Index": "0x00e7",
@@ -3549,42 +4337,50 @@
   {
     "Index": "0x00e8",
     "ReturnType": "int",
-    "Name": "FUNCTION_00E8",
-    "Description": "",
+    "Name": "PATH_LOOP_ON",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_PATH_LOOP_ON",
+    "Aliases": [
+      "FUNCTION_00E8"
     ]
   },
   {
     "Index": "0x00e9",
     "ReturnType": "int",
-    "Name": "FUNCTION_00E9",
-    "Description": "",
+    "Name": "PATH_LOOP_OFF",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_PATH_LOOP_OFF",
+    "Aliases": [
+      "FUNCTION_00E9"
     ]
   },
   {
     "Index": "0x00ea",
     "ReturnType": "int",
-    "Name": "FUNCTION_00EA",
-    "Description": "",
+    "Name": "MUL_BLUR_PARA",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param1",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param2",
         "Description": ""
       },
@@ -3593,13 +4389,17 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_MUL_BLUR_PARA",
+    "Aliases": [
+      "FUNCTION_00EA"
     ]
   },
   {
     "Index": "0x00eb",
     "ReturnType": "int",
-    "Name": "FUNCTION_00EB",
-    "Description": "",
+    "Name": "MUL_BLUR_RGBA",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -3621,13 +4421,17 @@
         "Name": "param4",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_MUL_BLUR_RGBA",
+    "Aliases": [
+      "FUNCTION_00EB"
     ]
   },
   {
     "Index": "0x00ec",
     "ReturnType": "int",
-    "Name": "FUNCTION_00EC",
-    "Description": "",
+    "Name": "MUL_BLUR_AREA",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -3644,39 +4448,51 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_MUL_BLUR_AREA",
+    "Aliases": [
+      "FUNCTION_00EC"
     ]
   },
   {
     "Index": "0x00ed",
     "ReturnType": "int",
-    "Name": "FUNCTION_00ED",
-    "Description": "",
+    "Name": "MUL_BLUR_ON",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_MUL_BLUR_ON",
+    "Aliases": [
+      "FUNCTION_00ED"
     ]
   },
   {
     "Index": "0x00ee",
     "ReturnType": "int",
-    "Name": "FUNCTION_00EE",
-    "Description": "",
+    "Name": "MUL_BLUR_OFF",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_MUL_BLUR_OFF",
+    "Aliases": [
+      "FUNCTION_00EE"
     ]
   },
   {
     "Index": "0x00ef",
     "ReturnType": "int",
-    "Name": "FUNCTION_00EF",
-    "Description": "",
+    "Name": "DIST_BLUR_PARA",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -3694,17 +4510,17 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param4",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param5",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param6",
         "Description": ""
       },
@@ -3713,13 +4529,17 @@
         "Name": "param7",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_DIST_BLUR_PARA",
+    "Aliases": [
+      "FUNCTION_00EF"
     ]
   },
   {
     "Index": "0x00f0",
     "ReturnType": "int",
-    "Name": "FUNCTION_00F0",
-    "Description": "",
+    "Name": "DIST_BLUR_RGBA",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -3741,13 +4561,17 @@
         "Name": "param4",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_DIST_BLUR_RGBA",
+    "Aliases": [
+      "FUNCTION_00F0"
     ]
   },
   {
     "Index": "0x00f1",
     "ReturnType": "int",
-    "Name": "FUNCTION_00F1",
-    "Description": "",
+    "Name": "DIST_BLUR_AREA",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -3764,177 +4588,237 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_DIST_BLUR_AREA",
+    "Aliases": [
+      "FUNCTION_00F1"
     ]
   },
   {
     "Index": "0x00f2",
     "ReturnType": "int",
-    "Name": "FUNCTION_00F2",
-    "Description": "",
+    "Name": "DIST_BLUR_ON",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_DIST_BLUR_ON",
+    "Aliases": [
+      "FUNCTION_00F2"
     ]
   },
   {
     "Index": "0x00f3",
     "ReturnType": "int",
-    "Name": "FUNCTION_00F3",
-    "Description": "",
+    "Name": "DIST_BLUR_OFF",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_DIST_BLUR_OFF",
+    "Aliases": [
+      "FUNCTION_00F3"
     ]
   },
   {
     "Index": "0x00f4",
     "ReturnType": "int",
-    "Name": "FUNCTION_00F4",
-    "Description": "",
+    "Name": "BTL_CAM_SET",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param1",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param2",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param3",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param4",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param5",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param6",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param7",
         "Description": ""
       }
+    ],
+    "FullName": "nbAiScript_nbCommand_BTL_CAM_SET",
+    "Aliases": [
+      "FUNCTION_00F4"
     ]
   },
   {
     "Index": "0x00f5",
     "ReturnType": "int",
-    "Name": "FUNCTION_00F5",
-    "Description": "",
-    "Parameters": []
+    "Name": "BTL_CAM_ORG",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_BTL_CAM_ORG",
+    "Aliases": [
+      "FUNCTION_00F5"
+    ]
   },
   {
     "Index": "0x00f6",
     "ReturnType": "int",
-    "Name": "FUNCTION_00F6",
-    "Description": "",
-    "Parameters": []
+    "Name": "AI_SET_CRITICAL",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_AI_SET_CRITICAL",
+    "Aliases": [
+      "FUNCTION_00F6"
+    ]
   },
   {
     "Index": "0x00f7",
     "ReturnType": "int",
-    "Name": "FUNCTION_00F7",
-    "Description": "",
+    "Name": "READ_BE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_READ_BE",
+    "Aliases": [
+      "FUNCTION_00F7"
     ]
   },
   {
     "Index": "0x00f8",
     "ReturnType": "int",
-    "Name": "FUNCTION_00F8",
-    "Description": "",
+    "Name": "CHK_BE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_CHK_BE",
+    "Aliases": [
+      "FUNCTION_00F8"
     ]
   },
   {
     "Index": "0x00f9",
     "ReturnType": "int",
-    "Name": "FUNCTION_00F9",
-    "Description": "",
+    "Name": "DEL_BE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_DEL_BE",
+    "Aliases": [
+      "FUNCTION_00F9"
     ]
   },
   {
     "Index": "0x00fa",
     "ReturnType": "int",
-    "Name": "FUNCTION_00FA",
-    "Description": "",
-    "Parameters": []
+    "Name": "BTL_CAM_1SHOT",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_BTL_CAM_1SHOT",
+    "Aliases": [
+      "FUNCTION_00FA"
+    ]
   },
   {
     "Index": "0x00fb",
     "ReturnType": "int",
-    "Name": "FUNCTION_00FB",
-    "Description": "",
-    "Parameters": []
+    "Name": "BTL_CAM_2SHOT",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_BTL_CAM_2SHOT",
+    "Aliases": [
+      "FUNCTION_00FB"
+    ]
   },
   {
     "Index": "0x00fc",
     "ReturnType": "int",
-    "Name": "FUNCTION_00FC",
-    "Description": "",
-    "Parameters": []
+    "Name": "BTL_CAM_BOUGAI",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_BTL_CAM_BOUGAI",
+    "Aliases": [
+      "FUNCTION_00FC"
+    ]
   },
   {
     "Index": "0x00fd",
     "ReturnType": "int",
-    "Name": "FUNCTION_00FD",
-    "Description": "",
-    "Parameters": []
+    "Name": "FLD_CHK_BTL",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_CHK_BTL",
+    "Aliases": [
+      "FUNCTION_00FD"
+    ]
   },
   {
     "Index": "0x00fe",
     "ReturnType": "int",
-    "Name": "FUNCTION_00FE",
-    "Description": "",
-    "Parameters": []
+    "Name": "FLD_CHK_ANA",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_CHK_ANA",
+    "Aliases": [
+      "FUNCTION_00FE"
+    ]
   },
   {
     "Index": "0x00ff",
     "ReturnType": "int",
-    "Name": "FUNCTION_00FF",
-    "Description": "",
-    "Parameters": []
+    "Name": "FLD_CHK_SISETU",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_CHK_SISETU",
+    "Aliases": [
+      "FUNCTION_00FF"
+    ]
   },
   {
     "Index": "0x0100",
     "ReturnType": "int",
-    "Name": "FUNCTION_0100",
-    "Description": "",
+    "Name": "CALL_FIELD3",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -3942,17 +4826,21 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "string",
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_CALL_FIELD3",
+    "Aliases": [
+      "FUNCTION_0100"
     ]
   },
   {
     "Index": "0x0101",
     "ReturnType": "int",
-    "Name": "FUNCTION_0101",
-    "Description": "",
+    "Name": "FLD_KANKYO",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -3964,13 +4852,17 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_KANKYO",
+    "Aliases": [
+      "FUNCTION_0101"
     ]
   },
   {
     "Index": "0x0102",
     "ReturnType": "int",
-    "Name": "FUNCTION_0102",
-    "Description": "",
+    "Name": "FLD_FILTER",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -3992,13 +4884,17 @@
         "Name": "param4",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_FILTER",
+    "Aliases": [
+      "FUNCTION_0102"
     ]
   },
   {
     "Index": "0x0103",
     "ReturnType": "int",
-    "Name": "FUNCTION_0103",
-    "Description": "",
+    "Name": "FLD_MODEL_ON",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -4011,7 +4907,7 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "string",
         "Name": "param3",
         "Description": ""
       },
@@ -4020,13 +4916,17 @@
         "Name": "param4",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_MODEL_ON",
+    "Aliases": [
+      "FUNCTION_0103"
     ]
   },
   {
     "Index": "0x0104",
     "ReturnType": "int",
-    "Name": "FUNCTION_0104",
-    "Description": "",
+    "Name": "FLD_MODEL_OFF",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -4039,7 +4939,7 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "string",
         "Name": "param3",
         "Description": ""
       },
@@ -4048,13 +4948,17 @@
         "Name": "param4",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_MODEL_OFF",
+    "Aliases": [
+      "FUNCTION_0104"
     ]
   },
   {
     "Index": "0x0105",
     "ReturnType": "int",
-    "Name": "FUNCTION_0105",
-    "Description": "",
+    "Name": "FLD_ANIME_ON",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -4067,7 +4971,7 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "string",
         "Name": "param3",
         "Description": ""
       },
@@ -4076,13 +4980,17 @@
         "Name": "param4",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_ANIME_ON",
+    "Aliases": [
+      "FUNCTION_0105"
     ]
   },
   {
     "Index": "0x0106",
     "ReturnType": "int",
-    "Name": "FUNCTION_0106",
-    "Description": "",
+    "Name": "FLD_ANIME_OFF",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -4095,7 +5003,7 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "string",
         "Name": "param3",
         "Description": ""
       },
@@ -4104,13 +5012,17 @@
         "Name": "param4",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_ANIME_OFF",
+    "Aliases": [
+      "FUNCTION_0106"
     ]
   },
   {
     "Index": "0x0107",
     "ReturnType": "int",
-    "Name": "FUNCTION_0107",
-    "Description": "",
+    "Name": "FLD_ATARI_ON",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -4123,17 +5035,21 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "string",
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_ATARI_ON",
+    "Aliases": [
+      "FUNCTION_0107"
     ]
   },
   {
     "Index": "0x0108",
     "ReturnType": "int",
-    "Name": "FUNCTION_0108",
-    "Description": "",
+    "Name": "FLD_ATARI_OFF",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -4146,17 +5062,21 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "string",
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_ATARI_OFF",
+    "Aliases": [
+      "FUNCTION_0108"
     ]
   },
   {
     "Index": "0x0109",
     "ReturnType": "int",
-    "Name": "FUNCTION_0109",
-    "Description": "",
+    "Name": "FLD_MODEL_ON2",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -4173,13 +5093,17 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_MODEL_ON2",
+    "Aliases": [
+      "FUNCTION_0109"
     ]
   },
   {
     "Index": "0x010a",
     "ReturnType": "int",
-    "Name": "FUNCTION_010A",
-    "Description": "",
+    "Name": "FLD_MODEL_OFF2",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -4196,13 +5120,17 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_MODEL_OFF2",
+    "Aliases": [
+      "FUNCTION_010A"
     ]
   },
   {
     "Index": "0x010b",
     "ReturnType": "int",
-    "Name": "FUNCTION_010B",
-    "Description": "",
+    "Name": "FLD_ANIME_ON2",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -4219,13 +5147,17 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_ANIME_ON2",
+    "Aliases": [
+      "FUNCTION_010B"
     ]
   },
   {
     "Index": "0x010c",
     "ReturnType": "int",
-    "Name": "FUNCTION_010C",
-    "Description": "",
+    "Name": "FLD_ANIME_OFF2",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -4242,13 +5174,17 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_ANIME_OFF2",
+    "Aliases": [
+      "FUNCTION_010C"
     ]
   },
   {
     "Index": "0x010d",
     "ReturnType": "int",
-    "Name": "FUNCTION_010D",
-    "Description": "",
+    "Name": "FLD_ANIME_ID2",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -4270,13 +5206,17 @@
         "Name": "param4",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_ANIME_ID2",
+    "Aliases": [
+      "FUNCTION_010D"
     ]
   },
   {
     "Index": "0x010e",
     "ReturnType": "int",
-    "Name": "FUNCTION_010E",
-    "Description": "",
+    "Name": "FLD_NPC_ON",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -4289,17 +5229,21 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "string",
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_NPC_ON",
+    "Aliases": [
+      "FUNCTION_010E"
     ]
   },
   {
     "Index": "0x010f",
     "ReturnType": "int",
-    "Name": "FUNCTION_010F",
-    "Description": "",
+    "Name": "FLD_NPC_OFF",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -4312,17 +5256,21 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "string",
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_NPC_OFF",
+    "Aliases": [
+      "FUNCTION_010F"
     ]
   },
   {
     "Index": "0x0110",
     "ReturnType": "int",
-    "Name": "FUNCTION_0110",
-    "Description": "",
+    "Name": "FLD_GIMIC_HOJI",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -4344,13 +5292,17 @@
         "Name": "param4",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_GIMIC_HOJI",
+    "Aliases": [
+      "FUNCTION_0110"
     ]
   },
   {
     "Index": "0x0111",
     "ReturnType": "int",
-    "Name": "FUNCTION_0111",
-    "Description": "",
+    "Name": "FLD_MAP_ON",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -4367,13 +5319,17 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_MAP_ON",
+    "Aliases": [
+      "FUNCTION_0111"
     ]
   },
   {
     "Index": "0x0112",
     "ReturnType": "int",
-    "Name": "FUNCTION_0112",
-    "Description": "",
+    "Name": "FLD_MAP_OFF",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -4390,53 +5346,73 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_MAP_OFF",
+    "Aliases": [
+      "FUNCTION_0112"
     ]
   },
   {
     "Index": "0x0113",
     "ReturnType": "int",
-    "Name": "FUNCTION_0113",
-    "Description": "",
+    "Name": "SET_CAMTBL",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_SET_CAMTBL",
+    "Aliases": [
+      "FUNCTION_0113"
     ]
   },
   {
     "Index": "0x0114",
     "ReturnType": "int",
-    "Name": "FUNCTION_0114",
-    "Description": "",
+    "Name": "FLD_GET_TAKARA_TBL",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_GET_TAKARA_TBL",
+    "Aliases": [
+      "FUNCTION_0114"
     ]
   },
   {
     "Index": "0x0115",
     "ReturnType": "int",
-    "Name": "FUNCTION_0115",
-    "Description": "",
-    "Parameters": []
+    "Name": "FLD_SET_TAKARA_OPEN",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_SET_TAKARA_OPEN",
+    "Aliases": [
+      "FUNCTION_0115"
+    ]
   },
   {
     "Index": "0x0116",
     "ReturnType": "int",
-    "Name": "FUNCTION_0116",
-    "Description": "",
-    "Parameters": []
+    "Name": "FLD_CHK_TAKARA_OPEN",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_CHK_TAKARA_OPEN",
+    "Aliases": [
+      "FUNCTION_0116"
+    ]
   },
   {
     "Index": "0x0117",
     "ReturnType": "int",
-    "Name": "FUNCTION_0117",
-    "Description": "",
+    "Name": "MSG_SET_POS_SCR",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -4448,26 +5424,38 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "itfMesManager_itfMesMngSetMesPositionScript",
+    "Aliases": [
+      "FUNCTION_0117"
     ]
   },
   {
     "Index": "0x0118",
     "ReturnType": "int",
-    "Name": "FUNCTION_0118",
-    "Description": "",
-    "Parameters": []
+    "Name": "MSG_SET_POS_DEF",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "itfMesManager_itfMesMngSetMesPosDefault",
+    "Aliases": [
+      "FUNCTION_0118"
+    ]
   },
   {
     "Index": "0x0119",
     "ReturnType": "int",
-    "Name": "FUNCTION_0119",
-    "Description": "",
+    "Name": "MSG_VALID_NEXT",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "itfMesManager_itfMesMngValidateNext",
+    "Aliases": [
+      "FUNCTION_0119"
     ]
   },
   {
@@ -4486,62 +5474,86 @@
   {
     "Index": "0x011b",
     "ReturnType": "int",
-    "Name": "FUNCTION_011B",
-    "Description": "",
+    "Name": "FCL_TERM_MENU_MASK",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "fclTerminalInit_fclTerminalMenuMask",
+    "Aliases": [
+      "FUNCTION_011B"
     ]
   },
   {
     "Index": "0x011c",
     "ReturnType": "int",
-    "Name": "FUNCTION_011C",
-    "Description": "",
-    "Parameters": []
+    "Name": "FCL_TERM_MENU_MASK_DEF",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fclTerminalInit_fclTerminalMenuMaskDef",
+    "Aliases": [
+      "FUNCTION_011C"
+    ]
   },
   {
     "Index": "0x011d",
     "ReturnType": "int",
-    "Name": "FUNCTION_011D",
-    "Description": "",
+    "Name": "FCL_SIGNAL",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "fclMisc_fclSignal",
+    "Aliases": [
+      "FUNCTION_011D"
     ]
   },
   {
     "Index": "0x011e",
     "ReturnType": "int",
-    "Name": "FUNCTION_011E",
-    "Description": "",
+    "Name": "FCL_GET_VAL",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "fclMisc_fclGetVal",
+    "Aliases": [
+      "FUNCTION_011E"
     ]
   },
   {
     "Index": "0x011f",
     "ReturnType": "int",
-    "Name": "FUNCTION_011F",
-    "Description": "",
-    "Parameters": []
+    "Name": "FCL_TERM_ENABLE_TALK",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fclTerminalInit_fclTerminalEnableTalk",
+    "Aliases": [
+      "FUNCTION_011F"
+    ]
   },
   {
     "Index": "0x0120",
     "ReturnType": "int",
-    "Name": "FUNCTION_0120",
-    "Description": "",
-    "Parameters": []
+    "Name": "FCL_TERM_DISABLE_TALK",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fclTerminalInit_fclTerminalDisableTalk",
+    "Aliases": [
+      "FUNCTION_0120"
+    ]
   },
   {
     "Index": "0x0121",
@@ -4560,82 +5572,106 @@
   {
     "Index": "0x0123",
     "ReturnType": "int",
-    "Name": "FUNCTION_0123",
-    "Description": "",
+    "Name": "MODEL_SHADOW_ON",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_SHADOW_ON",
+    "Aliases": [
+      "FUNCTION_0123"
     ]
   },
   {
     "Index": "0x0124",
     "ReturnType": "int",
-    "Name": "FUNCTION_0124",
-    "Description": "",
+    "Name": "MODEL_SHADOW_OFF",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_SHADOW_OFF",
+    "Aliases": [
+      "FUNCTION_0124"
     ]
   },
   {
     "Index": "0x0125",
     "ReturnType": "int",
-    "Name": "FUNCTION_0125",
-    "Description": "",
-    "Parameters": []
+    "Name": "BOKASI_ON",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_BOKASI_ON",
+    "Aliases": [
+      "FUNCTION_0125"
+    ]
   },
   {
     "Index": "0x0126",
     "ReturnType": "int",
-    "Name": "FUNCTION_0126",
-    "Description": "",
-    "Parameters": []
+    "Name": "BOKASI_OFF",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_BOKASI_OFF",
+    "Aliases": [
+      "FUNCTION_0126"
+    ]
   },
   {
     "Index": "0x0127",
     "ReturnType": "int",
-    "Name": "FUNCTION_0127",
-    "Description": "",
+    "Name": "MUL_BLUR_SWAP",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_MUL_BLUR_SWAP",
+    "Aliases": [
+      "FUNCTION_0127"
     ]
   },
   {
     "Index": "0x0128",
     "ReturnType": "int",
-    "Name": "FUNCTION_0128",
-    "Description": "",
+    "Name": "DIST_BLUR_SWAP",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_DIST_BLUR_SWAP",
+    "Aliases": [
+      "FUNCTION_0128"
     ]
   },
   {
     "Index": "0x0129",
     "ReturnType": "int",
-    "Name": "FUNCTION_0129",
-    "Description": "",
+    "Name": "BLUR2_PARA",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param1",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param2",
         "Description": ""
       },
@@ -4644,13 +5680,17 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_BLUR2_PARA",
+    "Aliases": [
+      "FUNCTION_0129"
     ]
   },
   {
     "Index": "0x012a",
     "ReturnType": "int",
-    "Name": "FUNCTION_012A",
-    "Description": "",
+    "Name": "BLUR2_RGBA",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -4672,13 +5712,17 @@
         "Name": "param4",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_BLUR2_RGBA",
+    "Aliases": [
+      "FUNCTION_012A"
     ]
   },
   {
     "Index": "0x012b",
     "ReturnType": "int",
-    "Name": "FUNCTION_012B",
-    "Description": "",
+    "Name": "BLUR2_AREA",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -4690,39 +5734,51 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_BLUR2_AREA",
+    "Aliases": [
+      "FUNCTION_012B"
     ]
   },
   {
     "Index": "0x012c",
     "ReturnType": "int",
-    "Name": "FUNCTION_012C",
-    "Description": "",
+    "Name": "BLUR2_SWAP",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_BLUR2_SWAP",
+    "Aliases": [
+      "FUNCTION_012C"
     ]
   },
   {
     "Index": "0x012d",
     "ReturnType": "int",
-    "Name": "FUNCTION_012D",
-    "Description": "",
+    "Name": "FILTER2_PARA",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_FILTER2_PARA",
+    "Aliases": [
+      "FUNCTION_012D"
     ]
   },
   {
     "Index": "0x012e",
     "ReturnType": "int",
-    "Name": "FUNCTION_012E",
-    "Description": "",
+    "Name": "FILTER2_RGBA",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -4744,65 +5800,85 @@
         "Name": "param4",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_FILTER2_RGBA",
+    "Aliases": [
+      "FUNCTION_012E"
     ]
   },
   {
     "Index": "0x012f",
     "ReturnType": "int",
-    "Name": "FUNCTION_012F",
-    "Description": "",
+    "Name": "FILTER2_SWAP",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_FILTER2_SWAP",
+    "Aliases": [
+      "FUNCTION_012F"
     ]
   },
   {
     "Index": "0x0130",
     "ReturnType": "int",
-    "Name": "FUNCTION_0130",
-    "Description": "",
+    "Name": "FILTER2_ON",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_FILTER2_ON",
+    "Aliases": [
+      "FUNCTION_0130"
     ]
   },
   {
     "Index": "0x0131",
     "ReturnType": "int",
-    "Name": "FUNCTION_0131",
-    "Description": "",
+    "Name": "FILTER2_OFF",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_FILTER2_OFF",
+    "Aliases": [
+      "FUNCTION_0131"
     ]
   },
   {
     "Index": "0x0132",
     "ReturnType": "int",
-    "Name": "FUNCTION_0132",
-    "Description": "",
+    "Name": "MFILTER_PARA",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_MFILTER_PARA",
+    "Aliases": [
+      "FUNCTION_0132"
     ]
   },
   {
     "Index": "0x0133",
     "ReturnType": "int",
-    "Name": "FUNCTION_0133",
-    "Description": "",
+    "Name": "MFILTER_RGBA",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -4824,13 +5900,17 @@
         "Name": "param4",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_MFILTER_RGBA",
+    "Aliases": [
+      "FUNCTION_0133"
     ]
   },
   {
     "Index": "0x0134",
     "ReturnType": "int",
-    "Name": "FUNCTION_0134",
-    "Description": "",
+    "Name": "MFILTER_AREA",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -4847,52 +5927,68 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_MFILTER_AREA",
+    "Aliases": [
+      "FUNCTION_0134"
     ]
   },
   {
     "Index": "0x0135",
     "ReturnType": "int",
-    "Name": "FUNCTION_0135",
-    "Description": "",
+    "Name": "MFILTER_SWAP",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_MFILTER_SWAP",
+    "Aliases": [
+      "FUNCTION_0135"
     ]
   },
   {
     "Index": "0x0136",
     "ReturnType": "int",
-    "Name": "FUNCTION_0136",
-    "Description": "",
+    "Name": "MFILTER_ON",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_MFILTER_ON",
+    "Aliases": [
+      "FUNCTION_0136"
     ]
   },
   {
     "Index": "0x0137",
     "ReturnType": "int",
-    "Name": "FUNCTION_0137",
-    "Description": "",
+    "Name": "MFILTER_OFF",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_MFILTER_OFF",
+    "Aliases": [
+      "FUNCTION_0137"
     ]
   },
   {
     "Index": "0x0138",
     "ReturnType": "int",
-    "Name": "FUNCTION_0138",
-    "Description": "",
+    "Name": "BGM_TRANS_E",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -4904,52 +6000,68 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_BGM_TRANS_E",
+    "Aliases": [
+      "FUNCTION_0138"
     ]
   },
   {
     "Index": "0x0139",
     "ReturnType": "int",
-    "Name": "FUNCTION_0139",
-    "Description": "",
+    "Name": "MAKA_PLUS",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrParameterCommand_prm_MAKA_PLUS",
+    "Aliases": [
+      "FUNCTION_0139"
     ]
   },
   {
     "Index": "0x013a",
     "ReturnType": "int",
-    "Name": "FUNCTION_013A",
-    "Description": "",
+    "Name": "PARTY_DAMAGE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrParameterCommand_prm_PARTY_DAMAGE",
+    "Aliases": [
+      "FUNCTION_013A"
     ]
   },
   {
     "Index": "0x013b",
     "ReturnType": "int",
-    "Name": "FUNCTION_013B",
-    "Description": "",
+    "Name": "MSG_WND_TYPE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "itfMesManager_itfMesMngWindowType",
+    "Aliases": [
+      "FUNCTION_013B"
     ]
   },
   {
     "Index": "0x013c",
     "ReturnType": "int",
-    "Name": "FUNCTION_013C",
-    "Description": "",
+    "Name": "SEL_DEFKEY",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -4961,6 +6073,10 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "itfMesManager_itfMesMngSelectDefKey",
+    "Aliases": [
+      "FUNCTION_013C"
     ]
   },
   {
@@ -5001,34 +6117,42 @@
   {
     "Index": "0x0142",
     "ReturnType": "int",
-    "Name": "FUNCTION_0142",
-    "Description": "",
+    "Name": "RIP_BLUR_ON",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_RIP_BLUR_ON",
+    "Aliases": [
+      "FUNCTION_0142"
     ]
   },
   {
     "Index": "0x0143",
     "ReturnType": "int",
-    "Name": "FUNCTION_0143",
-    "Description": "",
+    "Name": "RIP_BLUR_OFF",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_RIP_BLUR_OFF",
+    "Aliases": [
+      "FUNCTION_0143"
     ]
   },
   {
     "Index": "0x0144",
     "ReturnType": "int",
-    "Name": "FUNCTION_0144",
-    "Description": "",
+    "Name": "RIP_BLUR_PARA",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -5036,27 +6160,27 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param2",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param3",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param4",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param5",
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "float",
         "Name": "param6",
         "Description": ""
       },
@@ -5065,13 +6189,17 @@
         "Name": "param7",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_RIP_BLUR_PARA",
+    "Aliases": [
+      "FUNCTION_0144"
     ]
   },
   {
     "Index": "0x0145",
     "ReturnType": "int",
-    "Name": "FUNCTION_0145",
-    "Description": "",
+    "Name": "RIP_BLUR_RGBA",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -5093,13 +6221,17 @@
         "Name": "param4",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_RIP_BLUR_RGBA",
+    "Aliases": [
+      "FUNCTION_0145"
     ]
   },
   {
     "Index": "0x0146",
     "ReturnType": "int",
-    "Name": "FUNCTION_0146",
-    "Description": "",
+    "Name": "RIP_BLUR_AREA",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -5116,26 +6248,34 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_RIP_BLUR_AREA",
+    "Aliases": [
+      "FUNCTION_0146"
     ]
   },
   {
     "Index": "0x0147",
     "ReturnType": "int",
-    "Name": "FUNCTION_0147",
-    "Description": "",
+    "Name": "RIP_BLUR_SWAP",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_RIP_BLUR_SWAP",
+    "Aliases": [
+      "FUNCTION_0147"
     ]
   },
   {
     "Index": "0x0148",
     "ReturnType": "int",
-    "Name": "FUNCTION_0148",
-    "Description": "",
+    "Name": "DIST_BLUR_TEX_BE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -5147,61 +6287,89 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_DIST_BLUR_TEX_BE",
+    "Aliases": [
+      "FUNCTION_0148"
     ]
   },
   {
     "Index": "0x0149",
     "ReturnType": "int",
-    "Name": "FUNCTION_0149",
-    "Description": "",
-    "Parameters": []
+    "Name": "DIST_BLUR_TEX_DEF",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_DIST_BLUR_TEX_DEF",
+    "Aliases": [
+      "FUNCTION_0149"
+    ]
   },
   {
     "Index": "0x014a",
     "ReturnType": "int",
-    "Name": "FUNCTION_014A",
-    "Description": "",
+    "Name": "EFFECT_PRESET",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFECT_PRESET",
+    "Aliases": [
+      "FUNCTION_014A"
     ]
   },
   {
     "Index": "0x014b",
     "ReturnType": "int",
-    "Name": "FUNCTION_014B",
-    "Description": "",
+    "Name": "AI_CHK_MYMP",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "nbAiScript_nbCommand_AI_CHK_MYMP",
+    "Aliases": [
+      "FUNCTION_014B"
     ]
   },
   {
     "Index": "0x014c",
     "ReturnType": "bool",
-    "Name": "FUNCTION_014C",
-    "Description": "",
-    "Parameters": []
+    "Name": "AI_GET_PRESSKOUDO",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_AI_GET_PRESSKOUDO",
+    "Aliases": [
+      "FUNCTION_014C"
+    ]
   },
   {
     "Index": "0x014d",
     "ReturnType": "int",
-    "Name": "FUNCTION_014D",
-    "Description": "",
-    "Parameters": []
+    "Name": "AI_GET_ALLKOUDO",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_AI_GET_ALLKOUDO",
+    "Aliases": [
+      "FUNCTION_014D"
+    ]
   },
   {
     "Index": "0x014e",
     "ReturnType": "int",
-    "Name": "FUNCTION_014E",
-    "Description": "",
-    "Parameters": []
+    "Name": "AI_GET_MYLV",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_AI_GET_MYLV",
+    "Aliases": [
+      "FUNCTION_014E"
+    ]
   },
   {
     "Index": "0x014f",
@@ -5234,37 +6402,57 @@
   {
     "Index": "0x0153",
     "ReturnType": "int",
-    "Name": "FUNCTION_0153",
-    "Description": "",
-    "Parameters": []
+    "Name": "BTL_FORM_ALL_ON",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_BTL_FORM_ALL_ON",
+    "Aliases": [
+      "FUNCTION_0153"
+    ]
   },
   {
     "Index": "0x0154",
     "ReturnType": "int",
-    "Name": "FUNCTION_0154",
-    "Description": "",
-    "Parameters": []
+    "Name": "BTL_FORM_PLY_ON",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_BTL_FORM_PLY_ON",
+    "Aliases": [
+      "FUNCTION_0154"
+    ]
   },
   {
     "Index": "0x0155",
     "ReturnType": "int",
-    "Name": "FUNCTION_0155",
-    "Description": "",
-    "Parameters": []
+    "Name": "BTL_FORM_ENE_ON",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_BTL_FORM_ENE_ON",
+    "Aliases": [
+      "FUNCTION_0155"
+    ]
   },
   {
     "Index": "0x0156",
     "ReturnType": "int",
-    "Name": "FUNCTION_0156",
-    "Description": "",
-    "Parameters": []
+    "Name": "AI_GET_MYAISYO",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_AI_GET_MYAISYO",
+    "Aliases": [
+      "FUNCTION_0156"
+    ]
   },
   {
     "Index": "0x0157",
     "ReturnType": "int",
-    "Name": "FUNCTION_0157",
-    "Description": "",
-    "Parameters": []
+    "Name": "CALL_STAFF",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_CALL_STAFF",
+    "Aliases": [
+      "FUNCTION_0157"
+    ]
   },
   {
     "Index": "0x0158",
@@ -5276,9 +6464,13 @@
   {
     "Index": "0x0159",
     "ReturnType": "int",
-    "Name": "FUNCTION_0159",
-    "Description": "",
-    "Parameters": []
+    "Name": "AI_TAR_BAARLV",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_AI_TAR_BAARLV",
+    "Aliases": [
+      "FUNCTION_0159"
+    ]
   },
   {
     "Index": "0x015a",
@@ -5290,42 +6482,58 @@
   {
     "Index": "0x015b",
     "ReturnType": "int",
-    "Name": "FUNCTION_015B",
-    "Description": "",
-    "Parameters": []
+    "Name": "AI_TAR_LVMIN",
+    "Description": "Targets unit that isn't the main character(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_AI_TAR_LVMIN",
+    "Aliases": [
+      "FUNCTION_015B"
+    ]
   },
   {
     "Index": "0x015c",
     "ReturnType": "int",
-    "Name": "FUNCTION_015C",
-    "Description": "",
+    "Name": "PLAYER_GET_PARAM",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "scrParameterCommand_prm_PLAYER_GET_PARAM",
+    "Aliases": [
+      "FUNCTION_015C"
     ]
   },
   {
     "Index": "0x015d",
     "ReturnType": "int",
-    "Name": "FUNCTION_015D",
-    "Description": "",
-    "Parameters": []
+    "Name": "AI_GET_FUREA",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_AI_GET_FUREA",
+    "Aliases": [
+      "FUNCTION_015D"
+    ]
   },
   {
     "Index": "0x015e",
     "ReturnType": "int",
-    "Name": "FUNCTION_015E",
-    "Description": "",
-    "Parameters": []
+    "Name": "CALL_ENDSAVE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_CALL_ENDSAVE",
+    "Aliases": [
+      "FUNCTION_015E"
+    ]
   },
   {
     "Index": "0x015f",
     "ReturnType": "int",
-    "Name": "FUNCTION_015F",
-    "Description": "",
+    "Name": "KUTI",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -5342,13 +6550,17 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_KUTI",
+    "Aliases": [
+      "FUNCTION_015F"
     ]
   },
   {
     "Index": "0x0160",
     "ReturnType": "int",
-    "Name": "FUNCTION_0160",
-    "Description": "",
+    "Name": "MSG_WND_TYPE_ALPHA",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -5360,6 +6572,10 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "itfMesManager_itfMesMngWindowTypeAlpha",
+    "Aliases": [
+      "FUNCTION_0160"
     ]
   },
   {
@@ -5393,8 +6609,8 @@
   {
     "Index": "0x0165",
     "ReturnType": "int",
-    "Name": "FUNCTION_0165",
-    "Description": "",
+    "Name": "KUTISET",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -5411,49 +6627,61 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_KUTISET",
+    "Aliases": [
+      "FUNCTION_0165"
     ]
   },
   {
     "Index": "0x0166",
     "ReturnType": "int",
-    "Name": "FUNCTION_0166",
-    "Description": "",
+    "Name": "CALL_BATTLE2",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_CALL_BATTLE2",
+    "Aliases": [
+      "FUNCTION_0166"
     ]
   },
   {
     "Index": "0x0167",
     "ReturnType": "int",
-    "Name": "FUNCTION_0167",
-    "Description": "",
+    "Name": "EFFBED_BE_EVO",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "Unknown type; assumed int"
       },
       {
         "Type": "int",
         "Name": "param2",
-        "Description": ""
+        "Description": "Unknown type; assumed int"
       },
       {
         "Type": "int",
         "Name": "param3",
-        "Description": ""
+        "Description": "Unknown type; assumed int"
       }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFBED_BE_EVO",
+    "Aliases": [
+      "FUNCTION_0167"
     ]
   },
   {
     "Index": "0x0168",
     "ReturnType": "int",
-    "Name": "FUNCTION_0168",
-    "Description": "",
+    "Name": "EFFBED_START_EVO",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -5470,34 +6698,50 @@
         "Name": "param3",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFBED_START_EVO",
+    "Aliases": [
+      "FUNCTION_0168"
     ]
   },
   {
     "Index": "0x0169",
     "ReturnType": "int",
-    "Name": "FUNCTION_0169",
-    "Description": "",
-    "Parameters": []
+    "Name": "AI_CHK_ESCAPE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_AI_CHK_ESCAPE",
+    "Aliases": [
+      "FUNCTION_0169"
+    ]
   },
   {
     "Index": "0x016a",
     "ReturnType": "int",
-    "Name": "FUNCTION_016A",
-    "Description": "",
+    "Name": "DRAWSTOP",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "evtCommand_evtCommand_DRAWSTOP",
+    "Aliases": [
+      "FUNCTION_016A"
     ]
   },
   {
     "Index": "0x016b",
     "ReturnType": "int",
-    "Name": "FUNCTION_016B",
-    "Description": "",
-    "Parameters": []
+    "Name": "MOVIE_CHKDRAW",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "mviScript_mviScrCmd_MOVIE_CHKDRAW",
+    "Aliases": [
+      "FUNCTION_016B"
+    ]
   },
   {
     "Index": "0x016c",
@@ -5562,9 +6806,7 @@
   {
     "Index": "0x0172",
     "ReturnType": "int",
-    "Name": "FUNCTION_0172",
-    "Description": "",
-    "Parameters": []
+    "Name": "FUNCTION_0172"
   },
   {
     "Index": "0x0173",
@@ -5583,16 +6825,18 @@
   {
     "Index": "0x0175",
     "ReturnType": "int",
-    "Name": "FUNCTION_0175",
-    "Description": "",
-    "Parameters": []
+    "Name": "FUNCTION_0175"
   },
   {
     "Index": "0x0176",
     "ReturnType": "int",
-    "Name": "FUNCTION_0176",
-    "Description": "",
-    "Parameters": []
+    "Name": "PARTY_KAIFUKU",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "scrParameterCommand_prm_PARTY_KAIFUKU",
+    "Aliases": [
+      "FUNCTION_0176"
+    ]
   },
   {
     "Index": "0x0177",
@@ -5604,9 +6848,13 @@
   {
     "Index": "0x0178",
     "ReturnType": "int",
-    "Name": "FUNCTION_0178",
-    "Description": "",
-    "Parameters": []
+    "Name": "BTL_AI_ROT_CLR",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_BTL_AI_ROT_CLR",
+    "Aliases": [
+      "FUNCTION_0178"
+    ]
   },
   {
     "Index": "0x0179",
@@ -5676,16 +6924,12 @@
   {
     "Index": "0x017f",
     "ReturnType": "int",
-    "Name": "FUNCTION_017F",
-    "Description": "",
-    "Parameters": []
+    "Name": "FUNCTION_017F"
   },
   {
     "Index": "0x0180",
     "ReturnType": "int",
-    "Name": "FUNCTION_0180",
-    "Description": "",
-    "Parameters": []
+    "Name": "FUNCTION_0180"
   },
   {
     "Index": "0x0181",
@@ -5697,9 +6941,13 @@
   {
     "Index": "0x0182",
     "ReturnType": "int",
-    "Name": "FUNCTION_0182",
-    "Description": "",
-    "Parameters": []
+    "Name": "PLAYER_GET_LEVEL",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "scrParameterCommand_prm_PLAYER_GET_LEVEL",
+    "Aliases": [
+      "FUNCTION_0182"
+    ]
   },
   {
     "Index": "0x0183",
@@ -5742,7 +6990,6 @@
     "Index": "0x0186",
     "ReturnType": "int",
     "Name": "FUNCTION_0186",
-    "Description": "",
     "Parameters": []
   },
   {
@@ -5830,15 +7077,7 @@
   {
     "Index": "0x0191",
     "ReturnType": "int",
-    "Name": "FUNCTION_0191",
-    "Description": "",
-    "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
-    ]
+    "Name": "FUNCTION_0191"
   },
   {
     "Index": "0x0192",
@@ -5879,15 +7118,7 @@
   {
     "Index": "0x0194",
     "ReturnType": "int",
-    "Name": "FUNCTION_0194",
-    "Description": "",
-    "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
-    ]
+    "Name": "FUNCTION_0194"
   },
   {
     "Index": "0x0195",
@@ -5947,15 +7178,12 @@
   {
     "Index": "0x0199",
     "ReturnType": "int",
-    "Name": "FUNCTION_0199",
-    "Description": "",
-    "Parameters": []
+    "Name": "FUNCTION_0199"
   },
   {
     "Index": "0x019a",
     "ReturnType": "int",
     "Name": "FUNCTION_019A",
-    "Description": "",
     "Parameters": [
       {
         "Type": "int",
@@ -6901,8 +8129,8 @@
   {
     "Index": "0x01f0",
     "ReturnType": "int",
-    "Name": "FUNCTION_01F0",
-    "Description": "",
+    "Name": "FLD_TITLE_START2",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -6914,33 +8142,45 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_TITLE_START2",
+    "Aliases": [
+      "FUNCTION_01F0"
     ]
   },
   {
     "Index": "0x01f1",
     "ReturnType": "int",
-    "Name": "FUNCTION_01F1",
-    "Description": "",
+    "Name": "FLD_GET_KIRETA",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_GET_KIRETA",
+    "Aliases": [
+      "FUNCTION_01F1"
     ]
   },
   {
     "Index": "0x01f2",
     "ReturnType": "int",
-    "Name": "FUNCTION_01F2",
-    "Description": "",
-    "Parameters": []
+    "Name": "FLD_GET_ITEMBOX_RND",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_GET_ITEMBOX_RND",
+    "Aliases": [
+      "FUNCTION_01F2"
+    ]
   },
   {
     "Index": "0x01f3",
     "ReturnType": "int",
-    "Name": "FUNCTION_01F3",
-    "Description": "",
+    "Name": "FLD_MSE_PLAY2",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -6952,13 +8192,17 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_MSE_PLAY2",
+    "Aliases": [
+      "FUNCTION_01F3"
     ]
   },
   {
     "Index": "0x01f4",
     "ReturnType": "int",
-    "Name": "FUNCTION_01F4",
-    "Description": "",
+    "Name": "FLD_MSE_STOP2",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -6970,19 +8214,27 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_MSE_STOP2",
+    "Aliases": [
+      "FUNCTION_01F4"
     ]
   },
   {
     "Index": "0x01f5",
     "ReturnType": "int",
-    "Name": "FUNCTION_01F5",
-    "Description": "",
+    "Name": "SET_NPC_CAMERA",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
-        "Type": "int",
+        "Type": "string",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_SET_NPC_CAMERA",
+    "Aliases": [
+      "FUNCTION_01F5"
     ]
   },
   {
@@ -7034,9 +8286,13 @@
   {
     "Index": "0x01f8",
     "ReturnType": "int",
-    "Name": "FUNCTION_01F8",
-    "Description": "",
-    "Parameters": []
+    "Name": "FLD_DANTE_AI_START",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_DANTE_AI_START",
+    "Aliases": [
+      "FUNCTION_01F8"
+    ]
   },
   {
     "Index": "0x01f9",
@@ -7108,55 +8364,75 @@
   {
     "Index": "0x0200",
     "ReturnType": "int",
-    "Name": "FUNCTION_0200",
-    "Description": "",
+    "Name": "FLD_WARP_ELV_GETTBL",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_WARP_ELV_GETTBL",
+    "Aliases": [
+      "FUNCTION_0200"
     ]
   },
   {
     "Index": "0x0201",
     "ReturnType": "int",
-    "Name": "FUNCTION_0201",
-    "Description": "",
+    "Name": "FLD_WARP_ELV_EXIT",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_WARP_ELV_EXIT",
+    "Aliases": [
+      "FUNCTION_0201"
     ]
   },
   {
     "Index": "0x0202",
     "ReturnType": "int",
-    "Name": "FUNCTION_0202",
-    "Description": "",
-    "Parameters": []
+    "Name": "FLD_WARP_CALL_FIELD",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_WARP_CALL_FIELD",
+    "Aliases": [
+      "FUNCTION_0202"
+    ]
   },
   {
     "Index": "0x0203",
     "ReturnType": "int",
-    "Name": "FUNCTION_0203",
-    "Description": "",
-    "Parameters": []
+    "Name": "FLD_WARP_CASH_F",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_WARP_CASH_F",
+    "Aliases": [
+      "FUNCTION_0203"
+    ]
   },
   {
     "Index": "0x0204",
     "ReturnType": "int",
-    "Name": "FUNCTION_0204",
-    "Description": "",
-    "Parameters": []
+    "Name": "FLD_WARP_RUN_START",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_WARP_RUN_START",
+    "Aliases": [
+      "FUNCTION_0204"
+    ]
   },
   {
     "Index": "0x0205",
     "ReturnType": "int",
-    "Name": "FUNCTION_0205",
-    "Description": "",
+    "Name": "FLD_INF_NEXT",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -7168,13 +8444,17 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_INF_NEXT",
+    "Aliases": [
+      "FUNCTION_0205"
     ]
   },
   {
     "Index": "0x0206",
     "ReturnType": "int",
-    "Name": "FUNCTION_0206",
-    "Description": "",
+    "Name": "FLD_INF_GET",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -7186,33 +8466,45 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_INF_GET",
+    "Aliases": [
+      "FUNCTION_0206"
     ]
   },
   {
     "Index": "0x0207",
     "ReturnType": "int",
-    "Name": "FUNCTION_0207",
-    "Description": "",
-    "Parameters": []
+    "Name": "FLD_INF_GETPANEL",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_INF_GETPANEL",
+    "Aliases": [
+      "FUNCTION_0207"
+    ]
   },
   {
     "Index": "0x0208",
     "ReturnType": "int",
-    "Name": "FUNCTION_0208",
-    "Description": "",
+    "Name": "FLD_WARP_HASIGO_GETTBL",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_WARP_HASIGO_GETTBL",
+    "Aliases": [
+      "FUNCTION_0208"
     ]
   },
   {
     "Index": "0x0209",
     "ReturnType": "int",
-    "Name": "FUNCTION_0209",
-    "Description": "",
+    "Name": "FLD_ELV_FLOORSTART",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
@@ -7224,146 +8516,206 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_ELV_FLOORSTART",
+    "Aliases": [
+      "FUNCTION_0209"
     ]
   },
   {
     "Index": "0x020a",
     "ReturnType": "int",
-    "Name": "FUNCTION_020A",
-    "Description": "",
-    "Parameters": []
+    "Name": "FLD_ELV_FLOOREND",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_ELV_FLOOREND",
+    "Aliases": [
+      "FUNCTION_020A"
+    ]
   },
   {
     "Index": "0x020b",
     "ReturnType": "int",
-    "Name": "FUNCTION_020B",
-    "Description": "",
-    "Parameters": []
+    "Name": "FLD_ELV_ENDCHK",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_ELV_ENDCHK",
+    "Aliases": [
+      "FUNCTION_020B"
+    ]
   },
   {
     "Index": "0x020c",
     "ReturnType": "int",
-    "Name": "FUNCTION_020C",
-    "Description": "",
+    "Name": "FLD_WARP_GET_DOOR",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_WARP_GET_DOOR",
+    "Aliases": [
+      "FUNCTION_020C"
     ]
   },
   {
     "Index": "0x020d",
     "ReturnType": "int",
-    "Name": "FUNCTION_020D",
-    "Description": "",
-    "Parameters": []
+    "Name": "FLD_EXIT_CAMERA",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_EXIT_CAMERA",
+    "Aliases": [
+      "FUNCTION_020D"
+    ]
   },
   {
     "Index": "0x020e",
     "ReturnType": "int",
-    "Name": "FUNCTION_020E",
-    "Description": "",
-    "Parameters": []
+    "Name": "FLD_INF_GOWAP",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_INF_GOWAP",
+    "Aliases": [
+      "FUNCTION_020E"
+    ]
   },
   {
     "Index": "0x020f",
     "ReturnType": "int",
-    "Name": "FUNCTION_020F",
-    "Description": "",
+    "Name": "FLD_CALL_WAPEX",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_CALL_WAPEX",
+    "Aliases": [
+      "FUNCTION_020F"
     ]
   },
   {
     "Index": "0x0210",
     "ReturnType": "int",
-    "Name": "FUNCTION_0210",
-    "Description": "",
+    "Name": "FLD_BGM_PLAY",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_BGM_PLAY",
+    "Aliases": [
+      "FUNCTION_0210"
     ]
   },
   {
     "Index": "0x0211",
     "ReturnType": "int",
-    "Name": "FUNCTION_0211",
-    "Description": "",
+    "Name": "FLD_BGM_CONTINUE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_BGM_CONTINUE",
+    "Aliases": [
+      "FUNCTION_0211"
     ]
   },
   {
     "Index": "0x0212",
     "ReturnType": "int",
-    "Name": "FUNCTION_0212",
-    "Description": "",
-    "Parameters": []
+    "Name": "FLD_BGM_PAUSE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_BGM_PAUSE",
+    "Aliases": [
+      "FUNCTION_0212"
+    ]
   },
   {
     "Index": "0x0213",
     "ReturnType": "int",
-    "Name": "FUNCTION_0213",
-    "Description": "",
-    "Parameters": []
+    "Name": "FLD_BGM_STOP",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_BGM_STOP",
+    "Aliases": [
+      "FUNCTION_0213"
+    ]
   },
   {
     "Index": "0x0214",
     "ReturnType": "int",
-    "Name": "FUNCTION_0214",
-    "Description": "",
+    "Name": "FLD_SE_PLAY",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_SE_PLAY",
+    "Aliases": [
+      "FUNCTION_0214"
     ]
   },
   {
     "Index": "0x0215",
     "ReturnType": "int",
-    "Name": "FUNCTION_0215",
-    "Description": "",
+    "Name": "FLD_SE_STOP",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_SE_STOP",
+    "Aliases": [
+      "FUNCTION_0215"
     ]
   },
   {
     "Index": "0x0216",
     "ReturnType": "int",
-    "Name": "FUNCTION_0216",
-    "Description": "",
-    "Parameters": []
+    "Name": "FLD_BGM_FADE",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_BGM_FADE",
+    "Aliases": [
+      "FUNCTION_0216"
+    ]
   },
   {
     "Index": "0x0217",
     "ReturnType": "int",
-    "Name": "FUNCTION_0217",
-    "Description": "",
+    "Name": "FLD_MSE_PLAY",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_MSE_PLAY",
+    "Aliases": [
+      "FUNCTION_0217"
     ]
   },
   {
@@ -7376,9 +8728,13 @@
   {
     "Index": "0x0219",
     "ReturnType": "int",
-    "Name": "FUNCTION_0219",
-    "Description": "",
-    "Parameters": []
+    "Name": "FLD_WARP_GET_WARPEFF",
+    "Description": "(Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_WARP_GET_WARPEFF",
+    "Aliases": [
+      "FUNCTION_0219"
+    ]
   },
   {
     "Index": "0x021a",
@@ -7390,53 +8746,69 @@
   {
     "Index": "0x021b",
     "ReturnType": "int",
-    "Name": "FUNCTION_021B",
-    "Description": "",
+    "Name": "ACT_WIN_DSP2",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_ACT_WIN_DSP2",
+    "Aliases": [
+      "FUNCTION_021B"
     ]
   },
   {
     "Index": "0x021c",
     "ReturnType": "int",
-    "Name": "FUNCTION_021C",
-    "Description": "",
+    "Name": "FLD_SET_ENCOUNT",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_SET_ENCOUNT",
+    "Aliases": [
+      "FUNCTION_021C"
     ]
   },
   {
     "Index": "0x021d",
     "ReturnType": "int",
-    "Name": "FUNCTION_021D",
-    "Description": "",
+    "Name": "ACT_WIN_DSP3",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_ACT_WIN_DSP3",
+    "Aliases": [
+      "FUNCTION_021D"
     ]
   },
   {
     "Index": "0x021e",
     "ReturnType": "int",
-    "Name": "FUNCTION_021E",
-    "Description": "",
+    "Name": "FLD_MODEL_LIGHT",
+    "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_MODEL_LIGHT",
+    "Aliases": [
+      "FUNCTION_021E"
     ]
   },
   {

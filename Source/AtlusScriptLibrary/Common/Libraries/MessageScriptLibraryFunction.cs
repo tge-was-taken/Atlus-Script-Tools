@@ -18,7 +18,8 @@ public class MessageScriptLibraryFunction : ICloneable
     [JsonConverter(typeof(CustomStringEnumConverter))]
     public MessageScriptLibraryFunctionSemantic Semantic { get; set; }
 
-    public List<MessageScriptLibraryParameter> Parameters { get; set; }
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
+    public List<MessageScriptLibraryParameter> Parameters { get; set; } = new();
 
     public object Clone()
     {

@@ -1,0 +1,6 @@
+{
+  "Name": "Trauma Center: New Blood",
+  "ShortName": "tc3",
+  "FlowScriptModulesPath": "TraumaCenter3/FlowScriptModules.json",
+  "MessageScriptLibraryPath": "TraumaCenter3/MessageScriptLibrary.json"
+}

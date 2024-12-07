@@ -1,0 +1,19 @@
+[
+  {
+    "Index": "0x0004",
+    "ReturnType": "int",
+    "Name": "MSG",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "messageId",
+        "Description": "",
+        "Semantic": "MsgId"
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0004"
+    ]
+  }
+]
