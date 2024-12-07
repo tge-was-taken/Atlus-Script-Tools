@@ -37,6 +37,7 @@ internal class Program
     public static bool DoDisassemble;
     public static InputFileFormat InputFileFormat;
     public static OutputFileFormat OutputFileFormat;
+    public static MessageScriptBinaryVariant MessageScriptBinaryVariant;
     public static string MessageScriptTextEncodingName;
     public static Encoding MessageScriptEncoding;
     public static string LibraryName;
