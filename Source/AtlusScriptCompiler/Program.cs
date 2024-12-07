@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Text;
 using AtlusScriptLibrary.Common.Logging;
 using AtlusScriptLibrary.Common.Libraries;
@@ -15,12 +13,18 @@ using AtlusScriptLibrary.MessageScriptLanguage;
 using AtlusScriptLibrary.MessageScriptLanguage.Compiler;
 using AtlusScriptLibrary.MessageScriptLanguage.Decompiler;
 using FormatVersion = AtlusScriptLibrary.FlowScriptLanguage.FormatVersion;
-using System.Diagnostics;
 
 namespace AtlusScriptCompiler;
 
 internal class Program
 {
+    static class ExitCode
+    {
+        public static readonly int Success = 0;
+        public static readonly int Error = 1;
+        public static readonly int InvalidArguments = 2;
+    }
+
     public static AssemblyName AssemblyName = Assembly.GetExecutingAssembly().GetName();
     public static Version Version = AssemblyName.Version;
     public static Logger Logger = new Logger(nameof(AtlusScriptCompiler));
@@ -33,7 +37,6 @@ internal class Program
     public static bool DoDisassemble;
     public static InputFileFormat InputFileFormat;
     public static OutputFileFormat OutputFileFormat;
-    public static MessageScriptBinaryVariant MessageScriptBinaryVariant = MessageScriptBinaryVariant.BMD;
     public static string MessageScriptTextEncodingName;
     public static Encoding MessageScriptEncoding;
     public static string LibraryName;
@@ -52,7 +55,7 @@ internal class Program
 
     private static void DisplayUsage()
     {
-        Console.WriteLine($"AtlusScriptCompiler {Version.Major}.{Version.Minor}-{ThisAssembly.Git.Commit} by TGE");
+        Console.WriteLine($"AtlusScriptCompiler {Version.Major}.{Version.Minor}-{ThisAssembly.Git.Commit} ({ThisAssembly.Git.CommitDate})");
         Console.WriteLine();
         Console.WriteLine("Note: If you encounter any issues, please report it & include the AtlusScriptCompiler.log file. Thank you.");
         Console.WriteLine();
@@ -156,13 +159,13 @@ internal class Program
         Console.WriteLine();
     }
 
-    public static void Main(string[] args)
+    public static int Main(string[] args)
     {
         if (args.Length == 0)
         {
             Logger.Error("No arguments specified!");
             DisplayUsage();
-            return;
+            return ExitCode.InvalidArguments;
         }
 
         // Set up log listener
@@ -175,7 +178,7 @@ internal class Program
         {
             Logger.Error("Failed to parse arguments!");
             DisplayUsage();
-            return;
+            return ExitCode.InvalidArguments;
         }
 
         if (LogTrace)
@@ -207,7 +210,7 @@ internal class Program
             {
                 Logger.Error("No compilation, decompilation or disassemble instruction given!");
                 DisplayUsage();
-                return;
+                return ExitCode.InvalidArguments;
             }
             if (success && UEPatchFile != null)
             {
@@ -219,7 +222,7 @@ internal class Program
                 {
                     Logger.Error("Patch file can only be used on compilation");
                     DisplayUsage();
-                    return;
+                    return ExitCode.InvalidArguments;
                 }
             }
         }
@@ -229,7 +232,7 @@ internal class Program
             LogException( "Unhandled exception thrown", e );
             success = false;
 
-            if ( Debugger.IsAttached )
+            if ( System.Diagnostics.Debugger.IsAttached )
                 throw;
         }
 #endif
@@ -240,6 +243,7 @@ internal class Program
             Logger.Error("One or more errors occured while executing task!");
 
         Console.ForegroundColor = ConsoleColor.Gray;
+        return success ? ExitCode.Success : ExitCode.Error;
     }
 
     private static bool TryParseArguments(string[] args)
@@ -1061,6 +1065,8 @@ internal class Program
         Logger.Error($"{e.Message}");
         Logger.Error("Stacktrace:");
         Logger.Error($"{e.StackTrace}");
+        Logger.Error($"Version info:");
+        Logger.Error($"AtlusScriptCompiler {Version.Major}.{Version.Minor}-{ThisAssembly.Git.Commit} ({ThisAssembly.Git.CommitDate})");
     }
 
     private static bool UEWrapperHandler()

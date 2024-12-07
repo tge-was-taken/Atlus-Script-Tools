@@ -133,8 +133,11 @@ public sealed class FlowScriptBinaryBuilder
             mTextSection.Add(new BinaryInstruction() { Opcode = Opcode.END });
 
             // apply string section padding
-            while (mStringSection.Count < 0xF0)
-                mStringSection.Add(0);
+            if (mFormatVersion == BinaryFormatVersion.Version1)
+            {
+                while (mStringSection.Count < 0xF0)
+                    mStringSection.Add(0);
+            }
         }
 
         var binary = new FlowScriptBinary
