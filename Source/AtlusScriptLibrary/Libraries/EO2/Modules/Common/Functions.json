@@ -540,7 +540,7 @@
   {
     "Index": "0x0041",
     "ReturnType": "int",
-    "Name": "AI_CHK_MYHP",
+    "Name": "AI_CHK_MYHP_2",
     "Description": "",
     "Parameters": [
       {

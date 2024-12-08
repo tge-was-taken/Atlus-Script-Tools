@@ -39,7 +39,7 @@ internal class ExternalJsonPathConverter : JsonConverterFactory
         {
             var path = reader.GetString();
             if (string.IsNullOrEmpty(path))
-                return null;
+                return new List<T>();
 
             var fullPath = Path.Combine(LibraryLookup.LibraryBaseDirectoryPath, path);
             var jsonString = File.ReadAllText(fullPath);
