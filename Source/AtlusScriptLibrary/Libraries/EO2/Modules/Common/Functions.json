@@ -344,7 +344,7 @@
   {
     "Index": "0x0030",
     "ReturnType": "int",
-    "Name": "FUNCTION_0030",
+    "Name": "AI_RND",
     "Description": "",
     "Parameters": [
       {
@@ -352,12 +352,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0030"
     ]
   },
   {
     "Index": "0x0031",
     "ReturnType": "void",
-    "Name": "FUNCTION_0031",
+    "Name": "AI_BIT_ON",
     "Description": "",
     "Parameters": [
       {
@@ -365,12 +368,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0031"
     ]
   },
   {
     "Index": "0x0032",
     "ReturnType": "void",
-    "Name": "FUNCTION_0032",
+    "Name": "AI_BIT_OFF",
     "Description": "",
     "Parameters": [
       {
@@ -378,12 +384,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0032"
     ]
   },
   {
     "Index": "0x0033",
     "ReturnType": "int",
-    "Name": "FUNCTION_0033",
+    "Name": "AI_BIT_CHK",
     "Description": "",
     "Parameters": [
       {
@@ -391,19 +400,25 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0033"
     ]
   },
   {
     "Index": "0x0034",
     "ReturnType": "void",
-    "Name": "FUNCTION_0034",
+    "Name": "AI_BIT_ALL_OFF",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0034"
+    ]
   },
   {
     "Index": "0x0035",
     "ReturnType": "int",
-    "Name": "FUNCTION_0035",
+    "Name": "AI_GET_INT",
     "Description": "",
     "Parameters": [
       {
@@ -411,12 +426,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0035"
     ]
   },
   {
     "Index": "0x0036",
     "ReturnType": "void",
-    "Name": "FUNCTION_0036",
+    "Name": "AI_SET_INT_NV",
     "Description": "",
     "Parameters": [
       {
@@ -429,21 +447,30 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0036"
     ]
   },
   {
     "Index": "0x0037",
     "ReturnType": "void",
-    "Name": "FUNCTION_0037",
+    "Name": "AI_NO_PROVOCATION",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0037"
+    ]
   },
   {
     "Index": "0x0038",
     "ReturnType": "void",
-    "Name": "FUNCTION_0038",
+    "Name": "AI_PROVOCATION_ON",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0038"
+    ]
   },
   {
     "Index": "0x0039",
@@ -497,7 +524,7 @@
   {
     "Index": "0x0040",
     "ReturnType": "int",
-    "Name": "FUNCTION_0040",
+    "Name": "AI_CHK_MYHP",
     "Description": "",
     "Parameters": [
       {
@@ -505,12 +532,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0040"
     ]
   },
   {
     "Index": "0x0041",
     "ReturnType": "int",
-    "Name": "FUNCTION_0041",
+    "Name": "AI_CHK_MYHP",
     "Description": "",
     "Parameters": [
       {
@@ -518,12 +548,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0041"
     ]
   },
   {
     "Index": "0x0042",
     "ReturnType": "int",
-    "Name": "FUNCTION_0042",
+    "Name": "AI_CHK_FRHP",
     "Description": "",
     "Parameters": [
       {
@@ -531,12 +564,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0042"
     ]
   },
   {
     "Index": "0x0043",
     "ReturnType": "int",
-    "Name": "FUNCTION_0043",
+    "Name": "AI_CHK_FRCNT",
     "Description": "",
     "Parameters": [
       {
@@ -544,12 +580,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0043"
     ]
   },
   {
     "Index": "0x0044",
     "ReturnType": "int",
-    "Name": "FUNCTION_0044",
+    "Name": "AI_CHK_ENCNT",
     "Description": "",
     "Parameters": [
       {
@@ -557,12 +596,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0044"
     ]
   },
   {
     "Index": "0x0045",
     "ReturnType": "int",
-    "Name": "FUNCTION_0045",
+    "Name": "AI_CHK_MYBAD",
     "Description": "",
     "Parameters": [
       {
@@ -570,12 +612,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0045"
     ]
   },
   {
     "Index": "0x0046",
     "ReturnType": "int",
-    "Name": "FUNCTION_0046",
+    "Name": "AI_CHK_FRBAD",
     "Description": "",
     "Parameters": [
       {
@@ -583,12 +628,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0046"
     ]
   },
   {
     "Index": "0x0047",
     "ReturnType": "int",
-    "Name": "FUNCTION_0047",
+    "Name": "AI_CHK_ENBAD",
     "Description": "",
     "Parameters": [
       {
@@ -596,12 +644,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0047"
     ]
   },
   {
     "Index": "0x0048",
     "ReturnType": "int",
-    "Name": "FUNCTION_0048",
+    "Name": "AI_CHK_ENALLBAD",
     "Description": "",
     "Parameters": [
       {
@@ -609,12 +660,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0048"
     ]
   },
   {
     "Index": "0x0049",
     "ReturnType": "int",
-    "Name": "FUNCTION_0049",
+    "Name": "AI_CHK_ENID",
     "Description": "",
     "Parameters": [
       {
@@ -622,12 +676,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0049"
     ]
   },
   {
     "Index": "0x004A",
     "ReturnType": "int",
-    "Name": "FUNCTION_004A",
+    "Name": "AI_CHK_FRID",
     "Description": "",
     "Parameters": [
       {
@@ -635,12 +692,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_004A"
     ]
   },
   {
     "Index": "0x004B",
     "ReturnType": "int",
-    "Name": "FUNCTION_004B",
+    "Name": "AI_CHK_ENHOJO",
     "Description": "",
     "Parameters": [
       {
@@ -648,12 +708,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_004B"
     ]
   },
   {
     "Index": "0x004C",
     "ReturnType": "int",
-    "Name": "FUNCTION_004C",
+    "Name": "AI_CHK_FRHOJO",
     "Description": "",
     "Parameters": [
       {
@@ -661,12 +724,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_004C"
     ]
   },
   {
     "Index": "0x004D",
     "ReturnType": "int",
-    "Name": "FUNCTION_004D",
+    "Name": "AI_CHK_ENATTRWEAK",
     "Description": "",
     "Parameters": [
       {
@@ -674,12 +740,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_004D"
     ]
   },
   {
     "Index": "0x004E",
     "ReturnType": "int",
-    "Name": "FUNCTION_004E",
+    "Name": "AI_CHK_ENATTRBREAK",
     "Description": "",
     "Parameters": [
       {
@@ -687,12 +756,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_004E"
     ]
   },
   {
     "Index": "0x004F",
     "ReturnType": "int",
-    "Name": "FUNCTION_004F",
+    "Name": "AI_CHK_ENATTABSORB",
     "Description": "",
     "Parameters": [
       {
@@ -700,12 +772,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_004F"
     ]
   },
   {
     "Index": "0x0050",
     "ReturnType": "int",
-    "Name": "FUNCTION_0050",
+    "Name": "AI_CHK_MYWEAK",
     "Description": "",
     "Parameters": [
       {
@@ -713,12 +788,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0050"
     ]
   },
   {
     "Index": "0x0051",
     "ReturnType": "int",
-    "Name": "FUNCTION_0051",
+    "Name": "AI_CHK_MYWEAKID",
     "Description": "",
     "Parameters": [
       {
@@ -726,12 +804,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0051"
     ]
   },
   {
     "Index": "0x0052",
     "ReturnType": "int",
-    "Name": "FUNCTION_0052",
+    "Name": "AI_CHK_MYBIND",
     "Description": "",
     "Parameters": [
       {
@@ -739,12 +820,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0052"
     ]
   },
   {
     "Index": "0x0053",
     "ReturnType": "int",
-    "Name": "FUNCTION_0053",
+    "Name": "AI_CHK_MYBINDM",
     "Description": "",
     "Parameters": [
       {
@@ -752,12 +836,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0053"
     ]
   },
   {
     "Index": "0x0054",
     "ReturnType": "int",
-    "Name": "FUNCTION_0054",
+    "Name": "AI_CHK_FRBIND",
     "Description": "",
     "Parameters": [
       {
@@ -765,12 +852,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0054"
     ]
   },
   {
     "Index": "0x0055",
     "ReturnType": "int",
-    "Name": "FUNCTION_0055",
+    "Name": "AI_CHK_FRBINDID",
     "Description": "",
     "Parameters": [
       {
@@ -778,19 +868,25 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0055"
     ]
   },
   {
     "Index": "0x0056",
     "ReturnType": "int",
-    "Name": "FUNCTION_0056",
+    "Name": "AI_CHK_SENSEI",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0056"
+    ]
   },
   {
     "Index": "0x0057",
     "ReturnType": "int",
-    "Name": "FUNCTION_0057",
+    "Name": "AI_CHK_TURN",
     "Description": "",
     "Parameters": [
       {
@@ -798,12 +894,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0057"
     ]
   },
   {
     "Index": "0x0058",
     "ReturnType": "int",
-    "Name": "FUNCTION_0058",
+    "Name": "AI_CHK_TURNOVER",
     "Description": "",
     "Parameters": [
       {
@@ -811,12 +910,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0058"
     ]
   },
   {
     "Index": "0x0059",
     "ReturnType": "int",
-    "Name": "FUNCTION_0059",
+    "Name": "AI_CHK_TURNDIV",
     "Description": "",
     "Parameters": [
       {
@@ -824,12 +926,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0059"
     ]
   },
   {
     "Index": "0x005A",
     "ReturnType": "int",
-    "Name": "FUNCTION_005A",
+    "Name": "AI_CHK_FRUSEATTR",
     "Description": "",
     "Parameters": [
       {
@@ -837,12 +942,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_005A"
     ]
   },
   {
     "Index": "0x005B",
     "ReturnType": "int",
-    "Name": "FUNCTION_005B",
+    "Name": "AI_CHK_ENUSEATTR",
     "Description": "",
     "Parameters": [
       {
@@ -850,12 +958,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_005B"
     ]
   },
   {
     "Index": "0x005C",
     "ReturnType": "int",
-    "Name": "FUNCTION_005C",
+    "Name": "AI_CHK_MYUSESKL",
     "Description": "",
     "Parameters": [
       {
@@ -863,12 +974,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_005C"
     ]
   },
   {
     "Index": "0x005D",
     "ReturnType": "int",
-    "Name": "FUNCTION_005D",
+    "Name": "AI_CHK_FRUSESKL",
     "Description": "",
     "Parameters": [
       {
@@ -876,12 +990,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_005D"
     ]
   },
   {
     "Index": "0x005E",
     "ReturnType": "int",
-    "Name": "FUNCTION_005E",
+    "Name": "AI_CHK_ENUSESKL",
     "Description": "",
     "Parameters": [
       {
@@ -889,26 +1006,35 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_005E"
     ]
   },
   {
     "Index": "0x005F",
     "ReturnType": "int",
-    "Name": "FUNCTION_005F",
+    "Name": "AI_CHK_MYUSEALLATK",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_005F"
+    ]
   },
   {
     "Index": "0x0060",
     "ReturnType": "int",
-    "Name": "FUNCTION_0060",
+    "Name": "AI_CHK_FRUSEALLATK",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0060"
+    ]
   },
   {
     "Index": "0x0061",
     "ReturnType": "int",
-    "Name": "FUNCTION_0061",
+    "Name": "AI_CHK_ENHOJONUM",
     "Description": "",
     "Parameters": [
       {
@@ -916,19 +1042,25 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0061"
     ]
   },
   {
     "Index": "0x0062",
     "ReturnType": "int",
-    "Name": "FUNCTION_0062",
+    "Name": "AI_CHK_ENUSEALLSKL",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0062"
+    ]
   },
   {
     "Index": "0x0063",
     "ReturnType": "int",
-    "Name": "FUNCTION_0063",
+    "Name": "AI_CHK_ENHP",
     "Description": "",
     "Parameters": [
       {
@@ -936,12 +1068,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0063"
     ]
   },
   {
     "Index": "0x0064",
     "ReturnType": "int",
-    "Name": "FUNCTION_0064",
+    "Name": "AI_CHK_ENBINDM",
     "Description": "",
     "Parameters": [
       {
@@ -949,12 +1084,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0064"
     ]
   },
   {
     "Index": "0x0065",
     "ReturnType": "int",
-    "Name": "FUNCTION_0065",
+    "Name": "AI_CHK_ENWEAKID",
     "Description": "",
     "Parameters": [
       {
@@ -962,12 +1100,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0065"
     ]
   },
   {
     "Index": "0x0066",
     "ReturnType": "int",
-    "Name": "FUNCTION_0066",
+    "Name": "AI_CHK_ENATTRWEAK2",
     "Description": "",
     "Parameters": [
       {
@@ -980,12 +1121,15 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0066"
     ]
   },
   {
     "Index": "0x0067",
     "ReturnType": "int",
-    "Name": "FUNCTION_0067",
+    "Name": "AI_CHK_ENATTRBREAK2",
     "Description": "",
     "Parameters": [
       {
@@ -998,12 +1142,15 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0067"
     ]
   },
   {
     "Index": "0x0068",
     "ReturnType": "int",
-    "Name": "FUNCTION_0068",
+    "Name": "AI_CHK_FRID_HP",
     "Description": "",
     "Parameters": [
       {
@@ -1016,12 +1163,15 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0068"
     ]
   },
   {
     "Index": "0x0069",
     "ReturnType": "int",
-    "Name": "FUNCTION_0069",
+    "Name": "AI_CHK_SUMMON",
     "Description": "",
     "Parameters": [
       {
@@ -1034,12 +1184,15 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0069"
     ]
   },
   {
     "Index": "0x006A",
     "ReturnType": "int",
-    "Name": "FUNCTION_006A",
+    "Name": "AI_CHK_SUMMON2",
     "Description": "",
     "Parameters": [
       {
@@ -1052,6 +1205,9 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_006A"
     ]
   },
   {
@@ -1092,14 +1248,17 @@
   {
     "Index": "0x0070",
     "ReturnType": "void",
-    "Name": "FUNCTION_0070",
+    "Name": "AI_ACT_ATTACK",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0070"
+    ]
   },
   {
     "Index": "0x0071",
     "ReturnType": "void",
-    "Name": "FUNCTION_0071",
+    "Name": "AI_ACT_SKILL",
     "Description": "",
     "Parameters": [
       {
@@ -1107,26 +1266,35 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0071"
     ]
   },
   {
     "Index": "0x0072",
     "ReturnType": "void",
-    "Name": "FUNCTION_0072",
+    "Name": "AI_ACT_ESCAPE",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0072"
+    ]
   },
   {
     "Index": "0x0073",
     "ReturnType": "void",
-    "Name": "FUNCTION_0073",
+    "Name": "AI_ACT_GUARD",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0073"
+    ]
   },
   {
     "Index": "0x0074",
     "ReturnType": "void",
-    "Name": "FUNCTION_0074",
+    "Name": "AI_ACT_SUMMON",
     "Description": "",
     "Parameters": [
       {
@@ -1139,12 +1307,15 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0074"
     ]
   },
   {
     "Index": "0x0075",
     "ReturnType": "void",
-    "Name": "FUNCTION_0075",
+    "Name": "AI_ACT_SUMMON2",
     "Description": "",
     "Parameters": [
       {
@@ -1157,6 +1328,9 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0075"
     ]
   },
   {
@@ -1232,56 +1406,77 @@
   {
     "Index": "0x0080",
     "ReturnType": "void",
-    "Name": "FUNCTION_0080",
+    "Name": "AI_TAR_AI",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0080"
+    ]
   },
   {
     "Index": "0x0081",
     "ReturnType": "void",
-    "Name": "FUNCTION_0081",
+    "Name": "AI_TAR_RND",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0081"
+    ]
   },
   {
     "Index": "0x0082",
     "ReturnType": "void",
-    "Name": "FUNCTION_0082",
+    "Name": "AI_TAR_LIFEMIN",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0082"
+    ]
   },
   {
     "Index": "0x0083",
     "ReturnType": "void",
-    "Name": "FUNCTION_0083",
+    "Name": "AI_TAR_LVMIN",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0083"
+    ]
   },
   {
     "Index": "0x0084",
     "ReturnType": "void",
-    "Name": "FUNCTION_0084",
+    "Name": "AI_TAR_BPMAX",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0084"
+    ]
   },
   {
     "Index": "0x0085",
     "ReturnType": "void",
-    "Name": "FUNCTION_0085",
+    "Name": "AI_TAR_MPMAX",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0085"
+    ]
   },
   {
     "Index": "0x0086",
     "ReturnType": "void",
-    "Name": "FUNCTION_0086",
+    "Name": "AI_TAR_HPMINR",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0086"
+    ]
   },
   {
     "Index": "0x0087",
     "ReturnType": "void",
-    "Name": "FUNCTION_0087",
+    "Name": "AI_TAR_BAD",
     "Description": "",
     "Parameters": [
       {
@@ -1289,12 +1484,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0087"
     ]
   },
   {
     "Index": "0x0088",
     "ReturnType": "void",
-    "Name": "FUNCTION_0088",
+    "Name": "AI_TAR_NOTBAD",
     "Description": "",
     "Parameters": [
       {
@@ -1302,12 +1500,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0088"
     ]
   },
   {
     "Index": "0x0089",
     "ReturnType": "void",
-    "Name": "FUNCTION_0089",
+    "Name": "AI_TAR_BIND",
     "Description": "",
     "Parameters": [
       {
@@ -1315,26 +1516,35 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0089"
     ]
   },
   {
     "Index": "0x008A",
     "ReturnType": "void",
-    "Name": "FUNCTION_008A",
+    "Name": "AI_TAR_BINDMAX",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_008A"
+    ]
   },
   {
     "Index": "0x008B",
     "ReturnType": "void",
-    "Name": "FUNCTION_008B",
+    "Name": "AI_TAR_BINDAMAX",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_008B"
+    ]
   },
   {
     "Index": "0x008C",
     "ReturnType": "void",
-    "Name": "FUNCTION_008C",
+    "Name": "AI_TAR_WEAKIDMAX",
     "Description": "",
     "Parameters": [
       {
@@ -1342,19 +1552,25 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_008C"
     ]
   },
   {
     "Index": "0x008D",
     "ReturnType": "void",
-    "Name": "FUNCTION_008D",
+    "Name": "AI_TAR_LCALL",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_008D"
+    ]
   },
   {
     "Index": "0x008E",
     "ReturnType": "void",
-    "Name": "FUNCTION_008E",
+    "Name": "AI_TARPUP",
     "Description": "",
     "Parameters": [
       {
@@ -1362,12 +1578,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_008E"
     ]
   },
   {
     "Index": "0x008F",
     "ReturnType": "void",
-    "Name": "FUNCTION_008F",
+    "Name": "AI_TARPDOWN",
     "Description": "",
     "Parameters": [
       {
@@ -1375,12 +1594,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_008F"
     ]
   },
   {
     "Index": "0x0090",
     "ReturnType": "void",
-    "Name": "FUNCTION_0090",
+    "Name": "AI_TAR_PTURN",
     "Description": "",
     "Parameters": [
       {
@@ -1388,12 +1610,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0090"
     ]
   },
   {
     "Index": "0x0091",
     "ReturnType": "void",
-    "Name": "FUNCTION_0091",
+    "Name": "AI_TAR_SKILL",
     "Description": "",
     "Parameters": [
       {
@@ -1401,82 +1626,115 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0091"
     ]
   },
   {
     "Index": "0x0092",
     "ReturnType": "void",
-    "Name": "FUNCTION_0092",
+    "Name": "AI_TAR_ATT",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0092"
+    ]
   },
   {
     "Index": "0x0093",
     "ReturnType": "void",
-    "Name": "FUNCTION_0093",
+    "Name": "AI_TAR_MYAI",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0093"
+    ]
   },
   {
     "Index": "0x0094",
     "ReturnType": "void",
-    "Name": "FUNCTION_0094",
+    "Name": "AI_TAR_FRONT",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0094"
+    ]
   },
   {
     "Index": "0x0095",
     "ReturnType": "void",
-    "Name": "FUNCTION_0095",
+    "Name": "AI_TAR_BACK",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0095"
+    ]
   },
   {
     "Index": "0x0096",
     "ReturnType": "void",
-    "Name": "FUNCTION_0096",
+    "Name": "AI_TAR_LIFEMAX",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0096"
+    ]
   },
   {
     "Index": "0x0097",
     "ReturnType": "void",
-    "Name": "FUNCTION_0097",
+    "Name": "AI_TAR_FRONT_CLASS",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0097"
+    ]
   },
   {
     "Index": "0x0098",
     "ReturnType": "void",
-    "Name": "FUNCTION_0098",
+    "Name": "AI_TAR_BACK_CLASS",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0098"
+    ]
   },
   {
     "Index": "0x0099",
     "ReturnType": "void",
-    "Name": "FUNCTION_0099",
+    "Name": "AI_TAR_BINDMIN",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0099"
+    ]
   },
   {
     "Index": "0x009A",
     "ReturnType": "void",
-    "Name": "FUNCTION_009A",
+    "Name": "AI_TAR_CLASSID",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_009A"
+    ]
   },
   {
     "Index": "0x009B",
     "ReturnType": "void",
-    "Name": "FUNCTION_009B",
+    "Name": "AI_TAR_BADMIN",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_009B"
+    ]
   },
   {
     "Index": "0x009C",
     "ReturnType": "void",
-    "Name": "FUNCTION_009C",
+    "Name": "AI_TAR_ENATTRWEAK2",
     "Description": "",
     "Parameters": [
       {
@@ -1489,12 +1747,15 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_009C"
     ]
   },
   {
     "Index": "0x009D",
     "ReturnType": "void",
-    "Name": "FUNCTION_009D",
+    "Name": "AI_TAR_ENATTRBREAK2",
     "Description": "",
     "Parameters": [
       {
@@ -1507,12 +1768,15 @@
         "Name": "param2",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_009D"
     ]
   },
   {
     "Index": "0x009E",
     "ReturnType": "void",
-    "Name": "FUNCTION_009E",
+    "Name": "AI_TAR_FRID_HP",
     "Description": "",
     "Parameters": [
       {
@@ -1520,12 +1784,15 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_009E"
     ]
   },
   {
     "Index": "0x009F",
     "ReturnType": "void",
-    "Name": "FUNCTION_009F",
+    "Name": "AI_TAR_FRID",
     "Description": "",
     "Parameters": [
       {
@@ -1533,14 +1800,20 @@
         "Name": "param1",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_009F"
     ]
   },
   {
     "Index": "0x00A0",
     "ReturnType": "void",
-    "Name": "FUNCTION_00A0",
+    "Name": "AI_TAR_HPMAXR",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_00A0"
+    ]
   },
   {
     "Index": "0x00A1",
@@ -1650,58 +1923,82 @@
   {
     "Index": "0x00B0",
     "ReturnType": "int",
-    "Name": "FUNCTION_00B0",
+    "Name": "AI_GET_TURN",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_00B0"
+    ]
   },
   {
     "Index": "0x00B1",
     "ReturnType": "int",
-    "Name": "FUNCTION_00B1",
+    "Name": "AI_GET_MYHP",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_00B1"
+    ]
   },
   {
     "Index": "0x00B2",
     "ReturnType": "int",
-    "Name": "FUNCTION_00B2",
+    "Name": "AI_GET_MYHP_ABS",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_00B2"
+    ]
   },
   {
     "Index": "0x00B3",
     "ReturnType": "int",
-    "Name": "FUNCTION_00B3",
+    "Name": "AI_GET_MYMP",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_00B3"
+    ]
   },
   {
     "Index": "0x00B4",
     "ReturnType": "int",
-    "Name": "FUNCTION_00B4",
+    "Name": "AI_GET_MYMP_ABS",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_00B4"
+    ]
   },
   {
     "Index": "0x00B5",
     "ReturnType": "int",
-    "Name": "FUNCTION_00B5",
+    "Name": "AI_GET_TIME_GROUP",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_00B5"
+    ]
   },
   {
     "Index": "0x00B6",
     "ReturnType": "int",
-    "Name": "FUNCTION_00B6",
+    "Name": "AI_GET_ENCOUNTID",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_00B6"
+    ]
   },
   {
     "Index": "0x00B7",
     "ReturnType": "int",
-    "Name": "FUNCTION_00B7",
+    "Name": "AI_GET_TURN_ALL",
     "Description": "",
-    "Parameters": []
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_00B7"
+    ]
   },
   {
     "Index": "0x00B8",
