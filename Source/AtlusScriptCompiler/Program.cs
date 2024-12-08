@@ -202,6 +202,16 @@ internal class Program
 
     public static int Main(string[] args)
     {
+        try
+        {
+            LibraryLookup.EnsureInitialized();
+        }
+        catch (Exception ex)
+        {
+            LogException($"Failed to load libraries", ex);
+            return ExitCode.Error;
+        }
+
         if (args.Length == 0)
         {
             Logger.Error("No arguments specified!");

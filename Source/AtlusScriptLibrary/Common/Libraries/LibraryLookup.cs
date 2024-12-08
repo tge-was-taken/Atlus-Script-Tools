@@ -29,7 +29,7 @@ public static class LibraryLookup
         }
     }
 
-    private static void EnsureInitialized()
+    public static void EnsureInitialized()
     {
         if (sInitialized)
             return;
