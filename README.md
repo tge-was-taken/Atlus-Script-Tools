@@ -36,7 +36,9 @@ Latest build:
 
 ## Example usage ##
 Decompiling a script from Persona 5 Royal: ``AtlusScriptCompiler -Decompile -In "path/to/script.bf" -Library P5R -Encoding P5``
+
 Compiling a script for SMT3: ``AtlusScriptCompiler -Compile -In "path/to/script.flow" -Library SMT3 -OutFormat V1`` 
+
 See ``AtlusScriptCompiler -Help`` for more info.
 
 ## Overview of repository structure ##
