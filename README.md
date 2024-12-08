@@ -30,6 +30,7 @@ Latest build:
 * Shin Megami Tensei 3: Nocturne HD
 * Shin Megami Tensei: Digital Devil Saga 1
 * Shin Megami Tensei: Digital Devil Saga 2
+* Trauma Center Second Opinion
 * Trauma Center New Blood
 * Etrian Odyssey II: Heroes of Lagaard
 * Other games might be supported out-of-the-box for editing of message script files
