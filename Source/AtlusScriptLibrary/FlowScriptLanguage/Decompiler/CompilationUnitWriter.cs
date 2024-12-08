@@ -212,7 +212,7 @@ public class CompilationUnitWriter : SyntaxNodeVisitor
 
         public override void Visit(VariableDeclaration variableDeclaration)
         {
-            if (variableDeclaration.Modifier.Kind != VariableModifierKind.Local)
+            if (variableDeclaration.Modifier is not null)
             {
                 Write(KeywordDictionary.ModifierTypeToKeyword[variableDeclaration.Modifier.Kind]);
                 if (variableDeclaration.Modifier.Index != null)
@@ -221,18 +221,12 @@ public class CompilationUnitWriter : SyntaxNodeVisitor
                     WriteUnsignedIntegerLiteral(variableDeclaration.Modifier.Index);
                     WriteCloseParenthesis();
                 }
+                Write(" ");
+            }
 
-                Write(" ");
-                Visit(variableDeclaration.Type);
-                Write(" ");
-                Visit(variableDeclaration.Identifier);
-            }
-            else
-            {
-                Visit(variableDeclaration.Type);
-                Write(" ");
-                Visit(variableDeclaration.Identifier);
-            }
+            Visit(variableDeclaration.Type);
+            Write(" ");
+            Visit(variableDeclaration.Identifier);
 
             if (variableDeclaration.Initializer != null)
             {

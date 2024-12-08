@@ -129,12 +129,12 @@ public sealed class FlowScriptBinaryBuilder
 
         if (mMatching)
         {
-            // add return instruction at end
-            mTextSection.Add(new BinaryInstruction() { Opcode = Opcode.END });
-
-            // apply string section padding
             if (mFormatVersion == BinaryFormatVersion.Version1)
             {
+                // add return instruction at end
+                mTextSection.Add(new BinaryInstruction() { Opcode = Opcode.END });
+
+                // apply string section padding
                 while (mStringSection.Count < 0xF0)
                     mStringSection.Add(0);
             }

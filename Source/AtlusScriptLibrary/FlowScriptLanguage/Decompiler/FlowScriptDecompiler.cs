@@ -29,8 +29,8 @@ public class FlowScriptDecompiler
     private Dictionary<Statement, int> mStatementInstructionIndexLookup;
     private Dictionary<int, List<EvaluatedStatement>> mIfStatementBodyMap;
     private Dictionary<int, List<EvaluatedStatement>> mIfStatementElseBodyMap;
-    private bool mKeepLabelsAndGotos = false;
-    private bool mConvertIfStatementsToGotos = false;
+    private bool mKeepLabelsAndGotos => GotoOnly;
+    private bool mConvertIfStatementsToGotos => GotoOnly;
 
     /// <summary>
     /// Gets or sets the library registry.
@@ -53,7 +53,25 @@ public class FlowScriptDecompiler
     /// </summary>
     public bool SumBits { get; set; }
 
+    /// <summary>
+    /// Do not try to recover if something goes wrong during evaluation by generating pseudo-variables, instructions, etc.
+    /// </summary>
     public bool StrictMode { get; set; }
+
+    /// <summary>
+    /// Keep the variable indices of local variables for matching purposes.
+    /// </summary>
+    public bool KeepLocalVariableIndices { get; set; }
+
+    /// <summary>
+    /// Do not try to recover any control flow, generate goto's only.
+    /// </summary>
+    public bool GotoOnly { get; set; }
+
+    /// <summary>
+    /// Toggle whether to omit unused functions from message script decompilation output.
+    /// </summary>
+    public bool? MessageScriptOmitUnusedFunctions { get; set; }
 
     /// <summary>
     /// Initializes a FlowScript decompiler.
@@ -106,6 +124,7 @@ public class FlowScriptDecompiler
                 using (var messageScriptDecompiler = new MessageScriptDecompiler(new FileTextWriter(MessageScriptFilePath)))
                 {
                     messageScriptDecompiler.Library = Library;
+                    messageScriptDecompiler.OmitUnusedFunctions = MessageScriptOmitUnusedFunctions.GetValueOrDefault(messageScriptDecompiler.OmitUnusedFunctions);
                     messageScriptDecompiler.Decompile(flowScript.MessageScript);
                 }
             }
@@ -213,7 +232,14 @@ public class FlowScriptDecompiler
     private void BuildScriptLocalVariableDeclarationSyntaxNodes()
     {
         foreach (var flowScriptVariableDeclaration in mEvaluatedScript.Scope.Variables.Values)
+        {
+            if (!KeepLocalVariableIndices)
+            {
+                if (flowScriptVariableDeclaration.Modifier?.Kind == VariableModifierKind.Local)
+                    flowScriptVariableDeclaration.Modifier = null;
+            }
             mCompilationUnit.Declarations.Add(flowScriptVariableDeclaration);
+        }
     }
 
     private bool TryBuildProcedureDeclarationSyntaxNodes()
@@ -311,7 +337,7 @@ public class FlowScriptDecompiler
         if (!mKeepLabelsAndGotos)
             RemoveUnreferencedLabels();
 
-        RemoveDuplicateReturnStatements();
+        //RemoveDuplicateReturnStatements();
 
         // Build if statements
         if (!mConvertIfStatementsToGotos)
@@ -338,7 +364,7 @@ public class FlowScriptDecompiler
 
             foreach (var call in calls)
             {
-                var libFunc = Library?.FlowScriptModules.SelectMany(x => x.Functions).FirstOrDefault(x => x.Name == call.Identifier.Text);
+                var libFunc = Library.FlowScriptModules.SelectMany(x => x.Functions).FirstOrDefault(x => x.Name == call.Identifier.Text);
                 if (libFunc == null)
                 {
                     // procedure call or unknown function
@@ -396,7 +422,7 @@ public class FlowScriptDecompiler
             {
                 foreach (var call in calls)
                 {
-                    var libFunc = Library?.FlowScriptModules.SelectMany(x => x.Functions).FirstOrDefault(x => x.Name == call.Identifier.Text);
+                    var libFunc = Library.FlowScriptModules.SelectMany(x => x.Functions).FirstOrDefault(x => x.Name == call.Identifier.Text);
                     if (libFunc == null)
                     {
                         // procedure call or unknown function
@@ -439,7 +465,7 @@ public class FlowScriptDecompiler
             {
                 foreach (var call in calls)
                 {
-                    var libFunc = Library?.FlowScriptModules.SelectMany(x => x.Functions).FirstOrDefault(x => x.Name == call.Identifier.Text);
+                    var libFunc = Library.FlowScriptModules.SelectMany(x => x.Functions).FirstOrDefault(x => x.Name == call.Identifier.Text);
                     if (libFunc == null)
                     {
                         // procedure call or unknown function
@@ -530,12 +556,12 @@ public class FlowScriptDecompiler
             var calls = SyntaxNodeCollector<CallOperator>.Collect(evaluatedStatement.Statement);
             foreach (var call in calls)
             {
-                var libraryFunctions = Library?.FlowScriptModules
+                var libraryFunctions = Library.FlowScriptModules
                                               .SelectMany(x => x.Functions)
                                               .Where(x => x.Name == call.Identifier.Text)
                                               .ToList();
 
-                if (libraryFunctions == null || libraryFunctions.Count == 0)
+                if (libraryFunctions.Count == 0)
                     continue;
 
                 if (libraryFunctions.Count != 1)
@@ -563,7 +589,7 @@ public class FlowScriptDecompiler
                     if (!(argument is IIntLiteral argumentValue))
                         continue;
 
-                    var libraryEnum = Library?.FlowScriptModules
+                    var libraryEnum = Library.FlowScriptModules
                                                      .Where(x => x.Enums != null)
                                                      .SelectMany(x => x.Enums)
                                                      .FirstOrDefault(x => x.Name == parameter.Type);
@@ -589,49 +615,34 @@ public class FlowScriptDecompiler
     {
         foreach (var label in mEvaluatedProcedure.Procedure.Labels)
         {
-            // Find best index to insert the label at
+            if (mEvaluatedStatements.Count == 0)
+            {
+                // Handle empty list
+                mEvaluatedStatements.Add(new EvaluatedStatement(
+                    new LabelDeclaration(new Identifier(ValueKind.Label, label.Name)),
+                    label.InstructionIndex,
+                    label));
+                continue;
+            }
+
+            // Find best index to insert the label
             int insertionIndex = -1;
-            int highestIndexBefore = -1;
-            int lowestIndexAfter = int.MaxValue;
             for (int i = 0; i < mEvaluatedStatements.Count; i++)
             {
                 var statement = mEvaluatedStatements[i];
-                if (statement.InstructionIndex == label.InstructionIndex)
+                if (statement.InstructionIndex >= label.InstructionIndex)
                 {
                     insertionIndex = i;
                     break;
-                }
-                if (statement.InstructionIndex > label.InstructionIndex)
-                {
-                    if (statement.InstructionIndex < lowestIndexAfter)
-                    {
-                        lowestIndexAfter = statement.InstructionIndex;
-                    }
-                }
-                else if (statement.InstructionIndex < label.InstructionIndex)
-                {
-                    if (statement.InstructionIndex > highestIndexBefore)
-                    {
-                        highestIndexBefore = statement.InstructionIndex;
-                    }
                 }
             }
 
             if (insertionIndex == -1)
             {
-                int differenceBefore = label.InstructionIndex - highestIndexBefore;
-                int differenceAfter = lowestIndexAfter - label.InstructionIndex;
-                if (differenceBefore < differenceAfter)
-                {
-                    insertionIndex = mEvaluatedStatements.FindIndex(x => x.InstructionIndex == highestIndexBefore) + 1;
-                }
-                else
-                {
-                    insertionIndex = mEvaluatedStatements.FindIndex(x => x.InstructionIndex == lowestIndexAfter);
-                }
+                // Label goes after all existing statements
+                insertionIndex = mEvaluatedStatements.Count;
             }
 
-            // Insert label declaration
             mEvaluatedStatements.Insert(insertionIndex,
                 new EvaluatedStatement(
                     new LabelDeclaration(
@@ -654,10 +665,14 @@ public class FlowScriptDecompiler
                 var index = mEvaluatedStatements.IndexOf(evaluatedIfStatement);
                 var ifStatement = (IfStatement)evaluatedIfStatement.Statement;
 
-                mEvaluatedStatements.Insert(index, new EvaluatedStatement(ifStatement.Condition,
-                                                                                      evaluatedIfStatement.InstructionIndex - 1, null));
-                mEvaluatedStatements[index + 1] = new EvaluatedStatement(
-                    new GotoStatement(new Identifier(falseLabel.Name)), evaluatedIfStatement.InstructionIndex, falseLabel);
+                mEvaluatedStatements[index] = new EvaluatedStatement(
+                    new IfStatement()
+                    {
+                        Condition = new LogicalNotOperator() { Operand = ifStatement.Condition },
+                        Body = new CompoundStatement(new GotoStatement(new Identifier(falseLabel.Name)))
+                    },
+                    evaluatedIfStatement.InstructionIndex,
+                    falseLabel);
             }
             else
             {
@@ -770,10 +785,24 @@ public class FlowScriptDecompiler
     private void CoagulateVariableDeclarationAssignments()
     {
         foreach (var item in mEvaluatedProcedure.Scope.LocalIntVariables.Reverse())
+        {
+            if (!KeepLocalVariableIndices)
+            {
+                if (item.Value.Modifier?.Kind == VariableModifierKind.Local)
+                    item.Value.Modifier = null;
+            }
             mEvaluatedStatements.Insert(0, new EvaluatedStatement(item.Value, -1, null));
+        }
 
         foreach (var item in mEvaluatedProcedure.Scope.LocalFloatVariables.Reverse())
+        {
+            if (!KeepLocalVariableIndices)
+            {
+                if (item.Value.Modifier?.Kind == VariableModifierKind.Local)
+                    item.Value.Modifier = null;
+            }
             mEvaluatedStatements.Insert(0, new EvaluatedStatement(item.Value, -1, null));
+        }
 
         // Commented out due to being broken, sometimes causing expressions to disappear
         //CoagulateVariableDeclarationAssignmentsRecursively( mEvaluatedStatements, new HashSet<string>() );

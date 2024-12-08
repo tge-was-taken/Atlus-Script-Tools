@@ -171,12 +171,9 @@ public class Evaluator
         mScopeStack.Push(mScopeStack.Pop());
     }
 
-    private bool TryDeclareVariable(VariableModifierKind modifierKind, ValueKind valueKind, ushort index, VariableIndexKind indexKind, out VariableDeclaration declaration)
+    private bool TryDeclareVariable(VariableModifierKind modifierKind, ValueKind valueKind, ushort index, out VariableDeclaration declaration)
     {
-        var modifier = indexKind == VariableIndexKind.Implicit
-            ? new VariableModifier(modifierKind)
-            : new VariableModifier(modifierKind, new UIntLiteral(index));
-
+        var modifier = new VariableModifier(modifierKind, new UIntLiteral(index));
         var type = new TypeIdentifier(valueKind);
         var identifier = new Identifier(valueKind, NameFormatter.GenerateVariableName(modifierKind, valueKind, index, Scope.Parent == null));
         declaration = new VariableDeclaration(modifier, type, identifier, null);
@@ -263,8 +260,6 @@ public class Evaluator
         return false;
     }
 
-    private enum VariableIndexKind { Implicit, Explicit }
-
     private void RegisterTopLevelVariables()
     {
         LogInfo("Registering top level variables");
@@ -272,12 +267,12 @@ public class Evaluator
         var foundIntVariables = new Dictionary<int, (Procedure Procedure, VariableModifierKind Modifier, ValueKind Type)>();
         var foundFloatVariables = new Dictionary<int, (Procedure Procedure, VariableModifierKind Modifier, ValueKind Type)>();
 
-        void DeclareVariableIfNotDeclared((Procedure Procedure, VariableModifierKind Modifier, ValueKind Type) context, ushort index, VariableIndexKind indexKind)
+        void DeclareVariableIfNotDeclared((Procedure Procedure, VariableModifierKind Modifier, ValueKind Type) context, ushort index)
         {
             // If the procedures are different, then this variable can't be local to the scope of the procedure
             if (!IsVariableDeclared(context.Modifier, context.Type, index))
             {
-                var result = TryDeclareVariable(context.Modifier, context.Type, index, indexKind, out _);
+                var result = TryDeclareVariable(context.Modifier, context.Type, index, out _);
                 Debug.Assert(result);
             }
         }
@@ -323,7 +318,7 @@ public class Evaluator
                                 if (procedure != context.Procedure)
                                 {
                                     // If the procedures are different, then this variable can't be local to the scope of the procedure
-                                    DeclareVariableIfNotDeclared(context, index, VariableIndexKind.Implicit);
+                                    DeclareVariableIfNotDeclared(context, index);
                                 }
                             }
                             else if (modifier != VariableModifierKind.Global && type == ValueKind.Float && foundFloatVariables.TryGetValue(index, out context))
@@ -332,7 +327,7 @@ public class Evaluator
                                 if (procedure != context.Procedure)
                                 {
                                     // If the procedures are different, then this variable can't be local to the scope of the procedure
-                                    DeclareVariableIfNotDeclared(context, index, VariableIndexKind.Implicit);
+                                    DeclareVariableIfNotDeclared(context, index);
                                 }
                             }
                             else
@@ -342,7 +337,7 @@ public class Evaluator
                                 if (modifier == VariableModifierKind.Global)
                                 {
                                     // If it's a global, declare it anyway
-                                    DeclareVariableIfNotDeclared(context, index, VariableIndexKind.Explicit);
+                                    DeclareVariableIfNotDeclared(context, index);
                                 }
 
                                 if (type == ValueKind.Int)
@@ -865,7 +860,7 @@ public class Evaluator
                         LogError($"Referenced undeclared global int variable: '{index}'");
                         //return false;
 
-                        if (!TryDeclareVariable(VariableModifierKind.Global, ValueKind.Int, index, VariableIndexKind.Explicit, out declaration))
+                        if (!TryDeclareVariable(VariableModifierKind.Global, ValueKind.Int, index, out declaration))
                         {
                             LogError("Failed to declare global int variable for PUSHIX");
                             return false;
@@ -886,7 +881,7 @@ public class Evaluator
                         LogError($"Referenced undeclared global float variable: '{index}'");
                         //return false;
 
-                        if (!TryDeclareVariable(VariableModifierKind.Global, ValueKind.Float, index, VariableIndexKind.Explicit, out declaration))
+                        if (!TryDeclareVariable(VariableModifierKind.Global, ValueKind.Float, index, out declaration))
                         {
                             LogError("Failed to declare global float variable for PUSHIF");
                             return false;
@@ -927,7 +922,7 @@ public class Evaluator
                     if (!Scope.TryGetGlobalIntVariable(index, out var declaration))
                     {
                         // variable hasn't been declared yet
-                        if (!TryDeclareVariable(VariableModifierKind.Global, ValueKind.Int, index, VariableIndexKind.Explicit, out declaration))
+                        if (!TryDeclareVariable(VariableModifierKind.Global, ValueKind.Int, index, out declaration))
                         {
                             LogError("Failed to declare global int variable for POPIX");
                             return false;
@@ -953,7 +948,7 @@ public class Evaluator
                     if (!Scope.TryGetGlobalFloatVariable(index, out var declaration))
                     {
                         // variable hasn't been declared yet
-                        if (!TryDeclareVariable(VariableModifierKind.Global, ValueKind.Float, index, VariableIndexKind.Explicit, out declaration))
+                        if (!TryDeclareVariable(VariableModifierKind.Global, ValueKind.Float, index, out declaration))
                         {
                             LogError("Failed to declare global float variable for POPIX");
                             return false;
@@ -1277,7 +1272,7 @@ public class Evaluator
                         LogInfo($"Referenced undeclared local int variable: '{index}'");
                         //return false;
 
-                        if (!TryDeclareVariable(VariableModifierKind.Local, ValueKind.Int, index, VariableIndexKind.Implicit, out declaration))
+                        if (!TryDeclareVariable(VariableModifierKind.Local, ValueKind.Int, index, out declaration))
                         {
                             LogError("Failed to declare local float variable for PUSHLIX");
                             return false;
@@ -1296,7 +1291,7 @@ public class Evaluator
                         LogInfo($"Referenced undeclared local float variable: '{index}'");
                         //return false;
 
-                        if (!TryDeclareVariable(VariableModifierKind.Local, ValueKind.Float, index, VariableIndexKind.Implicit, out declaration))
+                        if (!TryDeclareVariable(VariableModifierKind.Local, ValueKind.Float, index, out declaration))
                         {
                             LogError("Failed to declare local int variable for PUSHLFX");
                             return false;
@@ -1314,7 +1309,7 @@ public class Evaluator
                     if (!Scope.TryGetLocalIntVariable(index, out var declaration))
                     {
                         // variable hasn't been declared yet
-                        if (!TryDeclareVariable(VariableModifierKind.Local, ValueKind.Int, index, VariableIndexKind.Implicit, out declaration))
+                        if (!TryDeclareVariable(VariableModifierKind.Local, ValueKind.Int, index, out declaration))
                         {
                             LogError("Failed to declare variable for POPLIX");
                             return false;
@@ -1338,7 +1333,7 @@ public class Evaluator
                     if (!Scope.TryGetLocalFloatVariable(index, out var declaration))
                     {
                         // variable hasn't been declared yet
-                        if (!TryDeclareVariable(VariableModifierKind.Local, ValueKind.Float, index, VariableIndexKind.Implicit, out declaration))
+                        if (!TryDeclareVariable(VariableModifierKind.Local, ValueKind.Float, index, out declaration))
                         {
                             LogError("Failed to declare variable for POPLFX");
                             return false;
