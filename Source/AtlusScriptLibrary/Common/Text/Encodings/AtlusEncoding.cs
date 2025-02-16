@@ -159,7 +159,21 @@ public class AtlusEncoding : Encoding
 
         return byteCount;
     }
-
+    
+    public override byte[] GetBytes(string s)
+    {
+        int byteCount = GetByteCount(s);
+        byte[] bytes = new byte[byteCount];
+        int bytesReceived = GetBytes(s, 0, s.Length, bytes, 0);
+        
+        if (byteCount != bytesReceived)
+        {
+            bytes = new Span<byte>(bytes, 0, bytesReceived).ToArray();
+        }
+            
+        return bytes;
+    }
+    
     public override int GetCharCount(byte[] bytes, int index, int count)
     {
         int charCount = 0;
