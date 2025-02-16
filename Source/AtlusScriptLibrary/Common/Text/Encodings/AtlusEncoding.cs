@@ -29,6 +29,8 @@ public class AtlusEncoding : Encoding
     /// </summary>
     private const int GLYPH_TABLE_INDEX_MARKER = 0x80;
 
+    public override string EncodingName { get; }
+
     // Ease of use accessors
     private static string sCharsetsBaseDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Charsets");
     private static AtlusEncoding sPersona3;
@@ -236,6 +238,7 @@ public class AtlusEncoding : Encoding
 
     public AtlusEncoding(string tableName)
     {
+        EncodingName = tableName;
         var tableFilePath = Path.Combine(sCharsetsBaseDirectoryPath, $"{tableName}.tsv");
         if (!File.Exists(tableFilePath))
             throw new ArgumentException($"Unknown encoding: {tableName} ({tableFilePath})", nameof(tableName));
