@@ -78,6 +78,25 @@ void test()
         }
 
         [TestMethod]
+        public void negative_float_zero()
+        {
+            var source = @"
+void test()
+{
+    float value = -0.00f;
+}";
+
+            RunTest(source, FormatVersion.Version3BigEndian, "p5", new[]
+            {
+                Instruction.PROC(0),
+                Instruction.PUSHF(0),
+                Instruction.MINUS(),
+                Instruction.POPLFX(0),
+                Instruction.END(),
+            });
+        }
+
+        [TestMethod]
         public void popreg_parameter_passing()
         {
             var source = @"
@@ -118,6 +137,24 @@ void bar(int p0, int p1, int p2)
                 // g0 = result
                 Instruction.POPIX(0),
                 Instruction.END()
+            });
+        }
+
+        [TestMethod]
+        public void intmax_sign_handling()
+        {
+            var source = @"
+void test()
+{
+    int foo = 0x80000000;
+}";
+
+            RunTest(source, FormatVersion.Version3BigEndian, "p5", new[]
+            {
+                Instruction.PROC(0),
+                Instruction.PUSHI(0x80000000),
+                Instruction.POPLIX(0),
+                Instruction.END(),
             });
         }
     }

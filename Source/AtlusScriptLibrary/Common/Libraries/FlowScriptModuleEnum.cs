@@ -2,6 +2,7 @@ using AtlusScriptLibrary.FlowScriptLanguage.Compiler;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace AtlusScriptLibrary.Common.Libraries;
 
@@ -11,7 +12,8 @@ public class FlowScriptModuleEnum : ICloneable
 
     public string Description { get; set; }
 
-    public List<FlowScriptModuleEnumMember> Members { get; set; }
+    [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]
+    public List<FlowScriptModuleEnumMember> Members { get; set; } = new();
 
     public object Clone()
     {

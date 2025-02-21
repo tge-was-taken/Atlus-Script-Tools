@@ -27,6 +27,12 @@ public class TokenTextBuilder
         return AddToken(new FunctionToken(functionTableIndex, functionIndex, false, args));
     }
 
+    public TokenTextBuilder AddCodePoint(List<byte> bytes)
+    {
+        return AddToken(new CodePointToken(bytes));
+    }
+
+
     public TokenTextBuilder AddCodePoint(byte highSurrogate, byte lowSurrogate)
     {
         return AddToken(new CodePointToken(highSurrogate, lowSurrogate));

@@ -1,5 +1,6 @@
 ﻿using AtlusScriptLibrary.Common.Libraries;
 using AtlusScriptLibrary.Common.Logging;
+using AtlusScriptLibrary.Common.Text.Encodings;
 using AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser;
 using AtlusScriptLibrary.FlowScriptLanguage.Compiler.Processing;
 using AtlusScriptLibrary.FlowScriptLanguage.Decompiler;
@@ -59,13 +60,18 @@ public class FlowScriptCompiler
 
     private int mStackValueCount; // for debugging
     private IntrinsicSupport mInstrinsic;
+    private Encoding encoding;
 
     private ScopeContext Scope => mScopeStack.Peek();
 
     /// <summary>
     /// Gets or sets the encoding to use for any imported MessageScripts.
     /// </summary>
-    public Encoding Encoding { get; set; }
+    public Encoding Encoding 
+    {
+        get => encoding; 
+        set => encoding = EncodingHelper.GetEncodingForEndianness(encoding, mFormatVersion.HasFlag(FormatVersion.BigEndian)); 
+    }
 
     /// <summary>
     /// Gets or sets the library registry to use for any imported MessageScripts.
@@ -1389,8 +1395,12 @@ public class FlowScriptCompiler
 
         ReturnStatement returnStatement = new ReturnStatement();
 
+        var hasOutParameters = declaration.Parameters
+            .Where(x => x.Modifier == ParameterModifier.Out)
+            .Any();
+
         // Remove last return statement
-        if (declaration.Body.Statements.Count != 0 && declaration.Body.Statements.Last() is ReturnStatement)
+        if (hasOutParameters && declaration.Body.Statements.Count != 0 && declaration.Body.Statements.Last() is ReturnStatement)
         {
             returnStatement = (ReturnStatement)declaration.Body.Last();
             declaration.Body.Statements.Remove(returnStatement);
@@ -1409,6 +1419,9 @@ public class FlowScriptCompiler
         {
             var intVariableCount = 0;
             var floatVariableCount = 0;
+
+            // TODO: fix bug where out parameters are not assigned during early returns
+            // early returns must jump to an end label that leads to the epilog of the function
 
             foreach (var parameter in declaration.Parameters)
             {
@@ -1556,7 +1569,7 @@ public class FlowScriptCompiler
         {
             if (declaration.DeclarationType == DeclarationType.Label)
             {
-                mLabels[declaration.Identifier.Text] = CreateLabel(declaration.Identifier.Text);
+                mLabels[declaration.Identifier.Text] = CreateLabel(declaration.Identifier.Text, false);
             }
         }
 
@@ -3764,12 +3777,9 @@ public class FlowScriptCompiler
         // so if our literal is negative, we make it positive
         // and later negative it using the negation operator
         var value = floatLiteral.Value;
-        var isNegative = false;
-        if (value < 0)
-        {
-            isNegative = true;
-            value = -value;
-        }
+        var isNegative = BitConverter.DoubleToInt64Bits((double)value) < 0; // double.IsNegative
+        if (isNegative)
+            value = Math.Abs(value);
 
         Emit(Instruction.PUSHF(value));
         if (isNegative)
@@ -3794,6 +3804,30 @@ public class FlowScriptCompiler
     private bool TryEmitIfStatement(IfStatement ifStatement)
     {
         Trace(ifStatement, $"Emitting if statement: '{ifStatement}'");
+
+        // Detect & translate an if statement that directly maps to the if statement instruction
+        if (ifStatement.Condition is LogicalNotOperator &&
+            ifStatement.Body.Statements.Count == 1 &&
+            ifStatement.Body.Statements[0] is GotoStatement &&
+            ((GotoStatement)ifStatement.Body.Statements[0]).Label is Identifier)
+        {
+            // emit condition expression, which should push a boolean value to the stack
+            var gotoStatement = ifStatement.Body.Statements[0] as GotoStatement;
+            var labelName = (gotoStatement.Label as Identifier)?.Text;
+            var cond = ifStatement.Condition as LogicalNotOperator;
+            if (!TryEmitExpression(cond.Operand, false))
+            {
+                Error(ifStatement.Condition, "Failed to emit if statement condition");
+                return false;
+            }
+
+            if (!mLabels.TryGetValue(labelName, out var label))
+                return false;
+
+            Emit(Instruction.IF(label.Index));
+            return true;
+        }
+
 
         // emit condition expression, which should push a boolean value to the stack
         if (!TryEmitExpression(ifStatement.Condition, false))
@@ -4578,11 +4612,38 @@ public class FlowScriptCompiler
         mInstructions.Add(instruction);
     }
 
-    private LabelInfo CreateLabel(string name)
+    private LabelInfo CreateLabel(string name, bool isGenerated = true)
     {
+        string GenerateUniqueLabelName(string baseName)
+        {
+            while (true)
+            {
+                string name;
+                if (false && Matching)
+                {
+                    name = $"_{mNextLabelIndex++}";
+                }
+                else
+                {
+                    name = baseName + "_" + mNextLabelIndex++;
+                }
+                if (!mLabels.ContainsKey(name))
+                    return name;
+            }
+        }
+
         var label = new LabelInfo();
         label.Index = (ushort)mLabels.Count;
-        label.Name = name + "_" + mNextLabelIndex++;
+
+        // HACK: reuse original labels when recompiling
+        if (!isGenerated && name.StartsWith("_") && !mLabels.ContainsKey(name))
+        {
+            label.Name = name;
+        }
+        else
+        {
+            label.Name = GenerateUniqueLabelName(name);
+        }
 
         mLabels.Add(label.Name, label);
 

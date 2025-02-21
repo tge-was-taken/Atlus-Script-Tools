@@ -2,9 +2,9 @@
 using AtlusScriptLibrary.Common.Text.Encodings;
 using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace AtlusScriptLibrary.FlowScriptLanguage.BinaryModel.IO;
 
@@ -38,11 +38,13 @@ public sealed class FlowScriptBinaryReader : IDisposable
             switch (sectionHeader.SectionType)
             {
                 case BinarySectionType.ProcedureLabelSection:
-                    instance.mProcedureLabelSection = ReadLabelSection(ref sectionHeader);
-                    break;
-
                 case BinarySectionType.JumpLabelSection:
-                    instance.mJumpLabelSection = ReadLabelSection(ref sectionHeader);
+                    DetectBinaryFormatVersion(ref instance.mHeader, ref sectionHeader);
+                    var labelSection = ReadLabelSection(ref sectionHeader);
+                    if (sectionHeader.SectionType == BinarySectionType.ProcedureLabelSection)
+                        instance.mProcedureLabelSection = labelSection;
+                    else
+                        instance.mJumpLabelSection = labelSection;
                     break;
 
                 case BinarySectionType.TextSection:
@@ -95,12 +97,11 @@ public sealed class FlowScriptBinaryReader : IDisposable
 
         if (sectionHeader.ElementSize != BinaryLabel.SIZE_V1 &&
             sectionHeader.ElementSize != BinaryLabel.SIZE_V2 &&
-            sectionHeader.ElementSize != BinaryLabel.SIZE_V3)
+            sectionHeader.ElementSize != BinaryLabel.SIZE_V3 &&
+            sectionHeader.ElementSize != BinaryLabel.SIZE_V4)
         {
             throw new InvalidDataException("Unknown size for label");
         }
-
-        MaybeSwapVersionEndiannessByLabelSectionHeader(ref sectionHeader);
 
         var labels = new BinaryLabel[sectionHeader.ElementCount];
 
@@ -171,7 +172,7 @@ public sealed class FlowScriptBinaryReader : IDisposable
         return instructions;
     }
 
-    public MessageScriptBinary ReadMessageScriptSection(ref BinarySectionHeader sectionHeader)
+    public IMessageScriptBinary ReadMessageScriptSection(ref BinarySectionHeader sectionHeader)
     {
         EnsureSectionHeaderInitialValidState(ref sectionHeader);
 
@@ -185,7 +186,7 @@ public sealed class FlowScriptBinaryReader : IDisposable
             var bytes = mReader.ReadBytes(sectionHeader.ElementCount);
             using (var memoryStream = new MemoryStream(bytes))
             {
-                return MessageScriptBinary.FromStream(memoryStream);
+                return MessageScriptBinaryFactory.FromStream(memoryStream);
             }
         }
         return null;
@@ -268,25 +269,51 @@ public sealed class FlowScriptBinaryReader : IDisposable
         mReader.SeekBegin(absoluteAddress);
     }
 
-    private void MaybeSwapVersionEndiannessByLabelSectionHeader(ref BinarySectionHeader sectionHeader)
+    private void DetectBinaryFormatVersion(ref BinaryHeader header, ref BinarySectionHeader sectionHeader)
     {
-        if (sectionHeader.ElementSize == BinaryLabel.SIZE_V1 && !mVersion.HasFlag(BinaryFormatVersion.Version1))
+        if (sectionHeader.ElementSize == BinaryLabel.SIZE_V1)
         {
-            mVersion = BinaryFormatVersion.Version1;
-            if (mReader.Endianness == Endianness.BigEndian)
-                mVersion |= BinaryFormatVersion.BigEndian;
+            if (!mVersion.HasFlag(BinaryFormatVersion.Version1))
+            {
+                mVersion = BinaryFormatVersion.Version1;
+                if (mReader.Endianness == Endianness.BigEndian)
+                    mVersion |= BinaryFormatVersion.BigEndian;
+            }
         }
-        else if (sectionHeader.ElementSize == BinaryLabel.SIZE_V2 && !mVersion.HasFlag(BinaryFormatVersion.Version2))
+        else if (sectionHeader.ElementSize == BinaryLabel.SIZE_V2 &&
+                 sectionHeader.ElementSize == BinaryLabel.SIZE_V4)
         {
-            mVersion = BinaryFormatVersion.Version2;
-            if (mReader.Endianness == Endianness.BigEndian)
-                mVersion |= BinaryFormatVersion.BigEndian;
+            if (header.Magic.SequenceEqual(BinaryHeader.MAGIC_REVERSED))
+            {
+                if (!mVersion.HasFlag(BinaryFormatVersion.Version4))
+                {
+                    mVersion = BinaryFormatVersion.Version4;
+                    if (mReader.Endianness == Endianness.BigEndian)
+                        mVersion |= BinaryFormatVersion.BigEndian;
+                }
+            }
+            else
+            {
+                if (!mVersion.HasFlag(BinaryFormatVersion.Version2))
+                {
+                    mVersion = BinaryFormatVersion.Version2;
+                    if (mReader.Endianness == Endianness.BigEndian)
+                        mVersion |= BinaryFormatVersion.BigEndian;
+                }
+            }
         }
-        else if (sectionHeader.ElementSize == BinaryLabel.SIZE_V3 && !mVersion.HasFlag(BinaryFormatVersion.Version3))
+        else if (sectionHeader.ElementSize == BinaryLabel.SIZE_V3)
         {
-            mVersion = BinaryFormatVersion.Version3;
-            if (mReader.Endianness == Endianness.BigEndian)
-                mVersion |= BinaryFormatVersion.BigEndian;
+            if (!mVersion.HasFlag(BinaryFormatVersion.Version3))
+            {
+                mVersion = BinaryFormatVersion.Version3;
+                if (mReader.Endianness == Endianness.BigEndian)
+                    mVersion |= BinaryFormatVersion.BigEndian;
+            }
+        }
+        else
+        {
+            throw new InvalidDataException($"Unsupported format version: label section size {sectionHeader.ElementSize}");
         }
     }
 }

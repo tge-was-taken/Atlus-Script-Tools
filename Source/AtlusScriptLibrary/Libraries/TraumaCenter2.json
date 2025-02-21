@@ -1,0 +1,6 @@
+{
+  "Name": "Trauma Center: Second Opinion",
+  "ShortName": "tc2",
+  "FlowScriptModulesPath": "TraumaCenter2/FlowScriptModules.json",
+  "MessageScriptLibraryPath": "TraumaCenter2/MessageScriptLibrary.json"
+}

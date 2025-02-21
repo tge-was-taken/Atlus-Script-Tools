@@ -115,8 +115,7 @@ public class CompilationUnitWriter : SyntaxNodeVisitor
             // Write header comments
             WriteNewLine();
             WriteComment("");
-            WriteComment("FlowScript decompiled using Atlus Script Tools by TGE (2017-2021)");
-            WriteComment("In the unfortunate case of any bugs, please report them back to me.");
+            WriteComment("FlowScript decompiled using Atlus Script Tools");
             WriteComment("");
             WriteNewLine();
 
@@ -213,7 +212,7 @@ public class CompilationUnitWriter : SyntaxNodeVisitor
 
         public override void Visit(VariableDeclaration variableDeclaration)
         {
-            if (variableDeclaration.Modifier.Kind != VariableModifierKind.Local)
+            if (variableDeclaration.Modifier is not null)
             {
                 Write(KeywordDictionary.ModifierTypeToKeyword[variableDeclaration.Modifier.Kind]);
                 if (variableDeclaration.Modifier.Index != null)
@@ -222,18 +221,12 @@ public class CompilationUnitWriter : SyntaxNodeVisitor
                     WriteUnsignedIntegerLiteral(variableDeclaration.Modifier.Index);
                     WriteCloseParenthesis();
                 }
+                Write(" ");
+            }
 
-                Write(" ");
-                Visit(variableDeclaration.Type);
-                Write(" ");
-                Visit(variableDeclaration.Identifier);
-            }
-            else
-            {
-                Visit(variableDeclaration.Type);
-                Write(" ");
-                Visit(variableDeclaration.Identifier);
-            }
+            Visit(variableDeclaration.Type);
+            Write(" ");
+            Visit(variableDeclaration.Identifier);
 
             if (variableDeclaration.Initializer != null)
             {
@@ -707,12 +700,12 @@ public class CompilationUnitWriter : SyntaxNodeVisitor
 
         private void WriteOpenParenthesis()
         {
-            Write("( ");
+            Write("(");
         }
 
         private void WriteCloseParenthesis()
         {
-            Write(" )");
+            Write(")");
         }
 
         // Statements

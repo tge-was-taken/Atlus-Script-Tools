@@ -1,0 +1,4229 @@
+[
+  {
+    "Index": "0x0000",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0000",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0001",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0001",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0002",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0002",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0003",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0003",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0004",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0004",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0005",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0005",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0006",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0006",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0007",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0007",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0008",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0008",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0009",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0009",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x000A",
+    "ReturnType": "void",
+    "Name": "FUNCTION_000A",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x000B",
+    "ReturnType": "void",
+    "Name": "FUNCTION_000B",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x000C",
+    "ReturnType": "void",
+    "Name": "FUNCTION_000C",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x000D",
+    "ReturnType": "void",
+    "Name": "FUNCTION_000D",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x000E",
+    "ReturnType": "void",
+    "Name": "FUNCTION_000E",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x000F",
+    "ReturnType": "void",
+    "Name": "FUNCTION_000F",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0010",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0010",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0011",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0011",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0012",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0012",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0013",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0013",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0014",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0014",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0015",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0015",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0016",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0016",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0017",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0017",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0018",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0018",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0019",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0019",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x001A",
+    "ReturnType": "void",
+    "Name": "FUNCTION_001A",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x001B",
+    "ReturnType": "void",
+    "Name": "FUNCTION_001B",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x001C",
+    "ReturnType": "void",
+    "Name": "FUNCTION_001C",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x001D",
+    "ReturnType": "void",
+    "Name": "FUNCTION_001D",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x001E",
+    "ReturnType": "void",
+    "Name": "FUNCTION_001E",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x001F",
+    "ReturnType": "void",
+    "Name": "FUNCTION_001F",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0020",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0020",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0021",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0021",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0022",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0022",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0023",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0023",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0024",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0024",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0025",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0025",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0026",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0026",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0027",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0027",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0028",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0028",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0029",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0029",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x002A",
+    "ReturnType": "void",
+    "Name": "FUNCTION_002A",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x002B",
+    "ReturnType": "void",
+    "Name": "FUNCTION_002B",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x002C",
+    "ReturnType": "void",
+    "Name": "FUNCTION_002C",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x002D",
+    "ReturnType": "void",
+    "Name": "FUNCTION_002D",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x002E",
+    "ReturnType": "void",
+    "Name": "FUNCTION_002E",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x002F",
+    "ReturnType": "void",
+    "Name": "FUNCTION_002F",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0030",
+    "ReturnType": "int",
+    "Name": "AI_RND",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0030"
+    ]
+  },
+  {
+    "Index": "0x0031",
+    "ReturnType": "void",
+    "Name": "AI_BIT_ON",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0031"
+    ]
+  },
+  {
+    "Index": "0x0032",
+    "ReturnType": "void",
+    "Name": "AI_BIT_OFF",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0032"
+    ]
+  },
+  {
+    "Index": "0x0033",
+    "ReturnType": "int",
+    "Name": "AI_BIT_CHK",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0033"
+    ]
+  },
+  {
+    "Index": "0x0034",
+    "ReturnType": "void",
+    "Name": "AI_BIT_ALL_OFF",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0034"
+    ]
+  },
+  {
+    "Index": "0x0035",
+    "ReturnType": "int",
+    "Name": "AI_GET_INT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0035"
+    ]
+  },
+  {
+    "Index": "0x0036",
+    "ReturnType": "void",
+    "Name": "AI_SET_INT_NV",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0036"
+    ]
+  },
+  {
+    "Index": "0x0037",
+    "ReturnType": "void",
+    "Name": "AI_NO_PROVOCATION",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0037"
+    ]
+  },
+  {
+    "Index": "0x0038",
+    "ReturnType": "void",
+    "Name": "AI_PROVOCATION_ON",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0038"
+    ]
+  },
+  {
+    "Index": "0x0039",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0039",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x003A",
+    "ReturnType": "void",
+    "Name": "FUNCTION_003A",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x003B",
+    "ReturnType": "void",
+    "Name": "FUNCTION_003B",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x003C",
+    "ReturnType": "void",
+    "Name": "FUNCTION_003C",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x003D",
+    "ReturnType": "void",
+    "Name": "FUNCTION_003D",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x003E",
+    "ReturnType": "void",
+    "Name": "FUNCTION_003E",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x003F",
+    "ReturnType": "void",
+    "Name": "FUNCTION_003F",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0040",
+    "ReturnType": "int",
+    "Name": "AI_CHK_MYHP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0040"
+    ]
+  },
+  {
+    "Index": "0x0041",
+    "ReturnType": "int",
+    "Name": "AI_CHK_MYHP_2",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0041"
+    ]
+  },
+  {
+    "Index": "0x0042",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRHP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0042"
+    ]
+  },
+  {
+    "Index": "0x0043",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRCNT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0043"
+    ]
+  },
+  {
+    "Index": "0x0044",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENCNT",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0044"
+    ]
+  },
+  {
+    "Index": "0x0045",
+    "ReturnType": "int",
+    "Name": "AI_CHK_MYBAD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0045"
+    ]
+  },
+  {
+    "Index": "0x0046",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRBAD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0046"
+    ]
+  },
+  {
+    "Index": "0x0047",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENBAD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0047"
+    ]
+  },
+  {
+    "Index": "0x0048",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENALLBAD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0048"
+    ]
+  },
+  {
+    "Index": "0x0049",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENID",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0049"
+    ]
+  },
+  {
+    "Index": "0x004A",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRID",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_004A"
+    ]
+  },
+  {
+    "Index": "0x004B",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENHOJO",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_004B"
+    ]
+  },
+  {
+    "Index": "0x004C",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRHOJO",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_004C"
+    ]
+  },
+  {
+    "Index": "0x004D",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENATTRWEAK",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_004D"
+    ]
+  },
+  {
+    "Index": "0x004E",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENATTRBREAK",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_004E"
+    ]
+  },
+  {
+    "Index": "0x004F",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENATTABSORB",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_004F"
+    ]
+  },
+  {
+    "Index": "0x0050",
+    "ReturnType": "int",
+    "Name": "AI_CHK_MYWEAK",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0050"
+    ]
+  },
+  {
+    "Index": "0x0051",
+    "ReturnType": "int",
+    "Name": "AI_CHK_MYWEAKID",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0051"
+    ]
+  },
+  {
+    "Index": "0x0052",
+    "ReturnType": "int",
+    "Name": "AI_CHK_MYBIND",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0052"
+    ]
+  },
+  {
+    "Index": "0x0053",
+    "ReturnType": "int",
+    "Name": "AI_CHK_MYBINDM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0053"
+    ]
+  },
+  {
+    "Index": "0x0054",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRBIND",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0054"
+    ]
+  },
+  {
+    "Index": "0x0055",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRBINDID",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0055"
+    ]
+  },
+  {
+    "Index": "0x0056",
+    "ReturnType": "int",
+    "Name": "AI_CHK_SENSEI",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0056"
+    ]
+  },
+  {
+    "Index": "0x0057",
+    "ReturnType": "int",
+    "Name": "AI_CHK_TURN",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0057"
+    ]
+  },
+  {
+    "Index": "0x0058",
+    "ReturnType": "int",
+    "Name": "AI_CHK_TURNOVER",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0058"
+    ]
+  },
+  {
+    "Index": "0x0059",
+    "ReturnType": "int",
+    "Name": "AI_CHK_TURNDIV",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0059"
+    ]
+  },
+  {
+    "Index": "0x005A",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRUSEATTR",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_005A"
+    ]
+  },
+  {
+    "Index": "0x005B",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENUSEATTR",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_005B"
+    ]
+  },
+  {
+    "Index": "0x005C",
+    "ReturnType": "int",
+    "Name": "AI_CHK_MYUSESKL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_005C"
+    ]
+  },
+  {
+    "Index": "0x005D",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRUSESKL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_005D"
+    ]
+  },
+  {
+    "Index": "0x005E",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENUSESKL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_005E"
+    ]
+  },
+  {
+    "Index": "0x005F",
+    "ReturnType": "int",
+    "Name": "AI_CHK_MYUSEALLATK",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_005F"
+    ]
+  },
+  {
+    "Index": "0x0060",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRUSEALLATK",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0060"
+    ]
+  },
+  {
+    "Index": "0x0061",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENHOJONUM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0061"
+    ]
+  },
+  {
+    "Index": "0x0062",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENUSEALLSKL",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0062"
+    ]
+  },
+  {
+    "Index": "0x0063",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENHP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0063"
+    ]
+  },
+  {
+    "Index": "0x0064",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENBINDM",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0064"
+    ]
+  },
+  {
+    "Index": "0x0065",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENWEAKID",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0065"
+    ]
+  },
+  {
+    "Index": "0x0066",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENATTRWEAK2",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0066"
+    ]
+  },
+  {
+    "Index": "0x0067",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENATTRBREAK2",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0067"
+    ]
+  },
+  {
+    "Index": "0x0068",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRID_HP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0068"
+    ]
+  },
+  {
+    "Index": "0x0069",
+    "ReturnType": "int",
+    "Name": "AI_CHK_SUMMON",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0069"
+    ]
+  },
+  {
+    "Index": "0x006A",
+    "ReturnType": "int",
+    "Name": "AI_CHK_SUMMON2",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_006A"
+    ]
+  },
+  {
+    "Index": "0x006B",
+    "ReturnType": "void",
+    "Name": "FUNCTION_006B",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x006C",
+    "ReturnType": "void",
+    "Name": "FUNCTION_006C",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x006D",
+    "ReturnType": "void",
+    "Name": "FUNCTION_006D",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x006E",
+    "ReturnType": "void",
+    "Name": "FUNCTION_006E",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x006F",
+    "ReturnType": "void",
+    "Name": "FUNCTION_006F",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0070",
+    "ReturnType": "void",
+    "Name": "AI_ACT_ATTACK",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0070"
+    ]
+  },
+  {
+    "Index": "0x0071",
+    "ReturnType": "void",
+    "Name": "AI_ACT_SKILL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0071"
+    ]
+  },
+  {
+    "Index": "0x0072",
+    "ReturnType": "void",
+    "Name": "AI_ACT_ESCAPE",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0072"
+    ]
+  },
+  {
+    "Index": "0x0073",
+    "ReturnType": "void",
+    "Name": "AI_ACT_GUARD",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0073"
+    ]
+  },
+  {
+    "Index": "0x0074",
+    "ReturnType": "void",
+    "Name": "AI_ACT_SUMMON",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0074"
+    ]
+  },
+  {
+    "Index": "0x0075",
+    "ReturnType": "void",
+    "Name": "AI_ACT_SUMMON2",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0075"
+    ]
+  },
+  {
+    "Index": "0x0076",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0076",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0077",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0077",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0078",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0078",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0079",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0079",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x007A",
+    "ReturnType": "void",
+    "Name": "FUNCTION_007A",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x007B",
+    "ReturnType": "void",
+    "Name": "FUNCTION_007B",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x007C",
+    "ReturnType": "void",
+    "Name": "FUNCTION_007C",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x007D",
+    "ReturnType": "void",
+    "Name": "FUNCTION_007D",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x007E",
+    "ReturnType": "void",
+    "Name": "FUNCTION_007E",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x007F",
+    "ReturnType": "void",
+    "Name": "FUNCTION_007F",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0080",
+    "ReturnType": "void",
+    "Name": "AI_TAR_AI",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0080"
+    ]
+  },
+  {
+    "Index": "0x0081",
+    "ReturnType": "void",
+    "Name": "AI_TAR_RND",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0081"
+    ]
+  },
+  {
+    "Index": "0x0082",
+    "ReturnType": "void",
+    "Name": "AI_TAR_LIFEMIN",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0082"
+    ]
+  },
+  {
+    "Index": "0x0083",
+    "ReturnType": "void",
+    "Name": "AI_TAR_LVMIN",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0083"
+    ]
+  },
+  {
+    "Index": "0x0084",
+    "ReturnType": "void",
+    "Name": "AI_TAR_BPMAX",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0084"
+    ]
+  },
+  {
+    "Index": "0x0085",
+    "ReturnType": "void",
+    "Name": "AI_TAR_MPMAX",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0085"
+    ]
+  },
+  {
+    "Index": "0x0086",
+    "ReturnType": "void",
+    "Name": "AI_TAR_HPMINR",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0086"
+    ]
+  },
+  {
+    "Index": "0x0087",
+    "ReturnType": "void",
+    "Name": "AI_TAR_BAD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0087"
+    ]
+  },
+  {
+    "Index": "0x0088",
+    "ReturnType": "void",
+    "Name": "AI_TAR_NOTBAD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0088"
+    ]
+  },
+  {
+    "Index": "0x0089",
+    "ReturnType": "void",
+    "Name": "AI_TAR_BIND",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0089"
+    ]
+  },
+  {
+    "Index": "0x008A",
+    "ReturnType": "void",
+    "Name": "AI_TAR_BINDMAX",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_008A"
+    ]
+  },
+  {
+    "Index": "0x008B",
+    "ReturnType": "void",
+    "Name": "AI_TAR_BINDAMAX",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_008B"
+    ]
+  },
+  {
+    "Index": "0x008C",
+    "ReturnType": "void",
+    "Name": "AI_TAR_WEAKIDMAX",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_008C"
+    ]
+  },
+  {
+    "Index": "0x008D",
+    "ReturnType": "void",
+    "Name": "AI_TAR_LCALL",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_008D"
+    ]
+  },
+  {
+    "Index": "0x008E",
+    "ReturnType": "void",
+    "Name": "AI_TARPUP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_008E"
+    ]
+  },
+  {
+    "Index": "0x008F",
+    "ReturnType": "void",
+    "Name": "AI_TARPDOWN",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_008F"
+    ]
+  },
+  {
+    "Index": "0x0090",
+    "ReturnType": "void",
+    "Name": "AI_TAR_PTURN",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0090"
+    ]
+  },
+  {
+    "Index": "0x0091",
+    "ReturnType": "void",
+    "Name": "AI_TAR_SKILL",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_0091"
+    ]
+  },
+  {
+    "Index": "0x0092",
+    "ReturnType": "void",
+    "Name": "AI_TAR_ATT",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0092"
+    ]
+  },
+  {
+    "Index": "0x0093",
+    "ReturnType": "void",
+    "Name": "AI_TAR_MYAI",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0093"
+    ]
+  },
+  {
+    "Index": "0x0094",
+    "ReturnType": "void",
+    "Name": "AI_TAR_FRONT",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0094"
+    ]
+  },
+  {
+    "Index": "0x0095",
+    "ReturnType": "void",
+    "Name": "AI_TAR_BACK",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0095"
+    ]
+  },
+  {
+    "Index": "0x0096",
+    "ReturnType": "void",
+    "Name": "AI_TAR_LIFEMAX",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0096"
+    ]
+  },
+  {
+    "Index": "0x0097",
+    "ReturnType": "void",
+    "Name": "AI_TAR_FRONT_CLASS",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0097"
+    ]
+  },
+  {
+    "Index": "0x0098",
+    "ReturnType": "void",
+    "Name": "AI_TAR_BACK_CLASS",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0098"
+    ]
+  },
+  {
+    "Index": "0x0099",
+    "ReturnType": "void",
+    "Name": "AI_TAR_BINDMIN",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_0099"
+    ]
+  },
+  {
+    "Index": "0x009A",
+    "ReturnType": "void",
+    "Name": "AI_TAR_CLASSID",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_009A"
+    ]
+  },
+  {
+    "Index": "0x009B",
+    "ReturnType": "void",
+    "Name": "AI_TAR_BADMIN",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_009B"
+    ]
+  },
+  {
+    "Index": "0x009C",
+    "ReturnType": "void",
+    "Name": "AI_TAR_ENATTRWEAK2",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_009C"
+    ]
+  },
+  {
+    "Index": "0x009D",
+    "ReturnType": "void",
+    "Name": "AI_TAR_ENATTRBREAK2",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_009D"
+    ]
+  },
+  {
+    "Index": "0x009E",
+    "ReturnType": "void",
+    "Name": "AI_TAR_FRID_HP",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_009E"
+    ]
+  },
+  {
+    "Index": "0x009F",
+    "ReturnType": "void",
+    "Name": "AI_TAR_FRID",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Aliases": [
+      "FUNCTION_009F"
+    ]
+  },
+  {
+    "Index": "0x00A0",
+    "ReturnType": "void",
+    "Name": "AI_TAR_HPMAXR",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_00A0"
+    ]
+  },
+  {
+    "Index": "0x00A1",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00A1",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00A2",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00A2",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00A3",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00A3",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00A4",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00A4",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00A5",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00A5",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00A6",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00A6",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00A7",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00A7",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00A8",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00A8",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00A9",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00A9",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00AA",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00AA",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00AB",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00AB",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00AC",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00AC",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00AD",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00AD",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00AE",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00AE",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00AF",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00AF",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00B0",
+    "ReturnType": "int",
+    "Name": "AI_GET_TURN",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_00B0"
+    ]
+  },
+  {
+    "Index": "0x00B1",
+    "ReturnType": "int",
+    "Name": "AI_GET_MYHP",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_00B1"
+    ]
+  },
+  {
+    "Index": "0x00B2",
+    "ReturnType": "int",
+    "Name": "AI_GET_MYHP_ABS",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_00B2"
+    ]
+  },
+  {
+    "Index": "0x00B3",
+    "ReturnType": "int",
+    "Name": "AI_GET_MYMP",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_00B3"
+    ]
+  },
+  {
+    "Index": "0x00B4",
+    "ReturnType": "int",
+    "Name": "AI_GET_MYMP_ABS",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_00B4"
+    ]
+  },
+  {
+    "Index": "0x00B5",
+    "ReturnType": "int",
+    "Name": "AI_GET_TIME_GROUP",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_00B5"
+    ]
+  },
+  {
+    "Index": "0x00B6",
+    "ReturnType": "int",
+    "Name": "AI_GET_ENCOUNTID",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_00B6"
+    ]
+  },
+  {
+    "Index": "0x00B7",
+    "ReturnType": "int",
+    "Name": "AI_GET_TURN_ALL",
+    "Description": "",
+    "Parameters": [],
+    "Aliases": [
+      "FUNCTION_00B7"
+    ]
+  },
+  {
+    "Index": "0x00B8",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00B8",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00B9",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00B9",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00BA",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00BA",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00BB",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00BB",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00BC",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00BC",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00BD",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00BD",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00BE",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00BE",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00BF",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00BF",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00C0",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00C0",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00C1",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00C1",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00C2",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00C2",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00C3",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00C3",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00C4",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00C4",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00C5",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00C5",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00C6",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00C6",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00C7",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00C7",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00C8",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00C8",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00C9",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00C9",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00CA",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00CA",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00CB",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00CB",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00CC",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00CC",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00CD",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00CD",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00CE",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00CE",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00CF",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00CF",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00D0",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00D0",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00D1",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00D1",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00D2",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00D2",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00D3",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00D3",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00D4",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00D4",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00D5",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00D5",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00D6",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00D6",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00D7",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00D7",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00D8",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00D8",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00D9",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00D9",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00DA",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00DA",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00DB",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00DB",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00DC",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00DC",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00DD",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00DD",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00DE",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00DE",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00DF",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00DF",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00E0",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00E0",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00E1",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00E1",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00E2",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00E2",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00E3",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00E3",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00E4",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00E4",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00E5",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00E5",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00E6",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00E6",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00E7",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00E7",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00E8",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00E8",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00E9",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00E9",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00EA",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00EA",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00EB",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00EB",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00EC",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00EC",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00ED",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00ED",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00EE",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00EE",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00EF",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00EF",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00F0",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00F0",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00F1",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00F1",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00F2",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00F2",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00F3",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00F3",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00F4",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00F4",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00F5",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00F5",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00F6",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00F6",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00F7",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00F7",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00F8",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00F8",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00F9",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00F9",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00FA",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00FA",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00FB",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00FB",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00FC",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00FC",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00FD",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00FD",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00FE",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00FE",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00FF",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00FF",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0100",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0100",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0101",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0101",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0102",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0102",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0103",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0103",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0104",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0104",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0105",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0105",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0106",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0106",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0107",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0107",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0108",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0108",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0109",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0109",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x010A",
+    "ReturnType": "void",
+    "Name": "FUNCTION_010A",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x010B",
+    "ReturnType": "void",
+    "Name": "FUNCTION_010B",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x010C",
+    "ReturnType": "void",
+    "Name": "FUNCTION_010C",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x010D",
+    "ReturnType": "void",
+    "Name": "FUNCTION_010D",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x010E",
+    "ReturnType": "void",
+    "Name": "FUNCTION_010E",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x010F",
+    "ReturnType": "void",
+    "Name": "FUNCTION_010F",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0110",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0110",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0111",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0111",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0112",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0112",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0113",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0113",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0114",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0114",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0115",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0115",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0116",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0116",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0117",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0117",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0118",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0118",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0119",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0119",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x011A",
+    "ReturnType": "void",
+    "Name": "FUNCTION_011A",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x011B",
+    "ReturnType": "void",
+    "Name": "FUNCTION_011B",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x011C",
+    "ReturnType": "void",
+    "Name": "FUNCTION_011C",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x011D",
+    "ReturnType": "void",
+    "Name": "FUNCTION_011D",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x011E",
+    "ReturnType": "void",
+    "Name": "FUNCTION_011E",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x011F",
+    "ReturnType": "void",
+    "Name": "FUNCTION_011F",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0120",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0120",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0121",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0121",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0122",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0122",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0123",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0123",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0124",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0124",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0125",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0125",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0126",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0126",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0127",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0127",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0128",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0128",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0129",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0129",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x012A",
+    "ReturnType": "void",
+    "Name": "FUNCTION_012A",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x012B",
+    "ReturnType": "void",
+    "Name": "FUNCTION_012B",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x012C",
+    "ReturnType": "void",
+    "Name": "FUNCTION_012C",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x012D",
+    "ReturnType": "void",
+    "Name": "FUNCTION_012D",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x012E",
+    "ReturnType": "void",
+    "Name": "FUNCTION_012E",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x012F",
+    "ReturnType": "void",
+    "Name": "FUNCTION_012F",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0130",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0130",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0131",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0131",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0132",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0132",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0133",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0133",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0134",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0134",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0135",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0135",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0136",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0136",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0137",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0137",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0138",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0138",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0139",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0139",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x013A",
+    "ReturnType": "void",
+    "Name": "FUNCTION_013A",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x013B",
+    "ReturnType": "void",
+    "Name": "FUNCTION_013B",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x013C",
+    "ReturnType": "void",
+    "Name": "FUNCTION_013C",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x013D",
+    "ReturnType": "void",
+    "Name": "FUNCTION_013D",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x013E",
+    "ReturnType": "void",
+    "Name": "FUNCTION_013E",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x013F",
+    "ReturnType": "void",
+    "Name": "FUNCTION_013F",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0140",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0140",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0141",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0141",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0142",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0142",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0143",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0143",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0144",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0144",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0145",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0145",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0146",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0146",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0147",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0147",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0148",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0148",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0149",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0149",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x014A",
+    "ReturnType": "void",
+    "Name": "FUNCTION_014A",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x014B",
+    "ReturnType": "void",
+    "Name": "FUNCTION_014B",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x014C",
+    "ReturnType": "void",
+    "Name": "FUNCTION_014C",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x014D",
+    "ReturnType": "void",
+    "Name": "FUNCTION_014D",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x014E",
+    "ReturnType": "void",
+    "Name": "FUNCTION_014E",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x014F",
+    "ReturnType": "void",
+    "Name": "FUNCTION_014F",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0150",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0150",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0151",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0151",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0152",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0152",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0153",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0153",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0154",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0154",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0155",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0155",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0156",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0156",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0157",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0157",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0158",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0158",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0159",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0159",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x015A",
+    "ReturnType": "void",
+    "Name": "FUNCTION_015A",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x015B",
+    "ReturnType": "void",
+    "Name": "FUNCTION_015B",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x015C",
+    "ReturnType": "void",
+    "Name": "FUNCTION_015C",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x015D",
+    "ReturnType": "void",
+    "Name": "FUNCTION_015D",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x015E",
+    "ReturnType": "void",
+    "Name": "FUNCTION_015E",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x015F",
+    "ReturnType": "void",
+    "Name": "FUNCTION_015F",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0160",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0160",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0161",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0161",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0162",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0162",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0163",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0163",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0164",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0164",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0165",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0165",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0166",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0166",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0167",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0167",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0168",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0168",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0169",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0169",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x016A",
+    "ReturnType": "void",
+    "Name": "FUNCTION_016A",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x016B",
+    "ReturnType": "void",
+    "Name": "FUNCTION_016B",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x016C",
+    "ReturnType": "void",
+    "Name": "FUNCTION_016C",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x016D",
+    "ReturnType": "void",
+    "Name": "FUNCTION_016D",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x016E",
+    "ReturnType": "void",
+    "Name": "FUNCTION_016E",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x016F",
+    "ReturnType": "void",
+    "Name": "FUNCTION_016F",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0170",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0170",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0171",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0171",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0172",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0172",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0173",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0173",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0174",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0174",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0175",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0175",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0176",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0176",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0177",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0177",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0178",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0178",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0179",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0179",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x017A",
+    "ReturnType": "void",
+    "Name": "FUNCTION_017A",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x017B",
+    "ReturnType": "void",
+    "Name": "FUNCTION_017B",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x017C",
+    "ReturnType": "void",
+    "Name": "FUNCTION_017C",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x017D",
+    "ReturnType": "void",
+    "Name": "FUNCTION_017D",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x017E",
+    "ReturnType": "void",
+    "Name": "FUNCTION_017E",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x017F",
+    "ReturnType": "void",
+    "Name": "FUNCTION_017F",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0180",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0180",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0181",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0181",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0182",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0182",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0183",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0183",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0184",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0184",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0185",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0185",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0186",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0186",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0187",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0187",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0188",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0188",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0189",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0189",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x018A",
+    "ReturnType": "void",
+    "Name": "FUNCTION_018A",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x018B",
+    "ReturnType": "void",
+    "Name": "FUNCTION_018B",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x018C",
+    "ReturnType": "void",
+    "Name": "FUNCTION_018C",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x018D",
+    "ReturnType": "void",
+    "Name": "FUNCTION_018D",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x018E",
+    "ReturnType": "void",
+    "Name": "FUNCTION_018E",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x018F",
+    "ReturnType": "void",
+    "Name": "FUNCTION_018F",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0190",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0190",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0191",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0191",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0192",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0192",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0193",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0193",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0194",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0194",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0195",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0195",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0196",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0196",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0197",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0197",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0198",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0198",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0199",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0199",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x019A",
+    "ReturnType": "void",
+    "Name": "FUNCTION_019A",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x019B",
+    "ReturnType": "void",
+    "Name": "FUNCTION_019B",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x019C",
+    "ReturnType": "void",
+    "Name": "FUNCTION_019C",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x019D",
+    "ReturnType": "void",
+    "Name": "FUNCTION_019D",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x019E",
+    "ReturnType": "void",
+    "Name": "FUNCTION_019E",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x019F",
+    "ReturnType": "void",
+    "Name": "FUNCTION_019F",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01A0",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01A0",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01A1",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01A1",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01A2",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01A2",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01A3",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01A3",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01A4",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01A4",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01A5",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01A5",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01A6",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01A6",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01A7",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01A7",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01A8",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01A8",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01A9",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01A9",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01AA",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01AA",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01AB",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01AB",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01AC",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01AC",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01AD",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01AD",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01AE",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01AE",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01AF",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01AF",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01B0",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01B0",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01B1",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01B1",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01B2",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01B2",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01B3",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01B3",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01B4",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01B4",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01B5",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01B5",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01B6",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01B6",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01B7",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01B7",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01B8",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01B8",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01B9",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01B9",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01BA",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01BA",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01BB",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01BB",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01BC",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01BC",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01BD",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01BD",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01BE",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01BE",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01BF",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01BF",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01C0",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01C0",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01C1",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01C1",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01C2",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01C2",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01C3",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01C3",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01C4",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01C4",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01C5",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01C5",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01C6",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01C6",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01C7",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01C7",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01C8",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01C8",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01C9",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01C9",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01CA",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01CA",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01CB",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01CB",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01CC",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01CC",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01CD",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01CD",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01CE",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01CE",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01CF",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01CF",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01D0",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01D0",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01D1",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01D1",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01D2",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01D2",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01D3",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01D3",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01D4",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01D4",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01D5",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01D5",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01D6",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01D6",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01D7",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01D7",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01D8",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01D8",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01D9",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01D9",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01DA",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01DA",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01DB",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01DB",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01DC",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01DC",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01DD",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01DD",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01DE",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01DE",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01DF",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01DF",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01E0",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01E0",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01E1",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01E1",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01E2",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01E2",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01E3",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01E3",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01E4",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01E4",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01E5",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01E5",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01E6",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01E6",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01E7",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01E7",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01E8",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01E8",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01E9",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01E9",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01EA",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01EA",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01EB",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01EB",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01EC",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01EC",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01ED",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01ED",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01EE",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01EE",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01EF",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01EF",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01F0",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01F0",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01F1",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01F1",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01F2",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01F2",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01F3",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01F3",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01F4",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01F4",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01F5",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01F5",
+    "Description": "Null pointer",
+    "Parameters": []
+  }
+]

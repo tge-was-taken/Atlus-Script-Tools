@@ -19,6 +19,7 @@ public static class KeywordDictionary
 
     public static Dictionary<VariableModifierKind, string> ModifierTypeToKeyword { get; } = new Dictionary<VariableModifierKind, string>
     {
+        { VariableModifierKind.Local, "local" },
         { VariableModifierKind.Global, "global" },
         { VariableModifierKind.Constant, "const" },
         { VariableModifierKind.AiLocal, "ai_local"},

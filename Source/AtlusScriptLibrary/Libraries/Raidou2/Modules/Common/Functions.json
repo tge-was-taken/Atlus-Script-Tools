@@ -1,0 +1,9132 @@
+[
+  {
+    "Index": "0x0000",
+    "ReturnType": "int",
+    "Name": "MSG",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "messageId",
+        "Description": "",
+        "Semantic": "MsgId"
+      }
+    ],
+    "FullName": "itfMesManager_itfMesMngMessage",
+    "Aliases": [
+      "FUNCTION_0000"
+    ]
+  },
+  {
+    "Index": "0x0001",
+    "ReturnType": "int",
+    "Name": "MSG_WND_DSP",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "itfMesManager_itfMesMngOpenWindow",
+    "Aliases": [
+      "FUNCTION_0001"
+    ]
+  },
+  {
+    "Index": "0x0002",
+    "ReturnType": "int",
+    "Name": "MSG_WND_CLS",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "itfMesManager_itfMesMngCloseWindow",
+    "Aliases": [
+      "FUNCTION_0002"
+    ]
+  },
+  {
+    "Index": "0x0003",
+    "ReturnType": "int",
+    "Name": "SEL",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "",
+        "Semantic": "SelId"
+      }
+    ],
+    "FullName": "itfMesManager_itfMesMngSelect",
+    "Aliases": [
+      "FUNCTION_0003"
+    ]
+  },
+  {
+    "Index": "0x0004",
+    "ReturnType": "int",
+    "Name": "SEL_WND_DSP",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "itfMesManager_itfMesMngOpenSelectWindow",
+    "Aliases": [
+      "FUNCTION_0004"
+    ]
+  },
+  {
+    "Index": "0x0005",
+    "ReturnType": "int",
+    "Name": "SEL_WND_CLS",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "itfMesManager_itfMesMngCloseSelectWindow",
+    "Aliases": [
+      "FUNCTION_0005"
+    ]
+  },
+  {
+    "Index": "0x0006",
+    "ReturnType": "int",
+    "Name": "SEL_MASK",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "itfMesManager_itfMesMngMaskSelect",
+    "Aliases": [
+      "FUNCTION_0006"
+    ]
+  },
+  {
+    "Index": "0x0007",
+    "ReturnType": "bool",
+    "Name": "BIT_CHK",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "",
+        "Semantic": "BitId"
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_BIT_CHK",
+    "Aliases": [
+      "FUNCTION_0007"
+    ]
+  },
+  {
+    "Index": "0x0008",
+    "ReturnType": "int",
+    "Name": "BIT_ON",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "",
+        "Semantic": "BitId"
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_BIT_ON",
+    "Aliases": [
+      "FUNCTION_0008"
+    ]
+  },
+  {
+    "Index": "0x0009",
+    "ReturnType": "int",
+    "Name": "BIT_OFF",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "",
+        "Semantic": "BitId"
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_BIT_OFF",
+    "Aliases": [
+      "FUNCTION_0009"
+    ]
+  },
+  {
+    "Index": "0x000a",
+    "ReturnType": "int",
+    "Name": "RND",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_RND",
+    "Aliases": [
+      "FUNCTION_000A"
+    ]
+  },
+  {
+    "Index": "0x000b",
+    "ReturnType": "int",
+    "Name": "SE_PLAY",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "sndScript_sndScrCmd_SE_PLAY",
+    "Aliases": [
+      "FUNCTION_000B"
+    ]
+  },
+  {
+    "Index": "0x000c",
+    "ReturnType": "int",
+    "Name": "BGM_PLAY",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "sndScript_sndScrCmd_BGM_PLAY",
+    "Aliases": [
+      "FUNCTION_000C"
+    ]
+  },
+  {
+    "Index": "0x000d",
+    "ReturnType": "int",
+    "Name": "SYNC",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "scrCommonCommand_scrCommand_SYNC",
+    "Aliases": [
+      "FUNCTION_000D"
+    ]
+  },
+  {
+    "Index": "0x000e",
+    "ReturnType": "int",
+    "Name": "WAIT",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_WAIT",
+    "Aliases": [
+      "FUNCTION_000E"
+    ]
+  },
+  {
+    "Index": "0x000f",
+    "ReturnType": "int",
+    "Name": "FADE_IN",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_FADE_IN",
+    "Aliases": [
+      "FUNCTION_000F"
+    ]
+  },
+  {
+    "Index": "0x0010",
+    "ReturnType": "int",
+    "Name": "FADE_OUT",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_FADE_OUT",
+    "Aliases": [
+      "FUNCTION_0010"
+    ]
+  },
+  {
+    "Index": "0x0011",
+    "ReturnType": "int",
+    "Name": "SEL_JMP",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param7",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param8",
+        "Description": "Unknown type; assumed int"
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_SEL_JMP",
+    "Aliases": [
+      "FUNCTION_0011"
+    ]
+  },
+  {
+    "Index": "0x0012",
+    "ReturnType": "int",
+    "Name": "CAM_SEL",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_CAM_SEL",
+    "Aliases": [
+      "FUNCTION_0012"
+    ]
+  },
+  {
+    "Index": "0x0013",
+    "ReturnType": "int",
+    "Name": "CAM_PATH_MOVE",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_CAM_PATH_MOVE",
+    "Aliases": [
+      "FUNCTION_0013"
+    ]
+  },
+  {
+    "Index": "0x0014",
+    "ReturnType": "int",
+    "Name": "SET_SKY",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_SET_SKY",
+    "Aliases": [
+      "FUNCTION_0014"
+    ]
+  },
+  {
+    "Index": "0x0015",
+    "ReturnType": "int",
+    "Name": "MODEL_DSP",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_DSP",
+    "Aliases": [
+      "FUNCTION_0015"
+    ]
+  },
+  {
+    "Index": "0x0016",
+    "ReturnType": "int",
+    "Name": "MODEL_CLS",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_CLS",
+    "Aliases": [
+      "FUNCTION_0016"
+    ]
+  },
+  {
+    "Index": "0x0017",
+    "ReturnType": "int",
+    "Name": "MODEL_MOVE",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_MOVE",
+    "Aliases": [
+      "FUNCTION_0017"
+    ]
+  },
+  {
+    "Index": "0x0018",
+    "ReturnType": "int",
+    "Name": "MODEL_MOTION",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_MOTION",
+    "Aliases": [
+      "FUNCTION_0018"
+    ]
+  },
+  {
+    "Index": "0x0019",
+    "ReturnType": "int",
+    "Name": "CAM_SEL_FOVY",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_CAM_SEL_FOVY",
+    "Aliases": [
+      "FUNCTION_0019"
+    ]
+  },
+  {
+    "Index": "0x001a",
+    "ReturnType": "int",
+    "Name": "PAD_ACT",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_PAD_ACT",
+    "Aliases": [
+      "FUNCTION_001A"
+    ]
+  },
+  {
+    "Index": "0x001b",
+    "ReturnType": "int",
+    "Name": "MODEL_SCL_XYZ",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_SCL_XYZ",
+    "Aliases": [
+      "FUNCTION_001B"
+    ]
+  },
+  {
+    "Index": "0x001c",
+    "ReturnType": "int",
+    "Name": "MAKA_CHECK",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrParameterCommand_prm_MAKA_CHECK",
+    "Aliases": [
+      "FUNCTION_001C"
+    ]
+  },
+  {
+    "Index": "0x001d",
+    "ReturnType": "void",
+    "Name": "FUNCTION_001D",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x001e",
+    "ReturnType": "void",
+    "Name": "FUNCTION_001E",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x001f",
+    "ReturnType": "void",
+    "Name": "FUNCTION_001F",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0020",
+    "ReturnType": "int",
+    "Name": "DH_EQUIP",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrParameterCommand_prm_DH_EQUIP",
+    "Aliases": [
+      "FUNCTION_0020"
+    ]
+  },
+  {
+    "Index": "0x0021",
+    "ReturnType": "int",
+    "Name": "PMV_LOAD",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_PMV_LOAD",
+    "Aliases": [
+      "FUNCTION_0021"
+    ]
+  },
+  {
+    "Index": "0x0022",
+    "ReturnType": "int",
+    "Name": "PMV_RUN2",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_PMV_RUN2",
+    "Aliases": [
+      "FUNCTION_0022"
+    ]
+  },
+  {
+    "Index": "0x0023",
+    "ReturnType": "int",
+    "Name": "FIELD_CLS_STOP",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_FIELD_CLS_STOP",
+    "Aliases": [
+      "FUNCTION_0023"
+    ]
+  },
+  {
+    "Index": "0x0024",
+    "ReturnType": "int",
+    "Name": "PUT",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_PUT",
+    "Aliases": [
+      "FUNCTION_0024"
+    ]
+  },
+  {
+    "Index": "0x0025",
+    "ReturnType": "int",
+    "Name": "GET_MOON",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_GET_MOON",
+    "Aliases": [
+      "FUNCTION_0025"
+    ]
+  },
+  {
+    "Index": "0x0026",
+    "ReturnType": "int",
+    "Name": "UNIT_CLS",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_UNIT_CLS",
+    "Aliases": [
+      "FUNCTION_0026"
+    ]
+  },
+  {
+    "Index": "0x0027",
+    "ReturnType": "int",
+    "Name": "GET_MOON16",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_GET_MOON16",
+    "Aliases": [
+      "FUNCTION_0027"
+    ]
+  },
+  {
+    "Index": "0x0028",
+    "ReturnType": "int",
+    "Name": "RESTORE_BATTLE",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_RESTORE_BATTLE",
+    "Aliases": [
+      "FUNCTION_0028"
+    ]
+  },
+  {
+    "Index": "0x0029",
+    "ReturnType": "int",
+    "Name": "UNIT_CLS_STOP",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_UNIT_CLS_STOP",
+    "Aliases": [
+      "FUNCTION_0029"
+    ]
+  },
+  {
+    "Index": "0x002a",
+    "ReturnType": "int",
+    "Name": "TEX_LOAD",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "string",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_TEX_LOAD",
+    "Aliases": [
+      "FUNCTION_002A"
+    ]
+  },
+  {
+    "Index": "0x002b",
+    "ReturnType": "int",
+    "Name": "TEX_ON",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_TEX_ON",
+    "Aliases": [
+      "FUNCTION_002B"
+    ]
+  },
+  {
+    "Index": "0x002c",
+    "ReturnType": "int",
+    "Name": "TEX_OFF",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_TEX_OFF",
+    "Aliases": [
+      "FUNCTION_002C"
+    ]
+  },
+  {
+    "Index": "0x002d",
+    "ReturnType": "int",
+    "Name": "TEX_CLS",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_TEX_CLS",
+    "Aliases": [
+      "FUNCTION_002D"
+    ]
+  },
+  {
+    "Index": "0x002e",
+    "ReturnType": "int",
+    "Name": "EXIT_EVENT",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_EXIT_EVENT",
+    "Aliases": [
+      "FUNCTION_002E"
+    ]
+  },
+  {
+    "Index": "0x002f",
+    "ReturnType": "int",
+    "Name": "AI_TBL",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "nbAiScript_nbCommand_AI_TBL",
+    "Aliases": [
+      "FUNCTION_002F"
+    ]
+  },
+  {
+    "Index": "0x0030",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0030",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0031",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0031",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0032",
+    "ReturnType": "int",
+    "Name": "AI_ACT_WAIT",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_AI_ACT_WAIT",
+    "Aliases": [
+      "FUNCTION_0032"
+    ]
+  },
+  {
+    "Index": "0x0033",
+    "ReturnType": "int",
+    "Name": "AI_ACT_SKILL",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "BattleSkill",
+        "Name": "skill",
+        "Description": ""
+      }
+    ],
+    "FullName": "nbAiScript_nbCommand_AI_ACT_SKILL",
+    "Aliases": [
+      "FUNCTION_0033"
+    ]
+  },
+  {
+    "Index": "0x0034",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0034",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0035",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0035",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0036",
+    "ReturnType": "int",
+    "Name": "AI_TAR_BAD",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "nbAiScript_nbCommand_AI_TAR_BAD",
+    "Aliases": [
+      "FUNCTION_0036"
+    ]
+  },
+  {
+    "Index": "0x0037",
+    "ReturnType": "int",
+    "Name": "AI_TAR_ID",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "nbAiScript_nbCommand_AI_TAR_ID",
+    "Aliases": [
+      "FUNCTION_0037"
+    ]
+  },
+  {
+    "Index": "0x0038",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0038",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0039",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0039",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x003a",
+    "ReturnType": "int",
+    "Name": "AI_TAR_DARK",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_AI_TAR_DARK",
+    "Aliases": [
+      "FUNCTION_003A"
+    ]
+  },
+  {
+    "Index": "0x003b",
+    "ReturnType": "void",
+    "Name": "FUNCTION_003B",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x003c",
+    "ReturnType": "void",
+    "Name": "FUNCTION_003C",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x003d",
+    "ReturnType": "int",
+    "Name": "AI",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_AI",
+    "Aliases": [
+      "FUNCTION_003D"
+    ]
+  },
+  {
+    "Index": "0x003e",
+    "ReturnType": "int",
+    "Name": "FUNCTION_003E",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x003f",
+    "ReturnType": "void",
+    "Name": "FUNCTION_003F",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0040",
+    "ReturnType": "int",
+    "Name": "SEL_SELNO",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "itfMesManager_itfMesMng_SEL_SELNO",
+    "Aliases": [
+      "FUNCTION_0040"
+    ]
+  },
+  {
+    "Index": "0x0041",
+    "ReturnType": "int",
+    "Name": "BLUR2_ON",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_BLUR2_ON",
+    "Aliases": [
+      "FUNCTION_0041"
+    ]
+  },
+  {
+    "Index": "0x0042",
+    "ReturnType": "int",
+    "Name": "BLUR2_OFF",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_BLUR2_OFF",
+    "Aliases": [
+      "FUNCTION_0042"
+    ]
+  },
+  {
+    "Index": "0x0043",
+    "ReturnType": "int",
+    "Name": "BLUR_ALLOFF",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "scrCommonCommand_scrCommand_BLUR_ALLOFF",
+    "Aliases": [
+      "FUNCTION_0043"
+    ]
+  },
+  {
+    "Index": "0x0044",
+    "ReturnType": "int",
+    "Name": "MODEL_EXWAIT",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_EXWAIT",
+    "Aliases": [
+      "FUNCTION_0044"
+    ]
+  },
+  {
+    "Index": "0x0045",
+    "ReturnType": "int",
+    "Name": "BGM_STOP",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "sndScript_sndScrCmd_BGM_STOP",
+    "Aliases": [
+      "FUNCTION_0045"
+    ]
+  },
+  {
+    "Index": "0x0046",
+    "ReturnType": "int",
+    "Name": "RTRN_TITLE",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_RTRN_TITLE",
+    "Aliases": [
+      "FUNCTION_0046"
+    ]
+  },
+  {
+    "Index": "0x0047",
+    "ReturnType": "int",
+    "Name": "SOFTEN_BIAS",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_SOFTEN_BIAS",
+    "Aliases": [
+      "FUNCTION_0047"
+    ]
+  },
+  {
+    "Index": "0x0048",
+    "ReturnType": "int",
+    "Name": "SET_SKY_A",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_SET_SKY_A",
+    "Aliases": [
+      "FUNCTION_0048"
+    ]
+  },
+  {
+    "Index": "0x0049",
+    "ReturnType": "int",
+    "Name": "MODEL_WAIT",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_WAIT",
+    "Aliases": [
+      "FUNCTION_0049"
+    ]
+  },
+  {
+    "Index": "0x004a",
+    "ReturnType": "int",
+    "Name": "MODEL_POS",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_POS",
+    "Aliases": [
+      "FUNCTION_004A"
+    ]
+  },
+  {
+    "Index": "0x004b",
+    "ReturnType": "int",
+    "Name": "MODEL_WAIT_MOT",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_WAIT_MOT",
+    "Aliases": [
+      "FUNCTION_004B"
+    ]
+  },
+  {
+    "Index": "0x004c",
+    "ReturnType": "int",
+    "Name": "MODEL_MOVE_MOT",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_MOVE_MOT",
+    "Aliases": [
+      "FUNCTION_004C"
+    ]
+  },
+  {
+    "Index": "0x004d",
+    "ReturnType": "int",
+    "Name": "FIELD_DSP",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_FIELD_DSP",
+    "Aliases": [
+      "FUNCTION_004D"
+    ]
+  },
+  {
+    "Index": "0x004e",
+    "ReturnType": "int",
+    "Name": "FIELD_CLS",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_FIELD_CLS",
+    "Aliases": [
+      "FUNCTION_004E"
+    ]
+  },
+  {
+    "Index": "0x004f",
+    "ReturnType": "int",
+    "Name": "CAMP",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "itfMisc_itfCamp",
+    "Aliases": [
+      "FUNCTION_004F"
+    ]
+  },
+  {
+    "Index": "0x0050",
+    "ReturnType": "int",
+    "Name": "MOVIE_PLAY",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "mviScript_mviScrCmd_MOVIE_PLAY",
+    "Aliases": [
+      "FUNCTION_0050"
+    ]
+  },
+  {
+    "Index": "0x0051",
+    "ReturnType": "int",
+    "Name": "MOVIE_STOP",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "mviScript_mviScrCmd_MOVIE_STOP",
+    "Aliases": [
+      "FUNCTION_0051"
+    ]
+  },
+  {
+    "Index": "0x0052",
+    "ReturnType": "int",
+    "Name": "MOVIE_CHK",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "mviScript_mviScrCmd_MOVIE_CHK",
+    "Aliases": [
+      "FUNCTION_0052"
+    ]
+  },
+  {
+    "Index": "0x0053",
+    "ReturnType": "int",
+    "Name": "PAD_TRIG",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_PAD_TRIG",
+    "Aliases": [
+      "FUNCTION_0053"
+    ]
+  },
+  {
+    "Index": "0x0054",
+    "ReturnType": "int",
+    "Name": "PAD_PRESS",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_PAD_PRESS",
+    "Aliases": [
+      "FUNCTION_0054"
+    ]
+  },
+  {
+    "Index": "0x0055",
+    "ReturnType": "int",
+    "Name": "CAM_PATH_WAIT",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_CAM_PATH_WAIT",
+    "Aliases": [
+      "FUNCTION_0055"
+    ]
+  },
+  {
+    "Index": "0x0056",
+    "ReturnType": "int",
+    "Name": "MODEL_ROT",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_ROT",
+    "Aliases": [
+      "FUNCTION_0056"
+    ]
+  },
+  {
+    "Index": "0x0057",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0057",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0058",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0058",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0059",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0059",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x005a",
+    "ReturnType": "void",
+    "Name": "FUNCTION_005A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x005b",
+    "ReturnType": "int",
+    "Name": "CALL_SHOP",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "string",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_CALL_SHOP",
+    "Aliases": [
+      "FUNCTION_005B"
+    ]
+  },
+  {
+    "Index": "0x005c",
+    "ReturnType": "void",
+    "Name": "FUNCTION_005C",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "string",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x005d",
+    "ReturnType": "int",
+    "Name": "CALL_FIELD",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "string",
+        "Name": "param3",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_CALL_FIELD",
+    "Aliases": [
+      "FUNCTION_005D"
+    ]
+  },
+  {
+    "Index": "0x005e",
+    "ReturnType": "int",
+    "Name": "ACT_WIN_DSP",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "fldCommand_fldCommand_ACT_WIN_DSP",
+    "Aliases": [
+      "FUNCTION_005E"
+    ]
+  },
+  {
+    "Index": "0x005f",
+    "ReturnType": "int",
+    "Name": "DIR_HIT_CNTR",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ],
+    "FullName": "fldCommand_fldCommand_DIR_HIT_CNTR",
+    "Aliases": [
+      "FUNCTION_005F"
+    ]
+  },
+  {
+    "Index": "0x0060",
+    "ReturnType": "int",
+    "Name": "PAD_DISABLE",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_PAD_DISABLE",
+    "Aliases": [
+      "FUNCTION_0060"
+    ]
+  },
+  {
+    "Index": "0x0061",
+    "ReturnType": "int",
+    "Name": "PAD_ENABLE",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_PAD_ENABLE",
+    "Aliases": [
+      "FUNCTION_0061"
+    ]
+  },
+  {
+    "Index": "0x0062",
+    "ReturnType": "int",
+    "Name": "CALL_TITLE",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "dds3TitleMain_dds3Title",
+    "Aliases": [
+      "FUNCTION_0062"
+    ]
+  },
+  {
+    "Index": "0x0063",
+    "ReturnType": "int",
+    "Name": "MOON_START",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_MOON_START",
+    "Aliases": [
+      "FUNCTION_0063"
+    ]
+  },
+  {
+    "Index": "0x0064",
+    "ReturnType": "int",
+    "Name": "MOON_STOP",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_MOON_STOP",
+    "Aliases": [
+      "FUNCTION_0064"
+    ]
+  },
+  {
+    "Index": "0x0065",
+    "ReturnType": "int",
+    "Name": "CHG_MOON",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_CHG_MOON",
+    "Aliases": [
+      "FUNCTION_0065"
+    ]
+  },
+  {
+    "Index": "0x0066",
+    "ReturnType": "int",
+    "Name": "CALL_EVENT",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_CALL_EVENT",
+    "Aliases": [
+      "FUNCTION_0066"
+    ]
+  },
+  {
+    "Index": "0x0067",
+    "ReturnType": "int",
+    "Name": "CALL_BATTLE",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_CALL_BATTLE",
+    "Aliases": [
+      "FUNCTION_0067"
+    ]
+  },
+  {
+    "Index": "0x0068",
+    "ReturnType": "int",
+    "Name": "MODEL_PLAYER",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_MODEL_PLAYER",
+    "Aliases": [
+      "FUNCTION_0068"
+    ]
+  },
+  {
+    "Index": "0x0069",
+    "ReturnType": "int",
+    "Name": "MODEL_ON",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_ON",
+    "Aliases": [
+      "FUNCTION_0069"
+    ]
+  },
+  {
+    "Index": "0x006a",
+    "ReturnType": "int",
+    "Name": "MODEL_OFF",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_OFF",
+    "Aliases": [
+      "FUNCTION_006A"
+    ]
+  },
+  {
+    "Index": "0x006b",
+    "ReturnType": "int",
+    "Name": "OBJ_PATH_MOVE",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_OBJ_PATH_MOVE",
+    "Aliases": [
+      "FUNCTION_006B"
+    ]
+  },
+  {
+    "Index": "0x006c",
+    "ReturnType": "int",
+    "Name": "OBJ_PATH_WAIT",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_OBJ_PATH_WAIT",
+    "Aliases": [
+      "FUNCTION_006C"
+    ]
+  },
+  {
+    "Index": "0x006d",
+    "ReturnType": "int",
+    "Name": "SET_FOVY",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_SET_FOVY",
+    "Aliases": [
+      "FUNCTION_006D"
+    ]
+  },
+  {
+    "Index": "0x006e",
+    "ReturnType": "void",
+    "Name": "FUNCTION_006E",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x006f",
+    "ReturnType": "int",
+    "Name": "FUNCTION_006F",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0070",
+    "ReturnType": "int",
+    "Name": "ITEM_PLUS",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrParameterCommand_prm_ITEM_PLUS",
+    "Aliases": [
+      "FUNCTION_0070"
+    ]
+  },
+  {
+    "Index": "0x0071",
+    "ReturnType": "int",
+    "Name": "SET_MSG_VAR",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ],
+    "FullName": "itfMesManager_itfMesMngSetVarScr",
+    "Aliases": [
+      "FUNCTION_0071"
+    ]
+  },
+  {
+    "Index": "0x0072",
+    "ReturnType": "int",
+    "Name": "PUTS",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "string",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_PUTS",
+    "Aliases": [
+      "FUNCTION_0072"
+    ]
+  },
+  {
+    "Index": "0x0073",
+    "ReturnType": "int",
+    "Name": "MODEL_MOTION2",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_MOTION2",
+    "Aliases": [
+      "FUNCTION_0073"
+    ]
+  },
+  {
+    "Index": "0x0074",
+    "ReturnType": "int",
+    "Name": "MODEL_WAIT_HOKAN",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_WAIT_HOKAN",
+    "Aliases": [
+      "FUNCTION_0074"
+    ]
+  },
+  {
+    "Index": "0x0075",
+    "ReturnType": "int",
+    "Name": "CAM_CREATE",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_CAM_CREATE",
+    "Aliases": [
+      "FUNCTION_0075"
+    ]
+  },
+  {
+    "Index": "0x0076",
+    "ReturnType": "int",
+    "Name": "CAM_CLS",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_CAM_CLS",
+    "Aliases": [
+      "FUNCTION_0076"
+    ]
+  },
+  {
+    "Index": "0x0077",
+    "ReturnType": "int",
+    "Name": "CAM_POS_XYZ",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_CAM_POS_XYZ",
+    "Aliases": [
+      "FUNCTION_0077"
+    ]
+  },
+  {
+    "Index": "0x0078",
+    "ReturnType": "int",
+    "Name": "CAM_ROT_XYZ",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_CAM_ROT_XYZ",
+    "Aliases": [
+      "FUNCTION_0078"
+    ]
+  },
+  {
+    "Index": "0x0079",
+    "ReturnType": "int",
+    "Name": "MODEL_POS_XYZ",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_POS_XYZ",
+    "Aliases": [
+      "FUNCTION_0079"
+    ]
+  },
+  {
+    "Index": "0x007a",
+    "ReturnType": "int",
+    "Name": "MODEL_ROT_XYZ",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_ROT_XYZ",
+    "Aliases": [
+      "FUNCTION_007A"
+    ]
+  },
+  {
+    "Index": "0x007b",
+    "ReturnType": "bool",
+    "Name": "AI_CHK_MYHP",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "nbAiScript_nbCommand_AI_CHK_MYHP",
+    "Aliases": [
+      "FUNCTION_007B"
+    ]
+  },
+  {
+    "Index": "0x007c",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRHP",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "nbAiScript_nbCommand_AI_CHK_FRHP",
+    "Aliases": [
+      "FUNCTION_007C"
+    ]
+  },
+  {
+    "Index": "0x007d",
+    "ReturnType": "void",
+    "Name": "FUNCTION_007D",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x007e",
+    "ReturnType": "void",
+    "Name": "FUNCTION_007E",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x007f",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENCNT",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "nbAiScript_nbCommand_AI_CHK_ENCNT",
+    "Aliases": [
+      "FUNCTION_007F"
+    ]
+  },
+  {
+    "Index": "0x0080",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0080",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0081",
+    "ReturnType": "int",
+    "Name": "AI_CHK_FRBAD",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "nbAiScript_nbCommand_AI_CHK_FRBAD",
+    "Aliases": [
+      "FUNCTION_0081"
+    ]
+  },
+  {
+    "Index": "0x0082",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENBAD",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "nbAiScript_nbCommand_AI_CHK_ENBAD",
+    "Aliases": [
+      "FUNCTION_0082"
+    ]
+  },
+  {
+    "Index": "0x0083",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENALLBAD",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "nbAiScript_nbCommand_AI_CHK_ENALLBAD",
+    "Aliases": [
+      "FUNCTION_0083"
+    ]
+  },
+  {
+    "Index": "0x0084",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENID",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "nbAiScript_nbCommand_AI_CHK_ENID",
+    "Aliases": [
+      "FUNCTION_0084"
+    ]
+  },
+  {
+    "Index": "0x0085",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0085",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0086",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0086",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0087",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0087",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0088",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0088",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0089",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0089",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x008a",
+    "ReturnType": "void",
+    "Name": "FUNCTION_008A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x008b",
+    "ReturnType": "int",
+    "Name": "MODEL_MOVE2",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param7",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_MOVE2",
+    "Aliases": [
+      "FUNCTION_008B"
+    ]
+  },
+  {
+    "Index": "0x008c",
+    "ReturnType": "int",
+    "Name": "FUNCTION_008C",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x008d",
+    "ReturnType": "int",
+    "Name": "LOAD_SOUND_E",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_LOAD_SOUND_E",
+    "Aliases": [
+      "FUNCTION_008D"
+    ]
+  },
+  {
+    "Index": "0x008e",
+    "ReturnType": "int",
+    "Name": "BGM_PLAY_E",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_BGM_PLAY_E",
+    "Aliases": [
+      "FUNCTION_008E"
+    ]
+  },
+  {
+    "Index": "0x008f",
+    "ReturnType": "int",
+    "Name": "SE_PLAY_E",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_SE_PLAY_E",
+    "Aliases": [
+      "FUNCTION_008F"
+    ]
+  },
+  {
+    "Index": "0x0090",
+    "ReturnType": "int",
+    "Name": "FADEOUT_E",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_FADEOUT_E",
+    "Aliases": [
+      "FUNCTION_0090"
+    ]
+  },
+  {
+    "Index": "0x0091",
+    "ReturnType": "int",
+    "Name": "BGM_VOL_DOWN",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_BGM_VOL_DOWN",
+    "Aliases": [
+      "FUNCTION_0091"
+    ]
+  },
+  {
+    "Index": "0x0092",
+    "ReturnType": "int",
+    "Name": "BGM_VOL_UP",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_BGM_VOL_UP",
+    "Aliases": [
+      "FUNCTION_0092"
+    ]
+  },
+  {
+    "Index": "0x0093",
+    "ReturnType": "int",
+    "Name": "MSG_IGNORE_CONFIG",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "itfMesManager_itfMesMngIgnoreConfig",
+    "Aliases": [
+      "FUNCTION_0093"
+    ]
+  },
+  {
+    "Index": "0x0094",
+    "ReturnType": "int",
+    "Name": "SEARCH_ID",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "string",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_SEARCH_ID",
+    "Aliases": [
+      "FUNCTION_0094"
+    ]
+  },
+  {
+    "Index": "0x0095",
+    "ReturnType": "int",
+    "Name": "MODEL_EXMOTION",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param6",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_EXMOTION",
+    "Aliases": [
+      "FUNCTION_0095"
+    ]
+  },
+  {
+    "Index": "0x0096",
+    "ReturnType": "int",
+    "Name": "MODEL_WAIT_EXMOT",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_WAIT_EXMOT",
+    "Aliases": [
+      "FUNCTION_0096"
+    ]
+  },
+  {
+    "Index": "0x0097",
+    "ReturnType": "int",
+    "Name": "CALL_NEXT",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_CALL_NEXT",
+    "Aliases": [
+      "FUNCTION_0097"
+    ]
+  },
+  {
+    "Index": "0x0098",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0098",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0099",
+    "ReturnType": "int",
+    "Name": "FILTER_ALLOFF",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "scrCommonCommand_scrCommand_FILTER_ALLOFF",
+    "Aliases": [
+      "FUNCTION_0099"
+    ]
+  },
+  {
+    "Index": "0x009a",
+    "ReturnType": "int",
+    "Name": "EFFECT_LOAD",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "string",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFECT_LOAD",
+    "Aliases": [
+      "FUNCTION_009A"
+    ]
+  },
+  {
+    "Index": "0x009b",
+    "ReturnType": "int",
+    "Name": "EFFECT_CLS",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFECT_CLS",
+    "Aliases": [
+      "FUNCTION_009B"
+    ]
+  },
+  {
+    "Index": "0x009c",
+    "ReturnType": "int",
+    "Name": "EFFECT_POS_XYZ",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFECT_POS_XYZ",
+    "Aliases": [
+      "FUNCTION_009C"
+    ]
+  },
+  {
+    "Index": "0x009d",
+    "ReturnType": "int",
+    "Name": "EFFECT_POS",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFECT_POS",
+    "Aliases": [
+      "FUNCTION_009D"
+    ]
+  },
+  {
+    "Index": "0x009e",
+    "ReturnType": "int",
+    "Name": "EFFECT_ON",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFECT_ON",
+    "Aliases": [
+      "FUNCTION_009E"
+    ]
+  },
+  {
+    "Index": "0x009f",
+    "ReturnType": "int",
+    "Name": "EFFECT_OFF",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFECT_OFF",
+    "Aliases": [
+      "FUNCTION_009F"
+    ]
+  },
+  {
+    "Index": "0x00a0",
+    "ReturnType": "int",
+    "Name": "EFFECT_LINK",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFECT_LINK",
+    "Aliases": [
+      "FUNCTION_00A0"
+    ]
+  },
+  {
+    "Index": "0x00a1",
+    "ReturnType": "int",
+    "Name": "EFFECT_LINK2",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFECT_LINK2",
+    "Aliases": [
+      "FUNCTION_00A1"
+    ]
+  },
+  {
+    "Index": "0x00a2",
+    "ReturnType": "int",
+    "Name": "EFFECT_UNLINK",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFECT_UNLINK",
+    "Aliases": [
+      "FUNCTION_00A2"
+    ]
+  },
+  {
+    "Index": "0x00a3",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00A3",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00a4",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00A4",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00a5",
+    "ReturnType": "int",
+    "Name": "SCR_RUN",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_SCR_RUN",
+    "Aliases": [
+      "FUNCTION_00A5"
+    ]
+  },
+  {
+    "Index": "0x00a6",
+    "ReturnType": "int",
+    "Name": "SCR_KILL",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_SCR_KILL",
+    "Aliases": [
+      "FUNCTION_00A6"
+    ]
+  },
+  {
+    "Index": "0x00a7",
+    "ReturnType": "int",
+    "Name": "SCR_WAIT",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_SCR_WAIT",
+    "Aliases": [
+      "FUNCTION_00A7"
+    ]
+  },
+  {
+    "Index": "0x00a8",
+    "ReturnType": "int",
+    "Name": "SCR_STAT",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_SCR_STAT",
+    "Aliases": [
+      "FUNCTION_00A8"
+    ]
+  },
+  {
+    "Index": "0x00a9",
+    "ReturnType": "int",
+    "Name": "SCR_TIME",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_SCR_TIME",
+    "Aliases": [
+      "FUNCTION_00A9"
+    ]
+  },
+  {
+    "Index": "0x00aa",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00AA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00ab",
+    "ReturnType": "int",
+    "Name": "QUAKE_ON",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_QUAKE_ON",
+    "Aliases": [
+      "FUNCTION_00AB"
+    ]
+  },
+  {
+    "Index": "0x00ac",
+    "ReturnType": "int",
+    "Name": "QUAKE_OFF",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "scrCommonCommand_scrCommand_QUAKE_OFF",
+    "Aliases": [
+      "FUNCTION_00AC"
+    ]
+  },
+  {
+    "Index": "0x00ad",
+    "ReturnType": "int",
+    "Name": "MODEL_LIGHT_OFF",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_LIGHT_OFF",
+    "Aliases": [
+      "FUNCTION_00AD"
+    ]
+  },
+  {
+    "Index": "0x00ae",
+    "ReturnType": "int",
+    "Name": "MODEL_LIGHT_ON",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_LIGHT_ON",
+    "Aliases": [
+      "FUNCTION_00AE"
+    ]
+  },
+  {
+    "Index": "0x00af",
+    "ReturnType": "int",
+    "Name": "MODEL_LIGHT_RGB",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param6",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param7",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param8",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_LIGHT_RGB",
+    "Aliases": [
+      "FUNCTION_00AF"
+    ]
+  },
+  {
+    "Index": "0x00b0",
+    "ReturnType": "int",
+    "Name": "MODEL_LIGHT_DIR",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_LIGHT_DIR",
+    "Aliases": [
+      "FUNCTION_00B0"
+    ]
+  },
+  {
+    "Index": "0x00b1",
+    "ReturnType": "int",
+    "Name": "MODEL_LIGHT_WAIT",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_LIGHT_WAIT",
+    "Aliases": [
+      "FUNCTION_00B1"
+    ]
+  },
+  {
+    "Index": "0x00b2",
+    "ReturnType": "int",
+    "Name": "MODEL_RGB",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_RGB",
+    "Aliases": [
+      "FUNCTION_00B2"
+    ]
+  },
+  {
+    "Index": "0x00b3",
+    "ReturnType": "int",
+    "Name": "MODEL_A",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_A",
+    "Aliases": [
+      "FUNCTION_00B3"
+    ]
+  },
+  {
+    "Index": "0x00b4",
+    "ReturnType": "int",
+    "Name": "SCENE_LIGHT_RGB",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_SCENE_LIGHT_RGB",
+    "Aliases": [
+      "FUNCTION_00B4"
+    ]
+  },
+  {
+    "Index": "0x00b5",
+    "ReturnType": "int",
+    "Name": "SCENE_LIGHT_DIR",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_SCENE_LIGHT_DIR",
+    "Aliases": [
+      "FUNCTION_00B5"
+    ]
+  },
+  {
+    "Index": "0x00b6",
+    "ReturnType": "int",
+    "Name": "SCENE_AMBIENT",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_SCENE_AMBIENT",
+    "Aliases": [
+      "FUNCTION_00B6"
+    ]
+  },
+  {
+    "Index": "0x00b7",
+    "ReturnType": "int",
+    "Name": "PATH_STOP",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_PATH_STOP",
+    "Aliases": [
+      "FUNCTION_00B7"
+    ]
+  },
+  {
+    "Index": "0x00b8",
+    "ReturnType": "int",
+    "Name": "PATH_START",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_PATH_START",
+    "Aliases": [
+      "FUNCTION_00B8"
+    ]
+  },
+  {
+    "Index": "0x00b9",
+    "ReturnType": "int",
+    "Name": "PATH_RATE",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_PATH_RATE",
+    "Aliases": [
+      "FUNCTION_00B9"
+    ]
+  },
+  {
+    "Index": "0x00ba",
+    "ReturnType": "int",
+    "Name": "PATH_DIR",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_PATH_DIR",
+    "Aliases": [
+      "FUNCTION_00BA"
+    ]
+  },
+  {
+    "Index": "0x00bb",
+    "ReturnType": "int",
+    "Name": "SCENE_FOG_RGB",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_SCENE_FOG_RGB",
+    "Aliases": [
+      "FUNCTION_00BB"
+    ]
+  },
+  {
+    "Index": "0x00bc",
+    "ReturnType": "int",
+    "Name": "SCENE_FOG_PARA",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_SCENE_FOG_PARA",
+    "Aliases": [
+      "FUNCTION_00BC"
+    ]
+  },
+  {
+    "Index": "0x00bd",
+    "ReturnType": "int",
+    "Name": "BLUR",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_BLUR",
+    "Aliases": [
+      "FUNCTION_00BD"
+    ]
+  },
+  {
+    "Index": "0x00be",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00BE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00bf",
+    "ReturnType": "int",
+    "Name": "FREE_CASH_F",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FREE_CASH_F",
+    "Aliases": [
+      "FUNCTION_00BF"
+    ]
+  },
+  {
+    "Index": "0x00c0",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00C0",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00c1",
+    "ReturnType": "int",
+    "Name": "CAM_DIR",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "fldCommand_fldCommand_CAM_DIR",
+    "Aliases": [
+      "FUNCTION_00C1"
+    ]
+  },
+  {
+    "Index": "0x00c2",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00C2",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00c3",
+    "ReturnType": "int",
+    "Name": "SET_ALLPANEL",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "fldCommand_fldCommand_SET_ALLPANEL",
+    "Aliases": [
+      "FUNCTION_00C3"
+    ]
+  },
+  {
+    "Index": "0x00c4",
+    "ReturnType": "int",
+    "Name": "MODEL_LIGHT_LINK",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_LIGHT_LINK",
+    "Aliases": [
+      "FUNCTION_00C4"
+    ]
+  },
+  {
+    "Index": "0x00c5",
+    "ReturnType": "int",
+    "Name": "MODEL_LIGHT_UNLINK",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_LIGHT_UNLINK",
+    "Aliases": [
+      "FUNCTION_00C5"
+    ]
+  },
+  {
+    "Index": "0x00c6",
+    "ReturnType": "int",
+    "Name": "LIGHT_PATH_MOVE",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_LIGHT_PATH_MOVE",
+    "Aliases": [
+      "FUNCTION_00C6"
+    ]
+  },
+  {
+    "Index": "0x00c7",
+    "ReturnType": "int",
+    "Name": "LIGHT_PATH_WAIT",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_LIGHT_PATH_WAIT",
+    "Aliases": [
+      "FUNCTION_00C7"
+    ]
+  },
+  {
+    "Index": "0x00c8",
+    "ReturnType": "int",
+    "Name": "LOAD_BE",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_LOAD_BE",
+    "Aliases": [
+      "FUNCTION_00C8"
+    ]
+  },
+  {
+    "Index": "0x00c9",
+    "ReturnType": "int",
+    "Name": "MODEL_BE",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_BE",
+    "Aliases": [
+      "FUNCTION_00C9"
+    ]
+  },
+  {
+    "Index": "0x00ca",
+    "ReturnType": "int",
+    "Name": "FIELD_BE",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_FIELD_BE",
+    "Aliases": [
+      "FUNCTION_00CA"
+    ]
+  },
+  {
+    "Index": "0x00cb",
+    "ReturnType": "int",
+    "Name": "EFFECT_BE",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFECT_BE",
+    "Aliases": [
+      "FUNCTION_00CB"
+    ]
+  },
+  {
+    "Index": "0x00cc",
+    "ReturnType": "int",
+    "Name": "TEX_BE",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_TEX_BE",
+    "Aliases": [
+      "FUNCTION_00CC"
+    ]
+  },
+  {
+    "Index": "0x00cd",
+    "ReturnType": "int",
+    "Name": "EFFBED_LOAD",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "string",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFBED_LOAD",
+    "Aliases": [
+      "FUNCTION_00CD"
+    ]
+  },
+  {
+    "Index": "0x00ce",
+    "ReturnType": "int",
+    "Name": "EFFBED_START",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFBED_START",
+    "Aliases": [
+      "FUNCTION_00CE"
+    ]
+  },
+  {
+    "Index": "0x00cf",
+    "ReturnType": "int",
+    "Name": "EFFECT_ROT_XYZ",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFECT_ROT_XYZ",
+    "Aliases": [
+      "FUNCTION_00CF"
+    ]
+  },
+  {
+    "Index": "0x00d0",
+    "ReturnType": "int",
+    "Name": "EFFBED_BE",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFBED_BE",
+    "Aliases": [
+      "FUNCTION_00D0"
+    ]
+  },
+  {
+    "Index": "0x00d1",
+    "ReturnType": "int",
+    "Name": "EFFECT_PATH_MOVE",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFECT_PATH_MOVE",
+    "Aliases": [
+      "FUNCTION_00D1"
+    ]
+  },
+  {
+    "Index": "0x00d2",
+    "ReturnType": "int",
+    "Name": "EFFECT_PATH_WAIT",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFECT_PATH_WAIT",
+    "Aliases": [
+      "FUNCTION_00D2"
+    ]
+  },
+  {
+    "Index": "0x00d3",
+    "ReturnType": "int",
+    "Name": "EFFMG1_LOAD",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "string",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFMG1_LOAD",
+    "Aliases": [
+      "FUNCTION_00D3"
+    ]
+  },
+  {
+    "Index": "0x00d4",
+    "ReturnType": "int",
+    "Name": "EFFMG1_BE",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFMG1_BE",
+    "Aliases": [
+      "FUNCTION_00D4"
+    ]
+  },
+  {
+    "Index": "0x00d5",
+    "ReturnType": "int",
+    "Name": "EFFMG2_LOAD",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "string",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFMG2_LOAD",
+    "Aliases": [
+      "FUNCTION_00D5"
+    ]
+  },
+  {
+    "Index": "0x00d6",
+    "ReturnType": "int",
+    "Name": "EFFMG2_BE",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFMG2_BE",
+    "Aliases": [
+      "FUNCTION_00D6"
+    ]
+  },
+  {
+    "Index": "0x00d7",
+    "ReturnType": "int",
+    "Name": "EFFMG1_POS",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFMG1_POS",
+    "Aliases": [
+      "FUNCTION_00D7"
+    ]
+  },
+  {
+    "Index": "0x00d8",
+    "ReturnType": "int",
+    "Name": "EFFMG2_POS",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFMG2_POS",
+    "Aliases": [
+      "FUNCTION_00D8"
+    ]
+  },
+  {
+    "Index": "0x00d9",
+    "ReturnType": "int",
+    "Name": "SE_STOP_E",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_SE_STOP_E",
+    "Aliases": [
+      "FUNCTION_00D9"
+    ]
+  },
+  {
+    "Index": "0x00da",
+    "ReturnType": "int",
+    "Name": "CAM_ROT_Q",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_CAM_ROT_Q",
+    "Aliases": [
+      "FUNCTION_00DA"
+    ]
+  },
+  {
+    "Index": "0x00db",
+    "ReturnType": "int",
+    "Name": "FIELD_ANIME_START",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_FIELD_ANIME_START",
+    "Aliases": [
+      "FUNCTION_00DB"
+    ]
+  },
+  {
+    "Index": "0x00dc",
+    "ReturnType": "int",
+    "Name": "FIELD_ANIME_STOP",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_FIELD_ANIME_STOP",
+    "Aliases": [
+      "FUNCTION_00DC"
+    ]
+  },
+  {
+    "Index": "0x00dd",
+    "ReturnType": "int",
+    "Name": "MODEL_SHADOW_ON2",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_SHADOW_ON2",
+    "Aliases": [
+      "FUNCTION_00DD"
+    ]
+  },
+  {
+    "Index": "0x00de",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00DE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00df",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00DF",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00e0",
+    "ReturnType": "int",
+    "Name": "AI_GET_TURN",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_AI_GET_TURN",
+    "Aliases": [
+      "FUNCTION_00E0"
+    ]
+  },
+  {
+    "Index": "0x00e1",
+    "ReturnType": "void",
+    "Name": "FUNCTION_00E1",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00e2",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00E2",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00e3",
+    "ReturnType": "int",
+    "Name": "EFFMG2_PRESET",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFMG2_PRESET",
+    "Aliases": [
+      "FUNCTION_00E3"
+    ]
+  },
+  {
+    "Index": "0x00e4",
+    "ReturnType": "int",
+    "Name": "BTL_TAIKYO",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_BTL_TAIKYO",
+    "Aliases": [
+      "FUNCTION_00E4"
+    ]
+  },
+  {
+    "Index": "0x00e5",
+    "ReturnType": "int",
+    "Name": "BTL_ALLTAIKYO",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_BTL_ALLTAIKYO",
+    "Aliases": [
+      "FUNCTION_00E5"
+    ]
+  },
+  {
+    "Index": "0x00e6",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00E6",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00e7",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00E7",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00e8",
+    "ReturnType": "int",
+    "Name": "PATH_LOOP_ON",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_PATH_LOOP_ON",
+    "Aliases": [
+      "FUNCTION_00E8"
+    ]
+  },
+  {
+    "Index": "0x00e9",
+    "ReturnType": "int",
+    "Name": "PATH_LOOP_OFF",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_PATH_LOOP_OFF",
+    "Aliases": [
+      "FUNCTION_00E9"
+    ]
+  },
+  {
+    "Index": "0x00ea",
+    "ReturnType": "int",
+    "Name": "MUL_BLUR_PARA",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_MUL_BLUR_PARA",
+    "Aliases": [
+      "FUNCTION_00EA"
+    ]
+  },
+  {
+    "Index": "0x00eb",
+    "ReturnType": "int",
+    "Name": "MUL_BLUR_RGBA",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_MUL_BLUR_RGBA",
+    "Aliases": [
+      "FUNCTION_00EB"
+    ]
+  },
+  {
+    "Index": "0x00ec",
+    "ReturnType": "int",
+    "Name": "MUL_BLUR_AREA",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_MUL_BLUR_AREA",
+    "Aliases": [
+      "FUNCTION_00EC"
+    ]
+  },
+  {
+    "Index": "0x00ed",
+    "ReturnType": "int",
+    "Name": "MUL_BLUR_ON",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_MUL_BLUR_ON",
+    "Aliases": [
+      "FUNCTION_00ED"
+    ]
+  },
+  {
+    "Index": "0x00ee",
+    "ReturnType": "int",
+    "Name": "MUL_BLUR_OFF",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_MUL_BLUR_OFF",
+    "Aliases": [
+      "FUNCTION_00EE"
+    ]
+  },
+  {
+    "Index": "0x00ef",
+    "ReturnType": "int",
+    "Name": "DIST_BLUR_PARA",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param6",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param7",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_DIST_BLUR_PARA",
+    "Aliases": [
+      "FUNCTION_00EF"
+    ]
+  },
+  {
+    "Index": "0x00f0",
+    "ReturnType": "int",
+    "Name": "DIST_BLUR_RGBA",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_DIST_BLUR_RGBA",
+    "Aliases": [
+      "FUNCTION_00F0"
+    ]
+  },
+  {
+    "Index": "0x00f1",
+    "ReturnType": "int",
+    "Name": "DIST_BLUR_AREA",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_DIST_BLUR_AREA",
+    "Aliases": [
+      "FUNCTION_00F1"
+    ]
+  },
+  {
+    "Index": "0x00f2",
+    "ReturnType": "int",
+    "Name": "DIST_BLUR_ON",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_DIST_BLUR_ON",
+    "Aliases": [
+      "FUNCTION_00F2"
+    ]
+  },
+  {
+    "Index": "0x00f3",
+    "ReturnType": "int",
+    "Name": "DIST_BLUR_OFF",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_DIST_BLUR_OFF",
+    "Aliases": [
+      "FUNCTION_00F3"
+    ]
+  },
+  {
+    "Index": "0x00f4",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00F4",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x00f5",
+    "ReturnType": "int",
+    "Name": "FUNCTION_00F5",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00f6",
+    "ReturnType": "float",
+    "Name": "FUNCTION_00F6",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x00f7",
+    "ReturnType": "int",
+    "Name": "READ_BE",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_READ_BE",
+    "Aliases": [
+      "FUNCTION_00F7"
+    ]
+  },
+  {
+    "Index": "0x00f8",
+    "ReturnType": "int",
+    "Name": "CHK_BE",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_CHK_BE",
+    "Aliases": [
+      "FUNCTION_00F8"
+    ]
+  },
+  {
+    "Index": "0x00f9",
+    "ReturnType": "int",
+    "Name": "DEL_BE",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_DEL_BE",
+    "Aliases": [
+      "FUNCTION_00F9"
+    ]
+  },
+  {
+    "Index": "0x00fa",
+    "ReturnType": "int",
+    "Name": "BTL_CAM_1SHOT",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_BTL_CAM_1SHOT",
+    "Aliases": [
+      "FUNCTION_00FA"
+    ]
+  },
+  {
+    "Index": "0x00fb",
+    "ReturnType": "int",
+    "Name": "BTL_CAM_2SHOT",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_BTL_CAM_2SHOT",
+    "Aliases": [
+      "FUNCTION_00FB"
+    ]
+  },
+  {
+    "Index": "0x00fc",
+    "ReturnType": "int",
+    "Name": "BTL_CAM_BOUGAI",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_BTL_CAM_BOUGAI",
+    "Aliases": [
+      "FUNCTION_00FC"
+    ]
+  },
+  {
+    "Index": "0x00fd",
+    "ReturnType": "int",
+    "Name": "FLD_CHK_BTL",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_CHK_BTL",
+    "Aliases": [
+      "FUNCTION_00FD"
+    ]
+  },
+  {
+    "Index": "0x00fe",
+    "ReturnType": "int",
+    "Name": "FLD_CHK_ANA",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_CHK_ANA",
+    "Aliases": [
+      "FUNCTION_00FE"
+    ]
+  },
+  {
+    "Index": "0x00ff",
+    "ReturnType": "int",
+    "Name": "FLD_CHK_SISETU",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_CHK_SISETU",
+    "Aliases": [
+      "FUNCTION_00FF"
+    ]
+  },
+  {
+    "Index": "0x0100",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0100",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0101",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0101",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0102",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0102",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0103",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0103",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0104",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0104",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0105",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0105",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0106",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0106",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0107",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0107",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0108",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0108",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0109",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0109",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x010a",
+    "ReturnType": "void",
+    "Name": "FUNCTION_010A",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x010b",
+    "ReturnType": "void",
+    "Name": "FUNCTION_010B",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "string",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x010c",
+    "ReturnType": "void",
+    "Name": "FUNCTION_010C",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x010d",
+    "ReturnType": "void",
+    "Name": "FUNCTION_010D",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x010e",
+    "ReturnType": "void",
+    "Name": "FUNCTION_010E",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x010f",
+    "ReturnType": "int",
+    "Name": "FUNCTION_010F",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0110",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0110",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "string",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0111",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0111",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0112",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0112",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0113",
+    "ReturnType": "int",
+    "Name": "SET_CAMTBL",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "fldCommand_fldCommand_SET_CAMTBL",
+    "Aliases": [
+      "FUNCTION_0113"
+    ]
+  },
+  {
+    "Index": "0x0114",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0114",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0115",
+    "ReturnType": "int",
+    "Name": "FLD_SET_TAKARA_OPEN",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_SET_TAKARA_OPEN",
+    "Aliases": [
+      "FUNCTION_0115"
+    ]
+  },
+  {
+    "Index": "0x0116",
+    "ReturnType": "int",
+    "Name": "FLD_CHK_TAKARA_OPEN",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_CHK_TAKARA_OPEN",
+    "Aliases": [
+      "FUNCTION_0116"
+    ]
+  },
+  {
+    "Index": "0x0117",
+    "ReturnType": "int",
+    "Name": "MSG_SET_POS_SCR",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "itfMesManager_itfMesMngSetMesPositionScript",
+    "Aliases": [
+      "FUNCTION_0117"
+    ]
+  },
+  {
+    "Index": "0x0118",
+    "ReturnType": "int",
+    "Name": "MSG_SET_POS_DEF",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "itfMesManager_itfMesMngSetMesPosDefault",
+    "Aliases": [
+      "FUNCTION_0118"
+    ]
+  },
+  {
+    "Index": "0x0119",
+    "ReturnType": "int",
+    "Name": "MSG_VALID_NEXT",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "itfMesManager_itfMesMngValidateNext",
+    "Aliases": [
+      "FUNCTION_0119"
+    ]
+  },
+  {
+    "Index": "0x011a",
+    "ReturnType": "void",
+    "Name": "FUNCTION_011A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x011b",
+    "ReturnType": "int",
+    "Name": "FCL_TERM_MENU_MASK",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "fclTerminalInit_fclTerminalMenuMask",
+    "Aliases": [
+      "FUNCTION_011B"
+    ]
+  },
+  {
+    "Index": "0x011c",
+    "ReturnType": "int",
+    "Name": "FCL_TERM_MENU_MASK_DEF",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fclTerminalInit_fclTerminalMenuMaskDef",
+    "Aliases": [
+      "FUNCTION_011C"
+    ]
+  },
+  {
+    "Index": "0x011d",
+    "ReturnType": "void",
+    "Name": "FUNCTION_011D",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x011e",
+    "ReturnType": "void",
+    "Name": "FUNCTION_011E",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x011f",
+    "ReturnType": "int",
+    "Name": "FCL_TERM_ENABLE_TALK",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fclTerminalInit_fclTerminalEnableTalk",
+    "Aliases": [
+      "FUNCTION_011F"
+    ]
+  },
+  {
+    "Index": "0x0120",
+    "ReturnType": "int",
+    "Name": "FCL_TERM_DISABLE_TALK",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fclTerminalInit_fclTerminalDisableTalk",
+    "Aliases": [
+      "FUNCTION_0120"
+    ]
+  },
+  {
+    "Index": "0x0121",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0121",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0122",
+    "ReturnType": "int",
+    "Name": "DH_PLUS",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrParameterCommand_prm_DH_PLUS",
+    "Aliases": [
+      "FUNCTION_0122"
+    ]
+  },
+  {
+    "Index": "0x0123",
+    "ReturnType": "int",
+    "Name": "MODEL_SHADOW_ON",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_SHADOW_ON",
+    "Aliases": [
+      "FUNCTION_0123"
+    ]
+  },
+  {
+    "Index": "0x0124",
+    "ReturnType": "int",
+    "Name": "MODEL_SHADOW_OFF",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_SHADOW_OFF",
+    "Aliases": [
+      "FUNCTION_0124"
+    ]
+  },
+  {
+    "Index": "0x0125",
+    "ReturnType": "int",
+    "Name": "BOKASI_ON",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_BOKASI_ON",
+    "Aliases": [
+      "FUNCTION_0125"
+    ]
+  },
+  {
+    "Index": "0x0126",
+    "ReturnType": "int",
+    "Name": "BOKASI_OFF",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_BOKASI_OFF",
+    "Aliases": [
+      "FUNCTION_0126"
+    ]
+  },
+  {
+    "Index": "0x0127",
+    "ReturnType": "int",
+    "Name": "MUL_BLUR_SWAP",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_MUL_BLUR_SWAP",
+    "Aliases": [
+      "FUNCTION_0127"
+    ]
+  },
+  {
+    "Index": "0x0128",
+    "ReturnType": "int",
+    "Name": "DIST_BLUR_SWAP",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_DIST_BLUR_SWAP",
+    "Aliases": [
+      "FUNCTION_0128"
+    ]
+  },
+  {
+    "Index": "0x0129",
+    "ReturnType": "int",
+    "Name": "BLUR2_PARA",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_BLUR2_PARA",
+    "Aliases": [
+      "FUNCTION_0129"
+    ]
+  },
+  {
+    "Index": "0x012a",
+    "ReturnType": "int",
+    "Name": "BLUR2_RGBA",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_BLUR2_RGBA",
+    "Aliases": [
+      "FUNCTION_012A"
+    ]
+  },
+  {
+    "Index": "0x012b",
+    "ReturnType": "int",
+    "Name": "BLUR2_AREA",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_BLUR2_AREA",
+    "Aliases": [
+      "FUNCTION_012B"
+    ]
+  },
+  {
+    "Index": "0x012c",
+    "ReturnType": "int",
+    "Name": "BLUR2_SWAP",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_BLUR2_SWAP",
+    "Aliases": [
+      "FUNCTION_012C"
+    ]
+  },
+  {
+    "Index": "0x012d",
+    "ReturnType": "int",
+    "Name": "FILTER2_PARA",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_FILTER2_PARA",
+    "Aliases": [
+      "FUNCTION_012D"
+    ]
+  },
+  {
+    "Index": "0x012e",
+    "ReturnType": "int",
+    "Name": "FILTER2_RGBA",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_FILTER2_RGBA",
+    "Aliases": [
+      "FUNCTION_012E"
+    ]
+  },
+  {
+    "Index": "0x012f",
+    "ReturnType": "int",
+    "Name": "FILTER2_SWAP",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_FILTER2_SWAP",
+    "Aliases": [
+      "FUNCTION_012F"
+    ]
+  },
+  {
+    "Index": "0x0130",
+    "ReturnType": "int",
+    "Name": "FILTER2_ON",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_FILTER2_ON",
+    "Aliases": [
+      "FUNCTION_0130"
+    ]
+  },
+  {
+    "Index": "0x0131",
+    "ReturnType": "int",
+    "Name": "FILTER2_OFF",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_FILTER2_OFF",
+    "Aliases": [
+      "FUNCTION_0131"
+    ]
+  },
+  {
+    "Index": "0x0132",
+    "ReturnType": "int",
+    "Name": "MFILTER_PARA",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_MFILTER_PARA",
+    "Aliases": [
+      "FUNCTION_0132"
+    ]
+  },
+  {
+    "Index": "0x0133",
+    "ReturnType": "int",
+    "Name": "MFILTER_RGBA",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_MFILTER_RGBA",
+    "Aliases": [
+      "FUNCTION_0133"
+    ]
+  },
+  {
+    "Index": "0x0134",
+    "ReturnType": "int",
+    "Name": "MFILTER_AREA",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_MFILTER_AREA",
+    "Aliases": [
+      "FUNCTION_0134"
+    ]
+  },
+  {
+    "Index": "0x0135",
+    "ReturnType": "int",
+    "Name": "MFILTER_SWAP",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_MFILTER_SWAP",
+    "Aliases": [
+      "FUNCTION_0135"
+    ]
+  },
+  {
+    "Index": "0x0136",
+    "ReturnType": "int",
+    "Name": "MFILTER_ON",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_MFILTER_ON",
+    "Aliases": [
+      "FUNCTION_0136"
+    ]
+  },
+  {
+    "Index": "0x0137",
+    "ReturnType": "int",
+    "Name": "MFILTER_OFF",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_MFILTER_OFF",
+    "Aliases": [
+      "FUNCTION_0137"
+    ]
+  },
+  {
+    "Index": "0x0138",
+    "ReturnType": "int",
+    "Name": "BGM_TRANS_E",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_BGM_TRANS_E",
+    "Aliases": [
+      "FUNCTION_0138"
+    ]
+  },
+  {
+    "Index": "0x0139",
+    "ReturnType": "int",
+    "Name": "MAKA_PLUS",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrParameterCommand_prm_MAKA_PLUS",
+    "Aliases": [
+      "FUNCTION_0139"
+    ]
+  },
+  {
+    "Index": "0x013a",
+    "ReturnType": "int",
+    "Name": "PARTY_DAMAGE",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrParameterCommand_prm_PARTY_DAMAGE",
+    "Aliases": [
+      "FUNCTION_013A"
+    ]
+  },
+  {
+    "Index": "0x013b",
+    "ReturnType": "int",
+    "Name": "MSG_WND_TYPE",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "itfMesManager_itfMesMngWindowType",
+    "Aliases": [
+      "FUNCTION_013B"
+    ]
+  },
+  {
+    "Index": "0x013c",
+    "ReturnType": "int",
+    "Name": "SEL_DEFKEY",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "itfMesManager_itfMesMngSelectDefKey",
+    "Aliases": [
+      "FUNCTION_013C"
+    ]
+  },
+  {
+    "Index": "0x013d",
+    "ReturnType": "void",
+    "Name": "FUNCTION_013D",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x013e",
+    "ReturnType": "int",
+    "Name": "POINT_GET",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_POINT_GET",
+    "Aliases": [
+      "FUNCTION_013E"
+    ]
+  },
+  {
+    "Index": "0x013f",
+    "ReturnType": "void",
+    "Name": "FUNCTION_013F",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0140",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0140",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0141",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0141",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0142",
+    "ReturnType": "int",
+    "Name": "RIP_BLUR_ON",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_RIP_BLUR_ON",
+    "Aliases": [
+      "FUNCTION_0142"
+    ]
+  },
+  {
+    "Index": "0x0143",
+    "ReturnType": "int",
+    "Name": "RIP_BLUR_OFF",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_RIP_BLUR_OFF",
+    "Aliases": [
+      "FUNCTION_0143"
+    ]
+  },
+  {
+    "Index": "0x0144",
+    "ReturnType": "int",
+    "Name": "RIP_BLUR_PARA",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param6",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param7",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_RIP_BLUR_PARA",
+    "Aliases": [
+      "FUNCTION_0144"
+    ]
+  },
+  {
+    "Index": "0x0145",
+    "ReturnType": "int",
+    "Name": "RIP_BLUR_RGBA",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_RIP_BLUR_RGBA",
+    "Aliases": [
+      "FUNCTION_0145"
+    ]
+  },
+  {
+    "Index": "0x0146",
+    "ReturnType": "int",
+    "Name": "RIP_BLUR_AREA",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_RIP_BLUR_AREA",
+    "Aliases": [
+      "FUNCTION_0146"
+    ]
+  },
+  {
+    "Index": "0x0147",
+    "ReturnType": "int",
+    "Name": "RIP_BLUR_SWAP",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrCommonCommand_scrCommand_RIP_BLUR_SWAP",
+    "Aliases": [
+      "FUNCTION_0147"
+    ]
+  },
+  {
+    "Index": "0x0148",
+    "ReturnType": "int",
+    "Name": "DIST_BLUR_TEX_BE",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_DIST_BLUR_TEX_BE",
+    "Aliases": [
+      "FUNCTION_0148"
+    ]
+  },
+  {
+    "Index": "0x0149",
+    "ReturnType": "int",
+    "Name": "DIST_BLUR_TEX_DEF",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_DIST_BLUR_TEX_DEF",
+    "Aliases": [
+      "FUNCTION_0149"
+    ]
+  },
+  {
+    "Index": "0x014a",
+    "ReturnType": "int",
+    "Name": "EFFECT_PRESET",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFECT_PRESET",
+    "Aliases": [
+      "FUNCTION_014A"
+    ]
+  },
+  {
+    "Index": "0x014b",
+    "ReturnType": "void",
+    "Name": "FUNCTION_014B",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x014c",
+    "ReturnType": "bool",
+    "Name": "AI_GET_PRESSKOUDO",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_AI_GET_PRESSKOUDO",
+    "Aliases": [
+      "FUNCTION_014C"
+    ]
+  },
+  {
+    "Index": "0x014d",
+    "ReturnType": "int",
+    "Name": "AI_GET_ALLKOUDO",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_AI_GET_ALLKOUDO",
+    "Aliases": [
+      "FUNCTION_014D"
+    ]
+  },
+  {
+    "Index": "0x014e",
+    "ReturnType": "int",
+    "Name": "AI_GET_MYLV",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_AI_GET_MYLV",
+    "Aliases": [
+      "FUNCTION_014E"
+    ]
+  },
+  {
+    "Index": "0x014f",
+    "ReturnType": "int",
+    "Name": "FUNCTION_014F",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0150",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0150",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0151",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0151",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0152",
+    "ReturnType": "int",
+    "Name": "UDV_DELETE_NG",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrParameterCommand_prm_UDV_DELETE_NG",
+    "Aliases": [
+      "FUNCTION_0152"
+    ]
+  },
+  {
+    "Index": "0x0153",
+    "ReturnType": "int",
+    "Name": "BTL_FORM_ALL_ON",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_BTL_FORM_ALL_ON",
+    "Aliases": [
+      "FUNCTION_0153"
+    ]
+  },
+  {
+    "Index": "0x0154",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0154",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0155",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0155",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0156",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0156",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0157",
+    "ReturnType": "int",
+    "Name": "CALL_STAFF",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_CALL_STAFF",
+    "Aliases": [
+      "FUNCTION_0157"
+    ]
+  },
+  {
+    "Index": "0x0158",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0158",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0159",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0159",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x015a",
+    "ReturnType": "void",
+    "Name": "FUNCTION_015A",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x015b",
+    "ReturnType": "void",
+    "Name": "FUNCTION_015B",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x015c",
+    "ReturnType": "void",
+    "Name": "FUNCTION_015C",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x015d",
+    "ReturnType": "void",
+    "Name": "FUNCTION_015D",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x015e",
+    "ReturnType": "int",
+    "Name": "CALL_ENDSAVE",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "evtCommand_evtCommand_CALL_ENDSAVE",
+    "Aliases": [
+      "FUNCTION_015E"
+    ]
+  },
+  {
+    "Index": "0x015f",
+    "ReturnType": "int",
+    "Name": "KUTI",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_KUTI",
+    "Aliases": [
+      "FUNCTION_015F"
+    ]
+  },
+  {
+    "Index": "0x0160",
+    "ReturnType": "int",
+    "Name": "MSG_WND_TYPE_ALPHA",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "FullName": "itfMesManager_itfMesMngWindowTypeAlpha",
+    "Aliases": [
+      "FUNCTION_0160"
+    ]
+  },
+  {
+    "Index": "0x0161",
+    "ReturnType": "int",
+    "Name": "FLD_ANAHORI_INIT",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_ANAHORI_INIT",
+    "Aliases": [
+      "FUNCTION_0161"
+    ]
+  },
+  {
+    "Index": "0x0162",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0162",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0163",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0163",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0164",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0164",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0165",
+    "ReturnType": "int",
+    "Name": "KUTISET",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_KUTISET",
+    "Aliases": [
+      "FUNCTION_0165"
+    ]
+  },
+  {
+    "Index": "0x0166",
+    "ReturnType": "int",
+    "Name": "CALL_BATTLE2",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_CALL_BATTLE2",
+    "Aliases": [
+      "FUNCTION_0166"
+    ]
+  },
+  {
+    "Index": "0x0167",
+    "ReturnType": "int",
+    "Name": "EFFBED_BE_EVO",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": "Unknown type; assumed int"
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFBED_BE_EVO",
+    "Aliases": [
+      "FUNCTION_0167"
+    ]
+  },
+  {
+    "Index": "0x0168",
+    "ReturnType": "int",
+    "Name": "EFFBED_START_EVO",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_EFFBED_START_EVO",
+    "Aliases": [
+      "FUNCTION_0168"
+    ]
+  },
+  {
+    "Index": "0x0169",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0169",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x016a",
+    "ReturnType": "int",
+    "Name": "DRAWSTOP",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_DRAWSTOP",
+    "Aliases": [
+      "FUNCTION_016A"
+    ]
+  },
+  {
+    "Index": "0x016b",
+    "ReturnType": "int",
+    "Name": "MOVIE_CHKDRAW",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "mviScript_mviScrCmd_MOVIE_CHKDRAW",
+    "Aliases": [
+      "FUNCTION_016B"
+    ]
+  },
+  {
+    "Index": "0x016c",
+    "ReturnType": "void",
+    "Name": "FUNCTION_016C",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x016d",
+    "ReturnType": "void",
+    "Name": "FUNCTION_016D",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x016e",
+    "ReturnType": "void",
+    "Name": "FUNCTION_016E",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x016f",
+    "ReturnType": "void",
+    "Name": "FUNCTION_016F",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0170",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0170",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0171",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0171",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0172",
+    "ReturnType": "int",
+    "Name": "PLAYER_GET_LND",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "scrParameterCommand_prm_PLAYER_GET_LND",
+    "Aliases": [
+      "FUNCTION_0172"
+    ]
+  },
+  {
+    "Index": "0x0173",
+    "ReturnType": "int",
+    "Name": "NAKAMA_DEAD",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrParameterCommand_prm_NAKAMA_DEAD",
+    "Aliases": [
+      "FUNCTION_0173"
+    ]
+  },
+  {
+    "Index": "0x0174",
+    "ReturnType": "int",
+    "Name": "NAKAMA_CHK_PIKUKO",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "scrParameterCommand_prm_NAKAMA_CHK_PIKUKO",
+    "Aliases": [
+      "FUNCTION_0174"
+    ]
+  },
+  {
+    "Index": "0x0175",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0175",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0176",
+    "ReturnType": "int",
+    "Name": "PARTY_KAIFUKU",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "scrParameterCommand_prm_PARTY_KAIFUKU",
+    "Aliases": [
+      "FUNCTION_0176"
+    ]
+  },
+  {
+    "Index": "0x0177",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0177",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0178",
+    "ReturnType": "int",
+    "Name": "BTL_AI_ROT_CLR",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_BTL_AI_ROT_CLR",
+    "Aliases": [
+      "FUNCTION_0178"
+    ]
+  },
+  {
+    "Index": "0x0179",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0179",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x017a",
+    "ReturnType": "int",
+    "Name": "BTL_AI_ROT_GET",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_BTL_AI_ROT_GET",
+    "Aliases": [
+      "FUNCTION_017A"
+    ]
+  },
+  {
+    "Index": "0x017b",
+    "ReturnType": "int",
+    "Name": "FUNCTION_017B",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x017c",
+    "ReturnType": "void",
+    "Name": "FUNCTION_017C",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x017d",
+    "ReturnType": "void",
+    "Name": "FUNCTION_017D",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x017e",
+    "ReturnType": "void",
+    "Name": "FUNCTION_017E",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x017f",
+    "ReturnType": "int",
+    "Name": "AI_CHK_ENHAMAMHK",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "nbAiScript_nbCommand_AI_CHK_ENHAMAMHK",
+    "Aliases": [
+      "FUNCTION_017F"
+    ]
+  },
+  {
+    "Index": "0x0180",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0180",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0181",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0181",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0182",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0182",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0183",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0183",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0184",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0184",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0185",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0185",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0186",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0186",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0187",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0187",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0188",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0188",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0189",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0189",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x018a",
+    "ReturnType": "void",
+    "Name": "FUNCTION_018A",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x018b",
+    "ReturnType": "void",
+    "Name": "FUNCTION_018B",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x018c",
+    "ReturnType": "void",
+    "Name": "FUNCTION_018C",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x018d",
+    "ReturnType": "void",
+    "Name": "FUNCTION_018D",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x018e",
+    "ReturnType": "void",
+    "Name": "FUNCTION_018E",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x018f",
+    "ReturnType": "int",
+    "Name": "FUNCTION_018F",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0190",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0190",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0191",
+    "ReturnType": "int",
+    "Name": "HD_GET_RESUME",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_GET_RESUME",
+    "Aliases": [
+      "FUNCTION_0191"
+    ]
+  },
+  {
+    "Index": "0x0192",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0192",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0193",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0193",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0194",
+    "ReturnType": "int",
+    "Name": "HD_MODEL_CLS2",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "evtCommand_evtCommand_MODEL_CLS2",
+    "Aliases": [
+      "FUNCTION_0194"
+    ]
+  },
+  {
+    "Index": "0x0195",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0195",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0196",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0196",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0197",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0197",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0198",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0198",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0199",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0199",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x019a",
+    "ReturnType": "void",
+    "Name": "FUNCTION_019A",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x019b",
+    "ReturnType": "void",
+    "Name": "FUNCTION_019B",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x019c",
+    "ReturnType": "void",
+    "Name": "FUNCTION_019C",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x019d",
+    "ReturnType": "void",
+    "Name": "FUNCTION_019D",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x019e",
+    "ReturnType": "void",
+    "Name": "FUNCTION_019E",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x019f",
+    "ReturnType": "void",
+    "Name": "FUNCTION_019F",
+    "Description": "Null pointer",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01a0",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01A0",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01a1",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01A1",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01a2",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01A2",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01a3",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01A3",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01a4",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01A4",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01a5",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01A5",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01a6",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01A6",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01a7",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01A7",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01a8",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01A8",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01a9",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01A9",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01aa",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01AA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01ab",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01AB",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01ac",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01AC",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01ad",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01AD",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01ae",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01AE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01af",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01AF",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01b0",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01B0",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01b1",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01B1",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01b2",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01B2",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01b3",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01B3",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01b4",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01B4",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01b5",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01B5",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01b6",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01B6",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01b7",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01B7",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01b8",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01B8",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01b9",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01B9",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01ba",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01BA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01bb",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01BB",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01bc",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01BC",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01bd",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01BD",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01be",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01BE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01bf",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01BF",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01c0",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01C0",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01c1",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01C1",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01c2",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01C2",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01c3",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01C3",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01c4",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01C4",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01c5",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01C5",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01c6",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01C6",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01c7",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01C7",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01c8",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01C8",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01c9",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01C9",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01ca",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01CA",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01cb",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01CB",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01cc",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01CC",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01cd",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01CD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01ce",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01CE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01cf",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01CF",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01d0",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01D0",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01d1",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01D1",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01d2",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01D2",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01d3",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01D3",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01d4",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01D4",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01d5",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01D5",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01d6",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01D6",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01d7",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01D7",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01d8",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01D8",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01d9",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01D9",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01da",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01DA",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01db",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01DB",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01dc",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01DC",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01dd",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01DD",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01de",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01DE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01df",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01DF",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01e0",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01E0",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01e1",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01E1",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01e2",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01E2",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01e3",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01E3",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01e4",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01E4",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01e5",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01E5",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01e6",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01E6",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01e7",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01E7",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01e8",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01E8",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01e9",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01E9",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01ea",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01EA",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01eb",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01EB",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01ec",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01EC",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01ed",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01ED",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01ee",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01EE",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01ef",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01EF",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01f0",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01F0",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01f1",
+    "ReturnType": "int",
+    "Name": "FLD_GET_KIRETA",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_GET_KIRETA",
+    "Aliases": [
+      "FUNCTION_01F1"
+    ]
+  },
+  {
+    "Index": "0x01f2",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01F2",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x01f3",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01F3",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01f4",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01F4",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01f5",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01F5",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01f6",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01F6",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01f7",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01F7",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01f8",
+    "ReturnType": "int",
+    "Name": "FUNCTION_01F8",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01f9",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01F9",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x01fa",
+    "ReturnType": "int",
+    "Name": "FLD_BGM_RELOAD",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_BGM_RELOAD",
+    "Aliases": [
+      "FUNCTION_01FA"
+    ]
+  },
+  {
+    "Index": "0x01fb",
+    "ReturnType": "int",
+    "Name": "FLD_BGM_RELOAD_WAIT",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_BGM_RELOAD_WAIT",
+    "Aliases": [
+      "FUNCTION_01FB"
+    ]
+  },
+  {
+    "Index": "0x01fc",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01FC",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01fd",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01FD",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01fe",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01FE",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x01ff",
+    "ReturnType": "void",
+    "Name": "FUNCTION_01FF",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0200",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0200",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0201",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0201",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0202",
+    "ReturnType": "int",
+    "Name": "FLD_WARP_CALL_FIELD",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_WARP_CALL_FIELD",
+    "Aliases": [
+      "FUNCTION_0202"
+    ]
+  },
+  {
+    "Index": "0x0203",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0203",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0204",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0204",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0205",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0205",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0206",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0206",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0207",
+    "ReturnType": "int",
+    "Name": "FLD_INF_GETPANEL",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_INF_GETPANEL",
+    "Aliases": [
+      "FUNCTION_0207"
+    ]
+  },
+  {
+    "Index": "0x0208",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0208",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0209",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0209",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x020a",
+    "ReturnType": "void",
+    "Name": "FUNCTION_020A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x020b",
+    "ReturnType": "int",
+    "Name": "FLD_ELV_ENDCHK",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_ELV_ENDCHK",
+    "Aliases": [
+      "FUNCTION_020B"
+    ]
+  },
+  {
+    "Index": "0x020c",
+    "ReturnType": "int",
+    "Name": "FUNCTION_020C",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x020d",
+    "ReturnType": "int",
+    "Name": "FLD_EXIT_CAMERA",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_EXIT_CAMERA",
+    "Aliases": [
+      "FUNCTION_020D"
+    ]
+  },
+  {
+    "Index": "0x020e",
+    "ReturnType": "int",
+    "Name": "FLD_INF_GOWAP",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_INF_GOWAP",
+    "Aliases": [
+      "FUNCTION_020E"
+    ]
+  },
+  {
+    "Index": "0x020f",
+    "ReturnType": "void",
+    "Name": "FUNCTION_020F",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0210",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0210",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0211",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0211",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0212",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0212",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0213",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0213",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0214",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0214",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0215",
+    "ReturnType": "float",
+    "Name": "FUNCTION_0215",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0216",
+    "ReturnType": "int",
+    "Name": "FLD_BGM_FADE",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [],
+    "FullName": "fldCommand_fldCommand_FLD_BGM_FADE",
+    "Aliases": [
+      "FUNCTION_0216"
+    ]
+  },
+  {
+    "Index": "0x0217",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0217",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0218",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0218",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0219",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0219",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x021a",
+    "ReturnType": "void",
+    "Name": "FUNCTION_021A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x021b",
+    "ReturnType": "int",
+    "Name": "FUNCTION_021B",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x021c",
+    "ReturnType": "int",
+    "Name": "FLD_SET_ENCOUNT",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_SET_ENCOUNT",
+    "Aliases": [
+      "FUNCTION_021C"
+    ]
+  },
+  {
+    "Index": "0x021d",
+    "ReturnType": "int",
+    "Name": "ACT_WIN_DSP3",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "fldCommand_fldCommand_ACT_WIN_DSP3",
+    "Aliases": [
+      "FUNCTION_021D"
+    ]
+  },
+  {
+    "Index": "0x021e",
+    "ReturnType": "void",
+    "Name": "FUNCTION_021E",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x021f",
+    "ReturnType": "int",
+    "Name": "FLD_SAGASI_AKUMA",
+    "Description": " (Copied from SMT3. May be incorrect.)",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "FullName": "fldCommand_fldCommand_FLD_SAGASI_AKUMA",
+    "Aliases": [
+      "FUNCTION_021F"
+    ]
+  },
+  {
+    "Index": "0x0220",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0220",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0221",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0221",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0222",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0222",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0223",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0223",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0224",
+    "ReturnType": "float",
+    "Name": "FUNCTION_0224",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0225",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0225",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0226",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0226",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0227",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0227",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0228",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0228",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0229",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0229",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x022a",
+    "ReturnType": "int",
+    "Name": "FUNCTION_022A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x022b",
+    "ReturnType": "void",
+    "Name": "FUNCTION_022B",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x022c",
+    "ReturnType": "void",
+    "Name": "FUNCTION_022C",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x022d",
+    "ReturnType": "int",
+    "Name": "FUNCTION_022D",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x022e",
+    "ReturnType": "void",
+    "Name": "FUNCTION_022E",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x022f",
+    "ReturnType": "int",
+    "Name": "FUNCTION_022F",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0230",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0230",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0231",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0231",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0232",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0232",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0233",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0233",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0234",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0234",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0235",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0235",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0236",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0236",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0237",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0237",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0238",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0238",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0239",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0239",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x023a",
+    "ReturnType": "int",
+    "Name": "FUNCTION_023A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x023b",
+    "ReturnType": "void",
+    "Name": "FUNCTION_023B",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x023c",
+    "ReturnType": "int",
+    "Name": "FUNCTION_023C",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x023d",
+    "ReturnType": "void",
+    "Name": "FUNCTION_023D",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x023e",
+    "ReturnType": "void",
+    "Name": "FUNCTION_023E",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x023f",
+    "ReturnType": "void",
+    "Name": "FUNCTION_023F",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x0240",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0240",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0241",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0241",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0242",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0242",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0243",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0243",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": "Unknown type; assumed int"
+      }
+    ]
+  },
+  {
+    "Index": "0x0244",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0244",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0245",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0245",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0246",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0246",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0247",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0247",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0248",
+    "ReturnType": "void",
+    "Name": "FUNCTION_0248",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x0249",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0249",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x024a",
+    "ReturnType": "void",
+    "Name": "FUNCTION_024A",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x024b",
+    "ReturnType": "void",
+    "Name": "FUNCTION_024B",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x024c",
+    "ReturnType": "void",
+    "Name": "FUNCTION_024C",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x024d",
+    "ReturnType": "int",
+    "Name": "FUNCTION_024D",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x024e",
+    "ReturnType": "int",
+    "Name": "FUNCTION_024E",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
+  },
+  {
+    "Index": "0x024f",
+    "ReturnType": "void",
+    "Name": "FUNCTION_024F",
+    "Description": "",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
+  }
+]

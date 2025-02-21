@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net8.0;netstandard2.0</TargetFrameworks>
     <OutputType>Library</OutputType>
@@ -48,6 +48,20 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Libraries\EO2.json" />
+    <None Remove="Libraries\EO2\FlowScriptModules.json" />
+    <None Remove="Libraries\EO2\MessageScriptLibrary.json" />
+    <None Remove="Libraries\EO2\Modules\Common\Functions.json" />
+    <None Remove="Libraries\TraumaCenter3.json" />
+    <None Remove="Libraries\TraumaCenter3\FlowScriptModules.json" />
+    <None Remove="Libraries\TraumaCenter3\MessageScriptLibrary.json" />
+    <None Remove="Libraries\TraumaCenter3\Modules\Common\Functions.json" />
+    <None Remove="Libraries\TraumaCenter2.json" />
+    <None Remove="Libraries\TraumaCenter2\FlowScriptModules.json" />
+    <None Remove="Libraries\TraumaCenter2\MessageScriptLibrary.json" />
+    <None Remove="Libraries\TraumaCenter2\Modules\Common\Functions.json" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Antlr4.CodeGenerator">
       <Version>4.6.6</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -65,36 +79,11 @@
     <PackageReference Include="System.Text.Json" Version="9.0.0" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="Libraries\Persona3Reload.json">
+    <Content Update="Libraries\TraumaCenter2\MessageScriptLibrary.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Libraries\Persona3Reload\FlowScriptModules.json">
+    </Content>
+    <Content Update="Libraries\TraumaCenter3\MessageScriptLibrary.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Libraries\Persona3Reload\MessageScriptLibrary.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Libraries\Persona3Reload\Modules\Battle\Functions.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Libraries\Persona3Reload\Modules\Common\Enums.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Libraries\Persona3Reload\Modules\Common\Functions.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Libraries\Persona3Reload\Modules\Community\Functions.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Libraries\Persona3Reload\Modules\Event\Functions.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Libraries\Persona3Reload\Modules\Facility\Functions.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Libraries\Persona3Reload\Modules\Field\Functions.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
-  <PropertyGroup />
 </Project>

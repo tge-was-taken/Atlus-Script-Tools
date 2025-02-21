@@ -1,6 +1,7 @@
 ﻿using AtlusScriptLibrary.Common.Text.Encodings;
 using AtlusScriptLibrary.MessageScriptLanguage;
 using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel;
+using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V1;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ public sealed class FlowScriptBinaryBuilder
     private IList<BinaryLabel> mProcedureLabelSection;
     private IList<BinaryLabel> mJumpLabelSection;
     private IList<BinaryInstruction> mTextSection;
-    private MessageScriptBinary mMessageScriptSection;
+    private IMessageScriptBinary mMessageScriptSection;
     private IList<byte> mStringSection;
 
     public FlowScriptBinaryBuilder(BinaryFormatVersion version, bool matching = true)
@@ -128,12 +129,15 @@ public sealed class FlowScriptBinaryBuilder
 
         if (mMatching)
         {
-            // add return instruction at end
-            mTextSection.Add(new BinaryInstruction() { Opcode = Opcode.END });
+            if (mFormatVersion == BinaryFormatVersion.Version1)
+            {
+                // add return instruction at end
+                mTextSection.Add(new BinaryInstruction() { Opcode = Opcode.END });
 
-            // apply string section padding
-            while (mStringSection.Count < 0xF0)
-                mStringSection.Add(0);
+                // apply string section padding
+                while (mStringSection.Count < 0xF0)
+                    mStringSection.Add(0);
+            }
         }
 
         var binary = new FlowScriptBinary
@@ -214,7 +218,7 @@ public sealed class FlowScriptBinaryBuilder
 
         if (mMatching || mMessageScriptSection != null)
         {
-            sectionHeader = BuildSectionHeader(BinarySectionType.MessageScriptSection, sizeof(byte), mMessageScriptSection?.Header.FileSize ?? 0, nextFirstElementAddress);
+            sectionHeader = BuildSectionHeader(BinarySectionType.MessageScriptSection, sizeof(byte), mMessageScriptSection?.FileSize ?? 0, nextFirstElementAddress);
             sectionHeaders[currentSectionHeaderIndex++] = sectionHeader;
             nextFirstElementAddress += (sectionHeader.ElementCount * sectionHeader.ElementSize);
         }
@@ -263,7 +267,7 @@ public sealed class FlowScriptBinaryBuilder
             size += (BinarySectionHeader.SIZE + (mTextSection.Count * BinaryInstruction.SIZE));
 
         if (mMessageScriptSection != null)
-            size += (BinarySectionHeader.SIZE + (mMessageScriptSection.Header.FileSize * sizeof(byte)));
+            size += (BinarySectionHeader.SIZE + (mMessageScriptSection.FileSize * sizeof(byte)));
         else if (mMatching)
             size += BinarySectionHeader.SIZE;
 

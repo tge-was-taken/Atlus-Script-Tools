@@ -1,6 +1,11 @@
 ﻿using AtlusScriptLibrary.Common.IO;
+using AtlusScriptLibrary.Common.Text.Encodings;
 using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel;
+using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V1;
+using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V2;
+using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V3;
 using System;
+using System.Buffers.Binary;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -13,7 +18,18 @@ namespace AtlusScriptLibrary.MessageScriptLanguage;
 /// </summary>
 public class MessageScript
 {
-    // TODO: maybe move the parsing functions to a seperate class
+    public static MessageScript FromBinary(IMessageScriptBinary binary, FormatVersion version = FormatVersion.Detect, Encoding encoding = null)
+    {
+        if (binary is MessageScriptBinary v1)
+            return FromBinary(v1, version, encoding);
+        else if (binary is MessageScriptBinaryV2 v2)
+            return FromBinary(v2, version, encoding);
+        else if (binary is Bm2Binary v3)
+            return FromBinary(v3, version, encoding);
+        else
+            throw new NotSupportedException();
+    }
+
     /// <summary>
     /// Creates a <see cref="MessageScript"/> from a <see cref="MessageScriptBinary"/>.
     /// </summary>
@@ -30,8 +46,8 @@ public class MessageScript
         {
             Id = binary.Header.UserId,
             FormatVersion = version == FormatVersion.Detect ? (FormatVersion)binary.FormatVersion : version,
-            Encoding = encoding
         };
+        instance.Encoding = EncodingHelper.GetEncodingForEndianness(encoding, version.HasFlag(FormatVersion.BigEndian)) ?? Encoding.ASCII;
 
         // Convert the binary messages to their counterpart
         var labelOccurences = new Dictionary<string, int>();
@@ -73,7 +89,7 @@ public class MessageScript
                             if (binaryMessage.SpeakerId < binary.SpeakerTableHeader.SpeakerCount)
                             {
                                 speakerName = ParseSpeakerText(binary.SpeakerTableHeader.SpeakerNameArray
-                                    .Value[binaryMessage.SpeakerId].Value, instance.FormatVersion, encoding == null ? Encoding.ASCII : encoding);
+                                    .Value[binaryMessage.SpeakerId].Value, instance.FormatVersion, instance.Encoding);
                             }
 
                             message = new MessageDialog(name, new NamedSpeaker(speakerName));
@@ -99,7 +115,154 @@ public class MessageScript
             if (pageCount != 0)
             {
                 // Parse the line data
-                ParsePages(message, pageStartAddresses, buffer, instance.FormatVersion, encoding == null ? Encoding.ASCII : encoding);
+                ParsePages(message, pageStartAddresses, buffer, instance.FormatVersion, instance.Encoding);
+            }
+
+            // Add it to the message list
+            instance.Dialogs.Add(message);
+        }
+
+        return instance;
+    }
+
+    /// <summary>
+    /// Creates a <see cref="MessageScript"/> from a <see cref="MessageScriptBinaryV2"/>.
+    /// </summary>
+    public static MessageScript FromBinary(MessageScriptBinaryV2 binary, FormatVersion version = FormatVersion.Detect, Encoding encoding = null)
+    {
+        if (binary == null)
+            throw new ArgumentNullException(nameof(binary));
+
+
+        // Create new script instance & set user id, format version
+        var instance = new MessageScript
+        {
+            FormatVersion = version == FormatVersion.Detect ? (FormatVersion)binary.FormatVersion : version,
+        };
+        var isBigEndian = instance.FormatVersion.HasFlag(FormatVersion.BigEndian);
+        instance.Encoding =
+            EncodingHelper.GetEncodingForEndianness(encoding, isBigEndian)
+            ?? EncodingHelper.GetEncodingForEndianness(Encoding.Unicode, isBigEndian);
+
+        // Convert the binary messages to their counterpart
+        var labelOccurences = new Dictionary<string, int>();
+        foreach (var messageHeader in binary.Header2.DialogArray.Value)
+        {
+            IDialog message;
+            IReadOnlyList<int> pageStartAddresses;
+            IReadOnlyList<byte> buffer;
+            int pageCount;
+
+            switch (messageHeader.Value)
+            {
+                case BinaryMessageDialogV2 binaryMessage:
+                    {
+                        pageStartAddresses = binaryMessage.PageStartAddresses;
+                        buffer = binaryMessage.TextBuffer;
+                        pageCount = binaryMessage.PageCount;
+
+                        // check for duplicates
+                        var name = ResolveName(labelOccurences, binaryMessage.Name);
+
+                        if (binaryMessage.SpeakerId == 0xFFFF)
+                        {
+                            message = new MessageDialog(name);
+                        }
+                        else
+                        {
+                            message = new MessageDialog(name, new VariableSpeaker(binaryMessage.SpeakerId));
+                        }
+                    }
+                    break;
+
+                case BinarySelectionDialogV2 binarySelection:
+                    {
+                        pageStartAddresses = binarySelection.OptionStartAddresses;
+                        buffer = binarySelection.TextBuffer;
+                        pageCount = binarySelection.OptionCount;
+                        var name = ResolveName(labelOccurences, binarySelection.Name);
+                        message = new SelectionDialog(name);
+                    }
+                    break;
+
+                default:
+                    throw new InvalidDataException("Unknown message type");
+            }
+
+            if (pageCount != 0)
+            {
+                // Parse the line data
+                ParsePages(message, pageStartAddresses, buffer, instance.FormatVersion, instance.Encoding);
+            }
+
+            // Add it to the message list
+            instance.Dialogs.Add(message);
+        }
+
+        return instance;
+    }
+
+    /// <summary>
+    /// Creates a <see cref="MessageScript"/> from a <see cref="MessageScriptBinaryV2"/>.
+    /// </summary>
+    public static MessageScript FromBinary(Bm2Binary binary, FormatVersion version = FormatVersion.Detect, Encoding encoding = null)
+    {
+        if (binary == null)
+            throw new ArgumentNullException(nameof(binary));
+
+        // Create new script instance & set user id, format version
+        var instance = new MessageScript
+        {
+            FormatVersion = version == FormatVersion.Detect ? (FormatVersion)binary.FormatVersion : version,
+        };
+        instance.Encoding = EncodingHelper.GetEncodingForEndianness(encoding, version.HasFlag(FormatVersion.BigEndian)) ?? Encoding.ASCII;
+
+        // Convert the binary messages to their counterpart
+        var labelOccurences = new Dictionary<string, int>();
+        foreach (var messageHeader in binary.Messages)
+        {
+            IDialog message;
+            IReadOnlyList<int> pageStartAddresses;
+            IReadOnlyList<byte> buffer;
+            uint pageCount;
+
+            var binaryMessage = messageHeader;
+            pageStartAddresses = binaryMessage.Data.PageOffsets;
+            buffer = binaryMessage.Data.TextBuffer;
+            pageCount = binaryMessage.Data.PageCount;
+
+            // check for duplicates
+            var name = ResolveName(labelOccurences, binaryMessage.Name);
+
+            if (binaryMessage.SpeakerId == 0xFFFF)
+            {
+                message = new MessageDialog(name);
+            }
+            else if ((binaryMessage.SpeakerId & 0x8000) == 0x8000)
+            {
+                Trace.WriteLine(binaryMessage.SpeakerId.ToString("X4"));
+
+                message = new MessageDialog(name, new VariableSpeaker(binaryMessage.SpeakerId & 0x0FFF));
+            }
+            else
+            {
+                if (binary.Speakers.Count == 0)
+                    throw new InvalidDataException("Speaker name array is null while being referenced");
+
+                TokenText speakerName = null;
+                if (binaryMessage.SpeakerId < binary.Speakers.Count)
+                {
+                    speakerName = ParseSpeakerText(binary.Speakers[binaryMessage.SpeakerId].Data,
+                        instance.FormatVersion, instance.Encoding);
+                }
+
+                message = new MessageDialog(name, new NamedSpeaker(speakerName));
+            }
+
+            if (pageCount != 0)
+            {
+                // Parse the line data
+                ParsePages(message, pageStartAddresses, buffer, instance.FormatVersion, instance.Encoding);
             }
 
             // Add it to the message list
@@ -112,26 +275,25 @@ public class MessageScript
     /// <summary>
     /// Deserializes and creates a <see cref="MessageScript"/> from a file.
     /// </summary>
-    public static MessageScript FromFile(string path, FormatVersion version = FormatVersion.Version1, Encoding encoding = null)
+    public static MessageScript FromFile(string path, FormatVersion version = FormatVersion.Detect, Encoding encoding = null)
     {
         if (path == null)
             throw new ArgumentNullException(nameof(path));
 
-        var binary = MessageScriptBinary.FromFile(path);
-
+        var binary = MessageScriptBinaryFactory.FromFile(path);
         return FromBinary(binary, version, encoding);
     }
 
     /// <summary>
     /// Deserializes and creates a <see cref="MessageScript"/> from a stream.
     /// </summary>
-    public static MessageScript FromStream(Stream stream, FormatVersion version = FormatVersion.Version1, Encoding encoding = null, bool leaveOpen = false)
+    public static MessageScript FromStream(Stream stream, FormatVersion version = FormatVersion.Detect, Encoding encoding = null, bool leaveOpen = false)
     {
         if (stream == null)
             throw new ArgumentNullException(nameof(stream));
 
-        var binary = MessageScriptBinary.FromStream(stream, leaveOpen);
 
+        var binary = MessageScriptBinaryFactory.FromStream(stream);
         return FromBinary(binary, version, encoding);
     }
 
@@ -207,208 +369,18 @@ public class MessageScript
 
     private static bool TryParseTokens(IReadOnlyList<byte> buffer, ref int bufferIndex, out List<IToken> tokens, FormatVersion version, Encoding encoding)
     {
-        byte b = buffer[bufferIndex++];
-        tokens = new List<IToken>();
-
-        // Check if the current byte signifies a function
-        if (b == 0)
+        if (version.HasFlag(FormatVersion.Version2))
         {
-            tokens = null;
-            return false;
+            return MessageScriptBinaryV2TokenParser.TryParseTokens(buffer, ref bufferIndex, out tokens, version, encoding);
         }
-        if (b == NewLineToken.Value)
+        else if (version.HasFlag(FormatVersion.Version3))
         {
-            tokens.Add(new NewLineToken());
-        }
-        else if (IsFunctionToken(b, version))
-        {
-            tokens.Add(ParseFunctionToken(b, buffer, ref bufferIndex, version));
+            return Bm2BinaryTokenParser.TryParseTokens(buffer, ref bufferIndex, out tokens, version, encoding);
         }
         else
         {
-            tokens.AddRange(ParseTextTokens(b, buffer, ref bufferIndex, encoding));
+            return MessageScriptBinaryTokenParser.TryParseTokens(buffer, ref bufferIndex, out tokens, version, encoding);
         }
-
-        return true;
-    }
-
-    private static bool IsFunctionToken(byte b, FormatVersion version)
-    {
-        if (version == FormatVersion.Version1Reload)
-        {
-            return b == 0xFE;
-        }
-        else
-        {
-            return (b & 0xF0) == 0xF0;
-        }
-    }
-
-    private static FunctionToken ParseFunctionToken(byte b, IReadOnlyList<byte> buffer, ref int bufferIndex, FormatVersion version)
-    {
-        int first = (version == FormatVersion.Version1Reload) ? buffer[bufferIndex++] : b;
-        int functionId = (first << 8) | buffer[bufferIndex++];
-        int functionTableIndex = (functionId & 0xE0) >> 5;
-        int functionIndex = (functionId & 0x1F);
-
-        int functionArgumentByteCount;
-        if (version == FormatVersion.Version1 || version == FormatVersion.Version1BigEndian || version == FormatVersion.Version1Reload)
-        {
-            functionArgumentByteCount = ((((functionId >> 8) & 0xF) - 1) * 2);
-        }
-        else if (version == FormatVersion.Version1DDS)
-        {
-            functionArgumentByteCount = ((functionId >> 8) & 0xF);
-        }
-        else
-        {
-            throw new ArgumentOutOfRangeException(nameof(version));
-        }
-
-        var functionArguments = new ushort[functionArgumentByteCount / 2];
-
-        for (int i = 0; i < functionArguments.Length; i++)
-        {
-            byte firstByte = (byte)(buffer[bufferIndex++] - 1);
-            byte secondByte = 0;
-            byte secondByteAux = buffer[bufferIndex++];
-
-            //if (secondByteAux != 0xFF)
-            {
-                secondByte = (byte)(secondByteAux - 1);
-            }
-
-            functionArguments[i] = (ushort)((firstByte & ~0xFF00) | ((secondByte << 8) & 0xFF00));
-        }
-        var bAddIdentifierType = (version == FormatVersion.Version1Reload) ? true : false;
-        return new FunctionToken(functionTableIndex, functionIndex, bAddIdentifierType, functionArguments);
-    }
-
-    private static IEnumerable<IToken> ParseTextTokens(byte b, IReadOnlyList<byte> buffer, ref int bufferIndex, Encoding encoding)
-    {
-        var accumulatedText = new List<byte>();
-        var charBytes = new byte[2];
-        var tokens = new List<IToken>();
-        byte b2;
-        while (true)
-        {
-            if (encoding == Encoding.UTF8)
-            {
-                accumulatedText.Add(b);
-                if (b > 0xC0) // read 2 bytes
-                {
-                    b2 = buffer[bufferIndex++];
-                    accumulatedText.Add(b2);
-                    if (b > 0xE0) // read 3 bytes
-                    {
-                        var b3 = buffer[bufferIndex++];
-                        accumulatedText.Add(b3);
-                        if (b > 0xF0) // read 4 bytes
-                        {
-                            var b4 = buffer[bufferIndex++];
-                            accumulatedText.Add(b4);
-                        }
-                    }
-                }
-            }
-            else // Atlus and Shift-JIS
-            {
-                if ((b & 0x80) == 0x80)
-                {
-                    b2 = buffer[bufferIndex++];
-                    accumulatedText.Add(b);
-                    accumulatedText.Add(b2);
-                }
-                else
-                {
-                    // Read one
-                    accumulatedText.Add(b);
-                }
-            }
-
-            // Check for any condition that would end the sequence of text characters
-            if (bufferIndex == buffer.Count)
-                break;
-
-            b = buffer[bufferIndex];
-
-            if (b == 0 || b == NewLineToken.Value || (b & 0xF0) == 0xF0)
-            {
-                break;
-            }
-
-            bufferIndex++;
-        }
-
-        var accumulatedTextBuffer = accumulatedText.ToArray();
-        var stringBuilder = new StringBuilder();
-
-        void FlushStringBuilder()
-        {
-            // There was some proper text previously, so make sure we add it first
-            if (stringBuilder.Length != 0)
-            {
-                tokens.Add(new StringToken(stringBuilder.ToString()));
-                stringBuilder.Clear();
-            }
-        }
-
-        void AddToken(CodePointToken token)
-        {
-            FlushStringBuilder();
-            tokens.Add(token);
-        }
-
-        if (encoding == Encoding.UTF8)
-        {
-            stringBuilder.Append(Encoding.UTF8.GetString(accumulatedTextBuffer));
-        }
-        else
-        {
-            for (int i = 0; i < accumulatedTextBuffer.Length; i++)
-            {
-                byte high = accumulatedTextBuffer[i];
-                if ((high & 0x80) == 0x80)
-                {
-                    byte low = accumulatedTextBuffer[++i];
-
-                    if (encoding != null && !encoding.IsSingleByte)
-                    {
-                        // Get decoded characters
-                        charBytes[0] = high;
-                        charBytes[1] = low;
-
-                        // Check if it's an unmapped character -> make it a code point
-                        var chars = encoding.GetChars(charBytes);
-                        Trace.Assert(chars.Length > 0);
-
-                        if (chars[0] == 0)
-                        {
-                            AddToken(new CodePointToken(high, low));
-                        }
-                        else
-                        {
-                            foreach (char c in chars)
-                            {
-                                stringBuilder.Append(c);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        AddToken(new CodePointToken(high, low));
-                    }
-                }
-                else
-                {
-                    stringBuilder.Append((char)high);
-                }
-            }
-        }
-
-        FlushStringBuilder();
-
-        return tokens;
     }
 
     /// <summary>
@@ -434,7 +406,7 @@ public class MessageScript
     /// <summary>
     /// Creates a new instance of <see cref="MessageScript"/> initialized with default values.
     /// </summary>
-    private MessageScript()
+    public MessageScript()
     {
         Id = 0;
         FormatVersion = FormatVersion.Version1;
@@ -457,12 +429,24 @@ public class MessageScript
     /// Converts this <see cref="MessageScript"/> instance to a <see cref="MessageScriptBinary"/> instance.
     /// </summary>
     /// <returns></returns>
-    public MessageScriptBinary ToBinary()
+    public IMessageScriptBinary ToBinary()
+    {
+        if (FormatVersion.HasFlag(FormatVersion.Version2))
+            return ToBinaryV2();
+        else if (FormatVersion.HasFlag(FormatVersion.Version3))
+            return ToBinaryV3();
+        else
+            return ToBinaryV1();
+    }
+
+    private MessageScriptBinary ToBinaryV1()
     {
         var builder = new MessageScriptBinaryBuilder((BinaryFormatVersion)FormatVersion);
 
         builder.SetUserId(Id);
-        builder.SetEncoding(Encoding);
+
+        if (Encoding != null)
+            builder.SetEncoding(Encoding);
 
         foreach (var dialog in Dialogs)
         {
@@ -482,6 +466,59 @@ public class MessageScript
 
         return builder.Build();
     }
+
+    private MessageScriptBinaryV2 ToBinaryV2()
+    {
+        var builder = new MessageScriptBinaryV2Builder((BinaryFormatVersion)FormatVersion);
+
+        if (Encoding != null)
+            builder.SetEncoding(Encoding);
+
+        foreach (var dialog in Dialogs)
+        {
+            switch (dialog.Kind)
+            {
+                case DialogKind.Message:
+                    builder.AddDialog((MessageDialog)dialog);
+                    break;
+                case DialogKind.Selection:
+                    builder.AddDialog((SelectionDialog)dialog);
+                    break;
+
+                default:
+                    throw new NotImplementedException(dialog.Kind.ToString());
+            }
+        }
+
+        return builder.Build();
+    }
+
+    private Bm2Binary ToBinaryV3()
+    {
+        var builder = new Bm2BinaryBuilder((BinaryFormatVersion)FormatVersion);
+
+        if (Encoding != null)
+            builder.SetEncoding(Encoding);
+
+        foreach (var dialog in Dialogs)
+        {
+            switch (dialog.Kind)
+            {
+                case DialogKind.Message:
+                    builder.AddDialog((MessageDialog)dialog);
+                    break;
+                //case DialogKind.Selection:
+                //    //builder.AddDialog((SelectionDialog)dialog);
+                //    break;
+
+                default:
+                    throw new NotImplementedException(dialog.Kind.ToString());
+            }
+        }
+
+        return builder.Build();
+    }
+
 
     /// <summary>
     /// Serializes and writes this <see cref="MessageScript"/> instance to the specified file.

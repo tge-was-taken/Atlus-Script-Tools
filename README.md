@@ -1,14 +1,46 @@
 ﻿
 # Atlus Script Tools [![Build status](https://ci.appveyor.com/api/projects/status/l3p8joj4frjkn753?svg=true)](https://ci.appveyor.com/project/tge-was-taken/atlus-script-tools/build/artifacts)
 
-WIP set of tools developed for handling Atlus' script formats including
+Set of tools developed for handling Atlus' script formats including
 * flow script files (.bf)
-* message script files (.bmd)
+* message script files (.bmd, .bm2)
 
 All of the code is written in C# and licensed under the GNU GPL.
 
 Latest build:
-* https://ci.appveyor.com/project/tge-was-taken/atlus-script-tools/build/artifacts
+* https://ci.appveyor.com/project/tge-was-taken/atlus-script-tools/build/artifacts (available for 30 days)
+* [Github release](https://github.com/tge-was-taken/Atlus-Script-Tools/releases)
+
+## Supported games ##
+* Catherine
+* Catherine: Full Body
+* Devil Summoner: Raidou Kuzunoha vs. the Soulless Army
+* Devil Summoner 2: Raidou Kuzunoha vs. King Abaddon
+* Persona 3
+* Persona 3 FES
+* Persona 3 Portable
+* Persona 3 Reload
+* Persona 4
+* Persona 4 Golden
+* Persona 5
+* Persona 5 Royal
+* Persona Q
+* Persona Q2: New Cinema Labyrinth
+* Shin Megami Tensei 3: Nocturne
+* Shin Megami Tensei 3: Nocturne HD
+* Shin Megami Tensei: Digital Devil Saga 1
+* Shin Megami Tensei: Digital Devil Saga 2
+* Trauma Center Second Opinion
+* Trauma Center New Blood
+* Etrian Odyssey II: Heroes of Lagaard
+* Other games might be supported out-of-the-box for editing of message script files
+
+## Example usage ##
+Decompiling a script from Persona 5 Royal: ``AtlusScriptCompiler -Decompile -In "path/to/script.bf" -Library P5R -Encoding P5``
+
+Compiling a script for SMT3: ``AtlusScriptCompiler -Compile -In "path/to/script.flow" -Library SMT3 -OutFormat V1`` 
+
+See ``AtlusScriptCompiler -Help`` for more info.
 
 ## Overview of repository structure ##
 

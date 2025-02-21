@@ -8,7 +8,7 @@ public class NewLineToken : IToken
     /// <summary>
     /// The constant value of a newline token.
     /// </summary>
-    public const byte Value = 0x0A;
+    public const byte ASCIIValue = 0x0A;
 
     /// <summary>
     /// Gets the type of this token.
