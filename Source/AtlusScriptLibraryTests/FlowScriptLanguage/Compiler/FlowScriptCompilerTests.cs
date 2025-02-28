@@ -157,5 +157,24 @@ void test()
                 Instruction.END(),
             });
         }
+
+
+        [TestMethod]
+        public void return_statement_handling()
+        {
+            var source = @"
+int test()
+{
+    return 1;
+}";
+
+            RunTest(source, FormatVersion.Version3BigEndian, "p5", new[]
+            {
+                Instruction.PROC(0),
+                Instruction.PUSHIS(1),
+                Instruction.POPLIX(0),
+                Instruction.END(),
+            });
+        }
     }
 }

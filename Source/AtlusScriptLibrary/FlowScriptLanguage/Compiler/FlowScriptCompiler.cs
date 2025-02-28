@@ -1393,17 +1393,17 @@ public class FlowScriptCompiler
             Emit(Instruction.PUSHI((uint)declaration.Identifier.Text.GetHashCode()));
         }
 
-        ReturnStatement returnStatement = new ReturnStatement();
+        ReturnStatement finalReturnStatement = new ReturnStatement();
 
         var hasOutParameters = declaration.Parameters
             .Where(x => x.Modifier == ParameterModifier.Out)
             .Any();
 
         // Remove last return statement
-        if (hasOutParameters && declaration.Body.Statements.Count != 0 && declaration.Body.Statements.Last() is ReturnStatement)
+        if (declaration.Body.Statements.Count != 0 && declaration.Body.Statements.Last() is ReturnStatement)
         {
-            returnStatement = (ReturnStatement)declaration.Body.Last();
-            declaration.Body.Statements.Remove(returnStatement);
+            finalReturnStatement = (ReturnStatement)declaration.Body.Last();
+            declaration.Body.Statements.Remove(finalReturnStatement);
         }
 
         // Emit procedure body
@@ -1450,7 +1450,7 @@ public class FlowScriptCompiler
             }
         }
 
-        if (!TryEmitReturnStatement(returnStatement))
+        if (!TryEmitReturnStatement(finalReturnStatement))
         {
             return false;
         }
