@@ -14,8 +14,8 @@ namespace AtlusScriptLibraryTests.FlowScriptLanguage.Compiler
     {
         private void RunTest(string source, FormatVersion version, string library, IEnumerable<Instruction> instructions)
         {
-            var compiler = new FlowScriptCompiler(FormatVersion.Version4);
-            compiler.Library = LibraryLookup.GetLibrary("p3re");
+            var compiler = new FlowScriptCompiler(version);
+            compiler.Library = LibraryLookup.GetLibrary(library);
             compiler.EnableProcedureTracing = false;
             compiler.AddListener(new DebugLogListener());
             if (!compiler.TryCompile(source, out var script))
@@ -174,6 +174,53 @@ int test()
                 Instruction.PUSHIS(1),
                 Instruction.POPLIX(0),
                 Instruction.END(),
+            });
+        }
+
+
+        [TestMethod]
+        public void parameter_passing()
+        {
+            var source = @"
+global(0) int g0;
+void foo() {
+    bar(0, 1, 2);
+}
+
+void bar(int p0, int p1, int p2)
+{
+    g0 = (p0 + p1) + p2;
+}
+";
+
+            RunTest(source, FormatVersion.Version3BigEndian, "p5", new[]
+            {
+                Instruction.PROC(0),
+                Instruction.PUSHIS(0), // bar(0,1, 2)
+                Instruction.POPLIX(0),
+                Instruction.PUSHIS(1),
+                Instruction.POPLIX(1),
+                Instruction.PUSHIS(2),
+                Instruction.POPLIX(2),
+                Instruction.CALL(1),
+                Instruction.END(),
+
+                Instruction.PROC(1),
+                // parameter passing
+                Instruction.PUSHLIX(0), // p0
+                Instruction.POPLIX(3),
+                Instruction.PUSHLIX(1), // p1
+                Instruction.POPLIX(4),
+                Instruction.PUSHLIX(2), // p2
+                Instruction.POPLIX(5),
+                
+                Instruction.PUSHLIX(5), // p2
+                Instruction.PUSHLIX(4), // p1
+                Instruction.PUSHLIX(3), // p0
+                Instruction.ADD(), // p0 + p1
+                Instruction.ADD(), // (result) + p2
+                Instruction.POPIX(0), // g0 = (result)
+                Instruction.END()
             });
         }
     }
