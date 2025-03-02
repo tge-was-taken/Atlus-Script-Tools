@@ -30,6 +30,8 @@ public class AtlusEncoding : Encoding
     /// </summary>
     private const int GLYPH_TABLE_INDEX_MARKER = 0x80;
 
+    public override string EncodingName { get; }
+
     // Ease of use accessors
     private static string sCharsetsBaseDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Charsets");
     private static readonly Dictionary<string, AtlusEncoding> sCache = new();
@@ -68,8 +70,6 @@ public class AtlusEncoding : Encoding
 
     private Dictionary<string, CodePoint> mCharToCodePoint;
     private Dictionary<CodePoint, string> mCodePointToChar;
-
-    public string CharsetName { get; }
 
     public override int GetByteCount(char[] chars, int index, int count)
     {
@@ -121,7 +121,21 @@ public class AtlusEncoding : Encoding
 
         return byteCount;
     }
-
+    
+    public override byte[] GetBytes(string s)
+    {
+        int byteCount = GetByteCount(s);
+        byte[] bytes = new byte[byteCount];
+        int bytesReceived = GetBytes(s, 0, s.Length, bytes, 0);
+        
+        if (byteCount != bytesReceived)
+        {
+            bytes = new Span<byte>(bytes, 0, bytesReceived).ToArray();
+        }
+            
+        return bytes;
+    }
+    
     public override int GetCharCount(byte[] bytes, int index, int count)
     {
         int charCount = 0;
@@ -220,7 +234,7 @@ public class AtlusEncoding : Encoding
 
     private AtlusEncoding(string tableName)
     {
-        CharsetName = tableName;
+        EncodingName = tableName;
         var tableFilePath = Path.Combine(sCharsetsBaseDirectoryPath, $"{tableName}.tsv");
         if (!File.Exists(tableFilePath))
             throw new ArgumentException($"Unknown encoding: {tableName} ({tableFilePath})", nameof(tableName));
