@@ -71,7 +71,7 @@ public class FlowScriptCompiler
     public Encoding Encoding 
     {
         get => encoding; 
-        set => encoding = EncodingHelper.GetEncodingForEndianness(encoding, mFormatVersion.HasFlag(FormatVersion.BigEndian)); 
+        set => encoding = EncodingHelper.GetEncodingForEndianness(value, mFormatVersion.HasFlag(FormatVersion.BigEndian)); 
     }
 
     /// <summary>
