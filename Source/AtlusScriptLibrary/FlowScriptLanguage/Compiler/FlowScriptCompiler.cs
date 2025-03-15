@@ -136,7 +136,7 @@ public class FlowScriptCompiler
     /// Tries to get a list of all files that would be imported (directly or transitively) when compiling a flowscript file.
     /// </summary>
     /// <param name="files">A List of paths to .bf, .flow, and .msg files to be used as a base when checking for imports.</param>
-    /// <param name="resolvedImports">A list of all imports found. This includes the passed in <paramref name="files"/>.</param>
+    /// <param name="resolvedImports">A list of full paths to all imports found. This includes the passed in <paramref name="files"/>.</param>
     /// <returns>True if imports could be resolved, false otherwise</returns>
     public bool TryGetImports(List<string> files, out string[] resolvedImports)
     {
@@ -918,6 +918,7 @@ public class FlowScriptCompiler
         }
 
         Info($"Importing MessageScript from file '{compilationUnitFilePath}'");
+        import.CompilationUnitFileName = compilationUnitFilePath;
 
         string messageScriptSource;
 
@@ -964,6 +965,7 @@ public class FlowScriptCompiler
         }
 
         Info($"Importing FlowScript from file '{compilationUnitFilePath}'");
+        import.CompilationUnitFileName = compilationUnitFilePath;
         FileStream flowScriptFileStream;
         try
         {
@@ -1017,6 +1019,7 @@ public class FlowScriptCompiler
         }
 
         Info($"Importing compiled FlowScript from file '{compilationUnitFilePath}'");
+        import.CompilationUnitFileName = compilationUnitFilePath;
         FileStream flowScriptFileStream;
         try
         {
