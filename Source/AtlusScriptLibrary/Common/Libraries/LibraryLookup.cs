@@ -51,10 +51,22 @@ public static class LibraryLookup
         EnsureInitialized();
 
         if (sLibrariesByShortName.TryGetValue(name, out var value))
+        {
+            foreach(FlowScriptModule module in value.FlowScriptModules)
+            {
+                module.Functions = module.Functions.OrderBy(x => x.Index).ToList();
+            }
             return value;
+        }
 
         if (sLibrariesByFullName.TryGetValue(name, out value))
+        {
+            foreach(FlowScriptModule module in value.FlowScriptModules)
+            {
+                module.Functions = module.Functions.OrderBy(x => x.Index).ToList();
+            }
             return value;
+        }
 
         return null;
     }
