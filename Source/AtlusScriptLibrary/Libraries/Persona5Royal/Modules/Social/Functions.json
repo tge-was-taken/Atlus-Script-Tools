@@ -26,43 +26,43 @@
         "Parameters":  [
                            {
                                "Type":  "int",
-                               "Name":  "param1",
+                               "Name":  "assetSlot",
+                               "Description":  "ID of an asset slot as defined in an EVT"
+                           },
+                           {
+                               "Type":  "int",
+                               "Name":  "majorId",
                                "Description":  ""
                            },
                            {
                                "Type":  "int",
-                               "Name":  "param2",
+                               "Name":  "minorId",
                                "Description":  ""
                            },
                            {
                                "Type":  "int",
-                               "Name":  "param3",
-                               "Description":  ""
-                           },
-                           {
-                               "Type":  "int",
-                               "Name":  "param4",
+                               "Name":  "subId",
                                "Description":  ""
                            },
                            {
                                "Type":  "int",
                                "Name":  "param5",
-                               "Description":  ""
+                               "Description":  "For a character asset, corresponds to base animation id. Need to investigate for other asset types"
                            },
                            {
                                "Type":  "int",
                                "Name":  "param6",
-                               "Description":  ""
+                               "Description":  "For a character asset, corresponds to extra base animation id. Need to investigate for other asset types"
                            },
                            {
                                "Type":  "int",
                                "Name":  "param7",
-                               "Description":  ""
+                               "Description":  "For a character asset, corresponds to extra additive animation id. Need to investigate for other asset types"
                            },
                            {
                                "Type":  "int",
                                "Name":  "param8",
-                               "Description":  ""
+                               "Description":  "For a character asset, corresponds to 'Use common animations' flag. Need to investigate for other asset types"
                            }
                        ],
         "Comment":  ""

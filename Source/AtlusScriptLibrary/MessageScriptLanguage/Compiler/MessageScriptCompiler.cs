@@ -113,6 +113,7 @@ public class MessageScriptCompiler
                 }
             }
         }
+        ReorderMessages(mScript);
         messageScript = mScript; //TODO: maybe this should be checked again...
         return true;
     }
@@ -172,7 +173,7 @@ public class MessageScriptCompiler
 
         if (!mImportedFileHashSet.Contains(messageScriptSourceHash))
         {
-            if (!TryCompile(messageScriptSource, out messageScript))
+            if (!TryCompile(messageScriptSource, out messageScript, true))
             {
                 LogError($"Import MessageScript failed to compile: {import}");
                 return false;
@@ -284,14 +285,15 @@ public class MessageScriptCompiler
     /// </summary>
     /// <param name="input">The input source.</param>
     /// <param name="script">The output of the compilaton. Is only guaranteed to be valid if the operation succeeded.</param>
+    /// <param name="delayReorder">Disables reordering of messages. For use with unmerged imports.</param>
     /// <returns>A boolean value indicating whether the compilation succeeded or not.</returns>
-    public bool TryCompile(string input, out MessageScript script)
+    public bool TryCompile(string input, out MessageScript script, bool delayReorder = false)
     {
         LogInfo("Parsing MessageScript source");
         var cst = MessageScriptParserHelper.ParseCompilationUnit(input, new AntlrErrorListener(this));
         LogInfo("Done parsing MessageScript source");
 
-        return TryCompile(cst, out script);
+        return TryCompile(cst, out script, delayReorder);
     }
 
     /// <summary>
@@ -325,11 +327,11 @@ public class MessageScriptCompiler
     }
 
     // Compilation methods
-    private bool TryCompile(MessageScriptParser.CompilationUnitContext context, out MessageScript script)
+    private bool TryCompile(MessageScriptParser.CompilationUnitContext context, out MessageScript script, bool delayReorder = false)
     {
         LogInfo(context, "Compiling MessageScript compilation unit");
 
-        if (!TryCompileImpl(context, out script))
+        if (!TryCompileImpl(context, out script, delayReorder))
         {
             LogError(context, "Failed to compile message script");
             return false;
@@ -340,7 +342,7 @@ public class MessageScriptCompiler
         return true;
     }
 
-    private bool TryCompileImpl(MessageScriptParser.CompilationUnitContext context, out MessageScript script)
+    private bool TryCompileImpl(MessageScriptParser.CompilationUnitContext context, out MessageScript script, bool delayReorder = false)
     {
         LogContextInfo(context);
 
@@ -387,8 +389,42 @@ public class MessageScriptCompiler
             mVariables[dialog.Name] = script.Dialogs.Count;
             script.Dialogs.Add(dialog);
         }
+        if (!delayReorder) ReorderMessages(script);
 
         return true;
+    }
+
+    private void ReorderMessages(MessageScript script)
+    {
+        var dummyText = new List<TokenText>()
+        {
+            new TokenTextBuilder()
+            .AddNewLine()
+            .Build()
+        };
+
+        for (int i = 0; i < script.Dialogs.Count; i++)
+        {
+            var dialog = script.Dialogs[i];
+            var nameParts = dialog.Name.Split('_');
+
+            if (nameParts.Length < 2) continue;
+            if (!nameParts[nameParts.Length - 2].Equals("index", StringComparison.OrdinalIgnoreCase)) continue;
+            if (!uint.TryParse(nameParts[nameParts.Length - 1], out var index))
+            {
+                LogError($"Unable to parse message index {nameParts[nameParts.Length - 1]}. Index will not be changed");
+                continue;
+            }
+
+            if (i == index) continue;
+            while (script.Dialogs.Count < index + 1)
+            {
+                script.Dialogs.Add(new MessageDialog($"DummyMessage_{script.Dialogs.Count}", dummyText));
+            }
+
+            script.Dialogs[i] = script.Dialogs[(int)index];
+            script.Dialogs[(int)index] = dialog;
+        }
     }
 
     private bool TryCompileMessageDialog(MessageScriptParser.MessageDialogContext context, out MessageDialog messageDialog)

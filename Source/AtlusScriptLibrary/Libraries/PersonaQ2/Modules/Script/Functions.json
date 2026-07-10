@@ -268,14 +268,18 @@
   {
     "Index": "0x5011",
     "ReturnType": "int",
-    "Name": "SCR_FUNCTION_0011",
+    "Name": "ADD_PERSONA_STOCK",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "personaId",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "ADD_PERSONA",
+      "SCR_FUNCTION_0011"
     ]
   },
   {
@@ -294,14 +298,17 @@
   {
     "Index": "0x5013",
     "ReturnType": "int",
-    "Name": "SCR_FUNCTION_0013",
-    "Description": "",
+    "Name": "GET_PERSONA",
+    "Description": "Returns the id of a persona in a specific slot in player's stock",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "Index of slot in persona stock"
       }
+    ],
+    "Aliases": [
+      "SCR_FUNCTION_0013"
     ]
   },
   {
@@ -336,14 +343,17 @@
   {
     "Index": "0x5016",
     "ReturnType": "void",
-    "Name": "SCR_FUNCTION_0016",
+    "Name": "PERSONA_EVOLUTION",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "partyId",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "SCR_FUNCTION_0016"
     ]
   },
   {
@@ -1197,14 +1207,17 @@
   {
     "Index": "0x5056",
     "ReturnType": "int",
-    "Name": "SCR_FUNCTION_0056",
+    "Name": "GET_PERSONA_STOCK",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
+        "Description": "0 for full size of stock, 1 for number of personas, 2 for number of empty slots"
       }
+    ],
+    "Aliases": [
+      "SCR_FUNCTION_0056"
     ]
   },
   {

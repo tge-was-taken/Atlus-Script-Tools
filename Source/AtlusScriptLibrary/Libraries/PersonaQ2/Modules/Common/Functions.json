@@ -251,19 +251,22 @@
   {
     "Index": "0x0011",
     "ReturnType": "void",
-    "Name": "FUNCTION_0011",
+    "Name": "SET_COUNT",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "countId",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "value",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "FUNCTION_0011"
     ]
   },
   {
@@ -705,6 +708,13 @@
     "Index": "0x002f",
     "ReturnType": "void",
     "Name": "FUNCTION_002F",
+    "Description": "",
+    "Parameters": []
+  },
+  {
+    "Index": "0x0030",
+    "ReturnType": "int",
+    "Name": "FUNCTION_0030",
     "Description": "",
     "Parameters": []
   }

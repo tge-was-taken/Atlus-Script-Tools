@@ -505,14 +505,17 @@
   {
     "Index": "0x4023",
     "ReturnType": "void",
-    "Name": "EVT_FUNCTION_0023",
+    "Name": "PLAY_EVENT_BGM",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "cueId",
         "Description": ""
       }
+    ],
+    "Aliases": [
+      "EVT_FUNCTION_0023"
     ]
   },
   {
@@ -1169,8 +1172,8 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "partyId",
+        "Description": "Related to Persona evolution, as is called after SCR_FUNCTION_0016"
       }
     ]
   },

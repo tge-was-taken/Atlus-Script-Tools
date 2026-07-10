@@ -105,6 +105,12 @@ public class FlowScriptCompiler
     public ProcedureHookMode ProcedureHookMode { get; set; }
 
     /// <summary>
+    /// If true when there are procedure name conflicts an existing message of the same name will be overwritten. 
+    /// Otherwise an error will occur and the existing message will not be changed
+    /// </summary>
+    public bool OverwriteExistingProcedures { get; set; } = false;
+
+    /// <summary>
     /// If true when there are message name conflicts an existing message of the same name will be overwritten. 
     /// Otherwise an error will occur and the existing message will not be changed
     /// </summary>
@@ -410,6 +416,24 @@ public class FlowScriptCompiler
         }
     }
 
+    private void OverwriteDuplicateProcedures(CompilationUnit compilationUnit)
+    {
+        for (int i = 0; i < compilationUnit.Declarations.Count; i++)
+        {
+            var declaration = compilationUnit.Declarations[i];
+            if (declaration.DeclarationType != DeclarationType.Procedure) continue;
+
+            var last = compilationUnit.Declarations.FindLastIndex(dec => dec.Identifier.Text == declaration.Identifier.Text);
+            compilationUnit.Declarations[i] = compilationUnit.Declarations[last];
+            while (last != i)
+            {
+                Trace($"Removing duplicate procedure: {declaration.Identifier.Text} at {last}");
+                compilationUnit.Declarations.RemoveAt(last);
+                last = compilationUnit.Declarations.FindLastIndex(dec => dec.Identifier.Text == declaration.Identifier.Text);
+            }
+        }
+    }
+
     private bool TryCompileCompilationUnit(CompilationUnit compilationUnit)
     {
         Info($"Start compiling FlowScript compilation unit with version {mFormatVersion}");
@@ -430,6 +454,7 @@ public class FlowScriptCompiler
             } while (mReresolveImports);
         }
 
+        if (OverwriteExistingProcedures) { OverwriteDuplicateProcedures(compilationUnit); }
         ReorderProcedures(compilationUnit);
 
         // Evaluate declarations, return values, parameters etc
@@ -937,7 +962,7 @@ public class FlowScriptCompiler
 
         if (!mImportedFileHashSet.Contains(messageScriptSourceHash))
         {
-            if (!messageScriptCompiler.TryCompile(messageScriptSource, out messageScript))
+            if (!messageScriptCompiler.TryCompile(messageScriptSource, out messageScript, true))
             {
                 Error(import, $"Import MessageScript failed to compile: {import.CompilationUnitFileName}");
                 return false;
@@ -1084,6 +1109,8 @@ public class FlowScriptCompiler
         if (mScript.MessageScript != null)
         {
             Info("Inserting MessageScript window identifier constants");
+
+            // overwrite messages with same label
             for (int i = 0; i < mScript.MessageScript.Dialogs.Count; i++)
             {
                 var dialog = mScript.MessageScript.Dialogs[i];
@@ -1100,18 +1127,56 @@ public class FlowScriptCompiler
                         last = mScript.MessageScript.Dialogs.FindLastIndex(msg => msg.Name == dialog.Name);
                     }
                 }
+            }
 
+            var dummyText = new List<TokenText>()
+            {
+                new TokenTextBuilder()
+                .AddNewLine()
+                .Build()
+            };
+
+            // reorder messages that have forced indices
+            // i would've liked to do all this message stuff in fewer loops but this has to be done *after* overwriting is done to ensure message overwrites respect priority
+            for (int i = 0; i < mScript.MessageScript.Dialogs.Count; i++)
+            {
+                var dialog = mScript.MessageScript.Dialogs[i];
+                var nameParts = dialog.Name.Split('_');
+
+                if (nameParts.Length < 2) continue;
+                if (!nameParts[nameParts.Length - 2].Equals("index", StringComparison.OrdinalIgnoreCase)) continue;
+                if (!uint.TryParse(nameParts[nameParts.Length - 1], out var index))
+                {
+                    Error($"Unable to parse message index {nameParts[nameParts.Length - 1]}. Index will not be changed");
+                    continue;
+                }
+
+                if (i == index) continue;
+                while (mScript.MessageScript.Dialogs.Count < index + 1)
+                {
+                    mScript.MessageScript.Dialogs.Add(new MessageDialog($"DummyMessage_{mScript.MessageScript.Dialogs.Count}", dummyText));
+                }
+
+                mScript.MessageScript.Dialogs[i] = mScript.MessageScript.Dialogs[(int)index];
+                mScript.MessageScript.Dialogs[(int)index] = dialog;
+            }
+
+            // THEN declare message label constants
+            // reordering has to be finished to prevent duplicate compiler constant declarations if a message gets moved to an earlier index so yeah, 3n :pensive:
+            for (int i = 0; i < mScript.MessageScript.Dialogs.Count; i++)
+            {
+                string dialogName = mScript.MessageScript.Dialogs[i].Name;
                 var declaration = new VariableDeclaration
                 (
                     new VariableModifier(VariableModifierKind.Constant),
                     new TypeIdentifier(ValueKind.Int),
-                    new Identifier(ValueKind.Int, dialog.Name),
+                    new Identifier(ValueKind.Int, dialogName),
                     new UIntLiteral((uint)i)
                 );
 
                 if (!Scope.TryDeclareVariable(declaration))
                 {
-                    Error(declaration, $"Compiler generated constant for MessageScript dialog {dialog.Name} conflicts with another variable");
+                    Error(declaration, $"Compiler generated constant for MessageScript dialog {dialogName} conflicts with another variable");
                 }
                 else
                 {
@@ -2227,9 +2292,7 @@ public class FlowScriptCompiler
 
         if (mRootScope.TryGetFunction(callExpression.Identifier.Text, out var function))
         {
-            var libFunc = Library.FlowScriptModules.SelectMany(x => x.Functions).FirstOrDefault(x => x.Name == function.Declaration.Identifier.Text || (x.Aliases != null && x.Aliases.Contains(function.Declaration.Identifier.Text)));
-
-            // Add default values
+            // Add default values from first detected function in library with a name or alias that matches the call
             var foundDefaultValue = false;
             for (var i = 0; i < function.Declaration.Parameters.Count; i++)
             {
@@ -2255,14 +2318,31 @@ public class FlowScriptCompiler
                 }
             }
 
-            if (callExpression.Arguments.Count != function.Declaration.Parameters.Count)
+            // Get a function that has the same number of arguments as the callExpression or is variadic and has a matching name or alias
+            var libFunc = Library.FlowScriptModules.SelectMany(x => x.Functions).FirstOrDefault(x => (x.Parameters.Count == callExpression.Arguments.Count || x.Semantic == FlowScriptModuleFunctionSemantic.Variadic) && (x.Name == function.Declaration.Identifier.Text || (x.Aliases != null && x.Aliases.Contains(function.Declaration.Identifier.Text))));
+            // If libFunc is null, then no function that is variadic or has a matching amount of parameters with the same name or alias was found
+            // Throw an error and return false
+            if (libFunc == null)
             {
-                // Check if function is marked variadic
-                if (libFunc == null || libFunc.Semantic != FlowScriptModuleFunctionSemantic.Variadic)
-                {
-                    Error($"Function '{function.Declaration}' expects {function.Declaration.Parameters.Count} arguments but {callExpression.Arguments.Count} are given");
-                    return false;
-                }
+                Error(callExpression, $"Function '{function.Declaration}' expects {function.Declaration.Parameters.Count} arguments but {callExpression.Arguments.Count} are given");
+                return false;
+            }
+            /*
+                If the initially detected function name does not match with libFunc.Name and the number of arguments differs and is not Variadic,
+                assume that what has happened is that a function was called using the number of arguments of another function that has a matching Alias.
+                This should only occur in the following scenario:
+                    Function A that has X arguments is named "A"
+                    Function B that has Y arguments is named "B", but used to be named "A" and has it as an Alias
+                    Calls written with Function A's name and the number of arguments of Function B will be assigned to Function B, as it has a matching Alias
+                If this scenario does occur, we log a warning to encourage script authors to update their scripts to use the current names either when
+                they compile their script or when users of their flowscript merging mods (if applicable) ask them if the warning is an issue.
+                The only reason we don't just throw a hard error is so that in cases of abandoned mods users aren't forced to manually fix their mods
+                on their own, risking breaking something in the process and resulting in unnecessary troubleshooting downstream and up.
+            */
+            if (callExpression.Identifier.Text != libFunc.Name && (callExpression.Arguments.Count != function.Declaration.Parameters.Count && libFunc.Semantic != FlowScriptModuleFunctionSemantic.Variadic))
+            {
+                Warning(callExpression, $"Function '{callExpression.Identifier.Text}' called with number of parameters and alias name of '{libFunc.Name}';\n'{libFunc.Name}' will be emitted but script should be updated with correct function names!");
+                mLogger.Debug($"TryGetFunction reassignment returned: {mRootScope.TryGetFunction(libFunc.Name, out function)}");
             }
 
             // Check MessageScript function call semantics

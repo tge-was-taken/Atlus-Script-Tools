@@ -71,7 +71,7 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "msgId",
         "Description": "",
         "Semantic": "MsgId"
       },
@@ -3114,17 +3114,17 @@
     "Index": "0x00c9",
     "ReturnType": "void",
     "Name": "SKILL_ADD_CMM",
-    "Description": "",
+    "Description": "Adds a skill to a party member as defined in cmpPsCoopSkillTable.ctd.",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "commuId",
+        "Description": "Confidant ID of a party member."
       },
       {
         "Type": "int",
         "Name": "param2",
-        "Description": ""
+        "Description": "If set to 1, gives skills from ctd with matching party ID and 'rank' value of 11, and gives trait defined in cmpPsCoopChgPersonalTable.ctd. Otherwise gives skills from ctd based on party member's confidant rank."
       }
     ],
     "Comment": ""
@@ -3133,17 +3133,17 @@
     "Index": "0x00ca",
     "ReturnType": "int",
     "Name": "FRIEND_SKILL_ADD",
-    "Description": "",
+    "Description": "Used in confessional, and in jazz club for futaba.",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "partyId",
         "Description": ""
       },
       {
         "Type": "int",
         "Name": "param2",
-        "Description": ""
+        "Description": "Set to 0 in confessional, 1 in jazz club"
       }
     ],
     "Comment": ""
@@ -3348,17 +3348,17 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "partyId",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "personaId",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param3",
+        "Name": "level",
         "Description": ""
       }
     ],
@@ -3394,27 +3394,27 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "knowledge",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "charm",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param3",
+        "Name": "proficiency",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param4",
+        "Name": "guts",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param5",
+        "Name": "kindness",
         "Description": ""
       }
     ],
@@ -3551,17 +3551,17 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "partyId",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "statToRaise",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param3",
+        "Name": "numStatPoints",
         "Description": ""
       }
     ],
@@ -4154,13 +4154,14 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "defaultValue",
+        "Description": "Value returned if player cancels"
       },
       {
         "Type": "int",
-        "Name": "param2",
-        "Description": ""
+        "Name": "msgId",
+        "Description": "",
+        "Semantic": "MsgId"
       }
     ],
     "Comment": ""
@@ -4414,16 +4415,16 @@
     "Index": "0x011b",
     "ReturnType": "int",
     "Name": "CHK_PERSONA_EXIST",
-    "Description": "",
+    "Description": "Check if persona stock contains persona with the given skill.",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "personaId",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "skillId",
         "Description": ""
       }
     ],
@@ -4623,8 +4624,9 @@
       },
       {
         "Type": "int",
-        "Name": "param2",
-        "Description": ""
+        "Name": "msgId",
+        "Description": "",
+        "Semantic": "MsgId"
       }
     ],
     "Comment": ""
@@ -5304,13 +5306,14 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "defaultValue",
+        "Description": "Value returned if player cancels"
       },
       {
         "Type": "int",
-        "Name": "param2",
-        "Description": ""
+        "Name": "msgId",
+        "Description": "",
+        "Semantic": "MsgId"
       },
       {
         "Type": "int",
@@ -5333,13 +5336,14 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "defaultValue",
+        "Description": "Value returned if player cancels"
       },
       {
         "Type": "int",
-        "Name": "param2",
-        "Description": ""
+        "Name": "msgId",
+        "Description": "",
+        "Semantic": "MsgId"
       }
     ],
     "Comment": ""
@@ -5969,13 +5973,13 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "partyId",
         "Description": ""
       },
       {
         "Type": "int",
         "Name": "param2",
-        "Description": ""
+        "Description": "Set to 0 to get party member's level, 1 to get level of their equipped persona (useful for checking Joker level)"
       }
     ],
     "Comment": ""
@@ -6503,17 +6507,17 @@
     "Index": "0x01a0",
     "ReturnType": "int",
     "Name": "FRIEND_GET_SP_SKILL",
-    "Description": "",
+    "Description": "Gives a party member a skill defined in cmpFriendPsSpSkillTable.ctd.",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "partyId",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
-        "Description": ""
+        "Name": "entryId",
+        "Description": "ID of entry in ctd."
       }
     ],
     "Comment": ""

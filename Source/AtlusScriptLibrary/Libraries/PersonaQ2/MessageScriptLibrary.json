@@ -5,7 +5,7 @@
     "Description": "",
     "Functions": [
       {
-        "Index": 0,
+        "Index": 1,
         "Name": "clr",
         "Description": "",
         "Parameters": [
@@ -52,6 +52,17 @@
         "Name": "s",
         "Description": "Indicates the start of a line",
         "Parameters": [
+        ]
+      },
+      {
+        "Index": 4,
+        "Name": "var",
+        "Description": "",
+        "Parameters": [
+          {
+            "Name": "index",
+            "Description": ""
+          }
         ]
       },
       {

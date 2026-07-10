@@ -1942,27 +1942,27 @@
                            },
                            {
                                "Type":  "int",
-                               "Name":  "param2",
+                               "Name":  "st",
                                "Description":  ""
                            },
                            {
                                "Type":  "int",
-                               "Name":  "param3",
+                               "Name":  "ma",
                                "Description":  ""
                            },
                            {
                                "Type":  "int",
-                               "Name":  "param4",
+                               "Name":  "en",
                                "Description":  ""
                            },
                            {
                                "Type":  "int",
-                               "Name":  "param5",
+                               "Name":  "ag",
                                "Description":  ""
                            },
                            {
                                "Type":  "int",
-                               "Name":  "param6",
+                               "Name":  "lu",
                                "Description":  ""
                            },
                            {
@@ -1971,7 +1971,10 @@
                                "Description":  ""
                            }
                        ],
-        "Comment":  ""
+      "Comment": "name is typod, aliasing to minimize confusion",
+      "Aliases": [
+        "CONFIRM_PS_PARAM_UP"
+      ]
     },
     {
         "Index":  "0x409b",

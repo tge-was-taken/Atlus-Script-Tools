@@ -48,7 +48,9 @@ public class AtlusEncoding : Encoding
     public static AtlusEncoding Persona5Chinese => Create("P5_Chinese");
     public static AtlusEncoding Persona5RoyalEFIGS => Create("P5R_EFIGS");
     public static AtlusEncoding Persona5RoyalJapanese => Create("P5R_Japanese");
-    public static AtlusEncoding Persona5RoyalChinese => Create("P5R_Chinese");
+    public static AtlusEncoding Persona5RoyalChinese => Persona5RoyalCHS;
+    public static AtlusEncoding Persona5RoyalCHS => Create("P5R_CHS");
+    public static AtlusEncoding Persona5RoyalCHT => Create("P5R_CHT");
 
     public static IEnumerable<string> AvailableCharsets =>
         Directory.EnumerateFiles(sCharsetsBaseDirectoryPath, "*.tsv")

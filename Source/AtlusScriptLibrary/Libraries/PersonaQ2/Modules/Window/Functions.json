@@ -8,6 +8,7 @@
       {
         "Type": "int",
         "Name": "msgID",
+        "Semantic": "MsgId",
         "Description": ""
       }
     ],
@@ -70,17 +71,17 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "index",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "value",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param3",
+        "Name": "kind",
         "Description": ""
       }
     ],
@@ -131,6 +132,7 @@
       {
         "Type": "int",
         "Name": "param1",
+        "Semantic": "MsgId",
         "Description": ""
       }
     ],
@@ -277,6 +279,7 @@
       {
         "Type": "int",
         "Name": "msgID",
+        "Semantic": "MsgId",
         "Description": ""
       }
     ],
@@ -306,7 +309,7 @@
   },
   {
     "Index": "0x2014",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "SEL",
     "Description": "",
     "Parameters": [
@@ -491,7 +494,7 @@
   },
   {
     "Index": "0x201e",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "MSG_EX",
     "Description": "",
     "Parameters": [
@@ -517,7 +520,7 @@
   },
   {
     "Index": "0x201f",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "MSG_MIND_EX",
     "Description": "",
     "Parameters": [

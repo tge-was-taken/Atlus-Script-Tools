@@ -204,13 +204,14 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
+        "Name": "characterID",
+        "Description": "ID of character icon to display with message (umd0/font/jm_k*)"
       },
       {
         "Type": "int",
-        "Name": "param2",
-        "Description": ""
+        "Name": "messageID",
+        "Description": "Index of message to display",
+        "Semantic": "MsgId"
       }
     ],
     "Aliases": [

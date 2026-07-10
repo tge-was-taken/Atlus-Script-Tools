@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using AtlusScriptLibrary.Common.Libraries;
+using AtlusScriptLibrary.Common.Text.Encodings;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler.Tests
 {
@@ -43,6 +45,21 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler.Tests
             identifier += '_';
 
             return identifier;
+        }
+
+        [TestMethod]
+        public void TryCompile_ForcedMessageIndex()
+        {   
+            using (var stream = new FileStream("TestResources/import3.msg", FileMode.Open))
+            {
+                var compiler = new MessageScriptCompiler(FormatVersion.Version1BigEndian, AtlusEncoding.Persona5RoyalEFIGS);
+                compiler.Library = LibraryLookup.GetLibrary("p5r");
+                if (!compiler.TryCompile(stream, out var script))
+                {
+                    throw new Exception("Script failed to compile");
+                }
+                Assert.AreEqual(script.Dialogs[1].Name, "TestMsg_index_1");
+            }
         }
     }
 }

@@ -610,7 +610,7 @@
       {
         "Index": 31,
         "Name": "sumi",
-        "Description": "Yoshizawa name check.",
+        "Description": "Full behavior is unknown, but commonly appears with arguments 10, 1 for fetching Yoshizawa name.",
         "Parameters": [
           {
             "Name": "partyID",

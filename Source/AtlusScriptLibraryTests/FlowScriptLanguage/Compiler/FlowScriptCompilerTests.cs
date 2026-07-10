@@ -12,12 +12,13 @@ namespace AtlusScriptLibraryTests.FlowScriptLanguage.Compiler
     [TestClass]
     public class FlowScriptCompilerTests
     {
-        private void RunTest(string source, FormatVersion version, string library, IEnumerable<Instruction> instructions)
+        private void RunTest(string source, FormatVersion version, string library, IEnumerable<Instruction> instructions, bool overwriteProcedures = false)
         {
             var compiler = new FlowScriptCompiler(version);
             compiler.Library = LibraryLookup.GetLibrary(library);
             compiler.EnableProcedureTracing = false;
             compiler.AddListener(new DebugLogListener());
+            compiler.OverwriteExistingProcedures = overwriteProcedures;
             if (!compiler.TryCompile(source, out var script))
             {
                 throw new Exception("Script failed to compile");
@@ -222,6 +223,38 @@ void bar(int p0, int p1, int p2)
                 Instruction.POPIX(0), // g0 = (result)
                 Instruction.END()
             });
+        }
+
+        [TestMethod]
+        public void procedure_overwrite()
+        {
+            var source = "import(\"TestResources/import1.flow\");\n\n"
+                + "int test() { return 0; }";
+
+            RunTest(source, FormatVersion.Version3BigEndian, "p5r", new[]
+            {
+                Instruction.PROC(0),
+                Instruction.PUSHIS(1),
+                Instruction.POPLIX(0),
+                Instruction.END(),
+            }, true);
+
+        }
+
+        [TestMethod]
+        public void procedure_overwrite_with_multiple_imports()
+        {
+            var source = "import(\"TestResources/import1.flow\");\n"
+                + "import(\"TestResources/import2.flow\");\n\n"
+                + "int test() { return 0; }";
+
+            RunTest(source, FormatVersion.Version3BigEndian, "p5r", new[]
+            {
+                Instruction.PROC(0),
+                Instruction.PUSHIS(2),
+                Instruction.POPLIX(0),
+                Instruction.END(),
+            }, true);
         }
     }
 }
