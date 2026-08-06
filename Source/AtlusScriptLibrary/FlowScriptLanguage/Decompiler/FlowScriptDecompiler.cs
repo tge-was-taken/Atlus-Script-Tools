@@ -396,7 +396,8 @@ public class FlowScriptDecompiler
                     foreach (var literal in literals)
                         sum += literal.Value;
 
-                    sum = sRoyalBits[sum >> 28] + sum & 0x0fffffff;
+                    sum = sum & 0x0fffffff + sRoyalBits[sum >> 28 >= sRoyalBits.Length ? 0 : sum >> 28];
+                    //sum = sRoyalBits[sum >> 28] + sum & 0x0fffffff;
 
                     if (SumBits)
                     {
