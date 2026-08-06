@@ -213,7 +213,7 @@ class Program
 
     static void ExtractMessageScripts()
     {
-        using (Writer = new IndentedTextWriter(FileUtils.CreateText($".\\MessageScriptDump.txt")))
+        using (Writer = new IndentedTextWriter(FileUtils.CreateText(Path.Combine(Directory.GetCurrentDirectory(), "MessageScriptDump.txt"))))
         {
             if (UseDecompiler)
             {

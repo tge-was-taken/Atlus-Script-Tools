@@ -661,15 +661,15 @@
       },
       {
         "Index": 4,
-        "Name": "",
-        "Description": "",
+        "Name": "month",
+        "Description": "gets the month number",
         "Parameters": [
         ]
       },
       {
         "Index": 5,
-        "Name": "",
-        "Description": "",
+        "Name": "day",
+        "Description": "Gets the day number",
         "Parameters": [
         ]
       },
@@ -743,7 +743,7 @@
       },
       {
         "Index": 14,
-        "Name": "",
+        "Name": "chat",
         "Description": "",
         "Parameters": [
         ]
@@ -758,6 +758,39 @@
       {
         "Index": 16,
         "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 17,
+        "Name": "",
+        "Description": "",
+        "Parameters": [
+        ]
+      },
+      {
+        "Index": 18,
+        "Name": "photo",
+        "Description": "displays a photo from font/chat/photo",
+        "Parameters": [
+          {
+            "Name": "PhotoIdMajor",
+            "Description": ""
+          },
+          {
+            "Name": "PhotoIdMinor",
+            "Description": ""
+          },
+          {
+            "Name": "PhotoIdSub",
+            "Description": ""
+          }
+        ]
+      },
+      {
+        "Index": 19,
+        "Name": "photo_next",
         "Description": "",
         "Parameters": [
         ]
