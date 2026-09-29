@@ -47,7 +47,7 @@ public sealed class MessageScriptDecompiler : IDisposable
         }
     }
 
-    public void Decompile(IDialog message)
+    public void Decompile(Dialog message)
     {
         switch (message.Kind)
         {
@@ -148,7 +148,7 @@ public sealed class MessageScriptDecompiler : IDisposable
             WriteTag("e");
     }
 
-    public void Decompile(IToken token)
+    public void Decompile(Token token)
     {
         switch (token.Kind)
         {

@@ -10,11 +10,11 @@ public static class Bm2BinaryTokenParser
     public static bool TryParseTokens(
         IReadOnlyList<byte> buffer,
         ref int bufferIndex,
-        out List<IToken> tokens,
+        out List<Token> tokens,
         FormatVersion version,
         Encoding encoding)
     {
-        tokens = new List<IToken>();
+        tokens = new List<Token>();
         byte currentByte = buffer[bufferIndex];
 
         // Function token
@@ -133,7 +133,7 @@ public static class Bm2BinaryTokenParser
         IReadOnlyList<byte> buffer,
         ref int bufferIndex,
         Encoding encoding,
-        List<IToken> tokens)
+        List<Token> tokens)
     {
         while (bufferIndex < buffer.Count)
         {

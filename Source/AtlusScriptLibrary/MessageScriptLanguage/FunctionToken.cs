@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AtlusScriptLibrary.MessageScriptLanguage;
@@ -6,7 +7,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage;
 /// <summary>
 /// Represents a message script function token.
 /// </summary>
-public struct FunctionToken : IToken
+public class FunctionToken : Token, IEquatable<FunctionToken>
 {
     /// <summary>
     /// Gets the function table index.
@@ -87,8 +88,25 @@ public struct FunctionToken : IToken
         return str;
     }
 
+    public bool Equals(FunctionToken other)
+    {
+        if (ReferenceEquals(this, other)) return true;
+        if (other is null) return false;
+
+        if (FunctionTableIndex != other.FunctionTableIndex) return false;
+        if (FunctionIndex != other.FunctionIndex) return false;
+        if (UseIdentifierByte != other.UseIdentifierByte) return false;
+        return Arguments.SequenceEqual(other.Arguments);
+    }
+
+    public override bool Equals(object obj) => obj is FunctionToken && Equals(obj as FunctionToken);
+
+    public override int GetHashCode() => HashCode.Combine(Kind, FunctionTableIndex, FunctionIndex, UseIdentifierByte, Arguments);
+
+    public override bool Equals(Token other) => other is FunctionToken && Equals(other as FunctionToken);
+
     /// <summary>
     /// Gets the token type.
     /// </summary>
-    TokenKind IToken.Kind => TokenKind.Function;
+    public override TokenKind Kind => TokenKind.Function;
 }

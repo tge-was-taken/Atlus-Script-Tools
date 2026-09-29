@@ -4,14 +4,14 @@ namespace AtlusScriptLibrary.MessageScriptLanguage;
 
 public class TokenTextBuilder
 {
-    private readonly List<IToken> mTokens;
+    private readonly List<Token> mTokens;
 
     public TokenTextBuilder()
     {
-        mTokens = new List<IToken>();
+        mTokens = new List<Token>();
     }
 
-    public TokenTextBuilder AddToken(IToken token)
+    public TokenTextBuilder AddToken(Token token)
     {
         mTokens.Add(token);
         return this;

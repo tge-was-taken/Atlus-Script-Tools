@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AtlusScriptLibrary.FlowScriptLanguage;
 
-public class Procedure
+public class Procedure : IEquatable<Procedure>
 {
     public string Name { get; set; }
 
@@ -47,4 +49,28 @@ public class Procedure
 
         return p;
     }
+
+    public bool Equals(Procedure other)
+    {
+        if (ReferenceEquals(this, other)) return true;
+        if (other is null) return false;
+
+        if (Name != other.Name) return false;
+        if (!Instructions.SequenceEqual(other.Instructions)) return false;
+        return Labels.SequenceEqual(other.Labels);
+    }
+
+    public override bool Equals(object obj) => obj is Procedure && Equals(obj as Procedure);
+
+    public static bool Equals(Procedure a, Procedure b)
+    {
+        if (ReferenceEquals(a, b)) return true;
+        if (a is null) return b is null;
+        return a.Equals(b);
+    }
+
+    public override int GetHashCode() => HashCode.Combine(Name, Instructions, Labels);
+
+    public static bool operator ==(Procedure x, Procedure y) => Equals(x, y);
+    public static bool operator !=(Procedure x, Procedure y) => !Equals(x, y);
 }

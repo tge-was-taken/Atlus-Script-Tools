@@ -155,7 +155,7 @@ public class Bm2BinaryBuilder
         return bytes;
     }
 
-    private ushort GetSpeakerId(ISpeaker speaker)
+    private ushort GetSpeakerId(Speaker speaker)
     {
         if (speaker == null) return 0xFFFF; // No speaker
 

@@ -244,7 +244,7 @@ public class MessageScriptBinaryV2Builder
         return bytes;
     }
 
-    private void ProcessToken(IToken token, List<byte> bytes)
+    private void ProcessToken(Token token, List<byte> bytes)
     {
         switch (token.Kind)
         {

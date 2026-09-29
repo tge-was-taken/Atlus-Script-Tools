@@ -419,7 +419,7 @@ class Program
         Writer.Flush();
     }
 
-    static void WriteWindow(IDialog window)
+    static void WriteWindow(Dialog window)
     {
         Writer.WriteLine(window.Name);
 
@@ -472,7 +472,7 @@ class Program
         }
     }
 
-    static void WriteToken(IToken token)
+    static void WriteToken(Token token)
     {
         if (token.Kind == TokenKind.CodePoint)
         {

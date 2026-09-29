@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,13 +8,8 @@ namespace AtlusScriptLibrary.MessageScriptLanguage;
 /// <summary>
 /// Represents a selection window in a message script.
 /// </summary>
-public sealed class SelectionDialog : IDialog
+public sealed class SelectionDialog : Dialog, IEquatable<SelectionDialog>
 {
-    /// <summary>
-    /// Gets the text identifier of this dialog.
-    /// </summary>
-    public string Name { get; set; }
-
     /// <summary>
     /// Gets or sets the selection pattern of the dialog.
     /// </summary>
@@ -24,7 +20,7 @@ public sealed class SelectionDialog : IDialog
     /// </summary>
     public List<TokenText> Options { get; }
 
-    List<TokenText> IDialog.Lines => Options;
+    public override List<TokenText> Lines => Options;
 
     /// <summary>
     /// Constructs a new selection dialog with just an identifier.
@@ -64,15 +60,32 @@ public sealed class SelectionDialog : IDialog
     /// <summary>
     /// Gets the dialog type.
     /// </summary>
-    DialogKind IDialog.Kind => DialogKind.Selection;
+    public override DialogKind Kind => DialogKind.Selection;
 
-    public IEnumerator<TokenText> GetEnumerator()
+    public override IEnumerator<TokenText> GetEnumerator()
     {
         return Options.GetEnumerator();
     }
 
-    IEnumerator IEnumerable.GetEnumerator()
+    public bool Equals(SelectionDialog obj)
     {
-        return GetEnumerator();
+        if (ReferenceEquals(this, obj)) return true;
+        if (obj is null) { return false; }
+
+        if (Name != obj.Name) return false;
+        if (Pattern != obj.Pattern) return false;
+        return Options.SequenceEqual(obj.Options);
     }
+
+    public override bool Equals(object obj)
+    {
+        if (ReferenceEquals(this, obj)) return true;
+        if (obj is null || obj is not SelectionDialog) return false;
+
+        return Equals(obj as SelectionDialog);
+    }
+
+    public override int GetHashCode() => HashCode.Combine(Kind, Name, Options, Pattern);
+
+    public override bool Equals(Dialog other) => other is SelectionDialog && Equals(other as SelectionDialog);
 }

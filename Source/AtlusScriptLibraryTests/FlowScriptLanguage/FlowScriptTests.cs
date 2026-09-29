@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using AtlusScriptLibrary.FlowScriptLanguage.BinaryModel;
+using AtlusScriptLibrary.MessageScriptLanguage;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AtlusScriptLibrary.FlowScriptLanguage.Tests
@@ -246,6 +248,23 @@ namespace AtlusScriptLibrary.FlowScriptLanguage.Tests
 
             // Compare strings
             Assert.IsTrue(binaryIn.StringSection.SequenceEqual(binaryOut.StringSection));
+        }
+
+        [TestMethod]
+        public void FromBinary_ValueEqualityTests()
+        {
+            var a = FlowScript.FromFile("TestResources/Version3BigEndian.bf");
+            var b = FlowScript.FromFile("TestResources/Version3BigEndian.bf");
+
+            Assert.AreEqual(a.Procedures[0], b.Procedures[0]);
+            Assert.AreNotEqual(a.Procedures[0], b.Procedures[1]);
+
+            Assert.AreEqual(a.MessageScript.Dialogs[0], b.MessageScript.Dialogs[0]);
+            Assert.AreNotEqual(a.MessageScript.Dialogs[0], b.MessageScript.Dialogs[1]);
+            Assert.AreEqual(a.MessageScript.Dialogs[3], b.MessageScript.Dialogs[3]);
+            Assert.AreNotEqual(a.MessageScript.Dialogs[3], b.MessageScript.Dialogs[9]);
+            Assert.AreNotEqual(a.MessageScript.Dialogs[3], b.MessageScript.Dialogs[4]);
+            Assert.IsTrue(a.MessageScript.Dialogs[0] == b.MessageScript.Dialogs[0]);
         }
     }
 }

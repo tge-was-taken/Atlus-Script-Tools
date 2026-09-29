@@ -1,9 +1,12 @@
-﻿namespace AtlusScriptLibrary.MessageScriptLanguage;
+﻿using System;
+using System.Collections.Generic;
+
+namespace AtlusScriptLibrary.MessageScriptLanguage;
 
 /// <summary>
 /// Represents a message script value token.
 /// </summary>
-public struct StringToken : IToken
+public class StringToken : Token, IEquatable<StringToken>
 {
     /// <summary>
     /// Gets the value contained by this token. This can be a single word or a whole sentence.
@@ -31,5 +34,23 @@ public struct StringToken : IToken
     /// <summary>
     /// Gets the token type.
     /// </summary>
-    TokenKind IToken.Kind => TokenKind.String;
+    public override TokenKind Kind => TokenKind.String;
+
+    public bool Equals(StringToken other)
+    {
+        if (ReferenceEquals(this, other)) return true;
+        if (other is null) return false;
+        return Value == other.Value;
+    }
+
+    public override bool Equals(object obj) => obj is StringToken && Equals(obj as StringToken);
+
+    public override bool Equals(Token other)
+    {
+        if (ReferenceEquals(this, other)) return true;
+        if (other is null || other.Kind != TokenKind.String) return false;
+        return Value == ((StringToken)other).Value;
+    }
+
+    public override int GetHashCode() => HashCode.Combine(Kind, Value);
 }

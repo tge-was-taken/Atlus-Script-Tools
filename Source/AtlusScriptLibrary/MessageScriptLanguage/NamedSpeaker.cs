@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace AtlusScriptLibrary.MessageScriptLanguage;
@@ -6,7 +7,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage;
 /// <summary>
 /// Represents a named dialogue message speaker.
 /// </summary>
-public sealed class NamedSpeaker : ISpeaker, IEnumerable<IToken>
+public sealed class NamedSpeaker : Speaker, IEnumerable<Token>, IEquatable<NamedSpeaker>
 {
     /// <summary>
     /// Gets the name of the speaker.
@@ -37,7 +38,7 @@ public sealed class NamedSpeaker : ISpeaker, IEnumerable<IToken>
     {
         string str = string.Empty;
 
-        if (Name != null && Name.Tokens.Count > 0)
+        if (Name is not null && Name.Tokens.Count > 0)
         {
             foreach (var token in Name.Tokens)
                 str += token + " ";
@@ -46,18 +47,36 @@ public sealed class NamedSpeaker : ISpeaker, IEnumerable<IToken>
         return str;
     }
 
-    public IEnumerator<IToken> GetEnumerator()
+    public IEnumerator<Token> GetEnumerator()
     {
-        return ((IEnumerable<IToken>)Name).GetEnumerator();
+        return ((IEnumerable<Token>)Name).GetEnumerator();
     }
 
     IEnumerator IEnumerable.GetEnumerator()
     {
-        return ((IEnumerable<IToken>)Name).GetEnumerator();
+        return ((IEnumerable<Token>)Name).GetEnumerator();
+    }
+
+    public bool Equals(NamedSpeaker other)
+    {
+        if (ReferenceEquals(this, other)) return true;
+        if (other is null) return false;
+        return Name == other.Name;
+    }
+
+    public override bool Equals(object obj) => obj is NamedSpeaker && Equals(obj as NamedSpeaker);
+
+    public override int GetHashCode() => HashCode.Combine(Kind, Name);
+
+    public override bool Equals(Speaker other)
+    {
+        if (ReferenceEquals(this, other)) return true;
+        if (other is null || other.Kind != SpeakerKind.Named) return false;
+        return Name == ((NamedSpeaker)other).Name;
     }
 
     /// <summary>
     /// Gets the speaker type.
     /// </summary>
-    SpeakerKind ISpeaker.Kind => SpeakerKind.Named;
+    public override SpeakerKind Kind => SpeakerKind.Named;
 }

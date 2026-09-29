@@ -10,7 +10,7 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V2;
 
 public static class MessageScriptBinaryV2TokenParser
 {
-    public static bool TryParseTokens(IReadOnlyList<byte> buffer, ref int bufferIndex, out List<IToken> tokens, FormatVersion version, Encoding encoding)
+    public static bool TryParseTokens(IReadOnlyList<byte> buffer, ref int bufferIndex, out List<Token> tokens, FormatVersion version, Encoding encoding)
     {
         static bool IsUnicodeCharacter(ushort c)
         {

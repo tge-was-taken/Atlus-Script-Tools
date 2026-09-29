@@ -53,7 +53,7 @@ public class MessageScript
         var labelOccurences = new Dictionary<string, int>();
         foreach (var messageHeader in binary.DialogHeaders)
         {
-            IDialog message;
+            Dialog message;
             IReadOnlyList<int> pageStartAddresses;
             IReadOnlyList<byte> buffer;
             int pageCount;
@@ -148,7 +148,7 @@ public class MessageScript
         var labelOccurences = new Dictionary<string, int>();
         foreach (var messageHeader in binary.Header2.DialogArray.Value)
         {
-            IDialog message;
+            Dialog message;
             IReadOnlyList<int> pageStartAddresses;
             IReadOnlyList<byte> buffer;
             int pageCount;
@@ -221,7 +221,7 @@ public class MessageScript
         var labelOccurences = new Dictionary<string, int>();
         foreach (var messageHeader in binary.Messages)
         {
-            IDialog message;
+            Dialog message;
             IReadOnlyList<int> pageStartAddresses;
             IReadOnlyList<byte> buffer;
             uint pageCount;
@@ -312,7 +312,7 @@ public class MessageScript
         return name;
     }
 
-    private static void ParsePages(IDialog message, IReadOnlyList<int> lineStartAddresses, IReadOnlyList<byte> buffer, FormatVersion version, Encoding encoding)
+    private static void ParsePages(Dialog message, IReadOnlyList<int> lineStartAddresses, IReadOnlyList<byte> buffer, FormatVersion version, Encoding encoding)
     {
         if (lineStartAddresses.Count == 0 || buffer.Count == 0)
             return;
@@ -367,7 +367,7 @@ public class MessageScript
         return line;
     }
 
-    private static bool TryParseTokens(IReadOnlyList<byte> buffer, ref int bufferIndex, out List<IToken> tokens, FormatVersion version, Encoding encoding)
+    private static bool TryParseTokens(IReadOnlyList<byte> buffer, ref int bufferIndex, out List<Token> tokens, FormatVersion version, Encoding encoding)
     {
         if (version.HasFlag(FormatVersion.Version2))
         {
@@ -399,9 +399,9 @@ public class MessageScript
     public Encoding Encoding { get; set; }
 
     /// <summary>
-    /// Gets the list of <see cref="IDialog"/> in this script.
+    /// Gets the list of <see cref="Dialog"/> in this script.
     /// </summary>
-    public List<IDialog> Dialogs { get; }
+    public List<Dialog> Dialogs { get; }
 
     /// <summary>
     /// Creates a new instance of <see cref="MessageScript"/> initialized with default values.
@@ -411,7 +411,7 @@ public class MessageScript
         Id = 0;
         FormatVersion = FormatVersion.Version1;
         Encoding = null;
-        Dialogs = new List<IDialog>();
+        Dialogs = new List<Dialog>();
     }
 
     /// <summary>
@@ -422,7 +422,7 @@ public class MessageScript
         Id = 0;
         FormatVersion = version;
         Encoding = encoding;
-        Dialogs = new List<IDialog>();
+        Dialogs = new List<Dialog>();
     }
 
     /// <summary>

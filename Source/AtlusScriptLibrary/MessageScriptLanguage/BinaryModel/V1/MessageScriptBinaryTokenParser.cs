@@ -7,10 +7,10 @@ namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V1;
 
 public static class MessageScriptBinaryTokenParser
 {
-    public static bool TryParseTokens(IReadOnlyList<byte> buffer, ref int bufferIndex, out List<IToken> tokens, FormatVersion version, Encoding encoding)
+    public static bool TryParseTokens(IReadOnlyList<byte> buffer, ref int bufferIndex, out List<Token> tokens, FormatVersion version, Encoding encoding)
     {
         byte b = buffer[bufferIndex++];
-        tokens = new List<IToken>();
+        tokens = new List<Token>();
 
         // Check if the current byte signifies a function
         if (b == 0)
@@ -87,11 +87,11 @@ public static class MessageScriptBinaryTokenParser
         return new FunctionToken(functionTableIndex, functionIndex, bAddIdentifierType, functionArguments);
     }
 
-    private static IEnumerable<IToken> ParseTextTokens(byte b, IReadOnlyList<byte> buffer, ref int bufferIndex, Encoding encoding)
+    private static IEnumerable<Token> ParseTextTokens(byte b, IReadOnlyList<byte> buffer, ref int bufferIndex, Encoding encoding)
     {
         var accumulatedText = new List<byte>();
         var charBytes = new byte[2];
-        var tokens = new List<IToken>();
+        var tokens = new List<Token>();
         byte b2;
         while (true)
         {
