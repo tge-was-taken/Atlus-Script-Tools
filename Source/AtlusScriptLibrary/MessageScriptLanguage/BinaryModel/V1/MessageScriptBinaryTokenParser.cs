@@ -204,7 +204,7 @@ public static class MessageScriptBinaryTokenParser
                 }
                 else
                 {
-                    stringBuilder.Append((char)high);
+                    stringBuilder.Append(encoding.GetChars([high]));
                 }
             }
         }
