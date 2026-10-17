@@ -54,7 +54,40 @@ public class AtlusEncoding : Encoding
         Directory.EnumerateFiles(sCharsetsBaseDirectoryPath, "*.tsv")
             .Select(Path.GetFileNameWithoutExtension);
 
-    public static bool CharsetExists(string name) => File.Exists(Path.Combine(sCharsetsBaseDirectoryPath, Path.ChangeExtension(name, ".tsv")));
+    public static bool CharsetExists(string name) => TryResolveCharsetName(name, out _);
+
+    /// <summary>
+    /// Resolves a charset name to the casing actually used on disk. Charset file names are
+    /// mixed case, so an exact match would only work on case-insensitive filesystems.
+    /// </summary>
+    public static bool TryResolveCharsetName(string name, out string resolvedName)
+    {
+        resolvedName = null;
+        if (string.IsNullOrEmpty(name))
+            return false;
+
+        var fileName = Path.GetFileName(name);
+        if (fileName != name)
+            return false;
+
+        if (File.Exists(Path.Combine(sCharsetsBaseDirectoryPath, Path.ChangeExtension(name, ".tsv"))))
+        {
+            resolvedName = name;
+            return true;
+        }
+
+        var withoutExtension = Path.GetFileNameWithoutExtension(name);
+        foreach (var candidate in AvailableCharsets)
+        {
+            if (string.Equals(candidate, withoutExtension, StringComparison.OrdinalIgnoreCase))
+            {
+                resolvedName = candidate;
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     public static IReadOnlyDictionary<string, IEnumerable<string>> CharsetAliases { get; } = new Dictionary<string, IEnumerable<string>>()
     {
@@ -217,19 +250,28 @@ public class AtlusEncoding : Encoding
         if (sCache.TryGetValue(name, out var encoding))
             return encoding;
 
-        var tableName = name;
-        if (!CharsetExists(name))
+        string tableName;
+        if (TryResolveCharsetName(name, out var resolvedName))
+        {
+            tableName = resolvedName;
+        }
+        else
         {
             var nameNormalized = name.ToLowerInvariant().Replace(" ", "");
-            var foundTableName = CharsetAliases
+            var aliasTarget = CharsetAliases
                 .Where(x => x.Value.Contains(nameNormalized))
                 .Select(x => x.Key)
                 .FirstOrDefault();
-            if (foundTableName is not null)
-                tableName = foundTableName;
+
+            tableName = aliasTarget is not null && TryResolveCharsetName(aliasTarget, out var resolvedAlias)
+                ? resolvedAlias
+                : name;
         }
 
-        return sCache[tableName] = new AtlusEncoding(tableName);
+        if (sCache.TryGetValue(tableName, out encoding))
+            return sCache[name] = encoding;
+
+        return sCache[name] = sCache[tableName] = new AtlusEncoding(tableName);
     }
 
     private AtlusEncoding(string tableName)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace AtlusScriptLibrary.Common.Logging;
@@ -23,7 +24,11 @@ public class ConsoleLogListener : LogListener
     {
         try
         {
-            Console.OutputEncoding = Encoding.Unicode;
+            // UTF-16 only round-trips through the Windows console; every other platform
+            // expects bytes on stdout, where UTF-16 renders as interleaved nulls.
+            Console.OutputEncoding = RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+                ? Encoding.Unicode
+                : new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
         }
         catch (Exception)
         {
