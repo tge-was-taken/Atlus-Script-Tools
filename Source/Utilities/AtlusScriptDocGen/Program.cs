@@ -1,4 +1,4 @@
-using System.Reflection;
+﻿using System.Reflection;
 using AtlusScriptDocGen.Exceptions;
 using AtlusScriptDocGen.Generators;
 using AtlusScriptLibrary.Common.CLI;
@@ -117,7 +117,11 @@ Supported documentation formats:
                         if (!iterator.TryGetNextArgument(out var docFormatStr))
                             throw new MissingArgumentValueException("DocFormat", "documentation format name");
 
-                        if (!Enum.TryParse<DocumentationFormat>(docFormatStr, out var docFormat) && !sDocFormatLookup.TryGetValue(docFormatStr, out docFormat))
+                        if (!sDocFormatLookup.TryGetValue(docFormatStr, out var docFormat)
+                            && !Enum.TryParse(docFormatStr, ignoreCase: true, out docFormat))
+                            throw new InvalidDocumentationFormatException(docFormatStr);
+
+                        if (!Enum.IsDefined(typeof(DocumentationFormat), docFormat) || docFormat == DocumentationFormat.Unknown)
                             throw new InvalidDocumentationFormatException(docFormatStr);
 
                         sDocFormat = docFormat;

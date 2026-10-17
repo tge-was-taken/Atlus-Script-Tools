@@ -71,7 +71,7 @@ namespace AtlusScriptDocGen.Generators
         private static XElement GenerateFunctionAutoComplete(FlowScriptModuleFunction function)
         {
             var root = new XElement("KeyWord", new XAttribute("name", function.Name), new XAttribute("func", "yes"));
-            var overload = new XElement("Overload", new XAttribute("retVal", function.ReturnType), new XAttribute("descr", function.Description));
+            var overload = new XElement("Overload", new XAttribute("retVal", function.ReturnType ?? ""), new XAttribute("descr", function.Description ?? ""));
             root.Add(overload);
 
             foreach (var parameter in function.Parameters)
@@ -83,7 +83,7 @@ namespace AtlusScriptDocGen.Generators
         private static XElement GenerateSimpleDefinitionWithDescription(string name, string description)
         {
             return new XElement("KeyWord", new XAttribute("name", name), new XAttribute("func", "yes"),
-                                 new XElement("Overload", new XAttribute("retVal", ""), new XAttribute("descr", description)));
+                                 new XElement("Overload", new XAttribute("retVal", ""), new XAttribute("descr", description ?? "")));
         }
     }
 }
