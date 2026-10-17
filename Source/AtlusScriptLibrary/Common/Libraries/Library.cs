@@ -1,4 +1,4 @@
-using AtlusScriptLibrary.Common.Libraries.Serialization;
+﻿using AtlusScriptLibrary.Common.Libraries.Serialization;
 using AtlusScriptLibrary.FlowScriptLanguage.Compiler;
 using System;
 using System.Collections.Generic;
@@ -16,11 +16,11 @@ public class Library : ICloneable
     public bool UsePOPREG { get; set; }
 
     [JsonPropertyName("FlowScriptModulesPath")]
-    [JsonConverter(typeof(ExternalJsonPathConverter))]
+    [JsonConverter(typeof(ExternalJsonPathConverter<FlowScriptModule>))]
     public List<FlowScriptModule> FlowScriptModules { get; set; }
 
     [JsonPropertyName("MessageScriptLibraryPath")]
-    [JsonConverter(typeof(ExternalJsonPathConverter))]
+    [JsonConverter(typeof(ExternalJsonPathConverter<MessageScriptLibrary>))]
     public List<MessageScriptLibrary> MessageScriptLibraries { get; set; }
 
     public object Clone()

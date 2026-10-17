@@ -1,4 +1,4 @@
-using AtlusScriptLibrary.Common.Libraries.Serialization;
+﻿using AtlusScriptLibrary.Common.Libraries.Serialization;
 using AtlusScriptLibrary.FlowScriptLanguage.Compiler;
 using System;
 using System.Collections.Generic;
@@ -15,7 +15,7 @@ public class MessageScriptLibraryFunction : ICloneable
 
     public string Description { get; set; }
 
-    [JsonConverter(typeof(CustomStringEnumConverter))]
+    [JsonConverter(typeof(StringEnumConverter<MessageScriptLibraryFunctionSemantic>))]
     public MessageScriptLibraryFunctionSemantic Semantic { get; set; }
 
     [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]

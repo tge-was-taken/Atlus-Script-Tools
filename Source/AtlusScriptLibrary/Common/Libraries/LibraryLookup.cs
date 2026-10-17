@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using AtlusScriptLibrary.Common.Libraries.Serialization;
 using System.Text.Json;
 
 namespace AtlusScriptLibrary.Common.Libraries;
@@ -126,7 +127,7 @@ public static class LibraryLookup
     {
         EnsureInitialized();
         string jsonText = File.ReadAllText(path);
-        var lib = JsonSerializer.Deserialize<Library>(jsonText);
+        var lib = JsonSerializer.Deserialize(jsonText, LibraryJsonContext.Default.Library);
         if (!ValidateLibrary(lib, out var errors))
             throw new Exception($"Failed to load library {path}:\n{string.Join("\n", errors)}");
         return lib;
