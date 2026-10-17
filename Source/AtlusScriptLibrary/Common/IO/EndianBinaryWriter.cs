@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -274,7 +275,7 @@ public class EndianBinaryWriter : BinaryWriter
         }
     }
 
-    public void Write<T>(ref T value)
+    public void Write<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)] T>(ref T value)
         where T : struct
     {
         // Allocate bytes for struct
@@ -296,7 +297,7 @@ public class EndianBinaryWriter : BinaryWriter
         Write(bytes);
     }
 
-    public void Write<T>(T[] value)
+    public void Write<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)] T>(T[] value)
         where T : struct
     {
         // Allocate bytes for struct

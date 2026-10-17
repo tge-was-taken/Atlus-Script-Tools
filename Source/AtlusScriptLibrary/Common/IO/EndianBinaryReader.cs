@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -367,7 +368,7 @@ public class EndianBinaryReader : BinaryReader
         return value;
     }
 
-    public T ReadStruct<T>()
+    public T ReadStruct<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)] T>()
         where T : struct
     {
         T obj;
@@ -388,7 +389,7 @@ public class EndianBinaryReader : BinaryReader
         return obj;
     }
 
-    public T[] ReadStruct<T>(int count)
+    public T[] ReadStruct<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)] T>(int count)
         where T : struct
     {
         T[] objects = new T[count];
