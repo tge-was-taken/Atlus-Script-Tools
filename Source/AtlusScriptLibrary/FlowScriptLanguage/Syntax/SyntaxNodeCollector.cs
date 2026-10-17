@@ -537,4 +537,44 @@ public class SyntaxNodeCollector<T> : SyntaxNodeVisitor where T : SyntaxNode
 
         base.Visit(switchLabel);
     }
+
+    public override void Visit(ModulusOperator binaryOperator)
+    {
+        if (typeof(T) == typeof(ModulusOperator))
+            mCollectedNodes.Add(binaryOperator as T);
+
+        base.Visit(binaryOperator);
+    }
+
+    public override void Visit(ModulusAssignmentOperator binaryOperator)
+    {
+        if (typeof(T) == typeof(ModulusAssignmentOperator))
+            mCollectedNodes.Add(binaryOperator as T);
+
+        base.Visit(binaryOperator);
+    }
+
+    public override void Visit(InitializerList initializerList)
+    {
+        if (typeof(T) == typeof(InitializerList))
+            mCollectedNodes.Add(initializerList as T);
+
+        base.Visit(initializerList);
+    }
+
+    public override void Visit(NullExpression nullExpression)
+    {
+        if (typeof(T) == typeof(NullExpression))
+            mCollectedNodes.Add(nullExpression as T);
+
+        base.Visit(nullExpression);
+    }
+
+    public override void Visit(SubscriptOperator subscriptOperator)
+    {
+        if (typeof(T) == typeof(SubscriptOperator))
+            mCollectedNodes.Add(subscriptOperator as T);
+
+        base.Visit(subscriptOperator);
+    }
 }
