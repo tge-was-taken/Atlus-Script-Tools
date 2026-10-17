@@ -86,6 +86,31 @@ See ``AtlusScriptCompiler -Help`` for more info.
 ### Build ###
 * Not visible on the repo but this is where all of the binaries will compile to.
 
+## Building ##
+
+Requires the [.NET 10 SDK](https://dotnet.microsoft.com/download). A JDK is also needed,
+because the ANTLR grammars are regenerated during the build.
+
+```
+dotnet build Source/AtlusScriptTools.sln -c Release
+dotnet test Source/AtlusScriptLibraryTests/AtlusScriptLibraryTests.csproj -c Release
+```
+
+`AtlusScriptLibrary` targets `net10.0` and `netstandard2.0`; everything else targets `net10.0`.
+
+### Publishing ###
+
+Every executable publishes as a self-contained native binary that needs no installed .NET
+runtime. Pass the runtime identifier for the machine you are targeting, for example
+`linux-x64`, `osx-arm64` or `win-x64`:
+
+```
+dotnet publish Source/AtlusScriptCompiler/AtlusScriptCompiler.csproj -c Release -r linux-x64 -o out
+```
+
+The `Charsets` and `Libraries` directories are copied next to the binary and are read from
+there at runtime, so keep them alongside the executable when distributing it.
+
 ## What's finished? ##
 
 ### Finished ###
