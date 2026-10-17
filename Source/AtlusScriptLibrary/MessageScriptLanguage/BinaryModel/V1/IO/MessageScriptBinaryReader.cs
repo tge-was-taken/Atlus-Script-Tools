@@ -57,7 +57,8 @@ public sealed class MessageScriptBinaryReader : IDisposable
         header.RelocationTable.Offset = mReader.ReadInt32();
         header.RelocationTableSize = mReader.ReadInt32();
         header.DialogCount = mReader.ReadInt32();
-        header.IsRelocated = mReader.ReadInt16() != 0;
+        header.IsRelocated = mReader.ReadByte() != 0;
+        header.Reserved = mReader.ReadByte();
         header.Version = mReader.ReadInt16();
 
         // swap endianness
