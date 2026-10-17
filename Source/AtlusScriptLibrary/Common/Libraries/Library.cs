@@ -15,6 +15,14 @@ public class Library : ICloneable
 
     public bool UsePOPREG { get; set; }
 
+    /// <summary>
+    /// Format version of the MessageScript embedded in this game's FlowScripts. V1 and the
+    /// DDS variant are indistinguishable from the binary alone, so the library states it.
+    /// </summary>
+    [JsonConverter(typeof(StringEnumConverter<MessageScriptLanguage.FormatVersion>))]
+    public MessageScriptLanguage.FormatVersion MessageScriptFormatVersion { get; set; }
+        = MessageScriptLanguage.FormatVersion.Detect;
+
     [JsonPropertyName("FlowScriptModulesPath")]
     [JsonConverter(typeof(ExternalJsonPathConverter<FlowScriptModule>))]
     public List<FlowScriptModule> FlowScriptModules { get; set; }
@@ -29,6 +37,7 @@ public class Library : ICloneable
         clone.Name = Name;
         clone.ShortName = ShortName;
         clone.UsePOPREG = UsePOPREG;
+        clone.MessageScriptFormatVersion = MessageScriptFormatVersion;
         clone.FlowScriptModules = FlowScriptModules.Clone()?.ToList();
         clone.MessageScriptLibraries = MessageScriptLibraries.Clone()?.ToList();
         return clone;
