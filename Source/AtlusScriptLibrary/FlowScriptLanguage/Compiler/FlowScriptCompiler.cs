@@ -34,6 +34,7 @@ public class FlowScriptCompiler
     private string mCurrentBaseDirectory;
     private FlowScript mScript;
     private int mNextLabelIndex;
+    private bool mLastIfBodyEndedWithEnd;
     private Stack<ScopeContext> mScopeStack;
     private ScopeContext mRootScope;
     private VariableInfo mIntReturnValueVariable;
@@ -1680,6 +1681,17 @@ public class FlowScriptCompiler
     private bool TryResolveProcedureLabels(out List<FlowScriptLanguage.Label> labels)
     {
         Trace("Resolving labels in procedure");
+        if (Matching)
+        {
+            // Label numbering leaves holes behind, drop those before checking for resolution.
+            var referenced = FindFirstLabelReferences();
+            foreach (var name in mLabels.Where(x => !x.Value.IsResolved && !referenced.ContainsKey(x.Value.Index))
+                                        .Select(x => x.Key).ToList())
+            {
+                mLabels.Remove(name);
+            }
+        }
+
         if (mLabels.Values.Any(x => !x.IsResolved))
         {
             foreach (var item in mLabels.Values.Where(x => !x.IsResolved))
@@ -4086,6 +4098,11 @@ public class FlowScriptCompiler
                 return false;
         }
 
+        // An else-less body returning out of the procedure makes the original compiler allocate
+        // a second label, which nothing references and so leaves a hole in the numbering.
+        if (Matching && ifStatement.ElseBody == null && mLastIfBodyEndedWithEnd)
+            CreateLabel("IfReturnLabel");
+
         if (ifStatement.ElseBody != null)
         {
             ResolveLabel(elseLabel);
@@ -4113,6 +4130,9 @@ public class FlowScriptCompiler
             Error(body, "Failed to compile if statement body");
             return false;
         }
+
+        mLastIfBodyEndedWithEnd = mInstructions.Count > 0 &&
+                                  mInstructions[mInstructions.Count - 1].Opcode == Opcode.END;
 
         // ensure that we end up at the right position after the body
         // A body already ending in an unconditional transfer makes the jump unreachable,
@@ -4846,7 +4866,7 @@ public class FlowScriptCompiler
 
     // The original compiler adds a label to the label section once both its address and a
     // reference to it are known, and leaves out labels nothing references.
-    private List<LabelInfo> OrderLabelsLikeOriginal()
+    private Dictionary<ushort, int> FindFirstLabelReferences()
     {
         var firstReference = new Dictionary<ushort, int>();
         for (int i = 0; i < mInstructions.Count; i++)
@@ -4859,6 +4879,13 @@ public class FlowScriptCompiler
             if (!firstReference.ContainsKey(index))
                 firstReference.Add(index, i);
         }
+
+        return firstReference;
+    }
+
+    private List<LabelInfo> OrderLabelsLikeOriginal()
+    {
+        var firstReference = FindFirstLabelReferences();
 
         return mLabels.Values
             .Where(x => firstReference.ContainsKey(x.Index))
