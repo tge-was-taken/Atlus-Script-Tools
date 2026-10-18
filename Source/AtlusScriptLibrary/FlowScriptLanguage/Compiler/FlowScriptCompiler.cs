@@ -351,7 +351,6 @@ public class FlowScriptCompiler
     private void InitializeCompilationState()
     {
         mScript = new FlowScript(mFormatVersion);
-        mScript.EmitTrailingEnd = Matching && (Library?.EmitTrailingEnd ?? false);
         mNextLabelIndex = 0;
 
         // Set up scope stack
@@ -1466,6 +1465,11 @@ public class FlowScriptCompiler
         {
             return false;
         }
+
+        // The original compiler closes a procedure with an END of its own, on top of the one
+        // emitted for the final return statement.
+        if (Matching && (Library?.EmitTrailingEnd ?? false))
+            Emit(Instruction.END());
 
         PopScope();
 

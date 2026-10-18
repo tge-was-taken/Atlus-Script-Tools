@@ -305,7 +305,6 @@ public sealed class FlowScript
     /// <summary>
     /// Whether to end the text section with an extra END instruction, as the Raidou compiler does.
     /// </summary>
-    public bool EmitTrailingEnd { get; set; }
 
     /// <summary>
     /// Gets the binary format version.
@@ -340,7 +339,6 @@ public sealed class FlowScript
     public FlowScriptBinary ToBinary()
     {
         var builder = new FlowScriptBinaryBuilder((BinaryFormatVersion)mFormatVersion);
-        builder.EmitTrailingEnd = EmitTrailingEnd;
         builder.SetUserId(mUserId);
 
         // Skip the labels until after the instructions have been converted, as we need to fix up

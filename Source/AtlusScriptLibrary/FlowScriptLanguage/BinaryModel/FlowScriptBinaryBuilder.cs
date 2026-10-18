@@ -26,7 +26,6 @@ public sealed class FlowScriptBinaryBuilder
     /// <summary>
     /// Whether to end the text section with an extra END instruction, as the Raidou compiler does.
     /// </summary>
-    public bool EmitTrailingEnd { get; set; }
 
     public FlowScriptBinaryBuilder(BinaryFormatVersion version, bool matching = true)
     {
@@ -165,9 +164,6 @@ public sealed class FlowScriptBinaryBuilder
                     mStringSection.Add(0);
             }
         }
-
-        if (mMatching && EmitTrailingEnd)
-            mTextSection.Add(new BinaryInstruction { Opcode = Opcode.END });
 
         var binary = new FlowScriptBinary
         {
