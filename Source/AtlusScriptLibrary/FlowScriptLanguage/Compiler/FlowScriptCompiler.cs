@@ -4294,7 +4294,7 @@ public class FlowScriptCompiler
         // one already ending in a jump to that same label, as the branches of an else-if chain do.
         // A body ending in a nested if or a return still gets one.
         mLastIfBodyEndedWithJump = Matching
-            ? body.Statements.LastOrDefault() is GotoStatement || EndsWithJumpTo(endLabel)
+            ? EndsWithBackwardGoto(body) || EndsWithJumpTo(endLabel)
             : EndsWithUnconditionalJump();
 
         // ensure that we end up at the right position after the body
@@ -4801,6 +4801,15 @@ public class FlowScriptCompiler
 
         var last = mInstructions[mInstructions.Count - 1];
         return last.Opcode == Opcode.GOTO && last.Operand.UInt16Value == label.Index;
+    }
+
+    private bool EndsWithBackwardGoto(CompoundStatement body)
+    {
+        if (!(body.Statements.LastOrDefault() is GotoStatement gotoStatement) ||
+            !(gotoStatement.Label is Identifier identifier))
+            return false;
+
+        return mLabels.TryGetValue(identifier.Text, out var label) && label.IsResolved;
     }
 
     private bool EndsWithUnconditionalJump()
