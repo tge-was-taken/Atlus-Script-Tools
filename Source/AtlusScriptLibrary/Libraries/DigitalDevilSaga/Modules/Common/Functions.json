@@ -448,12 +448,18 @@
         "Type": "int",
         "Name": "param4",
         "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param5",
+        "Description": ""
       }
     ],
     "FullName": "evtCommand_evtCommand_MODEL_MOVE",
     "Aliases": [
       "FUNCTION_0017"
-    ]
+    ],
+    "Semantic": "Variadic"
   },
   {
     "Index": "0x0018",
@@ -729,6 +735,11 @@
       {
         "Type": "int",
         "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
         "Description": ""
       }
     ],
@@ -1285,12 +1296,18 @@
         "Type": "int",
         "Name": "param1",
         "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
       }
     ],
     "FullName": "evtCommand_evtCommand_FIELD_DSP",
     "Aliases": [
       "FUNCTION_004D"
-    ]
+    ],
+    "Semantic": "Variadic"
   },
   {
     "Index": "0x004e",
@@ -1530,12 +1547,18 @@
         "Type": "int",
         "Name": "param2",
         "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
       }
     ],
     "FullName": "evtCommand_evtCommand_CALL_FIELD",
     "Aliases": [
       "FUNCTION_005D"
-    ]
+    ],
+    "Semantic": "Variadic"
   },
   {
     "Index": "0x005e",
@@ -3694,7 +3717,13 @@
     "ReturnType": "int",
     "Name": "LOAD_BE",
     "Description": "(Copied from SMT3. May be incorrect.)",
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
     "FullName": "evtCommand_evtCommand_LOAD_BE",
     "Aliases": [
       "FUNCTION_00C8"
@@ -3705,7 +3734,18 @@
     "ReturnType": "int",
     "Name": "MODEL_BE",
     "Description": "(Copied from SMT3. May be incorrect.)",
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
     "FullName": "evtCommand_evtCommand_MODEL_BE",
     "Aliases": [
       "FUNCTION_00C9"
@@ -4600,7 +4640,43 @@
     "ReturnType": "int",
     "Name": "BTL_CAM_SET",
     "Description": "(Copied from SMT3. May be incorrect.)",
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Type": "float",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param4",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param5",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param6",
+        "Description": ""
+      },
+      {
+        "Type": "float",
+        "Name": "param7",
+        "Description": ""
+      }
+    ],
     "FullName": "nbAiScript_nbCommand_BTL_CAM_SET",
     "Aliases": [
       "FUNCTION_00F4"
@@ -5524,7 +5600,19 @@
     "ReturnType": "void",
     "Name": "WAIT_FOR_STREAM_IDLE",
     "Description": "",
-    "Parameters": []
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "Semantic": "Variadic"
   },
   {
     "Index": "0x0122",
@@ -6048,7 +6136,19 @@
     "ReturnType": "int",
     "Name": "FUNCTION_013D",
     "Description": "",
-    "Parameters": []
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
+    "Semantic": "Variadic"
   },
   {
     "Index": "0x013e",
@@ -8787,6 +8887,13 @@
     "ReturnType": "int",
     "Name": "FUNCTION_021F",
     "Description": "",
-    "Parameters": []
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
+    "Semantic": "Variadic"
   }
 ]
