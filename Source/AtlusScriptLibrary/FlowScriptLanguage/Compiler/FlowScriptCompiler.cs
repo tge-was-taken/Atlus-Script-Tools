@@ -5068,7 +5068,9 @@ public class FlowScriptCompiler
         return mLabels.Values
             .Where(x => firstReference.ContainsKey(x.Index))
             .OrderBy(x => x.SortIndex ?? Math.Max(x.InstructionIndex, firstReference[x.Index]))
-            .ThenBy(x => x.SortRank)
+            // A label a later jump points back to is listed after anything else ending there.
+            .ThenBy(x => x.SortIndex.HasValue ? x.SortRank
+                : firstReference[x.Index] > x.InstructionIndex ? 2 : 0)
             .ThenBy(x => x.Index)
             .ToList();
     }
