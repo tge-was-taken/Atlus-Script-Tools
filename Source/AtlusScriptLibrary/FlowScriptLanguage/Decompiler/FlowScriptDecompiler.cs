@@ -1112,7 +1112,7 @@ public class FlowScriptDecompiler
     private bool KeepUnreferencedLabel(Label label)
     {
         var name = label?.Name;
-        return Matching && name != null &&
+        return name != null &&
                !(name.Length > 1 && name[0] == '_' && name.Skip(1).All(char.IsDigit));
     }
 

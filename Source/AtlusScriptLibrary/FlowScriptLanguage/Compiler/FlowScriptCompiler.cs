@@ -351,13 +351,14 @@ public class FlowScriptCompiler
             return false;
         }
 
+        mScript.KeepUnreferencedLabels = true;
+        mScript.LocalIntVariableCount = (short)mDeclaredLocalIntSlotCount;
+        mScript.LocalFloatVariableCount = (short)mDeclaredLocalFloatSlotCount;
+
         if (Matching)
         {
             mScript.StringTable = mStringTable;
             mScript.StringTableIndices = mStringTableIndices;
-            mScript.KeepUnreferencedLabels = true;
-            mScript.LocalIntVariableCount = (short)mDeclaredLocalIntSlotCount;
-            mScript.LocalFloatVariableCount = (short)mDeclaredLocalFloatSlotCount;
         }
 
         flowScript = mScript;
@@ -1739,10 +1740,13 @@ public class FlowScriptCompiler
         }
         else
         {
-            ordered = mLabelOrder.Where(x => mLabels.ContainsValue(x)).ToList();
+            var referenced = FindFirstLabelReferences();
+            bool Keep(LabelInfo label) => referenced.ContainsKey(label.Index) || label.IsSourceLabel;
+
+            ordered = mLabelOrder.Where(x => mLabels.ContainsValue(x) && Keep(x)).ToList();
             foreach (var label in mLabels.Values)
             {
-                if (!ordered.Contains(label))
+                if (Keep(label) && !ordered.Contains(label))
                     ordered.Add(label);
             }
         }

@@ -354,8 +354,7 @@ public class Evaluator
             }
         }
 
-        if (Matching)
-            DeclareUnusedLocalVariables(foundIntVariables.Keys, foundFloatVariables.Keys);
+        DeclareUnusedLocalVariables(foundIntVariables.Keys, foundFloatVariables.Keys);
     }
 
     // The slot counts in the header can exceed the slots the instructions use, as the original
