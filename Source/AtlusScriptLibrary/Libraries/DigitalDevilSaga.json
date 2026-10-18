@@ -1,4 +1,5 @@
 {
+  "EmitTrailingEnd": true,
   "Name": "Digital Devil Saga",
   "ShortName": "dds",
   "MessageScriptFormatVersion": "Version1DDS",
