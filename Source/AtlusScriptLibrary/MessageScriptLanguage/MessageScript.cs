@@ -46,6 +46,8 @@ public class MessageScript
         {
             Id = binary.Header.UserId,
             FormatVersion = version == FormatVersion.Detect ? (FormatVersion)binary.FormatVersion : version,
+            Version0 = binary.Header.Magic != null &&
+                       binary.Header.Magic.SequenceEqual(BinaryModel.V1.BinaryHeader.MAGIC_V0),
         };
         instance.Encoding = EncodingHelper.GetEncodingForEndianness(encoding, version.HasFlag(FormatVersion.BigEndian)) ?? Encoding.ASCII;
 
@@ -132,6 +134,7 @@ public class MessageScript
 
         return instance;
     }
+
 
     /// <summary>
     /// Creates a <see cref="MessageScript"/> from a <see cref="MessageScriptBinaryV2"/>.
@@ -425,6 +428,16 @@ public class MessageScript
     public List<IDialog> Dialogs { get; }
 
     /// <summary>
+    /// Write the older MSG0 layout: its magic and an 8 byte speaker table header.
+    /// </summary>
+    public bool Version0 { get; set; }
+
+    /// <summary>
+    /// End a selection dialog's text buffer after the last option's terminator instead of adding
+    /// another one.
+    /// </summary>
+
+    /// <summary>
     /// Creates a new instance of <see cref="MessageScript"/> initialized with default values.
     /// </summary>
     public MessageScript()
@@ -480,6 +493,7 @@ public class MessageScript
         var builder = new MessageScriptBinaryBuilder((BinaryFormatVersion)FormatVersion);
 
         builder.SetUserId(Id);
+        builder.SetVersion0(Version0);
 
         if (Encoding != null)
             builder.SetEncoding(Encoding);

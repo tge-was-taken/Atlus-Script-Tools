@@ -22,6 +22,7 @@ public sealed class FlowScriptBinaryBuilder
     private IMessageScriptBinary mMessageScriptSection;
     private IList<byte> mStringSection;
     private int mStringSectionCount = -1;
+    private bool mOmitStringSection;
     private short? mLocalIntVariableCount;
     private short? mLocalFloatVariableCount;
 
@@ -112,6 +113,14 @@ public sealed class FlowScriptBinaryBuilder
         mMessageScriptSection = messageScriptSection.ToBinary() ?? throw new ArgumentNullException(nameof(messageScriptSection));
     }
 
+    /// <summary>
+    /// Leaves out the String section entirely, as some early DDS scripts do.
+    /// </summary>
+    public void SetOmitStringSection(bool value)
+    {
+        mOmitStringSection = value;
+    }
+
     public void SetStringSection(IList<byte> stringSection)
     {
         mStringSection = stringSection ?? throw new ArgumentNullException(nameof(stringSection));
@@ -165,6 +174,9 @@ public sealed class FlowScriptBinaryBuilder
 
     public FlowScriptBinary Build()
     {
+        if (mOmitStringSection)
+            mStringSection = null;
+
         // Pad out this section first before building the string section header
         if (mStringSection != null)
         {
@@ -260,7 +272,7 @@ public sealed class FlowScriptBinaryBuilder
             nextFirstElementAddress += (sectionHeader.ElementCount * sectionHeader.ElementSize);
         }
 
-        if (mMatching || mStringSection != null)
+        if (!mOmitStringSection && (mMatching || mStringSection != null))
         {
             sectionHeader = BuildSectionHeader(BinarySectionType.StringSection, sizeof(byte),
                 mStringSectionCount < 0 ? mStringSection.Count : mStringSectionCount, nextFirstElementAddress);
@@ -336,7 +348,7 @@ public sealed class FlowScriptBinaryBuilder
         if (mMatching || mMessageScriptSection != null)
             sectionCount++;
 
-        if (mMatching || mStringSection != null)
+        if (!mOmitStringSection && (mMatching || mStringSection != null))
             sectionCount++;
 
         return sectionCount;

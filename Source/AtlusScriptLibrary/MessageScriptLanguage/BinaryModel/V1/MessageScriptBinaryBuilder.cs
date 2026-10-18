@@ -13,6 +13,7 @@ public class MessageScriptBinaryBuilder
 
     // optional
     private short mUserId;
+    private bool mVersion0;
     private Encoding mEncoding;
     private List<Tuple<BinaryDialogKind, object>> mDialogs;
 
@@ -35,6 +36,11 @@ public class MessageScriptBinaryBuilder
     public void SetUserId(short value)
     {
         mUserId = value;
+    }
+
+    public void SetVersion0(bool value)
+    {
+        mVersion0 = value;
     }
 
     internal void SetEncoding(Encoding encoding)
@@ -283,13 +289,16 @@ public class MessageScriptBinaryBuilder
         header.FileType = BinaryHeader.FILE_TYPE;
         header.Format = 0;
         header.UserId = mUserId;
-        header.Magic = mFormatVersion.HasFlag(BinaryFormatVersion.BigEndian)
-            ? BinaryHeader.MAGIC_V1_BE
+        header.Magic = mFormatVersion.HasFlag(BinaryFormatVersion.BigEndian) ? BinaryHeader.MAGIC_V1_BE
+            : mVersion0 ? BinaryHeader.MAGIC_V0
             : BinaryHeader.MAGIC_V1;
         header.ExtSize = 0;
         header.DialogCount = mDialogs?.Count ?? 0;
         header.IsRelocated = false;
-        header.Version = 2;
+
+        // The values the only known MSG0 file carries here.
+        header.Reserved = (byte)(mVersion0 ? 0x49 : 0);
+        header.Version = (short)(mVersion0 ? 0x40 : 2);
     }
 
     private void BuildWindowHeadersFirstPass(ref BinaryDialogHeader[] headers)
@@ -314,10 +323,14 @@ public class MessageScriptBinaryBuilder
         MoveToNextIntPosition();
 
         speakerHeader.ExtDataOffset = 0;
-        MoveToNextIntPosition();
-
         speakerHeader.Reserved = 0;
-        MoveToNextIntPosition();
+
+        // MSG0 stops the speaker table header after the name array pointer and the count.
+        if (!mVersion0)
+        {
+            MoveToNextIntPosition();
+            MoveToNextIntPosition();
+        }
     }
 
     private void BuildWindowHeadersFinalPass(ref BinaryDialogHeader[] headers)

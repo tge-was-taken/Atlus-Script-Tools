@@ -213,6 +213,8 @@ public class FlowScriptDecompiler
         // Build function declarations and add them to AST
         //BuildFunctionDeclarationSyntaxNodes();
 
+        BuildMatchingMetadataDeclarationSyntaxNodes();
+
         // Build script-local variable declarations and add them to AST
         BuildScriptLocalVariableDeclarationSyntaxNodes();
 
@@ -232,6 +234,29 @@ public class FlowScriptDecompiler
     {
         foreach (var functionDeclaration in mEvaluatedScript.Functions)
             mCompilationUnit.Declarations.Add(functionDeclaration);
+    }
+
+    private void BuildMatchingMetadataDeclarationSyntaxNodes()
+    {
+        if (!Matching)
+            return;
+
+        var flowScript = mEvaluatedScript.FlowScript;
+        AddMatchingMetadata(MatchingMetadata.NoStringSection, flowScript.OmitStringSection);
+        AddMatchingMetadata(MatchingMetadata.MessageScriptVersion0,
+            flowScript.MessageScript?.Version0 ?? false);
+    }
+
+    private void AddMatchingMetadata(string name, bool value)
+    {
+        if (!value)
+            return;
+
+        mCompilationUnit.Declarations.Add(new VariableDeclaration(
+            new VariableModifier(VariableModifierKind.Constant),
+            new TypeIdentifier(ValueKind.Int),
+            new Identifier(ValueKind.Int, name),
+            new UIntLiteral(1)));
     }
 
     private void BuildScriptLocalVariableDeclarationSyntaxNodes()

@@ -1085,8 +1085,13 @@ public class Evaluator
 
                     if (instruction.Opcode == Opcode.JUMP)
                     {
-                        // We're using the return address of the callee for this one, so pop that first so it does not get passed an as argument
-                        TryPopExpression(out var _);
+                        // We're using the return address of the callee for this one, so pop that first so it does not get passed an as argument.
+                        // Anything else on top is a value the original pushed and never used, so leave it alone.
+                        if (mEvaluationExpressionStack.Count != 0 &&
+                            mEvaluationExpressionStack.Peek().Statement is Identifier { Text: "__RETURN_ADDRESS" })
+                        {
+                            TryPopExpression(out var _);
+                        }
                     }
 
                     for (int i = 0; i < parameterCount; i++)

@@ -255,6 +255,8 @@ public sealed class FlowScript
             instance.mProcedures.Add(procedure);
         }
 
+        instance.OmitStringSection = binary.StringSection == null;
+
         // assign message script
         if (binary.MessageScriptSection != null)
         {
@@ -366,11 +368,18 @@ public sealed class FlowScript
     /// </summary>
     public short? LocalFloatVariableCount { get; set; }
 
+    /// <summary>
+    /// Write no String section at all. Some early DDS scripts leave it out, while the rest carry
+    /// a reserved empty one.
+    /// </summary>
+    public bool OmitStringSection { get; set; }
+
     public FlowScriptBinary ToBinary()
     {
         var builder = new FlowScriptBinaryBuilder((BinaryFormatVersion)mFormatVersion);
         builder.SetUserId(mUserId);
         builder.SetLocalVariableCounts(LocalIntVariableCount, LocalFloatVariableCount);
+        builder.SetOmitStringSection(OmitStringSection);
 
         // Skip the labels until after the instructions have been converted, as we need to fix up
         // the instruction indices

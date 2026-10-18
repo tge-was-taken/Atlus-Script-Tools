@@ -16,6 +16,7 @@ public sealed class MessageScriptBinaryReader : IDisposable
     private readonly long mPositionBase;
     private readonly EndianBinaryReader mReader;
     private BinaryFormatVersion mVersion;
+    private bool mVersion0;
 
     public MessageScriptBinaryReader(Stream stream, BinaryFormatVersion version, bool leaveOpen = false)
     {
@@ -64,6 +65,8 @@ public sealed class MessageScriptBinaryReader : IDisposable
         // swap endianness
         if (header.Magic.SequenceEqual(BinaryHeader.MAGIC_V1) || header.Magic.SequenceEqual(BinaryHeader.MAGIC_V0))
         {
+            mVersion0 = header.Magic.SequenceEqual(BinaryHeader.MAGIC_V0);
+
             if (mVersion.HasFlag(BinaryFormatVersion.BigEndian))
             {
                 SwapHeader(ref header);
@@ -171,8 +174,10 @@ public sealed class MessageScriptBinaryReader : IDisposable
 
         header.SpeakerNameArray.Offset = mReader.ReadInt32();
         header.SpeakerCount = mReader.ReadInt32();
-        header.ExtDataOffset = mReader.ReadInt32();
-        header.Reserved = mReader.ReadInt32();
+
+        // MSG0 stops the speaker table header after the count.
+        header.ExtDataOffset = mVersion0 ? 0 : mReader.ReadInt32();
+        header.Reserved = mVersion0 ? 0 : mReader.ReadInt32();
 
         if (header.SpeakerNameArray.Offset != 0)
             header.SpeakerNameArray.Value = ReadSpeakerNames(header.SpeakerNameArray.Offset, header.SpeakerCount);

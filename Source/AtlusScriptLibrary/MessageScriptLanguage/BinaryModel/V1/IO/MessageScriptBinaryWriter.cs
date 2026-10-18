@@ -33,7 +33,7 @@ public sealed class MessageScriptBinaryWriter : IDisposable
     {
         WriteHeader(ref binary.mHeader);
         WriteDialogHeaders(binary.mDialogHeaders);
-        WriteSpeakerHeader(ref binary.mSpeakerTableHeader);
+        WriteSpeakerHeader(ref binary.mSpeakerTableHeader, IsVersion0(ref binary.mHeader));
         WriteDialogs(binary.mDialogHeaders);
         WriteSpeakerNameOffsets(ref binary.mSpeakerTableHeader);
         WriteSpeakerNames(ref binary.mSpeakerTableHeader);
@@ -51,8 +51,14 @@ public sealed class MessageScriptBinaryWriter : IDisposable
         mWriter.Write(header.RelocationTable.Offset);
         mWriter.Write(header.RelocationTableSize);
         mWriter.Write(header.DialogCount);
-        mWriter.Write(header.IsRelocated ? (short)1 : (short)0);
+        mWriter.Write(header.IsRelocated ? (byte)1 : (byte)0);
+        mWriter.Write(header.Reserved);
         mWriter.Write(header.Version);
+    }
+
+    private static bool IsVersion0(ref BinaryHeader header)
+    {
+        return header.Magic != null && header.Magic.AsSpan().SequenceEqual(BinaryHeader.MAGIC_V0);
     }
 
     private void WriteDialogHeaders(BinaryDialogHeader[] headers)
@@ -64,10 +70,15 @@ public sealed class MessageScriptBinaryWriter : IDisposable
         }
     }
 
-    private void WriteSpeakerHeader(ref BinarySpeakerTableHeader header)
+    private void WriteSpeakerHeader(ref BinarySpeakerTableHeader header, bool version0)
     {
         mWriter.Write(header.SpeakerNameArray.Offset);
         mWriter.Write(header.SpeakerCount);
+
+        // MSG0 stops the speaker table header here.
+        if (version0)
+            return;
+
         mWriter.Write(header.ExtDataOffset);
         mWriter.Write(header.Reserved);
     }
