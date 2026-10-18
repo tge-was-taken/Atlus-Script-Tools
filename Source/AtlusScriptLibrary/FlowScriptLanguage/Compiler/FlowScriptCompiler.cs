@@ -34,7 +34,7 @@ public class FlowScriptCompiler
     private string mCurrentBaseDirectory;
     private FlowScript mScript;
     private int mNextLabelIndex;
-    private bool mLastIfBodyEndedWithEnd;
+    private bool mLastIfBodyEndedWithJump;
     private Stack<ScopeContext> mScopeStack;
     private ScopeContext mRootScope;
     private VariableInfo mIntReturnValueVariable;
@@ -4098,10 +4098,10 @@ public class FlowScriptCompiler
                 return false;
         }
 
-        // An else-less body returning out of the procedure makes the original compiler allocate
-        // a second label, which nothing references and so leaves a hole in the numbering.
-        if (Matching && ifStatement.ElseBody == null && mLastIfBodyEndedWithEnd)
-            CreateLabel("IfReturnLabel");
+        // The original compiler allocates both an else and an end label for every if, after the
+        // body. Without an else body nothing references the second one, so it only takes a number.
+        if (Matching && ifStatement.ElseBody == null && !mLastIfBodyEndedWithJump)
+            CreateLabel("IfExtraLabel");
 
         if (ifStatement.ElseBody != null)
         {
@@ -4131,8 +4131,7 @@ public class FlowScriptCompiler
             return false;
         }
 
-        mLastIfBodyEndedWithEnd = mInstructions.Count > 0 &&
-                                  mInstructions[mInstructions.Count - 1].Opcode == Opcode.END;
+        mLastIfBodyEndedWithJump = EndsWithUnconditionalJump();
 
         // ensure that we end up at the right position after the body
         // A body already ending in an unconditional transfer makes the jump unreachable,
