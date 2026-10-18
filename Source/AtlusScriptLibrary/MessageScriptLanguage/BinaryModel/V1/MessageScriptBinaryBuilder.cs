@@ -227,17 +227,18 @@ public class MessageScriptBinaryBuilder
         // AAAA BBBB where A is a signifier value for a function and B is the encoded argument byte size
         byte functionSignifier;
 
-        if (mFormatVersion.HasFlag(BinaryFormatVersion.Version1))
-        {
-            functionSignifier = (byte)(0xF0 | token.Arguments.Count * sizeof(short) / 2 + 1 & 0x0F);
-        }
-        else if (mFormatVersion == BinaryFormatVersion.Version1DDS)
+        // Version1DDS carries the Version1 flag, so it has to be tested first.
+        if (mFormatVersion.HasFlag(BinaryFormatVersion.Version1DDS))
         {
             byte argumentByteCount = (byte)(token.Arguments.Count * 2 & 0x0F);
             if (argumentByteCount == 0)
                 argumentByteCount = 1; // tested
 
             functionSignifier = (byte)(0xF0 | argumentByteCount);
+        }
+        else if (mFormatVersion.HasFlag(BinaryFormatVersion.Version1))
+        {
+            functionSignifier = (byte)(0xF0 | token.Arguments.Count * sizeof(short) / 2 + 1 & 0x0F);
         }
         else
         {
