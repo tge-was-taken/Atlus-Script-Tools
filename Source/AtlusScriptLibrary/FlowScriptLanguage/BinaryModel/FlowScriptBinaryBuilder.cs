@@ -21,6 +21,7 @@ public sealed class FlowScriptBinaryBuilder
     private IList<BinaryInstruction> mTextSection;
     private IMessageScriptBinary mMessageScriptSection;
     private IList<byte> mStringSection;
+    private int mStringSectionCount = -1;
 
     /// <summary>
     /// Whether to end the text section with an extra END instruction, as the Raidou compiler does.
@@ -123,28 +124,54 @@ public sealed class FlowScriptBinaryBuilder
         mStringSection.Add(0);
     }
 
+    // The original compiler sizes the string section from the string bytes minus the final
+    // terminator, and pads to 16 times the remainder of that over 16 rather than up to the next
+    // multiple of 16. The string data is still written in full even when it runs past that size.
+    private void PadStringSection()
+    {
+        if (mFormatVersion != BinaryFormatVersion.Version1)
+        {
+            while ((mStringSection.Count % 16) != 0)
+                mStringSection.Add(0);
+            return;
+        }
+
+        if (mStringSection.Count == 0)
+        {
+            while (mStringSection.Count < 0xF0)
+                mStringSection.Add(0);
+        }
+        else
+        {
+            var length = mStringSection.Count - 1;
+            var remainder = length % 16;
+            mStringSectionCount = remainder != 0 ? 16 * remainder : length;
+
+            while (mStringSection.Count < mStringSectionCount)
+                mStringSection.Add(0);
+
+            return;
+        }
+
+        mStringSectionCount = mStringSection.Count;
+    }
+
     public FlowScriptBinary Build()
     {
         // Pad out this section first before building the string section header
         if (mStringSection != null)
         {
-            while ((mStringSection.Count % 16) != 0)
-                mStringSection.Add(0);
+            if (mMatching)
+                PadStringSection();
+            else
+            {
+                while ((mStringSection.Count % 16) != 0)
+                    mStringSection.Add(0);
+            }
         }
 
         if (mMatching && EmitTrailingEnd)
             mTextSection.Add(new BinaryInstruction { Opcode = Opcode.END });
-
-        if (mMatching)
-        {
-            // Version 1 reserves a 0xF0 byte string section when the script has no strings.
-            // Scripts that do have strings keep the plain 16 byte alignment above.
-            if (mFormatVersion == BinaryFormatVersion.Version1 && mStringSection.Count == 0)
-            {
-                while (mStringSection.Count < 0xF0)
-                    mStringSection.Add(0);
-            }
-        }
 
         var binary = new FlowScriptBinary
         {
@@ -231,7 +258,8 @@ public sealed class FlowScriptBinaryBuilder
 
         if (mMatching || mStringSection != null)
         {
-            sectionHeader = BuildSectionHeader(BinarySectionType.StringSection, sizeof(byte), mStringSection.Count, nextFirstElementAddress);
+            sectionHeader = BuildSectionHeader(BinarySectionType.StringSection, sizeof(byte),
+                mStringSectionCount < 0 ? mStringSection.Count : mStringSectionCount, nextFirstElementAddress);
             sectionHeaders[currentSectionHeaderIndex] = sectionHeader;
         }
 
