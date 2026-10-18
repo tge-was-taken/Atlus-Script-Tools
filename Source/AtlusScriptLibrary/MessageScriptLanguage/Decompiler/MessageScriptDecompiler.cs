@@ -132,9 +132,9 @@ public sealed class MessageScriptDecompiler : IDisposable
         WriteTag("sel", FormatIdentifier(message.Name), pattern);
         mWriter.WriteLine();
 
-        foreach (var line in message.Options)
+        for (var i = 0; i < message.Options.Count; i++)
         {
-            Decompile(line);
+            Decompile(message.Options[i], i != message.Options.Count - 1 || message.LastOptionTerminated);
             mWriter.WriteLine();
         }
     }

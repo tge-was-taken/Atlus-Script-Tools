@@ -130,7 +130,8 @@ public class MessageScriptBinaryBuilder
                 binary.OptionStartAddresses[i] = lineStartAddress;
 
                 var lineBytes = ProcessLine(message.Options[i]);
-                lineBytes.Add(0); // intentional
+                if (i != message.Options.Count - 1 || message.LastOptionTerminated)
+                    lineBytes.Add(0); // intentional
 
                 textBuffer.AddRange(lineBytes);
 

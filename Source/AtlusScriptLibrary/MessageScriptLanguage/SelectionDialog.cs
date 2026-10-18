@@ -24,6 +24,12 @@ public sealed class SelectionDialog : IDialog
     /// </summary>
     public List<TokenText> Options { get; }
 
+    /// <summary>
+    /// Gets or sets whether the last option has a terminator of its own. A few files store only the
+    /// terminator that ends the text buffer after it.
+    /// </summary>
+    public bool LastOptionTerminated { get; set; } = true;
+
     List<TokenText> IDialog.Lines => Options;
 
     /// <summary>

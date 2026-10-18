@@ -109,7 +109,10 @@ public class MessageScript
                         buffer = binaryMessage.TextBuffer;
                         pageCount = binaryMessage.OptionCount;
                         var name = isRepeatedName ? binaryMessage.Name : ResolveName(labelOccurences, binaryMessage.Name);
-                        message = new SelectionDialog(name, (SelectionDialogPattern)binaryMessage.Pattern);
+                        message = new SelectionDialog(name, (SelectionDialogPattern)binaryMessage.Pattern)
+                        {
+                            LastOptionTerminated = IsLastOptionTerminated(pageStartAddresses, buffer)
+                        };
                     }
                     break;
 
@@ -315,6 +318,19 @@ public class MessageScript
         }
 
         return name;
+    }
+
+    private static bool IsLastOptionTerminated(IReadOnlyList<int> optionStartAddresses, IReadOnlyList<byte> buffer)
+    {
+        if (optionStartAddresses.Count == 0 || buffer.Count == 0)
+            return true;
+
+        var index = optionStartAddresses[optionStartAddresses.Count - 1] - optionStartAddresses[0];
+        while (index < buffer.Count && buffer[index] != 0)
+            index++;
+
+        // The buffer ends with a terminator of its own, so the last option has one only if a byte follows.
+        return index + 1 < buffer.Count;
     }
 
     private static void ParsePages(IDialog message, IReadOnlyList<int> lineStartAddresses, IReadOnlyList<byte> buffer, FormatVersion version, Encoding encoding)
