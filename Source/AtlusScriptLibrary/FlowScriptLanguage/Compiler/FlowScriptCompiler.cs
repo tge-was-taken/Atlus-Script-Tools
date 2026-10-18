@@ -4097,7 +4097,9 @@ public class FlowScriptCompiler
         }
 
         // ensure that we end up at the right position after the body
-        if (endLabel != null)
+        // A body already ending in an unconditional transfer makes the jump unreachable,
+        // and the original compiler leaves it out.
+        if (endLabel != null && !EndsWithUnconditionalTransfer())
             Emit(Instruction.GOTO(endLabel.Index));
 
         return true;
@@ -4591,6 +4593,15 @@ public class FlowScriptCompiler
     private void TraceProcedureReturn()
     {
         EmitTracePrint($"Exiting procedure: '{mProcedureDeclaration.Identifier.Text}'");
+    }
+
+    private bool EndsWithUnconditionalTransfer()
+    {
+        if (mInstructions.Count == 0)
+            return false;
+
+        var opcode = mInstructions[mInstructions.Count - 1].Opcode;
+        return opcode == Opcode.GOTO || opcode == Opcode.END;
     }
 
     private void Emit(Instruction instruction)
