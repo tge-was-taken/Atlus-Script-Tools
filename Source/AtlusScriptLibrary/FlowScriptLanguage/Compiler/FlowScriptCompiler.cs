@@ -4222,13 +4222,15 @@ public class FlowScriptCompiler
         if (ifStatement.ElseBody == null && !Matching)
         {
             // If there's no else, then the end of the body will line up with the end label
-            if (!TryEmitIfStatementBody(ifStatement.Body, null))
+            if (!TryEmitIfStatementBody(ifStatement.Body, null, false))
                 return false;
         }
         else
         {
             // If there's an else body, then the end of the body will line up with the else label, but it should line up with the end label
-            if (!TryEmitIfStatementBody(ifStatement.Body, endLabel))
+            // A trailing backward goto only stands in for a loop back edge when the if has no
+            // else; in a branch of an else-if chain it is a continue, and the end jump follows it.
+            if (!TryEmitIfStatementBody(ifStatement.Body, endLabel, ifStatement.ElseBody == null))
                 return false;
         }
 
@@ -4277,7 +4279,7 @@ public class FlowScriptCompiler
 
             // compile if else body
             // The else body will always line up with the end label
-            if (!TryEmitIfStatementBody(ifStatement.ElseBody, Matching ? endLabel : null))
+            if (!TryEmitIfStatementBody(ifStatement.ElseBody, Matching ? endLabel : null, true))
                 return false;
 
             mElseIfEndLabel = null;
@@ -4327,7 +4329,7 @@ public class FlowScriptCompiler
         return true;
     }
 
-    private bool TryEmitIfStatementBody(CompoundStatement body, LabelInfo endLabel)
+    private bool TryEmitIfStatementBody(CompoundStatement body, LabelInfo endLabel, bool loopGotoEndsBody)
     {
         Trace(body, "Compiling if statement body");
         if (!TryEmitCompoundStatement(body))
@@ -4340,7 +4342,7 @@ public class FlowScriptCompiler
         // one already ending in a jump to that same label, as the branches of an else-if chain do.
         // A body ending in a nested if or a return still gets one.
         mLastIfBodyEndedWithJump = Matching
-            ? EndsWithLoopGoto(body) || EndsWithJumpTo(endLabel)
+            ? (loopGotoEndsBody && EndsWithLoopGoto(body)) || EndsWithJumpTo(endLabel)
             : EndsWithUnconditionalJump();
 
         // ensure that we end up at the right position after the body
