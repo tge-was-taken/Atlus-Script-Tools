@@ -37,6 +37,8 @@ public class FlowScriptCompiler
     private int mNextLabelIndex;
     private bool mLastIfBodyEndedWithJump;
     private LabelInfo mElseIfEndLabel;
+    private List<LabelInfo> mElseIfChainElseLabels;
+    private bool mElseIfChainNeedsExtra;
     private List<string> mStringTable;
     private List<int> mStringTableIndices;
     private Dictionary<StringLiteral, int> mReservedStringSlots;
@@ -4125,12 +4127,26 @@ public class FlowScriptCompiler
         // compiler gives the whole chain a single end label.
         var endLabel = mElseIfEndLabel;
         mElseIfEndLabel = null;
+        var chainElseLabels = mElseIfChainElseLabels;
+        mElseIfChainElseLabels = null;
         var ownsEndLabel = endLabel == null;
         // The original compiler numbers the end label before the else label, but puts the else
         // label first in the label section, after the labels of anything nested in the statement.
         // A body written to jump away itself needs no end jump, and those labels are numbered up
         // front rather than after the body, so nested labels come after them instead of before.
         var numberLabelsUpFront = ifStatement.Body.Statements.LastOrDefault() is GotoStatement;
+        var isElseIfChain = Matching && ifStatement.ElseIfChain && ifStatement.ElseBody != null &&
+                            ifStatement.ElseBody.Statements.Count == 1 &&
+                            ifStatement.ElseBody.Statements[0] is IfStatement;
+        // The labels of a whole else-if chain are numbered after it, end label first, so anything
+        // nested in one of its branches takes a lower number.
+        var startsChain = isElseIfChain && ownsEndLabel;
+        var savedChainNeedsExtra = mElseIfChainNeedsExtra;
+        if (startsChain)
+        {
+            chainElseLabels = new List<LabelInfo>();
+            mElseIfChainNeedsExtra = false;
+        }
 
         if (ownsEndLabel)
         {
@@ -4181,23 +4197,34 @@ public class FlowScriptCompiler
         // body. Without an else body nothing references the second one, so it only takes a number.
         if (!numberLabelsUpFront)
         {
-            if (ownsEndLabel)
+            if (ownsEndLabel && !startsChain)
                 AssignDeferredName(endLabel);
 
             if (elseLabel != null)
-                AssignDeferredName(elseLabel);
+            {
+                if (chainElseLabels != null)
+                    chainElseLabels.Add(elseLabel);
+                else
+                    AssignDeferredName(elseLabel);
+            }
             else if (Matching && !mLastIfBodyEndedWithJump)
-                CreateLabel("IfExtraLabel");
+            {
+                // Inside an else-if chain the extra label comes after the chain's own labels.
+                if (ownsEndLabel)
+                    CreateLabel("IfExtraLabel");
+                else
+                    mElseIfChainNeedsExtra = true;
+            }
         }
 
         if (ifStatement.ElseBody != null)
         {
             ResolveLabel(elseLabel);
 
-            if (Matching && ifStatement.ElseIfChain && ifStatement.ElseBody.Statements.Count == 1 &&
-                ifStatement.ElseBody.Statements[0] is IfStatement)
+            if (isElseIfChain)
             {
                 mElseIfEndLabel = endLabel;
+                mElseIfChainElseLabels = chainElseLabels;
             }
 
             // compile if else body
@@ -4206,6 +4233,21 @@ public class FlowScriptCompiler
                 return false;
 
             mElseIfEndLabel = null;
+            mElseIfChainElseLabels = null;
+
+            if (startsChain)
+            {
+                if (!numberLabelsUpFront)
+                {
+                    AssignDeferredName(endLabel);
+                    foreach (var chainElseLabel in chainElseLabels)
+                        AssignDeferredName(chainElseLabel);
+                }
+
+                if (mElseIfChainNeedsExtra)
+                    CreateLabel("IfExtraLabel");
+                mElseIfChainNeedsExtra = savedChainNeedsExtra;
+            }
         }
 
         if (ownsEndLabel)
