@@ -58,6 +58,7 @@ public class FlowScriptCompiler
     private ProcedureDeclaration mProcedureDeclaration;
     private List<Instruction> mInstructions;
     private Dictionary<string, LabelInfo> mLabels;
+    private List<LabelInfo> mLabelOrder;
 
     private int mStackValueCount; // for debugging
     private IntrinsicSupport mInstrinsic;
@@ -1331,6 +1332,7 @@ public class FlowScriptCompiler
         mProcedureDeclaration = declaration;
         mInstructions = new List<Instruction>();
         mLabels = new Dictionary<string, LabelInfo>();
+        mLabelOrder = new List<LabelInfo>();
         mStackValueCount = 1;
     }
 
@@ -1678,11 +1680,32 @@ public class FlowScriptCompiler
             return false;
         }
 
-        labels = mLabels.Values
+        var ordered = mLabelOrder.Where(x => mLabels.ContainsValue(x)).ToList();
+        foreach (var label in mLabels.Values)
+        {
+            if (!ordered.Contains(label))
+                ordered.Add(label);
+        }
+
+        var indexRemap = new Dictionary<ushort, ushort>();
+        for (int i = 0; i < ordered.Count; i++)
+            indexRemap[ordered[i].Index] = (ushort)i;
+
+        for (int i = 0; i < mInstructions.Count; i++)
+        {
+            var instruction = mInstructions[i];
+            if (instruction.Opcode == Opcode.GOTO)
+                mInstructions[i] = Instruction.GOTO(indexRemap[instruction.Operand.UInt16Value]);
+            else if (instruction.Opcode == Opcode.IF)
+                mInstructions[i] = Instruction.IF(indexRemap[instruction.Operand.UInt16Value]);
+        }
+
+        labels = ordered
             .Select(x => new FlowScriptLanguage.Label(x.Name, x.InstructionIndex))
             .ToList();
 
         mLabels.Clear();
+        mLabelOrder.Clear();
         return true;
     }
 
@@ -4009,13 +4032,17 @@ public class FlowScriptCompiler
             return false;
         }
 
-        // create else label
+        // The original compiler numbers the end label before the else label, but puts the else
+        // label first in the label section, after the labels of anything nested in the statement.
+        var endLabel = CreateLabel("IfEndLabel");
+        endLabel.DeferOrder = true;
+
         LabelInfo elseLabel = null;
         if (ifStatement.ElseBody != null)
+        {
             elseLabel = CreateLabel("IfElseLabel");
-
-        // generate label for jump if condition is false
-        var endLabel = CreateLabel("IfEndLabel");
+            elseLabel.DeferOrder = true;
+        }
 
         // emit if instruction that jumps to the label if the condition is false
         if (ifStatement.ElseBody == null)
@@ -4052,6 +4079,10 @@ public class FlowScriptCompiler
         }
 
         ResolveLabel(endLabel);
+
+        if (elseLabel != null)
+            AddLabelOrder(elseLabel);
+        AddLabelOrder(endLabel);
 
         return true;
     }
@@ -4785,21 +4816,21 @@ public class FlowScriptCompiler
         mInstructions.Add(instruction);
     }
 
+    private void AddLabelOrder(LabelInfo label)
+    {
+        if (!mLabelOrder.Contains(label))
+            mLabelOrder.Add(label);
+    }
+
     private LabelInfo CreateLabel(string name, bool isGenerated = true)
     {
         string GenerateUniqueLabelName(string baseName)
         {
             while (true)
             {
-                string name;
-                if (false && Matching)
-                {
-                    name = $"_{mNextLabelIndex++}";
-                }
-                else
-                {
-                    name = baseName + "_" + mNextLabelIndex++;
-                }
+                // The original compiler names generated labels _1, _2, ... in allocation order.
+                string name = Matching ? $"_{mNextLabelIndex + 1}" : baseName + "_" + mNextLabelIndex;
+                mNextLabelIndex++;
                 if (!mLabels.ContainsKey(name))
                     return name;
             }
@@ -4827,6 +4858,8 @@ public class FlowScriptCompiler
     {
         label.InstructionIndex = (short)(mInstructions.Count);
         label.IsResolved = true;
+        if (!label.DeferOrder)
+            AddLabelOrder(label);
 
         Trace($"Resolved label {label.Name} to instruction index {label.InstructionIndex}");
     }

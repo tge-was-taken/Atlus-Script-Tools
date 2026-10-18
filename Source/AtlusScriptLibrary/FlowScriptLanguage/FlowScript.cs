@@ -364,7 +364,17 @@ public sealed class FlowScript
         {
             int procedureInstructionStartBinaryIndex = instructionBinaryIndex;
             var procedureInstructionListIndexToBinaryIndexMap = new Dictionary<int, int>();
+
+            // Keep the label order the compiler produced; only labels an instruction refers to are emitted.
             var procedureIndexRemap = new Dictionary<int, int>();
+            var referencedLabels = new HashSet<int>(procedure.Instructions
+                .Where(x => x.Opcode == Opcode.GOTO || x.Opcode == Opcode.IF)
+                .Select(x => (int)x.Operand.UInt16Value));
+            for (int labelIndex = 0; labelIndex < procedure.Labels.Count; labelIndex++)
+            {
+                if (referencedLabels.Contains(labelIndex))
+                    procedureIndexRemap[labelIndex] = nextBinaryLabelIndex++;
+            }
 
             // Convert instructions in procedure
             for (int instructionIndex = 0; instructionIndex < procedure.Instructions.Count; instructionIndex++)
@@ -392,13 +402,7 @@ public sealed class FlowScript
                     else if (instruction.Opcode == Opcode.GOTO || instruction.Opcode == Opcode.IF)
                     {
                         // Convert procedure-local label index to global label index
-                        var oldIndex = instruction.Operand.UInt16Value;
-                        if (!procedureIndexRemap.ContainsKey(oldIndex))
-                        {
-                            procedureIndexRemap[oldIndex] = nextBinaryLabelIndex++;
-                        }
-
-                        binaryInstruction.OperandUShort = (ushort)procedureIndexRemap[oldIndex];
+                        binaryInstruction.OperandUShort = (ushort)procedureIndexRemap[instruction.Operand.UInt16Value];
                     }
                     else
                     {

@@ -1,4 +1,4 @@
-namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler;
+﻿namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler;
 
 internal class LabelInfo
 {
@@ -9,4 +9,7 @@ internal class LabelInfo
     public short InstructionIndex { get; set; }
 
     public bool IsResolved { get; set; }
+
+    // Set when the emitter appends the label to the section order itself instead of at resolve time.
+    public bool DeferOrder { get; set; }
 }
