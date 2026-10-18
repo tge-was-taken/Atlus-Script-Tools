@@ -124,9 +124,9 @@ public sealed class FlowScriptBinaryBuilder
         mStringSection.Add(0);
     }
 
-    // The original compiler sizes the string section from the string bytes minus the final
-    // terminator, and pads to 16 times the remainder of that over 16 rather than up to the next
-    // multiple of 16. The string data is still written in full even when it runs past that size.
+    // The original compiler records the string section size as 16 times the remainder of the
+    // string bytes minus the final terminator over 16, which is 0 when they are already a multiple
+    // of 16. The string data is still written in full even when it runs past that size.
     private void PadStringSection()
     {
         if (mFormatVersion != BinaryFormatVersion.Version1)
@@ -138,22 +138,18 @@ public sealed class FlowScriptBinaryBuilder
 
         if (mStringSection.Count == 0)
         {
+            // Version 1 reserves a 0xF0 byte string section for scripts without strings.
             while (mStringSection.Count < 0xF0)
                 mStringSection.Add(0);
-        }
-        else
-        {
-            var length = mStringSection.Count - 1;
-            var remainder = length % 16;
-            mStringSectionCount = remainder != 0 ? 16 * remainder : length;
 
-            while (mStringSection.Count < mStringSectionCount)
-                mStringSection.Add(0);
-
+            mStringSectionCount = mStringSection.Count;
             return;
         }
 
-        mStringSectionCount = mStringSection.Count;
+        mStringSectionCount = 16 * ((mStringSection.Count - 1) % 16);
+
+        while (mStringSection.Count < mStringSectionCount)
+            mStringSection.Add(0);
     }
 
     public FlowScriptBinary Build()
