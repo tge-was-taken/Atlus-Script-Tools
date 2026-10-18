@@ -4195,8 +4195,16 @@ public class FlowScriptCompiler
         {
             if (ownsEndLabel)
                 AssignDeferredName(endLabel);
+
             if (elseLabel != null)
-                AssignDeferredName(elseLabel);
+            {
+                // An else-if chain numbers its shared end label before any of its else labels, so
+                // a branch of a chain leaves its else label to the chain.
+                if (chainElseLabels != null)
+                    chainElseLabels.Add(elseLabel);
+                else
+                    AssignDeferredName(elseLabel);
+            }
         }
 
         // emit if instruction that jumps to the label if the condition is false
