@@ -4138,11 +4138,12 @@ public class FlowScriptCompiler
         var isElseIfChain = Matching && ifStatement.ElseIfChain && ifStatement.ElseBody != null &&
                             ifStatement.ElseBody.Statements.Count == 1 &&
                             ifStatement.ElseBody.Statements[0] is IfStatement;
-        // The labels of a whole else-if chain are numbered after it, end label first, so anything
-        // nested in one of its branches takes a lower number.
-        var startsChain = isElseIfChain && ownsEndLabel;
+        // The labels of a whole if/else statement are numbered after it, end label first, so
+        // anything nested in one of its branches takes a lower number. An else-if chain counts as
+        // one statement, since it shares a single end label.
+        var ownsLabelGroup = Matching && ownsEndLabel && ifStatement.ElseBody != null;
         var savedChainNeedsExtra = mElseIfChainNeedsExtra;
-        if (startsChain)
+        if (ownsLabelGroup)
         {
             chainElseLabels = new List<LabelInfo>();
             mElseIfChainNeedsExtra = false;
@@ -4197,7 +4198,7 @@ public class FlowScriptCompiler
         // body. Without an else body nothing references the second one, so it only takes a number.
         if (!numberLabelsUpFront)
         {
-            if (ownsEndLabel && !startsChain)
+            if (ownsEndLabel && !ownsLabelGroup)
                 AssignDeferredName(endLabel);
 
             if (elseLabel != null)
@@ -4235,7 +4236,7 @@ public class FlowScriptCompiler
             mElseIfEndLabel = null;
             mElseIfChainElseLabels = null;
 
-            if (startsChain)
+            if (ownsLabelGroup)
             {
                 if (!numberLabelsUpFront)
                 {
@@ -4252,6 +4253,25 @@ public class FlowScriptCompiler
 
         if (ownsEndLabel)
             ResolveLabel(endLabel);
+
+        if (ownsEndLabel && Matching)
+        {
+            // The original compiler lists an if statement's own labels after everything nested in
+            // it, the else labels first and the shared end label last.
+            endLabel.SortIndex = endLabel.InstructionIndex;
+            endLabel.SortRank = 1;
+            foreach (var label in chainElseLabels ?? new List<LabelInfo>())
+            {
+                label.SortIndex = endLabel.InstructionIndex;
+                label.SortRank = 0;
+            }
+
+            if (elseLabel != null && chainElseLabels == null)
+            {
+                elseLabel.SortIndex = endLabel.InstructionIndex;
+                elseLabel.SortRank = 0;
+            }
+        }
 
         if (elseLabel != null)
             AddLabelOrder(elseLabel);
@@ -5039,7 +5059,8 @@ public class FlowScriptCompiler
 
         return mLabels.Values
             .Where(x => firstReference.ContainsKey(x.Index))
-            .OrderBy(x => Math.Max(x.InstructionIndex, firstReference[x.Index]))
+            .OrderBy(x => x.SortIndex ?? Math.Max(x.InstructionIndex, firstReference[x.Index]))
+            .ThenBy(x => x.SortRank)
             .ThenBy(x => x.Index)
             .ToList();
     }
