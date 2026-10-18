@@ -68,6 +68,8 @@ public class Evaluator
 
     public bool StrictMode { get; set; }
 
+    public bool Matching { get; set; }
+
     public Evaluator()
     {
         mLogger = new Logger(nameof(Evaluator));
@@ -1457,7 +1459,7 @@ public class Evaluator
 
         // Check if the left expression is already returns a boolean value, and if so
         // omit the x == 0 or x == 1 expression
-        if (left.ExpressionValueKind == ValueKind.Bool && right is IIntLiteral intLiteral)
+        if (!Matching && left.ExpressionValueKind == ValueKind.Bool && right is IIntLiteral intLiteral)
         {
             if (typeof(T) == typeof(NonEqualityOperator))
             {

@@ -4618,8 +4618,7 @@ public class FlowScriptCompiler
         if (mInstructions.Count == 0)
             return false;
 
-        var opcode = mInstructions[mInstructions.Count - 1].Opcode;
-        return opcode == Opcode.GOTO || opcode == Opcode.END;
+        return mInstructions[mInstructions.Count - 1].Opcode == Opcode.GOTO;
     }
 
     private void Emit(Instruction instruction)

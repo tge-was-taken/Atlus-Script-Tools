@@ -70,6 +70,11 @@ public class FlowScriptDecompiler
     public bool GotoOnly { get; set; }
 
     /// <summary>
+    /// Keeps constructs the original compiler emits verbatim instead of simplifying them.
+    /// </summary>
+    public bool Matching { get; set; }
+
+    /// <summary>
     /// Toggle whether to omit unused functions from message script decompilation output.
     /// </summary>
     public bool? MessageScriptOmitUnusedFunctions { get; set; }
@@ -177,6 +182,7 @@ public class FlowScriptDecompiler
         var evaluator = new Evaluator();
         evaluator.Library = Library;
         evaluator.StrictMode = StrictMode;
+        evaluator.Matching = Matching;
         evaluator.AddListener(new LoggerPassthroughListener(mLogger));
         if (!evaluator.TryEvaluateScript(flowScript, out evaluationResult))
         {
