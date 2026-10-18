@@ -353,6 +353,7 @@ public class FlowScriptCompiler
         {
             mScript.StringTable = mStringTable;
             mScript.StringTableIndices = mStringTableIndices;
+            mScript.KeepUnreferencedLabels = true;
         }
 
         flowScript = mScript;
@@ -5127,17 +5128,23 @@ public class FlowScriptCompiler
     {
         var firstReference = FindFirstLabelReferences();
 
+        int FirstReference(LabelInfo label)
+            => firstReference.TryGetValue(label.Index, out var index) ? index : label.InstructionIndex;
+
         return mLabels.Values
-            .Where(x => firstReference.ContainsKey(x.Index))
+            // Unreferenced generated labels are holes left by the numbering; an unreferenced label
+            // named in the source was listed by the original compiler.
+            .Where(x => firstReference.ContainsKey(x.Index) ||
+                        (x.IsSourceLabel && !HasGeneratedLabelName(x.Name)))
             // A label the original compiler generated is named _N and sorts with the jump that
             // reaches it; one named in the original source stays where it is defined.
             .OrderBy(x => x.SortIndex ?? (HasGeneratedLabelName(x.Name) || !x.IsSourceLabel
-                ? Math.Max(x.InstructionIndex, firstReference[x.Index])
+                ? Math.Max(x.InstructionIndex, FirstReference(x))
                 : x.InstructionIndex))
             // A label a later jump points back to, or one named in the original source, is listed
             // after anything else ending at the same instruction.
             .ThenBy(x => x.SortIndex.HasValue ? x.SortRank
-                : firstReference[x.Index] > x.InstructionIndex ||
+                : FirstReference(x) > x.InstructionIndex ||
                   !HasGeneratedLabelName(x.Name) ? 2 : 0)
             .ThenBy(x => x.Index)
             .ToList();

@@ -347,6 +347,12 @@ public sealed class FlowScript
     /// </summary>
     public List<int> StringTableIndices { get; set; }
 
+    /// <summary>
+    /// Keep labels nothing jumps to. The compiler already drops the unused ones in matching mode,
+    /// so what is left was listed by the original compiler too.
+    /// </summary>
+    public bool KeepUnreferencedLabels { get; set; }
+
     public FlowScriptBinary ToBinary()
     {
         var builder = new FlowScriptBinaryBuilder((BinaryFormatVersion)mFormatVersion);
@@ -394,7 +400,7 @@ public sealed class FlowScript
                 .Select(x => (int)x.Operand.UInt16Value));
             for (int labelIndex = 0; labelIndex < procedure.Labels.Count; labelIndex++)
             {
-                if (referencedLabels.Contains(labelIndex))
+                if (referencedLabels.Contains(labelIndex) || KeepUnreferencedLabels)
                     procedureIndexRemap[labelIndex] = nextBinaryLabelIndex++;
             }
 
