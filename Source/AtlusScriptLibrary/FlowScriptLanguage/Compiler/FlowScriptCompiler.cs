@@ -5126,9 +5126,11 @@ public class FlowScriptCompiler
             .OrderBy(x => x.SortIndex ?? (HasGeneratedLabelName(x.Name) || !x.IsSourceLabel
                 ? Math.Max(x.InstructionIndex, firstReference[x.Index])
                 : x.InstructionIndex))
-            // A label a later jump points back to is listed after anything else ending there.
+            // A label a later jump points back to, or one named in the original source, is listed
+            // after anything else ending at the same instruction.
             .ThenBy(x => x.SortIndex.HasValue ? x.SortRank
-                : firstReference[x.Index] > x.InstructionIndex ? 2 : 0)
+                : firstReference[x.Index] > x.InstructionIndex ||
+                  !HasGeneratedLabelName(x.Name) ? 2 : 0)
             .ThenBy(x => x.Index)
             .ToList();
     }
