@@ -2138,6 +2138,8 @@ public class FlowScriptCompiler
     //
     // Expressions
     //
+    // In matching mode a bare value expression statement is kept: the original scripts
+    // contain pushes that no call consumes, so the statement emits just the push.
     private bool TryEmitExpression(Expression expression, bool isStatement)
     {
         switch (expression)
@@ -2179,7 +2181,7 @@ public class FlowScriptCompiler
                     return false;
                 break;
             case Identifier identifier:
-                if (isStatement)
+                if (isStatement && !Matching)
                 {
                     Error(identifier, "An identifier is an invalid statement");
                     return false;
@@ -2189,7 +2191,7 @@ public class FlowScriptCompiler
                     return false;
                 break;
             case BoolLiteral boolLiteral:
-                if (isStatement)
+                if (isStatement && !Matching)
                 {
                     Error(boolLiteral, "A boolean literal is an invalid statement");
                     return false;
@@ -2198,7 +2200,7 @@ public class FlowScriptCompiler
                 EmitPushBoolLiteral(boolLiteral);
                 break;
             case IIntLiteral intLiteral:
-                if (isStatement)
+                if (isStatement && !Matching)
                 {
                     Error(intLiteral, "A integer literal is an invalid statement");
                     return false;
@@ -2207,7 +2209,7 @@ public class FlowScriptCompiler
                 EmitPushIntLiteral(intLiteral);
                 break;
             case FloatLiteral floatLiteral:
-                if (isStatement)
+                if (isStatement && !Matching)
                 {
                     Error(floatLiteral, "A float literal is an invalid statement");
                     return false;
@@ -2216,7 +2218,7 @@ public class FlowScriptCompiler
                 EmitPushFloatLiteral(floatLiteral);
                 break;
             case StringLiteral stringLiteral:
-                if (isStatement)
+                if (isStatement && !Matching)
                 {
                     Error(stringLiteral, "A string literal is an invalid statement");
                     return false;

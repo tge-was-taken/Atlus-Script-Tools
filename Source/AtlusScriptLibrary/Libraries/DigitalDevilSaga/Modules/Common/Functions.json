@@ -448,11 +448,6 @@
         "Type": "int",
         "Name": "param4",
         "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param5",
-        "Description": ""
       }
     ],
     "FullName": "evtCommand_evtCommand_MODEL_MOVE",
@@ -734,11 +729,6 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param2",
         "Description": ""
       }
     ],
@@ -1295,11 +1285,6 @@
         "Type": "int",
         "Name": "param1",
         "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param2",
-        "Description": ""
       }
     ],
     "FullName": "evtCommand_evtCommand_FIELD_DSP",
@@ -1544,11 +1529,6 @@
       {
         "Type": "int",
         "Name": "param2",
-        "Description": ""
-      },
-      {
-        "Type": "string",
-        "Name": "param3",
         "Description": ""
       }
     ],
@@ -3714,13 +3694,7 @@
     "ReturnType": "int",
     "Name": "LOAD_BE",
     "Description": "(Copied from SMT3. May be incorrect.)",
-    "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
-    ],
+    "Parameters": [],
     "FullName": "evtCommand_evtCommand_LOAD_BE",
     "Aliases": [
       "FUNCTION_00C8"
@@ -3731,18 +3705,7 @@
     "ReturnType": "int",
     "Name": "MODEL_BE",
     "Description": "(Copied from SMT3. May be incorrect.)",
-    "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param2",
-        "Description": ""
-      }
-    ],
+    "Parameters": [],
     "FullName": "evtCommand_evtCommand_MODEL_BE",
     "Aliases": [
       "FUNCTION_00C9"
@@ -3934,13 +3897,7 @@
     "ReturnType": "int",
     "Name": "EFFECT_PATH_WAIT",
     "Description": "(Copied from SMT3. May be incorrect.)",
-    "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
-    ],
+    "Parameters": [],
     "FullName": "evtCommand_evtCommand_EFFECT_PATH_WAIT",
     "Aliases": [
       "FUNCTION_00D2"
@@ -3951,13 +3908,7 @@
     "ReturnType": "int",
     "Name": "EFFMG1_LOAD",
     "Description": "(Copied from SMT3. May be incorrect.)",
-    "Parameters": [
-      {
-        "Type": "string",
-        "Name": "param1",
-        "Description": ""
-      }
-    ],
+    "Parameters": [],
     "FullName": "evtCommand_evtCommand_EFFMG1_LOAD",
     "Aliases": [
       "FUNCTION_00D3"
@@ -3972,11 +3923,6 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param2",
         "Description": ""
       }
     ],
@@ -4007,18 +3953,7 @@
     "ReturnType": "int",
     "Name": "EFFMG2_BE",
     "Description": "(Copied from SMT3. May be incorrect.)",
-    "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param2",
-        "Description": ""
-      }
-    ],
+    "Parameters": [],
     "FullName": "evtCommand_evtCommand_EFFMG2_BE",
     "Aliases": [
       "FUNCTION_00D6"
@@ -4265,6 +4200,11 @@
         "Type": "BattleUnit",
         "Name": "param2",
         "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
       }
     ],
     "Aliases": [
@@ -4293,7 +4233,23 @@
     "ReturnType": "int",
     "Name": "BTL_TAIKYO",
     "Description": "(Copied from SMT3. May be incorrect.)",
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ],
     "FullName": "nbAiScript_nbCommand_BTL_TAIKYO",
     "Aliases": [
       "FUNCTION_00E4"
@@ -4304,7 +4260,13 @@
     "ReturnType": "int",
     "Name": "BTL_ALLTAIKYO",
     "Description": "(Copied from SMT3. May be incorrect.)",
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
     "FullName": "nbAiScript_nbCommand_BTL_ALLTAIKYO",
     "Aliases": [
       "FUNCTION_00E5"
@@ -4330,6 +4292,11 @@
       {
         "Type": "int",
         "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
         "Description": ""
       }
     ]
@@ -4633,43 +4600,7 @@
     "ReturnType": "int",
     "Name": "BTL_CAM_SET",
     "Description": "(Copied from SMT3. May be incorrect.)",
-    "Parameters": [
-      {
-        "Type": "float",
-        "Name": "param1",
-        "Description": ""
-      },
-      {
-        "Type": "float",
-        "Name": "param2",
-        "Description": ""
-      },
-      {
-        "Type": "float",
-        "Name": "param3",
-        "Description": ""
-      },
-      {
-        "Type": "float",
-        "Name": "param4",
-        "Description": ""
-      },
-      {
-        "Type": "float",
-        "Name": "param5",
-        "Description": ""
-      },
-      {
-        "Type": "float",
-        "Name": "param6",
-        "Description": ""
-      },
-      {
-        "Type": "float",
-        "Name": "param7",
-        "Description": ""
-      }
-    ],
+    "Parameters": [],
     "FullName": "nbAiScript_nbCommand_BTL_CAM_SET",
     "Aliases": [
       "FUNCTION_00F4"
@@ -4680,7 +4611,13 @@
     "ReturnType": "int",
     "Name": "BTL_CAM_ORG",
     "Description": "(Copied from SMT3. May be incorrect.)",
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
     "FullName": "nbAiScript_nbCommand_BTL_CAM_ORG",
     "Aliases": [
       "FUNCTION_00F5"
@@ -4753,7 +4690,23 @@
     "ReturnType": "int",
     "Name": "BTL_CAM_1SHOT",
     "Description": "(Copied from SMT3. May be incorrect.)",
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      }
+    ],
     "FullName": "nbAiScript_nbCommand_BTL_CAM_1SHOT",
     "Aliases": [
       "FUNCTION_00FA"
@@ -4775,7 +4728,13 @@
     "ReturnType": "int",
     "Name": "BTL_CAM_BOUGAI",
     "Description": "(Copied from SMT3. May be incorrect.)",
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
     "FullName": "nbAiScript_nbCommand_BTL_CAM_BOUGAI",
     "Aliases": [
       "FUNCTION_00FC"
@@ -5467,6 +5426,11 @@
       {
         "Type": "int",
         "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
         "Description": ""
       }
     ]
@@ -7077,7 +7041,14 @@
   {
     "Index": "0x0191",
     "ReturnType": "int",
-    "Name": "FUNCTION_0191"
+    "Name": "FUNCTION_0191",
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
   },
   {
     "Index": "0x0192",
