@@ -337,10 +337,15 @@ public sealed class FlowScript
     /// </summary>
     /// <returns>A <see cref="FlowScriptBinary"/> instance.</returns>
     /// <summary>
-    /// Stores one string table entry per PUSHSTR instruction, as the original compiler does,
-    /// instead of sharing an entry between equal strings.
+    /// String table entries as the compiler recorded them in matching mode: source order, one
+    /// entry per PUSHSTR occurrence. Null derives the table from the instructions instead.
     /// </summary>
-    public bool KeepDuplicateStrings { get; set; }
+    public List<string> StringTable { get; set; }
+
+    /// <summary>
+    /// String table entry index per PUSHSTR instruction, in instruction order.
+    /// </summary>
+    public List<int> StringTableIndices { get; set; }
 
     public FlowScriptBinary ToBinary()
     {
@@ -354,21 +359,24 @@ public sealed class FlowScript
         // by building an index remap table
         // TODO: optimize instructions usage
         var stringIndexToBinaryStringIndexMap = new Dictionary<ushort, ushort>();
-        var pushStrings = EnumerateInstructions()
-            .Where(x => x.Opcode == Opcode.PUSHSTR)
-            .Select(x => x.Operand.StringValue);
-        var strings = (KeepDuplicateStrings ? pushStrings : pushStrings.Distinct()).ToList();
-        var pushStringBinaryIndices = new List<ushort>();
+        var pushStringCount = EnumerateInstructions().Count(x => x.Opcode == Opcode.PUSHSTR);
+        var useRecordedTable = StringTable != null && StringTableIndices != null &&
+                               StringTableIndices.Count == pushStringCount;
+        var strings = useRecordedTable
+            ? StringTable
+            : EnumerateInstructions()
+                .Where(x => x.Opcode == Opcode.PUSHSTR)
+                .Select(x => x.Operand.StringValue)
+                .Distinct()
+                .ToList();
 
         for (ushort stringIndex = 0; stringIndex < strings.Count; stringIndex++)
         {
             builder.AddString(strings[stringIndex], out int binaryIndex);
             stringIndexToBinaryStringIndexMap[stringIndex] = (ushort)binaryIndex;
-            pushStringBinaryIndices.Add((ushort)binaryIndex);
         }
 
-        // With duplicates kept, each PUSHSTR takes its own entry, so match them up by position.
-        int pushStringCount = 0;
+        int pushStringIndex = 0;
 
         // Convert procedures
         int instructionBinaryIndex = 0;
@@ -407,9 +415,10 @@ public sealed class FlowScript
                     if (instruction.Opcode == Opcode.PUSHSTR)
                     {
                         // Handle PUSHSTR seperately due to difference in string index usage
-                        if (KeepDuplicateStrings)
+                        if (useRecordedTable)
                         {
-                            binaryInstruction.OperandUShort = pushStringBinaryIndices[pushStringCount++];
+                            var tableIndex = (ushort)StringTableIndices[pushStringIndex++];
+                            binaryInstruction.OperandUShort = stringIndexToBinaryStringIndexMap[tableIndex];
                         }
                         else
                         {

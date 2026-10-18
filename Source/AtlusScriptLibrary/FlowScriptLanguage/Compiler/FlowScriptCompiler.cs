@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Xml.Linq;
@@ -36,6 +37,9 @@ public class FlowScriptCompiler
     private int mNextLabelIndex;
     private bool mLastIfBodyEndedWithJump;
     private LabelInfo mElseIfEndLabel;
+    private List<string> mStringTable;
+    private List<int> mStringTableIndices;
+    private Dictionary<StringLiteral, int> mReservedStringSlots;
     private Stack<ScopeContext> mScopeStack;
     private ScopeContext mRootScope;
     private VariableInfo mIntReturnValueVariable;
@@ -342,6 +346,12 @@ public class FlowScriptCompiler
             return false;
         }
 
+        if (Matching)
+        {
+            mScript.StringTable = mStringTable;
+            mScript.StringTableIndices = mStringTableIndices;
+        }
+
         flowScript = mScript;
 
         return true;
@@ -353,7 +363,9 @@ public class FlowScriptCompiler
     private void InitializeCompilationState()
     {
         mScript = new FlowScript(mFormatVersion);
-        mScript.KeepDuplicateStrings = Matching;
+        mStringTable = new List<string>();
+        mStringTableIndices = new List<int>();
+        mReservedStringSlots = new Dictionary<StringLiteral, int>(new ReferenceComparer<StringLiteral>());
         mNextLabelIndex = 0;
 
         // Set up scope stack
@@ -2801,7 +2813,7 @@ public class FlowScriptCompiler
             case "__PUSHSTR":
                 if (callExpression.Arguments.Count == 1 && callExpression.Arguments[0].Expression is StringLiteral pushstrArg)
                 {
-                    Emit(Instruction.PUSHSTR(pushstrArg.Value));
+                    EmitPushString(pushstrArg.Value, pushstrArg);
                 }
                 else
                 {
@@ -2923,6 +2935,9 @@ public class FlowScriptCompiler
     private bool TryEmitFunctionCallArguments(CallOperator callExpression)
     {
         Trace("Emitting function call arguments");
+
+        if (Matching)
+            ReserveStringTableSlots(callExpression);
 
         // Compile expressions backwards so they are pushed to the stack in the right order
         for (int i = callExpression.Arguments.Count - 1; i >= 0; i--)
@@ -4020,7 +4035,47 @@ public class FlowScriptCompiler
     {
         Trace(stringLiteral, $"Pushing string literal: {stringLiteral}");
 
-        Emit(Instruction.PUSHSTR(stringLiteral.Value));
+        EmitPushString(stringLiteral.Value, stringLiteral);
+    }
+
+    // The original compiler fills the string table in source order, while call arguments are
+    // emitted right to left, so a call claims a slot per literal before emitting anything.
+    private void ReserveStringTableSlots(CallOperator callExpression)
+    {
+        foreach (var argument in callExpression.Arguments)
+        {
+            foreach (var literal in SyntaxNodeCollector<StringLiteral>.Collect(argument.Expression))
+            {
+                if (mReservedStringSlots.ContainsKey(literal))
+                    continue;
+
+                mReservedStringSlots[literal] = mStringTable.Count;
+                mStringTable.Add(literal.Value);
+            }
+        }
+    }
+
+    private void EmitPushString(string value, StringLiteral node = null, bool checkStack = true)
+    {
+        if (Matching)
+        {
+            if (node != null && mReservedStringSlots.TryGetValue(node, out var slot))
+            {
+                mReservedStringSlots.Remove(node);
+            }
+            else
+            {
+                slot = mStringTable.Count;
+                mStringTable.Add(value);
+            }
+
+            mStringTableIndices.Add(slot);
+        }
+
+        if (checkStack)
+            Emit(Instruction.PUSHSTR(value));
+        else
+            EmitUnchecked(Instruction.PUSHSTR(value));
     }
 
     private bool IntFitsInShort(int value)
@@ -4776,7 +4831,7 @@ public class FlowScriptCompiler
         if (prefixTrace)
             messageFormatted = $"Trace: {message}";
 
-        EmitUnchecked(Instruction.PUSHSTR(messageFormatted));
+        EmitPushString(messageFormatted, checkStack: false);
         EmitUnchecked(Instruction.COMM(mInstrinsic.PrintStringFunctionIndex));
     }
 
@@ -5036,5 +5091,12 @@ public class FlowScriptCompiler
     private void Warning(string message)
     {
         mLogger.Warning($"{message}");
+    }
+
+    private class ReferenceComparer<T> : IEqualityComparer<T> where T : class
+    {
+        public bool Equals(T x, T y) => ReferenceEquals(x, y);
+
+        public int GetHashCode(T obj) => RuntimeHelpers.GetHashCode(obj);
     }
 }
