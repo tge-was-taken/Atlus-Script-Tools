@@ -336,6 +336,12 @@ public sealed class FlowScript
     /// Converts the <see cref="FlowScript"/> to a <see cref="FlowScriptBinary"/> instance.
     /// </summary>
     /// <returns>A <see cref="FlowScriptBinary"/> instance.</returns>
+    /// <summary>
+    /// Stores one string table entry per PUSHSTR instruction, as the original compiler does,
+    /// instead of sharing an entry between equal strings.
+    /// </summary>
+    public bool KeepDuplicateStrings { get; set; }
+
     public FlowScriptBinary ToBinary()
     {
         var builder = new FlowScriptBinaryBuilder((BinaryFormatVersion)mFormatVersion);
@@ -348,17 +354,21 @@ public sealed class FlowScript
         // by building an index remap table
         // TODO: optimize instructions usage
         var stringIndexToBinaryStringIndexMap = new Dictionary<ushort, ushort>();
-        var strings = EnumerateInstructions()
+        var pushStrings = EnumerateInstructions()
             .Where(x => x.Opcode == Opcode.PUSHSTR)
-            .Select(x => x.Operand.StringValue)
-            .Distinct()
-            .ToList();
+            .Select(x => x.Operand.StringValue);
+        var strings = (KeepDuplicateStrings ? pushStrings : pushStrings.Distinct()).ToList();
+        var pushStringBinaryIndices = new List<ushort>();
 
         for (ushort stringIndex = 0; stringIndex < strings.Count; stringIndex++)
         {
             builder.AddString(strings[stringIndex], out int binaryIndex);
             stringIndexToBinaryStringIndexMap[stringIndex] = (ushort)binaryIndex;
+            pushStringBinaryIndices.Add((ushort)binaryIndex);
         }
+
+        // With duplicates kept, each PUSHSTR takes its own entry, so match them up by position.
+        int pushStringCount = 0;
 
         // Convert procedures
         int instructionBinaryIndex = 0;
@@ -397,11 +407,18 @@ public sealed class FlowScript
                     if (instruction.Opcode == Opcode.PUSHSTR)
                     {
                         // Handle PUSHSTR seperately due to difference in string index usage
-                        var stringIndex = (short)strings.IndexOf(instruction.Operand.StringValue);
-                        if (stringIndex == -1)
-                            throw new InvalidDataException("String could not be found??");
+                        if (KeepDuplicateStrings)
+                        {
+                            binaryInstruction.OperandUShort = pushStringBinaryIndices[pushStringCount++];
+                        }
+                        else
+                        {
+                            var stringIndex = (short)strings.IndexOf(instruction.Operand.StringValue);
+                            if (stringIndex == -1)
+                                throw new InvalidDataException("String could not be found??");
 
-                        binaryInstruction.OperandUShort = stringIndexToBinaryStringIndexMap[(ushort)stringIndex];
+                            binaryInstruction.OperandUShort = stringIndexToBinaryStringIndexMap[(ushort)stringIndex];
+                        }
                     }
                     else if (instruction.Opcode == Opcode.GOTO || instruction.Opcode == Opcode.IF)
                     {

@@ -353,6 +353,7 @@ public class FlowScriptCompiler
     private void InitializeCompilationState()
     {
         mScript = new FlowScript(mFormatVersion);
+        mScript.KeepDuplicateStrings = Matching;
         mNextLabelIndex = 0;
 
         // Set up scope stack
