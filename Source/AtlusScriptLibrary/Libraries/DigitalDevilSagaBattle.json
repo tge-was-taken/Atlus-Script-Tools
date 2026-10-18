@@ -1,0 +1,8 @@
+{
+  "EmitTrailingEnd": true,
+  "Name": "Digital Devil Saga Battle",
+  "ShortName": "ddsbattle",
+  "MessageScriptFormatVersion": "Version1DDS",
+  "FlowScriptModulesPath": "DigitalDevilSagaBattle/FlowScriptModules.json",
+  "MessageScriptLibraryPath": "DigitalDevilSaga/MessageScriptLibrary.json"
+}

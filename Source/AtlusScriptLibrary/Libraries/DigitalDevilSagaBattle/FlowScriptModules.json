@@ -1,0 +1,10 @@
+[
+  {
+    "Name": "Common",
+    "ShortName": "Common",
+    "Description": "Commands dispatched through the battle command table.",
+    "ConstantsPath": "",
+    "EnumsPath": "DigitalDevilSaga/Modules/Common/Enums.json",
+    "FunctionsPath": "DigitalDevilSagaBattle/Modules/Common/Functions.json"
+  }
+]
