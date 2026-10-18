@@ -37,6 +37,7 @@ public class FlowScriptCompiler
     private int mNextLabelIndex;
     private bool mLastIfBodyEndedWithJump;
     private LabelInfo mElseIfEndLabel;
+    private LabelInfo mLoopIfEndLabel;
     private List<LabelInfo> mElseIfChainElseLabels;
     private bool mElseIfChainNeedsExtra;
     private List<string> mStringTable;
@@ -1762,13 +1763,33 @@ public class FlowScriptCompiler
     //
     private bool TryEmitStatements(IEnumerable<Statement> statements)
     {
-        foreach (var statement in statements)
+        var list = statements as IList<Statement> ?? statements.ToList();
+        for (int i = 0; i < list.Count; i++)
         {
-            if (!TryEmitStatement(statement))
+            if (Matching && i + 1 < list.Count)
+                mLoopIfEndLabel = FindLoopIfEndLabel(list[i], list[i + 1]);
+
+            if (!TryEmitStatement(list[i]))
                 return false;
+
+            mLoopIfEndLabel = null;
         }
 
         return true;
+    }
+
+    // The decompiler turns a loop into an if whose body ends in a backward goto, followed by the
+    // loop end label. The original compiler used that label as the if's end label.
+    private LabelInfo FindLoopIfEndLabel(Statement statement, Statement next)
+    {
+        if (!(statement is IfStatement ifStatement) || ifStatement.ElseBody != null ||
+            !(next is LabelDeclaration labelDeclaration) ||
+            !HasGeneratedLabelName(labelDeclaration.Identifier.Text) ||
+            !EndsWithLoopGoto(ifStatement.Body))
+            return null;
+
+        return mLabels.TryGetValue(labelDeclaration.Identifier.Text, out var label) &&
+               !label.IsResolved ? label : null;
     }
 
     private bool TryEmitCompoundStatement(CompoundStatement compoundStatement)
@@ -4129,6 +4150,12 @@ public class FlowScriptCompiler
         mElseIfEndLabel = null;
         var chainElseLabels = mElseIfChainElseLabels;
         mElseIfChainElseLabels = null;
+        var reusedEndLabel = mLoopIfEndLabel;
+        mLoopIfEndLabel = null;
+        if (endLabel == null && reusedEndLabel != null)
+            endLabel = reusedEndLabel;
+        else
+            reusedEndLabel = null;
         var ownsEndLabel = endLabel == null;
         // The original compiler numbers the end label before the else label, but puts the else
         // label first in the label section, after the labels of anything nested in the statement.
@@ -4153,6 +4180,8 @@ public class FlowScriptCompiler
         {
             endLabel = CreateDeferredNameLabel("IfEndLabel");
             endLabel.DeferOrder = true;
+            endLabel.IsLoopEndLabel = Matching && ifStatement.ElseBody == null &&
+                                      EndsWithLoopGoto(ifStatement.Body);
         }
 
         LabelInfo elseLabel = null;
@@ -4210,7 +4239,7 @@ public class FlowScriptCompiler
 
         // The original compiler allocates both an else and an end label for every if, after the
         // body. Without an else body nothing references the second one, so it only takes a number.
-        if (Matching && elseLabel == null)
+        if (Matching && elseLabel == null && reusedEndLabel == null)
         {
             // Inside an else-if chain the extra label comes after the chain's own labels, and a
             // branch jumping backward out of the chain still takes one.

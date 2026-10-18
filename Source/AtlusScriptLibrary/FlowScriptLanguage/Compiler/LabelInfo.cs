@@ -22,4 +22,7 @@ internal class LabelInfo
 
     // A label declared in the source, as opposed to one the compiler generated.
     public bool IsSourceLabel { get; set; }
+
+    // The end label of an if whose body is the tail of a loop the decompiler unrolled.
+    public bool IsLoopEndLabel { get; set; }
 }
