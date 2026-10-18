@@ -30,6 +30,7 @@ public class FlowScriptDecompiler
     private Dictionary<Statement, int> mStatementInstructionIndexLookup;
     private Dictionary<int, List<EvaluatedStatement>> mIfStatementBodyMap;
     private Dictionary<int, List<EvaluatedStatement>> mIfStatementElseBodyMap;
+    private HashSet<int> mElseBodiesWithOwnEndJump;
     private bool mKeepLabelsAndGotos => GotoOnly;
     private bool mConvertIfStatementsToGotos => GotoOnly;
 
@@ -311,6 +312,7 @@ public class FlowScriptDecompiler
 
         mIfStatementBodyMap = new Dictionary<int, List<EvaluatedStatement>>();
         mIfStatementElseBodyMap = new Dictionary<int, List<EvaluatedStatement>>();
+        mElseBodiesWithOwnEndJump = new HashSet<int>();
     }
 
     private bool TryCompositeEvaluatedInstructions(List<EvaluatedStatement> evaluatedStatements, out List<Statement> statements)
@@ -780,6 +782,10 @@ public class FlowScriptDecompiler
                                  elseBodyGotoStatement.InstructionIndex + 1)
                             {
                                 elseBodyEvaluatedStatements.Remove(elseBodyGotoStatement);
+
+                                // The else body jumped to the end itself, so it was a braced block
+                                // rather than an 'else if' sharing the outer end label.
+                                mElseBodiesWithOwnEndJump.Add(evaluatedIfStatement.InstructionIndex);
                             }
                         }
                     }
@@ -1177,7 +1183,10 @@ public class FlowScriptDecompiler
             ifStatement.Body = new CompoundStatement(body.Select(x => x.Statement).ToList());
 
             if (mIfStatementElseBodyMap.TryGetValue(evaluatedStatement.InstructionIndex, out var elseBody))
+            {
                 ifStatement.ElseBody = new CompoundStatement(elseBody.Select(x => x.Statement).ToList());
+                ifStatement.ElseIfChain = !mElseBodiesWithOwnEndJump.Contains(evaluatedStatement.InstructionIndex);
+            }
         }
     }
 

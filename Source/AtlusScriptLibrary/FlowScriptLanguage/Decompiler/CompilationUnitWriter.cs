@@ -372,7 +372,8 @@ public class CompilationUnitWriter : SyntaxNodeVisitor
                 WriteIndentation();
                 WriteWithSeperator("else");
 
-                if (ifStatement.ElseBody.Statements.Count == 1 &&
+                if (ifStatement.ElseIfChain &&
+                     ifStatement.ElseBody.Statements.Count == 1 &&
                      ifStatement.ElseBody.Statements[0] is IfStatement)
                 {
                     // Write else if { }, instead of else { if { } }

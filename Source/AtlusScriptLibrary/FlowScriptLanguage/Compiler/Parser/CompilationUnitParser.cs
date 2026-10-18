@@ -1733,6 +1733,7 @@ public class CompilationUnitParser
                 {
                     ifStatement.ElseBody = CreateAstNode<CompoundStatement>(elseBodyContext);
                     ifStatement.ElseBody.Statements.Add(body);
+                    ifStatement.ElseIfChain = body is IfStatement;
                 }
             }
         }

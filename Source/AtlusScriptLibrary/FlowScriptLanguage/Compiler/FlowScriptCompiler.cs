@@ -4174,7 +4174,7 @@ public class FlowScriptCompiler
         {
             ResolveLabel(elseLabel);
 
-            if (Matching && ifStatement.ElseBody.Statements.Count == 1 &&
+            if (Matching && ifStatement.ElseIfChain && ifStatement.ElseBody.Statements.Count == 1 &&
                 ifStatement.ElseBody.Statements[0] is IfStatement)
             {
                 mElseIfEndLabel = endLabel;
