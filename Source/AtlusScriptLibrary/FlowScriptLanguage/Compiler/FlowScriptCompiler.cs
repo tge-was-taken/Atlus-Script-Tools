@@ -4194,8 +4194,6 @@ public class FlowScriptCompiler
                 return false;
         }
 
-        // The original compiler allocates both an else and an end label for every if, after the
-        // body. Without an else body nothing references the second one, so it only takes a number.
         if (!numberLabelsUpFront)
         {
             if (ownsEndLabel && !ownsLabelGroup)
@@ -4208,13 +4206,24 @@ public class FlowScriptCompiler
                 else
                     AssignDeferredName(elseLabel);
             }
-            else if (Matching && !mLastIfBodyEndedWithJump)
+        }
+
+        // The original compiler allocates both an else and an end label for every if, after the
+        // body. Without an else body nothing references the second one, so it only takes a number.
+        if (Matching && elseLabel == null)
+        {
+            // Inside an else-if chain the extra label comes after the chain's own labels, and a
+            // branch jumping backward out of the chain still takes one.
+            if (!numberLabelsUpFront && !mLastIfBodyEndedWithJump)
             {
-                // Inside an else-if chain the extra label comes after the chain's own labels.
                 if (ownsEndLabel)
                     CreateLabel("IfExtraLabel");
                 else
                     mElseIfChainNeedsExtra = true;
+            }
+            else if (numberLabelsUpFront && !ownsEndLabel)
+            {
+                mElseIfChainNeedsExtra = true;
             }
         }
 
