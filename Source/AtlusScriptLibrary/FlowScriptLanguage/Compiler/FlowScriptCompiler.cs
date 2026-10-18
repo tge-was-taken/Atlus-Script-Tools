@@ -5142,6 +5142,21 @@ public class FlowScriptCompiler
         return firstReference;
     }
 
+    private Dictionary<ushort, int> FindLastLabelReferences()
+    {
+        var lastReference = new Dictionary<ushort, int>();
+        for (int i = 0; i < mInstructions.Count; i++)
+        {
+            var instruction = mInstructions[i];
+            if (instruction.Opcode != Opcode.GOTO && instruction.Opcode != Opcode.IF)
+                continue;
+
+            lastReference[instruction.Operand.UInt16Value] = i;
+        }
+
+        return lastReference;
+    }
+
     private static bool HasGeneratedLabelName(string name)
     {
         return name != null && name.Length > 1 && name[0] == '_' &&
@@ -5155,6 +5170,12 @@ public class FlowScriptCompiler
         int FirstReference(LabelInfo label)
             => firstReference.TryGetValue(label.Index, out var index) ? index : label.InstructionIndex;
 
+        // A loop top is reached by the back edge at the end of the loop, so its last reference is
+        // what decides where the original compiler listed it.
+        var lastReference = FindLastLabelReferences();
+        int LastReference(LabelInfo label)
+            => lastReference.TryGetValue(label.Index, out var index) ? index : label.InstructionIndex;
+
         return mLabels.Values
             // Unreferenced generated labels are holes left by the numbering; an unreferenced label
             // named in the source was listed by the original compiler.
@@ -5163,7 +5184,7 @@ public class FlowScriptCompiler
             // A label the original compiler generated is named _N and sorts with the jump that
             // reaches it; one named in the original source stays where it is defined.
             .OrderBy(x => x.SortIndex ?? (HasGeneratedLabelName(x.Name) || !x.IsSourceLabel
-                ? Math.Max(x.InstructionIndex, FirstReference(x))
+                ? Math.Max(x.InstructionIndex, LastReference(x))
                 : x.InstructionIndex))
             // A label a later jump points back to, or one named in the original source, is listed
             // after anything else ending at the same instruction.
