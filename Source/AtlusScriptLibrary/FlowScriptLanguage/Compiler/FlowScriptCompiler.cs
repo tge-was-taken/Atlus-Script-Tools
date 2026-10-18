@@ -5070,13 +5070,23 @@ public class FlowScriptCompiler
         return firstReference;
     }
 
+    private static bool HasGeneratedLabelName(string name)
+    {
+        return name != null && name.Length > 1 && name[0] == '_' &&
+               name.Skip(1).All(char.IsDigit);
+    }
+
     private List<LabelInfo> OrderLabelsLikeOriginal()
     {
         var firstReference = FindFirstLabelReferences();
 
         return mLabels.Values
             .Where(x => firstReference.ContainsKey(x.Index))
-            .OrderBy(x => x.SortIndex ?? Math.Max(x.InstructionIndex, firstReference[x.Index]))
+            // A label the original compiler generated is named _N and sorts with the jump that
+            // reaches it; one named in the original source stays where it is defined.
+            .OrderBy(x => x.SortIndex ?? (HasGeneratedLabelName(x.Name) || !x.IsSourceLabel
+                ? Math.Max(x.InstructionIndex, firstReference[x.Index])
+                : x.InstructionIndex))
             // A label a later jump points back to is listed after anything else ending there.
             .ThenBy(x => x.SortIndex.HasValue ? x.SortRank
                 : firstReference[x.Index] > x.InstructionIndex ? 2 : 0)
@@ -5111,6 +5121,7 @@ public class FlowScriptCompiler
         if (!isGenerated && !mLabels.ContainsKey(name))
         {
             label.Name = name;
+            label.IsSourceLabel = true;
         }
         else
         {

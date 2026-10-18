@@ -19,4 +19,7 @@ internal class LabelInfo
     public int SortRank { get; set; }
 
     public bool NameAssigned { get; set; }
+
+    // A label declared in the source, as opposed to one the compiler generated.
+    public bool IsSourceLabel { get; set; }
 }
