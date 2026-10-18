@@ -1690,11 +1690,19 @@ public class FlowScriptCompiler
             return false;
         }
 
-        var ordered = mLabelOrder.Where(x => mLabels.ContainsValue(x)).ToList();
-        foreach (var label in mLabels.Values)
+        List<LabelInfo> ordered;
+        if (Matching)
         {
-            if (!ordered.Contains(label))
-                ordered.Add(label);
+            ordered = OrderLabelsLikeOriginal();
+        }
+        else
+        {
+            ordered = mLabelOrder.Where(x => mLabels.ContainsValue(x)).ToList();
+            foreach (var label in mLabels.Values)
+            {
+                if (!ordered.Contains(label))
+                    ordered.Add(label);
+            }
         }
 
         var indexRemap = new Dictionary<ushort, ushort>();
@@ -4835,6 +4843,29 @@ public class FlowScriptCompiler
     private void EmitUnchecked(Instruction instruction)
     {
         mInstructions.Add(instruction);
+    }
+
+    // The original compiler adds a label to the label section once both its address and a
+    // reference to it are known, and leaves out labels nothing references.
+    private List<LabelInfo> OrderLabelsLikeOriginal()
+    {
+        var firstReference = new Dictionary<ushort, int>();
+        for (int i = 0; i < mInstructions.Count; i++)
+        {
+            var instruction = mInstructions[i];
+            if (instruction.Opcode != Opcode.GOTO && instruction.Opcode != Opcode.IF)
+                continue;
+
+            var index = instruction.Operand.UInt16Value;
+            if (!firstReference.ContainsKey(index))
+                firstReference.Add(index, i);
+        }
+
+        return mLabels.Values
+            .Where(x => firstReference.ContainsKey(x.Index))
+            .OrderBy(x => Math.Max(x.InstructionIndex, firstReference[x.Index]))
+            .ThenBy(x => x.Index)
+            .ToList();
     }
 
     private void AddLabelOrder(LabelInfo label)
