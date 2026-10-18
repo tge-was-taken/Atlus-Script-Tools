@@ -51,12 +51,17 @@ public class MessageScript
 
         // Convert the binary messages to their counterpart
         var labelOccurences = new Dictionary<string, int>();
+        var seenOffsets = new HashSet<int>();
         foreach (var messageHeader in binary.DialogHeaders)
         {
             IDialog message;
             IReadOnlyList<int> pageStartAddresses;
             IReadOnlyList<byte> buffer;
             int pageCount;
+
+            // A table entry sharing its data offset with an earlier one is a dialog that repeats that dialog's
+            // name, so keep the name as is instead of making it unique.
+            var isRepeatedName = messageHeader.Data.Offset != 0 && !seenOffsets.Add(messageHeader.Data.Offset);
 
             switch (messageHeader.Kind)
             {
@@ -68,7 +73,7 @@ public class MessageScript
                         pageCount = binaryMessage.PageCount;
 
                         // check for duplicates
-                        var name = ResolveName(labelOccurences, binaryMessage.Name);
+                        var name = isRepeatedName ? binaryMessage.Name : ResolveName(labelOccurences, binaryMessage.Name);
 
                         if (binaryMessage.SpeakerId == 0xFFFF)
                         {
@@ -103,7 +108,7 @@ public class MessageScript
                         pageStartAddresses = binaryMessage.OptionStartAddresses;
                         buffer = binaryMessage.TextBuffer;
                         pageCount = binaryMessage.OptionCount;
-                        var name = ResolveName(labelOccurences, binaryMessage.Name);
+                        var name = isRepeatedName ? binaryMessage.Name : ResolveName(labelOccurences, binaryMessage.Name);
                         message = new SelectionDialog(name, (SelectionDialogPattern)binaryMessage.Pattern);
                     }
                     break;
@@ -297,7 +302,7 @@ public class MessageScript
         return FromBinary(binary, version, encoding);
     }
 
-    private static string ResolveName(Dictionary<string, int> labelOccurences, string name)
+    internal static string ResolveName(Dictionary<string, int> labelOccurences, string name)
     {
         if (labelOccurences.ContainsKey(name))
         {
@@ -423,6 +428,21 @@ public class MessageScript
         FormatVersion = version;
         Encoding = encoding;
         Dialogs = new List<IDialog>();
+    }
+
+    /// <summary>
+    /// Gets a unique identifier per dialog, for referring to dialogs by name. Dialogs may share a name,
+    /// so repeats get a numeric suffix.
+    /// </summary>
+    public List<string> GetDialogIdentifiers()
+    {
+        var occurences = new Dictionary<string, int>();
+        var identifiers = new List<string>(Dialogs.Count);
+
+        foreach (var dialog in Dialogs)
+            identifiers.Add(ResolveName(occurences, dialog.Name));
+
+        return identifiers;
     }
 
     /// <summary>

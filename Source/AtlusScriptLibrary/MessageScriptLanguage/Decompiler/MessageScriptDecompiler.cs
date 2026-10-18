@@ -38,10 +38,12 @@ public sealed class MessageScriptDecompiler : IDisposable
     {
         WriteHeaderComment("Decompiled by Atlus Script Tools");
 
+        var identifiers = script.GetDialogIdentifiers();
+
         for (var i = 0; i < script.Dialogs.Count; i++)
         {
             var message = script.Dialogs[i];
-            WriteHeaderLine($"const int {FormatIdentifier(message.Name).PadRight(32)} = {i};");
+            WriteHeaderLine($"const int {FormatIdentifier(identifiers[i]).PadRight(32)} = {i};");
             Decompile(message);
             mWriter.WriteLine();
         }

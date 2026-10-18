@@ -112,6 +112,8 @@ public sealed class MessageScriptBinaryReader : IDisposable
     {
         BinaryDialogHeader[] headers = new BinaryDialogHeader[mHeader.DialogCount];
         var offsets = RelocationTableEncoding.Decode(mHeader.RelocationTable.Value, 0);
+        var firstHeaderByAddress = new Dictionary<int, int>();
+        int nextAddress = -1;
 
         for (int i = 0; i < headers.Length; i++)
         {
@@ -121,18 +123,46 @@ public sealed class MessageScriptBinaryReader : IDisposable
 
             if (header.Data.Offset != 0)
             {
-                if (mHeader.IsRelocated)
+                var address = mHeader.IsRelocated ? header.Data.Offset + offsets[i] : header.Data.Offset;
+
+                // Dialogs sharing a name share an address: the original tool resolved the table entry to the
+                // first dialog of that name but still wrote this one's own data at its place in the layout.
+                if (firstHeaderByAddress.TryGetValue(address, out var first) &&
+                    nextAddress >= 0 &&
+                    HasSameName(headers[first], nextAddress))
                 {
-                    header.Data.Value = ReadDialog(header.Kind, header.Data.Offset + offsets[i]);
+                    header.DataLocation = nextAddress;
                 }
                 else
                 {
-                    header.Data.Value = ReadDialog(header.Kind, header.Data.Offset);
+                    header.DataLocation = address;
+                    if (!firstHeaderByAddress.ContainsKey(address))
+                        firstHeaderByAddress.Add(address, i);
                 }
+
+                header.Data.Value = ReadDialog(header.Kind, header.DataLocation, out nextAddress);
             }
         }
 
         return headers;
+    }
+
+    private bool HasSameName(BinaryDialogHeader header, int address)
+    {
+        var name = header.Data.Value switch
+        {
+            BinaryMessageDialog message => message.Name,
+            BinarySelectionDialog selection => selection.Name,
+            _ => null
+        };
+
+        if (name == null || mPositionBase + BinaryHeader.SIZE + address + BinaryMessageDialog.IDENTIFIER_LENGTH > mReader.BaseStreamLength)
+            return false;
+
+        mReader.PushPositionAndSeekBegin(mPositionBase + BinaryHeader.SIZE + address);
+        var other = mReader.ReadString(StringBinaryFormat.FixedLength, BinaryMessageDialog.IDENTIFIER_LENGTH);
+        mReader.SeekBeginToPoppedPosition();
+        return name == other;
     }
 
     public BinarySpeakerTableHeader ReadSpeakerTableHeader()
@@ -186,7 +216,7 @@ public sealed class MessageScriptBinaryReader : IDisposable
         return speakerNames;
     }
 
-    private object ReadDialog(BinaryDialogKind type, int address)
+    private object ReadDialog(BinaryDialogKind type, int address, out int endAddress)
     {
         object dialog;
 
@@ -206,6 +236,7 @@ public sealed class MessageScriptBinaryReader : IDisposable
                 throw new InvalidDataException($"Unknown message type: {type}");
         }
 
+        endAddress = (int)(mReader.Position - mPositionBase - BinaryHeader.SIZE + 3) & ~3;
         mReader.SeekBeginToPoppedPosition();
 
         return dialog;

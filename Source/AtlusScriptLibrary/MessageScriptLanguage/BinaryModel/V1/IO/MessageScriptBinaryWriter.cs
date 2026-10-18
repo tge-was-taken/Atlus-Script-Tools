@@ -76,7 +76,7 @@ public sealed class MessageScriptBinaryWriter : IDisposable
     {
         foreach (var header in headers)
         {
-            mWriter.SeekBegin(mPositionBase + BinaryHeader.SIZE + header.Data.Offset);
+            mWriter.SeekBegin(mPositionBase + BinaryHeader.SIZE + header.DataLocation);
 
             switch (header.Kind)
             {

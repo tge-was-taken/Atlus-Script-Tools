@@ -121,9 +121,6 @@ public class FlowScriptDecompiler
 
         if (flowScript.MessageScript != null)
         {
-            // Disambiguate message script dialog names so that the decompilation won't fail
-            DisambiguateMessageScriptDialogNames(flowScript.MessageScript);
-
             if (DecompileMessageScript)
             {
                 // Decompile embedded message script
@@ -467,6 +464,8 @@ public class FlowScriptDecompiler
 
     private void ReplaceUnnamedMessageScriptConstants()
     {
+        var dialogIdentifiers = mEvaluatedScript.FlowScript.MessageScript.GetDialogIdentifiers();
+
         foreach (var evaluatedStatement in mEvaluatedStatements)
         {
             var calls = SyntaxNodeCollector<CallOperator>.Collect(evaluatedStatement.Statement);
@@ -507,30 +506,9 @@ public class FlowScriptDecompiler
                         // rewrite expression to be a reference to the dialog name
                         arg.Expression = new Identifier(
                             ValueKind.Int,
-                            mEvaluatedScript.FlowScript.MessageScript.Dialogs[(int)dialogIndex.Value].Name);
+                            dialogIdentifiers[(int)dialogIndex.Value]);
                     }
                 }
-            }
-        }
-    }
-
-    private void DisambiguateMessageScriptDialogNames(MessageScript script)
-    {
-        var usedNames = new Dictionary<string, int>();
-        for (int i = 0; i < script.Dialogs.Count; i++)
-        {
-            var dialog = script.Dialogs[i];
-            if (usedNames.TryGetValue(dialog.Name, out var occurences))
-            {
-                // Name already used, disambiguate it by appending a number (starting with 2).
-                // DuplicateName2, DuplicateName3...
-                usedNames[dialog.Name] = ++occurences;
-                dialog.Name += occurences;
-            }
-            else
-            {
-                // Name previously unused. Initialize occurence counter to 1.
-                usedNames[dialog.Name] = 1;
             }
         }
     }

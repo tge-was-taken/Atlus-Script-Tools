@@ -20,12 +20,14 @@ public class MessageScriptBinaryBuilder
     private readonly List<int> mAddressLocations;   // for generating the relocation table
     private int mPosition;                          // used to calculate addresses
     private readonly List<byte[]> mSpeakerNames;    // for storing the speaker names of dialogue messages
+    private readonly List<string> mDialogNames;     // untruncated dialog names, for resolving repeated names
 
     public MessageScriptBinaryBuilder(BinaryFormatVersion version)
     {
         mFormatVersion = version;
         mAddressLocations = new List<int>();
         mSpeakerNames = new List<byte[]>();
+        mDialogNames = new List<string>();
         mPosition = BinaryHeader.SIZE;
         mDialogs = new List<Tuple<BinaryDialogKind, object>>();
     }
@@ -103,6 +105,7 @@ public class MessageScriptBinaryBuilder
         binary.TextBuffer = textBuffer.ToArray();
         binary.TextBufferSize = binary.TextBuffer.Length;
 
+        mDialogNames.Add(message.Name);
         mDialogs.Add(new Tuple<BinaryDialogKind, object>(BinaryDialogKind.Message, binary));
     }
 
@@ -140,6 +143,7 @@ public class MessageScriptBinaryBuilder
         binary.TextBuffer = textBuffer.ToArray();
         binary.TextBufferSize = binary.TextBuffer.Length;
 
+        mDialogNames.Add(message.Name);
         mDialogs.Add(new Tuple<BinaryDialogKind, object>(BinaryDialogKind.Selection, binary));
     }
 
@@ -317,10 +321,22 @@ public class MessageScriptBinaryBuilder
 
     private void BuildWindowHeadersFinalPass(ref BinaryDialogHeader[] headers)
     {
+        var firstAddressByName = new Dictionary<string, int>();
+
         for (int i = 0; i < headers.Length; i++)
         {
-            headers[i].Data.Offset = GetAlignedAddress();
-            headers[i].Data.Value = UpdateDialogAddressBase(mDialogs[i].Item2);
+            headers[i].DataLocation = GetAlignedAddress();
+
+            // A dialog repeating an earlier dialog's name still gets its own data, but the table entry and
+            // the addresses within it point at the first dialog of that name.
+            if (!firstAddressByName.TryGetValue(mDialogNames[i], out var address))
+            {
+                address = headers[i].DataLocation;
+                firstAddressByName.Add(mDialogNames[i], address);
+            }
+
+            headers[i].Data.Offset = address;
+            headers[i].Data.Value = UpdateDialogAddressBase(mDialogs[i].Item2, address);
         }
     }
 
@@ -358,10 +374,8 @@ public class MessageScriptBinaryBuilder
         header.FileSize = mPosition;
     }
 
-    private object UpdateDialogAddressBase(object dialog)
+    private object UpdateDialogAddressBase(object dialog, int dialogAddress)
     {
-        int dialogAddress = GetAddress();
-
         switch (dialog)
         {
             case BinaryMessageDialog dialogue:

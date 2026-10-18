@@ -1115,6 +1115,7 @@ public class FlowScriptCompiler
         if (mScript.MessageScript != null)
         {
             Info("Inserting MessageScript window identifier constants");
+            var dialogNameOccurences = new Dictionary<string, int>();
             for (int i = 0; i < mScript.MessageScript.Dialogs.Count; i++)
             {
                 var dialog = mScript.MessageScript.Dialogs[i];
@@ -1132,17 +1133,20 @@ public class FlowScriptCompiler
                     }
                 }
 
+                // Dialogs may share a name, so the repeats get a suffix, as MessageScript identifiers do.
+                var identifier = MessageScript.ResolveName(dialogNameOccurences, dialog.Name);
+
                 var declaration = new VariableDeclaration
                 (
                     new VariableModifier(VariableModifierKind.Constant),
                     new TypeIdentifier(ValueKind.Int),
-                    new Identifier(ValueKind.Int, dialog.Name),
+                    new Identifier(ValueKind.Int, identifier),
                     new UIntLiteral((uint)i)
                 );
 
                 if (!Scope.TryDeclareVariable(declaration))
                 {
-                    Error(declaration, $"Compiler generated constant for MessageScript dialog {dialog.Name} conflicts with another variable");
+                    Error(declaration, $"Compiler generated constant for MessageScript dialog {identifier} conflicts with another variable");
                 }
                 else
                 {
