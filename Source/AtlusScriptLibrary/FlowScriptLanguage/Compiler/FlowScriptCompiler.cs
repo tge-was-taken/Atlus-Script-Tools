@@ -35,6 +35,7 @@ public class FlowScriptCompiler
     private FlowScript mScript;
     private int mNextLabelIndex;
     private bool mLastIfBodyEndedWithJump;
+    private LabelInfo mElseIfEndLabel;
     private Stack<ScopeContext> mScopeStack;
     private ScopeContext mRootScope;
     private VariableInfo mIntReturnValueVariable;
@@ -4062,10 +4063,18 @@ public class FlowScriptCompiler
             return false;
         }
 
-        // The original compiler numbers the end label before the else label, but puts the else
-        // label first in the label section, after the labels of anything nested in the statement.
-        var endLabel = CreateLabel("IfEndLabel");
-        endLabel.DeferOrder = true;
+        // An else body holding nothing but another if is an else-if chain, and the original
+        // compiler gives the whole chain a single end label.
+        var endLabel = mElseIfEndLabel;
+        mElseIfEndLabel = null;
+        var ownsEndLabel = endLabel == null;
+        if (ownsEndLabel)
+        {
+            // The original compiler numbers the end label before the else label, but puts the else
+            // label first in the label section, after the labels of anything nested in the statement.
+            endLabel = CreateLabel("IfEndLabel");
+            endLabel.DeferOrder = true;
+        }
 
         LabelInfo elseLabel = null;
         if (ifStatement.ElseBody != null)
@@ -4107,17 +4116,27 @@ public class FlowScriptCompiler
         {
             ResolveLabel(elseLabel);
 
+            if (Matching && ifStatement.ElseBody.Statements.Count == 1 &&
+                ifStatement.ElseBody.Statements[0] is IfStatement)
+            {
+                mElseIfEndLabel = endLabel;
+            }
+
             // compile if else body
             // The else body will always line up with the end label
             if (!TryEmitIfStatementBody(ifStatement.ElseBody, Matching ? endLabel : null))
                 return false;
+
+            mElseIfEndLabel = null;
         }
 
-        ResolveLabel(endLabel);
+        if (ownsEndLabel)
+            ResolveLabel(endLabel);
 
         if (elseLabel != null)
             AddLabelOrder(elseLabel);
-        AddLabelOrder(endLabel);
+        if (ownsEndLabel)
+            AddLabelOrder(endLabel);
 
         return true;
     }
