@@ -78,7 +78,9 @@ public sealed class FlowScript
     {
         var instance = new FlowScript
         {
-            mUserId = binary.Header.UserId
+            mUserId = binary.Header.UserId,
+            LocalIntVariableCount = binary.Header.LocalIntVariableCount,
+            LocalFloatVariableCount = binary.Header.LocalFloatVariableCount
         };
 
         // assign labels later after convert the instructions because we need to update the instruction indices
@@ -353,10 +355,22 @@ public sealed class FlowScript
     /// </summary>
     public bool KeepUnreferencedLabels { get; set; }
 
+    /// <summary>
+    /// Number of local int slots the script declares. Null derives the count from the highest
+    /// slot the instructions use, which misses slots that are declared but never used.
+    /// </summary>
+    public short? LocalIntVariableCount { get; set; }
+
+    /// <summary>
+    /// Number of local float slots the script declares. See <see cref="LocalIntVariableCount"/>.
+    /// </summary>
+    public short? LocalFloatVariableCount { get; set; }
+
     public FlowScriptBinary ToBinary()
     {
         var builder = new FlowScriptBinaryBuilder((BinaryFormatVersion)mFormatVersion);
         builder.SetUserId(mUserId);
+        builder.SetLocalVariableCounts(LocalIntVariableCount, LocalFloatVariableCount);
 
         // Skip the labels until after the instructions have been converted, as we need to fix up
         // the instruction indices

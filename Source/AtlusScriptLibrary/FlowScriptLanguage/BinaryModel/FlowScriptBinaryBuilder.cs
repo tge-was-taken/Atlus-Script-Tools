@@ -22,6 +22,8 @@ public sealed class FlowScriptBinaryBuilder
     private IMessageScriptBinary mMessageScriptSection;
     private IList<byte> mStringSection;
     private int mStringSectionCount = -1;
+    private short? mLocalIntVariableCount;
+    private short? mLocalFloatVariableCount;
 
     /// <summary>
     /// Whether to end the text section with an extra END instruction, as the Raidou compiler does.
@@ -49,6 +51,16 @@ public sealed class FlowScriptBinaryBuilder
     public void SetUserId(short value)
     {
         mUserId = value;
+    }
+
+    /// <summary>
+    /// Sets the declared local slot counts. A declared count can exceed the slots the
+    /// instructions use, as a declared local does not have to be referenced.
+    /// </summary>
+    public void SetLocalVariableCounts(short? intCount, short? floatCount)
+    {
+        mLocalIntVariableCount = intCount;
+        mLocalFloatVariableCount = floatCount;
     }
 
     public void SetProcedureLabelSection(IList<BinaryLabel> procedureLabelSection)
@@ -333,9 +345,9 @@ public sealed class FlowScriptBinaryBuilder
     private short CalculateLocalIntVariableCount()
     {
         if (mTextSection == null)
-            return 0;
+            return mLocalIntVariableCount ?? 0;
 
-        int highestIndex = -1;
+        int highestIndex = (mLocalIntVariableCount ?? 0) - 1;
         for (int i = 0; i < mTextSection.Count; i++)
         {
             var instruction = mTextSection[i];
@@ -359,9 +371,9 @@ public sealed class FlowScriptBinaryBuilder
     private short CalculateLocalFloatVariableCount()
     {
         if (mTextSection == null)
-            return 0;
+            return mLocalFloatVariableCount ?? 0;
 
-        int highestIndex = -1;
+        int highestIndex = (mLocalFloatVariableCount ?? 0) - 1;
         for (int i = 0; i < mTextSection.Count; i++)
         {
             var instruction = mTextSection[i];

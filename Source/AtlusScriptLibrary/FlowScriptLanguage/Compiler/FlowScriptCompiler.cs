@@ -60,6 +60,8 @@ public class FlowScriptCompiler
     private ushort mNextAiLocalVariableIndex;
     private ushort mNextAiGlobalVariableIndex;
     private ushort mNextCounterVariableIndex;
+    private int mDeclaredLocalIntSlotCount;
+    private int mDeclaredLocalFloatSlotCount;
 
     //
     // procedure state
@@ -354,6 +356,8 @@ public class FlowScriptCompiler
             mScript.StringTable = mStringTable;
             mScript.StringTableIndices = mStringTableIndices;
             mScript.KeepUnreferencedLabels = true;
+            mScript.LocalIntVariableCount = (short)mDeclaredLocalIntSlotCount;
+            mScript.LocalFloatVariableCount = (short)mDeclaredLocalFloatSlotCount;
         }
 
         flowScript = mScript;
@@ -367,6 +371,8 @@ public class FlowScriptCompiler
     private void InitializeCompilationState()
     {
         mScript = new FlowScript(mFormatVersion);
+        mDeclaredLocalIntSlotCount = 0;
+        mDeclaredLocalFloatSlotCount = 0;
         mStringTable = new List<string>();
         mStringTableIndices = new List<int>();
         mReservedStringSlots = new Dictionary<StringLiteral, int>(new ReferenceComparer<StringLiteral>());
@@ -2055,7 +2061,23 @@ public class FlowScriptCompiler
             return false;
         }
 
+        RecordDeclaredLocalSlots(declaration, index, size);
+
         return true;
+    }
+
+    // The original compiler sizes the local slot arrays by what the script declares, so a local
+    // that is declared but never referenced still takes up a slot.
+    private void RecordDeclaredLocalSlots(VariableDeclaration declaration, ushort index, ushort size)
+    {
+        if (declaration.Modifier != null && declaration.Modifier.Kind != VariableModifierKind.Local)
+            return;
+
+        var slotCount = index + size;
+        if (declaration.Type.ValueKind == ValueKind.Float)
+            mDeclaredLocalFloatSlotCount = Math.Max(mDeclaredLocalFloatSlotCount, slotCount);
+        else
+            mDeclaredLocalIntSlotCount = Math.Max(mDeclaredLocalIntSlotCount, slotCount);
     }
 
     private bool TryEmitVariableDeclaration(VariableDeclaration declaration, out ushort index)

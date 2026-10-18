@@ -353,6 +353,33 @@ public class Evaluator
                 }
             }
         }
+
+        if (Matching)
+            DeclareUnusedLocalVariables(foundIntVariables.Keys, foundFloatVariables.Keys);
+    }
+
+    // The slot counts in the header can exceed the slots the instructions use, as the original
+    // compiler also counts locals that are declared but never referenced. Declare those too so
+    // that recompiling the output gives back the same counts.
+    private void DeclareUnusedLocalVariables(IEnumerable<int> usedIntIndices, IEnumerable<int> usedFloatIndices)
+    {
+        void Declare(int? slotCount, IEnumerable<int> usedIndices, ValueKind valueKind)
+        {
+            if (slotCount == null)
+                return;
+
+            var used = new HashSet<int>(usedIndices);
+            for (int index = 0; index < slotCount; index++)
+            {
+                if (used.Contains(index) || IsVariableDeclared(VariableModifierKind.Local, valueKind, (ushort)index))
+                    continue;
+
+                TryDeclareVariable(VariableModifierKind.Local, valueKind, (ushort)index, out _);
+            }
+        }
+
+        Declare(mScript.LocalIntVariableCount, usedIntIndices, ValueKind.Int);
+        Declare(mScript.LocalFloatVariableCount, usedFloatIndices, ValueKind.Float);
     }
 
     private bool TryRegisterUsedFunctions()
