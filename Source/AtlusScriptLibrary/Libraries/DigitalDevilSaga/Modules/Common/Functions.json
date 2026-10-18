@@ -1,7 +1,7 @@
 [
   {
     "Index": "0x0000",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "MSG",
     "Description": "",
     "Parameters": [
@@ -18,7 +18,7 @@
   },
   {
     "Index": "0x0001",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "MSG_WND_DSP",
     "Description": "",
     "Parameters": [],
@@ -28,7 +28,7 @@
   },
   {
     "Index": "0x0002",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "MSG_WND_CLS",
     "Description": "",
     "Parameters": [],
@@ -112,7 +112,7 @@
   },
   {
     "Index": "0x0008",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "BIT_ON",
     "Description": "",
     "Parameters": [
@@ -129,7 +129,7 @@
   },
   {
     "Index": "0x0009",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "BIT_OFF",
     "Description": "",
     "Parameters": [
@@ -196,7 +196,7 @@
   },
   {
     "Index": "0x000d",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "SYNC",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [],
@@ -207,7 +207,7 @@
   },
   {
     "Index": "0x000e",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "WAIT",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -224,7 +224,7 @@
   },
   {
     "Index": "0x000f",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FADE_IN",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -246,7 +246,7 @@
   },
   {
     "Index": "0x0010",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FADE_OUT",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -320,7 +320,7 @@
   },
   {
     "Index": "0x0012",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "CAM_SEL",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -337,7 +337,7 @@
   },
   {
     "Index": "0x0013",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "CAM_PATH_MOVE",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -408,7 +408,7 @@
   },
   {
     "Index": "0x0016",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "MODEL_CLS",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -425,7 +425,7 @@
   },
   {
     "Index": "0x0017",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "MODEL_MOVE",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -489,7 +489,7 @@
   },
   {
     "Index": "0x0019",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "CAM_SEL_FOVY",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -506,23 +506,23 @@
   },
   {
     "Index": "0x001a",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "PAD_ACT",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "motor",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "strength",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param3",
+        "Name": "duration",
         "Description": ""
       }
     ],
@@ -603,12 +603,12 @@
   {
     "Index": "0x001f",
     "ReturnType": "int",
-    "Name": "FUNCTION_001F",
+    "Name": "FADE_BACKGROUND_IN",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "duration",
         "Description": ""
       }
     ]
@@ -1090,7 +1090,7 @@
   },
   {
     "Index": "0x0043",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "BLUR_ALLOFF",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [],
@@ -1134,7 +1134,7 @@
   },
   {
     "Index": "0x0046",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "RTRN_TITLE",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [],
@@ -1194,7 +1194,7 @@
   },
   {
     "Index": "0x0049",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "MODEL_WAIT",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -1211,7 +1211,7 @@
   },
   {
     "Index": "0x004a",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "MODEL_POS",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -1233,7 +1233,7 @@
   },
   {
     "Index": "0x004b",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "MODEL_WAIT_MOT",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -1573,7 +1573,7 @@
   },
   {
     "Index": "0x0060",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "PAD_DISABLE",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [],
@@ -1584,7 +1584,7 @@
   },
   {
     "Index": "0x0061",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "PAD_ENABLE",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [],
@@ -1645,7 +1645,7 @@
   },
   {
     "Index": "0x0066",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "CALL_EVENT",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -1690,7 +1690,7 @@
   },
   {
     "Index": "0x0069",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "MODEL_ON",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -1707,7 +1707,7 @@
   },
   {
     "Index": "0x006a",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "MODEL_OFF",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -1724,7 +1724,7 @@
   },
   {
     "Index": "0x006b",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "OBJ_PATH_MOVE",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -1751,7 +1751,7 @@
   },
   {
     "Index": "0x006c",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "OBJ_PATH_WAIT",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -1829,7 +1829,7 @@
   },
   {
     "Index": "0x0071",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "SET_MSG_VAR",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -1873,7 +1873,7 @@
   },
   {
     "Index": "0x0073",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "MODEL_MOTION2",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -2337,7 +2337,7 @@
   },
   {
     "Index": "0x008b",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "MODEL_MOVE2",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -2523,7 +2523,7 @@
     "Parameters": [
       {
         "Type": "string",
-        "Name": "param1",
+        "Name": "name",
         "Description": ""
       }
     ],
@@ -2603,7 +2603,7 @@
   },
   {
     "Index": "0x0097",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "CALL_NEXT",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -2630,18 +2630,18 @@
   },
   {
     "Index": "0x0098",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "CALL_FIELD2",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "string",
+        "Name": "name",
         "Description": ""
       },
       {
-        "Type": "string",
-        "Name": "param2",
+        "Type": "int",
+        "Name": "sequenceId",
         "Description": ""
       }
     ],
@@ -2652,7 +2652,7 @@
   },
   {
     "Index": "0x0099",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FILTER_ALLOFF",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [],
@@ -2680,7 +2680,7 @@
   },
   {
     "Index": "0x009b",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "EFFECT_CLS",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -2729,7 +2729,7 @@
   },
   {
     "Index": "0x009d",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "EFFECT_POS",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -2851,7 +2851,7 @@
   },
   {
     "Index": "0x00a3",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "SET_FIX_CAMERA",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -2868,7 +2868,7 @@
   },
   {
     "Index": "0x00a4",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "SET_CHASE_CAMERA",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [],
@@ -2901,7 +2901,7 @@
   },
   {
     "Index": "0x00a6",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "SCR_KILL",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -2918,7 +2918,7 @@
   },
   {
     "Index": "0x00a7",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "SCR_WAIT",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -2991,7 +2991,7 @@
   },
   {
     "Index": "0x00ab",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "QUAKE_ON",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -3586,7 +3586,7 @@
   },
   {
     "Index": "0x00c3",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "SET_ALLPANEL",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -3796,7 +3796,7 @@
   },
   {
     "Index": "0x00ce",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "EFFBED_START",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -3818,7 +3818,7 @@
   },
   {
     "Index": "0x00cf",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "EFFECT_ROT_XYZ",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -3872,7 +3872,7 @@
   },
   {
     "Index": "0x00d1",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "EFFECT_PATH_MOVE",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -3961,7 +3961,7 @@
   },
   {
     "Index": "0x00d7",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "EFFMG1_POS",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -3988,7 +3988,7 @@
   },
   {
     "Index": "0x00d8",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "EFFMG2_POS",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -4025,7 +4025,7 @@
   },
   {
     "Index": "0x00d9",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "SE_STOP_E",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -4084,7 +4084,7 @@
   },
   {
     "Index": "0x00db",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FIELD_ANIME_START",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -4187,7 +4187,7 @@
   },
   {
     "Index": "0x00e2",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "AI_ACT_SKILL_PARAM",
     "Description": "",
     "Parameters": [
@@ -4213,7 +4213,7 @@
   },
   {
     "Index": "0x00e3",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "EFFMG2_PRESET",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -4230,7 +4230,7 @@
   },
   {
     "Index": "0x00e4",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "BTL_TAIKYO",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -4257,7 +4257,7 @@
   },
   {
     "Index": "0x00e5",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "BTL_ALLTAIKYO",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -4274,7 +4274,7 @@
   },
   {
     "Index": "0x00e6",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "BTL_PRESS",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [],
@@ -4286,7 +4286,7 @@
   {
     "Index": "0x00e7",
     "ReturnType": "int",
-    "Name": "FUNCTION_00E7",
+    "Name": "AI_SELECT_LOWEST_HP_TARGET_BLOCKING_ELEMENT",
     "Description": "",
     "Parameters": [
       {
@@ -4625,7 +4625,7 @@
   },
   {
     "Index": "0x00f6",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "AI_SET_CRITICAL",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [],
@@ -4636,7 +4636,7 @@
   },
   {
     "Index": "0x00f7",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "READ_BE",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -4714,7 +4714,7 @@
   },
   {
     "Index": "0x00fb",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "BTL_CAM_2SHOT",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [],
@@ -4725,7 +4725,7 @@
   },
   {
     "Index": "0x00fc",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "BTL_CAM_BOUGAI",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -4775,18 +4775,18 @@
   },
   {
     "Index": "0x0100",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "CALL_FIELD3",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "string",
+        "Name": "name",
         "Description": ""
       },
       {
-        "Type": "string",
-        "Name": "param2",
+        "Type": "int",
+        "Name": "sequenceId",
         "Description": ""
       }
     ],
@@ -4797,7 +4797,7 @@
   },
   {
     "Index": "0x0101",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FLD_KANKYO",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -4851,28 +4851,28 @@
   },
   {
     "Index": "0x0103",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FLD_MODEL_ON",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param2",
+        "Name": "mapId",
         "Description": ""
       },
       {
         "Type": "string",
-        "Name": "param3",
+        "Name": "name",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param4",
+        "Name": "groupId",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "modelId",
         "Description": ""
       }
     ],
@@ -4883,28 +4883,28 @@
   },
   {
     "Index": "0x0104",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FLD_MODEL_OFF",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param2",
+        "Name": "mapId",
         "Description": ""
       },
       {
         "Type": "string",
-        "Name": "param3",
+        "Name": "name",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param4",
+        "Name": "groupId",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "modelId",
         "Description": ""
       }
     ],
@@ -4915,28 +4915,28 @@
   },
   {
     "Index": "0x0105",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FLD_ANIME_ON",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param2",
+        "Name": "mapId",
         "Description": ""
       },
       {
         "Type": "string",
-        "Name": "param3",
+        "Name": "name",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param4",
+        "Name": "groupId",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "animationId",
         "Description": ""
       }
     ],
@@ -4947,28 +4947,28 @@
   },
   {
     "Index": "0x0106",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FLD_ANIME_OFF",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param2",
+        "Name": "mapId",
         "Description": ""
       },
       {
         "Type": "string",
-        "Name": "param3",
+        "Name": "name",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param4",
+        "Name": "groupId",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "animationId",
         "Description": ""
       }
     ],
@@ -4979,23 +4979,23 @@
   },
   {
     "Index": "0x0107",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FLD_ATARI_ON",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param2",
-        "Description": ""
-      },
-      {
         "Type": "string",
-        "Name": "param3",
+        "Name": "name",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "groupId",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "modelId",
         "Description": ""
       }
     ],
@@ -5006,23 +5006,23 @@
   },
   {
     "Index": "0x0108",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FLD_ATARI_OFF",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param2",
-        "Description": ""
-      },
-      {
         "Type": "string",
-        "Name": "param3",
+        "Name": "name",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "groupId",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "modelId",
         "Description": ""
       }
     ],
@@ -5033,7 +5033,7 @@
   },
   {
     "Index": "0x0109",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FLD_MODEL_ON2",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -5060,7 +5060,7 @@
   },
   {
     "Index": "0x010a",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FLD_MODEL_OFF2",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -5173,23 +5173,23 @@
   },
   {
     "Index": "0x010e",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FLD_NPC_ON",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param2",
-        "Description": ""
-      },
-      {
         "Type": "string",
-        "Name": "param3",
+        "Name": "name",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "groupId",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "npcId",
         "Description": ""
       }
     ],
@@ -5200,23 +5200,23 @@
   },
   {
     "Index": "0x010f",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FLD_NPC_OFF",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param2",
-        "Description": ""
-      },
-      {
         "Type": "string",
-        "Name": "param3",
+        "Name": "name",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "groupId",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "npcId",
         "Description": ""
       }
     ],
@@ -5227,7 +5227,7 @@
   },
   {
     "Index": "0x0110",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FLD_GIMIC_HOJI",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -5259,7 +5259,7 @@
   },
   {
     "Index": "0x0111",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FLD_MAP_ON",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -5286,7 +5286,7 @@
   },
   {
     "Index": "0x0112",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FLD_MAP_OFF",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -5313,7 +5313,7 @@
   },
   {
     "Index": "0x0113",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "SET_CAMTBL",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -5336,7 +5336,7 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "column",
         "Description": ""
       }
     ],
@@ -5347,7 +5347,7 @@
   },
   {
     "Index": "0x0115",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FLD_SET_TAKARA_OPEN",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [],
@@ -5437,7 +5437,7 @@
   },
   {
     "Index": "0x011b",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FCL_TERM_MENU_MASK",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -5454,7 +5454,7 @@
   },
   {
     "Index": "0x011c",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FCL_TERM_MENU_MASK_DEF",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [],
@@ -5499,7 +5499,7 @@
   },
   {
     "Index": "0x011f",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FCL_TERM_ENABLE_TALK",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [],
@@ -5521,8 +5521,8 @@
   },
   {
     "Index": "0x0121",
-    "ReturnType": "int",
-    "Name": "FUNCTION_0121",
+    "ReturnType": "void",
+    "Name": "WAIT_FOR_STREAM_IDLE",
     "Description": "",
     "Parameters": []
   },
@@ -5552,7 +5552,7 @@
   },
   {
     "Index": "0x0124",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "MODEL_SHADOW_OFF",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -5972,7 +5972,7 @@
   },
   {
     "Index": "0x0139",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "MAKA_PLUS",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -5989,13 +5989,13 @@
   },
   {
     "Index": "0x013a",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "PARTY_DAMAGE",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "effect",
         "Description": ""
       }
     ],
@@ -6023,7 +6023,7 @@
   },
   {
     "Index": "0x013c",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "SEL_DEFKEY",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -6599,7 +6599,7 @@
   },
   {
     "Index": "0x0166",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "CALL_BATTLE2",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -7937,31 +7937,31 @@
   },
   {
     "Index": "0x01e0",
-    "ReturnType": "int",
-    "Name": "FUNCTION_01E0",
+    "ReturnType": "void",
+    "Name": "QUEUE_WORLD_OBJECT_PENDING_VALUE",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "objectId",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "value",
         "Description": ""
       }
     ]
   },
   {
     "Index": "0x01e1",
-    "ReturnType": "int",
-    "Name": "FUNCTION_01E1",
+    "ReturnType": "void",
+    "Name": "CLEAR_WORLD_OBJECT_PENDING_VALUE",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "objectId",
         "Description": ""
       }
     ]
@@ -8036,8 +8036,8 @@
   },
   {
     "Index": "0x01e7",
-    "ReturnType": "int",
-    "Name": "FUNCTION_01E7",
+    "ReturnType": "void",
+    "Name": "CLEAR_PROCESS_CONTROL_FLAG",
     "Description": "",
     "Parameters": []
   },
@@ -8127,7 +8127,7 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "skill",
         "Description": ""
       }
     ],
@@ -8149,7 +8149,7 @@
   },
   {
     "Index": "0x01f3",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FLD_MSE_PLAY2",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -8171,7 +8171,7 @@
   },
   {
     "Index": "0x01f4",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FLD_MSE_STOP2",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -8210,33 +8210,33 @@
   },
   {
     "Index": "0x01f6",
-    "ReturnType": "int",
-    "Name": "FUNCTION_01F6",
+    "ReturnType": "void",
+    "Name": "REVEAL_AUTOMAP_RECTANGLE",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "left",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param2",
+        "Name": "top",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param3",
+        "Name": "right",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param4",
+        "Name": "bottom",
         "Description": ""
       },
       {
         "Type": "int",
-        "Name": "param5",
+        "Name": "mode",
         "Description": ""
       }
     ]
@@ -8275,12 +8275,12 @@
   {
     "Index": "0x01fa",
     "ReturnType": "int",
-    "Name": "FUNCTION_01FA",
+    "Name": "READ_SUCTION_WARP_VALUE",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "column",
         "Description": ""
       }
     ]
@@ -8288,12 +8288,12 @@
   {
     "Index": "0x01fb",
     "ReturnType": "int",
-    "Name": "FUNCTION_01FB",
+    "Name": "READ_BARRIER_VALUE",
     "Description": "",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "column",
         "Description": ""
       }
     ]
@@ -8315,19 +8315,19 @@
   {
     "Index": "0x01fe",
     "ReturnType": "int",
-    "Name": "FUNCTION_01FE",
+    "Name": "READ_CURRENT_SCENE_SELECTION_RESOURCE",
     "Description": "",
     "Parameters": []
   },
   {
     "Index": "0x01ff",
     "ReturnType": "int",
-    "Name": "FUNCTION_01FF",
+    "Name": "FIND_FIELD_EFFECT_BY_NAME",
     "Description": "",
     "Parameters": [
       {
-        "Type": "int",
-        "Name": "param1",
+        "Type": "string",
+        "Name": "name",
         "Description": ""
       }
     ]
@@ -8340,7 +8340,7 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "column",
         "Description": ""
       }
     ],
@@ -8351,7 +8351,7 @@
   },
   {
     "Index": "0x0201",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FLD_WARP_ELV_EXIT",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -8368,7 +8368,7 @@
   },
   {
     "Index": "0x0202",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FLD_WARP_CALL_FIELD",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [],
@@ -8379,7 +8379,7 @@
   },
   {
     "Index": "0x0203",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FLD_WARP_CASH_F",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [],
@@ -8390,7 +8390,7 @@
   },
   {
     "Index": "0x0204",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FLD_WARP_RUN_START",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [],
@@ -8462,7 +8462,7 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "column",
         "Description": ""
       }
     ],
@@ -8473,7 +8473,7 @@
   },
   {
     "Index": "0x0209",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FLD_ELV_FLOORSTART",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -8495,7 +8495,7 @@
   },
   {
     "Index": "0x020a",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FLD_ELV_FLOOREND",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [],
@@ -8523,7 +8523,7 @@
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "column",
         "Description": ""
       }
     ],
@@ -8534,7 +8534,7 @@
   },
   {
     "Index": "0x020d",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FLD_EXIT_CAMERA",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [],
@@ -8545,7 +8545,7 @@
   },
   {
     "Index": "0x020e",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FLD_INF_GOWAP",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [],
@@ -8556,13 +8556,13 @@
   },
   {
     "Index": "0x020f",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FLD_CALL_WAPEX",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
       {
         "Type": "int",
-        "Name": "param1",
+        "Name": "destination",
         "Description": ""
       }
     ],
@@ -8573,7 +8573,7 @@
   },
   {
     "Index": "0x0210",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FLD_BGM_PLAY",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -8629,7 +8629,7 @@
   },
   {
     "Index": "0x0214",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FLD_SE_PLAY",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -8646,7 +8646,7 @@
   },
   {
     "Index": "0x0215",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FLD_SE_STOP",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -8663,7 +8663,7 @@
   },
   {
     "Index": "0x0216",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FLD_BGM_FADE",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [],
@@ -8674,7 +8674,7 @@
   },
   {
     "Index": "0x0217",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FLD_MSE_PLAY",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
@@ -8767,7 +8767,7 @@
   },
   {
     "Index": "0x021e",
-    "ReturnType": "int",
+    "ReturnType": "void",
     "Name": "FLD_MODEL_LIGHT",
     "Description": "(Copied from SMT3. May be incorrect.)",
     "Parameters": [
