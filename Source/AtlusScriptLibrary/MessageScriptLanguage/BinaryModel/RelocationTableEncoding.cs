@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace AtlusScriptLibrary.MessageScriptLanguage.BinaryModel;
 
@@ -62,55 +63,38 @@ public static class RelocationTableEncoding
     public static byte[] Encode(IList<int> addressLocations, int addressBaseOffset)
     {
         int prevRelocSum = 0;
-        List<byte> relocationTable = new List<byte>();
+        var relocationTable = new List<byte>();
 
-        // Detect address sequence runs
-        List<AddressSequence> sequences = DetectAddressSequenceRuns(addressLocations);
-
-        for (int addressLocationIndex = 0; addressLocationIndex < addressLocations.Count; addressLocationIndex++)
+        for (int i = 0; i < addressLocations.Count;)
         {
-            int seqIdx = sequences.FindIndex(item => item.AddressLocationListStartIndex == addressLocationIndex);
-            int reloc = addressLocations[addressLocationIndex] - prevRelocSum - addressBaseOffset;
-
-            // Check if a matching sequence was found
-            if (seqIdx == -1)
+            // A sequence byte walks forward one address at a time, so it can only cover addresses
+            // that are consecutive and start right after the addresses encoded so far.
+            int runLength = 0;
+            while (i + runLength < addressLocations.Count &&
+                   addressLocations[i + runLength] - addressBaseOffset == prevRelocSum + ADDRESS_SIZE * (runLength + 1))
             {
-                // Encode address and add it to the list of bytes
-                EncodeAddress(reloc, relocationTable, ref prevRelocSum);
+                runLength++;
             }
-            else
+
+            if (runLength < SEQ_BASE_NUM_LOOP)
             {
-                // We have a sequence to add.
-                // Use the first entry to position to the start of the sequence
+                EncodeAddress(addressLocations[i] - prevRelocSum - addressBaseOffset, relocationTable, ref prevRelocSum);
+                i++;
+                continue;
+            }
 
-                // Encode the first entries' address and add it to the list of bytes
-                EncodeAddress(reloc, relocationTable, ref prevRelocSum);
+            while (runLength >= SEQ_BASE_NUM_LOOP)
+            {
+                var count = Math.Min(runLength, SEQ_MAX_NUM_LOOP);
 
-                // Subtract one because the first entry is used to locate to the start of the sequence
-                int numberOfAddressesInSequence = sequences[seqIdx].SequenceAddressCount - 1;
+                // Never leave a single address behind, a sequence has to cover at least two.
+                if (runLength - count == 1)
+                    count--;
 
-                // Loop until we have added the full sequence
-                while (numberOfAddressesInSequence != 0)
-                {
-                    int numberOfAddressesToAdd = numberOfAddressesInSequence;
-                    if (numberOfAddressesToAdd > SEQ_MAX_NUM_LOOP)
-                    {
-                        numberOfAddressesToAdd = SEQ_MAX_NUM_LOOP;
-                    }
-
-                    // Get the loop number to encode, base loop number is 2
-                    int loop = numberOfAddressesToAdd - SEQ_BASE_NUM_LOOP;
-
-                    reloc = loop << 3 | SEQ_BASE;
-
-                    relocationTable.Add((byte)reloc);
-
-                    addressLocationIndex += numberOfAddressesToAdd;
-                    prevRelocSum += numberOfAddressesToAdd * ADDRESS_SIZE;
-
-                    // Decrease the number of addresses remaining
-                    numberOfAddressesInSequence -= numberOfAddressesToAdd;
-                }
+                relocationTable.Add((byte)((count - SEQ_BASE_NUM_LOOP) << 3 | SEQ_BASE));
+                prevRelocSum += count * ADDRESS_SIZE;
+                runLength -= count;
+                i += count;
             }
         }
 
@@ -157,57 +141,4 @@ public static class RelocationTableEncoding
         addressRelocBytes.Add(relocHi);
     }
 
-    private static List<AddressSequence> DetectAddressSequenceRuns(IList<int> addressLocations)
-    {
-        List<AddressSequence> sequences = new List<AddressSequence>();
-
-        for (int addressIndex = 0; addressIndex < addressLocations.Count; addressIndex++)
-        {
-            // There can't be any more sequences if we're on the last iteration
-            if (addressIndex + 1 == addressLocations.Count)
-            {
-                break;
-            }
-
-            if (addressLocations[addressIndex + 1] - addressLocations[addressIndex] == ADDRESS_SIZE)
-            {
-                // We have found a sequence of at least 2 addresses
-                AddressSequence seq = new AddressSequence
-                {
-                    AddressLocationListStartIndex = addressIndex++,
-                    SequenceAddressCount = 2
-                };
-
-                while (addressIndex + 1 < addressLocations.Count)
-                {
-                    if (addressLocations[addressIndex + 1] - addressLocations[addressIndex] == ADDRESS_SIZE)
-                    {
-                        // We have found another sequence to add.
-                        seq.SequenceAddressCount++;
-                        addressIndex++;
-                    }
-                    else
-                    {
-                        // The consecutive sequence ends.
-                        break;
-                    }
-                }
-
-                // Check if there are more than 2 addresses in a sequence.
-                if (seq.SequenceAddressCount > 2)
-                {
-                    // Add the sequence to the list of sequences.
-                    sequences.Add(seq);
-                }
-            }
-        }
-
-        return sequences;
-    }
-
-    private struct AddressSequence
-    {
-        public int AddressLocationListStartIndex;
-        public int SequenceAddressCount;
-    }
 }
