@@ -4126,19 +4126,31 @@ public class FlowScriptCompiler
         var endLabel = mElseIfEndLabel;
         mElseIfEndLabel = null;
         var ownsEndLabel = endLabel == null;
+        // The original compiler numbers the end label before the else label, but puts the else
+        // label first in the label section, after the labels of anything nested in the statement.
+        // A body written to jump away itself needs no end jump, and those labels are numbered up
+        // front rather than after the body, so nested labels come after them instead of before.
+        var numberLabelsUpFront = ifStatement.Body.Statements.LastOrDefault() is GotoStatement;
+
         if (ownsEndLabel)
         {
-            // The original compiler numbers the end label before the else label, but puts the else
-            // label first in the label section, after the labels of anything nested in the statement.
-            endLabel = CreateLabel("IfEndLabel");
+            endLabel = CreateDeferredNameLabel("IfEndLabel");
             endLabel.DeferOrder = true;
         }
 
         LabelInfo elseLabel = null;
         if (ifStatement.ElseBody != null)
         {
-            elseLabel = CreateLabel("IfElseLabel");
+            elseLabel = CreateDeferredNameLabel("IfElseLabel");
             elseLabel.DeferOrder = true;
+        }
+
+        if (numberLabelsUpFront)
+        {
+            if (ownsEndLabel)
+                AssignDeferredName(endLabel);
+            if (elseLabel != null)
+                AssignDeferredName(elseLabel);
         }
 
         // emit if instruction that jumps to the label if the condition is false
@@ -4167,8 +4179,16 @@ public class FlowScriptCompiler
 
         // The original compiler allocates both an else and an end label for every if, after the
         // body. Without an else body nothing references the second one, so it only takes a number.
-        if (Matching && ifStatement.ElseBody == null && !mLastIfBodyEndedWithJump)
-            CreateLabel("IfExtraLabel");
+        if (!numberLabelsUpFront)
+        {
+            if (ownsEndLabel)
+                AssignDeferredName(endLabel);
+
+            if (elseLabel != null)
+                AssignDeferredName(elseLabel);
+            else if (Matching && !mLastIfBodyEndedWithJump)
+                CreateLabel("IfExtraLabel");
+        }
 
         if (ifStatement.ElseBody != null)
         {
@@ -5018,6 +5038,40 @@ public class FlowScriptCompiler
         mLabels.Add(label.Name, label);
 
         return label;
+    }
+
+    // The original compiler numbers an if statement's labels only after compiling its body, so the
+    // labels of anything nested in the body come first.
+    private LabelInfo CreateDeferredNameLabel(string name)
+    {
+        if (!Matching)
+            return CreateLabel(name);
+
+        var label = new LabelInfo();
+        label.Index = (ushort)mLabels.Count;
+        label.Name = $"<unnamed {label.Index}>";
+        mLabels.Add(label.Name, label);
+        return label;
+    }
+
+    private void AssignDeferredName(LabelInfo label)
+    {
+        if (!Matching)
+            return;
+
+        mLabels.Remove(label.Name);
+        while (true)
+        {
+            var name = $"_{mNextLabelIndex + 1}";
+            mNextLabelIndex++;
+            if (!mLabels.ContainsKey(name))
+            {
+                label.Name = name;
+                break;
+            }
+        }
+
+        mLabels.Add(label.Name, label);
     }
 
     private void ResolveLabel(LabelInfo label)
