@@ -1407,6 +1407,8 @@ public class FlowScriptCompiler
         }
 
         ReturnStatement finalReturnStatement = new ReturnStatement();
+        var hasExplicitFinalReturn = declaration.Body.Statements.Count != 0 &&
+                                     declaration.Body.Statements.Last() is ReturnStatement;
 
         var hasOutParameters = declaration.Parameters
             .Where(x => x.Modifier == ParameterModifier.Out)
@@ -1469,8 +1471,8 @@ public class FlowScriptCompiler
         }
 
         // The original compiler closes a procedure with an END of its own, on top of the one
-        // emitted for the final return statement.
-        if (Matching && (Library?.EmitTrailingEnd ?? false))
+        // emitted for an explicit final return statement.
+        if (Matching && hasExplicitFinalReturn && (Library?.EmitTrailingEnd ?? false))
             Emit(Instruction.END());
 
         PopScope();
