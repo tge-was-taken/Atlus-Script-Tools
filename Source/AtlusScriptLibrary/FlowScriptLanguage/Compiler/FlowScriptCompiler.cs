@@ -4132,9 +4132,9 @@ public class FlowScriptCompiler
         var ownsEndLabel = endLabel == null;
         // The original compiler numbers the end label before the else label, but puts the else
         // label first in the label section, after the labels of anything nested in the statement.
-        // A body written to jump away itself needs no end jump, and those labels are numbered up
-        // front rather than after the body, so nested labels come after them instead of before.
-        var numberLabelsUpFront = ifStatement.Body.Statements.LastOrDefault() is GotoStatement;
+        // A body ending in a backward goto has its labels numbered up front instead, so nested
+        // labels come after them rather than before.
+        var numberLabelsUpFront = EndsWithBackwardGoto(ifStatement.Body);
         var isElseIfChain = Matching && ifStatement.ElseIfChain && ifStatement.ElseBody != null &&
                             ifStatement.ElseBody.Statements.Count == 1 &&
                             ifStatement.ElseBody.Statements[0] is IfStatement;
@@ -4239,11 +4239,10 @@ public class FlowScriptCompiler
             if (ownsLabelGroup)
             {
                 if (!numberLabelsUpFront)
-                {
                     AssignDeferredName(endLabel);
-                    foreach (var chainElseLabel in chainElseLabels)
-                        AssignDeferredName(chainElseLabel);
-                }
+
+                foreach (var chainElseLabel in chainElseLabels)
+                    AssignDeferredName(chainElseLabel);
 
                 if (mElseIfChainNeedsExtra)
                     CreateLabel("IfExtraLabel");
@@ -5097,8 +5096,8 @@ public class FlowScriptCompiler
         var label = new LabelInfo();
         label.Index = (ushort)mLabels.Count;
 
-        // HACK: reuse original labels when recompiling
-        if (!isGenerated && name.StartsWith("_") && !mLabels.ContainsKey(name))
+        // A label written in the source keeps its name; only generated ones take a number.
+        if (!isGenerated && !mLabels.ContainsKey(name))
         {
             label.Name = name;
         }
@@ -5128,9 +5127,10 @@ public class FlowScriptCompiler
 
     private void AssignDeferredName(LabelInfo label)
     {
-        if (!Matching)
+        if (!Matching || label.NameAssigned)
             return;
 
+        label.NameAssigned = true;
         mLabels.Remove(label.Name);
         while (true)
         {

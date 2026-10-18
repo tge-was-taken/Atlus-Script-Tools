@@ -17,4 +17,6 @@ internal class LabelInfo
     public short? SortIndex { get; set; }
 
     public int SortRank { get; set; }
+
+    public bool NameAssigned { get; set; }
 }
