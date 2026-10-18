@@ -4208,12 +4208,15 @@ public class FlowScriptCompiler
             return false;
         }
 
-        mLastIfBodyEndedWithJump = EndsWithUnconditionalJump();
+        // The jump to the end label is dropped for a body written to jump away itself, and for
+        // one already ending in a jump to that same label, as the branches of an else-if chain do.
+        // A body ending in a nested if or a return still gets one.
+        mLastIfBodyEndedWithJump = Matching
+            ? body.Statements.LastOrDefault() is GotoStatement || EndsWithJumpTo(endLabel)
+            : EndsWithUnconditionalJump();
 
         // ensure that we end up at the right position after the body
-        // A body already ending in an unconditional transfer makes the jump unreachable,
-        // and the original compiler leaves it out.
-        if (endLabel != null && !EndsWithUnconditionalJump())
+        if (endLabel != null && !mLastIfBodyEndedWithJump)
             Emit(Instruction.GOTO(endLabel.Index));
 
         return true;
@@ -4707,6 +4710,15 @@ public class FlowScriptCompiler
     private void TraceProcedureReturn()
     {
         EmitTracePrint($"Exiting procedure: '{mProcedureDeclaration.Identifier.Text}'");
+    }
+
+    private bool EndsWithJumpTo(LabelInfo label)
+    {
+        if (label == null || mInstructions.Count == 0)
+            return false;
+
+        var last = mInstructions[mInstructions.Count - 1];
+        return last.Opcode == Opcode.GOTO && last.Operand.UInt16Value == label.Index;
     }
 
     private bool EndsWithUnconditionalJump()
