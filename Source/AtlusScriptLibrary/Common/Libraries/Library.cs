@@ -23,6 +23,11 @@ public class Library : ICloneable
     public MessageScriptLanguage.FormatVersion MessageScriptFormatVersion { get; set; }
         = MessageScriptLanguage.FormatVersion.Detect;
 
+    /// <summary>
+    /// Whether this game's compiler ends the text section with an extra END instruction.
+    /// </summary>
+    public bool EmitTrailingEnd { get; set; }
+
     [JsonPropertyName("FlowScriptModulesPath")]
     [JsonConverter(typeof(ExternalJsonPathConverter<FlowScriptModule>))]
     public List<FlowScriptModule> FlowScriptModules { get; set; }
@@ -38,6 +43,7 @@ public class Library : ICloneable
         clone.ShortName = ShortName;
         clone.UsePOPREG = UsePOPREG;
         clone.MessageScriptFormatVersion = MessageScriptFormatVersion;
+        clone.EmitTrailingEnd = EmitTrailingEnd;
         clone.FlowScriptModules = FlowScriptModules.Clone()?.ToList();
         clone.MessageScriptLibraries = MessageScriptLibraries.Clone()?.ToList();
         return clone;

@@ -351,6 +351,7 @@ public class FlowScriptCompiler
     private void InitializeCompilationState()
     {
         mScript = new FlowScript(mFormatVersion);
+        mScript.EmitTrailingEnd = Matching && (Library?.EmitTrailingEnd ?? false);
         mNextLabelIndex = 0;
 
         // Set up scope stack
@@ -4099,7 +4100,7 @@ public class FlowScriptCompiler
         // ensure that we end up at the right position after the body
         // A body already ending in an unconditional transfer makes the jump unreachable,
         // and the original compiler leaves it out.
-        if (endLabel != null && !EndsWithUnconditionalTransfer())
+        if (endLabel != null && !EndsWithUnconditionalJump())
             Emit(Instruction.GOTO(endLabel.Index));
 
         return true;
@@ -4595,7 +4596,7 @@ public class FlowScriptCompiler
         EmitTracePrint($"Exiting procedure: '{mProcedureDeclaration.Identifier.Text}'");
     }
 
-    private bool EndsWithUnconditionalTransfer()
+    private bool EndsWithUnconditionalJump()
     {
         if (mInstructions.Count == 0)
             return false;
