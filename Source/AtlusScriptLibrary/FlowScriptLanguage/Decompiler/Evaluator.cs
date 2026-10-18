@@ -528,6 +528,11 @@ public class Evaluator
                     ushort index = instruction.Operand.UInt16Value;
                     foreach (var parameter in mFunctions[index].Parameters)
                     {
+                        // Where procedures take no stack arguments, a call that runs out of
+                        // values is a short call, not a procedure parameter.
+                        if (Library?.UsePOPREG == false && !CanPopStackValue())
+                            break;
+
                         if (CanPopStackValue())
                         {
                             switch (parameter.Type.ValueKind)
@@ -1012,6 +1017,13 @@ public class Evaluator
                     var arguments = new List<Argument>();
                     foreach (var parameter in function.Parameters)
                     {
+                        // Where procedures take no stack arguments, a call that runs out of
+                        // values is a call site passing fewer arguments than the library declares.
+                        if (Library?.UsePOPREG == false &&
+                            (mEvaluationExpressionStack.Count == 0 ||
+                             mEvaluationExpressionStack.Peek().Statement is Identifier { Text: "__RETURN_ADDRESS" }))
+                            break;
+
                         if (!TryPopExpression(out var argument))
                         {
                             LogError($"Failed to pop argument off stack for parameter: {parameter} of function: {function}");
