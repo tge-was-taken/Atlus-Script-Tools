@@ -2138,8 +2138,8 @@ public class FlowScriptCompiler
     //
     // Expressions
     //
-    // In matching mode a bare value expression statement is kept: the original scripts
-    // contain pushes that no call consumes, so the statement emits just the push.
+    // In matching mode a bare value expression statement is kept with a warning: the original
+    // scripts contain pushes that no call consumes, so the statement emits just the push.
     private bool TryEmitExpression(Expression expression, bool isStatement)
     {
         switch (expression)
@@ -2181,47 +2181,72 @@ public class FlowScriptCompiler
                     return false;
                 break;
             case Identifier identifier:
-                if (isStatement && !Matching)
+                if (isStatement)
                 {
-                    Error(identifier, "An identifier is an invalid statement");
-                    return false;
+                    if (!Matching)
+                    {
+                        Error(identifier, "An identifier is an invalid statement");
+                        return false;
+                    }
+
+                    Warning(identifier, "Value is pushed but never used");
                 }
 
                 if (!TryEmitPushVariableValue(identifier))
                     return false;
                 break;
             case BoolLiteral boolLiteral:
-                if (isStatement && !Matching)
+                if (isStatement)
                 {
-                    Error(boolLiteral, "A boolean literal is an invalid statement");
-                    return false;
+                    if (!Matching)
+                    {
+                        Error(boolLiteral, "A boolean literal is an invalid statement");
+                        return false;
+                    }
+
+                    Warning(boolLiteral, "Value is pushed but never used");
                 }
 
                 EmitPushBoolLiteral(boolLiteral);
                 break;
             case IIntLiteral intLiteral:
-                if (isStatement && !Matching)
+                if (isStatement)
                 {
-                    Error(intLiteral, "A integer literal is an invalid statement");
-                    return false;
+                    if (!Matching)
+                    {
+                        Error(intLiteral, "A integer literal is an invalid statement");
+                        return false;
+                    }
+
+                    Warning(intLiteral, "Value is pushed but never used");
                 }
 
                 EmitPushIntLiteral(intLiteral);
                 break;
             case FloatLiteral floatLiteral:
-                if (isStatement && !Matching)
+                if (isStatement)
                 {
-                    Error(floatLiteral, "A float literal is an invalid statement");
-                    return false;
+                    if (!Matching)
+                    {
+                        Error(floatLiteral, "A float literal is an invalid statement");
+                        return false;
+                    }
+
+                    Warning(floatLiteral, "Value is pushed but never used");
                 }
 
                 EmitPushFloatLiteral(floatLiteral);
                 break;
             case StringLiteral stringLiteral:
-                if (isStatement && !Matching)
+                if (isStatement)
                 {
-                    Error(stringLiteral, "A string literal is an invalid statement");
-                    return false;
+                    if (!Matching)
+                    {
+                        Error(stringLiteral, "A string literal is an invalid statement");
+                        return false;
+                    }
+
+                    Warning(stringLiteral, "Value is pushed but never used");
                 }
 
                 EmitPushStringLiteral(stringLiteral);
