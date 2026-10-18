@@ -76,7 +76,8 @@ public class MessageScriptBinaryBuilder
         }
         else
         {
-            binary.SpeakerId = 0xFFFF;
+            // A dialog without pages stores 0 here, not the usual no-speaker sentinel.
+            binary.SpeakerId = (ushort)(binary.PageCount == 0 ? 0 : 0xFFFF);
         }
 
         binary.PageStartAddresses = new int[message.Pages.Count];
@@ -95,7 +96,8 @@ public class MessageScriptBinaryBuilder
                 lineStartAddress += lineBytes.Count;
             }
 
-            textBuffer.Add(0);
+            if (binary.PageCount > 0)
+                textBuffer.Add(0);
         }
 
         binary.TextBuffer = textBuffer.ToArray();
@@ -366,14 +368,18 @@ public class MessageScriptBinaryBuilder
                 {
                     mPosition += 0x1C;
 
-                    for (int i = 0; i < dialogue.PageStartAddresses.Length; i++)
+                    // A dialog without pages ends after the speaker field.
+                    if (dialogue.PageCount > 0)
                     {
-                        AddAddressLocation();
-                        dialogue.PageStartAddresses[i] += dialogAddress;
-                        mPosition += 4;
-                    }
+                        for (int i = 0; i < dialogue.PageStartAddresses.Length; i++)
+                        {
+                            AddAddressLocation();
+                            dialogue.PageStartAddresses[i] += dialogAddress;
+                            mPosition += 4;
+                        }
 
-                    mPosition += 4 + dialogue.TextBufferSize;
+                        mPosition += 4 + dialogue.TextBufferSize;
+                    }
                 }
                 break;
 
