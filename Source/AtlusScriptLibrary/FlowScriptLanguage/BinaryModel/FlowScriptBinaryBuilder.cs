@@ -281,7 +281,8 @@ public sealed class FlowScriptBinaryBuilder
         {
             size += BinarySectionHeader.SIZE;
 
-            if (!mMatching || (mStringSection.Any(x => x != 0)))
+            // The original compiler counts the string section header but not its bytes.
+            if (!mMatching)
                 size += (mStringSection.Count * sizeof(byte));
         }
 
