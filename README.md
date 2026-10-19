@@ -98,6 +98,9 @@ dotnet test Source/AtlusScriptLibraryTests/AtlusScriptLibraryTests.csproj -c Rel
 
 `AtlusScriptLibrary` targets `net10.0` and `netstandard2.0`; everything else targets `net10.0`.
 
+Prebuilt native binaries for Windows, Linux and macOS are attached to each release. Pushing a
+`v*` tag builds and uploads them.
+
 ### Publishing ###
 
 Every executable publishes as a self-contained native binary that needs no installed .NET
