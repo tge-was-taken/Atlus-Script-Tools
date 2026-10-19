@@ -34,5 +34,6 @@ jobs:
     uses: ./.github/workflows/publish.yml
     permissions:
       contents: write
+    secrets: inherit
     with:
       tag: ${{ github.ref == 'refs/heads/master' && format('v1.0-{0}', github.sha) || '' }}

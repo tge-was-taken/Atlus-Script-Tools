@@ -13,6 +13,10 @@ on:
         type: boolean
         required: false
         default: false
+    secrets:
+      NUGET_API_KEY:
+        description: nuget.org key. Without it the package is only attached to the release.
+        required: false
 
 jobs:
   publish:
@@ -84,3 +88,88 @@ jobs:
           tag_name: ${{ inputs.tag }}
           prerelease: ${{ inputs.prerelease }}
           files: publish/AtlusScriptTools-${{ matrix.rid }}.zip
+
+  # The portable build needs an installed .NET runtime but runs anywhere, and the library is
+  # packed from the same build for use as a dependency.
+  portable:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      # The ANTLR grammars are regenerated during the build.
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Work out the package version
+        id: version
+        shell: bash
+        run: |
+          set -eu
+          version="${{ inputs.tag }}"
+          version="${version#v}"
+          # A master build is tagged v1.0-<commit>, which is not a version, so number it by run.
+          if ! printf '%s' "$version" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$'; then
+            version="1.0.0-ci.${{ github.run_number }}"
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          printf '%s\n' "$version" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$' \
+            && echo "stable=true" >> "$GITHUB_OUTPUT" \
+            || echo "stable=false" >> "$GITHUB_OUTPUT"
+
+      - name: Publish the executables
+        shell: bash
+        run: |
+          set -eu
+          out=publish/AtlusScriptTools-dotnet
+          for project in AtlusScriptCompiler \
+                         Utilities/AtlusFlowScriptExtractor \
+                         Utilities/AtlusMessageScriptExtractor \
+                         Utilities/AtlusScriptDocGen \
+                         Utilities/DumpMessageIds \
+                         Utilities/DumpProcedureIds; do
+            dotnet publish "Source/$project/$(basename "$project").csproj" -c Release \
+              -p:PublishAot=false --no-self-contained -o "$out"
+          done
+          rm -rf "$out"/*.pdb
+          cd publish && zip -r AtlusScriptTools-dotnet.zip AtlusScriptTools-dotnet
+
+      - name: Pack the library
+        run: |
+          dotnet pack Source/AtlusScriptLibrary/AtlusScriptLibrary.csproj -c Release \
+            -p:Version=${{ steps.version.outputs.version }} -p:IncludeSymbols=true \
+            -p:SymbolPackageFormat=snupkg -o publish/nuget
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AtlusScriptTools-dotnet
+          path: publish/AtlusScriptTools-dotnet.zip
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AtlusScriptLibrary-nuget
+          path: publish/nuget/*
+
+      - name: Attach to the release
+        if: inputs.tag != ''
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ inputs.tag }}
+          prerelease: ${{ inputs.prerelease }}
+          files: |
+            publish/AtlusScriptTools-dotnet.zip
+            publish/nuget/*.nupkg
+
+      - name: Push to nuget.org
+        if: steps.version.outputs.stable == 'true' && env.NUGET_API_KEY != ''
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        run: |
+          dotnet nuget push 'publish/nuget/*.nupkg' --source https://api.nuget.org/v3/index.json \
+            --api-key "$NUGET_API_KEY" --skip-duplicate

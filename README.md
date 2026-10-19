@@ -8,8 +8,24 @@ Set of tools developed for handling Atlus' script formats including
 All of the code is written in C# and licensed under the GNU GPL.
 
 Latest build:
-* [Github release](https://github.com/tge-was-taken/Atlus-Script-Tools/releases), one archive per platform, published for every master build
+* [Github release](https://github.com/tge-was-taken/Atlus-Script-Tools/releases), published for every master build: a native archive per platform, plus a portable build that needs an installed .NET runtime
 * [CI artifacts](https://github.com/tge-was-taken/Atlus-Script-Tools/actions/workflows/ci.yml) for branch builds, kept for 90 days
+
+## Using the library ##
+
+`AtlusScriptLibrary` is published as a NuGet package, targeting `net10.0` and `netstandard2.0`:
+
+```
+dotnet add package AtlusScriptLibrary
+```
+
+The `Charsets` and `Libraries` data files come with the package and are copied next to your
+binary, since they are read from disk at runtime.
+
+```csharp
+var library = LibraryLookup.GetLibrary("raidou2");
+var script = FlowScript.FromFile("field.bf");
+```
 
 ## Supported games ##
 * Catherine
@@ -98,9 +114,17 @@ dotnet test Source/AtlusScriptLibraryTests/AtlusScriptLibraryTests.csproj -c Rel
 
 `AtlusScriptLibrary` targets `net10.0` and `netstandard2.0`; everything else targets `net10.0`.
 
-Prebuilt native binaries for Windows, Linux and macOS are attached to each release. Every push
-to master publishes a release tagged `v1.0-<commit>`, and pushing a `v*` tag publishes one under
-that tag.
+Prebuilt native binaries for Windows, Linux and macOS are attached to each release, together
+with a portable build that runs on any platform with an installed .NET runtime and the library
+as a NuGet package. Every push to master publishes a release tagged `v1.0-<commit>`, and pushing
+a `v*` tag publishes one under that tag. A `v<major>.<minor>.<patch>` tag also pushes the
+package to nuget.org, which needs a `NUGET_API_KEY` repository secret.
+
+A portable build is published without native AOT:
+
+```
+dotnet publish Source/AtlusScriptCompiler/AtlusScriptCompiler.csproj -c Release -p:PublishAot=false --no-self-contained -o out
+```
 
 ### Publishing ###
 

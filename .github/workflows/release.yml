@@ -18,6 +18,7 @@ jobs:
     uses: ./.github/workflows/publish.yml
     permissions:
       contents: write
+    secrets: inherit
     with:
       tag: ${{ github.event.inputs.tag || github.ref_name }}
       prerelease: ${{ github.event_name == 'workflow_dispatch' && inputs.prerelease }}
