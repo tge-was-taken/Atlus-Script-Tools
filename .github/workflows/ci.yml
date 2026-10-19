@@ -26,8 +26,13 @@ jobs:
 
       - run: dotnet test Source/AtlusScriptLibraryTests/AtlusScriptLibraryTests.csproj -c Release --no-build
 
-  # Downloadable per commit builds for every platform, as the AppVeyor builds used to be.
+  # Downloadable per commit builds for every platform, as the AppVeyor builds used to be. A
+  # master build also gets a release, tagged the way the AppVeyor ones were.
   binaries:
     needs: build
     if: github.event_name != 'pull_request'
     uses: ./.github/workflows/publish.yml
+    permissions:
+      contents: write
+    with:
+      tag: ${{ github.ref == 'refs/heads/master' && format('v1.0-{0}', github.sha) || '' }}

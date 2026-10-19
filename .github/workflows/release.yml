@@ -8,6 +8,10 @@ on:
       tag:
         description: Tag to publish the binaries under
         required: true
+      prerelease:
+        description: Mark the release as a prerelease
+        type: boolean
+        default: true
 
 jobs:
   publish:
@@ -16,3 +20,4 @@ jobs:
       contents: write
     with:
       tag: ${{ github.event.inputs.tag || github.ref_name }}
+      prerelease: ${{ github.event_name == 'workflow_dispatch' && inputs.prerelease }}

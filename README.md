@@ -8,8 +8,8 @@ Set of tools developed for handling Atlus' script formats including
 All of the code is written in C# and licensed under the GNU GPL.
 
 Latest build:
-* [CI artifacts](https://github.com/tge-was-taken/Atlus-Script-Tools/actions/workflows/ci.yml), one archive per platform, kept for 90 days
-* [Github release](https://github.com/tge-was-taken/Atlus-Script-Tools/releases)
+* [Github release](https://github.com/tge-was-taken/Atlus-Script-Tools/releases), one archive per platform, published for every master build
+* [CI artifacts](https://github.com/tge-was-taken/Atlus-Script-Tools/actions/workflows/ci.yml) for branch builds, kept for 90 days
 
 ## Supported games ##
 * Catherine
@@ -98,9 +98,9 @@ dotnet test Source/AtlusScriptLibraryTests/AtlusScriptLibraryTests.csproj -c Rel
 
 `AtlusScriptLibrary` targets `net10.0` and `netstandard2.0`; everything else targets `net10.0`.
 
-Prebuilt native binaries for Windows, Linux and macOS are attached to each release. Pushing a
-`v*` tag builds and uploads them, and every push to master uploads the same archives as CI
-artifacts.
+Prebuilt native binaries for Windows, Linux and macOS are attached to each release. Every push
+to master publishes a release tagged `v1.0-<commit>`, and pushing a `v*` tag publishes one under
+that tag.
 
 ### Publishing ###
 
