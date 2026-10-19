@@ -1570,7 +1570,7 @@
         "Description": ""
       },
       {
-        "Type": "int",
+        "Type": "string",
         "Name": "param3",
         "Description": ""
       }
@@ -6118,18 +6118,7 @@
     "ReturnType": "int",
     "Name": "FUNCTION_013D",
     "Description": "",
-    "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param2",
-        "Description": ""
-      }
-    ]
+    "Parameters": []
   },
   {
     "Index": "0x013e",
@@ -8928,12 +8917,6 @@
     "ReturnType": "int",
     "Name": "FUNCTION_021F",
     "Description": "",
-    "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
-    ]
+    "Parameters": []
   }
 ]
