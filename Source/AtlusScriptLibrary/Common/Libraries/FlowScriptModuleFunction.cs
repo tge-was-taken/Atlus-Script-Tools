@@ -1,4 +1,4 @@
-using AtlusScriptLibrary.Common.Libraries.Serialization;
+﻿using AtlusScriptLibrary.Common.Libraries.Serialization;
 using AtlusScriptLibrary.FlowScriptLanguage.Compiler;
 using System;
 using System.Collections.Generic;
@@ -23,7 +23,7 @@ public class FlowScriptModuleFunction : ICloneable
     [JsonConverter(typeof(HexULongStringJsonConverter))]
     public ulong Address { get; set; }
 
-    [JsonConverter(typeof(CustomStringEnumConverter))]
+    [JsonConverter(typeof(StringEnumConverter<FlowScriptModuleFunctionSemantic>))]
     public FlowScriptModuleFunctionSemantic Semantic { get; set; }
 
     [JsonObjectCreationHandling(JsonObjectCreationHandling.Populate)]

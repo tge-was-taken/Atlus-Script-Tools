@@ -1,5 +1,5 @@
 ﻿
-# Atlus Script Tools [![Build status](https://ci.appveyor.com/api/projects/status/l3p8joj4frjkn753?svg=true)](https://ci.appveyor.com/project/tge-was-taken/atlus-script-tools/build/artifacts)
+# Atlus Script Tools [![Build status](https://github.com/tge-was-taken/Atlus-Script-Tools/actions/workflows/ci.yml/badge.svg)](https://github.com/tge-was-taken/Atlus-Script-Tools/actions/workflows/ci.yml)
 
 Set of tools developed for handling Atlus' script formats including
 * flow script files (.bf)
@@ -8,7 +8,7 @@ Set of tools developed for handling Atlus' script formats including
 All of the code is written in C# and licensed under the GNU GPL.
 
 Latest build:
-* https://ci.appveyor.com/project/tge-was-taken/atlus-script-tools/build/artifacts (available for 30 days)
+* [CI artifacts](https://github.com/tge-was-taken/Atlus-Script-Tools/actions/workflows/ci.yml), one archive per platform, kept for 90 days
 * [Github release](https://github.com/tge-was-taken/Atlus-Script-Tools/releases)
 
 ## Supported games ##
@@ -85,6 +85,35 @@ See ``AtlusScriptCompiler -Help`` for more info.
 
 ### Build ###
 * Not visible on the repo but this is where all of the binaries will compile to.
+
+## Building ##
+
+Requires the [.NET 10 SDK](https://dotnet.microsoft.com/download). A JDK is also needed,
+because the ANTLR grammars are regenerated during the build.
+
+```
+dotnet build Source/AtlusScriptTools.sln -c Release
+dotnet test Source/AtlusScriptLibraryTests/AtlusScriptLibraryTests.csproj -c Release
+```
+
+`AtlusScriptLibrary` targets `net10.0` and `netstandard2.0`; everything else targets `net10.0`.
+
+Prebuilt native binaries for Windows, Linux and macOS are attached to each release. Pushing a
+`v*` tag builds and uploads them, and every push to master uploads the same archives as CI
+artifacts.
+
+### Publishing ###
+
+Every executable publishes as a self-contained native binary that needs no installed .NET
+runtime. Pass the runtime identifier for the machine you are targeting, for example
+`linux-x64`, `osx-arm64` or `win-x64`:
+
+```
+dotnet publish Source/AtlusScriptCompiler/AtlusScriptCompiler.csproj -c Release -r linux-x64 -o out
+```
+
+The `Charsets` and `Libraries` directories are copied next to the binary and are read from
+there at runtime, so keep them alongside the executable when distributing it.
 
 ## What's finished? ##
 

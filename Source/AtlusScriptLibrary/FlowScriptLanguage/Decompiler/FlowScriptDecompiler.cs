@@ -1,4 +1,5 @@
 ﻿using AtlusScriptLibrary.Common.Libraries;
+using AtlusScriptLibrary.Common.IO;
 using AtlusScriptLibrary.Common.Logging;
 using AtlusScriptLibrary.Common.Text;
 using AtlusScriptLibrary.FlowScriptLanguage.Syntax;
@@ -201,7 +202,7 @@ public class FlowScriptDecompiler
                 return false;
             }
 
-            var importPath = MessageScriptFilePath.Replace(Path.GetDirectoryName(mFilePath), "").TrimStart('\\');
+            var importPath = PathUtils.GetRelativePathPortable(Path.GetDirectoryName(mFilePath), MessageScriptFilePath);
             mCompilationUnit.Imports.Add(new Import(importPath));
         }
 

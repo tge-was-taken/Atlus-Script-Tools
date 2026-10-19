@@ -36,10 +36,11 @@ public sealed class FlowScript
     /// <param name="path">Path to the file to load.</param>
     /// <param name="version">Format version the loader should use.</param>
     /// <returns>A <see cref="FlowScript"/> instance.</returns>
-    public static FlowScript FromFile(string path, Encoding encoding, FormatVersion version)
+    public static FlowScript FromFile(string path, Encoding encoding, FormatVersion version,
+        MessageScriptLanguage.FormatVersion messageScriptVersion = MessageScriptLanguage.FormatVersion.Detect)
     {
         using (var stream = File.OpenRead(path))
-            return FromStream(stream, encoding, version, false);
+            return FromStream(stream, encoding, version, false, messageScriptVersion);
     }
 
     /// <summary>
@@ -59,11 +60,12 @@ public sealed class FlowScript
     /// <param name="stream">Data stream.</param>
     /// <param name="version">Format version the loader should use.</param>
     /// <returns>A <see cref="FlowScript"/> instance.</returns>
-    public static FlowScript FromStream(Stream stream, Encoding encoding, FormatVersion version, bool leaveOpen)
+    public static FlowScript FromStream(Stream stream, Encoding encoding, FormatVersion version, bool leaveOpen,
+        MessageScriptLanguage.FormatVersion messageScriptVersion = MessageScriptLanguage.FormatVersion.Detect)
     {
         FlowScriptBinary binary = FlowScriptBinary.FromStream(stream, (BinaryFormatVersion)version, leaveOpen);
 
-        return FromBinary(binary, encoding);
+        return FromBinary(binary, encoding, messageScriptVersion);
     }
 
     /// <summary>
@@ -71,7 +73,8 @@ public sealed class FlowScript
     /// </summary>
     /// <param name="binary">A <see cref="FlowScriptBinary"/> instance.</param>
     /// <returns>A <see cref="FlowScript"/> instance.</returns>
-    public static FlowScript FromBinary(FlowScriptBinary binary, Encoding encoding = null)
+    public static FlowScript FromBinary(FlowScriptBinary binary, Encoding encoding = null,
+        MessageScriptLanguage.FormatVersion messageScriptVersion = MessageScriptLanguage.FormatVersion.Detect)
     {
         var instance = new FlowScript
         {
@@ -253,7 +256,7 @@ public sealed class FlowScript
         // assign message script
         if (binary.MessageScriptSection != null)
         {
-            instance.mMessageScript = MessageScript.FromBinary(binary.MessageScriptSection, MessageScriptLanguage.FormatVersion.Detect, encoding);
+            instance.mMessageScript = MessageScript.FromBinary(binary.MessageScriptSection, messageScriptVersion, encoding);
         }
 
         // strings have already been assigned previously, 

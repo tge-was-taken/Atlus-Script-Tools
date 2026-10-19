@@ -1018,7 +1018,25 @@ internal class Program
         outputFileFormat = OutputFileFormat.None;
         Logger.Info("Loading binary FlowScript file...");
         FlowScript flowScript = null;
-        if (!TryPerformAction("Failed to load flow script from file", () => flowScript = FlowScript.FromFile(inputFilePath, messageScriptOptions.Encoding)))
+
+        // V1 and the DDS variant of the embedded MessageScript look identical in the binary,
+        // so the library has to say which one this game uses.
+        var messageScriptVersion = AtlusScriptLibrary.MessageScriptLanguage.FormatVersion.Detect;
+        if (libraryName != null)
+        {
+            var messageScriptLibrary = LibraryLookup.GetLibrary(libraryName);
+            if (messageScriptLibrary == null)
+            {
+                Logger.Error("Invalid library name specified");
+                return false;
+            }
+
+            messageScriptVersion = messageScriptLibrary.MessageScriptFormatVersion;
+        }
+
+        if (!TryPerformAction("Failed to load flow script from file",
+            () => flowScript = FlowScript.FromFile(inputFilePath, messageScriptOptions.Encoding,
+                AtlusScriptLibrary.FlowScriptLanguage.FormatVersion.Unknown, messageScriptVersion)))
             return false;
 
         Logger.Info("Decompiling FlowScript...");

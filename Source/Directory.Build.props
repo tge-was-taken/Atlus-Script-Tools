@@ -1,0 +1,17 @@
+<Project>
+
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' != 'netstandard2.0'">
+    <!-- Trim and AOT analysis runs on every build so incompatibilities surface early,
+         not only when publishing native. -->
+    <IsAotCompatible>true</IsAotCompatible>
+    <!-- Text handling goes through the bundled charset tables and CodePagesEncodingProvider,
+         neither of which uses ICU. Output is byte-identical for every charset, so dropping
+         ICU only removes a runtime dependency that can fail at startup. -->
+    <InvariantGlobalization>true</InvariantGlobalization>
+  </PropertyGroup>
+
+</Project>

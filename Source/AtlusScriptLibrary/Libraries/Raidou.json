@@ -1,6 +1,7 @@
 {
   "Name": "Shin Megami Tensei - Devil Summoner - Raidou Kuzunoha vs. the Soulless Army",
   "ShortName": "raidou",
+  "MessageScriptFormatVersion": "Version1DDS",
   "FlowScriptModulesPath": "Raidou/FlowScriptModules.json",
   "MessageScriptLibraryPath": "Raidou/MessageScriptLibrary.json"
 }

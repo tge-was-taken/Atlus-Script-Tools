@@ -1,4 +1,4 @@
-using AtlusScriptLibrary.Common.Libraries.Serialization;
+﻿using AtlusScriptLibrary.Common.Libraries.Serialization;
 using AtlusScriptLibrary.FlowScriptLanguage.Compiler;
 using System;
 using System.Collections.Generic;
@@ -16,15 +16,15 @@ public class FlowScriptModule : ICloneable
     public string Description { get; set; }
 
     [JsonPropertyName("ConstantsPath")]
-    [JsonConverter(typeof(ExternalJsonPathConverter))]
+    [JsonConverter(typeof(ExternalJsonPathConverter<FlowScriptModuleConstant>))]
     public List<FlowScriptModuleConstant> Constants { get; set; } = new();
 
     [JsonPropertyName("EnumsPath")]
-    [JsonConverter(typeof(ExternalJsonPathConverter))]
+    [JsonConverter(typeof(ExternalJsonPathConverter<FlowScriptModuleEnum>))]
     public List<FlowScriptModuleEnum> Enums { get; set; } = new();
 
     [JsonPropertyName("FunctionsPath")]
-    [JsonConverter(typeof(ExternalJsonPathConverter))]
+    [JsonConverter(typeof(ExternalJsonPathConverter<FlowScriptModuleFunction>))]
     public List<FlowScriptModuleFunction> Functions { get; set; } = new();
 
     public object Clone()

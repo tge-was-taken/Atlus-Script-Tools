@@ -44,7 +44,7 @@ namespace AtlusScriptDocGen.Generators
 
                 foreach (var enumDef in Library.FlowScriptModules.Where(x => x.Enums != null).SelectMany(x => x.Enums))
                 {
-                    if (enumDef.Description.Length != 0)
+                    if (!string.IsNullOrEmpty(enumDef.Description))
                         writer.WriteLine($"// {enumDef.Description}");
 
                     var enumDefName = GetValidName(enumDef.Name);
@@ -54,14 +54,14 @@ namespace AtlusScriptDocGen.Generators
                     {
                         foreach (var enumMemberDef in enumDef.Members)
                         {
-                            if (enumMemberDef.Description.Length != 0)
+                            if (!string.IsNullOrEmpty(enumMemberDef.Description))
                                 writer.WriteLine($"    // {enumMemberDef.Description}");
 
                             var enumMemberDefName = GetValidName(enumMemberDef.Name);
 
                             writer.WriteLine($"    {enumMemberDefName} = {enumMemberDef.Value},");
 
-                            if (enumMemberDef.Description.Length != 0)
+                            if (!string.IsNullOrEmpty(enumMemberDef.Description))
                                 writer.WriteLine();
                         }
                     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace AtlusScriptLibrary.Common.IO;
@@ -127,7 +128,11 @@ public static class EndiannessHelper
         value = Swap(value);
     }
 
-    private static object SwapRecursive(object obj, Type type)
+    // SwapRecursive walks field, element and enum underlying types, which the trimmer
+    // cannot follow transitively. Everything reached this way is a primitive, an enum or
+    // an array of those, none of which have fields that trimming could remove.
+    [UnconditionalSuppressMessage("Trimming", "IL2072", Justification = "Nested types reached here are primitives, enums or arrays of those.")]
+    private static object SwapRecursive(object obj, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)] Type type)
     {
         if (type.IsArray)
         {
@@ -148,7 +153,10 @@ public static class EndiannessHelper
         }
         if (type.IsEnum)
         {
-            return SwapRecursive(obj, type.GetEnumUnderlyingType());
+            // Unbox to the underlying primitive as well as switching type, or the swap
+            // below sees a boxed enum it has no case for.
+            var underlyingType = type.GetEnumUnderlyingType();
+            return SwapRecursive(Convert.ChangeType(obj, underlyingType), underlyingType);
         }
         if (type.IsGenericType)
         {
@@ -164,8 +172,7 @@ public static class EndiannessHelper
         }
         if (type.IsPrimitive)
         {
-            return Swap((dynamic)obj);
-            //return SwapEndiannessPrimitive(type, obj);
+            return SwapPrimitive(obj);
         }
         if (type.IsValueType)
         {
@@ -175,7 +182,24 @@ public static class EndiannessHelper
         throw new NotImplementedException();
     }
 
-    private static object Swap(object obj, Type type)
+    private static object SwapPrimitive(object obj) => obj switch
+    {
+        short v => Swap(v),
+        ushort v => Swap(v),
+        int v => Swap(v),
+        uint v => Swap(v),
+        long v => Swap(v),
+        ulong v => Swap(v),
+        float v => Swap(v),
+        double v => Swap(v),
+        decimal v => Swap(v),
+        // Single-byte and non-numeric primitives have no byte order to swap.
+        byte or sbyte or bool or char => obj,
+        _ => throw new NotSupportedException($"Cannot byte swap primitive type '{obj.GetType()}'")
+    };
+
+    [UnconditionalSuppressMessage("Trimming", "IL2072", Justification = "Nested types reached here are primitives, enums or arrays of those.")]
+    private static object Swap(object obj, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)] Type type)
     {
         var fields = type.GetFields().ToList();
 
@@ -252,14 +276,14 @@ public static class EndiannessHelper
         return obj;
     }
 
-    public static T Swap<T>(T obj)
+    public static T Swap<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)] T>(T obj)
     {
         object temp = obj;
         temp = Swap(temp, typeof(T));
         return (T)temp;
     }
 
-    public static void Swap<T>(ref T obj)
+    public static void Swap<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.NonPublicConstructors)] T>(ref T obj)
     {
         obj = Swap(obj);
     }

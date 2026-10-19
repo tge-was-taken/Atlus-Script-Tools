@@ -129,12 +129,10 @@ public sealed class FlowScriptBinaryBuilder
 
         if (mMatching)
         {
-            if (mFormatVersion == BinaryFormatVersion.Version1)
+            // Version 1 reserves a 0xF0 byte string section when the script has no strings.
+            // Scripts that do have strings keep the plain 16 byte alignment above.
+            if (mFormatVersion == BinaryFormatVersion.Version1 && mStringSection.Count == 0)
             {
-                // add return instruction at end
-                mTextSection.Add(new BinaryInstruction() { Opcode = Opcode.END });
-
-                // apply string section padding
                 while (mStringSection.Count < 0xF0)
                     mStringSection.Add(0);
             }

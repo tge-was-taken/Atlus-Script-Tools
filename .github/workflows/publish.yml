@@ -1,0 +1,80 @@
+name: Publish
+
+on:
+  workflow_call:
+    inputs:
+      tag:
+        description: Release tag to attach the archives to. Leave empty to only upload artifacts.
+        type: string
+        required: false
+        default: ''
+
+jobs:
+  publish:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - rid: win-x64
+            os: windows-latest
+          - rid: linux-x64
+            os: ubuntu-latest
+          - rid: osx-x64
+            os: macos-13
+          - rid: osx-arm64
+            os: macos-latest
+
+    # Native AOT cannot cross compile, so each runtime identifier builds on its own OS.
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      # The ANTLR grammars are regenerated during the build.
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Publish the executables
+        shell: bash
+        run: |
+          set -eu
+          out="publish/AtlusScriptTools-${{ matrix.rid }}"
+          for project in AtlusScriptCompiler \
+                         Utilities/AtlusFlowScriptExtractor \
+                         Utilities/AtlusMessageScriptExtractor \
+                         Utilities/AtlusScriptDocGen \
+                         Utilities/DumpMessageIds \
+                         Utilities/DumpProcedureIds; do
+            dotnet publish "Source/$project/$(basename "$project").csproj" -c Release \
+              -r ${{ matrix.rid }} -o "$out"
+          done
+          rm -rf "$out"/*.pdb "$out"/*.dbg "$out"/*.dsym
+
+      - name: Archive
+        shell: bash
+        run: |
+          set -eu
+          cd publish
+          if [ "${{ runner.os }}" = "Windows" ]; then
+            7z a "AtlusScriptTools-${{ matrix.rid }}.zip" "AtlusScriptTools-${{ matrix.rid }}"
+          else
+            zip -r "AtlusScriptTools-${{ matrix.rid }}.zip" "AtlusScriptTools-${{ matrix.rid }}"
+          fi
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AtlusScriptTools-${{ matrix.rid }}
+          path: publish/AtlusScriptTools-${{ matrix.rid }}.zip
+
+      - name: Attach to the release
+        if: inputs.tag != ''
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ inputs.tag }}
+          files: publish/AtlusScriptTools-${{ matrix.rid }}.zip

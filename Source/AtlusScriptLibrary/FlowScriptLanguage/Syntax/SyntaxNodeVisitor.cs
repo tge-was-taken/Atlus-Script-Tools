@@ -28,7 +28,7 @@ public abstract class SyntaxNodeVisitor
 
     public virtual void Visit(Statement statement)
     {
-        Visit((dynamic)statement);
+        DispatchVisit(statement);
     }
 
     public virtual void Visit(Comment comment)
@@ -38,7 +38,7 @@ public abstract class SyntaxNodeVisitor
 
     public virtual void Visit(SyntaxNode syntaxNode)
     {
-        Visit((dynamic)syntaxNode);
+        DispatchVisit(syntaxNode);
     }
 
     public virtual void Visit(VariableModifier variableModifier)
@@ -63,19 +63,19 @@ public abstract class SyntaxNodeVisitor
 
     public virtual void Visit(Declaration declaration)
     {
-        Visit((dynamic)declaration);
+        DispatchVisit(declaration);
     }
 
     public virtual void Visit(Expression expression)
     {
 
-        Visit((dynamic)expression);
+        DispatchVisit(expression);
     }
 
     public virtual void Visit(ForStatement forStatement)
     {
-        Visit((dynamic)forStatement.Condition);
-        Visit((dynamic)forStatement.AfterLoop);
+        DispatchVisit(forStatement.Condition);
+        DispatchVisit(forStatement.AfterLoop);
         if (forStatement.Body != null)
             Visit(forStatement.Body);
     }
@@ -87,7 +87,7 @@ public abstract class SyntaxNodeVisitor
 
     public virtual void Visit(IfStatement ifStatement)
     {
-        Visit((dynamic)ifStatement.Condition);
+        DispatchVisit(ifStatement.Condition);
 
         if (ifStatement.Body != null)
             Visit(ifStatement.Body);
@@ -104,22 +104,22 @@ public abstract class SyntaxNodeVisitor
     {
         if (returnStatement.Value != null)
         {
-            Visit((dynamic)returnStatement.Value);
+            DispatchVisit(returnStatement.Value);
         }
     }
 
     public virtual void Visit(SwitchStatement switchStatement)
     {
-        Visit((dynamic)switchStatement.SwitchOn);
+        DispatchVisit(switchStatement.SwitchOn);
         foreach (var label in switchStatement.Labels)
         {
-            Visit((dynamic)label);
+            DispatchVisit(label);
         }
     }
 
     public virtual void Visit(WhileStatement whileStatement)
     {
-        Visit((dynamic)whileStatement.Condition);
+        DispatchVisit(whileStatement.Condition);
         Visit(whileStatement.Body);
     }
 
@@ -163,7 +163,7 @@ public abstract class SyntaxNodeVisitor
 
     public virtual void Visit(BinaryExpression binaryExpression)
     {
-        Visit((dynamic)binaryExpression);
+        DispatchVisit(binaryExpression);
     }
 
     public virtual void Visit(CallOperator callOperator)
@@ -190,7 +190,7 @@ public abstract class SyntaxNodeVisitor
 
     public virtual void Visit(UnaryExpression unaryExpression)
     {
-        Visit((dynamic)unaryExpression);
+        DispatchVisit(unaryExpression);
     }
 
     public virtual void Visit(AdditionOperator binaryOperator)
@@ -279,12 +279,12 @@ public abstract class SyntaxNodeVisitor
 
     public virtual void Visit(AssignmentOperatorBase binaryOperator)
     {
-        Visit((dynamic)binaryOperator);
+        DispatchVisit(binaryOperator);
     }
 
     public virtual void Visit(CompoundAssignmentOperator binaryOperator)
     {
-        Visit((dynamic)binaryOperator);
+        DispatchVisit(binaryOperator);
     }
 
     public virtual void Visit(DivisionAssignmentOperator binaryOperator)
@@ -351,7 +351,7 @@ public abstract class SyntaxNodeVisitor
 
     public virtual void Visit(PostfixOperator unaryOperator)
     {
-        Visit((dynamic)(unaryOperator));
+        DispatchVisit(unaryOperator);
     }
 
     public virtual void Visit(PrefixDecrementOperator unaryOperator)
@@ -366,7 +366,7 @@ public abstract class SyntaxNodeVisitor
 
     public virtual void Visit(PrefixOperator prefixOperator)
     {
-        Visit((dynamic)prefixOperator);
+        DispatchVisit(prefixOperator);
     }
 
     public virtual void Visit(EnumDeclaration enumDeclaration)
@@ -393,7 +393,7 @@ public abstract class SyntaxNodeVisitor
 
     public virtual void Visit(FlowScriptSwitchLabel switchLabel)
     {
-        Visit((dynamic)switchLabel);
+        DispatchVisit(switchLabel);
     }
 
     public virtual void Visit(ConditionSwitchLabel switchLabel)
@@ -410,6 +410,131 @@ public abstract class SyntaxNodeVisitor
         foreach (var statement in switchLabel.Body)
         {
             Visit(statement);
+        }
+    }
+
+    public virtual void Visit(ModulusOperator binaryOperator)
+    {
+        Visit(binaryOperator.Left);
+        Visit(binaryOperator.Right);
+    }
+
+    public virtual void Visit(ModulusAssignmentOperator binaryOperator)
+    {
+        Visit(binaryOperator.Left);
+        Visit(binaryOperator.Right);
+    }
+
+    public virtual void Visit(InitializerList initializerList)
+    {
+        foreach (var expression in initializerList.Expressions)
+        {
+            Visit(expression);
+        }
+    }
+
+    public virtual void Visit(NullExpression nullExpression)
+    {
+    }
+
+    public virtual void Visit(SubscriptOperator subscriptOperator)
+    {
+        Visit(subscriptOperator.Operand);
+        Visit(subscriptOperator.Index);
+    }
+
+    /// <summary>
+    /// Dispatches to the most derived <see cref="Visit"/> overload for the node's runtime type.
+    /// Replaces runtime overload resolution via <c>dynamic</c>, which Native AOT cannot support.
+    /// </summary>
+    public void DispatchVisit(SyntaxNode node)
+    {
+        switch (node)
+        {
+            case null: return;
+
+            // Statements
+            case BreakStatement n: Visit(n); return;
+            case CompoundStatement n: Visit(n); return;
+            case Comment n: Visit(n); return;
+            case ContinueStatement n: Visit(n); return;
+            case ForStatement n: Visit(n); return;
+            case GotoStatement n: Visit(n); return;
+            case IfStatement n: Visit(n); return;
+            case NullStatement n: Visit(n); return;
+            case ReturnStatement n: Visit(n); return;
+            case SwitchStatement n: Visit(n); return;
+            case WhileStatement n: Visit(n); return;
+
+            // Declarations
+            case VariableDeclaration n: Visit(n); return;
+            case EnumDeclaration n: Visit(n); return;
+            case EnumValueDeclaration n: Visit(n); return;
+            case FunctionDeclaration n: Visit(n); return;
+            case LabelDeclaration n: Visit(n); return;
+            case ProcedureDeclaration n: Visit(n); return;
+
+            // Binary operators
+            case AdditionOperator n: Visit(n); return;
+            case SubtractionOperator n: Visit(n); return;
+            case MultiplicationOperator n: Visit(n); return;
+            case DivisionOperator n: Visit(n); return;
+            case ModulusOperator n: Visit(n); return;
+            case EqualityOperator n: Visit(n); return;
+            case NonEqualityOperator n: Visit(n); return;
+            case GreaterThanOperator n: Visit(n); return;
+            case GreaterThanOrEqualOperator n: Visit(n); return;
+            case LessThanOperator n: Visit(n); return;
+            case LessThanOrEqualOperator n: Visit(n); return;
+            case LogicalAndOperator n: Visit(n); return;
+            case LogicalOrOperator n: Visit(n); return;
+
+            // Assignment operators
+            case AssignmentOperator n: Visit(n); return;
+            case AdditionAssignmentOperator n: Visit(n); return;
+            case SubtractionAssignmentOperator n: Visit(n); return;
+            case MultiplicationAssignmentOperator n: Visit(n); return;
+            case DivisionAssignmentOperator n: Visit(n); return;
+            case ModulusAssignmentOperator n: Visit(n); return;
+
+            // Unary operators
+            case LogicalNotOperator n: Visit(n); return;
+            case NegationOperator n: Visit(n); return;
+            case PostfixDecrementOperator n: Visit(n); return;
+            case PostfixIncrementOperator n: Visit(n); return;
+            case PrefixDecrementOperator n: Visit(n); return;
+            case PrefixIncrementOperator n: Visit(n); return;
+
+            // Literals
+            case BoolLiteral n: Visit(n); return;
+            case FloatLiteral n: Visit(n); return;
+            case IntLiteral n: Visit(n); return;
+            case UIntLiteral n: Visit(n); return;
+            case StringLiteral n: Visit(n); return;
+
+            // Other expressions
+            case CallOperator n: Visit(n); return;
+            case MemberAccessExpression n: Visit(n); return;
+            case SubscriptOperator n: Visit(n); return;
+            case InitializerList n: Visit(n); return;
+            case NullExpression n: Visit(n); return;
+            case TypeIdentifier n: Visit(n); return;
+            case Identifier n: Visit(n); return;
+
+            // Switch labels
+            case ConditionSwitchLabel n: Visit(n); return;
+            case DefaultSwitchLabel n: Visit(n); return;
+
+            // Structural nodes
+            case CompilationUnit n: Visit(n); return;
+            case Import n: Visit(n); return;
+            case Argument n: Visit(n); return;
+            case Parameter n: Visit(n); return;
+            case VariableModifier n: Visit(n); return;
+
+            default:
+                throw new System.NotSupportedException(
+                    $"No {nameof(SyntaxNodeVisitor)}.{nameof(Visit)} overload for node type '{node.GetType()}'");
         }
     }
 }

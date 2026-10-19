@@ -1,4 +1,4 @@
-using AtlusScriptLibrary.Common.Libraries.Serialization;
+﻿using AtlusScriptLibrary.Common.Libraries.Serialization;
 using System;
 using System.Text.Json.Serialization;
 
@@ -12,7 +12,7 @@ public class FlowScriptModuleParameter : ICloneable
 
     public string Description { get; set; }
 
-    [JsonConverter(typeof(CustomStringEnumConverter))]
+    [JsonConverter(typeof(StringEnumConverter<FlowScriptModuleParameterSemantic>))]
     public FlowScriptModuleParameterSemantic Semantic { get; set; }
 
     public string DefaultValue { get; set; }

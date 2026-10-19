@@ -442,7 +442,10 @@ public class FlowScriptInterpreter
     {
         var l = instance.PopArithmicValue();
         var r = instance.PopArithmicValue();
-        instance.PushValue((dynamic)l.Value + (dynamic)r.Value);
+        if (IsFloat(l) || IsFloat(r))
+            instance.PushValue(AsFloat(l) + AsFloat(r));
+        else
+            instance.PushValue(AsInt(l) + AsInt(r));
         return true;
     }
 
@@ -450,7 +453,10 @@ public class FlowScriptInterpreter
     {
         var l = instance.PopArithmicValue();
         var r = instance.PopArithmicValue();
-        instance.PushValue((dynamic)l.Value - (dynamic)r.Value);
+        if (IsFloat(l) || IsFloat(r))
+            instance.PushValue(AsFloat(l) - AsFloat(r));
+        else
+            instance.PushValue(AsInt(l) - AsInt(r));
         return true;
     }
 
@@ -458,7 +464,10 @@ public class FlowScriptInterpreter
     {
         var l = instance.PopArithmicValue();
         var r = instance.PopArithmicValue();
-        instance.PushValue((dynamic)l.Value * (dynamic)r.Value);
+        if (IsFloat(l) || IsFloat(r))
+            instance.PushValue(AsFloat(l) * AsFloat(r));
+        else
+            instance.PushValue(AsInt(l) * AsInt(r));
         return true;
     }
 
@@ -466,16 +475,30 @@ public class FlowScriptInterpreter
     {
         var l = instance.PopArithmicValue();
         var r = instance.PopArithmicValue();
-        instance.PushValue((dynamic)l.Value / (dynamic)r.Value);
+        if (IsFloat(l) || IsFloat(r))
+            instance.PushValue(AsFloat(l) / AsFloat(r));
+        else
+            instance.PushValue(AsInt(l) / AsInt(r));
         return true;
     }
 
     private static bool MINUS(FlowScriptInterpreter instance)
     {
         var l = instance.PopArithmicValue();
-        instance.PushValue(-(dynamic)l.Value);
+        if (IsFloat(l))
+            instance.PushValue(-AsFloat(l));
+        else
+            instance.PushValue(-AsInt(l));
         return true;
     }
+
+    // Numeric promotion for the boxed stack values, previously done at runtime by the
+    // C# binder. Non-float arithmic kinds carry a boxed int, so they read as int here.
+    private static bool IsFloat(StackValue value) => value.Value is float;
+
+    private static float AsFloat(StackValue value) => value.Value is float f ? f : (int)value.Value;
+
+    private static int AsInt(StackValue value) => value.Value is float f ? (int)f : (int)value.Value;
 
     private static bool NOT(FlowScriptInterpreter instance)
     {
@@ -504,7 +527,10 @@ public class FlowScriptInterpreter
     {
         var l = instance.PopArithmicValue();
         var r = instance.PopArithmicValue();
-        instance.PushValue((dynamic)l.Value == (dynamic)r.Value);
+        if (IsFloat(l) || IsFloat(r))
+            instance.PushValue(AsFloat(l) == AsFloat(r));
+        else
+            instance.PushValue(AsInt(l) == AsInt(r));
         return true;
     }
 
@@ -512,7 +538,10 @@ public class FlowScriptInterpreter
     {
         var l = instance.PopArithmicValue();
         var r = instance.PopArithmicValue();
-        instance.PushValue((dynamic)l.Value != (dynamic)r.Value);
+        if (IsFloat(l) || IsFloat(r))
+            instance.PushValue(AsFloat(l) != AsFloat(r));
+        else
+            instance.PushValue(AsInt(l) != AsInt(r));
         return true;
     }
 
@@ -520,7 +549,10 @@ public class FlowScriptInterpreter
     {
         var l = instance.PopArithmicValue();
         var r = instance.PopArithmicValue();
-        instance.PushValue((dynamic)l.Value < (dynamic)r.Value);
+        if (IsFloat(l) || IsFloat(r))
+            instance.PushValue(AsFloat(l) < AsFloat(r));
+        else
+            instance.PushValue(AsInt(l) < AsInt(r));
         return true;
     }
 
@@ -528,7 +560,10 @@ public class FlowScriptInterpreter
     {
         var l = instance.PopArithmicValue();
         var r = instance.PopArithmicValue();
-        instance.PushValue((dynamic)l.Value > (dynamic)r.Value);
+        if (IsFloat(l) || IsFloat(r))
+            instance.PushValue(AsFloat(l) > AsFloat(r));
+        else
+            instance.PushValue(AsInt(l) > AsInt(r));
         return true;
     }
 
@@ -536,7 +571,10 @@ public class FlowScriptInterpreter
     {
         var l = instance.PopArithmicValue();
         var r = instance.PopArithmicValue();
-        instance.PushValue((dynamic)l.Value <= (dynamic)r.Value);
+        if (IsFloat(l) || IsFloat(r))
+            instance.PushValue(AsFloat(l) <= AsFloat(r));
+        else
+            instance.PushValue(AsInt(l) <= AsInt(r));
         return true;
     }
 
@@ -544,7 +582,10 @@ public class FlowScriptInterpreter
     {
         var l = instance.PopArithmicValue();
         var r = instance.PopArithmicValue();
-        instance.PushValue((dynamic)l.Value >= (dynamic)r.Value);
+        if (IsFloat(l) || IsFloat(r))
+            instance.PushValue(AsFloat(l) >= AsFloat(r));
+        else
+            instance.PushValue(AsInt(l) >= AsInt(r));
         return true;
     }
 

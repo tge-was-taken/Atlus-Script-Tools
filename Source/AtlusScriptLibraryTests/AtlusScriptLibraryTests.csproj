@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="TestResources\Complex.BF" />
+    <None Remove="TestResources\Complex.bf" />
     <None Remove="TestResources\JumpInstruction2.bf" />
     <None Remove="TestResources\POPREG.bf" />
     <None Remove="TestResources\Version2BigEndian.bmd" />
