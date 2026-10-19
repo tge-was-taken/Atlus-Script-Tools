@@ -63,6 +63,7 @@ public class Evaluator
     private Stack<Parameter> mParameterStack;
     private List<EvaluatedIdentifierReference> mProcedureLocalVariables;
     private Expression mLastPopRegValue;
+    private int mStatementBarrierIndex;
 
     public Library Library { get; set; }
 
@@ -737,6 +738,7 @@ public class Evaluator
         mEvaluatedInstructionIndex = 0;
         mEvaluationStatementStack = new Stack<EvaluatedStatement>();
         mEvaluationExpressionStack = new Stack<EvaluatedStatement>();
+        mStatementBarrierIndex = -1;
         mReturnKind = ValueKind.Void;
         mParameters = new List<Parameter>();
         mPreEvaluationInfo = mProcedurePreEvaluationInfos.Where(x => x.Procedure == procedure).FirstOrDefault();
@@ -788,7 +790,7 @@ public class Evaluator
 
         // Statements, yay!
         var evaluatedStatements = mEvaluationStatementStack
-            .Union(mEvaluationExpressionStack)
+            .Union(mEvaluationExpressionStack.Select(AsExplicitPush))
             .OrderBy(x => x.InstructionIndex)
             .ToList();
 
@@ -1019,9 +1021,7 @@ public class Evaluator
                     {
                         // Where procedures take no stack arguments, a call that runs out of
                         // values is a call site passing fewer arguments than the library declares.
-                        if (Library?.UsePOPREG == false &&
-                            (mEvaluationExpressionStack.Count == 0 ||
-                             mEvaluationExpressionStack.Peek().Statement is Identifier { Text: "__RETURN_ADDRESS" }))
+                        if (Library?.UsePOPREG == false && !CanPopArgument())
                             break;
 
                         if (!TryPopExpression(out var argument))
@@ -1433,6 +1433,40 @@ public class Evaluator
 
         mEvaluationStatementStack.Push(
             new EvaluatedStatement(statement, mEvaluatedInstructionIndex, referencedLabel));
+        mStatementBarrierIndex = mEvaluatedInstructionIndex;
+    }
+
+    // A value pushed before the last statement cannot be written as an argument of this call:
+    // recompiling would move the push after that statement. It stays on the stack instead, and
+    // the call takes it from there.
+    private bool CanPopArgument()
+    {
+        if (mEvaluationExpressionStack.Count == 0)
+            return false;
+
+        var top = mEvaluationExpressionStack.Peek();
+        return !IsCallerValue(top.Statement as Expression) &&
+               top.InstructionIndex >= mStatementBarrierIndex;
+    }
+
+    // A value still on the stack was pushed for a later command to pop, which a bare value
+    // expression cannot say, so it is written as __push(value).
+    private EvaluatedStatement AsExplicitPush(EvaluatedStatement evaluated)
+    {
+        if (!(evaluated.Statement is Expression expression) || IsCallerValue(expression))
+            return evaluated;
+
+        var call = new CallOperator(ValueKind.Void, new Identifier("__push"),
+            new List<Argument> { new Argument(expression) });
+
+        return new EvaluatedStatement(call, evaluated.InstructionIndex, evaluated.ReferencedLabel);
+    }
+
+    private bool IsCallerValue(Expression expression)
+    {
+        return expression is Identifier identifier &&
+               (identifier.Text == "__RETURN_ADDRESS" ||
+                mParameters.Any(x => x.Identifier.Text == identifier.Text));
     }
 
     private bool TryPopStatement(out Statement statement)

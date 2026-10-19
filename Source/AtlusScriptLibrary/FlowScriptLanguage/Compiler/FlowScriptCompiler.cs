@@ -2364,9 +2364,27 @@ public class FlowScriptCompiler
         return true;
     }
 
+    // The interpreter pops a fixed count per command, so a script can push a value for a later
+    // command to pop. That push is written as __push(value).
+    private const string PushIntrinsicName = "__push";
+
+    private bool TryEmitPushIntrinsic(CallOperator callExpression)
+    {
+        if (callExpression.Arguments.Count != 1)
+        {
+            Error(callExpression, $"'{PushIntrinsicName}' takes one value");
+            return false;
+        }
+
+        return TryEmitExpression(callExpression.Arguments[0].Expression, false);
+    }
+
     private bool TryEmitCall(CallOperator callExpression, bool isStatement)
     {
         Trace(callExpression, $"Emitting call: {callExpression}");
+
+        if (callExpression.Identifier.Text == PushIntrinsicName)
+            return TryEmitPushIntrinsic(callExpression);
 
         if (mRootScope.TryGetFunction(callExpression.Identifier.Text, out var function))
         {
@@ -2403,8 +2421,16 @@ public class FlowScriptCompiler
                 // Check if function is marked variadic
                 if (libFunc == null || libFunc.Semantic != FlowScriptModuleFunctionSemantic.Variadic)
                 {
-                    Error($"Function '{function.Declaration}' expects {function.Declaration.Parameters.Count} arguments but {callExpression.Arguments.Count} are given");
-                    return false;
+                    // The interpreter pops a fixed count per command, so a script may push a
+                    // value that a later command pops. Such a call carries only its topmost
+                    // arguments and takes the rest off the stack.
+                    if (!Matching || callExpression.Arguments.Count > function.Declaration.Parameters.Count)
+                    {
+                        Error($"Function '{function.Declaration}' expects {function.Declaration.Parameters.Count} arguments but {callExpression.Arguments.Count} are given");
+                        return false;
+                    }
+
+                    Warning(callExpression, $"Function '{function.Declaration}' is given {callExpression.Arguments.Count} of {function.Declaration.Parameters.Count} arguments; the rest come off the stack");
                 }
             }
 
@@ -2417,6 +2443,9 @@ public class FlowScriptCompiler
                     if (semantic != FlowScriptModuleParameterSemantic.MsgId &&
                             semantic != FlowScriptModuleParameterSemantic.SelId)
                         continue;
+
+                    if (i >= callExpression.Arguments.Count)
+                        break;
 
                     var arg = callExpression.Arguments[i];
 

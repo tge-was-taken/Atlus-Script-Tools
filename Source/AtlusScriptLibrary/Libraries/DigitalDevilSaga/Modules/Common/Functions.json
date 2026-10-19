@@ -458,8 +458,7 @@
     "FullName": "evtCommand_evtCommand_MODEL_MOVE",
     "Aliases": [
       "FUNCTION_0017"
-    ],
-    "Semantic": "Variadic"
+    ]
   },
   {
     "Index": "0x0018",
@@ -591,7 +590,13 @@
     "ReturnType": "int",
     "Name": "FUNCTION_001D",
     "Description": "Null pointer",
-    "Parameters": []
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
   },
   {
     "Index": "0x001e",
@@ -624,7 +629,18 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0020",
     "Description": "Null pointer",
-    "Parameters": []
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ]
   },
   {
     "Index": "0x0021",
@@ -1306,8 +1322,7 @@
     "FullName": "evtCommand_evtCommand_FIELD_DSP",
     "Aliases": [
       "FUNCTION_004D"
-    ],
-    "Semantic": "Variadic"
+    ]
   },
   {
     "Index": "0x004e",
@@ -1530,7 +1545,13 @@
     "ReturnType": "int",
     "Name": "FUNCTION_005C",
     "Description": "Null pointer",
-    "Parameters": []
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
   },
   {
     "Index": "0x005d",
@@ -1557,8 +1578,7 @@
     "FullName": "evtCommand_evtCommand_CALL_FIELD",
     "Aliases": [
       "FUNCTION_005D"
-    ],
-    "Semantic": "Variadic"
+    ]
   },
   {
     "Index": "0x005e",
@@ -3937,7 +3957,13 @@
     "ReturnType": "int",
     "Name": "EFFECT_PATH_WAIT",
     "Description": "(Copied from SMT3. May be incorrect.)",
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
     "FullName": "evtCommand_evtCommand_EFFECT_PATH_WAIT",
     "Aliases": [
       "FUNCTION_00D2"
@@ -3948,7 +3974,13 @@
     "ReturnType": "int",
     "Name": "EFFMG1_LOAD",
     "Description": "(Copied from SMT3. May be incorrect.)",
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ],
     "FullName": "evtCommand_evtCommand_EFFMG1_LOAD",
     "Aliases": [
       "FUNCTION_00D3"
@@ -3963,6 +3995,11 @@
       {
         "Type": "int",
         "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
         "Description": ""
       }
     ],
@@ -3993,7 +4030,18 @@
     "ReturnType": "int",
     "Name": "EFFMG2_BE",
     "Description": "(Copied from SMT3. May be incorrect.)",
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      }
+    ],
     "FullName": "evtCommand_evtCommand_EFFMG2_BE",
     "Aliases": [
       "FUNCTION_00D6"
@@ -4223,7 +4271,13 @@
     "ReturnType": "int",
     "Name": "FUNCTION_00E1",
     "Description": "Null pointer",
-    "Parameters": []
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
   },
   {
     "Index": "0x00e2",
@@ -4239,11 +4293,6 @@
       {
         "Type": "BattleUnit",
         "Name": "param2",
-        "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param3",
         "Description": ""
       }
     ],
@@ -4273,23 +4322,7 @@
     "ReturnType": "void",
     "Name": "BTL_TAIKYO",
     "Description": "(Copied from SMT3. May be incorrect.)",
-    "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param2",
-        "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param3",
-        "Description": ""
-      }
-    ],
+    "Parameters": [],
     "FullName": "nbAiScript_nbCommand_BTL_TAIKYO",
     "Aliases": [
       "FUNCTION_00E4"
@@ -4300,13 +4333,7 @@
     "ReturnType": "void",
     "Name": "BTL_ALLTAIKYO",
     "Description": "(Copied from SMT3. May be incorrect.)",
-    "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
-    ],
+    "Parameters": [],
     "FullName": "nbAiScript_nbCommand_BTL_ALLTAIKYO",
     "Aliases": [
       "FUNCTION_00E5"
@@ -4332,11 +4359,6 @@
       {
         "Type": "int",
         "Name": "param1",
-        "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param2",
         "Description": ""
       }
     ]
@@ -4687,13 +4709,7 @@
     "ReturnType": "int",
     "Name": "BTL_CAM_ORG",
     "Description": "(Copied from SMT3. May be incorrect.)",
-    "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
-    ],
+    "Parameters": [],
     "FullName": "nbAiScript_nbCommand_BTL_CAM_ORG",
     "Aliases": [
       "FUNCTION_00F5"
@@ -4766,23 +4782,7 @@
     "ReturnType": "int",
     "Name": "BTL_CAM_1SHOT",
     "Description": "(Copied from SMT3. May be incorrect.)",
-    "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param2",
-        "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param3",
-        "Description": ""
-      }
-    ],
+    "Parameters": [],
     "FullName": "nbAiScript_nbCommand_BTL_CAM_1SHOT",
     "Aliases": [
       "FUNCTION_00FA"
@@ -4804,13 +4804,7 @@
     "ReturnType": "void",
     "Name": "BTL_CAM_BOUGAI",
     "Description": "(Copied from SMT3. May be incorrect.)",
-    "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      }
-    ],
+    "Parameters": [],
     "FullName": "nbAiScript_nbCommand_BTL_CAM_BOUGAI",
     "Aliases": [
       "FUNCTION_00FC"
@@ -5600,19 +5594,7 @@
     "ReturnType": "void",
     "Name": "WAIT_FOR_STREAM_IDLE",
     "Description": "",
-    "Parameters": [
-      {
-        "Type": "int",
-        "Name": "param1",
-        "Description": ""
-      },
-      {
-        "Type": "int",
-        "Name": "param2",
-        "Description": ""
-      }
-    ],
-    "Semantic": "Variadic"
+    "Parameters": []
   },
   {
     "Index": "0x0122",
@@ -6147,8 +6129,7 @@
         "Name": "param2",
         "Description": ""
       }
-    ],
-    "Semantic": "Variadic"
+    ]
   },
   {
     "Index": "0x013e",
@@ -6454,7 +6435,13 @@
     "ReturnType": "int",
     "Name": "FUNCTION_0151",
     "Description": "Null pointer",
-    "Parameters": []
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
   },
   {
     "Index": "0x0152",
@@ -7998,7 +7985,13 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01DA",
     "Description": "Null pointer",
-    "Parameters": []
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
   },
   {
     "Index": "0x01db",
@@ -8153,7 +8146,13 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01E9",
     "Description": "Null pointer",
-    "Parameters": []
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      }
+    ]
   },
   {
     "Index": "0x01ea",
@@ -8403,14 +8402,56 @@
     "ReturnType": "int",
     "Name": "FUNCTION_01FC",
     "Description": "Null pointer",
-    "Parameters": []
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
   },
   {
     "Index": "0x01fd",
     "ReturnType": "int",
     "Name": "FUNCTION_01FD",
     "Description": "Null pointer",
-    "Parameters": []
+    "Parameters": [
+      {
+        "Type": "int",
+        "Name": "param1",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param2",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param3",
+        "Description": ""
+      },
+      {
+        "Type": "int",
+        "Name": "param4",
+        "Description": ""
+      }
+    ]
   },
   {
     "Index": "0x01fe",
@@ -8893,7 +8934,6 @@
         "Name": "param1",
         "Description": ""
       }
-    ],
-    "Semantic": "Variadic"
+    ]
   }
 ]
