@@ -8,6 +8,11 @@ on:
         type: string
         required: false
         default: ''
+      prerelease:
+        description: Mark the release as a prerelease.
+        type: boolean
+        required: false
+        default: false
 
 jobs:
   publish:
@@ -77,4 +82,5 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ inputs.tag }}
+          prerelease: ${{ inputs.prerelease }}
           files: publish/AtlusScriptTools-${{ matrix.rid }}.zip
