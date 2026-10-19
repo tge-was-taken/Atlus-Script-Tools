@@ -25,3 +25,9 @@ jobs:
       - run: dotnet build Source/AtlusScriptTools.sln -c Release
 
       - run: dotnet test Source/AtlusScriptLibraryTests/AtlusScriptLibraryTests.csproj -c Release --no-build
+
+  # Downloadable per commit builds for every platform, as the AppVeyor builds used to be.
+  binaries:
+    needs: build
+    if: github.event_name != 'pull_request'
+    uses: ./.github/workflows/publish.yml
