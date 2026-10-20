@@ -129,12 +129,16 @@ public sealed class MessageScriptDecompiler : IDisposable
         else
             pattern = ((int)message.Pattern).ToString();
 
-        WriteTag("sel", FormatIdentifier(message.Name), pattern);
+        if (message.OmitTrailingTerminator)
+            WriteTag("sel", FormatIdentifier(message.Name), pattern, "noterm");
+        else
+            WriteTag("sel", FormatIdentifier(message.Name), pattern);
+
         mWriter.WriteLine();
 
-        for (var i = 0; i < message.Options.Count; i++)
+        foreach (var option in message.Options)
         {
-            Decompile(message.Options[i], i != message.Options.Count - 1 || message.LastOptionTerminated);
+            Decompile(option);
             mWriter.WriteLine();
         }
     }

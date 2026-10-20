@@ -543,12 +543,11 @@ public class MessageScriptCompiler
         // Parse text content
         //
         List<TokenText> options;
-        bool lastOptionEnded;
         {
             if (!TryGetFatal(context, context.tokenText, "Expected selection window text", out var tagTextContext))
                 return false;
 
-            if (!TryCompileTokenText(tagTextContext, out options, out lastOptionEnded))
+            if (!TryCompileTokenText(tagTextContext, out options))
             {
                 LogError(tagTextContext, "Failed to compile selection window text");
                 return false;
@@ -560,20 +559,15 @@ public class MessageScriptCompiler
         //
         selectionWindow = new SelectionDialog(identifier, pattern, options)
         {
-            LastOptionTerminated = lastOptionEnded
+            OmitTrailingTerminator = context.SelectionDialogFlagId() != null
         };
 
         return true;
     }
 
     private bool TryCompileTokenText(MessageScriptParser.TokenTextContext context, out List<TokenText> lines)
-        => TryCompileTokenText(context, out lines, out _);
-
-    private bool TryCompileTokenText(MessageScriptParser.TokenTextContext context, out List<TokenText> lines, out bool lastLineEnded)
     {
         LogContextInfo(context);
-
-        lastLineEnded = true;
 
         lines = new List<TokenText>();
         TokenTextBuilder lineBuilder = null;
@@ -707,10 +701,7 @@ public class MessageScriptCompiler
         }
 
         if (lineBuilder != null)
-        {
             lines.Add(lineBuilder.Build());
-            lastLineEnded = false;
-        }
 
         return true;
     }

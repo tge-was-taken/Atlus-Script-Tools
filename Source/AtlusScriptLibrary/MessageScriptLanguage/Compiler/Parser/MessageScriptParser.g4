@@ -30,7 +30,7 @@ speakerName
 
 	// [ sel SelectionName ] text...
 selectionDialog
-	: OpenCode SelectionDialogTagId Identifier selectionDialogPattern? CloseCode tokenText
+	: OpenCode SelectionDialogTagId Identifier selectionDialogPattern? SelectionDialogFlagId? CloseCode tokenText
 	;
 
 selectionDialogPattern

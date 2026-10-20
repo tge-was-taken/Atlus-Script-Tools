@@ -39,6 +39,11 @@ SelectionDialogPatternId
 	| 'bottom'
 	;
 
+// The text buffer of this selection has no terminator of its own after the last option
+SelectionDialogFlagId
+	: 'noterm'
+	;
+
 // Keywords
 CloseCode
 	: ']' -> popMode;

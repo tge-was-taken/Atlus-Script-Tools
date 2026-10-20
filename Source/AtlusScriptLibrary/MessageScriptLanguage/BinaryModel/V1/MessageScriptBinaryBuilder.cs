@@ -136,15 +136,15 @@ public class MessageScriptBinaryBuilder
                 binary.OptionStartAddresses[i] = lineStartAddress;
 
                 var lineBytes = ProcessLine(message.Options[i]);
-                if (i != message.Options.Count - 1 || message.LastOptionTerminated)
-                    lineBytes.Add(0); // intentional
+                lineBytes.Add(0); // intentional
 
                 textBuffer.AddRange(lineBytes);
 
                 lineStartAddress += lineBytes.Count;
             }
 
-            textBuffer.Add(0); // intentional
+            if (!message.OmitTrailingTerminator)
+                textBuffer.Add(0); // intentional
         }
 
         binary.TextBuffer = textBuffer.ToArray();
