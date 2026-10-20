@@ -116,6 +116,13 @@ public class CompilationUnitWriter : SyntaxNodeVisitor
             WriteNewLine();
             WriteComment("");
             WriteComment("FlowScript decompiled using Atlus Script Tools");
+
+            if (compilationUnit.BinaryLayout != null)
+            {
+                foreach (var directive in compilationUnit.BinaryLayout.ToDirectives())
+                    WriteComment(directive);
+            }
+
             WriteComment("");
             WriteNewLine();
 

@@ -242,21 +242,13 @@ public class FlowScriptDecompiler
             return;
 
         var flowScript = mEvaluatedScript.FlowScript;
-        AddMatchingMetadata(MatchingMetadata.NoStringSection, flowScript.OmitStringSection);
-        AddMatchingMetadata(MatchingMetadata.MessageScriptVersion0,
-            flowScript.MessageScript?.Version0 ?? false);
-    }
+        var layout = new BinaryLayout
+        {
+            NoStringSection = flowScript.OmitStringSection,
+            MessageScriptVersion0 = flowScript.MessageScript?.Version0 ?? false
+        };
 
-    private void AddMatchingMetadata(string name, bool value)
-    {
-        if (!value)
-            return;
-
-        mCompilationUnit.Declarations.Add(new VariableDeclaration(
-            new VariableModifier(VariableModifierKind.Constant),
-            new TypeIdentifier(ValueKind.Int),
-            new Identifier(ValueKind.Int, name),
-            new UIntLiteral(1)));
+        mCompilationUnit.BinaryLayout = layout.IsEmpty ? null : layout;
     }
 
     private void BuildScriptLocalVariableDeclarationSyntaxNodes()

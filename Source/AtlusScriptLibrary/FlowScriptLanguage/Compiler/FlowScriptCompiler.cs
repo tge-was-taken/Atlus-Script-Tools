@@ -357,7 +357,7 @@ public class FlowScriptCompiler
 
         if (Matching)
         {
-            ApplyMatchingMetadata(compilationUnit);
+            ApplyBinaryLayout(compilationUnit);
             mScript.StringTable = mStringTable;
             mScript.StringTableIndices = mStringTableIndices;
         }
@@ -368,22 +368,18 @@ public class FlowScriptCompiler
     }
 
     /// <summary>
-    /// Reads back the file-scope constants the decompiler writes for binary details the bytecode
-    /// does not imply.
+    /// Reads back the binary details the decompiler recorded in the source header.
     /// </summary>
-    private void ApplyMatchingMetadata(CompilationUnit compilationUnit)
+    private void ApplyBinaryLayout(CompilationUnit compilationUnit)
     {
-        var names = new HashSet<string>(compilationUnit.Declarations
-            .OfType<VariableDeclaration>()
-            .Where(x => x.Modifier?.Kind == VariableModifierKind.Constant)
-            .Select(x => x.Identifier.Text));
+        var layout = compilationUnit.BinaryLayout;
+        if (layout == null)
+            return;
 
-        mScript.OmitStringSection = names.Contains(MatchingMetadata.NoStringSection);
+        mScript.OmitStringSection = layout.NoStringSection;
 
         if (mScript.MessageScript != null)
-        {
-            mScript.MessageScript.Version0 = names.Contains(MatchingMetadata.MessageScriptVersion0);
-        }
+            mScript.MessageScript.Version0 = layout.MessageScriptVersion0;
     }
 
     //

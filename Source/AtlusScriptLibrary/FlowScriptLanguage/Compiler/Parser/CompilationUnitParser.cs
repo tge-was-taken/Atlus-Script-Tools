@@ -1,4 +1,5 @@
 ﻿using Antlr4.Runtime;
+using Antlr4.Runtime.Misc;
 using Antlr4.Runtime.Tree;
 using AtlusScriptLibrary.Common.Logging;
 using AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser.Grammar;
@@ -116,6 +117,7 @@ public class CompilationUnitParser
         LogContextInfo(context);
 
         compilationUnit = CreateAstNode<CompilationUnit>(context);
+        compilationUnit.BinaryLayout = BinaryLayout.FromHeader(GetSourceText(context));
 
         // Parse using statements
         if (TryGet(context, context.importStatement, out var importContexts))
@@ -141,6 +143,13 @@ public class CompilationUnitParser
     //
     // Imports
     //
+    // Comments never reach the parse tree, so the header directives come from the input itself.
+    private static string GetSourceText(FlowScriptParser.CompilationUnitContext context)
+    {
+        var stream = context.Start?.InputStream;
+        return stream == null ? null : stream.GetText(new Interval(0, stream.Size - 1));
+    }
+
     private bool TryParseImports(FlowScriptParser.ImportStatementContext[] contexts, out List<Import> imports)
     {
         LogTrace("Start parsing import statements");

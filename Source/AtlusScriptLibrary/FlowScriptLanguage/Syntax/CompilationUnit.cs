@@ -8,6 +8,11 @@ public class CompilationUnit : SyntaxNode
 
     public List<Declaration> Declarations { get; set; }
 
+    /// <summary>
+    /// Binary details read from the source header, null when it has none.
+    /// </summary>
+    public BinaryLayout BinaryLayout { get; set; }
+
     public CompilationUnit()
     {
         Imports = new List<Import>();

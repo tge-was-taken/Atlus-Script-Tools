@@ -11,6 +11,23 @@ Latest build:
 * [Github release](https://github.com/tge-was-taken/Atlus-Script-Tools/releases), published for every master build: a native archive per platform, plus a portable build that needs an installed .NET runtime
 * [CI artifacts](https://github.com/tge-was-taken/Atlus-Script-Tools/actions/workflows/ci.yml) for branch builds, kept for 90 days
 
+### Matching decompilation ###
+
+`-Matching` makes the decompiler record binary details that the bytecode does not imply, so that
+recompiling its output reproduces the original file byte for byte. They go in the header as
+comment directives, which every other tool ignores:
+
+```
+//
+// FlowScript decompiled using Atlus Script Tools
+// @binary no-string-section
+// @binary msg-version 0
+//
+```
+
+`no-string-section` means the original has no String section at all, not even the reserved empty
+one, and `msg-version 0` that the embedded MessageScript is an MSG0 file.
+
 ## Using the library ##
 
 `AtlusScriptLibrary` is published as a NuGet package, targeting `net10.0` and `netstandard2.0`:
