@@ -244,7 +244,7 @@ public class FlowScriptDecompiler
         var flowScript = mEvaluatedScript.FlowScript;
         var layout = new BinaryLayout
         {
-            NoStringSection = flowScript.OmitStringSection,
+            OmitEmptyStringSection = flowScript.OmitStringSection,
             MessageScriptVersion0 = flowScript.MessageScript?.Version0 ?? false,
             Version = flowScript.FormatVersion,
             MessageScriptVersion = flowScript.MessageScript?.FormatVersion

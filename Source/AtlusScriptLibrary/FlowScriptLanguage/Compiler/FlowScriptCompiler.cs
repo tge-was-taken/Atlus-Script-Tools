@@ -376,19 +376,19 @@ public class FlowScriptCompiler
         if (layout == null)
             return;
 
-        if (layout.NoStringSection)
-            ApplyNoStringSection();
+        if (layout.OmitEmptyStringSection)
+            ApplyOmitEmptyStringSection();
 
         if (layout.MessageScriptVersion0)
             ApplyMessageScriptVersion0();
     }
 
-    private void ApplyNoStringSection()
+    private void ApplyOmitEmptyStringSection()
     {
-        // A PUSHSTR operand indexes the String section, so dropping it would break the script.
+        // A PUSHSTR operand indexes the String section, so it is only left out while empty.
         if (mScript.EnumerateInstructions().Any(x => x.Opcode == Opcode.PUSHSTR))
         {
-            Warning($"Ignoring pragma '{BinaryLayout.NoStringSectionOption}' because the script pushes strings");
+            Warning($"Ignoring pragma '{BinaryLayout.OmitEmptyStringSectionOption}' because the script pushes strings");
             return;
         }
 

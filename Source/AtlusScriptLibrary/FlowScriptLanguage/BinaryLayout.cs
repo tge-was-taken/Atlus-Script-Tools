@@ -8,13 +8,13 @@ namespace AtlusScriptLibrary.FlowScriptLanguage;
 /// </summary>
 public class BinaryLayout
 {
-    public const string NoStringSectionOption = "no-string-section";
+    public const string OmitEmptyStringSectionOption = "omit-empty-string-section";
     public const string MessageScriptVersionOption = "msg-version";
 
     /// <summary>
-    /// The original file has no String section at all, not even the reserved empty one.
+    /// The original file leaves out the String section rather than writing the reserved empty one.
     /// </summary>
-    public bool NoStringSection { get; set; }
+    public bool OmitEmptyStringSection { get; set; }
 
     /// <summary>
     /// The embedded MessageScript is an MSG0 file.
@@ -32,15 +32,15 @@ public class BinaryLayout
     /// </summary>
     public MessageScriptLanguage.FormatVersion? MessageScriptVersion { get; set; }
 
-    public bool IsEmpty => !NoStringSection && !MessageScriptVersion0 && Version == null;
+    public bool IsEmpty => !OmitEmptyStringSection && !MessageScriptVersion0 && Version == null;
 
     /// <summary>
     /// The options as pragmas, for the writer.
     /// </summary>
     public IEnumerable<string> ToStatements()
     {
-        if (NoStringSection)
-            yield return $"pragma(\"{NoStringSectionOption}\");";
+        if (OmitEmptyStringSection)
+            yield return $"pragma(\"{OmitEmptyStringSectionOption}\");";
 
         if (MessageScriptVersion0)
             yield return $"pragma(\"{MessageScriptVersionOption}\", 0);";
@@ -53,8 +53,8 @@ public class BinaryLayout
     {
         switch (name)
         {
-            case NoStringSectionOption when value == null:
-                NoStringSection = true;
+            case OmitEmptyStringSectionOption when value == null:
+                OmitEmptyStringSection = true;
                 return true;
 
             case MessageScriptVersionOption when value == 0:

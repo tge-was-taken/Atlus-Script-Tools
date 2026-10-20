@@ -23,22 +23,26 @@ versions the original was read as, and `pragma()` statements carry the details t
 // Original binary: FlowScript Version1, embedded MessageScript Version1DDS (MSG0)
 //
 
-pragma("no-string-section");
+pragma("omit-empty-string-section");
 pragma("msg-version", 0);
 
 import("in.msg");
 ```
 
 `pragma()` takes an option name and an optional value, and sits with the imports at the top of a
-file. It is not a keyword: a script that uses `pragma` as a name of its own still compiles.
+file. It is not a keyword: a script that uses `pragma` as a name of its own still compiles, and an
+unknown option is an error rather than something silently ignored.
+
+`omit-empty-string-section` means the original leaves the String section out rather than writing
+the reserved empty one. `msg-version 0` means the embedded MessageScript is an MSG0 file, which
+the output format cannot say: both MSG0 and MSG1 files exist within one game and one
+`-OutFormat`, so it is a property of the file.
 
 A pragma that does not fit what is being compiled is ignored with a warning rather than applied,
-so editing a decompiled script cannot produce a broken file: `no-string-section` is dropped once
-the script pushes a string, since a `PUSHSTR` operand indexes that section, and `msg-version 0`
-is dropped unless the embedded MessageScript is written in the Digital Devil Saga layout, the
-only one MSG0 is known from. `no-string-section` means the original has no String section at all, not even the reserved
-empty one, and `msg-version 0` that the embedded MessageScript is an MSG0 file. An unknown option
-is an error rather than something silently ignored.
+so editing a decompiled script cannot produce a broken file. `omit-empty-string-section` is
+dropped once the script pushes a string, since a `PUSHSTR` operand indexes that section, and
+`msg-version 0` is dropped unless the embedded MessageScript is written in the Digital Devil Saga
+layout, the only one MSG0 is known from.
 
 ## Using the library ##
 
