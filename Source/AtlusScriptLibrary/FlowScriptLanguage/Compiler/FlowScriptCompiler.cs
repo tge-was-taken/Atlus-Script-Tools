@@ -376,10 +376,42 @@ public class FlowScriptCompiler
         if (layout == null)
             return;
 
-        mScript.OmitStringSection = layout.NoStringSection;
+        if (layout.NoStringSection)
+            ApplyNoStringSection();
 
-        if (mScript.MessageScript != null)
-            mScript.MessageScript.Version0 = layout.MessageScriptVersion0;
+        if (layout.MessageScriptVersion0)
+            ApplyMessageScriptVersion0();
+    }
+
+    private void ApplyNoStringSection()
+    {
+        // A PUSHSTR operand indexes the String section, so dropping it would break the script.
+        if (mScript.EnumerateInstructions().Any(x => x.Opcode == Opcode.PUSHSTR))
+        {
+            Warning($"Ignoring pragma '{BinaryLayout.NoStringSectionOption}' because the script pushes strings");
+            return;
+        }
+
+        mScript.OmitStringSection = true;
+    }
+
+    private void ApplyMessageScriptVersion0()
+    {
+        var message = mScript.MessageScript;
+        if (message == null)
+        {
+            Warning($"Ignoring pragma '{BinaryLayout.MessageScriptVersionOption}' because the script has no embedded MessageScript");
+            return;
+        }
+
+        // MSG0 is only known from Digital Devil Saga, whose layout the DDS version writes.
+        if (message.FormatVersion != MessageScriptLanguage.FormatVersion.Version1DDS)
+        {
+            Warning($"Ignoring pragma '{BinaryLayout.MessageScriptVersionOption}' because the embedded MessageScript is {message.FormatVersion}");
+            return;
+        }
+
+        message.Version0 = true;
     }
 
     //
