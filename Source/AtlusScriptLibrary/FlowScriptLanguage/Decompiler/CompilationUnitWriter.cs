@@ -119,12 +119,26 @@ public class CompilationUnitWriter : SyntaxNodeVisitor
 
             if (compilationUnit.BinaryLayout != null)
             {
-                foreach (var directive in compilationUnit.BinaryLayout.ToDirectives())
-                    WriteComment(directive);
+                var versions = compilationUnit.BinaryLayout.DescribeVersions();
+                if (versions != null)
+                    WriteComment(versions);
             }
 
             WriteComment("");
             WriteNewLine();
+
+            var pragmas = compilationUnit.BinaryLayout?.ToStatements().ToList();
+            if (pragmas != null && pragmas.Count > 0)
+            {
+                WriteNewLine();
+                WriteComment("");
+                WriteComment("Pragmas");
+                WriteComment("");
+                WriteNewLine();
+
+                foreach (var pragma in pragmas)
+                    WriteIndentedLine(pragma);
+            }
 
             if (compilationUnit.Imports.Count > 0)
             {

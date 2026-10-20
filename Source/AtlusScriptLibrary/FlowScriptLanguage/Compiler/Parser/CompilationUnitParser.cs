@@ -117,7 +117,6 @@ public class CompilationUnitParser
         LogContextInfo(context);
 
         compilationUnit = CreateAstNode<CompilationUnit>(context);
-        compilationUnit.BinaryLayout = BinaryLayout.FromHeader(GetSourceText(context));
 
         // Parse using statements
         if (TryGet(context, context.importStatement, out var importContexts))
@@ -127,6 +126,16 @@ public class CompilationUnitParser
                 return false;
 
             compilationUnit.Imports = imports;
+        }
+
+        if (TryGet(context, context.pragmaStatement, out var pragmaContexts))
+        {
+            BinaryLayout layout = null;
+            if (!TryFunc(context, "Failed to parse pragmas",
+                         () => TryParsePragmas(pragmaContexts, out layout)))
+                return false;
+
+            compilationUnit.BinaryLayout = layout;
         }
 
         // Parse declarations
@@ -143,11 +152,32 @@ public class CompilationUnitParser
     //
     // Imports
     //
-    // Comments never reach the parse tree, so the header directives come from the input itself.
-    private static string GetSourceText(FlowScriptParser.CompilationUnitContext context)
+    private bool TryParsePragmas(FlowScriptParser.PragmaStatementContext[] contexts, out BinaryLayout layout)
     {
-        var stream = context.Start?.InputStream;
-        return stream == null ? null : stream.GetText(new Interval(0, stream.Size - 1));
+        layout = new BinaryLayout();
+
+        foreach (var context in contexts)
+        {
+            LogContextInfo(context);
+
+            var name = context.StringLiteral().Symbol.Text.Trim('"');
+            long? value = null;
+            if (context.IntLiteral() != null)
+            {
+                if (!TryParseIntLiteral(context.IntLiteral(), out var parsed))
+                    return false;
+
+                value = parsed.Value;
+            }
+
+            if (!layout.TrySetOption(name, value))
+            {
+                LogError(context, $"Unknown pragma: '{name}'");
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private bool TryParseImports(FlowScriptParser.ImportStatementContext[] contexts, out List<Import> imports)

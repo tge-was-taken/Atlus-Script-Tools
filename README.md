@@ -14,19 +14,25 @@ Latest build:
 ### Matching decompilation ###
 
 `-Matching` makes the decompiler record binary details that the bytecode does not imply, so that
-recompiling its output reproduces the original file byte for byte. They go in the header as
-comment directives, which every other tool ignores:
+recompiling its output reproduces the original file byte for byte. A header comment names the
+versions the original was read as, and `pragma()` statements carry the details the compiler needs:
 
-```
+```c
 //
 // FlowScript decompiled using Atlus Script Tools
-// @binary no-string-section
-// @binary msg-version 0
+// Original binary: FlowScript Version1, embedded MessageScript Version1DDS (MSG0)
 //
+
+pragma("no-string-section");
+pragma("msg-version", 0);
+
+import("in.msg");
 ```
 
-`no-string-section` means the original has no String section at all, not even the reserved empty
-one, and `msg-version 0` that the embedded MessageScript is an MSG0 file.
+`pragma()` takes an option name and an optional value, and sits with the imports at the top of a
+file. It is not a keyword: a script that uses `pragma` as a name of its own still compiles. `no-string-section` means the original has no String section at all, not even the reserved
+empty one, and `msg-version 0` that the embedded MessageScript is an MSG0 file. An unknown option
+is an error rather than something silently ignored.
 
 ## Using the library ##
 

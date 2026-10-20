@@ -1,18 +1,15 @@
-using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace AtlusScriptLibrary.FlowScriptLanguage;
 
 /// <summary>
 /// Binary details of the original file that its bytecode does not imply. The decompiler writes
-/// them as header comment directives, which other tools ignore, and the compiler reads them back.
+/// them as pragmas and the compiler reads them back.
 /// </summary>
 public class BinaryLayout
 {
-    private const string Directive = "@binary";
-    private const string NoStringSectionName = "no-string-section";
-    private const string MessageScriptVersionName = "msg-version";
+    public const string NoStringSectionOption = "no-string-section";
+    public const string MessageScriptVersionOption = "msg-version";
 
     /// <summary>
     /// The original file has no String section at all, not even the reserved empty one.
@@ -24,53 +21,69 @@ public class BinaryLayout
     /// </summary>
     public bool MessageScriptVersion0 { get; set; }
 
-    public bool IsEmpty => !NoStringSection && !MessageScriptVersion0;
+    /// <summary>
+    /// Format version of the original file, for the reader. The output format comes from the
+    /// command line, so this is not read back.
+    /// </summary>
+    public FormatVersion? Version { get; set; }
 
-    public IEnumerable<string> ToDirectives()
+    /// <summary>
+    /// Format version of the original embedded MessageScript, for the reader.
+    /// </summary>
+    public MessageScriptLanguage.FormatVersion? MessageScriptVersion { get; set; }
+
+    public bool IsEmpty => !NoStringSection && !MessageScriptVersion0 && Version == null;
+
+    /// <summary>
+    /// The options as pragmas, for the writer.
+    /// </summary>
+    public IEnumerable<string> ToStatements()
     {
         if (NoStringSection)
-            yield return $"{Directive} {NoStringSectionName}";
+            yield return $"pragma(\"{NoStringSectionOption}\");";
 
         if (MessageScriptVersion0)
-            yield return $"{Directive} {MessageScriptVersionName} 0";
+            yield return $"pragma(\"{MessageScriptVersionOption}\", 0);";
     }
 
     /// <summary>
-    /// Reads the directives from the comment header of a source file. Returns null when it has none.
+    /// Applies one option. Returns false when the name or its value is not known.
     /// </summary>
-    public static BinaryLayout FromHeader(string source)
+    public bool TrySetOption(string name, long? value)
     {
-        if (string.IsNullOrEmpty(source))
+        switch (name)
+        {
+            case NoStringSectionOption when value == null:
+                NoStringSection = true;
+                return true;
+
+            case MessageScriptVersionOption when value == 0:
+                MessageScriptVersion0 = true;
+                return true;
+
+            default:
+                return false;
+        }
+    }
+
+    /// <summary>
+    /// One line naming the versions the original file was read as, or null when unknown.
+    /// </summary>
+    public string DescribeVersions()
+    {
+        if (Version == null)
             return null;
 
-        var layout = new BinaryLayout();
-        using (var reader = new StringReader(source))
+        var description = $"Original binary: FlowScript {Version}";
+        if (MessageScriptVersion != null)
         {
-            string line;
-            while ((line = reader.ReadLine()) != null)
-            {
-                line = line.Trim();
-                if (line.Length == 0)
-                    continue;
+            description += $", embedded MessageScript {MessageScriptVersion}";
 
-                // The directives sit in the comment header, so the first code ends the search.
-                if (!line.StartsWith("//"))
-                    break;
-
-                var comment = line.Substring(2).Trim();
-                if (!comment.StartsWith(Directive, StringComparison.Ordinal))
-                    continue;
-
-                var parts = comment.Substring(Directive.Length)
-                    .Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-
-                if (parts.Length == 1 && parts[0] == NoStringSectionName)
-                    layout.NoStringSection = true;
-                else if (parts.Length == 2 && parts[0] == MessageScriptVersionName && parts[1] == "0")
-                    layout.MessageScriptVersion0 = true;
-            }
+            // The magic says MSG0 while the layout is still read as the library's version.
+            if (MessageScriptVersion0)
+                description += " (MSG0)";
         }
 
-        return layout.IsEmpty ? null : layout;
+        return description;
     }
 }
