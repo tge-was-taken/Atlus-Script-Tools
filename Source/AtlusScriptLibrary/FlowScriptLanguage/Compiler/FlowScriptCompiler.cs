@@ -2395,6 +2395,7 @@ public class FlowScriptCompiler
     // The interpreter pops a fixed count per command, so a script can push a value for a later
     // command to pop. That push is written as __push(value).
     private const string PushIntrinsicName = "__push";
+    private const string UnknownFunctionPrefix = "UNKNOWN_FUNCTION_";
 
     private bool TryEmitPushIntrinsic(CallOperator callExpression)
     {
@@ -2576,6 +2577,10 @@ public class FlowScriptCompiler
         {
             // fallthrough
         }
+        else if (TryEmitUnknownFunctionCall(callExpression, isStatement))
+        {
+            // fallthrough
+        }
         else
         {
             Error(callExpression, $"Invalid call expression. Expected function or procedure identifier, got: {callExpression.Identifier}");
@@ -2598,6 +2603,29 @@ public class FlowScriptCompiler
 
         mScript.Procedures[procedure.Index] = compiledProcedure;
         procedure.Compiled = compiledProcedure;
+    }
+
+    // The decompiler names a function the library does not cover after its id, so a script can
+    // round trip without one. Its arguments stay as explicit pushes, since the arity is unknown.
+    private bool TryEmitUnknownFunctionCall(CallOperator callExpression, bool isStatement)
+    {
+        var text = callExpression.Identifier.Text;
+        if (!text.StartsWith(UnknownFunctionPrefix, StringComparison.Ordinal) ||
+            !ushort.TryParse(text.Substring(UnknownFunctionPrefix.Length), out var index))
+            return false;
+
+        if (callExpression.Arguments.Count != 0)
+        {
+            Error(callExpression, $"'{text}' takes no arguments because its parameters are unknown");
+            return false;
+        }
+
+        Emit(Instruction.COMM(index));
+
+        if (!isStatement)
+            Emit(Instruction.PUSHREG());
+
+        return true;
     }
 
     private bool TryEmitIntrinsicCall(CallOperator callExpression, bool isStatement)
