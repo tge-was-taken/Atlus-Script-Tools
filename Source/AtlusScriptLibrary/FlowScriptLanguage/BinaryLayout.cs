@@ -17,7 +17,8 @@ public class BinaryLayout
     public bool OmitEmptyStringSection { get; set; }
 
     /// <summary>
-    /// The embedded MessageScript is an MSG0 file.
+    /// The embedded MessageScript is an MSG0 file. This is a property of the message script, kept
+    /// with the flow because one corpus file out of 248 has it and .msg has no pragma of its own.
     /// </summary>
     public bool MessageScriptVersion0 { get; set; }
 
