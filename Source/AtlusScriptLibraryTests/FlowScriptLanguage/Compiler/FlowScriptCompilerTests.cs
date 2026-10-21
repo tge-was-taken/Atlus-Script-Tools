@@ -121,10 +121,14 @@ void bar(int p0, int p1, int p2)
                 Instruction.END(),
 
                 Instruction.PROC(1),
-                // parameter passing
+                // parameter passing, the return address saved around each pop
                 Instruction.POPREG(),  // -ra
                 Instruction.POPLIX(0), // -p0
+                Instruction.PUSHREG(), // +ra
+                Instruction.POPREG(),  // -ra
                 Instruction.POPLIX(1), // -p1
+                Instruction.PUSHREG(), // +ra
+                Instruction.POPREG(),  // -ra
                 Instruction.POPLIX(2), // -p2
                 Instruction.PUSHREG(), // +ra
                 Instruction.PUSHLIX(2), // +p2
