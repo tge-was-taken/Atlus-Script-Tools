@@ -125,7 +125,10 @@ public class MessageScript
             if (pageCount != 0)
             {
                 // Parse the line data
-                ParsePages(message, pageStartAddresses, buffer, instance.FormatVersion, instance.Encoding);
+                var endedOnTerminator = ParsePages(message, pageStartAddresses, buffer, instance.FormatVersion, instance.Encoding);
+
+                if (message is MessageDialog messageDialog)
+                    messageDialog.OmitTrailingTerminator = !endedOnTerminator;
             }
 
             // Add it to the message list
@@ -337,10 +340,16 @@ public class MessageScript
         return index + 1 < buffer.Count;
     }
 
-    private static void ParsePages(IDialog message, IReadOnlyList<int> lineStartAddresses, IReadOnlyList<byte> buffer, FormatVersion version, Encoding encoding)
+    /// <summary>
+    /// Parses the pages out of a text buffer. Returns whether the last page ended on a terminator
+    /// instead of running up to the end of the buffer.
+    /// </summary>
+    private static bool ParsePages(IDialog message, IReadOnlyList<int> lineStartAddresses, IReadOnlyList<byte> buffer, FormatVersion version, Encoding encoding)
     {
         if (lineStartAddresses.Count == 0 || buffer.Count == 0)
-            return;
+            return true;
+
+        bool endedOnTerminator = false;
 
         // The addresses are not relative to the start of the buffer
         // so we rebase the addresses first
@@ -366,6 +375,8 @@ public class MessageScript
             bufferIndex = Math.Min(bufferIndex, buffer.Count);
             lineEndIndex = Math.Min(lineEndIndex, buffer.Count);
 
+            endedOnTerminator = false;
+
             // Loop over the buffer until we find a 0 byte or have reached the end index
             while (bufferIndex < lineEndIndex)
             {
@@ -375,7 +386,10 @@ public class MessageScript
                 try
                 {
                     if (!TryParseTokens(buffer, ref bufferIndex, out tokens, version, encoding))
+                    {
+                        endedOnTerminator = true;
                         break;
+                    }
                 }
                 catch (Exception exception) when (exception is IndexOutOfRangeException ||
                                                   exception is ArgumentOutOfRangeException)
@@ -389,6 +403,8 @@ public class MessageScript
             // Add line to list of lines
             message.Lines.Add(line);
         }
+
+        return endedOnTerminator;
     }
 
     private static TokenText ParseSpeakerText(IReadOnlyList<byte> bytes, FormatVersion version, Encoding encoding)

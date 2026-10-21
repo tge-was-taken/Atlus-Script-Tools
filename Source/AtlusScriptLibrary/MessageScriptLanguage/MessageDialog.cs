@@ -25,6 +25,12 @@ public sealed class MessageDialog : IDialog
     /// </summary>
     public List<TokenText> Pages { get; }
 
+    /// <summary>
+    /// Gets or sets whether the text buffer leaves out the terminator that normally follows the
+    /// last page. Some files end the buffer at the last token instead.
+    /// </summary>
+    public bool OmitTrailingTerminator { get; set; }
+
     List<TokenText> IDialog.Lines => Pages;
 
     /// <summary>

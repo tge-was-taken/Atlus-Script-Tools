@@ -104,7 +104,7 @@ public class MessageScriptBinaryBuilder
                 lineStartAddress += lineBytes.Count;
             }
 
-            if (binary.PageCount > 0)
+            if (binary.PageCount > 0 && !message.OmitTrailingTerminator)
                 textBuffer.Add(0);
         }
 

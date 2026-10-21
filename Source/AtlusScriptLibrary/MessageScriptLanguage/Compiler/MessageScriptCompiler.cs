@@ -471,7 +471,10 @@ public class MessageScriptCompiler
         //
         // Create dialog window
         //
-        messageDialog = new MessageDialog(identifier, speaker, pages);
+        messageDialog = new MessageDialog(identifier, speaker, pages)
+        {
+            OmitTrailingTerminator = context.DialogFlagId() != null
+        };
 
         return true;
     }
@@ -559,7 +562,7 @@ public class MessageScriptCompiler
         //
         selectionWindow = new SelectionDialog(identifier, pattern, options)
         {
-            OmitTrailingTerminator = context.SelectionDialogFlagId() != null
+            OmitTrailingTerminator = context.DialogFlagId() != null
         };
 
         return true;

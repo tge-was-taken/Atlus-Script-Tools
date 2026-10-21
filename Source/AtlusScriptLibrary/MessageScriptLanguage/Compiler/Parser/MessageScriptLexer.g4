@@ -39,8 +39,8 @@ SelectionDialogPatternId
 	| 'bottom'
 	;
 
-// The text buffer of this selection has no terminator of its own after the last option
-SelectionDialogFlagId
+// The text buffer of this dialog has no terminator of its own after the last page or option
+DialogFlagId
 	: 'noterm'
 	;
 

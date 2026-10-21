@@ -86,6 +86,8 @@ public sealed class MessageScriptDecompiler : IDisposable
                                 WriteCloseTag();
                             }
                         }
+                        if (message.OmitTrailingTerminator)
+                            WriteTagArgument("noterm");
                         WriteCloseTag();
                     }
                     break;
@@ -100,10 +102,16 @@ public sealed class MessageScriptDecompiler : IDisposable
                             mWriter.Write(((VariableSpeaker)message.Speaker).Index.ToString());
                             WriteCloseTag();
                         }
+                        if (message.OmitTrailingTerminator)
+                            WriteTagArgument("noterm");
                         WriteCloseTag();
                     }
                     break;
             }
+        }
+        else if (message.OmitTrailingTerminator)
+        {
+            WriteTag("msg", FormatIdentifier(message.Name), "noterm");
         }
         else
         {
