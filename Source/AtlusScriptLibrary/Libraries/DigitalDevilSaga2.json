@@ -3,5 +3,6 @@
   "ShortName": "dds2",
   "MessageScriptFormatVersion": "Version1DDS",
   "FlowScriptModulesPath": "DigitalDevilSaga2/FlowScriptModules.json",
-  "MessageScriptLibraryPath": "DigitalDevilSaga2/MessageScriptLibrary.json"
+  "MessageScriptLibraryPath": "DigitalDevilSaga2/MessageScriptLibrary.json",
+  "EmitTrailingEnd": true
 }
