@@ -68,6 +68,7 @@ public class FlowScriptCompiler
     // procedure state
     //
     private ProcedureDeclaration mProcedureDeclaration;
+    private Dictionary<string, ushort> mParameterLocalIndices = new();
     private List<Instruction> mInstructions;
     private Dictionary<string, LabelInfo> mLabels;
     private List<LabelInfo> mLabelOrder;
@@ -1469,6 +1470,8 @@ public class FlowScriptCompiler
             return false;
         }
 
+        mParameterLocalIndices = TakeParameterLocalCopies(declaration);
+
         // Emit procedure parameters
         if (declaration.Parameters.Count > 0)
         {
@@ -1560,6 +1563,52 @@ public class FlowScriptCompiler
         return true;
     }
 
+    /// <summary>
+    /// The original compiler keeps a parameter in the local variable the script declares for it, so a
+    /// leading copy of a parameter into an indexed local means the two are one variable. Returns the
+    /// index each parameter should use and removes the copies from the body.
+    /// </summary>
+    private Dictionary<string, ushort> TakeParameterLocalCopies(ProcedureDeclaration declaration)
+    {
+        var indices = new Dictionary<string, ushort>();
+        if (!Matching || !(Library?.UsePOPREG ?? false) || declaration.Parameters.Count == 0)
+            return indices;
+
+        var locals = new Dictionary<string, VariableDeclaration>();
+        var copies = new List<Statement>();
+
+        foreach (var statement in declaration.Body.Statements)
+        {
+            if (statement is VariableDeclaration local)
+            {
+                if (local.Modifier?.Kind == VariableModifierKind.Local && local.Modifier.Index != null &&
+                    local.Initializer == null && !local.IsArray)
+                    locals[local.Identifier.Text] = local;
+                continue;
+            }
+
+            if (!(statement is AssignmentOperator assignment) ||
+                !(assignment.Left is Identifier left) ||
+                !(assignment.Right is Identifier right) ||
+                !locals.TryGetValue(left.Text, out local))
+                break;
+
+            var parameter = declaration.Parameters.FirstOrDefault(x => x.Identifier.Text == right.Text);
+            if (parameter == null || parameter.Modifier == ParameterModifier.Out || parameter.IsArray ||
+                indices.ContainsKey(parameter.Identifier.Text) ||
+                parameter.Type.ValueKind != local.Type.ValueKind)
+                break;
+
+            indices[parameter.Identifier.Text] = (ushort)local.Modifier.Index.Value;
+            copies.Add(statement);
+        }
+
+        foreach (var copy in copies)
+            declaration.Body.Statements.Remove(copy);
+
+        return indices;
+    }
+
     private bool TryEmitProcedureParametersPOPREG(List<Parameter> parameters, ref int intArgumentCount, ref int floatArgumentCount)
     {
         // Save return address so we can pop the arguments off the stack.
@@ -1575,7 +1624,10 @@ public class FlowScriptCompiler
             if (!parameter.IsArray)
             {
                 declaration = new VariableDeclaration(
-                    new VariableModifier(VariableModifierKind.Local),
+                    new VariableModifier(VariableModifierKind.Local,
+                        mParameterLocalIndices.TryGetValue(parameter.Identifier.Text, out var localIndex)
+                            ? new UIntLiteral(localIndex)
+                            : null),
                     parameter.Type,
                     parameter.Identifier,
                     null);
