@@ -17,6 +17,7 @@ public sealed class MessageScriptBinaryReader : IDisposable
     private readonly EndianBinaryReader mReader;
     private BinaryFormatVersion mVersion;
     private bool mVersion0;
+    private bool mRelocated;
 
     public MessageScriptBinaryReader(Stream stream, BinaryFormatVersion version, bool leaveOpen = false)
     {
@@ -59,6 +60,7 @@ public sealed class MessageScriptBinaryReader : IDisposable
         header.RelocationTableSize = mReader.ReadInt32();
         header.DialogCount = mReader.ReadInt32();
         header.IsRelocated = mReader.ReadByte() != 0;
+        mRelocated = header.IsRelocated;
         header.Reserved = mReader.ReadByte();
         header.Version = mReader.ReadInt16();
 
@@ -114,7 +116,6 @@ public sealed class MessageScriptBinaryReader : IDisposable
     public BinaryDialogHeader[] ReadDialogHeaders(BinaryHeader mHeader)
     {
         BinaryDialogHeader[] headers = new BinaryDialogHeader[mHeader.DialogCount];
-        var offsets = RelocationTableEncoding.Decode(mHeader.RelocationTable.Value, 0);
         var firstHeaderByAddress = new Dictionary<int, int>();
         int nextAddress = -1;
 
@@ -122,11 +123,12 @@ public sealed class MessageScriptBinaryReader : IDisposable
         {
             ref var header = ref headers[i];
             header.Kind = (BinaryDialogKind)mReader.ReadInt32();
+            var offsetPosition = mReader.Position;
             header.Data.Offset = mReader.ReadInt32();
 
             if (header.Data.Offset != 0)
             {
-                var address = mHeader.IsRelocated ? header.Data.Offset + offsets[i] : header.Data.Offset;
+                var address = Resolve(header.Data.Offset, offsetPosition);
 
                 // Dialogs sharing a name share an address: the original tool resolved the table entry to the
                 // first dialog of that name but still wrote this one's own data at its place in the layout.
@@ -148,6 +150,16 @@ public sealed class MessageScriptBinaryReader : IDisposable
         }
 
         return headers;
+    }
+
+    // A relocated file stores every pointer relative to the position of the pointer itself, so
+    // turn it back into an address counted from the end of the header like the rest of the reader.
+    private int Resolve(int value, long fieldPosition)
+    {
+        if (!mRelocated)
+            return value;
+
+        return (int)(fieldPosition - mPositionBase - BinaryHeader.SIZE) + value;
     }
 
     private bool HasSameName(BinaryDialogHeader header, int address)
@@ -172,7 +184,8 @@ public sealed class MessageScriptBinaryReader : IDisposable
     {
         BinarySpeakerTableHeader header;
 
-        header.SpeakerNameArray.Offset = mReader.ReadInt32();
+        var offsetPosition = mReader.Position;
+        header.SpeakerNameArray.Offset = Resolve(mReader.ReadInt32(), offsetPosition);
         header.SpeakerCount = mReader.ReadInt32();
 
         // MSG0 stops the speaker table header after the count.
@@ -197,11 +210,13 @@ public sealed class MessageScriptBinaryReader : IDisposable
     {
         mReader.SeekBegin(mPositionBase + BinaryHeader.SIZE + address);
 
+        var addressesPosition = mReader.Position;
         var speakerNameAddresses = mReader.ReadInt32s(count);
         var speakerNames = new OffsetTo<List<byte>>[count];
 
         for (int i = 0; i < speakerNameAddresses.Length; i++)
         {
+            speakerNameAddresses[i] = Resolve(speakerNameAddresses[i], addressesPosition + i * sizeof(int));
             ref int speakerNameAddress = ref speakerNameAddresses[i];
 
             mReader.SeekBegin(mPositionBase + BinaryHeader.SIZE + speakerNameAddress);
@@ -257,7 +272,10 @@ public sealed class MessageScriptBinaryReader : IDisposable
 
         if (message.PageCount > 0)
         {
+            var addressesPosition = mReader.Position;
             message.PageStartAddresses = mReader.ReadInt32s(message.PageCount);
+            for (int i = 0; i < message.PageCount; i++)
+                message.PageStartAddresses[i] = Resolve(message.PageStartAddresses[i], addressesPosition + i * sizeof(int));
             message.TextBufferSize = mReader.ReadInt32();
             if (message.TextBufferSize < 0 || message.TextBufferSize > 1 << 24) // Endianness for this value seems to be swapped in some files... not sure what triggers it
                 EndiannessHelper.Swap(ref message.TextBufferSize);
@@ -282,7 +300,10 @@ public sealed class MessageScriptBinaryReader : IDisposable
         message.OptionCount = mReader.ReadInt16();
         message.Pattern = (BinarySelectionDialogPattern)mReader.ReadInt16();
         message.Reserved = mReader.ReadInt16();
+        var optionsPosition = mReader.Position;
         message.OptionStartAddresses = mReader.ReadInt32s(message.OptionCount);
+        for (int i = 0; i < message.OptionCount; i++)
+            message.OptionStartAddresses[i] = Resolve(message.OptionStartAddresses[i], optionsPosition + i * sizeof(int));
         message.TextBufferSize = mReader.ReadInt32();
         message.TextBuffer = mReader.ReadBytes(message.TextBufferSize);
 
