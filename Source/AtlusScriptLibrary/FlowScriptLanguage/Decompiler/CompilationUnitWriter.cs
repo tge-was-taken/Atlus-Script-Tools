@@ -433,7 +433,7 @@ public class CompilationUnitWriter : SyntaxNodeVisitor
         // Call
         public override void Visit(CallOperator callOperator)
         {
-            Write(callOperator.Identifier.Text);
+            Visit(callOperator.Identifier);
 
             if (callOperator.Arguments.Count == 0)
             {
