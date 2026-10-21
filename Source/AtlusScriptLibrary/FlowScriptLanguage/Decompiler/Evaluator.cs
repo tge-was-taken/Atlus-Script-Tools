@@ -315,16 +315,17 @@ public class Evaluator
 
                             var index = instruction.Operand.UInt16Value;
 
-                            if (modifier != VariableModifierKind.Global && type == ValueKind.Int && foundIntVariables.TryGetValue(index, out var context))
+                            if (modifier == VariableModifierKind.Global)
                             {
-                                // Check if it was declared in a different procedure than the one we're currently processing
-                                if (procedure != context.Procedure)
-                                {
-                                    // If the procedures are different, then this variable can't be local to the scope of the procedure
-                                    DeclareVariableIfNotDeclared(context, index);
-                                }
+                                // A global is never scoped to a procedure, so declare it right away.
+                                DeclareVariableIfNotDeclared((procedure, modifier, type), index);
+                                break;
                             }
-                            else if (modifier != VariableModifierKind.Global && type == ValueKind.Float && foundFloatVariables.TryGetValue(index, out context))
+
+                            // Locals and globals are indexed separately, so track the local slots on their own.
+                            var found = type == ValueKind.Int ? foundIntVariables : foundFloatVariables;
+
+                            if (found.TryGetValue(index, out var context))
                             {
                                 // Check if it was declared in a different procedure than the one we're currently processing
                                 if (procedure != context.Procedure)
@@ -335,18 +336,7 @@ public class Evaluator
                             }
                             else
                             {
-                                context = (procedure, modifier, type);
-
-                                if (modifier == VariableModifierKind.Global)
-                                {
-                                    // If it's a global, declare it anyway
-                                    DeclareVariableIfNotDeclared(context, index);
-                                }
-
-                                if (type == ValueKind.Int)
-                                    foundIntVariables[index] = context;
-                                else
-                                    foundFloatVariables[index] = context;
+                                found[index] = (procedure, modifier, type);
                             }
 
                             break;
