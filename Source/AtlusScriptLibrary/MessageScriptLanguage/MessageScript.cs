@@ -361,11 +361,27 @@ public class MessageScript
             // Calculate the line end index
             int lineEndIndex = (lineIndex + 1) != rebasedLineStartAddresses.Length ? rebasedLineStartAddresses[lineIndex + 1] : buffer.Count;
 
+            // An unreferenced copy of a dialog keeps the page addresses of the dialog it copies, which
+            // can point past its own shorter text, so read what is there and leave the rest empty.
+            bufferIndex = Math.Min(bufferIndex, buffer.Count);
+            lineEndIndex = Math.Min(lineEndIndex, buffer.Count);
+
             // Loop over the buffer until we find a 0 byte or have reached the end index
             while (bufferIndex < lineEndIndex)
             {
-                if (!TryParseTokens(buffer, ref bufferIndex, out var tokens, version, encoding))
+                // A token that runs past the end of the buffer ends the page: the bytes it would read
+                // are not there, which happens in the copies described above.
+                List<IToken> tokens;
+                try
+                {
+                    if (!TryParseTokens(buffer, ref bufferIndex, out tokens, version, encoding))
+                        break;
+                }
+                catch (Exception exception) when (exception is IndexOutOfRangeException ||
+                                                  exception is ArgumentOutOfRangeException)
+                {
                     break;
+                }
 
                 line.Tokens.AddRange(tokens);
             }
