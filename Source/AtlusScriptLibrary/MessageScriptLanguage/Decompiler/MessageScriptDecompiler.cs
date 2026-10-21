@@ -189,15 +189,15 @@ public sealed class MessageScriptDecompiler : IDisposable
                     if (function.Semantic == MessageScriptLibraryFunctionSemantic.Unused && OmitUnusedFunctions)
                         return;
 
-                    if (!string.IsNullOrWhiteSpace(function.Name))
+                    // Writing the name would drop or invent arguments when the library disagrees with
+                    // the token, so keep the raw form and stay reversible.
+                    if (!string.IsNullOrWhiteSpace(function.Name) &&
+                        function.Parameters.Count == token.Arguments.Count)
                     {
                         WriteOpenTag(FormatIdentifier(function.Name));
 
-                        for (var i = 0; i < function.Parameters.Count; i++)
-                        {
-                            var argument = function.Parameters[i];
-                            WriteTagArgument(token.Arguments[i].ToString());
-                        }
+                        foreach (var argument in token.Arguments)
+                            WriteTagArgument(argument.ToString());
 
                         WriteCloseTag();
                         return;
@@ -227,12 +227,25 @@ public sealed class MessageScriptDecompiler : IDisposable
 
     public void Decompile(StringToken token)
     {
-        var textWithEscapeChars = token.Value;
-        foreach(var sequence in MessageScriptLanguage.Compiler.MessageScriptCompiler.ESCAPE_SEQUENCES)
+        // The compiler drops the newlines of the source file's own layout, so a control character in
+        // the text buffer has to be written as a code point to survive recompilation.
+        var start = 0;
+        for (var i = 0; i < token.Value.Length; i++)
         {
-            textWithEscapeChars = textWithEscapeChars.Replace(sequence.Value, sequence.Key);
+            if (token.Value[i] >= ' ')
+                continue;
+
+            WriteText(token.Value.Substring(start, i - start));
+            WriteTag($"x 0x{(int)token.Value[i]:X2}");
+            start = i + 1;
         }
-        mWriter.Write(token.Value.Replace("[", "\\[").Replace("]", "\\]"));
+
+        WriteText(token.Value.Substring(start));
+    }
+
+    private void WriteText(string text)
+    {
+        mWriter.Write(text.Replace("[", "\\[").Replace("]", "\\]"));
     }
 
     public void Decompile(CodePointToken token)
