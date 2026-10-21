@@ -35,6 +35,7 @@ public class FlowScriptCompiler
     private string mCurrentBaseDirectory;
     private FlowScript mScript;
     private int mNextLabelIndex;
+    private readonly HashSet<string> mUsedLabelNames = new();
     private bool mLastIfBodyEndedWithJump;
     private LabelInfo mElseIfEndLabel;
     private LabelInfo mLoopIfEndLabel;
@@ -426,6 +427,7 @@ public class FlowScriptCompiler
         mStringTableIndices = new List<int>();
         mReservedStringSlots = new Dictionary<StringLiteral, int>(new ReferenceComparer<StringLiteral>());
         mNextLabelIndex = 0;
+        mUsedLabelNames.Clear();
 
         // Set up scope stack
         mScopeStack = new Stack<ScopeContext>();
@@ -512,6 +514,8 @@ public class FlowScriptCompiler
             return false;
 
         AddMissingProcedures(compilationUnit);
+
+        ReserveSourceLabelNames(compilationUnit);
 
         if (ProcedureHookMode == ProcedureHookMode.ImportedOnly)
         {
@@ -5309,6 +5313,45 @@ public class FlowScriptCompiler
             .ToList();
     }
 
+    // The original compiler numbered every label from one counter, so a generated name must avoid
+    // the names the source already uses, including those of procedures not compiled yet.
+    private void ReserveSourceLabelNames(CompilationUnit compilationUnit)
+    {
+        foreach (var declaration in compilationUnit.Declarations)
+            if (declaration is ProcedureDeclaration procedure && procedure.Body != null)
+                ReserveSourceLabelNames(procedure.Body.Statements);
+    }
+
+    private void ReserveSourceLabelNames(IEnumerable<Statement> statements)
+    {
+        foreach (var statement in statements)
+        {
+            switch (statement)
+            {
+                case LabelDeclaration label:
+                    mUsedLabelNames.Add(label.Identifier.Text);
+                    break;
+                case CompoundStatement compound:
+                    ReserveSourceLabelNames(compound.Statements);
+                    break;
+                case IfStatement ifStatement:
+                    if (ifStatement.Body != null) ReserveSourceLabelNames(ifStatement.Body.Statements);
+                    if (ifStatement.ElseBody != null) ReserveSourceLabelNames(ifStatement.ElseBody.Statements);
+                    break;
+                case ForStatement forStatement:
+                    if (forStatement.Body != null) ReserveSourceLabelNames(forStatement.Body.Statements);
+                    break;
+                case WhileStatement whileStatement:
+                    if (whileStatement.Body != null) ReserveSourceLabelNames(whileStatement.Body.Statements);
+                    break;
+                case SwitchStatement switchStatement:
+                    foreach (var switchLabel in switchStatement.Labels)
+                        ReserveSourceLabelNames(switchLabel.Body);
+                    break;
+            }
+        }
+    }
+
     private void AddLabelOrder(LabelInfo label)
     {
         if (!mLabelOrder.Contains(label))
@@ -5324,7 +5367,7 @@ public class FlowScriptCompiler
                 // The original compiler names generated labels _1, _2, ... in allocation order.
                 string name = Matching ? $"_{mNextLabelIndex + 1}" : baseName + "_" + mNextLabelIndex;
                 mNextLabelIndex++;
-                if (!mLabels.ContainsKey(name))
+                if (!mLabels.ContainsKey(name) && !mUsedLabelNames.Contains(name))
                     return name;
             }
         }
@@ -5344,6 +5387,7 @@ public class FlowScriptCompiler
         }
 
         mLabels.Add(label.Name, label);
+        mUsedLabelNames.Add(label.Name);
 
         return label;
     }
@@ -5373,7 +5417,7 @@ public class FlowScriptCompiler
         {
             var name = $"_{mNextLabelIndex + 1}";
             mNextLabelIndex++;
-            if (!mLabels.ContainsKey(name))
+            if (!mLabels.ContainsKey(name) && !mUsedLabelNames.Contains(name))
             {
                 label.Name = name;
                 break;
@@ -5381,6 +5425,7 @@ public class FlowScriptCompiler
         }
 
         mLabels.Add(label.Name, label);
+        mUsedLabelNames.Add(label.Name);
     }
 
     private void ResolveLabel(LabelInfo label)
