@@ -3,6 +3,5 @@
   "ShortName": "p3re",
   "UsePOPREG": true,
   "FlowScriptModulesPath": "Persona3Reload/FlowScriptModules.json",
-  "MessageScriptLibraryPath": "Persona3Reload/MessageScriptLibrary.json",
-  "EmitTrailingEnd": true
+  "MessageScriptLibraryPath": "Persona3Reload/MessageScriptLibrary.json"
 }

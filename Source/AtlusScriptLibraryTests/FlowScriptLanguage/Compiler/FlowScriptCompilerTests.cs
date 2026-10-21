@@ -168,11 +168,13 @@ int test()
     return 1;
 }";
 
+            // The second END is the one the original compiler adds after an explicit return.
             RunTest(source, FormatVersion.Version3BigEndian, "p5", new[]
             {
                 Instruction.PROC(0),
                 Instruction.PUSHIS(1),
                 Instruction.POPLIX(0),
+                Instruction.END(),
                 Instruction.END(),
             });
         }

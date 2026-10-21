@@ -24,9 +24,10 @@ public class Library : ICloneable
         = MessageScriptLanguage.FormatVersion.Detect;
 
     /// <summary>
-    /// Whether this game's compiler ends the text section with an extra END instruction.
+    /// Whether this game's compiler ends a procedure that returns explicitly with a second END.
+    /// Every game measured so far does, so a library only states this to opt out.
     /// </summary>
-    public bool EmitTrailingEnd { get; set; }
+    public bool EmitTrailingEnd { get; set; } = true;
 
     [JsonPropertyName("FlowScriptModulesPath")]
     [JsonConverter(typeof(ExternalJsonPathConverter<FlowScriptModule>))]

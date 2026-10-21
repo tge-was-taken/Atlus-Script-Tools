@@ -1552,7 +1552,7 @@ public class FlowScriptCompiler
 
         // The original compiler closes a procedure with an END of its own, on top of the one
         // emitted for an explicit final return statement.
-        if (Matching && hasExplicitFinalReturn && (Library?.EmitTrailingEnd ?? false))
+        if (Matching && hasExplicitFinalReturn && (Library?.EmitTrailingEnd ?? true))
             Emit(Instruction.END());
 
         PopScope();

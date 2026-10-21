@@ -2,6 +2,5 @@
   "Name": "Persona 4",
   "ShortName": "p4",
   "FlowScriptModulesPath": "Persona4/FlowScriptModules.json",
-  "MessageScriptLibraryPath": "Persona4/MessageScriptLibrary.json",
-  "EmitTrailingEnd": true
+  "MessageScriptLibraryPath": "Persona4/MessageScriptLibrary.json"
 }
