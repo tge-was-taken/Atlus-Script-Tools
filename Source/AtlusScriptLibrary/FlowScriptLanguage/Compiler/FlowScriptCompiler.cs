@@ -1611,8 +1611,14 @@ public class FlowScriptCompiler
 
     private bool TryEmitProcedureParametersPOPREG(List<Parameter> parameters, ref int intArgumentCount, ref int floatArgumentCount)
     {
+        // The original compiler saves and restores the return address around every single pop,
+        // instead of once around all of them.
+        var saveAroundEachValue = Matching;
+
         // Save return address so we can pop the arguments off the stack.
-        Emit(Instruction.POPREG());
+        if (!saveAroundEachValue)
+            Emit(Instruction.POPREG());
+
         foreach (var parameter in parameters)
         {
             Trace(parameter, $"Emitting parameter: {parameter}");
@@ -1666,14 +1672,23 @@ public class FlowScriptCompiler
                 }
                 else
                 {
+                    if (saveAroundEachValue)
+                        Emit(Instruction.POPREG());
+
                     // Assign parameter with argument value
                     if (!TryEmitVariableAssignment(declaration, (ushort)(index + i)))
                         return false;
+
+                    if (saveAroundEachValue)
+                        Emit(Instruction.PUSHREG());
                 }
             }
         }
+
         // Restore return address
-        Emit(Instruction.PUSHREG());
+        if (!saveAroundEachValue)
+            Emit(Instruction.PUSHREG());
+
         return true;
     }
 
