@@ -1153,10 +1153,12 @@ public class FlowScriptCompiler
             case FormatVersion.Version1:
             case FormatVersion.Version2:
             case FormatVersion.Version3:
+            case FormatVersion.Version4:
                 return MessageScriptLanguage.FormatVersion.Version1;
             case FormatVersion.Version1BigEndian:
             case FormatVersion.Version2BigEndian:
             case FormatVersion.Version3BigEndian:
+            case FormatVersion.Version4BigEndian:
                 return MessageScriptLanguage.FormatVersion.Version1BigEndian;
         }
 
