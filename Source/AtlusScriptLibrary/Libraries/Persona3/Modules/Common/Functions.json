@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "Index": "0x0000",
     "ReturnType": "void",
@@ -469,7 +469,7 @@
   },
   {
     "Index": "0x001f",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "FUNCTION_001F",
     "Description": "Null pointer",
     "Parameters": [

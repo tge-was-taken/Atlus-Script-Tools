@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "Index": "0x0000",
     "ReturnType": "int",
@@ -7861,7 +7861,7 @@
   },
   {
     "Index": "0x0201",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "FUNCTION_0201",
     "Description": "",
     "Parameters": []
@@ -7930,14 +7930,14 @@
   },
   {
     "Index": "0x0208",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "FUNCTION_0208",
     "Description": "",
     "Parameters": []
   },
   {
     "Index": "0x0209",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "FUNCTION_0209",
     "Description": "",
     "Parameters": []

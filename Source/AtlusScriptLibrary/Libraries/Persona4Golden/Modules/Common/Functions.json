@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "Index": "0x0000",
     "ReturnType": "void",
@@ -2042,7 +2042,7 @@
   },
   {
     "Index": "0x0081",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "PRODUCE_SHOP",
     "Description": "",
     "Parameters": [],
@@ -2052,7 +2052,7 @@
   },
   {
     "Index": "0x0082",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "BOOK_READ",
     "Description": "Code function name: cmpBook_sub_8114E452",
     "Parameters": [],
