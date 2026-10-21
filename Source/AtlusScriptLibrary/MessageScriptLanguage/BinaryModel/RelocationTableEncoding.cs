@@ -86,11 +86,6 @@ public static class RelocationTableEncoding
             while (runLength >= SEQ_BASE_NUM_LOOP)
             {
                 var count = Math.Min(runLength, SEQ_MAX_NUM_LOOP);
-
-                // Never leave a single address behind, a sequence has to cover at least two.
-                if (runLength - count == 1)
-                    count--;
-
                 relocationTable.Add((byte)((count - SEQ_BASE_NUM_LOOP) << 3 | SEQ_BASE));
                 prevRelocSum += count * ADDRESS_SIZE;
                 runLength -= count;
