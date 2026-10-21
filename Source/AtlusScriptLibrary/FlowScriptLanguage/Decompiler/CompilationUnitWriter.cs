@@ -604,8 +604,21 @@ public class CompilationUnitWriter : SyntaxNodeVisitor
         public override void Visit(NegationOperator unaryOperator)
         {
             Write("-");
+
+            // A negated zero reads back as the literal 0, which loses the negation, so keep it separate.
+            if (IsZeroLiteral(unaryOperator.Operand))
+            {
+                Write("(");
+                Visit(unaryOperator.Operand);
+                Write(")");
+                return;
+            }
+
             Visit(unaryOperator.Operand);
         }
+
+        private static bool IsZeroLiteral(Expression expression)
+            => expression is IntLiteral { Value: 0 } || expression is UIntLiteral { Value: 0 };
 
         public override void Visit(PostfixDecrementOperator unaryOperator)
         {
