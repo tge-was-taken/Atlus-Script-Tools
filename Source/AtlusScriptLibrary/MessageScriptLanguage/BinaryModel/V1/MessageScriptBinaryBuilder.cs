@@ -64,11 +64,22 @@ public class MessageScriptBinaryBuilder
             {
                 case SpeakerKind.Named:
                     {
-                        var speakerName = ProcessLine(((NamedSpeaker)message.Speaker).Name);
-                        if (!mSpeakerNames.Any(x => x.SequenceEqual(speakerName)))
-                            mSpeakerNames.Add(speakerName.ToArray());
+                        var name = ((NamedSpeaker)message.Speaker).Name;
+                        var speakerName = ProcessLine(name);
 
-                        binary.SpeakerId = (ushort)mSpeakerNames.FindIndex(x => x.SequenceEqual(speakerName));
+                        // Little endian version 1 shares a table entry for any equal name, while the
+                        // later tools only share plain text and give a name with function tokens its own.
+                        var shareable = mFormatVersion.HasFlag(BinaryFormatVersion.Version1) &&
+                                        !mFormatVersion.HasFlag(BinaryFormatVersion.BigEndian) ||
+                                        name.Tokens.All(x => x.Kind != TokenKind.Function);
+                        var index = shareable ? mSpeakerNames.FindIndex(x => x.SequenceEqual(speakerName)) : -1;
+                        if (index == -1)
+                        {
+                            index = mSpeakerNames.Count;
+                            mSpeakerNames.Add(speakerName.ToArray());
+                        }
+
+                        binary.SpeakerId = (ushort)index;
                     }
                     break;
 
