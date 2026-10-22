@@ -378,6 +378,10 @@ public class MessageScript
 
             endedOnTerminator = false;
 
+            // A run of text stops at the end of the buffer it is given, so hand the parser a view that
+            // ends where this page does. Without it a text run crosses into the next page and is read twice.
+            var pageBuffer = lineEndIndex == buffer.Count ? buffer : new BufferView(buffer, lineEndIndex);
+
             // Loop over the buffer until we find a 0 byte or have reached the end index
             while (bufferIndex < lineEndIndex)
             {
@@ -386,7 +390,7 @@ public class MessageScript
                 List<IToken> tokens;
                 try
                 {
-                    if (!TryParseTokens(buffer, ref bufferIndex, out tokens, version, encoding))
+                    if (!TryParseTokens(pageBuffer, ref bufferIndex, out tokens, version, encoding))
                     {
                         endedOnTerminator = true;
                         break;
@@ -406,6 +410,32 @@ public class MessageScript
         }
 
         return endedOnTerminator;
+    }
+
+    /// <summary>
+    /// A read only view of the first bytes of a buffer.
+    /// </summary>
+    private sealed class BufferView : IReadOnlyList<byte>
+    {
+        private readonly IReadOnlyList<byte> mBuffer;
+
+        public BufferView(IReadOnlyList<byte> buffer, int count)
+        {
+            mBuffer = buffer;
+            Count = count;
+        }
+
+        public int Count { get; }
+
+        public byte this[int index] => index < Count ? mBuffer[index] : throw new IndexOutOfRangeException();
+
+        public IEnumerator<byte> GetEnumerator()
+        {
+            for (int i = 0; i < Count; i++)
+                yield return mBuffer[i];
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
     }
 
     private static TokenText ParseSpeakerText(IReadOnlyList<byte> bytes, FormatVersion version, Encoding encoding)
