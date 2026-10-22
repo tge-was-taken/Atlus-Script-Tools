@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "Index": "0x3000",
     "ReturnType": "void",
@@ -230,7 +230,7 @@
   },
   {
     "Index": "0x3011",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "REVERSE_SL",
     "Description": "",
     "Parameters": [
