@@ -1143,10 +1143,11 @@ public class FlowScriptCompiler
 
     private MessageScriptLanguage.FormatVersion GetMessageScriptFormatVersion()
     {
-        // V1 and its DDS variant are indistinguishable in the FlowScript binary, so only the
-        // library knows which one the game reads.
-        if (Library?.MessageScriptFormatVersion == MessageScriptLanguage.FormatVersion.Version1DDS)
-            return MessageScriptLanguage.FormatVersion.Version1DDS;
+        // The FlowScript version does not imply the embedded MessageScript version: V1 and its DDS
+        // variant look the same, and a V1 FlowScript can embed a BM2. The library says which one.
+        var libraryVersion = Library?.MessageScriptFormatVersion ?? MessageScriptLanguage.FormatVersion.Detect;
+        if (libraryVersion != MessageScriptLanguage.FormatVersion.Detect)
+            return libraryVersion;
 
         switch (mFormatVersion)
         {

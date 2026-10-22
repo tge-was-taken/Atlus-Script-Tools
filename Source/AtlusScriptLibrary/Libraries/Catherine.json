@@ -1,6 +1,7 @@
 {
   "Name": "Catherine",
   "ShortName": "cat",
+  "MessageScriptFormatVersion": "Version2BigEndian",
   "FlowScriptModulesPath": "Catherine/FlowScriptModules.json",
   "MessageScriptLibraryPath": "Catherine/MessageScriptLibrary.json"
 }
