@@ -149,7 +149,7 @@ public sealed class FlowScriptBinaryBuilder
     // of 16. The string data is still written in full even when it runs past that size.
     private void PadStringSection()
     {
-        if (mFormatVersion != BinaryFormatVersion.Version1)
+        if (!mFormatVersion.HasFlag(BinaryFormatVersion.Version1))
         {
             while ((mStringSection.Count % 16) != 0)
                 mStringSection.Add(0);
