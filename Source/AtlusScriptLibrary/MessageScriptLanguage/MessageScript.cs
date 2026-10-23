@@ -68,6 +68,7 @@ public class MessageScript
             .ToHashSet();
         var sharesByDefault = instance.FormatVersion.HasFlag(FormatVersion.Version1) &&
                               !instance.FormatVersion.HasFlag(FormatVersion.BigEndian);
+        var dialogSpeakers = new List<(int Id, bool Shareable)>();
         foreach (var messageHeader in binary.DialogHeaders)
         {
             IDialog message;
@@ -128,13 +129,23 @@ public class MessageScript
                                     .Value[binaryMessage.SpeakerId].Value, instance.FormatVersion, instance.Encoding);
                             }
 
+                            var shareName = !sharesByDefault &&
+                                            sharedSpeakerIds.Contains(binaryMessage.SpeakerId) &&
+                                            speakerName != null &&
+                                            speakerName.Tokens.Any(x => x.Kind == TokenKind.Function);
                             message = new MessageDialog(name, new NamedSpeaker(speakerName))
                             {
-                                ShareSpeakerName = !sharesByDefault &&
-                                                   sharedSpeakerIds.Contains(binaryMessage.SpeakerId) &&
-                                                   speakerName != null &&
-                                                   speakerName.Tokens.Any(x => x.Kind == TokenKind.Function)
+                                ShareSpeakerName = shareName
                             };
+
+                            if (speakerName != null)
+                            {
+                                // Mirrors the share test the builder applies to this dialog.
+                                var shareable = sharesByDefault ||
+                                                speakerName.Tokens.All(x => x.Kind != TokenKind.Function) ||
+                                                shareName;
+                                dialogSpeakers.Add((binaryMessage.SpeakerId, shareable));
+                            }
                         }
                     }
                     break;
@@ -172,19 +183,54 @@ public class MessageScript
             instance.Dialogs.Add(message);
         }
 
-        var usedSpeakerIds = binary.DialogHeaders
-            .Select(x => x.Data.Value as BinaryMessageDialog?)
-            .Where(x => x.HasValue)
-            .Select(x => (int)x.Value.SpeakerId)
-            .ToHashSet();
-        var speakerNames = binary.SpeakerTableHeader.SpeakerNameArray.Value;
-        for (int i = 0; speakerNames != null && i < binary.SpeakerTableHeader.SpeakerCount; i++)
-        {
-            if (!usedSpeakerIds.Contains(i))
-                instance.UnusedSpeakerNames.Add((i, speakerNames[i].Value?.ToArray() ?? Array.Empty<byte>()));
-        }
+        FindPinnedSpeakerNames(instance, binary, dialogSpeakers);
 
         return instance;
+    }
+
+    /// <summary>
+    /// Record the speaker table entries a rebuild cannot place on its own. The builder fills the
+    /// table in order of first use, so it needs an entry no dialog refers to, or one sitting before
+    /// the dialog that first refers to it, pinned to its index.
+    /// </summary>
+    private static void FindPinnedSpeakerNames(MessageScript instance, MessageScriptBinary binary,
+        List<(int Id, bool Shareable)> dialogSpeakers)
+    {
+        var speakerNames = binary.SpeakerTableHeader.SpeakerNameArray.Value;
+        if (speakerNames == null)
+            return;
+
+        var count = Math.Min(binary.SpeakerTableHeader.SpeakerCount, speakerNames.Length);
+        var names = new byte[count][];
+        for (int i = 0; i < count; i++)
+            names[i] = speakerNames[i].Value?.ToArray() ?? Array.Empty<byte>();
+
+        var used = new HashSet<int>(dialogSpeakers.Select(x => x.Id));
+        var pins = new List<(int Index, byte[] Name, bool Shareable)>();
+
+        for (int attempt = 0; attempt <= count; attempt++)
+        {
+            var table = new SpeakerTable();
+            foreach (var pin in pins)
+                table.Pin(pin.Index, pin.Name, pin.Shareable);
+            foreach (var (id, shareable) in dialogSpeakers)
+                table.Add(id < count ? names[id] : Array.Empty<byte>(), shareable);
+            table.FlushPins();
+
+            var mismatch = -1;
+            for (int i = 0; i < count && mismatch < 0; i++)
+            {
+                if (i >= table.Names.Count || !table.Names[i].SequenceEqual(names[i]))
+                    mismatch = i;
+            }
+
+            if (mismatch < 0)
+                break;
+
+            pins.Add((mismatch, names[mismatch], used.Contains(mismatch)));
+        }
+
+        instance.PinnedSpeakerNames.AddRange(pins.OrderBy(x => x.Index));
     }
 
 
@@ -587,16 +633,17 @@ public class MessageScript
     public const string RelocatedPragma = "relocated";
 
     /// <summary>
-    /// Prefix of the pragma that carries one <see cref="UnusedSpeakerNames"/> entry through the text
-    /// format, as unusedspeaker_&lt;index&gt;_&lt;hex of the encoded name&gt;.
+    /// Prefix of the pragma that carries one <see cref="PinnedSpeakerNames"/> entry through the text
+    /// format, as speakerslot_&lt;index&gt;_&lt;0 or 1 for shareable&gt;_&lt;hex of the encoded name&gt;.
     /// </summary>
-    public const string UnusedSpeakerPragmaPrefix = "unusedspeaker_";
+    public const string SpeakerSlotPragmaPrefix = "speakerslot_";
 
     /// <summary>
-    /// Speaker table entries that no dialog refers to, with the index they sit at. Nothing in the
-    /// text implies them, so they are carried by a pragma.
+    /// Speaker table entries that the order of first use does not put at the index they sit at, so
+    /// nothing in the text implies that index. Shareable says whether a dialog of the same name
+    /// reuses the entry. Carried by a pragma.
     /// </summary>
-    public List<(int Index, byte[] Name)> UnusedSpeakerNames { get; } = new();
+    public List<(int Index, byte[] Name, bool Shareable)> PinnedSpeakerNames { get; } = new();
 
     /// <summary>
     /// The original file was relocated: it is little endian, stores every pointer relative to the
@@ -671,8 +718,8 @@ public class MessageScript
         if (Encoding != null)
             builder.SetEncoding(Encoding);
 
-        foreach (var (index, name) in UnusedSpeakerNames)
-            builder.AddUnusedSpeakerName(index, name);
+        foreach (var (index, name, shareable) in PinnedSpeakerNames)
+            builder.PinSpeakerName(index, name, shareable);
 
         foreach (var dialog in Dialogs)
         {

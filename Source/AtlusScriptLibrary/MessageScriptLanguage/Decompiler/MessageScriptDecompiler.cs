@@ -44,9 +44,9 @@ public sealed class MessageScriptDecompiler : IDisposable
             mWriter.WriteLine();
         }
 
-        foreach (var (index, name) in script.UnusedSpeakerNames)
+        foreach (var (index, name, shareable) in script.PinnedSpeakerNames)
         {
-            mWriter.WriteLine($"[pragma {MessageScript.UnusedSpeakerPragmaPrefix}{index}_{Convert.ToHexString(name)}]");
+            mWriter.WriteLine($"[pragma {MessageScript.SpeakerSlotPragmaPrefix}{index}_{(shareable ? 1 : 0)}_{Convert.ToHexString(name)}]");
             mWriter.WriteLine();
         }
 

@@ -21,18 +21,14 @@ public class MessageScriptBinaryBuilder
     // temporary storage
     private readonly List<int> mAddressLocations;   // for generating the relocation table
     private int mPosition;                          // used to calculate addresses
-    private readonly List<byte[]> mSpeakerNames;    // for storing the speaker names of dialogue messages
-    private readonly List<bool> mSpeakerNameUnused; // per entry of mSpeakerNames: no dialog refers to it
-    private readonly Dictionary<int, byte[]> mUnusedSpeakerNames; // unreferenced entries, by table index
+    private readonly SpeakerTable mSpeakerTable;    // the speaker names of dialogue messages
     private readonly List<string> mDialogNames;     // untruncated dialog names, for resolving repeated names
 
     public MessageScriptBinaryBuilder(BinaryFormatVersion version)
     {
         mFormatVersion = version;
         mAddressLocations = new List<int>();
-        mSpeakerNames = new List<byte[]>();
-        mSpeakerNameUnused = new List<bool>();
-        mUnusedSpeakerNames = new Dictionary<int, byte[]>();
+        mSpeakerTable = new SpeakerTable();
         mDialogNames = new List<string>();
         mPosition = BinaryHeader.SIZE;
         mDialogs = new List<Tuple<BinaryDialogKind, object>>();
@@ -54,41 +50,12 @@ public class MessageScriptBinaryBuilder
     }
 
     /// <summary>
-    /// Declare a speaker table entry that no dialog refers to, so it keeps its index in the table.
+    /// Declare a speaker table entry that keeps a fixed index, because first use order does not put
+    /// it there. <paramref name="shareable"/> says whether a later dialog of the same name reuses it.
     /// </summary>
-    public void AddUnusedSpeakerName(int index, byte[] name)
+    public void PinSpeakerName(int index, byte[] name, bool shareable)
     {
-        mUnusedSpeakerNames[index] = name;
-        AddUnusedSpeakerNamesAtEnd();
-    }
-
-    // Unreferenced entries sit at a fixed index, so emit each one as soon as the table reaches it.
-    private void AddUnusedSpeakerNamesAtEnd()
-    {
-        while (mUnusedSpeakerNames.TryGetValue(mSpeakerNames.Count, out var name))
-        {
-            mSpeakerNames.Add(name);
-            mSpeakerNameUnused.Add(true);
-        }
-    }
-
-    private int AddSpeakerName(byte[] name, bool shareable)
-    {
-        AddUnusedSpeakerNamesAtEnd();
-
-        if (shareable)
-        {
-            for (int i = 0; i < mSpeakerNames.Count; i++)
-            {
-                if (!mSpeakerNameUnused[i] && mSpeakerNames[i].SequenceEqual(name))
-                    return i;
-            }
-        }
-
-        mSpeakerNames.Add(name);
-        mSpeakerNameUnused.Add(false);
-        AddUnusedSpeakerNamesAtEnd();
-        return mSpeakerNames.Count - 1;
+        mSpeakerTable.Pin(index, name, shareable);
     }
 
     internal void SetEncoding(Encoding encoding)
@@ -121,7 +88,7 @@ public class MessageScriptBinaryBuilder
                                         !mFormatVersion.HasFlag(BinaryFormatVersion.BigEndian) ||
                                         name.Tokens.All(x => x.Kind != TokenKind.Function) ||
                                         message.ShareSpeakerName;
-                        binary.SpeakerId = (ushort)AddSpeakerName(speakerName.ToArray(), shareable);
+                        binary.SpeakerId = (ushort)mSpeakerTable.Add(speakerName.ToArray(), shareable);
                     }
                     break;
 
@@ -373,8 +340,8 @@ public class MessageScriptBinaryBuilder
         AddAddressLocation();
         MoveToNextIntPosition();
 
-        AddUnusedSpeakerNamesAtEnd();
-        speakerHeader.SpeakerCount = mSpeakerNames.Count;
+        mSpeakerTable.FlushPins();
+        speakerHeader.SpeakerCount = mSpeakerTable.Names.Count;
         MoveToNextIntPosition();
 
         speakerHeader.ExtDataOffset = 0;
@@ -463,10 +430,10 @@ public class MessageScriptBinaryBuilder
         for (int i = 0; i < speakerTableHeader.SpeakerNameArray.Value.Length; i++)
         {
             speakerTableHeader.SpeakerNameArray.Value[i].Offset = GetAddress();
-            speakerTableHeader.SpeakerNameArray.Value[i].Value = mSpeakerNames[i].ToList();
+            speakerTableHeader.SpeakerNameArray.Value[i].Value = mSpeakerTable.Names[i].ToList();
 
             // todo: maybe the speakername should include the trailing 0
-            MoveToNextPositionByOffset(mSpeakerNames[i].Length + 1);
+            MoveToNextPositionByOffset(mSpeakerTable.Names[i].Length + 1);
         }
     }
 
