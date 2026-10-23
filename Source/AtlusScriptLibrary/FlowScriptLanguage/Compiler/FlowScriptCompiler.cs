@@ -5082,11 +5082,37 @@ public class FlowScriptCompiler
                body.Statements.Last() is GotoStatement gotoStatement &&
                gotoStatement.Label is Identifier identifier &&
                HasGeneratedLabelName(identifier.Text) &&
-               // A loop's back edge reaches the label the loop starts at, which is where the if's
-               // own condition begins. A goto anywhere else jumps out of the if instead.
+               // A loop's back edge reaches the label the loop starts at, which is where the if
+               // begins, give or take the pushes its condition leaves on the stack. A goto
+               // anywhere else jumps out of the if instead.
                (ifStartIndex < 0 ||
                 (mLabels.TryGetValue(identifier.Text, out var label) &&
-                 label.InstructionIndex == ifStartIndex));
+                 label.InstructionIndex <= ifStartIndex &&
+                 OnlyPushesBetween(label.InstructionIndex, ifStartIndex)));
+    }
+
+    private bool OnlyPushesBetween(int startIndex, int endIndex)
+    {
+        for (int i = startIndex; i < endIndex; i++)
+        {
+            switch (mInstructions[i].Opcode)
+            {
+                case Opcode.PUSHI:
+                case Opcode.PUSHF:
+                case Opcode.PUSHIS:
+                case Opcode.PUSHIX:
+                case Opcode.PUSHIF:
+                case Opcode.PUSHLIX:
+                case Opcode.PUSHLFX:
+                case Opcode.PUSHSTR:
+                    break;
+
+                default:
+                    return false;
+            }
+        }
+
+        return true;
     }
 
     private bool EndsWithBackwardGoto(CompoundStatement body)
