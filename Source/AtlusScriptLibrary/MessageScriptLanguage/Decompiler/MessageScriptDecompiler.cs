@@ -250,11 +250,12 @@ public sealed class MessageScriptDecompiler : IDisposable
     public void Decompile(StringToken token)
     {
         // The compiler drops the newlines of the source file's own layout, so a control character in
-        // the text buffer has to be written as a code point to survive recompilation.
+        // the text buffer has to be written as a code point to survive recompilation. A backslash
+        // goes the same way: next to a bracket it would read as the escape for one.
         var start = 0;
         for (var i = 0; i < token.Value.Length; i++)
         {
-            if (token.Value[i] >= ' ')
+            if (token.Value[i] >= ' ' && token.Value[i] != '\\')
                 continue;
 
             WriteText(token.Value.Substring(start, i - start));
