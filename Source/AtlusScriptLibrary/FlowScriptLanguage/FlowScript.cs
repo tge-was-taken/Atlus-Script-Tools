@@ -94,7 +94,7 @@ public sealed class FlowScript
             ushort curStringBinaryIndex = 0;
             var curStringBytes = new List<byte>();
 
-            for (short i = 0; i < binary.StringSection.Count; i++)
+            for (int i = 0; i < binary.StringSection.Count; i++)
             {
                 // check for string terminator or end of string section
                 if (binary.StringSection[i] == 0 || i + 1 == binary.StringSection.Count)
