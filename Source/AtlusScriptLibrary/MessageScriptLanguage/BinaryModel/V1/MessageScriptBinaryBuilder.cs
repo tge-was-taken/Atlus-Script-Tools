@@ -353,7 +353,7 @@ public class MessageScriptBinaryBuilder
 
     private void BuildWindowHeadersFinalPass(ref BinaryDialogHeader[] headers)
     {
-        var firstAddressByName = new Dictionary<string, int>();
+        var firstByName = new Dictionary<string, SharedDialogAddresses>();
 
         for (int i = 0; i < headers.Length; i++)
         {
@@ -361,16 +361,54 @@ public class MessageScriptBinaryBuilder
 
             // A dialog repeating an earlier dialog's name still gets its own data, but the table entry and
             // the addresses within it point at the first dialog of that name.
-            if (!firstAddressByName.TryGetValue(mDialogNames[i], out var address))
+            if (!firstByName.TryGetValue(mDialogNames[i], out var first))
             {
-                address = headers[i].DataLocation;
-                firstAddressByName.Add(mDialogNames[i], address);
+                first = new SharedDialogAddresses { Address = headers[i].DataLocation };
+                firstByName.Add(mDialogNames[i], first);
             }
 
-            headers[i].Data.Offset = address;
-            headers[i].Data.Value = UpdateDialogAddressBase(mDialogs[i].Item2, address);
+            headers[i].Data.Offset = first.Address;
+            headers[i].Data.Value = UpdateDialogPageAddresses(
+                mDialogs[i].Item2, headers[i].DataLocation, first);
         }
     }
+
+    /// <summary>
+    /// The data address and page address array that every dialog of one name emits. Each dialog fills
+    /// the entries that are not there yet from its own text, so a later one reuses what it finds.
+    /// </summary>
+    private sealed class SharedDialogAddresses
+    {
+        public int Address;
+        public readonly List<int> PageAddresses = new();
+    }
+
+    private static void SharePageAddresses(int[] pageAddresses, int dataLocation, int textBufferSize,
+        int textBufferOffset, SharedDialogAddresses shared)
+    {
+        for (int i = 0; i < pageAddresses.Length; i++)
+        {
+            if (i == shared.PageAddresses.Count)
+                shared.PageAddresses.Add(dataLocation + pageAddresses[i]);
+
+            pageAddresses[i] = shared.PageAddresses[i];
+        }
+
+        // Each dialog also leaves an entry at its terminator, which a later dialog of the same name
+        // emits as the start of the page after the last one this dialog has.
+        if (pageAddresses.Length == shared.PageAddresses.Count)
+            shared.PageAddresses.Add(dataLocation + textBufferOffset + textBufferSize - 1);
+    }
+
+    /// <summary>
+    /// Where a dialog's text buffer starts, counted from the start of the dialog's data.
+    /// </summary>
+    private static int GetTextBufferOffset(object dialog) => dialog switch
+    {
+        BinaryMessageDialog message => 0x1C + (message.PageCount * sizeof(int)) + sizeof(int),
+        BinarySelectionDialog selection => 0x20 + (selection.OptionCount * sizeof(int)) + sizeof(int),
+        _ => throw new NotImplementedException(dialog.GetType().ToString())
+    };
 
     private void BuildSpeakerTableHeaderSecondPass(ref BinarySpeakerTableHeader speakerTableHeader)
     {
@@ -406,7 +444,8 @@ public class MessageScriptBinaryBuilder
         header.FileSize = mPosition;
     }
 
-    private object UpdateDialogAddressBase(object dialog, int dialogAddress)
+    private object UpdateDialogPageAddresses(object dialog, int dataLocation,
+        SharedDialogAddresses shared)
     {
         switch (dialog)
         {
@@ -417,10 +456,12 @@ public class MessageScriptBinaryBuilder
                     // A dialog without pages ends after the speaker field.
                     if (dialogue.PageCount > 0)
                     {
+                        SharePageAddresses(dialogue.PageStartAddresses, dataLocation,
+                            dialogue.TextBufferSize, GetTextBufferOffset(dialogue), shared);
+
                         for (int i = 0; i < dialogue.PageStartAddresses.Length; i++)
                         {
                             AddAddressLocation();
-                            dialogue.PageStartAddresses[i] += dialogAddress;
                             mPosition += 4;
                         }
 
@@ -433,10 +474,12 @@ public class MessageScriptBinaryBuilder
                 {
                     mPosition += 0x20;
 
+                    SharePageAddresses(selection.OptionStartAddresses, dataLocation,
+                        selection.TextBufferSize, GetTextBufferOffset(selection), shared);
+
                     for (int i = 0; i < selection.OptionStartAddresses.Length; i++)
                     {
                         AddAddressLocation();
-                        selection.OptionStartAddresses[i] += dialogAddress;
                         mPosition += 4;
                     }
 
