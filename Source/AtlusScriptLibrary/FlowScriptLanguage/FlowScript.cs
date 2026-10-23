@@ -87,11 +87,11 @@ public sealed class FlowScript
         // to reference the instructions in the list, and not the instructions in the array of instructions in the binary
 
         // assign strings before instructions so we can assign proper string indices as we convert the instructions
-        var stringBinaryIndexToListIndexMap = new Dictionary<ushort, ushort>();
+        var stringBinaryIndexToListIndexMap = new Dictionary<int, int>();
         var strings = new List<string>();
         if (binary.StringSection != null)
         {
-            ushort curStringBinaryIndex = 0;
+            int curStringBinaryIndex = 0;
             var curStringBytes = new List<byte>();
 
             for (int i = 0; i < binary.StringSection.Count; i++)
@@ -100,10 +100,10 @@ public sealed class FlowScript
                 if (binary.StringSection[i] == 0 || i + 1 == binary.StringSection.Count)
                 {
                     strings.Add(ShiftJISEncoding.Instance.GetString(curStringBytes.ToArray()));
-                    stringBinaryIndexToListIndexMap[curStringBinaryIndex] = (ushort)(strings.Count - 1);
+                    stringBinaryIndexToListIndexMap[curStringBinaryIndex] = strings.Count - 1;
 
                     // next string will start at the next byte if there are any left
-                    curStringBinaryIndex = (ushort)(i + 1);
+                    curStringBinaryIndex = i + 1;
                     curStringBytes = new List<byte>();
                 }
                 else
@@ -112,6 +112,12 @@ public sealed class FlowScript
                 }
             }
         }
+
+        // A PUSHSTR operand is a 16 bit byte offset into the string section, so a section over 64 KB
+        // wraps it. The offsets rise with the instructions, so add back the whole multiple of 64 KB
+        // that keeps them doing so.
+        var stringSectionWraps = binary.StringSection != null && binary.StringSection.Count > ushort.MaxValue + 1;
+        var lastStringOffset = 0;
 
         var instructionBinaryIndexToListIndexMap = new Dictionary<int, int>();
         var instructions = new List<Instruction>();
@@ -133,8 +139,17 @@ public sealed class FlowScript
                 // Handle instructions we need to alter seperately
                 if (binaryInstruction.Opcode == Opcode.PUSHSTR)
                 {
+                    var stringOffset = (int)binaryInstruction.OperandUShort;
+                    if (stringSectionWraps)
+                    {
+                        while (stringOffset < lastStringOffset)
+                            stringOffset += ushort.MaxValue + 1;
+
+                        lastStringOffset = stringOffset;
+                    }
+
                     // Update the string offset to reference the strings inside of the string list
-                    instruction = Instruction.PUSHSTR(strings[stringBinaryIndexToListIndexMap[binaryInstruction.OperandUShort]]);
+                    instruction = Instruction.PUSHSTR(strings[stringBinaryIndexToListIndexMap[stringOffset]]);
                 }
                 else if (binaryInstruction.Opcode == Opcode.PUSHI)
                 {
