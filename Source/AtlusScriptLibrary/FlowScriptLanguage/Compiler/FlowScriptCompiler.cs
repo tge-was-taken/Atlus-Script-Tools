@@ -4334,6 +4334,7 @@ public class FlowScriptCompiler
     private bool TryEmitIfStatement(IfStatement ifStatement)
     {
         Trace(ifStatement, $"Emitting if statement: '{ifStatement}'");
+        var ifStartIndex = mInstructions.Count;
 
         // Detect & translate an if statement that directly maps to the if statement instruction
         if (ifStatement.Condition is LogicalNotOperator &&
@@ -4384,7 +4385,7 @@ public class FlowScriptCompiler
         // An if with no else whose body ends in the back edge of a loop has its labels numbered up
         // front instead, so nested labels come after them rather than before. A goto written in
         // the original source is not a back edge and does not count.
-        var numberLabelsUpFront = ifStatement.ElseBody == null && EndsWithLoopGoto(ifStatement.Body);
+        var numberLabelsUpFront = ifStatement.ElseBody == null && EndsWithLoopGoto(ifStatement.Body, ifStartIndex);
         var isElseIfChain = Matching && ifStatement.ElseIfChain && ifStatement.ElseBody != null &&
                             ifStatement.ElseBody.Statements.Count > 0 &&
                             ifStatement.ElseBody.Statements[ifStatement.ElseBody.Statements.Count - 1] is IfStatement;
@@ -4452,7 +4453,7 @@ public class FlowScriptCompiler
             // If there's an else body, then the end of the body will line up with the else label, but it should line up with the end label
             // A trailing backward goto only stands in for a loop back edge when the if has no
             // else; in a branch of an else-if chain it is a continue, and the end jump follows it.
-            if (!TryEmitIfStatementBody(ifStatement.Body, endLabel, ifStatement.ElseBody == null))
+            if (!TryEmitIfStatementBody(ifStatement.Body, endLabel, ifStatement.ElseBody == null, ifStartIndex))
                 return false;
         }
 
@@ -4551,7 +4552,7 @@ public class FlowScriptCompiler
         return true;
     }
 
-    private bool TryEmitIfStatementBody(CompoundStatement body, LabelInfo endLabel, bool loopGotoEndsBody)
+    private bool TryEmitIfStatementBody(CompoundStatement body, LabelInfo endLabel, bool loopGotoEndsBody, int ifStartIndex = -1)
     {
         Trace(body, "Compiling if statement body");
         if (!TryEmitCompoundStatement(body))
@@ -4564,7 +4565,7 @@ public class FlowScriptCompiler
         // one already ending in a jump to that same label, as the branches of an else-if chain do.
         // A body ending in a nested if or a return still gets one.
         mLastIfBodyEndedWithJump = Matching
-            ? (loopGotoEndsBody && EndsWithLoopGoto(body)) || EndsWithJumpTo(endLabel)
+            ? (loopGotoEndsBody && EndsWithLoopGoto(body, ifStartIndex)) || EndsWithJumpTo(endLabel)
             : EndsWithUnconditionalJump();
 
         // ensure that we end up at the right position after the body
@@ -5075,12 +5076,17 @@ public class FlowScriptCompiler
 
     // A backward goto to a generated label is the tail of a loop the decompiler unrolled into
     // labels and gotos, which the original compiler closed without a jump to the if end label.
-    private bool EndsWithLoopGoto(CompoundStatement body)
+    private bool EndsWithLoopGoto(CompoundStatement body, int ifStartIndex = -1)
     {
         return EndsWithBackwardGoto(body) &&
                body.Statements.Last() is GotoStatement gotoStatement &&
                gotoStatement.Label is Identifier identifier &&
-               HasGeneratedLabelName(identifier.Text);
+               HasGeneratedLabelName(identifier.Text) &&
+               // A loop's back edge reaches the label the loop starts at, which is where the if's
+               // own condition begins. A goto anywhere else jumps out of the if instead.
+               (ifStartIndex < 0 ||
+                (mLabels.TryGetValue(identifier.Text, out var label) &&
+                 label.InstructionIndex == ifStartIndex));
     }
 
     private bool EndsWithBackwardGoto(CompoundStatement body)
