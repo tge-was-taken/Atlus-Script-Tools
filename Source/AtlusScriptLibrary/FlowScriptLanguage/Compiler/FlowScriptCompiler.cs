@@ -4381,10 +4381,10 @@ public class FlowScriptCompiler
         var ownsEndLabel = endLabel == null;
         // The original compiler numbers the end label before the else label, but puts the else
         // label first in the label section, after the labels of anything nested in the statement.
-        // A body ending in the back edge of a loop has its labels numbered up front instead, so
-        // nested labels come after them rather than before. A goto written in the original source
-        // is not a back edge and does not count.
-        var numberLabelsUpFront = EndsWithLoopGoto(ifStatement.Body);
+        // An if with no else whose body ends in the back edge of a loop has its labels numbered up
+        // front instead, so nested labels come after them rather than before. A goto written in
+        // the original source is not a back edge and does not count.
+        var numberLabelsUpFront = ifStatement.ElseBody == null && EndsWithLoopGoto(ifStatement.Body);
         var isElseIfChain = Matching && ifStatement.ElseIfChain && ifStatement.ElseBody != null &&
                             ifStatement.ElseBody.Statements.Count == 1 &&
                             ifStatement.ElseBody.Statements[0] is IfStatement;
