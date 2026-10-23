@@ -60,7 +60,9 @@ public static class RelocationTableEncoding
         return addressLocs.ToArray();
     }
 
-    public static byte[] Encode(IList<int> addressLocations, int addressBaseOffset)
+    // nullExtendedEntries reproduces the original V2 writer, which emits two zero bytes instead of
+    // the real delta for a pointer more than 0x1FE bytes past the previous one.
+    public static byte[] Encode(IList<int> addressLocations, int addressBaseOffset, bool nullExtendedEntries = false)
     {
         int prevRelocSum = 0;
         var relocationTable = new List<byte>();
@@ -78,7 +80,7 @@ public static class RelocationTableEncoding
 
             if (runLength < SEQ_BASE_NUM_LOOP)
             {
-                EncodeAddress(addressLocations[i] - prevRelocSum - addressBaseOffset, relocationTable, ref prevRelocSum);
+                EncodeAddress(addressLocations[i] - prevRelocSum - addressBaseOffset, relocationTable, ref prevRelocSum, nullExtendedEntries);
                 i++;
                 continue;
             }
@@ -96,7 +98,7 @@ public static class RelocationTableEncoding
         return relocationTable.ToArray();
     }
 
-    private static void EncodeAddress(int reloc, List<byte> relocationTable, ref int sumOfPreviousRelocations)
+    private static void EncodeAddress(int reloc, List<byte> relocationTable, ref int sumOfPreviousRelocations, bool nullExtendedEntries)
     {
         // First we check if we can shift it to the right to shrink the value.
         // Check if lowest bit is set to see if we an shift it to the right
@@ -113,21 +115,28 @@ public static class RelocationTableEncoding
             else
             {
                 // If it's still too big, extend it.
-                ExtendAddressRelocation(reloc, relocationTable);
+                ExtendAddressRelocation(reloc, relocationTable, nullExtendedEntries);
             }
         }
         else
         {
             // If we can't shift to the right to shrink it, we must extend it.
-            ExtendAddressRelocation(reloc, relocationTable);
+            ExtendAddressRelocation(reloc, relocationTable, nullExtendedEntries);
         }
 
         // Add the reloc value to the current sum of reloc values
         sumOfPreviousRelocations += reloc;
     }
 
-    private static void ExtendAddressRelocation(int reloc, List<byte> addressRelocBytes)
+    private static void ExtendAddressRelocation(int reloc, List<byte> addressRelocBytes, bool nullEntry)
     {
+        if (nullEntry)
+        {
+            addressRelocBytes.Add(0);
+            addressRelocBytes.Add(0);
+            return;
+        }
+
         // Make the low bits odd by adding 1 to them to indicate that it's an extended reloc.
         byte relocLo = (byte)((reloc & 0x00FF) + 1);
         byte relocHi = (byte)((reloc & 0xFF00) >> 8);
