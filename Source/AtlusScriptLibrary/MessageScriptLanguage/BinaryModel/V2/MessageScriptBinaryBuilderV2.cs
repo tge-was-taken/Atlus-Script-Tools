@@ -136,8 +136,7 @@ public class MessageScriptBinaryV2Builder
                 lineStartAddress += lineBytes.Count;
             }
 
-            //textBuffer.Add(0); // intentional
-            //textBuffer.Add(0); // intentional
+            textBuffer.Add(0); // terminator
         }
 
         binary.TextBuffer = textBuffer.ToArray();
@@ -200,9 +199,8 @@ public class MessageScriptBinaryV2Builder
                         break;
                     case BinarySelectionDialogV2 sel:
                         {
-                            var dataOffset = 4 + 32 + 2 + 2 + 4;
+                            var dataOffset = 4 + 32 + 2 + 2;
                             mPosition += dataOffset;
-                            var pageAddress = GetAddress();
 
                             for (int j = 0; j < sel.OptionCount; j++)
                             {
@@ -210,6 +208,8 @@ public class MessageScriptBinaryV2Builder
                                 sel.OptionStartAddresses[j] += binary.mHeader2.DialogArray.Value[i].Offset;
                                 mPosition += 4;
                             }
+                            // the text buffer size field sits after the option addresses
+                            mPosition += 4;
                             mPosition += sel.TextBuffer.Length;
                         }
                         break;
@@ -224,7 +224,7 @@ public class MessageScriptBinaryV2Builder
         binary.mHeader2.DialogArrayEndOffset = (uint)GetAlignedAddress();
         binary.mHeader.RelocationTable.Offset = GetAlignedAddress() + BinaryHeaderV2.SIZE;
         binary.mHeader.RelocationTable.Value =
-            RelocationTableEncoding.Encode(mAddressLocations, BinaryHeaderV2.SIZE);
+            RelocationTableEncoding.Encode(mAddressLocations, BinaryHeaderV2.SIZE, nullExtendedEntries: true);
         binary.mHeader.RelocationTableSize = (uint)binary.mHeader.RelocationTable.Value.Length;
         mPosition += (int)binary.mHeader.RelocationTableSize;
         binary.mHeader.FileSize = (uint)mPosition;
