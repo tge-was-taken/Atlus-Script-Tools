@@ -2497,6 +2497,10 @@ public class FlowScriptCompiler
         if (callExpression.Identifier.Text == PushIntrinsicName)
             return TryEmitPushIntrinsic(callExpression);
 
+        // A script that declares a procedure named like a library function calls its own procedure.
+        if (mRootScope.TryGetProcedure(callExpression.Identifier.Text, out var ownProcedure))
+            return TryEmitProcedureCall(callExpression, isStatement, ownProcedure);
+
         if (mRootScope.TryGetFunction(callExpression.Identifier.Text, out var function))
         {
             var libFunc = Library.FlowScriptModules.SelectMany(x => x.Functions).FirstOrDefault(x => x.Name == function.Declaration.Identifier.Text || (x.Aliases != null && x.Aliases.Contains(function.Declaration.Identifier.Text)));
