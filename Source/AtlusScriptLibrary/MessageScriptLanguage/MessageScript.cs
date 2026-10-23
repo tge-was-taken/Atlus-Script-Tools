@@ -362,15 +362,18 @@ public class MessageScript
         int lineStartAddressBase = lineStartAddresses[0];
         int[] rebasedLineStartAddresses = new int[lineStartAddresses.Count];
 
+        bool[] inherited = new bool[lineStartAddresses.Count];
+
         for (int i = 0; i < lineStartAddresses.Count; i++)
         {
             // An address that lands inside this buffer is this dialog's own. One that does not was
             // inherited from the dialog whose name this one repeats, so fall back to the first address,
             // which puts the pages in plausible places without claiming to know the real split.
             var own = lineStartAddresses[i] - bufferAddress;
-            rebasedLineStartAddresses[i] = bufferAddress >= 0 && own >= 0 && own <= buffer.Count
-                ? own
-                : lineStartAddresses[i] - lineStartAddressBase;
+            inherited[i] = !(bufferAddress >= 0 && own >= 0 && own <= buffer.Count);
+            rebasedLineStartAddresses[i] = inherited[i]
+                ? lineStartAddresses[i] - lineStartAddressBase
+                : own;
         }
 
         // A page start the previous page had to give back, because the token there crosses the boundary.
@@ -414,6 +417,12 @@ public class MessageScript
                     if (!TryParseTokens(pageBuffer, ref bufferIndex, out tokens, version, encoding))
                     {
                         endedOnTerminator = true;
+
+                        // A selection's options are terminator delimited, so a borrowed address for the
+                        // next one says nothing: it starts right after this terminator.
+                        if (lineIndex + 1 < inherited.Length && inherited[lineIndex + 1])
+                            carriedStart = bufferIndex;
+
                         break;
                     }
                 }
