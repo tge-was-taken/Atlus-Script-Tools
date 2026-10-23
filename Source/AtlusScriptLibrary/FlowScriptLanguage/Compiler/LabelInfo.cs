@@ -6,7 +6,7 @@ internal class LabelInfo
 
     public ushort Index { get; set; }
 
-    public short InstructionIndex { get; set; }
+    public int InstructionIndex { get; set; }
 
     public bool IsResolved { get; set; }
 
@@ -14,7 +14,7 @@ internal class LabelInfo
     public bool DeferOrder { get; set; }
 
     // An if statement's own labels sort by where the whole statement ends, else label first.
-    public short? SortIndex { get; set; }
+    public int? SortIndex { get; set; }
 
     public int SortRank { get; set; }
 

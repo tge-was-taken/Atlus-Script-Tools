@@ -5516,7 +5516,7 @@ public class FlowScriptCompiler
 
     private void ResolveLabel(LabelInfo label)
     {
-        label.InstructionIndex = (short)(mInstructions.Count);
+        label.InstructionIndex = mInstructions.Count;
         label.IsResolved = true;
         if (!label.DeferOrder)
             AddLabelOrder(label);
