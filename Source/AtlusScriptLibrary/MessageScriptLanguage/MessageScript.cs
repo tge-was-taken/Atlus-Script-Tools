@@ -55,7 +55,7 @@ public class MessageScript
 
         // Convert the binary messages to their counterpart
         var labelOccurences = new Dictionary<string, int>();
-        var seenOffsets = new HashSet<int>();
+        var nameByOffset = new Dictionary<int, string>();
 
         // A speaker table entry that more than one dialog points at was shared, which the builder
         // only does on its own for a plain text name.
@@ -76,9 +76,21 @@ public class MessageScript
             int pageCount;
             int bufferAddress;
 
-            // A table entry sharing its data offset with an earlier one is a dialog that repeats that dialog's
-            // name, so keep the name as is instead of making it unique.
-            var isRepeatedName = messageHeader.Data.Offset != 0 && !seenOffsets.Add(messageHeader.Data.Offset);
+            // A table entry sharing its data offset with an earlier one is a dialog repeating that
+            // dialog's name, so it takes the name already resolved for it. Several dialogs can share
+            // a trimmed name, so the raw name alone does not say which one that is.
+            string DialogName(string rawName)
+            {
+                var offset = messageHeader.Data.Offset;
+                if (offset != 0 && nameByOffset.TryGetValue(offset, out var shared))
+                    return shared;
+
+                var resolved = ResolveName(labelOccurences, rawName);
+                if (offset != 0)
+                    nameByOffset[offset] = resolved;
+
+                return resolved;
+            }
 
             switch (messageHeader.Kind)
             {
@@ -92,7 +104,7 @@ public class MessageScript
                             + ((pageCount + 1) * sizeof(int));
 
                         // check for duplicates
-                        var name = isRepeatedName ? binaryMessage.Name : ResolveName(labelOccurences, binaryMessage.Name);
+                        var name = DialogName(binaryMessage.Name);
 
                         if (binaryMessage.SpeakerId == 0xFFFF)
                         {
@@ -135,7 +147,7 @@ public class MessageScript
                         pageCount = binaryMessage.OptionCount;
                         bufferAddress = messageHeader.DataLocation + 0x20
                             + ((pageCount + 1) * sizeof(int));
-                        var name = isRepeatedName ? binaryMessage.Name : ResolveName(labelOccurences, binaryMessage.Name);
+                        var name = DialogName(binaryMessage.Name);
                         message = new SelectionDialog(name, (SelectionDialogPattern)binaryMessage.Pattern)
                         {
                             OmitTrailingTerminator = !HasTrailingTerminator(pageStartAddresses, buffer)
@@ -338,17 +350,24 @@ public class MessageScript
 
     internal static string ResolveName(Dictionary<string, int> labelOccurences, string name)
     {
-        if (labelOccurences.ContainsKey(name))
-        {
-            labelOccurences[name] += 1;
-            name = name + "_" + labelOccurences[name];
-        }
-        else
+        if (!labelOccurences.TryGetValue(name, out var count))
         {
             labelOccurences[name] = 1;
+            return name;
         }
 
-        return name;
+        // A suffixed name can be a name in its own right, so keep counting until it is free.
+        string resolved;
+        do
+        {
+            count++;
+            resolved = name + "_" + count;
+        }
+        while (labelOccurences.ContainsKey(resolved));
+
+        labelOccurences[name] = count;
+        labelOccurences[resolved] = 1;
+        return resolved;
     }
 
     // Each option ends with a terminator and one more normally follows the last of them, so two
