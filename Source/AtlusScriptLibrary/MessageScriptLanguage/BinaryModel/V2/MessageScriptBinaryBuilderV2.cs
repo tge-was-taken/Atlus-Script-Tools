@@ -299,17 +299,9 @@ public class MessageScriptBinaryV2Builder
             WriteUInt16(bytes, item);
     }
 
+    // A code point keeps the byte order it was read in, so write its bytes as they are.
     private void ProcessCodePoint(CodePointToken token, List<byte> bytes)
-    {
-        if (token.Bytes.Count == 2)
-        {
-            WriteUInt16(bytes, (ushort)(token.Bytes[0] << 8 | token.Bytes[1]));
-        }
-        else
-        {
-            bytes.AddRange(token.Bytes);
-        }
-    }
+        => bytes.AddRange(token.Bytes);
 
     private void AddAddressLocation()
     {
