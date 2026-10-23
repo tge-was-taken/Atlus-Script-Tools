@@ -78,6 +78,7 @@ public static class MessageScriptBinaryV2TokenParser
 
             if (c == 0xD828)
             {
+                ushort terminator = 0;
                 while (true)
                 {
                     if (!TokenParserReaderHelper.TryReadUInt16(buffer, ref bufferIndex, version, out var temp))
@@ -85,14 +86,17 @@ public static class MessageScriptBinaryV2TokenParser
 
                     if (temp == 0xD829)
                     {
-                        tokens.Add(new FunctionToken(0, temp, false));
+                        terminator = temp;
                         break;
                     }
-                    else
-                    {
-                        args.Add(temp);
-                    }
+
+                    args.Add(temp);
                 }
+
+                tokens.Add(new FunctionToken(0, c, args, false));
+                if (terminator != 0)
+                    tokens.Add(new FunctionToken(0, terminator, false));
+                return true;
             }
             else
             {
