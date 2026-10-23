@@ -1,4 +1,5 @@
 ﻿using AtlusScriptLibrary.Common.Libraries;
+using AtlusScriptLibrary.Common;
 using AtlusScriptLibrary.Common.Text;
 using System;
 using System.IO;
@@ -46,7 +47,7 @@ public sealed class MessageScriptDecompiler : IDisposable
 
         foreach (var (index, name, shareable) in script.PinnedSpeakerNames)
         {
-            mWriter.WriteLine($"[pragma {MessageScript.SpeakerSlotPragmaPrefix}{index}_{(shareable ? 1 : 0)}_{Convert.ToHexString(name)}]");
+            mWriter.WriteLine($"[pragma {MessageScript.SpeakerSlotPragmaPrefix}{index}_{(shareable ? 1 : 0)}_{HexText.ToHex(name)}]");
             mWriter.WriteLine();
         }
 

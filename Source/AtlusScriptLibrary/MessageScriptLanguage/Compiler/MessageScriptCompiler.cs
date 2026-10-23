@@ -364,7 +364,7 @@ public class MessageScriptCompiler
                 if (parts.Length != 3 || !int.TryParse(parts[0], out var index))
                     LogWarning(pragmaContext, $"Invalid pragma: {name}");
                 else
-                    script.PinnedSpeakerNames.Add((index, Convert.FromHexString(parts[2]), parts[1] == "1"));
+                    script.PinnedSpeakerNames.Add((index, AtlusScriptLibrary.Common.HexText.FromHex(parts[2]), parts[1] == "1"));
             }
             else
                 LogWarning(pragmaContext, $"Unknown pragma: {name}");

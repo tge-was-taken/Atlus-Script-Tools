@@ -1,4 +1,5 @@
-﻿using AtlusScriptLibrary.Common.IO;
+﻿using AtlusScriptLibrary.Common;
+using AtlusScriptLibrary.Common.IO;
 using AtlusScriptLibrary.Common.Text.Encodings;
 using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel;
 using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V1;
@@ -65,7 +66,7 @@ public class MessageScript
             .GroupBy(x => x.Value.SpeakerId)
             .Where(x => x.Count() > 1)
             .Select(x => x.Key)
-            .ToHashSet();
+            .ToSet();
         var sharesByDefault = instance.FormatVersion.HasFlag(FormatVersion.Version1) &&
                               !instance.FormatVersion.HasFlag(FormatVersion.BigEndian);
         var dialogSpeakers = new List<(int Id, bool Shareable)>();
