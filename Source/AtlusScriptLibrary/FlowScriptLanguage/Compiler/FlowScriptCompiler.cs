@@ -1147,7 +1147,14 @@ public class FlowScriptCompiler
         // variant look the same, and a V1 FlowScript can embed a BM2. The library says which one.
         var libraryVersion = Library?.MessageScriptFormatVersion ?? MessageScriptLanguage.FormatVersion.Detect;
         if (libraryVersion != MessageScriptLanguage.FormatVersion.Detect)
+        {
+            // A BM2 follows the endianness of the FlowScript it is embedded in, which is not always
+            // the one the library names: Catherine ships a little endian flow among big endian ones.
+            if (libraryVersion is MessageScriptLanguage.FormatVersion.Version2 or MessageScriptLanguage.FormatVersion.Version2BigEndian)
+                return mFormatVersion.HasFlag(FormatVersion.BigEndian) ? MessageScriptLanguage.FormatVersion.Version2BigEndian : MessageScriptLanguage.FormatVersion.Version2;
+
             return libraryVersion;
+        }
 
         switch (mFormatVersion)
         {
