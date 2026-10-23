@@ -4501,7 +4501,7 @@ public class FlowScriptCompiler
 
             // compile if else body
             // The else body will always line up with the end label
-            if (!TryEmitIfStatementBody(ifStatement.ElseBody, Matching ? endLabel : null, true))
+            if (!TryEmitIfStatementBody(ifStatement.ElseBody, Matching ? endLabel : null, false))
                 return false;
 
             mElseIfEndLabel = null;
