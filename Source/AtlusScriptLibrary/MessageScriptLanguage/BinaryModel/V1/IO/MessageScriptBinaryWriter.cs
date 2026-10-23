@@ -12,6 +12,7 @@ public sealed class MessageScriptBinaryWriter : IDisposable
     private bool mDisposed;
     private readonly long mPositionBase;
     private readonly EndianBinaryWriter mWriter;
+    private bool mRelocated;
 
     public MessageScriptBinaryWriter(Stream stream, BinaryFormatVersion version, bool leaveOpen = false)
     {
@@ -31,6 +32,7 @@ public sealed class MessageScriptBinaryWriter : IDisposable
 
     public void WriteBinary(MessageScriptBinary binary)
     {
+        mRelocated = binary.mHeader.IsRelocated;
         WriteHeader(ref binary.mHeader);
         WriteDialogHeaders(binary.mDialogHeaders);
         WriteSpeakerHeader(ref binary.mSpeakerTableHeader, IsVersion0(ref binary.mHeader));
@@ -56,6 +58,24 @@ public sealed class MessageScriptBinaryWriter : IDisposable
         mWriter.Write(header.Version);
     }
 
+    // A relocated file stores every pointer relative to the position of the pointer itself.
+    private void WriteAddress(int address)
+    {
+        if (mRelocated && address != 0)
+            address -= (int)(mWriter.Position - mPositionBase - BinaryHeader.SIZE);
+
+        mWriter.Write(address);
+    }
+
+    // The relocation pass left this one field big endian while swapping the rest to little endian.
+    private void WriteTextBufferSize(int size)
+    {
+        if (mRelocated)
+            EndiannessHelper.Swap(ref size);
+
+        mWriter.Write(size);
+    }
+
     private static bool IsVersion0(ref BinaryHeader header)
     {
         return header.Magic != null && header.Magic.AsSpan().SequenceEqual(BinaryHeader.MAGIC_V0);
@@ -66,13 +86,13 @@ public sealed class MessageScriptBinaryWriter : IDisposable
         foreach (var header in headers)
         {
             mWriter.Write((int)header.Kind);
-            mWriter.Write(header.Data.Offset);
+            WriteAddress(header.Data.Offset);
         }
     }
 
     private void WriteSpeakerHeader(ref BinarySpeakerTableHeader header, bool version0)
     {
-        mWriter.Write(header.SpeakerNameArray.Offset);
+        WriteAddress(header.SpeakerNameArray.Offset);
         mWriter.Write(header.SpeakerCount);
 
         // MSG0 stops the speaker table header here.
@@ -114,8 +134,10 @@ public sealed class MessageScriptBinaryWriter : IDisposable
 
         if (dialogue.PageCount > 0)
         {
-            mWriter.Write(dialogue.PageStartAddresses);
-            mWriter.Write(dialogue.TextBufferSize);
+            foreach (var pageStartAddress in dialogue.PageStartAddresses)
+                WriteAddress(pageStartAddress);
+
+            WriteTextBufferSize(dialogue.TextBufferSize);
             mWriter.Write(dialogue.TextBuffer);
         }
     }
@@ -128,8 +150,11 @@ public sealed class MessageScriptBinaryWriter : IDisposable
         mWriter.Write(selection.OptionCount);
         mWriter.Write((short)selection.Pattern);
         mWriter.Write(selection.Reserved);
-        mWriter.Write(selection.OptionStartAddresses);
-        mWriter.Write(selection.TextBufferSize);
+
+        foreach (var optionStartAddress in selection.OptionStartAddresses)
+            WriteAddress(optionStartAddress);
+
+        WriteTextBufferSize(selection.TextBufferSize);
         mWriter.Write(selection.TextBuffer);
     }
 
@@ -137,7 +162,7 @@ public sealed class MessageScriptBinaryWriter : IDisposable
     {
         mWriter.SeekBegin(mPositionBase + BinaryHeader.SIZE + header.SpeakerNameArray.Offset);
         foreach (var speakerName in header.SpeakerNameArray.Value)
-            mWriter.Write(speakerName.Offset);
+            WriteAddress(speakerName.Offset);
     }
 
     private void WriteSpeakerNames(ref BinarySpeakerTableHeader header)

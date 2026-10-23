@@ -12,7 +12,12 @@ options
 ////////////////////
 
 compilationUnit
-	: dialog* EOF
+	: pragma* dialog* EOF
+	;
+
+	// [ pragma name ] a binary detail of the original file that the text does not imply
+pragma
+	: OpenCode PragmaTagId Identifier CloseCode
 	;
 	
 dialog

@@ -277,7 +277,9 @@ public sealed class MessageScriptBinaryReader : IDisposable
             for (int i = 0; i < message.PageCount; i++)
                 message.PageStartAddresses[i] = Resolve(message.PageStartAddresses[i], addressesPosition + i * sizeof(int));
             message.TextBufferSize = mReader.ReadInt32();
-            if (message.TextBufferSize < 0 || message.TextBufferSize > 1 << 24) // Endianness for this value seems to be swapped in some files... not sure what triggers it
+
+            // The relocation pass left this one field big endian while swapping the rest to little endian.
+            if (mRelocated || message.TextBufferSize < 0 || message.TextBufferSize > 1 << 24)
                 EndiannessHelper.Swap(ref message.TextBufferSize);
             message.TextBuffer = mReader.ReadBytes(message.TextBufferSize);
         }
@@ -305,6 +307,11 @@ public sealed class MessageScriptBinaryReader : IDisposable
         for (int i = 0; i < message.OptionCount; i++)
             message.OptionStartAddresses[i] = Resolve(message.OptionStartAddresses[i], optionsPosition + i * sizeof(int));
         message.TextBufferSize = mReader.ReadInt32();
+
+        // The relocation pass left this one field big endian while swapping the rest to little endian.
+        if (mRelocated)
+            EndiannessHelper.Swap(ref message.TextBufferSize);
+
         message.TextBuffer = mReader.ReadBytes(message.TextBufferSize);
 
         if (message.Ext != 0)

@@ -38,6 +38,12 @@ public sealed class MessageScriptDecompiler : IDisposable
     {
         WriteHeaderComment("Decompiled by Atlus Script Tools");
 
+        if (script.Relocated)
+        {
+            mWriter.WriteLine($"[pragma {MessageScript.RelocatedPragma}]");
+            mWriter.WriteLine();
+        }
+
         var identifiers = script.GetDialogIdentifiers();
 
         for (var i = 0; i < script.Dialogs.Count; i++)

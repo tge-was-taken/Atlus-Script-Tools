@@ -48,6 +48,7 @@ public class MessageScript
             FormatVersion = version == FormatVersion.Detect ? (FormatVersion)binary.FormatVersion : version,
             Version0 = binary.Header.Magic != null &&
                        binary.Header.Magic.SequenceEqual(BinaryModel.V1.BinaryHeader.MAGIC_V0),
+            Relocated = binary.Header.IsRelocated,
         };
         instance.Encoding = EncodingHelper.GetEncodingForEndianness(encoding, version.HasFlag(FormatVersion.BigEndian)) ?? Encoding.ASCII;
 
@@ -466,6 +467,17 @@ public class MessageScript
     public bool Version0 { get; set; }
 
     /// <summary>
+    /// Name of the pragma that carries <see cref="Relocated"/> through the text format.
+    /// </summary>
+    public const string RelocatedPragma = "relocated";
+
+    /// <summary>
+    /// The original file was relocated: it is little endian, stores every pointer relative to the
+    /// position of the pointer itself and keeps each text buffer size big endian.
+    /// </summary>
+    public bool Relocated { get; set; }
+
+    /// <summary>
     /// End a selection dialog's text buffer after the last option's terminator instead of adding
     /// another one.
     /// </summary>
@@ -527,6 +539,7 @@ public class MessageScript
 
         builder.SetUserId(Id);
         builder.SetVersion0(Version0);
+        builder.SetRelocated(Relocated);
 
         if (Encoding != null)
             builder.SetEncoding(Encoding);

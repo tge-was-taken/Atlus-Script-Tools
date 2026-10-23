@@ -353,6 +353,15 @@ public class MessageScriptCompiler
 
         script = new MessageScript(mVersion, mEncoding);
 
+        foreach (var pragmaContext in context.pragma())
+        {
+            var name = ParseIdentifier(pragmaContext.Identifier());
+            if (name == MessageScript.RelocatedPragma)
+                script.Relocated = true;
+            else
+                LogWarning(pragmaContext, $"Unknown pragma: {name}");
+        }
+
         foreach (var dialogContext in dialogContexts)
         {
             IDialog dialog;

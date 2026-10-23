@@ -26,6 +26,10 @@ Text
 //
 mode MessageScriptCode;
 
+PragmaTagId
+	: 'pragma'
+	;
+
 MessageDialogTagId
 	: 'msg'
 	| 'dlg'
