@@ -31,6 +31,12 @@ public sealed class MessageDialog : IDialog
     /// </summary>
     public bool OmitTrailingTerminator { get; set; }
 
+    /// <summary>
+    /// Gets or sets whether a speaker name holding function tokens reuses an existing speaker
+    /// table entry. Those names normally get an entry of their own outside little endian V1.
+    /// </summary>
+    public bool ShareSpeakerName { get; set; }
+
     List<TokenText> IDialog.Lines => Pages;
 
     /// <summary>

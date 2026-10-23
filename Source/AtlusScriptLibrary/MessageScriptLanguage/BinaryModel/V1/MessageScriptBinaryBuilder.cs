@@ -77,7 +77,8 @@ public class MessageScriptBinaryBuilder
                         // later tools only share plain text and give a name with function tokens its own.
                         var shareable = mFormatVersion.HasFlag(BinaryFormatVersion.Version1) &&
                                         !mFormatVersion.HasFlag(BinaryFormatVersion.BigEndian) ||
-                                        name.Tokens.All(x => x.Kind != TokenKind.Function);
+                                        name.Tokens.All(x => x.Kind != TokenKind.Function) ||
+                                        message.ShareSpeakerName;
                         var index = shareable ? mSpeakerNames.FindIndex(x => x.SequenceEqual(speakerName)) : -1;
                         if (index == -1)
                         {

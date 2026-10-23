@@ -94,6 +94,8 @@ public sealed class MessageScriptDecompiler : IDisposable
                         }
                         if (message.OmitTrailingTerminator)
                             WriteTagArgument("noterm");
+                        if (message.ShareSpeakerName)
+                            WriteTagArgument("sharespeaker");
                         WriteCloseTag();
                     }
                     break;

@@ -480,9 +480,11 @@ public class MessageScriptCompiler
         //
         // Create dialog window
         //
+        var flags = context.DialogFlagId().Select(x => x.GetText()).ToList();
         messageDialog = new MessageDialog(identifier, speaker, pages)
         {
-            OmitTrailingTerminator = context.DialogFlagId() != null
+            OmitTrailingTerminator = flags.Contains("noterm"),
+            ShareSpeakerName = flags.Contains("sharespeaker")
         };
 
         return true;
@@ -571,7 +573,7 @@ public class MessageScriptCompiler
         //
         selectionWindow = new SelectionDialog(identifier, pattern, options)
         {
-            OmitTrailingTerminator = context.DialogFlagId() != null
+            OmitTrailingTerminator = context.DialogFlagId().Any(x => x.GetText() == "noterm")
         };
 
         return true;

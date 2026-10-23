@@ -43,9 +43,11 @@ SelectionDialogPatternId
 	| 'bottom'
 	;
 
-// The text buffer of this dialog has no terminator of its own after the last page or option
+// noterm: the text buffer of this dialog has no terminator of its own after the last page or option
+// sharespeaker: a speaker name built from function tokens reuses an existing speaker table entry
 DialogFlagId
 	: 'noterm'
+	| 'sharespeaker'
 	;
 
 // Keywords

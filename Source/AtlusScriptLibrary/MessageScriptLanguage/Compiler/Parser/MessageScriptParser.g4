@@ -26,7 +26,7 @@ dialog
 
 	// [ msg DialogName [SpeakerName] ] text...
 messageDialog
-	: OpenCode MessageDialogTagId Identifier speakerName? DialogFlagId? CloseCode tokenText
+	: OpenCode MessageDialogTagId Identifier speakerName? DialogFlagId* CloseCode tokenText
 	;
 
 speakerName
@@ -35,7 +35,7 @@ speakerName
 
 	// [ sel SelectionName ] text...
 selectionDialog
-	: OpenCode SelectionDialogTagId Identifier selectionDialogPattern? DialogFlagId? CloseCode tokenText
+	: OpenCode SelectionDialogTagId Identifier selectionDialogPattern? DialogFlagId* CloseCode tokenText
 	;
 
 selectionDialogPattern

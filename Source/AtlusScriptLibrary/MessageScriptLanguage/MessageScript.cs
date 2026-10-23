@@ -9,6 +9,7 @@ using System.Buffers.Binary;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace AtlusScriptLibrary.MessageScriptLanguage;
@@ -55,6 +56,18 @@ public class MessageScript
         // Convert the binary messages to their counterpart
         var labelOccurences = new Dictionary<string, int>();
         var seenOffsets = new HashSet<int>();
+
+        // A speaker table entry that more than one dialog points at was shared, which the builder
+        // only does on its own for a plain text name.
+        var sharedSpeakerIds = binary.DialogHeaders
+            .Select(x => x.Data.Value as BinaryMessageDialog?)
+            .Where(x => x.HasValue)
+            .GroupBy(x => x.Value.SpeakerId)
+            .Where(x => x.Count() > 1)
+            .Select(x => x.Key)
+            .ToHashSet();
+        var sharesByDefault = instance.FormatVersion.HasFlag(FormatVersion.Version1) &&
+                              !instance.FormatVersion.HasFlag(FormatVersion.BigEndian);
         foreach (var messageHeader in binary.DialogHeaders)
         {
             IDialog message;
@@ -103,7 +116,13 @@ public class MessageScript
                                     .Value[binaryMessage.SpeakerId].Value, instance.FormatVersion, instance.Encoding);
                             }
 
-                            message = new MessageDialog(name, new NamedSpeaker(speakerName));
+                            message = new MessageDialog(name, new NamedSpeaker(speakerName))
+                            {
+                                ShareSpeakerName = !sharesByDefault &&
+                                                   sharedSpeakerIds.Contains(binaryMessage.SpeakerId) &&
+                                                   speakerName != null &&
+                                                   speakerName.Tokens.Any(x => x.Kind == TokenKind.Function)
+                            };
                         }
                     }
                     break;
