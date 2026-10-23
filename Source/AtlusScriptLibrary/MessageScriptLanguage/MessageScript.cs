@@ -61,6 +61,7 @@ public class MessageScript
             IReadOnlyList<int> pageStartAddresses;
             IReadOnlyList<byte> buffer;
             int pageCount;
+            int bufferAddress;
 
             // A table entry sharing its data offset with an earlier one is a dialog that repeats that dialog's
             // name, so keep the name as is instead of making it unique.
@@ -74,6 +75,8 @@ public class MessageScript
                         pageStartAddresses = binaryMessage.PageStartAddresses;
                         buffer = binaryMessage.TextBuffer;
                         pageCount = binaryMessage.PageCount;
+                        bufferAddress = messageHeader.DataLocation + 0x1C
+                            + ((pageCount + 1) * sizeof(int));
 
                         // check for duplicates
                         var name = isRepeatedName ? binaryMessage.Name : ResolveName(labelOccurences, binaryMessage.Name);
@@ -111,6 +114,8 @@ public class MessageScript
                         pageStartAddresses = binaryMessage.OptionStartAddresses;
                         buffer = binaryMessage.TextBuffer;
                         pageCount = binaryMessage.OptionCount;
+                        bufferAddress = messageHeader.DataLocation + 0x20
+                            + ((pageCount + 1) * sizeof(int));
                         var name = isRepeatedName ? binaryMessage.Name : ResolveName(labelOccurences, binaryMessage.Name);
                         message = new SelectionDialog(name, (SelectionDialogPattern)binaryMessage.Pattern)
                         {
@@ -126,7 +131,7 @@ public class MessageScript
             if (pageCount != 0)
             {
                 // Parse the line data
-                var endedOnTerminator = ParsePages(message, pageStartAddresses, buffer, instance.FormatVersion, instance.Encoding);
+                var endedOnTerminator = ParsePages(message, pageStartAddresses, buffer, instance.FormatVersion, instance.Encoding, bufferAddress);
 
                 if (message is MessageDialog messageDialog)
                     messageDialog.OmitTrailingTerminator = !endedOnTerminator;
@@ -345,7 +350,7 @@ public class MessageScript
     /// Parses the pages out of a text buffer. Returns whether the last page ended on a terminator
     /// instead of running up to the end of the buffer.
     /// </summary>
-    private static bool ParsePages(IDialog message, IReadOnlyList<int> lineStartAddresses, IReadOnlyList<byte> buffer, FormatVersion version, Encoding encoding)
+    private static bool ParsePages(IDialog message, IReadOnlyList<int> lineStartAddresses, IReadOnlyList<byte> buffer, FormatVersion version, Encoding encoding, int bufferAddress = -1)
     {
         if (lineStartAddresses.Count == 0 || buffer.Count == 0)
             return true;
@@ -358,7 +363,18 @@ public class MessageScript
         int[] rebasedLineStartAddresses = new int[lineStartAddresses.Count];
 
         for (int i = 0; i < lineStartAddresses.Count; i++)
-            rebasedLineStartAddresses[i] = lineStartAddresses[i] - lineStartAddressBase;
+        {
+            // An address that lands inside this buffer is this dialog's own. One that does not was
+            // inherited from the dialog whose name this one repeats, so fall back to the first address,
+            // which puts the pages in plausible places without claiming to know the real split.
+            var own = lineStartAddresses[i] - bufferAddress;
+            rebasedLineStartAddresses[i] = bufferAddress >= 0 && own >= 0 && own <= buffer.Count
+                ? own
+                : lineStartAddresses[i] - lineStartAddressBase;
+        }
+
+        // A page start the previous page had to give back, because the token there crosses the boundary.
+        int carriedStart = -1;
 
         for (int lineIndex = 0; lineIndex < rebasedLineStartAddresses.Length; lineIndex++)
         {
@@ -366,7 +382,8 @@ public class MessageScript
             var line = new TokenText();
 
             // Now that the line start addresses have been rebased, we can use them as indices into the buffer
-            int bufferIndex = rebasedLineStartAddresses[lineIndex];
+            int bufferIndex = carriedStart >= 0 ? carriedStart : rebasedLineStartAddresses[lineIndex];
+            carriedStart = -1;
 
             // Calculate the line end index
             int lineEndIndex = (lineIndex + 1) != rebasedLineStartAddresses.Length ? rebasedLineStartAddresses[lineIndex + 1] : buffer.Count;
@@ -376,7 +393,10 @@ public class MessageScript
             bufferIndex = Math.Min(bufferIndex, buffer.Count);
             lineEndIndex = Math.Min(lineEndIndex, buffer.Count);
 
-            endedOnTerminator = false;
+            // A copy's borrowed addresses can leave a trailing page with no bytes of its own, which
+            // says nothing about how the text ended, so keep what the last page with bytes found.
+            if (bufferIndex < lineEndIndex)
+                endedOnTerminator = false;
 
             // A run of text stops at the end of the buffer it is given, so hand the parser a view that
             // ends where this page does. Without it a text run crosses into the next page and is read twice.
@@ -388,6 +408,7 @@ public class MessageScript
                 // A token that runs past the end of the buffer ends the page: the bytes it would read
                 // are not there, which happens in the copies described above.
                 List<IToken> tokens;
+                int tokenIndex = bufferIndex;
                 try
                 {
                     if (!TryParseTokens(pageBuffer, ref bufferIndex, out tokens, version, encoding))
@@ -399,6 +420,11 @@ public class MessageScript
                 catch (Exception exception) when (exception is IndexOutOfRangeException ||
                                                   exception is ArgumentOutOfRangeException)
                 {
+                    // Text splits anywhere, but a function token does not, so leave one that crosses
+                    // the boundary to the next page. Only a copy's borrowed addresses land mid token.
+                    if (lineEndIndex != buffer.Count)
+                        carriedStart = tokenIndex;
+
                     break;
                 }
 
