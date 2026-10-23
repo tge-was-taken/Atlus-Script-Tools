@@ -406,8 +406,9 @@ public class FlowScriptCompiler
             return;
         }
 
-        // MSG0 is only known from Digital Devil Saga, whose layout the DDS version writes.
-        if (message.FormatVersion != MessageScriptLanguage.FormatVersion.Version1DDS)
+        // MSG0 is a little endian version 1 layout; nothing else writes that magic.
+        if (!message.FormatVersion.HasFlag(MessageScriptLanguage.FormatVersion.Version1) ||
+            message.FormatVersion.HasFlag(MessageScriptLanguage.FormatVersion.BigEndian))
         {
             Warning($"Ignoring pragma '{BinaryLayout.MessageScriptVersionOption}' because the embedded MessageScript is {message.FormatVersion}");
             return;
