@@ -605,8 +605,10 @@ public class CompilationUnitWriter : SyntaxNodeVisitor
         {
             Write("-");
 
-            // A negated zero reads back as the literal 0, which loses the negation, so keep it separate.
-            if (IsZeroLiteral(unaryOperator.Operand))
+            // A negated zero reads back as the literal 0, which loses the negation, and a negated
+            // negation would read back as the decrement operator, so keep the operand separate.
+            if (IsZeroLiteral(unaryOperator.Operand) ||
+                unaryOperator.Operand is NegationOperator or PrefixDecrementOperator)
             {
                 Write("(");
                 Visit(unaryOperator.Operand);
