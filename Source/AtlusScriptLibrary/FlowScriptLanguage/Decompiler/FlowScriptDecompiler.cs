@@ -1073,7 +1073,10 @@ public class FlowScriptDecompiler
     {
         foreach (var evaluatedStatement in mEvaluatedStatements.Where(x => x.Statement is GotoStatement).ToList())
         {
-            if (evaluatedStatement.ReferencedLabel.InstructionIndex == evaluatedStatement.InstructionIndex + 1)
+            // A jump to the next instruction over a named label was written that way, unlike one over a
+            // generated label, which the branch structure produces again on its own.
+            if (evaluatedStatement.ReferencedLabel.InstructionIndex == evaluatedStatement.InstructionIndex + 1 &&
+                !KeepUnreferencedLabel(evaluatedStatement.ReferencedLabel))
                 mEvaluatedStatements.Remove(evaluatedStatement);
         }
 
