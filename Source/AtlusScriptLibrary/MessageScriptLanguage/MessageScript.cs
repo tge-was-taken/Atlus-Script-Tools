@@ -172,6 +172,18 @@ public class MessageScript
             instance.Dialogs.Add(message);
         }
 
+        var usedSpeakerIds = binary.DialogHeaders
+            .Select(x => x.Data.Value as BinaryMessageDialog?)
+            .Where(x => x.HasValue)
+            .Select(x => (int)x.Value.SpeakerId)
+            .ToHashSet();
+        var speakerNames = binary.SpeakerTableHeader.SpeakerNameArray.Value;
+        for (int i = 0; speakerNames != null && i < binary.SpeakerTableHeader.SpeakerCount; i++)
+        {
+            if (!usedSpeakerIds.Contains(i))
+                instance.UnusedSpeakerNames.Add((i, speakerNames[i].Value?.ToArray() ?? Array.Empty<byte>()));
+        }
+
         return instance;
     }
 
@@ -575,6 +587,18 @@ public class MessageScript
     public const string RelocatedPragma = "relocated";
 
     /// <summary>
+    /// Prefix of the pragma that carries one <see cref="UnusedSpeakerNames"/> entry through the text
+    /// format, as unusedspeaker_&lt;index&gt;_&lt;hex of the encoded name&gt;.
+    /// </summary>
+    public const string UnusedSpeakerPragmaPrefix = "unusedspeaker_";
+
+    /// <summary>
+    /// Speaker table entries that no dialog refers to, with the index they sit at. Nothing in the
+    /// text implies them, so they are carried by a pragma.
+    /// </summary>
+    public List<(int Index, byte[] Name)> UnusedSpeakerNames { get; } = new();
+
+    /// <summary>
     /// The original file was relocated: it is little endian, stores every pointer relative to the
     /// position of the pointer itself and keeps each text buffer size big endian.
     /// </summary>
@@ -646,6 +670,9 @@ public class MessageScript
 
         if (Encoding != null)
             builder.SetEncoding(Encoding);
+
+        foreach (var (index, name) in UnusedSpeakerNames)
+            builder.AddUnusedSpeakerName(index, name);
 
         foreach (var dialog in Dialogs)
         {

@@ -358,6 +358,14 @@ public class MessageScriptCompiler
             var name = ParseIdentifier(pragmaContext.Identifier());
             if (name == MessageScript.RelocatedPragma)
                 script.Relocated = true;
+            else if (name.StartsWith(MessageScript.UnusedSpeakerPragmaPrefix))
+            {
+                var parts = name.Substring(MessageScript.UnusedSpeakerPragmaPrefix.Length).Split('_');
+                if (parts.Length != 2 || !int.TryParse(parts[0], out var index))
+                    LogWarning(pragmaContext, $"Invalid pragma: {name}");
+                else
+                    script.UnusedSpeakerNames.Add((index, Convert.FromHexString(parts[1])));
+            }
             else
                 LogWarning(pragmaContext, $"Unknown pragma: {name}");
         }

@@ -22,6 +22,8 @@ public class MessageScriptBinaryBuilder
     private readonly List<int> mAddressLocations;   // for generating the relocation table
     private int mPosition;                          // used to calculate addresses
     private readonly List<byte[]> mSpeakerNames;    // for storing the speaker names of dialogue messages
+    private readonly List<bool> mSpeakerNameUnused; // per entry of mSpeakerNames: no dialog refers to it
+    private readonly Dictionary<int, byte[]> mUnusedSpeakerNames; // unreferenced entries, by table index
     private readonly List<string> mDialogNames;     // untruncated dialog names, for resolving repeated names
 
     public MessageScriptBinaryBuilder(BinaryFormatVersion version)
@@ -29,6 +31,8 @@ public class MessageScriptBinaryBuilder
         mFormatVersion = version;
         mAddressLocations = new List<int>();
         mSpeakerNames = new List<byte[]>();
+        mSpeakerNameUnused = new List<bool>();
+        mUnusedSpeakerNames = new Dictionary<int, byte[]>();
         mDialogNames = new List<string>();
         mPosition = BinaryHeader.SIZE;
         mDialogs = new List<Tuple<BinaryDialogKind, object>>();
@@ -47,6 +51,44 @@ public class MessageScriptBinaryBuilder
     public void SetRelocated(bool value)
     {
         mRelocated = value;
+    }
+
+    /// <summary>
+    /// Declare a speaker table entry that no dialog refers to, so it keeps its index in the table.
+    /// </summary>
+    public void AddUnusedSpeakerName(int index, byte[] name)
+    {
+        mUnusedSpeakerNames[index] = name;
+        AddUnusedSpeakerNamesAtEnd();
+    }
+
+    // Unreferenced entries sit at a fixed index, so emit each one as soon as the table reaches it.
+    private void AddUnusedSpeakerNamesAtEnd()
+    {
+        while (mUnusedSpeakerNames.TryGetValue(mSpeakerNames.Count, out var name))
+        {
+            mSpeakerNames.Add(name);
+            mSpeakerNameUnused.Add(true);
+        }
+    }
+
+    private int AddSpeakerName(byte[] name, bool shareable)
+    {
+        AddUnusedSpeakerNamesAtEnd();
+
+        if (shareable)
+        {
+            for (int i = 0; i < mSpeakerNames.Count; i++)
+            {
+                if (!mSpeakerNameUnused[i] && mSpeakerNames[i].SequenceEqual(name))
+                    return i;
+            }
+        }
+
+        mSpeakerNames.Add(name);
+        mSpeakerNameUnused.Add(false);
+        AddUnusedSpeakerNamesAtEnd();
+        return mSpeakerNames.Count - 1;
     }
 
     internal void SetEncoding(Encoding encoding)
@@ -79,14 +121,7 @@ public class MessageScriptBinaryBuilder
                                         !mFormatVersion.HasFlag(BinaryFormatVersion.BigEndian) ||
                                         name.Tokens.All(x => x.Kind != TokenKind.Function) ||
                                         message.ShareSpeakerName;
-                        var index = shareable ? mSpeakerNames.FindIndex(x => x.SequenceEqual(speakerName)) : -1;
-                        if (index == -1)
-                        {
-                            index = mSpeakerNames.Count;
-                            mSpeakerNames.Add(speakerName.ToArray());
-                        }
-
-                        binary.SpeakerId = (ushort)index;
+                        binary.SpeakerId = (ushort)AddSpeakerName(speakerName.ToArray(), shareable);
                     }
                     break;
 
@@ -338,6 +373,7 @@ public class MessageScriptBinaryBuilder
         AddAddressLocation();
         MoveToNextIntPosition();
 
+        AddUnusedSpeakerNamesAtEnd();
         speakerHeader.SpeakerCount = mSpeakerNames.Count;
         MoveToNextIntPosition();
 

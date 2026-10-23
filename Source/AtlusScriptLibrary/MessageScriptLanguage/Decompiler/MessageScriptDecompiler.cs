@@ -44,6 +44,12 @@ public sealed class MessageScriptDecompiler : IDisposable
             mWriter.WriteLine();
         }
 
+        foreach (var (index, name) in script.UnusedSpeakerNames)
+        {
+            mWriter.WriteLine($"[pragma {MessageScript.UnusedSpeakerPragmaPrefix}{index}_{Convert.ToHexString(name)}]");
+            mWriter.WriteLine();
+        }
+
         var identifiers = script.GetDialogIdentifiers();
 
         for (var i = 0; i < script.Dialogs.Count; i++)
