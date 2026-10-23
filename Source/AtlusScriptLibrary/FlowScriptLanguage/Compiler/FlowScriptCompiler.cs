@@ -4386,8 +4386,8 @@ public class FlowScriptCompiler
         // the original source is not a back edge and does not count.
         var numberLabelsUpFront = ifStatement.ElseBody == null && EndsWithLoopGoto(ifStatement.Body);
         var isElseIfChain = Matching && ifStatement.ElseIfChain && ifStatement.ElseBody != null &&
-                            ifStatement.ElseBody.Statements.Count == 1 &&
-                            ifStatement.ElseBody.Statements[0] is IfStatement;
+                            ifStatement.ElseBody.Statements.Count > 0 &&
+                            ifStatement.ElseBody.Statements[ifStatement.ElseBody.Statements.Count - 1] is IfStatement;
         // The labels of a whole if/else statement are numbered after it, end label first, so
         // anything nested in one of its branches takes a lower number. An else-if chain counts as
         // one statement, since it shares a single end label.

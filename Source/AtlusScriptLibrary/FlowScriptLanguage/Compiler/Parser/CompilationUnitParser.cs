@@ -1767,6 +1767,13 @@ public class CompilationUnitParser
                 if (body is CompoundStatement)
                 {
                     ifStatement.ElseBody = (CompoundStatement)body;
+                    // A decompiled 'else if' whose condition left values on the stack comes out as
+                    // a block of __push calls followed by the if, and is still a chain.
+                    var elseStatements = ifStatement.ElseBody.Statements;
+                    ifStatement.ElseIfChain = elseStatements.Count > 1 &&
+                        elseStatements[elseStatements.Count - 1] is IfStatement &&
+                        elseStatements.GetRange(0, elseStatements.Count - 1).TrueForAll(
+                            x => x is CallOperator call && call.Identifier.Text == "__push");
                 }
                 else
                 {
