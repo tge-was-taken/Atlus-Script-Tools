@@ -5163,8 +5163,12 @@ public class FlowScriptCompiler
                 break;
             case Opcode.COMM:
                 {
-                    var functionCalled = mRootScope.Functions.Values.First(x => x.Index == instruction.Operand.UInt16Value);
-                    mStackValueCount -= functionCalled.Declaration.Parameters.Count;
+                    // A function index the library does not describe is called with no arguments,
+                    // so it pops nothing.
+                    var functionCalled = mRootScope.Functions.Values
+                        .FirstOrDefault(x => x.Index == instruction.Operand.UInt16Value);
+                    if (functionCalled != null)
+                        mStackValueCount -= functionCalled.Declaration.Parameters.Count;
                 }
                 break;
             case Opcode.OR:
