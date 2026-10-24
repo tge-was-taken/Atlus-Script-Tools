@@ -132,8 +132,8 @@ dotnet test Source/AtlusScriptLibraryTests/AtlusScriptLibraryTests.csproj -c Rel
 `AtlusScriptLibrary` targets `net10.0` and `netstandard2.0`; everything else targets `net10.0`.
 
 Prebuilt native binaries for Windows, Linux and macOS are attached to each release. Every push
-to master publishes a release tagged `v1.0-<commit>`, and pushing a `v*` tag publishes one under
-that tag.
+to master publishes a release tagged `v1.1.<patch>-<commit>`, numbering the patch from the tags
+already published, and pushing a `v*` tag publishes one under that tag.
 
 ### Publishing ###
 

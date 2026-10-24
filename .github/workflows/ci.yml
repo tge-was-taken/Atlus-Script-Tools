@@ -26,8 +26,8 @@ jobs:
 
       - run: dotnet test Source/AtlusScriptLibraryTests/AtlusScriptLibraryTests.csproj -c Release --no-build
 
-  # A master build is released as the next patch version, continuing the numbering the AppVeyor
-  # builds used, with the commit it was built from. Other branches get artifacts but no tag.
+  # A master build is released as the next 1.1 patch version, with the commit it was built from.
+  # Other branches get artifacts but no tag.
   version:
     needs: build
     if: github.event_name != 'pull_request'
@@ -44,10 +44,10 @@ jobs:
         shell: bash
         run: |
           set -eu
-          patch=$(git tag --list 'v1.0.*' '1.0.*' \
-            | sed -nE 's/^v?1\.0\.([0-9]+).*$/\1/p' | sort -n | tail -1)
+          patch=$(git tag --list 'v1.1.*' '1.1.*' \
+            | sed -nE 's/^v?1\.1\.([0-9]+).*$/\1/p' | sort -n | tail -1)
           if [ -z "$patch" ]; then patch=-1; fi
-          echo "tag=v1.0.$((patch + 1))-$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+          echo "tag=v1.1.$((patch + 1))-$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
 
   # Downloadable per commit builds for every platform, as the AppVeyor builds used to be.
   binaries:
