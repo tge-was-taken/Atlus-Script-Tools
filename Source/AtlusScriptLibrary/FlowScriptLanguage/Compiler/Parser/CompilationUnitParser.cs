@@ -1,4 +1,4 @@
-﻿using Antlr4.Runtime;
+using Antlr4.Runtime;
 using Antlr4.Runtime.Misc;
 using Antlr4.Runtime.Tree;
 using AtlusScriptLibrary.Common.Logging;
@@ -160,7 +160,10 @@ public class CompilationUnitParser
         {
             LogContextInfo(context);
 
-            var name = context.StringLiteral().Symbol.Text.Trim('"');
+            if (!TryGet(context, "Expected pragma name", context.StringLiteral, out var nameNode))
+                return false;
+
+            var name = nameNode.Symbol.Text.Trim('"');
             long? value = null;
             if (context.IntLiteral() != null)
             {
@@ -1551,6 +1554,12 @@ public class CompilationUnitParser
             LogError(node.Symbol, "Invalid float value");
             return false;
         }
+
+        // Framework versions before .NET Core 3.0 parse "-0.0" as a positive zero, so restore the
+        // sign the text asked for when the parse dropped it.
+        if (value == 0 && BitConverter.DoubleToInt64Bits(value) >= 0 &&
+            floatString.TrimStart().StartsWith("-", StringComparison.Ordinal))
+            value = -value;
 
         literal.Value = value;
 
