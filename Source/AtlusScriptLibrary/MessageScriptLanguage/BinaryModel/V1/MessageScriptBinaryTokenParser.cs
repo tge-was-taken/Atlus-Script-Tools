@@ -181,11 +181,12 @@ public static class MessageScriptBinaryTokenParser
                         charBytes[0] = high;
                         charBytes[1] = low;
 
-                        // Check if it's an unmapped character -> make it a code point
+                        // Keep the character only if the bytes survive a decode and encode
+                        // round trip; charsets alias several byte pairs onto one character.
                         var chars = encoding.GetChars(charBytes);
                         Trace.Assert(chars.Length > 0);
 
-                        if (chars[0] == 0)
+                        if (chars[0] == 0 || !EncodesBackTo(encoding, chars, high, low))
                         {
                             AddToken(new CodePointToken(high, low));
                         }
@@ -212,6 +213,21 @@ public static class MessageScriptBinaryTokenParser
         FlushStringBuilder();
 
         return tokens;
+    }
+
+    private static bool EncodesBackTo(Encoding encoding, char[] chars, byte high, byte low)
+    {
+        byte[] encoded;
+        try
+        {
+            encoded = encoding.GetBytes(chars);
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+
+        return encoded.Length == 2 && encoded[0] == high && encoded[1] == low;
     }
 
 }

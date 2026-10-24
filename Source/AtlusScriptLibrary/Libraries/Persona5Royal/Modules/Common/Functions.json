@@ -1,7 +1,7 @@
-[
+﻿[
   {
     "Index": "0x0000",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "SYNC",
     "Description": "",
     "Parameters": [],
@@ -65,7 +65,7 @@
   },
   {
     "Index": "0x0005",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "MSG",
     "Description": "",
     "Parameters": [
@@ -674,7 +674,7 @@
   },
   {
     "Index": "0x002d",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "CAMERA_FREE",
     "Description": "",
     "Parameters": [
@@ -3588,7 +3588,7 @@
   },
   {
     "Index": "0x00e4",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "KTAI_MENU_START",
     "Description": "",
     "Parameters": [],
@@ -5445,7 +5445,7 @@
   },
   {
     "Index": "0x0158",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "CAMERA_SET_RESRC",
     "Description": "",
     "Parameters": [
@@ -5546,7 +5546,7 @@
   },
   {
     "Index": "0x015e",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "MDL_ANIM_UNLINK_SE",
     "Description": "",
     "Parameters": [
@@ -5622,7 +5622,7 @@
   },
   {
     "Index": "0x0162",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "GOOD_GAUGE_END",
     "Description": "",
     "Parameters": [],
@@ -5654,7 +5654,7 @@
   },
   {
     "Index": "0x0166",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "SET_ITEM_SELECT",
     "Description": "",
     "Parameters": [
@@ -5797,7 +5797,7 @@
   },
   {
     "Index": "0x016d",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "CLEAR_INHERIT_DATA",
     "Description": "",
     "Parameters": [],
@@ -6316,7 +6316,7 @@
   },
   {
     "Index": "0x0193",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "SEL_HERO_MASK",
     "Description": "",
     "Parameters": [
@@ -6427,7 +6427,7 @@
   },
   {
     "Index": "0x019b",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "SET_SYS_SCRIPT_FLAG",
     "Description": "",
     "Parameters": [

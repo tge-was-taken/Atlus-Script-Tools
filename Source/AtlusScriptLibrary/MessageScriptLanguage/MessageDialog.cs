@@ -25,6 +25,18 @@ public sealed class MessageDialog : IDialog
     /// </summary>
     public List<TokenText> Pages { get; }
 
+    /// <summary>
+    /// Gets or sets whether the text buffer leaves out the terminator that normally follows the
+    /// last page. Some files end the buffer at the last token instead.
+    /// </summary>
+    public bool OmitTrailingTerminator { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether a speaker name holding function tokens reuses an existing speaker
+    /// table entry. Those names normally get an entry of their own outside little endian V1.
+    /// </summary>
+    public bool ShareSpeakerName { get; set; }
+
     List<TokenText> IDialog.Lines => Pages;
 
     /// <summary>

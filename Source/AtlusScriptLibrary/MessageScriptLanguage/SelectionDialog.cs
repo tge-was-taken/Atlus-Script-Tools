@@ -24,6 +24,12 @@ public sealed class SelectionDialog : IDialog
     /// </summary>
     public List<TokenText> Options { get; }
 
+    /// <summary>
+    /// Gets or sets whether the text buffer leaves out the terminator that normally follows the
+    /// last option's own terminator. A few files store only one.
+    /// </summary>
+    public bool OmitTrailingTerminator { get; set; }
+
     List<TokenText> IDialog.Lines => Options;
 
     /// <summary>

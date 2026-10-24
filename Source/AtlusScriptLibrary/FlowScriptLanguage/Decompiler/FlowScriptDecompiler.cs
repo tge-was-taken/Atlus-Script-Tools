@@ -30,6 +30,7 @@ public class FlowScriptDecompiler
     private Dictionary<Statement, int> mStatementInstructionIndexLookup;
     private Dictionary<int, List<EvaluatedStatement>> mIfStatementBodyMap;
     private Dictionary<int, List<EvaluatedStatement>> mIfStatementElseBodyMap;
+    private HashSet<int> mElseBodiesWithOwnEndJump;
     private bool mKeepLabelsAndGotos => GotoOnly;
     private bool mConvertIfStatementsToGotos => GotoOnly;
 
@@ -68,6 +69,11 @@ public class FlowScriptDecompiler
     /// Do not try to recover any control flow, generate goto's only.
     /// </summary>
     public bool GotoOnly { get; set; }
+
+    /// <summary>
+    /// Keeps constructs the original compiler emits verbatim instead of simplifying them.
+    /// </summary>
+    public bool Matching { get; set; }
 
     /// <summary>
     /// Toggle whether to omit unused functions from message script decompilation output.
@@ -115,9 +121,6 @@ public class FlowScriptDecompiler
 
         if (flowScript.MessageScript != null)
         {
-            // Disambiguate message script dialog names so that the decompilation won't fail
-            DisambiguateMessageScriptDialogNames(flowScript.MessageScript);
-
             if (DecompileMessageScript)
             {
                 // Decompile embedded message script
@@ -177,6 +180,7 @@ public class FlowScriptDecompiler
         var evaluator = new Evaluator();
         evaluator.Library = Library;
         evaluator.StrictMode = StrictMode;
+        evaluator.Matching = Matching;
         evaluator.AddListener(new LoggerPassthroughListener(mLogger));
         if (!evaluator.TryEvaluateScript(flowScript, out evaluationResult))
         {
@@ -209,6 +213,8 @@ public class FlowScriptDecompiler
         // Build function declarations and add them to AST
         //BuildFunctionDeclarationSyntaxNodes();
 
+        BuildMatchingMetadataDeclarationSyntaxNodes();
+
         // Build script-local variable declarations and add them to AST
         BuildScriptLocalVariableDeclarationSyntaxNodes();
 
@@ -228,6 +234,23 @@ public class FlowScriptDecompiler
     {
         foreach (var functionDeclaration in mEvaluatedScript.Functions)
             mCompilationUnit.Declarations.Add(functionDeclaration);
+    }
+
+    private void BuildMatchingMetadataDeclarationSyntaxNodes()
+    {
+        if (!Matching)
+            return;
+
+        var flowScript = mEvaluatedScript.FlowScript;
+        var layout = new BinaryLayout
+        {
+            OmitEmptyStringSection = flowScript.OmitStringSection,
+            MessageScriptVersion0 = flowScript.MessageScript?.Version0 ?? false,
+            Version = flowScript.FormatVersion,
+            MessageScriptVersion = flowScript.MessageScript?.FormatVersion
+        };
+
+        mCompilationUnit.BinaryLayout = layout.IsEmpty ? null : layout;
     }
 
     private void BuildScriptLocalVariableDeclarationSyntaxNodes()
@@ -305,6 +328,7 @@ public class FlowScriptDecompiler
 
         mIfStatementBodyMap = new Dictionary<int, List<EvaluatedStatement>>();
         mIfStatementElseBodyMap = new Dictionary<int, List<EvaluatedStatement>>();
+        mElseBodiesWithOwnEndJump = new HashSet<int>();
     }
 
     private bool TryCompositeEvaluatedInstructions(List<EvaluatedStatement> evaluatedStatements, out List<Statement> statements)
@@ -459,6 +483,8 @@ public class FlowScriptDecompiler
 
     private void ReplaceUnnamedMessageScriptConstants()
     {
+        var dialogIdentifiers = mEvaluatedScript.FlowScript.MessageScript.GetDialogIdentifiers();
+
         foreach (var evaluatedStatement in mEvaluatedStatements)
         {
             var calls = SyntaxNodeCollector<CallOperator>.Collect(evaluatedStatement.Statement);
@@ -499,30 +525,9 @@ public class FlowScriptDecompiler
                         // rewrite expression to be a reference to the dialog name
                         arg.Expression = new Identifier(
                             ValueKind.Int,
-                            mEvaluatedScript.FlowScript.MessageScript.Dialogs[(int)dialogIndex.Value].Name);
+                            dialogIdentifiers[(int)dialogIndex.Value]);
                     }
                 }
-            }
-        }
-    }
-
-    private void DisambiguateMessageScriptDialogNames(MessageScript script)
-    {
-        var usedNames = new Dictionary<string, int>();
-        for (int i = 0; i < script.Dialogs.Count; i++)
-        {
-            var dialog = script.Dialogs[i];
-            if (usedNames.TryGetValue(dialog.Name, out var occurences))
-            {
-                // Name already used, disambiguate it by appending a number (starting with 2).
-                // DuplicateName2, DuplicateName3...
-                usedNames[dialog.Name] = ++occurences;
-                dialog.Name += occurences;
-            }
-            else
-            {
-                // Name previously unused. Initialize occurence counter to 1.
-                usedNames[dialog.Name] = 1;
             }
         }
     }
@@ -774,6 +779,10 @@ public class FlowScriptDecompiler
                                  elseBodyGotoStatement.InstructionIndex + 1)
                             {
                                 elseBodyEvaluatedStatements.Remove(elseBodyGotoStatement);
+
+                                // The else body jumped to the end itself, so it was a braced block
+                                // rather than an 'else if' sharing the outer end label.
+                                mElseBodiesWithOwnEndJump.Add(evaluatedIfStatement.InstructionIndex);
                             }
                         }
                     }
@@ -1064,7 +1073,10 @@ public class FlowScriptDecompiler
     {
         foreach (var evaluatedStatement in mEvaluatedStatements.Where(x => x.Statement is GotoStatement).ToList())
         {
-            if (evaluatedStatement.ReferencedLabel.InstructionIndex == evaluatedStatement.InstructionIndex + 1)
+            // A jump to the next instruction over a named label was written that way, unlike one over a
+            // generated label, which the branch structure produces again on its own.
+            if (evaluatedStatement.ReferencedLabel.InstructionIndex == evaluatedStatement.InstructionIndex + 1 &&
+                !KeepUnreferencedLabel(evaluatedStatement.ReferencedLabel))
                 mEvaluatedStatements.Remove(evaluatedStatement);
         }
 
@@ -1091,7 +1103,9 @@ public class FlowScriptDecompiler
     {
         foreach (var evaluatedStatement in mEvaluatedStatements.Where(x => x.Statement is LabelDeclaration).ToList())
         {
-            if (!IsLabelReferenced(evaluatedStatement.ReferencedLabel))
+            if (!IsLabelReferenced(evaluatedStatement.ReferencedLabel) &&
+                !KeepUnreferencedLabel(evaluatedStatement.ReferencedLabel) &&
+                !KeepLoopIfEndLabel(evaluatedStatement.ReferencedLabel))
                 mEvaluatedStatements.Remove(evaluatedStatement);
         }
 
@@ -1099,7 +1113,9 @@ public class FlowScriptDecompiler
         {
             foreach (var evaluatedStatement in body.Where(x => x.Statement is LabelDeclaration).ToList())
             {
-                if (!IsLabelReferenced(evaluatedStatement.ReferencedLabel))
+                if (!IsLabelReferenced(evaluatedStatement.ReferencedLabel) &&
+                    !KeepUnreferencedLabel(evaluatedStatement.ReferencedLabel) &&
+                    !KeepLoopIfEndLabel(evaluatedStatement.ReferencedLabel))
                     body.Remove(evaluatedStatement);
             }
         }
@@ -1108,10 +1124,81 @@ public class FlowScriptDecompiler
         {
             foreach (var evaluatedStatement in body.Where(x => x.Statement is LabelDeclaration).ToList())
             {
-                if (!IsLabelReferenced(evaluatedStatement.ReferencedLabel))
+                if (!IsLabelReferenced(evaluatedStatement.ReferencedLabel) &&
+                    !KeepUnreferencedLabel(evaluatedStatement.ReferencedLabel) &&
+                    !KeepLoopIfEndLabel(evaluatedStatement.ReferencedLabel))
                     body.Remove(evaluatedStatement);
             }
+
+            MoveLoopIfEndLabelsFirst(body);
         }
+
+        MoveLoopIfEndLabelsFirst(mEvaluatedStatements);
+        foreach (var body in mIfStatementBodyMap.Values)
+            MoveLoopIfEndLabelsFirst(body);
+    }
+
+    // The label section lists the end label of the if before the label the compiler reuses for it,
+    // so the kept one has to come first. Moving it stays inside its own block.
+    private void MoveLoopIfEndLabelsFirst(List<EvaluatedStatement> statements)
+    {
+        for (int i = 1; i < statements.Count; i++)
+        {
+            if (!(statements[i].Statement is LabelDeclaration) ||
+                !KeepLoopIfEndLabel(statements[i].ReferencedLabel))
+                continue;
+
+            int first = i;
+            while (first > 0 && statements[first - 1].Statement is LabelDeclaration &&
+                   statements[first - 1].InstructionIndex == statements[i].InstructionIndex)
+                first--;
+
+            if (first == i)
+                continue;
+
+            var kept = statements[i];
+            statements.RemoveAt(i);
+            statements.Insert(first, kept);
+        }
+    }
+
+    // The compiler reuses the generated label that follows an if with no else whose body ends in a
+    // backward goto as the if's end label instead of emitting one. With two generated labels at that
+    // instruction, dropping this unreferenced one leaves the label section a label short.
+    private bool KeepLoopIfEndLabel(Label label)
+    {
+        if (label == null ||
+            mEvaluatedProcedure.Procedure.Labels.Count(
+                x => x.InstructionIndex == label.InstructionIndex && !KeepUnreferencedLabel(x)) < 2)
+            return false;
+
+        var statements = mEvaluatedStatements
+            .Concat(mIfStatementBodyMap.Values.SelectMany(x => x))
+            .Concat(mIfStatementElseBodyMap.Values.SelectMany(x => x));
+
+        foreach (var evaluatedStatement in statements)
+        {
+            if (!(evaluatedStatement.Statement is IfStatement) || evaluatedStatement.ReferencedLabel != label ||
+                mIfStatementElseBodyMap.ContainsKey(evaluatedStatement.InstructionIndex) ||
+                !mIfStatementBodyMap.TryGetValue(evaluatedStatement.InstructionIndex, out var body))
+                continue;
+
+            var last = body.LastOrDefault();
+            if (last != null && last.Statement is GotoStatement &&
+                last.ReferencedLabel.InstructionIndex < last.InstructionIndex)
+                return true;
+        }
+
+        return false;
+    }
+
+    // A label named _N was generated by the original compiler. Any other name came from the
+    // original source, so it has to survive even with no references for the output to match.
+    private bool KeepUnreferencedLabel(Label label)
+    {
+        var name = label?.Name;
+        return name != null &&
+               !(name.Length > 1 && name[0] == '_' && name.Skip(1).All(char.IsDigit));
     }
 
     private bool IsLabelReferenced(Label label)
@@ -1171,7 +1258,10 @@ public class FlowScriptDecompiler
             ifStatement.Body = new CompoundStatement(body.Select(x => x.Statement).ToList());
 
             if (mIfStatementElseBodyMap.TryGetValue(evaluatedStatement.InstructionIndex, out var elseBody))
+            {
                 ifStatement.ElseBody = new CompoundStatement(elseBody.Select(x => x.Statement).ToList());
+                ifStatement.ElseIfChain = !mElseBodiesWithOwnEndJump.Contains(evaluatedStatement.InstructionIndex);
+            }
         }
     }
 

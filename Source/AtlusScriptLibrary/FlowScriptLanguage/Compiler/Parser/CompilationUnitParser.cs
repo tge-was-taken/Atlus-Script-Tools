@@ -1,4 +1,5 @@
-﻿using Antlr4.Runtime;
+using Antlr4.Runtime;
+using Antlr4.Runtime.Misc;
 using Antlr4.Runtime.Tree;
 using AtlusScriptLibrary.Common.Logging;
 using AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser.Grammar;
@@ -127,6 +128,16 @@ public class CompilationUnitParser
             compilationUnit.Imports = imports;
         }
 
+        if (TryGet(context, context.pragmaStatement, out var pragmaContexts))
+        {
+            BinaryLayout layout = null;
+            if (!TryFunc(context, "Failed to parse pragmas",
+                         () => TryParsePragmas(pragmaContexts, out layout)))
+                return false;
+
+            compilationUnit.BinaryLayout = layout;
+        }
+
         // Parse declarations
         List<Declaration> statements = null;
         if (!TryFunc(context, "Failed to parse statement(s)", () => TryParseDeclarationStatements(context.declarationStatement(), out statements)))
@@ -141,6 +152,37 @@ public class CompilationUnitParser
     //
     // Imports
     //
+    private bool TryParsePragmas(FlowScriptParser.PragmaStatementContext[] contexts, out BinaryLayout layout)
+    {
+        layout = new BinaryLayout();
+
+        foreach (var context in contexts)
+        {
+            LogContextInfo(context);
+
+            if (!TryGet(context, "Expected pragma name", context.StringLiteral, out var nameNode))
+                return false;
+
+            var name = nameNode.Symbol.Text.Trim('"');
+            long? value = null;
+            if (context.IntLiteral() != null)
+            {
+                if (!TryParseIntLiteral(context.IntLiteral(), out var parsed))
+                    return false;
+
+                value = parsed.Value;
+            }
+
+            if (!layout.TrySetOption(name, value))
+            {
+                LogError(context, $"Unknown pragma: '{name}'");
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     private bool TryParseImports(FlowScriptParser.ImportStatementContext[] contexts, out List<Import> imports)
     {
         LogTrace("Start parsing import statements");
@@ -1513,6 +1555,12 @@ public class CompilationUnitParser
             return false;
         }
 
+        // Framework versions before .NET Core 3.0 parse "-0.0" as a positive zero, so restore the
+        // sign the text asked for when the parse dropped it.
+        if (value == 0 && BitConverter.DoubleToInt64Bits(value) >= 0 &&
+            floatString.TrimStart().StartsWith("-", StringComparison.Ordinal))
+            value = -value;
+
         literal.Value = value;
 
         return true;
@@ -1728,11 +1776,19 @@ public class CompilationUnitParser
                 if (body is CompoundStatement)
                 {
                     ifStatement.ElseBody = (CompoundStatement)body;
+                    // A decompiled 'else if' whose condition left values on the stack comes out as
+                    // a block of __push calls followed by the if, and is still a chain.
+                    var elseStatements = ifStatement.ElseBody.Statements;
+                    ifStatement.ElseIfChain = elseStatements.Count > 1 &&
+                        elseStatements[elseStatements.Count - 1] is IfStatement &&
+                        elseStatements.GetRange(0, elseStatements.Count - 1).TrueForAll(
+                            x => x is CallOperator call && call.Identifier.Text == "__push");
                 }
                 else
                 {
                     ifStatement.ElseBody = CreateAstNode<CompoundStatement>(elseBodyContext);
                     ifStatement.ElseBody.Statements.Add(body);
+                    ifStatement.ElseIfChain = body is IfStatement;
                 }
             }
         }

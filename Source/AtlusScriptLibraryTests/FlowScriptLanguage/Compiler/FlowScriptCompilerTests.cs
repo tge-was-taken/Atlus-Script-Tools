@@ -121,10 +121,14 @@ void bar(int p0, int p1, int p2)
                 Instruction.END(),
 
                 Instruction.PROC(1),
-                // parameter passing
+                // parameter passing, the return address saved around each pop
                 Instruction.POPREG(),  // -ra
                 Instruction.POPLIX(0), // -p0
+                Instruction.PUSHREG(), // +ra
+                Instruction.POPREG(),  // -ra
                 Instruction.POPLIX(1), // -p1
+                Instruction.PUSHREG(), // +ra
+                Instruction.POPREG(),  // -ra
                 Instruction.POPLIX(2), // -p2
                 Instruction.PUSHREG(), // +ra
                 Instruction.PUSHLIX(2), // +p2
@@ -168,11 +172,13 @@ int test()
     return 1;
 }";
 
+            // The second END is the one the original compiler adds after an explicit return.
             RunTest(source, FormatVersion.Version3BigEndian, "p5", new[]
             {
                 Instruction.PROC(0),
                 Instruction.PUSHIS(1),
                 Instruction.POPLIX(0),
+                Instruction.END(),
                 Instruction.END(),
             });
         }

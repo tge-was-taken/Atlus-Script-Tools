@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "Index": "0x1000",
     "ReturnType": "int",
@@ -354,7 +354,7 @@
   },
   {
     "Index": "0x1017",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "FLD_FUNCTION_0017",
     "Description": "",
     "Parameters": [
@@ -523,7 +523,7 @@
   },
   {
     "Index": "0x1028",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "TRAESTO_VISUAL",
     "Description": "",
     "Parameters": [],
@@ -664,7 +664,7 @@
   },
   {
     "Index": "0x1031",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "FLD_FUNCTION_0031",
     "Description": "",
     "Parameters": [
@@ -880,7 +880,7 @@
   },
   {
     "Index": "0x1047",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "FLD_FUNCTION_0047",
     "Description": "",
     "Parameters": [
@@ -908,7 +908,7 @@
   },
   {
     "Index": "0x1048",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "FLD_FUNCTION_0048",
     "Description": "",
     "Parameters": []

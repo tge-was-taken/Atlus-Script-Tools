@@ -8,11 +8,17 @@ grammar FlowScript;
 
 // Basic constructs
 compilationUnit
-	: importStatement* declarationStatement* EOF
+	: ( importStatement | pragmaStatement )* declarationStatement* EOF
 	;
 
 importStatement
 	: Import '(' StringLiteral ')' ';'
+	;
+
+// Details of the original binary that its bytecode does not imply. 'pragma' is not a keyword, so
+// a script that uses the name for something of its own still compiles.
+pragmaStatement
+	: { _input.Lt(1).Text == "pragma" }? Identifier '(' StringLiteral ( ',' IntLiteral )? ')' ';'
 	;
 
 statement

@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Xml.Linq;
@@ -34,6 +35,15 @@ public class FlowScriptCompiler
     private string mCurrentBaseDirectory;
     private FlowScript mScript;
     private int mNextLabelIndex;
+    private readonly HashSet<string> mUsedLabelNames = new();
+    private bool mLastIfBodyEndedWithJump;
+    private LabelInfo mElseIfEndLabel;
+    private LabelInfo mLoopIfEndLabel;
+    private List<LabelInfo> mElseIfChainElseLabels;
+    private bool mElseIfChainNeedsExtra;
+    private List<string> mStringTable;
+    private List<int> mStringTableIndices;
+    private Dictionary<StringLiteral, int> mReservedStringSlots;
     private Stack<ScopeContext> mScopeStack;
     private ScopeContext mRootScope;
     private VariableInfo mIntReturnValueVariable;
@@ -51,13 +61,17 @@ public class FlowScriptCompiler
     private ushort mNextAiLocalVariableIndex;
     private ushort mNextAiGlobalVariableIndex;
     private ushort mNextCounterVariableIndex;
+    private int mDeclaredLocalIntSlotCount;
+    private int mDeclaredLocalFloatSlotCount;
 
     //
     // procedure state
     //
     private ProcedureDeclaration mProcedureDeclaration;
+    private Dictionary<string, ushort> mParameterLocalIndices = new();
     private List<Instruction> mInstructions;
     private Dictionary<string, LabelInfo> mLabels;
+    private List<LabelInfo> mLabelOrder;
 
     private int mStackValueCount; // for debugging
     private IntrinsicSupport mInstrinsic;
@@ -339,9 +353,68 @@ public class FlowScriptCompiler
             return false;
         }
 
+        mScript.KeepUnreferencedLabels = true;
+        mScript.LocalIntVariableCount = (short)mDeclaredLocalIntSlotCount;
+        mScript.LocalFloatVariableCount = (short)mDeclaredLocalFloatSlotCount;
+
+        if (Matching)
+        {
+            ApplyBinaryLayout(compilationUnit);
+            mScript.StringTable = mStringTable;
+            mScript.StringTableIndices = mStringTableIndices;
+        }
+
         flowScript = mScript;
 
         return true;
+    }
+
+    /// <summary>
+    /// Reads back the binary details the decompiler recorded in the source header.
+    /// </summary>
+    private void ApplyBinaryLayout(CompilationUnit compilationUnit)
+    {
+        var layout = compilationUnit.BinaryLayout;
+        if (layout == null)
+            return;
+
+        if (layout.OmitEmptyStringSection)
+            ApplyOmitEmptyStringSection();
+
+        if (layout.MessageScriptVersion0)
+            ApplyMessageScriptVersion0();
+    }
+
+    private void ApplyOmitEmptyStringSection()
+    {
+        // A PUSHSTR operand indexes the String section, so it is only left out while empty.
+        if (mScript.EnumerateInstructions().Any(x => x.Opcode == Opcode.PUSHSTR))
+        {
+            Warning($"Ignoring pragma '{BinaryLayout.OmitEmptyStringSectionOption}' because the script pushes strings");
+            return;
+        }
+
+        mScript.OmitStringSection = true;
+    }
+
+    private void ApplyMessageScriptVersion0()
+    {
+        var message = mScript.MessageScript;
+        if (message == null)
+        {
+            Warning($"Ignoring pragma '{BinaryLayout.MessageScriptVersionOption}' because the script has no embedded MessageScript");
+            return;
+        }
+
+        // MSG0 is a little endian version 1 layout; nothing else writes that magic.
+        if (!message.FormatVersion.HasFlag(MessageScriptLanguage.FormatVersion.Version1) ||
+            message.FormatVersion.HasFlag(MessageScriptLanguage.FormatVersion.BigEndian))
+        {
+            Warning($"Ignoring pragma '{BinaryLayout.MessageScriptVersionOption}' because the embedded MessageScript is {message.FormatVersion}");
+            return;
+        }
+
+        message.Version0 = true;
     }
 
     //
@@ -350,7 +423,13 @@ public class FlowScriptCompiler
     private void InitializeCompilationState()
     {
         mScript = new FlowScript(mFormatVersion);
+        mDeclaredLocalIntSlotCount = 0;
+        mDeclaredLocalFloatSlotCount = 0;
+        mStringTable = new List<string>();
+        mStringTableIndices = new List<int>();
+        mReservedStringSlots = new Dictionary<StringLiteral, int>(new ReferenceComparer<StringLiteral>());
         mNextLabelIndex = 0;
+        mUsedLabelNames.Clear();
 
         // Set up scope stack
         mScopeStack = new Stack<ScopeContext>();
@@ -437,6 +516,8 @@ public class FlowScriptCompiler
             return false;
 
         AddMissingProcedures(compilationUnit);
+
+        ReserveSourceLabelNames(compilationUnit);
 
         if (ProcedureHookMode == ProcedureHookMode.ImportedOnly)
         {
@@ -1063,15 +1144,30 @@ public class FlowScriptCompiler
 
     private MessageScriptLanguage.FormatVersion GetMessageScriptFormatVersion()
     {
+        // The FlowScript version does not imply the embedded MessageScript version: V1 and its DDS
+        // variant look the same, and a V1 FlowScript can embed a BM2. The library says which one.
+        var libraryVersion = Library?.MessageScriptFormatVersion ?? MessageScriptLanguage.FormatVersion.Detect;
+        if (libraryVersion != MessageScriptLanguage.FormatVersion.Detect)
+        {
+            // A BM2 follows the endianness of the FlowScript it is embedded in, which is not always
+            // the one the library names: Catherine ships a little endian flow among big endian ones.
+            if (libraryVersion is MessageScriptLanguage.FormatVersion.Version2 or MessageScriptLanguage.FormatVersion.Version2BigEndian)
+                return mFormatVersion.HasFlag(FormatVersion.BigEndian) ? MessageScriptLanguage.FormatVersion.Version2BigEndian : MessageScriptLanguage.FormatVersion.Version2;
+
+            return libraryVersion;
+        }
+
         switch (mFormatVersion)
         {
             case FormatVersion.Version1:
             case FormatVersion.Version2:
             case FormatVersion.Version3:
+            case FormatVersion.Version4:
                 return MessageScriptLanguage.FormatVersion.Version1;
             case FormatVersion.Version1BigEndian:
             case FormatVersion.Version2BigEndian:
             case FormatVersion.Version3BigEndian:
+            case FormatVersion.Version4BigEndian:
                 return MessageScriptLanguage.FormatVersion.Version1BigEndian;
         }
 
@@ -1084,6 +1180,7 @@ public class FlowScriptCompiler
         if (mScript.MessageScript != null)
         {
             Info("Inserting MessageScript window identifier constants");
+            var dialogNameOccurences = new Dictionary<string, int>();
             for (int i = 0; i < mScript.MessageScript.Dialogs.Count; i++)
             {
                 var dialog = mScript.MessageScript.Dialogs[i];
@@ -1101,17 +1198,20 @@ public class FlowScriptCompiler
                     }
                 }
 
+                // Dialogs may share a name, so the repeats get a suffix, as MessageScript identifiers do.
+                var identifier = MessageScript.ResolveName(dialogNameOccurences, dialog.Name);
+
                 var declaration = new VariableDeclaration
                 (
                     new VariableModifier(VariableModifierKind.Constant),
                     new TypeIdentifier(ValueKind.Int),
-                    new Identifier(ValueKind.Int, dialog.Name),
+                    new Identifier(ValueKind.Int, identifier),
                     new UIntLiteral((uint)i)
                 );
 
                 if (!Scope.TryDeclareVariable(declaration))
                 {
-                    Error(declaration, $"Compiler generated constant for MessageScript dialog {dialog.Name} conflicts with another variable");
+                    Error(declaration, $"Compiler generated constant for MessageScript dialog {identifier} conflicts with another variable");
                 }
                 else
                 {
@@ -1331,6 +1431,7 @@ public class FlowScriptCompiler
         mProcedureDeclaration = declaration;
         mInstructions = new List<Instruction>();
         mLabels = new Dictionary<string, LabelInfo>();
+        mLabelOrder = new List<LabelInfo>();
         mStackValueCount = 1;
     }
 
@@ -1380,6 +1481,8 @@ public class FlowScriptCompiler
             return false;
         }
 
+        mParameterLocalIndices = TakeParameterLocalCopies(declaration);
+
         // Emit procedure parameters
         if (declaration.Parameters.Count > 0)
         {
@@ -1398,6 +1501,8 @@ public class FlowScriptCompiler
         }
 
         ReturnStatement finalReturnStatement = new ReturnStatement();
+        var hasExplicitFinalReturn = declaration.Body.Statements.Count != 0 &&
+                                     declaration.Body.Statements.Last() is ReturnStatement;
 
         var hasOutParameters = declaration.Parameters
             .Where(x => x.Modifier == ParameterModifier.Out)
@@ -1459,15 +1564,72 @@ public class FlowScriptCompiler
             return false;
         }
 
+        // The original compiler closes a procedure with an END of its own, on top of the one
+        // emitted for an explicit final return statement.
+        if (Matching && hasExplicitFinalReturn && (Library?.EmitTrailingEnd ?? true))
+            Emit(Instruction.END());
+
         PopScope();
 
         return true;
     }
 
+    /// <summary>
+    /// The original compiler keeps a parameter in the local variable the script declares for it, so a
+    /// leading copy of a parameter into an indexed local means the two are one variable. Returns the
+    /// index each parameter should use and removes the copies from the body.
+    /// </summary>
+    private Dictionary<string, ushort> TakeParameterLocalCopies(ProcedureDeclaration declaration)
+    {
+        var indices = new Dictionary<string, ushort>();
+        if (!Matching || !(Library?.UsePOPREG ?? false) || declaration.Parameters.Count == 0)
+            return indices;
+
+        var locals = new Dictionary<string, VariableDeclaration>();
+        var copies = new List<Statement>();
+
+        foreach (var statement in declaration.Body.Statements)
+        {
+            if (statement is VariableDeclaration local)
+            {
+                if (local.Modifier?.Kind == VariableModifierKind.Local && local.Modifier.Index != null &&
+                    local.Initializer == null && !local.IsArray)
+                    locals[local.Identifier.Text] = local;
+                continue;
+            }
+
+            if (!(statement is AssignmentOperator assignment) ||
+                !(assignment.Left is Identifier left) ||
+                !(assignment.Right is Identifier right) ||
+                !locals.TryGetValue(left.Text, out local))
+                break;
+
+            var parameter = declaration.Parameters.FirstOrDefault(x => x.Identifier.Text == right.Text);
+            if (parameter == null || parameter.Modifier == ParameterModifier.Out || parameter.IsArray ||
+                indices.ContainsKey(parameter.Identifier.Text) ||
+                parameter.Type.ValueKind != local.Type.ValueKind)
+                break;
+
+            indices[parameter.Identifier.Text] = (ushort)local.Modifier.Index.Value;
+            copies.Add(statement);
+        }
+
+        foreach (var copy in copies)
+            declaration.Body.Statements.Remove(copy);
+
+        return indices;
+    }
+
     private bool TryEmitProcedureParametersPOPREG(List<Parameter> parameters, ref int intArgumentCount, ref int floatArgumentCount)
     {
+        // The original compiler saves and restores the return address around every single pop,
+        // instead of once around all of them.
+        var saveAroundEachValue = Matching;
+
         // Save return address so we can pop the arguments off the stack.
-        Emit(Instruction.POPREG());
+        if (!saveAroundEachValue)
+            Emit(Instruction.POPREG());
+
         foreach (var parameter in parameters)
         {
             Trace(parameter, $"Emitting parameter: {parameter}");
@@ -1479,7 +1641,10 @@ public class FlowScriptCompiler
             if (!parameter.IsArray)
             {
                 declaration = new VariableDeclaration(
-                    new VariableModifier(VariableModifierKind.Local),
+                    new VariableModifier(VariableModifierKind.Local,
+                        mParameterLocalIndices.TryGetValue(parameter.Identifier.Text, out var localIndex)
+                            ? new UIntLiteral(localIndex)
+                            : null),
                     parameter.Type,
                     parameter.Identifier,
                     null);
@@ -1518,14 +1683,23 @@ public class FlowScriptCompiler
                 }
                 else
                 {
+                    if (saveAroundEachValue)
+                        Emit(Instruction.POPREG());
+
                     // Assign parameter with argument value
                     if (!TryEmitVariableAssignment(declaration, (ushort)(index + i)))
                         return false;
+
+                    if (saveAroundEachValue)
+                        Emit(Instruction.PUSHREG());
                 }
             }
         }
+
         // Restore return address
-        Emit(Instruction.PUSHREG());
+        if (!saveAroundEachValue)
+            Emit(Instruction.PUSHREG());
+
         return true;
     }
 
@@ -1668,6 +1842,17 @@ public class FlowScriptCompiler
     private bool TryResolveProcedureLabels(out List<FlowScriptLanguage.Label> labels)
     {
         Trace("Resolving labels in procedure");
+        if (Matching)
+        {
+            // Label numbering leaves holes behind, drop those before checking for resolution.
+            var referenced = FindFirstLabelReferences();
+            foreach (var name in mLabels.Where(x => !x.Value.IsResolved && !referenced.ContainsKey(x.Value.Index))
+                                        .Select(x => x.Key).ToList())
+            {
+                mLabels.Remove(name);
+            }
+        }
+
         if (mLabels.Values.Any(x => !x.IsResolved))
         {
             foreach (var item in mLabels.Values.Where(x => !x.IsResolved))
@@ -1678,11 +1863,43 @@ public class FlowScriptCompiler
             return false;
         }
 
-        labels = mLabels.Values
+        List<LabelInfo> ordered;
+        if (Matching)
+        {
+            ordered = OrderLabelsLikeOriginal();
+        }
+        else
+        {
+            var referenced = FindFirstLabelReferences();
+            bool Keep(LabelInfo label) => referenced.ContainsKey(label.Index) || label.IsSourceLabel;
+
+            ordered = mLabelOrder.Where(x => mLabels.ContainsValue(x) && Keep(x)).ToList();
+            foreach (var label in mLabels.Values)
+            {
+                if (Keep(label) && !ordered.Contains(label))
+                    ordered.Add(label);
+            }
+        }
+
+        var indexRemap = new Dictionary<ushort, ushort>();
+        for (int i = 0; i < ordered.Count; i++)
+            indexRemap[ordered[i].Index] = (ushort)i;
+
+        for (int i = 0; i < mInstructions.Count; i++)
+        {
+            var instruction = mInstructions[i];
+            if (instruction.Opcode == Opcode.GOTO)
+                mInstructions[i] = Instruction.GOTO(indexRemap[instruction.Operand.UInt16Value]);
+            else if (instruction.Opcode == Opcode.IF)
+                mInstructions[i] = Instruction.IF(indexRemap[instruction.Operand.UInt16Value]);
+        }
+
+        labels = ordered
             .Select(x => new FlowScriptLanguage.Label(x.Name, x.InstructionIndex))
             .ToList();
 
         mLabels.Clear();
+        mLabelOrder.Clear();
         return true;
     }
 
@@ -1691,13 +1908,33 @@ public class FlowScriptCompiler
     //
     private bool TryEmitStatements(IEnumerable<Statement> statements)
     {
-        foreach (var statement in statements)
+        var list = statements as IList<Statement> ?? statements.ToList();
+        for (int i = 0; i < list.Count; i++)
         {
-            if (!TryEmitStatement(statement))
+            if (Matching && i + 1 < list.Count)
+                mLoopIfEndLabel = FindLoopIfEndLabel(list[i], list[i + 1]);
+
+            if (!TryEmitStatement(list[i]))
                 return false;
+
+            mLoopIfEndLabel = null;
         }
 
         return true;
+    }
+
+    // The decompiler turns a loop into an if whose body ends in a backward goto, followed by the
+    // loop end label. The original compiler used that label as the if's end label.
+    private LabelInfo FindLoopIfEndLabel(Statement statement, Statement next)
+    {
+        if (!(statement is IfStatement ifStatement) || ifStatement.ElseBody != null ||
+            !(next is LabelDeclaration labelDeclaration) ||
+            !HasGeneratedLabelName(labelDeclaration.Identifier.Text) ||
+            !EndsWithLoopGoto(ifStatement.Body))
+            return null;
+
+        return mLabels.TryGetValue(labelDeclaration.Identifier.Text, out var label) &&
+               !label.IsResolved ? label : null;
     }
 
     private bool TryEmitCompoundStatement(CompoundStatement compoundStatement)
@@ -1962,7 +2199,23 @@ public class FlowScriptCompiler
             return false;
         }
 
+        RecordDeclaredLocalSlots(declaration, index, size);
+
         return true;
+    }
+
+    // The original compiler sizes the local slot arrays by what the script declares, so a local
+    // that is declared but never referenced still takes up a slot.
+    private void RecordDeclaredLocalSlots(VariableDeclaration declaration, ushort index, ushort size)
+    {
+        if (declaration.Modifier != null && declaration.Modifier.Kind != VariableModifierKind.Local)
+            return;
+
+        var slotCount = index + size;
+        if (declaration.Type.ValueKind == ValueKind.Float)
+            mDeclaredLocalFloatSlotCount = Math.Max(mDeclaredLocalFloatSlotCount, slotCount);
+        else
+            mDeclaredLocalIntSlotCount = Math.Max(mDeclaredLocalIntSlotCount, slotCount);
     }
 
     private bool TryEmitVariableDeclaration(VariableDeclaration declaration, out ushort index)
@@ -2221,9 +2474,32 @@ public class FlowScriptCompiler
         return true;
     }
 
+    // The interpreter pops a fixed count per command, so a script can push a value for a later
+    // command to pop. That push is written as __push(value).
+    private const string PushIntrinsicName = "__push";
+    private const string UnknownFunctionPrefix = "UNKNOWN_FUNCTION_";
+
+    private bool TryEmitPushIntrinsic(CallOperator callExpression)
+    {
+        if (callExpression.Arguments.Count != 1)
+        {
+            Error(callExpression, $"'{PushIntrinsicName}' takes one value");
+            return false;
+        }
+
+        return TryEmitExpression(callExpression.Arguments[0].Expression, false);
+    }
+
     private bool TryEmitCall(CallOperator callExpression, bool isStatement)
     {
         Trace(callExpression, $"Emitting call: {callExpression}");
+
+        if (callExpression.Identifier.Text == PushIntrinsicName)
+            return TryEmitPushIntrinsic(callExpression);
+
+        // A script that declares a procedure named like a library function calls its own procedure.
+        if (mRootScope.TryGetProcedure(callExpression.Identifier.Text, out var ownProcedure))
+            return TryEmitProcedureCall(callExpression, isStatement, ownProcedure);
 
         if (mRootScope.TryGetFunction(callExpression.Identifier.Text, out var function))
         {
@@ -2260,8 +2536,16 @@ public class FlowScriptCompiler
                 // Check if function is marked variadic
                 if (libFunc == null || libFunc.Semantic != FlowScriptModuleFunctionSemantic.Variadic)
                 {
-                    Error($"Function '{function.Declaration}' expects {function.Declaration.Parameters.Count} arguments but {callExpression.Arguments.Count} are given");
-                    return false;
+                    // The interpreter pops a fixed count per command, so a script may push a
+                    // value that a later command pops. Such a call carries only its topmost
+                    // arguments and takes the rest off the stack.
+                    if (!Matching || callExpression.Arguments.Count > function.Declaration.Parameters.Count)
+                    {
+                        Error($"Function '{function.Declaration}' expects {function.Declaration.Parameters.Count} arguments but {callExpression.Arguments.Count} are given");
+                        return false;
+                    }
+
+                    Warning(callExpression, $"Function '{function.Declaration}' is given {callExpression.Arguments.Count} of {function.Declaration.Parameters.Count} arguments; the rest come off the stack");
                 }
             }
 
@@ -2274,6 +2558,9 @@ public class FlowScriptCompiler
                     if (semantic != FlowScriptModuleParameterSemantic.MsgId &&
                             semantic != FlowScriptModuleParameterSemantic.SelId)
                         continue;
+
+                    if (i >= callExpression.Arguments.Count)
+                        break;
 
                     var arg = callExpression.Arguments[i];
 
@@ -2376,6 +2663,10 @@ public class FlowScriptCompiler
         {
             // fallthrough
         }
+        else if (TryEmitUnknownFunctionCall(callExpression, isStatement))
+        {
+            // fallthrough
+        }
         else
         {
             Error(callExpression, $"Invalid call expression. Expected function or procedure identifier, got: {callExpression.Identifier}");
@@ -2398,6 +2689,29 @@ public class FlowScriptCompiler
 
         mScript.Procedures[procedure.Index] = compiledProcedure;
         procedure.Compiled = compiledProcedure;
+    }
+
+    // The decompiler names a function the library does not cover after its id, so a script can
+    // round trip without one. Its arguments stay as explicit pushes, since the arity is unknown.
+    private bool TryEmitUnknownFunctionCall(CallOperator callExpression, bool isStatement)
+    {
+        var text = callExpression.Identifier.Text;
+        if (!text.StartsWith(UnknownFunctionPrefix, StringComparison.Ordinal) ||
+            !ushort.TryParse(text.Substring(UnknownFunctionPrefix.Length), out var index))
+            return false;
+
+        if (callExpression.Arguments.Count != 0)
+        {
+            Error(callExpression, $"'{text}' takes no arguments because its parameters are unknown");
+            return false;
+        }
+
+        Emit(Instruction.COMM(index));
+
+        if (!isStatement)
+            Emit(Instruction.PUSHREG());
+
+        return true;
     }
 
     private bool TryEmitIntrinsicCall(CallOperator callExpression, bool isStatement)
@@ -2744,7 +3058,7 @@ public class FlowScriptCompiler
             case "__PUSHSTR":
                 if (callExpression.Arguments.Count == 1 && callExpression.Arguments[0].Expression is StringLiteral pushstrArg)
                 {
-                    Emit(Instruction.PUSHSTR(pushstrArg.Value));
+                    EmitPushString(pushstrArg.Value, pushstrArg);
                 }
                 else
                 {
@@ -2866,6 +3180,9 @@ public class FlowScriptCompiler
     private bool TryEmitFunctionCallArguments(CallOperator callExpression)
     {
         Trace("Emitting function call arguments");
+
+        if (Matching)
+            ReserveStringTableSlots(callExpression);
 
         // Compile expressions backwards so they are pushed to the stack in the right order
         for (int i = callExpression.Arguments.Count - 1; i >= 0; i--)
@@ -3963,7 +4280,47 @@ public class FlowScriptCompiler
     {
         Trace(stringLiteral, $"Pushing string literal: {stringLiteral}");
 
-        Emit(Instruction.PUSHSTR(stringLiteral.Value));
+        EmitPushString(stringLiteral.Value, stringLiteral);
+    }
+
+    // The original compiler fills the string table in source order, while call arguments are
+    // emitted right to left, so a call claims a slot per literal before emitting anything.
+    private void ReserveStringTableSlots(CallOperator callExpression)
+    {
+        foreach (var argument in callExpression.Arguments)
+        {
+            foreach (var literal in SyntaxNodeCollector<StringLiteral>.Collect(argument.Expression))
+            {
+                if (mReservedStringSlots.ContainsKey(literal))
+                    continue;
+
+                mReservedStringSlots[literal] = mStringTable.Count;
+                mStringTable.Add(literal.Value);
+            }
+        }
+    }
+
+    private void EmitPushString(string value, StringLiteral node = null, bool checkStack = true)
+    {
+        if (Matching)
+        {
+            if (node != null && mReservedStringSlots.TryGetValue(node, out var slot))
+            {
+                mReservedStringSlots.Remove(node);
+            }
+            else
+            {
+                slot = mStringTable.Count;
+                mStringTable.Add(value);
+            }
+
+            mStringTableIndices.Add(slot);
+        }
+
+        if (checkStack)
+            Emit(Instruction.PUSHSTR(value));
+        else
+            EmitUnchecked(Instruction.PUSHSTR(value));
     }
 
     private bool IntFitsInShort(int value)
@@ -3977,6 +4334,7 @@ public class FlowScriptCompiler
     private bool TryEmitIfStatement(IfStatement ifStatement)
     {
         Trace(ifStatement, $"Emitting if statement: '{ifStatement}'");
+        var ifStartIndex = mInstructions.Count;
 
         // Detect & translate an if statement that directly maps to the if statement instruction
         if (ifStatement.Condition is LogicalNotOperator &&
@@ -4009,13 +4367,69 @@ public class FlowScriptCompiler
             return false;
         }
 
-        // create else label
+        // An else body holding nothing but another if is an else-if chain, and the original
+        // compiler gives the whole chain a single end label.
+        var endLabel = mElseIfEndLabel;
+        mElseIfEndLabel = null;
+        var chainElseLabels = mElseIfChainElseLabels;
+        mElseIfChainElseLabels = null;
+        var reusedEndLabel = mLoopIfEndLabel;
+        mLoopIfEndLabel = null;
+        if (endLabel == null && reusedEndLabel != null)
+            endLabel = reusedEndLabel;
+        else
+            reusedEndLabel = null;
+        var ownsEndLabel = endLabel == null;
+        // The original compiler numbers the end label before the else label, but puts the else
+        // label first in the label section, after the labels of anything nested in the statement.
+        // An if with no else whose body ends in the back edge of a loop has its labels numbered up
+        // front instead, so nested labels come after them rather than before. A goto written in
+        // the original source is not a back edge and does not count.
+        var numberLabelsUpFront = ifStatement.ElseBody == null && EndsWithLoopGoto(ifStatement.Body, ifStartIndex);
+        var isElseIfChain = Matching && ifStatement.ElseIfChain && ifStatement.ElseBody != null &&
+                            ifStatement.ElseBody.Statements.Count > 0 &&
+                            ifStatement.ElseBody.Statements[ifStatement.ElseBody.Statements.Count - 1] is IfStatement;
+        // The labels of a whole if/else statement are numbered after it, end label first, so
+        // anything nested in one of its branches takes a lower number. An else-if chain counts as
+        // one statement, since it shares a single end label.
+        var ownsLabelGroup = Matching && ownsEndLabel && ifStatement.ElseBody != null;
+        var savedChainNeedsExtra = mElseIfChainNeedsExtra;
+        if (ownsLabelGroup)
+        {
+            chainElseLabels = new List<LabelInfo>();
+            mElseIfChainNeedsExtra = false;
+        }
+
+        if (ownsEndLabel)
+        {
+            endLabel = CreateDeferredNameLabel("IfEndLabel");
+            endLabel.DeferOrder = true;
+            endLabel.IsLoopEndLabel = Matching && ifStatement.ElseBody == null &&
+                                      EndsWithLoopGoto(ifStatement.Body);
+        }
+
         LabelInfo elseLabel = null;
         if (ifStatement.ElseBody != null)
-            elseLabel = CreateLabel("IfElseLabel");
+        {
+            elseLabel = CreateDeferredNameLabel("IfElseLabel");
+            elseLabel.DeferOrder = true;
+        }
 
-        // generate label for jump if condition is false
-        var endLabel = CreateLabel("IfEndLabel");
+        if (numberLabelsUpFront)
+        {
+            if (ownsEndLabel)
+                AssignDeferredName(endLabel);
+
+            if (elseLabel != null)
+            {
+                // An else-if chain numbers its shared end label before any of its else labels, so
+                // a branch of a chain leaves its else label to the chain.
+                if (chainElseLabels != null)
+                    chainElseLabels.Add(elseLabel);
+                else
+                    AssignDeferredName(elseLabel);
+            }
+        }
 
         // emit if instruction that jumps to the label if the condition is false
         if (ifStatement.ElseBody == null)
@@ -4031,32 +4445,114 @@ public class FlowScriptCompiler
         if (ifStatement.ElseBody == null && !Matching)
         {
             // If there's no else, then the end of the body will line up with the end label
-            if (!TryEmitIfStatementBody(ifStatement.Body, null))
+            if (!TryEmitIfStatementBody(ifStatement.Body, null, false))
                 return false;
         }
         else
         {
             // If there's an else body, then the end of the body will line up with the else label, but it should line up with the end label
-            if (!TryEmitIfStatementBody(ifStatement.Body, endLabel))
+            // A trailing backward goto only stands in for a loop back edge when the if has no
+            // else; in a branch of an else-if chain it is a continue, and the end jump follows it.
+            if (!TryEmitIfStatementBody(ifStatement.Body, endLabel, ifStatement.ElseBody == null, ifStartIndex))
                 return false;
+        }
+
+        if (!numberLabelsUpFront)
+        {
+            if (ownsEndLabel && !ownsLabelGroup)
+                AssignDeferredName(endLabel);
+
+            if (elseLabel != null)
+            {
+                if (chainElseLabels != null)
+                    chainElseLabels.Add(elseLabel);
+                else
+                    AssignDeferredName(elseLabel);
+            }
+        }
+
+        // The original compiler allocates both an else and an end label for every if, after the
+        // body. Without an else body nothing references the second one, so it only takes a number.
+        if (Matching && elseLabel == null && reusedEndLabel == null)
+        {
+            // Inside an else-if chain the extra label comes after the chain's own labels, and a
+            // branch jumping backward out of the chain still takes one.
+            if (!numberLabelsUpFront && !mLastIfBodyEndedWithJump)
+            {
+                if (ownsEndLabel)
+                    CreateLabel("IfExtraLabel");
+                else
+                    mElseIfChainNeedsExtra = true;
+            }
+            else if (numberLabelsUpFront && !ownsEndLabel)
+            {
+                mElseIfChainNeedsExtra = true;
+            }
         }
 
         if (ifStatement.ElseBody != null)
         {
             ResolveLabel(elseLabel);
 
+            if (isElseIfChain)
+            {
+                mElseIfEndLabel = endLabel;
+                mElseIfChainElseLabels = chainElseLabels;
+            }
+
             // compile if else body
             // The else body will always line up with the end label
-            if (!TryEmitIfStatementBody(ifStatement.ElseBody, Matching ? endLabel : null))
+            if (!TryEmitIfStatementBody(ifStatement.ElseBody, Matching ? endLabel : null, false))
                 return false;
+
+            mElseIfEndLabel = null;
+            mElseIfChainElseLabels = null;
+
+            if (ownsLabelGroup)
+            {
+                if (!numberLabelsUpFront)
+                    AssignDeferredName(endLabel);
+
+                foreach (var chainElseLabel in chainElseLabels)
+                    AssignDeferredName(chainElseLabel);
+
+                if (mElseIfChainNeedsExtra)
+                    CreateLabel("IfExtraLabel");
+                mElseIfChainNeedsExtra = savedChainNeedsExtra;
+            }
         }
 
-        ResolveLabel(endLabel);
+        if (ownsEndLabel)
+            ResolveLabel(endLabel);
+
+        if (ownsEndLabel && Matching)
+        {
+            // The original compiler lists an if statement's own labels after everything nested in
+            // it, the else labels first and the shared end label last.
+            endLabel.SortIndex = endLabel.InstructionIndex;
+            endLabel.SortRank = 1;
+            foreach (var label in chainElseLabels ?? new List<LabelInfo>())
+            {
+                label.SortIndex = endLabel.InstructionIndex;
+                label.SortRank = 0;
+            }
+
+            if (elseLabel != null && chainElseLabels == null)
+            {
+                elseLabel.SortIndex = endLabel.InstructionIndex;
+                elseLabel.SortRank = 0;
+            }
+        }
+
+        if (elseLabel != null)
+            AddLabelOrder(elseLabel);
+        if (ownsEndLabel)
+            AddLabelOrder(endLabel);
 
         return true;
     }
 
-    private bool TryEmitIfStatementBody(CompoundStatement body, LabelInfo endLabel)
+    private bool TryEmitIfStatementBody(CompoundStatement body, LabelInfo endLabel, bool loopGotoEndsBody, int ifStartIndex = -1)
     {
         Trace(body, "Compiling if statement body");
         if (!TryEmitCompoundStatement(body))
@@ -4065,8 +4561,15 @@ public class FlowScriptCompiler
             return false;
         }
 
+        // The jump to the end label is dropped for a body written to jump away itself, and for
+        // one already ending in a jump to that same label, as the branches of an else-if chain do.
+        // A body ending in a nested if or a return still gets one.
+        mLastIfBodyEndedWithJump = Matching
+            ? (loopGotoEndsBody && EndsWithLoopGoto(body, ifStartIndex)) || EndsWithJumpTo(endLabel)
+            : EndsWithUnconditionalJump();
+
         // ensure that we end up at the right position after the body
-        if (endLabel != null)
+        if (endLabel != null && !mLastIfBodyEndedWithJump)
             Emit(Instruction.GOTO(endLabel.Index));
 
         return true;
@@ -4562,6 +5065,73 @@ public class FlowScriptCompiler
         EmitTracePrint($"Exiting procedure: '{mProcedureDeclaration.Identifier.Text}'");
     }
 
+    private bool EndsWithJumpTo(LabelInfo label)
+    {
+        if (label == null || mInstructions.Count == 0)
+            return false;
+
+        var last = mInstructions[mInstructions.Count - 1];
+        return last.Opcode == Opcode.GOTO && last.Operand.UInt16Value == label.Index;
+    }
+
+    // A backward goto to a generated label is the tail of a loop the decompiler unrolled into
+    // labels and gotos, which the original compiler closed without a jump to the if end label.
+    private bool EndsWithLoopGoto(CompoundStatement body, int ifStartIndex = -1)
+    {
+        return EndsWithBackwardGoto(body) &&
+               body.Statements.Last() is GotoStatement gotoStatement &&
+               gotoStatement.Label is Identifier identifier &&
+               HasGeneratedLabelName(identifier.Text) &&
+               // A loop's back edge reaches the label the loop starts at, which is where the if
+               // begins, give or take the pushes its condition leaves on the stack. A goto
+               // anywhere else jumps out of the if instead.
+               (ifStartIndex < 0 ||
+                (mLabels.TryGetValue(identifier.Text, out var label) &&
+                 label.InstructionIndex <= ifStartIndex &&
+                 OnlyPushesBetween(label.InstructionIndex, ifStartIndex)));
+    }
+
+    private bool OnlyPushesBetween(int startIndex, int endIndex)
+    {
+        for (int i = startIndex; i < endIndex; i++)
+        {
+            switch (mInstructions[i].Opcode)
+            {
+                case Opcode.PUSHI:
+                case Opcode.PUSHF:
+                case Opcode.PUSHIS:
+                case Opcode.PUSHIX:
+                case Opcode.PUSHIF:
+                case Opcode.PUSHLIX:
+                case Opcode.PUSHLFX:
+                case Opcode.PUSHSTR:
+                    break;
+
+                default:
+                    return false;
+            }
+        }
+
+        return true;
+    }
+
+    private bool EndsWithBackwardGoto(CompoundStatement body)
+    {
+        if (!(body.Statements.LastOrDefault() is GotoStatement gotoStatement) ||
+            !(gotoStatement.Label is Identifier identifier))
+            return false;
+
+        return mLabels.TryGetValue(identifier.Text, out var label) && label.IsResolved;
+    }
+
+    private bool EndsWithUnconditionalJump()
+    {
+        if (mInstructions.Count == 0)
+            return false;
+
+        return mInstructions[mInstructions.Count - 1].Opcode == Opcode.GOTO;
+    }
+
     private void Emit(Instruction instruction)
     {
         // Emit instruction
@@ -4637,8 +5207,12 @@ public class FlowScriptCompiler
                 break;
             case Opcode.COMM:
                 {
-                    var functionCalled = mRootScope.Functions.Values.First(x => x.Index == instruction.Operand.UInt16Value);
-                    mStackValueCount -= functionCalled.Declaration.Parameters.Count;
+                    // A function index the library does not describe is called with no arguments,
+                    // so it pops nothing.
+                    var functionCalled = mRootScope.Functions.Values
+                        .FirstOrDefault(x => x.Index == instruction.Operand.UInt16Value);
+                    if (functionCalled != null)
+                        mStackValueCount -= functionCalled.Declaration.Parameters.Count;
                 }
                 break;
             case Opcode.OR:
@@ -4676,7 +5250,7 @@ public class FlowScriptCompiler
         if (prefixTrace)
             messageFormatted = $"Trace: {message}";
 
-        EmitUnchecked(Instruction.PUSHSTR(messageFormatted));
+        EmitPushString(messageFormatted, checkStack: false);
         EmitUnchecked(Instruction.COMM(mInstrinsic.PrintStringFunctionIndex));
     }
 
@@ -4785,22 +5359,133 @@ public class FlowScriptCompiler
         mInstructions.Add(instruction);
     }
 
+    // The original compiler adds a label to the label section once both its address and a
+    // reference to it are known, and leaves out labels nothing references.
+    private Dictionary<ushort, int> FindFirstLabelReferences()
+    {
+        var firstReference = new Dictionary<ushort, int>();
+        for (int i = 0; i < mInstructions.Count; i++)
+        {
+            var instruction = mInstructions[i];
+            if (instruction.Opcode != Opcode.GOTO && instruction.Opcode != Opcode.IF)
+                continue;
+
+            var index = instruction.Operand.UInt16Value;
+            if (!firstReference.ContainsKey(index))
+                firstReference.Add(index, i);
+        }
+
+        return firstReference;
+    }
+
+    private Dictionary<ushort, int> FindLastLabelReferences()
+    {
+        var lastReference = new Dictionary<ushort, int>();
+        for (int i = 0; i < mInstructions.Count; i++)
+        {
+            var instruction = mInstructions[i];
+            if (instruction.Opcode != Opcode.GOTO && instruction.Opcode != Opcode.IF)
+                continue;
+
+            lastReference[instruction.Operand.UInt16Value] = i;
+        }
+
+        return lastReference;
+    }
+
+    private static bool HasGeneratedLabelName(string name)
+    {
+        return name != null && name.Length > 1 && name[0] == '_' &&
+               name.Skip(1).All(char.IsDigit);
+    }
+
+    private List<LabelInfo> OrderLabelsLikeOriginal()
+    {
+        var firstReference = FindFirstLabelReferences();
+
+        int FirstReference(LabelInfo label)
+            => firstReference.TryGetValue(label.Index, out var index) ? index : label.InstructionIndex;
+
+        // A loop top is reached by the back edge at the end of the loop, so its last reference is
+        // what decides where the original compiler listed it.
+        var lastReference = FindLastLabelReferences();
+        int LastReference(LabelInfo label)
+            => lastReference.TryGetValue(label.Index, out var index) ? index : label.InstructionIndex;
+
+        return mLabels.Values
+            // Unreferenced generated labels are holes left by the numbering; an unreferenced label
+            // named in the source was listed by the original compiler.
+            .Where(x => firstReference.ContainsKey(x.Index) ||
+                        (x.IsSourceLabel && !HasGeneratedLabelName(x.Name)))
+            // A label the original compiler generated is named _N and sorts with the jump that
+            // reaches it; one named in the original source stays where it is defined.
+            .OrderBy(x => x.SortIndex ?? (HasGeneratedLabelName(x.Name) || !x.IsSourceLabel
+                ? Math.Max(x.InstructionIndex, LastReference(x))
+                : x.InstructionIndex))
+            // A label a later jump points back to, or one named in the original source, is listed
+            // after anything else ending at the same instruction.
+            .ThenBy(x => x.SortIndex.HasValue ? x.SortRank
+                : FirstReference(x) > x.InstructionIndex ||
+                  !HasGeneratedLabelName(x.Name) ? 2 : 0)
+            .ThenBy(x => x.Index)
+            .ToList();
+    }
+
+    // The original compiler numbered every label from one counter, so a generated name must avoid
+    // the names the source already uses, including those of procedures not compiled yet.
+    private void ReserveSourceLabelNames(CompilationUnit compilationUnit)
+    {
+        foreach (var declaration in compilationUnit.Declarations)
+            if (declaration is ProcedureDeclaration procedure && procedure.Body != null)
+                ReserveSourceLabelNames(procedure.Body.Statements);
+    }
+
+    private void ReserveSourceLabelNames(IEnumerable<Statement> statements)
+    {
+        foreach (var statement in statements)
+        {
+            switch (statement)
+            {
+                case LabelDeclaration label:
+                    mUsedLabelNames.Add(label.Identifier.Text);
+                    break;
+                case CompoundStatement compound:
+                    ReserveSourceLabelNames(compound.Statements);
+                    break;
+                case IfStatement ifStatement:
+                    if (ifStatement.Body != null) ReserveSourceLabelNames(ifStatement.Body.Statements);
+                    if (ifStatement.ElseBody != null) ReserveSourceLabelNames(ifStatement.ElseBody.Statements);
+                    break;
+                case ForStatement forStatement:
+                    if (forStatement.Body != null) ReserveSourceLabelNames(forStatement.Body.Statements);
+                    break;
+                case WhileStatement whileStatement:
+                    if (whileStatement.Body != null) ReserveSourceLabelNames(whileStatement.Body.Statements);
+                    break;
+                case SwitchStatement switchStatement:
+                    foreach (var switchLabel in switchStatement.Labels)
+                        ReserveSourceLabelNames(switchLabel.Body);
+                    break;
+            }
+        }
+    }
+
+    private void AddLabelOrder(LabelInfo label)
+    {
+        if (!mLabelOrder.Contains(label))
+            mLabelOrder.Add(label);
+    }
+
     private LabelInfo CreateLabel(string name, bool isGenerated = true)
     {
         string GenerateUniqueLabelName(string baseName)
         {
             while (true)
             {
-                string name;
-                if (false && Matching)
-                {
-                    name = $"_{mNextLabelIndex++}";
-                }
-                else
-                {
-                    name = baseName + "_" + mNextLabelIndex++;
-                }
-                if (!mLabels.ContainsKey(name))
+                // The original compiler names generated labels _1, _2, ... in allocation order.
+                string name = Matching ? $"_{mNextLabelIndex + 1}" : baseName + "_" + mNextLabelIndex;
+                mNextLabelIndex++;
+                if (!mLabels.ContainsKey(name) && !mUsedLabelNames.Contains(name))
                     return name;
             }
         }
@@ -4808,10 +5493,11 @@ public class FlowScriptCompiler
         var label = new LabelInfo();
         label.Index = (ushort)mLabels.Count;
 
-        // HACK: reuse original labels when recompiling
-        if (!isGenerated && name.StartsWith("_") && !mLabels.ContainsKey(name))
+        // A label written in the source keeps its name; only generated ones take a number.
+        if (!isGenerated && !mLabels.ContainsKey(name))
         {
             label.Name = name;
+            label.IsSourceLabel = true;
         }
         else
         {
@@ -4819,14 +5505,53 @@ public class FlowScriptCompiler
         }
 
         mLabels.Add(label.Name, label);
+        mUsedLabelNames.Add(label.Name);
 
         return label;
     }
 
+    // The original compiler numbers an if statement's labels only after compiling its body, so the
+    // labels of anything nested in the body come first.
+    private LabelInfo CreateDeferredNameLabel(string name)
+    {
+        if (!Matching)
+            return CreateLabel(name);
+
+        var label = new LabelInfo();
+        label.Index = (ushort)mLabels.Count;
+        label.Name = $"<unnamed {label.Index}>";
+        mLabels.Add(label.Name, label);
+        return label;
+    }
+
+    private void AssignDeferredName(LabelInfo label)
+    {
+        if (!Matching || label.NameAssigned)
+            return;
+
+        label.NameAssigned = true;
+        mLabels.Remove(label.Name);
+        while (true)
+        {
+            var name = $"_{mNextLabelIndex + 1}";
+            mNextLabelIndex++;
+            if (!mLabels.ContainsKey(name) && !mUsedLabelNames.Contains(name))
+            {
+                label.Name = name;
+                break;
+            }
+        }
+
+        mLabels.Add(label.Name, label);
+        mUsedLabelNames.Add(label.Name);
+    }
+
     private void ResolveLabel(LabelInfo label)
     {
-        label.InstructionIndex = (short)(mInstructions.Count);
+        label.InstructionIndex = mInstructions.Count;
         label.IsResolved = true;
+        if (!label.DeferOrder)
+            AddLabelOrder(label);
 
         Trace($"Resolved label {label.Name} to instruction index {label.InstructionIndex}");
     }
@@ -4904,5 +5629,12 @@ public class FlowScriptCompiler
     private void Warning(string message)
     {
         mLogger.Warning($"{message}");
+    }
+
+    private class ReferenceComparer<T> : IEqualityComparer<T> where T : class
+    {
+        public bool Equals(T x, T y) => ReferenceEquals(x, y);
+
+        public int GetHashCode(T obj) => RuntimeHelpers.GetHashCode(obj);
     }
 }

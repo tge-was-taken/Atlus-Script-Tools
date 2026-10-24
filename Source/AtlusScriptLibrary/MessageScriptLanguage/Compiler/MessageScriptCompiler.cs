@@ -1,4 +1,4 @@
-﻿using Antlr4.Runtime;
+using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 using AtlusScriptLibrary.Common.Libraries;
 using AtlusScriptLibrary.Common.Logging;
@@ -353,6 +353,23 @@ public class MessageScriptCompiler
 
         script = new MessageScript(mVersion, mEncoding);
 
+        foreach (var pragmaContext in context.pragma())
+        {
+            var name = ParseIdentifier(pragmaContext.Identifier());
+            if (name == MessageScript.RelocatedPragma)
+                script.Relocated = true;
+            else if (name == MessageScript.SpeakerPragma)
+            {
+                if (!TryCompileSpeakerPragma(pragmaContext, script))
+                    return false;
+            }
+            else
+            {
+                LogError(pragmaContext, $"Unknown pragma: {name}");
+                return false;
+            }
+        }
+
         foreach (var dialogContext in dialogContexts)
         {
             IDialog dialog;
@@ -402,10 +419,10 @@ public class MessageScriptCompiler
         //
         string identifier;
         {
-            if (!TryGetFatal(context, context.Identifier, "Expected dialog window name", out var identifierNode))
+            if (!TryGetFatal(context, context.dialogName, "Expected dialog window name", out var nameContext))
                 return false;
 
-            identifier = ParseIdentifier(identifierNode);
+            identifier = ParseDialogName(nameContext);
         }
 
         LogInfo(context, $"Compiling dialog window: {identifier}");
@@ -471,9 +488,19 @@ public class MessageScriptCompiler
         //
         // Create dialog window
         //
-        messageDialog = new MessageDialog(identifier, speaker, pages);
+        var flags = context.DialogFlagId().Select(x => x.GetText()).ToList();
+        messageDialog = new MessageDialog(identifier, speaker, pages)
+        {
+            OmitTrailingTerminator = flags.Contains("noterm"),
+            ShareSpeakerName = flags.Contains("sharespeaker")
+        };
 
         return true;
+    }
+
+    private static string ParseDialogName(MessageScriptParser.DialogNameContext context)
+    {
+        return ParseIdentifier((ITerminalNode)context.GetChild(0));
     }
 
     private static string ParseIdentifier(ITerminalNode identifierNode)
@@ -501,10 +528,10 @@ public class MessageScriptCompiler
         //
         string identifier;
         {
-            if (!TryGetFatal(context, context.Identifier, "Expected selection window name", out var identifierNode))
+            if (!TryGetFatal(context, context.dialogName, "Expected selection window name", out var nameContext))
                 return false;
 
-            identifier = ParseIdentifier(identifierNode);
+            identifier = ParseDialogName(nameContext);
         }
 
         LogInfo(context, $"Compiling selection window: {identifier}");
@@ -557,8 +584,63 @@ public class MessageScriptCompiler
         //
         // Create Selection window
         //
-        selectionWindow = new SelectionDialog(identifier, pattern, options);
+        foreach (var flag in context.DialogFlagId().Where(x => x.GetText() != "noterm"))
+        {
+            LogError(context, $"Selection dialogs take no '{flag.GetText()}' flag");
+            return false;
+        }
 
+        selectionWindow = new SelectionDialog(identifier, pattern, options)
+        {
+            OmitTrailingTerminator = context.DialogFlagId().Any(x => x.GetText() == "noterm")
+        };
+
+        return true;
+    }
+
+    // [ pragma speaker Index shared? [SpeakerName] ]
+    private bool TryCompileSpeakerPragma(MessageScriptParser.PragmaContext context, MessageScript script)
+    {
+        if (!TryGetFatal(context, context.IntLiteral, "Expected speaker table index", out var indexNode) ||
+            !TryParseIntLiteral(indexNode, out var index))
+            return false;
+
+        if (!TryGetFatal(context, context.speakerName, "Expected speaker name", out var speakerNameContext))
+            return false;
+
+        if (!TryGetFatal(speakerNameContext, speakerNameContext.tokenText, "Expected speaker name text",
+                         out var tokenTextContext))
+            return false;
+
+        var name = new TokenText();
+        if (tokenTextContext.ChildCount != 0)
+        {
+            if (!TryCompileTokenText(tokenTextContext, out var lines))
+            {
+                LogError(speakerNameContext, "Failed to compile speaker name");
+                return false;
+            }
+
+            if (lines.Count > 1)
+                LogWarning(tokenTextContext, "More than 1 line for speaker name. Only the 1st line will be used");
+
+            if (lines.Count != 0)
+                name = lines[0];
+        }
+
+        if (index < 0)
+        {
+            LogError(context, $"Speaker table index must not be negative: {index}");
+            return false;
+        }
+
+        if (script.PinnedSpeakerNames.Any(x => x.Index == index))
+        {
+            LogError(context, $"Speaker table index {index} is pinned more than once");
+            return false;
+        }
+
+        script.PinnedSpeakerNames.Add((index, name, context.PragmaFlagId() != null));
         return true;
     }
 
@@ -698,9 +780,7 @@ public class MessageScriptCompiler
         }
 
         if (lineBuilder != null)
-        {
             lines.Add(lineBuilder.Build());
-        }
 
         return true;
     }
