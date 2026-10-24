@@ -75,6 +75,7 @@ def parse_args():
     p.add_argument("--results", help="write one status line per file here")
     p.add_argument("--games", help="comma separated game tags, default all")
     p.add_argument("--sample", type=int, default=1, help="take every Nth file")
+    p.add_argument("--offset", type=int, default=0, help="which of the N slices to take")
     p.add_argument("--workers", type=int, default=os.cpu_count() or 4)
     p.add_argument("--timeout", type=int, default=600, help="seconds per compiler run")
     return p.parse_args()
@@ -86,7 +87,10 @@ def main():
     if args.games:
         wanted = args.games.split(",")
         entries = [e for e in entries if e["game"] in wanted]
-    entries = entries[::args.sample]
+    if not entries:
+        print(f"no corpus entries selected for games: {args.games}", file=sys.stderr)
+        return 1
+    entries = entries[args.offset % args.sample::args.sample]
 
     cfg = {"corpus": args.corpus, "exe": args.exe, "workdir": args.workdir,
            "timeout": args.timeout}

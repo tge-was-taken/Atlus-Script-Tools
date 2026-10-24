@@ -23,13 +23,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # The corpus is a private repo, so a pull request from a fork cannot reach it.
+      # The corpus is a private repo, so a pull request from a fork cannot reach it. Anywhere else
+      # a missing key is a broken workflow, not a reason to pass.
       - id: corpus
         run: |
-          if [ -n "$KEY" ]; then echo "available=true" >> "$GITHUB_OUTPUT"
-          else echo "::warning::corpus unavailable, skipping the round trip"; fi
+          if [ -n "$KEY" ]; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          elif [ "$FORK" = true ]; then
+            echo "::warning::corpus unavailable to a fork, skipping the round trip"
+          else
+            echo "::error::ASSETS_DEPLOY_KEY is not set, so the corpus cannot be checked out"
+            exit 1
+          fi
         env:
           KEY: ${{ secrets.ASSETS_DEPLOY_KEY }}
+          FORK: ${{ github.event.pull_request.head.repo.fork }}
 
       - if: steps.corpus.outputs.available
         uses: actions/checkout@v4
@@ -53,7 +61,9 @@ jobs:
       - if: steps.corpus.outputs.available
         run: dotnet publish Source/AtlusScriptCompiler/AtlusScriptCompiler.csproj -c Release -o compiler
 
-      # A full run is around 32000 compiler invocations, so pull requests take a sample.
+      # A full run is around 32000 compiler invocations, so pull requests take a sample. The slice
+      # rotates with the run number, so repeated runs cover the whole corpus rather than the same
+      # tenth of it.
       - if: steps.corpus.outputs.available
         run: |
           python3 Scripts/roundtrip.py \
@@ -62,6 +72,7 @@ jobs:
             --workdir "$RUNNER_TEMP/roundtrip" \
             --results results.txt \
             --sample "${SAMPLE:-$DEFAULT_SAMPLE}" \
+            --offset "$GITHUB_RUN_NUMBER" \
             ${GAMES:+--games "$GAMES"}
         env:
           SAMPLE: ${{ inputs.sample }}
@@ -73,4 +84,3 @@ jobs:
         with:
           name: roundtrip-results
           path: results.txt
-          if-no-files-found: ignore
