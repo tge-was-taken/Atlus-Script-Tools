@@ -653,11 +653,6 @@ public class MessageScript
     public bool Relocated { get; set; }
 
     /// <summary>
-    /// End a selection dialog's text buffer after the last option's terminator instead of adding
-    /// another one.
-    /// </summary>
-
-    /// <summary>
     /// Creates a new instance of <see cref="MessageScript"/> initialized with default values.
     /// </summary>
     public MessageScript()
