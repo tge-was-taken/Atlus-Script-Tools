@@ -1,4 +1,4 @@
-﻿using AtlusScriptLibrary.Common.IO;
+using AtlusScriptLibrary.Common.IO;
 using AtlusScriptLibrary.Common.Text.Encodings;
 using AtlusScriptLibrary.FlowScriptLanguage.BinaryModel;
 using AtlusScriptLibrary.MessageScriptLanguage;
@@ -322,10 +322,6 @@ public sealed class FlowScript
     }
 
     /// <summary>
-    /// Whether to end the text section with an extra END instruction, as the Raidou compiler does.
-    /// </summary>
-
-    /// <summary>
     /// Gets the binary format version.
     /// </summary>
     public FormatVersion FormatVersion
@@ -351,10 +347,6 @@ public sealed class FlowScript
         mFormatVersion = version;
     }
 
-    /// <summary>
-    /// Converts the <see cref="FlowScript"/> to a <see cref="FlowScriptBinary"/> instance.
-    /// </summary>
-    /// <returns>A <see cref="FlowScriptBinary"/> instance.</returns>
     /// <summary>
     /// String table entries as the compiler recorded them in matching mode: source order, one
     /// entry per PUSHSTR occurrence. Null derives the table from the instructions instead.
@@ -389,6 +381,9 @@ public sealed class FlowScript
     /// </summary>
     public bool OmitStringSection { get; set; }
 
+    /// <summary>
+    /// Converts the <see cref="FlowScript"/> to a <see cref="FlowScriptBinary"/> instance.
+    /// </summary>
     public FlowScriptBinary ToBinary()
     {
         var builder = new FlowScriptBinaryBuilder((BinaryFormatVersion)mFormatVersion);
