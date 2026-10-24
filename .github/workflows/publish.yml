@@ -83,10 +83,24 @@ jobs:
           prerelease: ${{ inputs.prerelease }}
           files: publish/AtlusScriptTools-${{ matrix.rid }}.zip
 
-  # The portable build is not AOT compiled, so it needs an installed .NET runtime but runs on
-  # any platform the runtime supports, including the ones without a native build above.
-  portable:
-    runs-on: ubuntu-latest
+  # The same tools built for the regular .NET runtime instead of native AOT, as self contained
+  # single file executables. They are far bigger, but they do not need .NET installed either and
+  # they keep working where AOT trimming breaks a reflection based code path.
+  dotnet:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - rid: win-x64
+            os: windows-latest
+          - rid: linux-x64
+            os: ubuntu-latest
+          - rid: osx-arm64
+            os: macos-latest
+
+    # Cross publishing would work here, but macOS rejects arm64 binaries that were not signed on
+    # a Mac, so each runtime identifier builds on its own OS as the AOT job does.
+    runs-on: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v4
@@ -105,7 +119,7 @@ jobs:
         shell: bash
         run: |
           set -eu
-          out=publish/AtlusScriptTools-dotnet
+          out="publish/AtlusScriptTools-dotnet-${{ matrix.rid }}"
           for project in AtlusScriptCompiler \
                          Utilities/AtlusFlowScriptExtractor \
                          Utilities/AtlusMessageScriptExtractor \
@@ -113,7 +127,9 @@ jobs:
                          Utilities/DumpMessageIds \
                          Utilities/DumpProcedureIds; do
             dotnet publish "Source/$project/$(basename "$project").csproj" -c Release \
-              -p:PublishAot=false --no-self-contained -o "$out"
+              -r ${{ matrix.rid }} --self-contained -o "$out" \
+              -p:PublishAot=false -p:PublishSingleFile=true \
+              -p:EnableCompressionInSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
           done
           rm -rf "$out"/*.pdb
 
@@ -122,12 +138,16 @@ jobs:
         run: |
           set -eu
           cd publish
-          zip -r AtlusScriptTools-dotnet.zip AtlusScriptTools-dotnet
+          if [ "${{ runner.os }}" = "Windows" ]; then
+            7z a "AtlusScriptTools-dotnet-${{ matrix.rid }}.zip" "AtlusScriptTools-dotnet-${{ matrix.rid }}"
+          else
+            zip -r "AtlusScriptTools-dotnet-${{ matrix.rid }}.zip" "AtlusScriptTools-dotnet-${{ matrix.rid }}"
+          fi
 
       - uses: actions/upload-artifact@v4
         with:
-          name: AtlusScriptTools-dotnet
-          path: publish/AtlusScriptTools-dotnet.zip
+          name: AtlusScriptTools-dotnet-${{ matrix.rid }}
+          path: publish/AtlusScriptTools-dotnet-${{ matrix.rid }}.zip
 
       - name: Attach to the release
         if: inputs.tag != ''
@@ -135,4 +155,4 @@ jobs:
         with:
           tag_name: ${{ inputs.tag }}
           prerelease: ${{ inputs.prerelease }}
-          files: publish/AtlusScriptTools-dotnet.zip
+          files: publish/AtlusScriptTools-dotnet-${{ matrix.rid }}.zip
