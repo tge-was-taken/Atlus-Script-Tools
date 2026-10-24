@@ -116,8 +116,29 @@ public class CompilationUnitWriter : SyntaxNodeVisitor
             WriteNewLine();
             WriteComment("");
             WriteComment("FlowScript decompiled using Atlus Script Tools");
+
+            if (compilationUnit.BinaryLayout != null)
+            {
+                var versions = compilationUnit.BinaryLayout.DescribeVersions();
+                if (versions != null)
+                    WriteComment(versions);
+            }
+
             WriteComment("");
             WriteNewLine();
+
+            var pragmas = compilationUnit.BinaryLayout?.ToStatements().ToList();
+            if (pragmas != null && pragmas.Count > 0)
+            {
+                WriteNewLine();
+                WriteComment("");
+                WriteComment("Pragmas");
+                WriteComment("");
+                WriteNewLine();
+
+                foreach (var pragma in pragmas)
+                    WriteIndentedLine(pragma);
+            }
 
             if (compilationUnit.Imports.Count > 0)
             {
@@ -372,7 +393,8 @@ public class CompilationUnitWriter : SyntaxNodeVisitor
                 WriteIndentation();
                 WriteWithSeperator("else");
 
-                if (ifStatement.ElseBody.Statements.Count == 1 &&
+                if (ifStatement.ElseIfChain &&
+                     ifStatement.ElseBody.Statements.Count == 1 &&
                      ifStatement.ElseBody.Statements[0] is IfStatement)
                 {
                     // Write else if { }, instead of else { if { } }
@@ -411,7 +433,7 @@ public class CompilationUnitWriter : SyntaxNodeVisitor
         // Call
         public override void Visit(CallOperator callOperator)
         {
-            Write(callOperator.Identifier.Text);
+            Visit(callOperator.Identifier);
 
             if (callOperator.Arguments.Count == 0)
             {
@@ -582,8 +604,23 @@ public class CompilationUnitWriter : SyntaxNodeVisitor
         public override void Visit(NegationOperator unaryOperator)
         {
             Write("-");
+
+            // A negated zero reads back as the literal 0, which loses the negation, and a negated
+            // negation would read back as the decrement operator, so keep the operand separate.
+            if (IsZeroLiteral(unaryOperator.Operand) ||
+                unaryOperator.Operand is NegationOperator or PrefixDecrementOperator)
+            {
+                Write("(");
+                Visit(unaryOperator.Operand);
+                Write(")");
+                return;
+            }
+
             Visit(unaryOperator.Operand);
         }
+
+        private static bool IsZeroLiteral(Expression expression)
+            => expression is IntLiteral { Value: 0 } || expression is UIntLiteral { Value: 0 };
 
         public override void Visit(PostfixDecrementOperator unaryOperator)
         {

@@ -63,10 +63,13 @@ public class Evaluator
     private Stack<Parameter> mParameterStack;
     private List<EvaluatedIdentifierReference> mProcedureLocalVariables;
     private Expression mLastPopRegValue;
+    private int mStatementBarrierIndex;
 
     public Library Library { get; set; }
 
     public bool StrictMode { get; set; }
+
+    public bool Matching { get; set; }
 
     public Evaluator()
     {
@@ -312,16 +315,17 @@ public class Evaluator
 
                             var index = instruction.Operand.UInt16Value;
 
-                            if (modifier != VariableModifierKind.Global && type == ValueKind.Int && foundIntVariables.TryGetValue(index, out var context))
+                            if (modifier == VariableModifierKind.Global)
                             {
-                                // Check if it was declared in a different procedure than the one we're currently processing
-                                if (procedure != context.Procedure)
-                                {
-                                    // If the procedures are different, then this variable can't be local to the scope of the procedure
-                                    DeclareVariableIfNotDeclared(context, index);
-                                }
+                                // A global is never scoped to a procedure, so declare it right away.
+                                DeclareVariableIfNotDeclared((procedure, modifier, type), index);
+                                break;
                             }
-                            else if (modifier != VariableModifierKind.Global && type == ValueKind.Float && foundFloatVariables.TryGetValue(index, out context))
+
+                            // Locals and globals are indexed separately, so track the local slots on their own.
+                            var found = type == ValueKind.Int ? foundIntVariables : foundFloatVariables;
+
+                            if (found.TryGetValue(index, out var context))
                             {
                                 // Check if it was declared in a different procedure than the one we're currently processing
                                 if (procedure != context.Procedure)
@@ -332,18 +336,7 @@ public class Evaluator
                             }
                             else
                             {
-                                context = (procedure, modifier, type);
-
-                                if (modifier == VariableModifierKind.Global)
-                                {
-                                    // If it's a global, declare it anyway
-                                    DeclareVariableIfNotDeclared(context, index);
-                                }
-
-                                if (type == ValueKind.Int)
-                                    foundIntVariables[index] = context;
-                                else
-                                    foundFloatVariables[index] = context;
+                                found[index] = (procedure, modifier, type);
                             }
 
                             break;
@@ -351,6 +344,32 @@ public class Evaluator
                 }
             }
         }
+
+        DeclareUnusedLocalVariables(foundIntVariables.Keys, foundFloatVariables.Keys);
+    }
+
+    // The slot counts in the header can exceed the slots the instructions use, as the original
+    // compiler also counts locals that are declared but never referenced. Declare those too so
+    // that recompiling the output gives back the same counts.
+    private void DeclareUnusedLocalVariables(IEnumerable<int> usedIntIndices, IEnumerable<int> usedFloatIndices)
+    {
+        void Declare(int? slotCount, IEnumerable<int> usedIndices, ValueKind valueKind)
+        {
+            if (slotCount == null)
+                return;
+
+            var used = new HashSet<int>(usedIndices);
+            for (int index = 0; index < slotCount; index++)
+            {
+                if (used.Contains(index) || IsVariableDeclared(VariableModifierKind.Local, valueKind, (ushort)index))
+                    continue;
+
+                TryDeclareVariable(VariableModifierKind.Local, valueKind, (ushort)index, out _);
+            }
+        }
+
+        Declare(mScript.LocalIntVariableCount, usedIntIndices, ValueKind.Int);
+        Declare(mScript.LocalFloatVariableCount, usedFloatIndices, ValueKind.Float);
     }
 
     private bool TryRegisterUsedFunctions()
@@ -500,6 +519,11 @@ public class Evaluator
                     ushort index = instruction.Operand.UInt16Value;
                     foreach (var parameter in mFunctions[index].Parameters)
                     {
+                        // Where procedures take no stack arguments, a call that runs out of
+                        // values is a short call, not a procedure parameter.
+                        if (Library?.UsePOPREG == false && !CanPopStackValue())
+                            break;
+
                         if (CanPopStackValue())
                         {
                             switch (parameter.Type.ValueKind)
@@ -704,6 +728,7 @@ public class Evaluator
         mEvaluatedInstructionIndex = 0;
         mEvaluationStatementStack = new Stack<EvaluatedStatement>();
         mEvaluationExpressionStack = new Stack<EvaluatedStatement>();
+        mStatementBarrierIndex = -1;
         mReturnKind = ValueKind.Void;
         mParameters = new List<Parameter>();
         mPreEvaluationInfo = mProcedurePreEvaluationInfos.Where(x => x.Procedure == procedure).FirstOrDefault();
@@ -755,7 +780,7 @@ public class Evaluator
 
         // Statements, yay!
         var evaluatedStatements = mEvaluationStatementStack
-            .Union(mEvaluationExpressionStack)
+            .Union(mEvaluationExpressionStack.Select(AsExplicitPush))
             .OrderBy(x => x.InstructionIndex)
             .ToList();
 
@@ -984,6 +1009,11 @@ public class Evaluator
                     var arguments = new List<Argument>();
                     foreach (var parameter in function.Parameters)
                     {
+                        // Where procedures take no stack arguments, a call that runs out of
+                        // values is a call site passing fewer arguments than the library declares.
+                        if (Library?.UsePOPREG == false && !CanPopArgument())
+                            break;
+
                         if (!TryPopExpression(out var argument))
                         {
                             LogError($"Failed to pop argument off stack for parameter: {parameter} of function: {function}");
@@ -1057,8 +1087,13 @@ public class Evaluator
 
                     if (instruction.Opcode == Opcode.JUMP)
                     {
-                        // We're using the return address of the callee for this one, so pop that first so it does not get passed an as argument
-                        TryPopExpression(out var _);
+                        // We're using the return address of the callee for this one, so pop that first so it does not get passed an as argument.
+                        // Anything else on top is a value the original pushed and never used, so leave it alone.
+                        if (mEvaluationExpressionStack.Count != 0 &&
+                            mEvaluationExpressionStack.Peek().Statement is Identifier { Text: "__RETURN_ADDRESS" })
+                        {
+                            TryPopExpression(out var _);
+                        }
                     }
 
                     for (int i = 0; i < parameterCount; i++)
@@ -1388,6 +1423,40 @@ public class Evaluator
 
         mEvaluationStatementStack.Push(
             new EvaluatedStatement(statement, mEvaluatedInstructionIndex, referencedLabel));
+        mStatementBarrierIndex = mEvaluatedInstructionIndex;
+    }
+
+    // A value pushed before the last statement cannot be written as an argument of this call:
+    // recompiling would move the push after that statement. It stays on the stack instead, and
+    // the call takes it from there.
+    private bool CanPopArgument()
+    {
+        if (mEvaluationExpressionStack.Count == 0)
+            return false;
+
+        var top = mEvaluationExpressionStack.Peek();
+        return !IsCallerValue(top.Statement as Expression) &&
+               top.InstructionIndex >= mStatementBarrierIndex;
+    }
+
+    // A value still on the stack was pushed for a later command to pop, which a bare value
+    // expression cannot say, so it is written as __push(value).
+    private EvaluatedStatement AsExplicitPush(EvaluatedStatement evaluated)
+    {
+        if (!(evaluated.Statement is Expression expression) || IsCallerValue(expression))
+            return evaluated;
+
+        var call = new CallOperator(ValueKind.Void, new Identifier("__push"),
+            new List<Argument> { new Argument(expression) });
+
+        return new EvaluatedStatement(call, evaluated.InstructionIndex, evaluated.ReferencedLabel);
+    }
+
+    private bool IsCallerValue(Expression expression)
+    {
+        return expression is Identifier identifier &&
+               (identifier.Text == "__RETURN_ADDRESS" ||
+                mParameters.Any(x => x.Identifier.Text == identifier.Text));
     }
 
     private bool TryPopStatement(out Statement statement)
@@ -1457,7 +1526,7 @@ public class Evaluator
 
         // Check if the left expression is already returns a boolean value, and if so
         // omit the x == 0 or x == 1 expression
-        if (left.ExpressionValueKind == ValueKind.Bool && right is IIntLiteral intLiteral)
+        if (!Matching && left.ExpressionValueKind == ValueKind.Bool && right is IIntLiteral intLiteral)
         {
             if (typeof(T) == typeof(NonEqualityOperator))
             {

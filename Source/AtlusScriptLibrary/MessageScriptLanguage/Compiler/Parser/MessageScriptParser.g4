@@ -12,7 +12,13 @@ options
 ////////////////////
 
 compilationUnit
-	: dialog* EOF
+	: pragma* dialog* EOF
+	;
+
+	// [ pragma name ] a binary detail of the original file that the text does not imply.
+	// [ pragma speaker Index shared? [SpeakerName] ] pins one speaker table entry.
+pragma
+	: OpenCode PragmaTagId Identifier IntLiteral? PragmaFlagId? speakerName? CloseCode
 	;
 	
 dialog
@@ -21,7 +27,17 @@ dialog
 
 	// [ msg DialogName [SpeakerName] ] text...
 messageDialog
-	: OpenCode MessageDialogTagId Identifier speakerName? CloseCode tokenText
+	: OpenCode MessageDialogTagId dialogName speakerName? DialogFlagId* CloseCode tokenText
+	;
+
+	// The flag and pattern words are keywords only where a flag or a pattern is expected, so a
+	// dialog may still be named after one of them.
+dialogName
+	: Identifier
+	| DialogFlagId
+	| PragmaTagId
+	| PragmaFlagId
+	| SelectionDialogPatternId
 	;
 
 speakerName
@@ -30,7 +46,7 @@ speakerName
 
 	// [ sel SelectionName ] text...
 selectionDialog
-	: OpenCode SelectionDialogTagId Identifier selectionDialogPattern? CloseCode tokenText
+	: OpenCode SelectionDialogTagId dialogName selectionDialogPattern? DialogFlagId* CloseCode tokenText
 	;
 
 selectionDialogPattern

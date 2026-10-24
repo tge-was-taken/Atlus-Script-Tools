@@ -21,6 +21,14 @@ public sealed class FlowScriptBinaryBuilder
     private IList<BinaryInstruction> mTextSection;
     private IMessageScriptBinary mMessageScriptSection;
     private IList<byte> mStringSection;
+    private int mStringSectionCount = -1;
+    private bool mOmitStringSection;
+    private short? mLocalIntVariableCount;
+    private short? mLocalFloatVariableCount;
+
+    /// <summary>
+    /// Whether to end the text section with an extra END instruction, as the Raidou compiler does.
+    /// </summary>
 
     public FlowScriptBinaryBuilder(BinaryFormatVersion version, bool matching = true)
     {
@@ -44,6 +52,16 @@ public sealed class FlowScriptBinaryBuilder
     public void SetUserId(short value)
     {
         mUserId = value;
+    }
+
+    /// <summary>
+    /// Sets the declared local slot counts. A declared count can exceed the slots the
+    /// instructions use, as a declared local does not have to be referenced.
+    /// </summary>
+    public void SetLocalVariableCounts(short? intCount, short? floatCount)
+    {
+        mLocalIntVariableCount = intCount;
+        mLocalFloatVariableCount = floatCount;
     }
 
     public void SetProcedureLabelSection(IList<BinaryLabel> procedureLabelSection)
@@ -95,6 +113,14 @@ public sealed class FlowScriptBinaryBuilder
         mMessageScriptSection = messageScriptSection.ToBinary() ?? throw new ArgumentNullException(nameof(messageScriptSection));
     }
 
+    /// <summary>
+    /// Leaves out the String section entirely, as some early DDS scripts do.
+    /// </summary>
+    public void SetOmitStringSection(bool value)
+    {
+        mOmitStringSection = value;
+    }
+
     public void SetStringSection(IList<byte> stringSection)
     {
         mStringSection = stringSection ?? throw new ArgumentNullException(nameof(stringSection));
@@ -118,22 +144,47 @@ public sealed class FlowScriptBinaryBuilder
         mStringSection.Add(0);
     }
 
-    public FlowScriptBinary Build()
+    // The original compiler records the string section size as 16 times the remainder of the
+    // string bytes minus the final terminator over 16, which is 0 when they are already a multiple
+    // of 16. The string data is still written in full even when it runs past that size.
+    private void PadStringSection()
     {
-        // Pad out this section first before building the string section header
-        if (mStringSection != null)
+        if (!mFormatVersion.HasFlag(BinaryFormatVersion.Version1))
         {
             while ((mStringSection.Count % 16) != 0)
                 mStringSection.Add(0);
+            return;
         }
 
-        if (mMatching)
+        if (mStringSection.Count == 0)
         {
-            // Version 1 reserves a 0xF0 byte string section when the script has no strings.
-            // Scripts that do have strings keep the plain 16 byte alignment above.
-            if (mFormatVersion == BinaryFormatVersion.Version1 && mStringSection.Count == 0)
+            // Version 1 reserves a 0xF0 byte string section for scripts without strings.
+            while (mStringSection.Count < 0xF0)
+                mStringSection.Add(0);
+
+            mStringSectionCount = mStringSection.Count;
+            return;
+        }
+
+        mStringSectionCount = 16 * ((mStringSection.Count - 1) % 16);
+
+        while (mStringSection.Count < mStringSectionCount)
+            mStringSection.Add(0);
+    }
+
+    public FlowScriptBinary Build()
+    {
+        if (mOmitStringSection)
+            mStringSection = null;
+
+        // Pad out this section first before building the string section header
+        if (mStringSection != null)
+        {
+            if (mMatching)
+                PadStringSection();
+            else
             {
-                while (mStringSection.Count < 0xF0)
+                while ((mStringSection.Count % 16) != 0)
                     mStringSection.Add(0);
             }
         }
@@ -221,9 +272,10 @@ public sealed class FlowScriptBinaryBuilder
             nextFirstElementAddress += (sectionHeader.ElementCount * sectionHeader.ElementSize);
         }
 
-        if (mMatching || mStringSection != null)
+        if (!mOmitStringSection && (mMatching || mStringSection != null))
         {
-            sectionHeader = BuildSectionHeader(BinarySectionType.StringSection, sizeof(byte), mStringSection.Count, nextFirstElementAddress);
+            sectionHeader = BuildSectionHeader(BinarySectionType.StringSection, sizeof(byte),
+                mStringSectionCount < 0 ? mStringSection.Count : mStringSectionCount, nextFirstElementAddress);
             sectionHeaders[currentSectionHeaderIndex] = sectionHeader;
         }
 
@@ -273,7 +325,8 @@ public sealed class FlowScriptBinaryBuilder
         {
             size += BinarySectionHeader.SIZE;
 
-            if (!mMatching || (mStringSection.Any(x => x != 0)))
+            // Version 1 counts the string section header but not its bytes; later versions count both.
+            if (!mMatching || !mFormatVersion.HasFlag(BinaryFormatVersion.Version1))
                 size += (mStringSection.Count * sizeof(byte));
         }
 
@@ -295,7 +348,7 @@ public sealed class FlowScriptBinaryBuilder
         if (mMatching || mMessageScriptSection != null)
             sectionCount++;
 
-        if (mMatching || mStringSection != null)
+        if (!mOmitStringSection && (mMatching || mStringSection != null))
             sectionCount++;
 
         return sectionCount;
@@ -304,9 +357,9 @@ public sealed class FlowScriptBinaryBuilder
     private short CalculateLocalIntVariableCount()
     {
         if (mTextSection == null)
-            return 0;
+            return mLocalIntVariableCount ?? 0;
 
-        int highestIndex = -1;
+        int highestIndex = (mLocalIntVariableCount ?? 0) - 1;
         for (int i = 0; i < mTextSection.Count; i++)
         {
             var instruction = mTextSection[i];
@@ -330,9 +383,9 @@ public sealed class FlowScriptBinaryBuilder
     private short CalculateLocalFloatVariableCount()
     {
         if (mTextSection == null)
-            return 0;
+            return mLocalFloatVariableCount ?? 0;
 
-        int highestIndex = -1;
+        int highestIndex = (mLocalFloatVariableCount ?? 0) - 1;
         for (int i = 0; i < mTextSection.Count; i++)
         {
             var instruction = mTextSection[i];

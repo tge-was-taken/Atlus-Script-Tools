@@ -1,6 +1,7 @@
 ﻿using AtlusScriptLibrary.Common.Libraries;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler;
@@ -45,6 +46,17 @@ internal class IntrinsicSupport
     {
         if (registry == null)
             return;
+
+        var duplicate = registry.FlowScriptModules.SelectMany(x => x.Functions)
+                                .GroupBy(x => x.Name, StringComparer.InvariantCultureIgnoreCase)
+                                .FirstOrDefault(x => x.Count() > 1);
+
+        if (duplicate != null)
+        {
+            throw new InvalidDataException(
+                $"Library '{registry.Name}' declares the function name '{duplicate.Key}' more than once, " +
+                $"at indices {string.Join(", ", duplicate.Select(x => x.Index))}");
+        }
 
         var functions = registry.FlowScriptModules.SelectMany(x => x.Functions)
                                 .ToDictionary(x => x.Name, StringComparer.InvariantCultureIgnoreCase);

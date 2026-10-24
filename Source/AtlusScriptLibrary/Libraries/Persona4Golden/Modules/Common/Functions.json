@@ -1,7 +1,7 @@
-[
+﻿[
   {
     "Index": "0x0000",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "MSG",
     "Description": "",
     "Parameters": [
@@ -18,7 +18,7 @@
   },
   {
     "Index": "0x0001",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "OPEN_MSG_WIN",
     "Description": "Code function name: itfMesManager__sub_8101F8DC",
     "Parameters": [],
@@ -28,7 +28,7 @@
   },
   {
     "Index": "0x0002",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "CLOSE_MSG_WIN",
     "Description": "Code function name: itfMesManager__sub_8101F93C",
     "Parameters": [],
@@ -95,7 +95,7 @@
   },
   {
     "Index": "0x0007",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "SEL_CHK_PAD",
     "Description": "Selects choice from SEL or ADV_SEL when the specified key is pressed, 14 being the back button",
     "Parameters": [
@@ -350,7 +350,7 @@
   },
   {
     "Index": "0x0017",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "FADE_SYNC",
     "Description": "",
     "Parameters": [],
@@ -481,7 +481,7 @@
   },
   {
     "Index": "0x001e",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "SCREEN_SHAKE",
     "Description": "Causes the screen to shake. This continues until you switch fields or call it with an intensity of 0.",
     "Parameters": [
@@ -797,7 +797,7 @@
   },
   {
     "Index": "0x002e",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "FUNCTION_002E",
     "Description": "Null pointer",
     "Parameters": []
@@ -811,7 +811,7 @@
   },
   {
     "Index": "0x0030",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "CALL_FIELD",
     "Description": "Calls a specified field. Calling the current field will cause the camera to be messed up when leaving it, use CALL_FIELD_SAFE if you want to reload the current field",
     "Parameters": [
@@ -842,7 +842,7 @@
   },
   {
     "Index": "0x0031",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "CALL_FIELD_SAFE",
     "Description": "Calls a specified field. Unlike CALL_FIELD you can use this one to call the current field and reload it with problems",
     "Parameters": [
@@ -873,7 +873,7 @@
   },
   {
     "Index": "0x0032",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "CALL_EVENT",
     "Description": "",
     "Parameters": [
@@ -1836,7 +1836,7 @@
   },
   {
     "Index": "0x0071",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "PLAY_SOUNDEFFECT",
     "Description": "Plays a sound effect. param1 specifies which sound effect.",
     "Parameters": [
@@ -1983,7 +1983,7 @@
   },
   {
     "Index": "0x007c",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "FUNCTION_007C",
     "Description": "",
     "Parameters": [
@@ -2026,7 +2026,7 @@
   },
   {
     "Index": "0x0080",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "BOOK_SHOP",
     "Description": "",
     "Parameters": [
@@ -2042,7 +2042,7 @@
   },
   {
     "Index": "0x0081",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "PRODUCE_SHOP",
     "Description": "",
     "Parameters": [],
@@ -2052,7 +2052,7 @@
   },
   {
     "Index": "0x0082",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "BOOK_READ",
     "Description": "Code function name: cmpBook_sub_8114E452",
     "Parameters": [],
@@ -2062,7 +2062,7 @@
   },
   {
     "Index": "0x0083",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "FUNCTION_0083",
     "Description": "Code function name: cmpMisc_sub_81165542",
     "Parameters": [
@@ -2080,7 +2080,7 @@
   },
   {
     "Index": "0x0084",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "LEARN_SL_SKILL",
     "Description": "",
     "Parameters": [

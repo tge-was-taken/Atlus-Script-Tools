@@ -10,6 +10,12 @@ public class IfStatement : Statement
 
     public CompoundStatement ElseBody { get; set; }
 
+    /// <summary>
+    /// True when the else body is an unbraced 'else if'. The original compiler gives such a chain
+    /// one shared end label, while a braced else body holding an if gets its own end label.
+    /// </summary>
+    public bool ElseIfChain { get; set; }
+
     public IfStatement()
     {
     }

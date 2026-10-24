@@ -1,4 +1,6 @@
-﻿using Antlr4.Runtime;
+using Antlr4.Runtime;
+using Antlr4.Runtime.Atn;
+using Antlr4.Runtime.Misc;
 using System.IO;
 
 namespace AtlusScriptLibrary.MessageScriptLanguage.Compiler.Parser;
@@ -25,13 +27,13 @@ public static class MessageScriptParserHelper
 
     private static MessageScriptParser.CompilationUnitContext ParseCompilationUnit(AntlrInputStream inputStream, IAntlrErrorListener<Antlr4.Runtime.IToken> errorListener = null)
     {
-        var lexer = new MessageScriptLexer(inputStream);
-        var tokenStream = new CommonTokenStream(lexer);
+        // The cheap prediction mode is several times faster but can reject input that needs the
+        // full one, so a rejection is retried rather than reported.
+        if (TryParseFast(inputStream, out var cst))
+            return cst;
 
-        // parser
-        var parser = new MessageScriptParser(tokenStream);
-        parser.BuildParseTree = true;
-        //parser.ErrorHandler = new BailErrorStrategy();
+        inputStream.Seek(0);
+        var parser = CreateParser(inputStream);
 
         if (errorListener != null)
         {
@@ -39,8 +41,39 @@ public static class MessageScriptParserHelper
             parser.AddErrorListener(errorListener);
         }
 
-        var cst = parser.compilationUnit();
+        return parser.compilationUnit();
+    }
 
-        return cst;
+    private static bool TryParseFast(AntlrInputStream inputStream, out MessageScriptParser.CompilationUnitContext cst)
+    {
+        var parser = CreateParser(inputStream, quiet: true);
+        parser.Interpreter.PredictionMode = PredictionMode.Sll;
+        parser.ErrorHandler = new BailErrorStrategy();
+
+        try
+        {
+            cst = parser.compilationUnit();
+            return true;
+        }
+        catch (ParseCanceledException)
+        {
+            cst = null;
+            return false;
+        }
+    }
+
+    private static MessageScriptParser CreateParser(AntlrInputStream inputStream, bool quiet = false)
+    {
+        var lexer = new MessageScriptLexer(inputStream);
+        var parser = new MessageScriptParser(new CommonTokenStream(lexer));
+        parser.BuildParseTree = true;
+
+        if (quiet)
+        {
+            lexer.RemoveErrorListeners();
+            parser.RemoveErrorListeners();
+        }
+
+        return parser;
     }
 }

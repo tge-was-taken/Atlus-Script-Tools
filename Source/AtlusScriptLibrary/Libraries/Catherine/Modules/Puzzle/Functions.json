@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "Index": "0x2000",
     "ReturnType": "void",
@@ -414,7 +414,7 @@
   },
   {
     "Index": "0x2018",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "PZL_CHAR_GETX",
     "Description": "",
     "Parameters": [
@@ -427,7 +427,7 @@
   },
   {
     "Index": "0x2019",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "PZL_CHAR_GETY",
     "Description": "",
     "Parameters": [
@@ -440,7 +440,7 @@
   },
   {
     "Index": "0x201A",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "PZL_CHAR_GETZ",
     "Description": "",
     "Parameters": [
@@ -912,7 +912,7 @@
   },
   {
     "Index": "0x203C",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "PZL_CHAR_GETDIR",
     "Description": "",
     "Parameters": [
@@ -1120,7 +1120,7 @@
   {
     "Index": "0x2049",
     "ReturnType": "void",
-    "Name": "RPZL_EVT_SKIP",
+    "Name": "COMM_2049",
     "Description": "",
     "Parameters": []
   },
@@ -1203,7 +1203,7 @@
   },
   {
     "Index": "0x2050",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "RPZL_GET_CREDIT",
     "Description": "",
     "Parameters": []
@@ -1249,7 +1249,7 @@
   },
   {
     "Index": "0x2054",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "RPZL_GET_RANK_IN",
     "Description": "",
     "Parameters": []
@@ -1467,7 +1467,7 @@
   },
   {
     "Index": "0x2064",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "RPZL_GET_ITEM_NUM",
     "Description": "",
     "Parameters": []
@@ -1531,14 +1531,14 @@
   },
   {
     "Index": "0x2069",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "PZL_PLAYER_NUM",
     "Description": "",
     "Parameters": []
   },
   {
     "Index": "0x206A",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "PZL_FINISH_PLAYER",
     "Description": "",
     "Parameters": []
@@ -1584,7 +1584,7 @@
   },
   {
     "Index": "0x206E",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "PZL_MODEL_ANIM_PERMISSION",
     "Description": "",
     "Parameters": [
@@ -1623,35 +1623,35 @@
   },
   {
     "Index": "0x2071",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "PZL_GET_DROPDEATH",
     "Description": "",
     "Parameters": []
   },
   {
     "Index": "0x2072",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "PZL_ISMULTI",
     "Description": "",
     "Parameters": []
   },
   {
     "Index": "0x2073",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "PZL_GOAL_GETX",
     "Description": "",
     "Parameters": []
   },
   {
     "Index": "0x2074",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "PZL_GOAL_GETY",
     "Description": "",
     "Parameters": []
   },
   {
     "Index": "0x2075",
-    "ReturnType": "void",
+    "ReturnType": "int",
     "Name": "PZL_GOAL_GETZ",
     "Description": "",
     "Parameters": []

@@ -26,6 +26,10 @@ Text
 //
 mode MessageScriptCode;
 
+PragmaTagId
+	: 'pragma'
+	;
+
 MessageDialogTagId
 	: 'msg'
 	| 'dlg'
@@ -37,6 +41,19 @@ SelectionDialogTagId
 SelectionDialogPatternId
 	: 'top'
 	| 'bottom'
+	;
+
+// noterm: the text buffer of this dialog has no terminator of its own after the last page or option
+// sharespeaker: a speaker name built from function tokens reuses an existing speaker table entry
+DialogFlagId
+	: 'noterm'
+	| 'sharespeaker'
+	;
+
+// shared: the pinned speaker table entry is the one dialogs of that name point at, rather than a
+// duplicate nothing refers to
+PragmaFlagId
+	: 'shared'
 	;
 
 // Keywords

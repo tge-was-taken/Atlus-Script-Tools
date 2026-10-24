@@ -1,0 +1,6 @@
+{
+  "Name": "Shin Megami Tensei IV",
+  "ShortName": "smt4",
+  "FlowScriptModulesPath": "SMT4/FlowScriptModules.json",
+  "MessageScriptLibraryPath": ""
+}

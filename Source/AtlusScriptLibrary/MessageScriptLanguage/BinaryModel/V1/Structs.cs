@@ -64,6 +64,10 @@ public struct BinaryDialogHeader
 
     // 04
     public OffsetTo<object> Data;
+
+    // Not stored in the file: the address the data is written at. It differs from Data.Offset for a dialog
+    // repeating an earlier dialog's name, whose data the table entry points at instead.
+    public int DataLocation;
 }
 
 public struct BinarySpeakerTableHeader

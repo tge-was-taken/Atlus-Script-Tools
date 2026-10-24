@@ -9,6 +9,7 @@ using System.Buffers.Binary;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace AtlusScriptLibrary.MessageScriptLanguage;
@@ -46,17 +47,50 @@ public class MessageScript
         {
             Id = binary.Header.UserId,
             FormatVersion = version == FormatVersion.Detect ? (FormatVersion)binary.FormatVersion : version,
+            Version0 = binary.Header.Magic != null &&
+                       binary.Header.Magic.SequenceEqual(BinaryModel.V1.BinaryHeader.MAGIC_V0),
+            Relocated = binary.Header.IsRelocated,
         };
         instance.Encoding = EncodingHelper.GetEncodingForEndianness(encoding, version.HasFlag(FormatVersion.BigEndian)) ?? Encoding.ASCII;
 
         // Convert the binary messages to their counterpart
         var labelOccurences = new Dictionary<string, int>();
+        var nameByOffset = new Dictionary<int, string>();
+
+        // A speaker table entry that more than one dialog points at was shared, which the builder
+        // only does on its own for a plain text name.
+        var sharedSpeakerIds = new HashSet<ushort>(binary.DialogHeaders
+            .Select(x => x.Data.Value as BinaryMessageDialog?)
+            .Where(x => x.HasValue)
+            .GroupBy(x => x.Value.SpeakerId)
+            .Where(x => x.Count() > 1)
+            .Select(x => x.Key));
+        var sharesByDefault = instance.FormatVersion.HasFlag(FormatVersion.Version1) &&
+                              !instance.FormatVersion.HasFlag(FormatVersion.BigEndian);
+        var dialogSpeakers = new List<(int Id, bool Shareable)>();
         foreach (var messageHeader in binary.DialogHeaders)
         {
             IDialog message;
             IReadOnlyList<int> pageStartAddresses;
             IReadOnlyList<byte> buffer;
             int pageCount;
+            int bufferAddress;
+
+            // A table entry sharing its data offset with an earlier one is a dialog repeating that
+            // dialog's name, so it takes the name already resolved for it. Several dialogs can share
+            // a trimmed name, so the raw name alone does not say which one that is.
+            string DialogName(string rawName)
+            {
+                var offset = messageHeader.Data.Offset;
+                if (offset != 0 && nameByOffset.TryGetValue(offset, out var shared))
+                    return shared;
+
+                var resolved = ResolveName(labelOccurences, rawName);
+                if (offset != 0)
+                    nameByOffset[offset] = resolved;
+
+                return resolved;
+            }
 
             switch (messageHeader.Kind)
             {
@@ -66,9 +100,11 @@ public class MessageScript
                         pageStartAddresses = binaryMessage.PageStartAddresses;
                         buffer = binaryMessage.TextBuffer;
                         pageCount = binaryMessage.PageCount;
+                        bufferAddress = messageHeader.DataLocation + 0x1C
+                            + ((pageCount + 1) * sizeof(int));
 
                         // check for duplicates
-                        var name = ResolveName(labelOccurences, binaryMessage.Name);
+                        var name = DialogName(binaryMessage.Name);
 
                         if (binaryMessage.SpeakerId == 0xFFFF)
                         {
@@ -92,7 +128,23 @@ public class MessageScript
                                     .Value[binaryMessage.SpeakerId].Value, instance.FormatVersion, instance.Encoding);
                             }
 
-                            message = new MessageDialog(name, new NamedSpeaker(speakerName));
+                            var shareName = !sharesByDefault &&
+                                            sharedSpeakerIds.Contains(binaryMessage.SpeakerId) &&
+                                            speakerName != null &&
+                                            speakerName.Tokens.Any(x => x.Kind == TokenKind.Function);
+                            message = new MessageDialog(name, new NamedSpeaker(speakerName))
+                            {
+                                ShareSpeakerName = shareName
+                            };
+
+                            if (speakerName != null)
+                            {
+                                // Mirrors the share test the builder applies to this dialog.
+                                var shareable = sharesByDefault ||
+                                                speakerName.Tokens.All(x => x.Kind != TokenKind.Function) ||
+                                                shareName;
+                                dialogSpeakers.Add((binaryMessage.SpeakerId, shareable));
+                            }
                         }
                     }
                     break;
@@ -103,8 +155,13 @@ public class MessageScript
                         pageStartAddresses = binaryMessage.OptionStartAddresses;
                         buffer = binaryMessage.TextBuffer;
                         pageCount = binaryMessage.OptionCount;
-                        var name = ResolveName(labelOccurences, binaryMessage.Name);
-                        message = new SelectionDialog(name, (SelectionDialogPattern)binaryMessage.Pattern);
+                        bufferAddress = messageHeader.DataLocation + 0x20
+                            + ((pageCount + 1) * sizeof(int));
+                        var name = DialogName(binaryMessage.Name);
+                        message = new SelectionDialog(name, (SelectionDialogPattern)binaryMessage.Pattern)
+                        {
+                            OmitTrailingTerminator = !HasTrailingTerminator(pageStartAddresses, buffer)
+                        };
                     }
                     break;
 
@@ -115,15 +172,70 @@ public class MessageScript
             if (pageCount != 0)
             {
                 // Parse the line data
-                ParsePages(message, pageStartAddresses, buffer, instance.FormatVersion, instance.Encoding);
+                var endedOnTerminator = ParsePages(message, pageStartAddresses, buffer, instance.FormatVersion, instance.Encoding, bufferAddress);
+
+                if (message is MessageDialog messageDialog)
+                    messageDialog.OmitTrailingTerminator = !endedOnTerminator;
             }
 
             // Add it to the message list
             instance.Dialogs.Add(message);
         }
 
+        FindPinnedSpeakerNames(instance, binary, dialogSpeakers);
+
         return instance;
     }
+
+    /// <summary>
+    /// Record the speaker table entries a rebuild cannot place on its own. The builder fills the
+    /// table in order of first use, so it needs an entry no dialog refers to, or one sitting before
+    /// the dialog that first refers to it, pinned to its index.
+    /// </summary>
+    private static void FindPinnedSpeakerNames(MessageScript instance, MessageScriptBinary binary,
+        List<(int Id, bool Shareable)> dialogSpeakers)
+    {
+        var speakerNames = binary.SpeakerTableHeader.SpeakerNameArray.Value;
+        if (speakerNames == null)
+            return;
+
+        var count = Math.Min(binary.SpeakerTableHeader.SpeakerCount, speakerNames.Length);
+        var names = new byte[count][];
+        for (int i = 0; i < count; i++)
+            names[i] = speakerNames[i].Value?.ToArray() ?? Array.Empty<byte>();
+
+        var used = new HashSet<int>(dialogSpeakers.Select(x => x.Id));
+        var pins = new List<(int Index, byte[] Name, bool Shareable)>();
+
+        for (int attempt = 0; attempt <= count; attempt++)
+        {
+            var table = new SpeakerTable();
+            foreach (var pin in pins)
+                table.Pin(pin.Index, pin.Name, pin.Shareable);
+            foreach (var (id, shareable) in dialogSpeakers)
+                table.Add(id < count ? names[id] : Array.Empty<byte>(), shareable);
+            table.FlushPins();
+
+            var mismatch = -1;
+            for (int i = 0; i < count && mismatch < 0; i++)
+            {
+                if (i >= table.Names.Count || !table.Names[i].SequenceEqual(names[i]))
+                    mismatch = i;
+            }
+
+            if (mismatch < 0)
+                break;
+
+            pins.Add((mismatch, names[mismatch], used.Contains(mismatch)));
+        }
+
+        foreach (var pin in pins.OrderBy(x => x.Index))
+        {
+            var name = ParseSpeakerText(pin.Name, instance.FormatVersion, instance.Encoding);
+            instance.PinnedSpeakerNames.Add((pin.Index, name, pin.Shareable));
+        }
+    }
+
 
     /// <summary>
     /// Creates a <see cref="MessageScript"/> from a <see cref="MessageScriptBinaryV2"/>.
@@ -297,33 +409,74 @@ public class MessageScript
         return FromBinary(binary, version, encoding);
     }
 
-    private static string ResolveName(Dictionary<string, int> labelOccurences, string name)
+    internal static string ResolveName(Dictionary<string, int> labelOccurences, string name)
     {
-        if (labelOccurences.ContainsKey(name))
-        {
-            labelOccurences[name] += 1;
-            name = name + "_" + labelOccurences[name];
-        }
-        else
+        if (!labelOccurences.TryGetValue(name, out var count))
         {
             labelOccurences[name] = 1;
+            return name;
         }
 
-        return name;
+        // A suffixed name can be a name in its own right, so keep counting until it is free.
+        string resolved;
+        do
+        {
+            count++;
+            resolved = name + "_" + count;
+        }
+        while (labelOccurences.ContainsKey(resolved));
+
+        labelOccurences[name] = count;
+        labelOccurences[resolved] = 1;
+        return resolved;
     }
 
-    private static void ParsePages(IDialog message, IReadOnlyList<int> lineStartAddresses, IReadOnlyList<byte> buffer, FormatVersion version, Encoding encoding)
+    // Each option ends with a terminator and one more normally follows the last of them, so two
+    // terminators after the last option's text mean the trailing one is there.
+    private static bool HasTrailingTerminator(IReadOnlyList<int> optionStartAddresses, IReadOnlyList<byte> buffer)
+    {
+        if (optionStartAddresses.Count == 0 || buffer.Count == 0)
+            return true;
+
+        var index = optionStartAddresses[optionStartAddresses.Count - 1] - optionStartAddresses[0];
+        while (index < buffer.Count && buffer[index] != 0)
+            index++;
+
+        return index + 1 < buffer.Count;
+    }
+
+    /// <summary>
+    /// Parses the pages out of a text buffer. Returns whether the last page ended on a terminator
+    /// instead of running up to the end of the buffer.
+    /// </summary>
+    private static bool ParsePages(IDialog message, IReadOnlyList<int> lineStartAddresses, IReadOnlyList<byte> buffer, FormatVersion version, Encoding encoding, int bufferAddress = -1)
     {
         if (lineStartAddresses.Count == 0 || buffer.Count == 0)
-            return;
+            return true;
+
+        bool endedOnTerminator = false;
 
         // The addresses are not relative to the start of the buffer
         // so we rebase the addresses first
         int lineStartAddressBase = lineStartAddresses[0];
         int[] rebasedLineStartAddresses = new int[lineStartAddresses.Count];
 
+        bool[] inherited = new bool[lineStartAddresses.Count];
+
         for (int i = 0; i < lineStartAddresses.Count; i++)
-            rebasedLineStartAddresses[i] = lineStartAddresses[i] - lineStartAddressBase;
+        {
+            // An address that lands inside this buffer is this dialog's own. One that does not was
+            // inherited from the dialog whose name this one repeats, so fall back to the first address,
+            // which puts the pages in plausible places without claiming to know the real split.
+            var own = lineStartAddresses[i] - bufferAddress;
+            inherited[i] = !(bufferAddress >= 0 && own >= 0 && own <= buffer.Count);
+            rebasedLineStartAddresses[i] = inherited[i]
+                ? lineStartAddresses[i] - lineStartAddressBase
+                : own;
+        }
+
+        // A page start the previous page had to give back, because the token there crosses the boundary.
+        int carriedStart = -1;
 
         for (int lineIndex = 0; lineIndex < rebasedLineStartAddresses.Length; lineIndex++)
         {
@@ -331,16 +484,57 @@ public class MessageScript
             var line = new TokenText();
 
             // Now that the line start addresses have been rebased, we can use them as indices into the buffer
-            int bufferIndex = rebasedLineStartAddresses[lineIndex];
+            int bufferIndex = carriedStart >= 0 ? carriedStart : rebasedLineStartAddresses[lineIndex];
+            carriedStart = -1;
 
             // Calculate the line end index
             int lineEndIndex = (lineIndex + 1) != rebasedLineStartAddresses.Length ? rebasedLineStartAddresses[lineIndex + 1] : buffer.Count;
 
+            // An unreferenced copy of a dialog keeps the page addresses of the dialog it copies, which
+            // can point past its own shorter text, so read what is there and leave the rest empty.
+            bufferIndex = Math.Min(bufferIndex, buffer.Count);
+            lineEndIndex = Math.Min(lineEndIndex, buffer.Count);
+
+            // A copy's borrowed addresses can leave a trailing page with no bytes of its own, which
+            // says nothing about how the text ended, so keep what the last page with bytes found.
+            if (bufferIndex < lineEndIndex)
+                endedOnTerminator = false;
+
+            // A run of text stops at the end of the buffer it is given, so hand the parser a view that
+            // ends where this page does. Without it a text run crosses into the next page and is read twice.
+            var pageBuffer = lineEndIndex == buffer.Count ? buffer : new BufferView(buffer, lineEndIndex);
+
             // Loop over the buffer until we find a 0 byte or have reached the end index
             while (bufferIndex < lineEndIndex)
             {
-                if (!TryParseTokens(buffer, ref bufferIndex, out var tokens, version, encoding))
+                // A token that runs past the end of the buffer ends the page: the bytes it would read
+                // are not there, which happens in the copies described above.
+                List<IToken> tokens;
+                int tokenIndex = bufferIndex;
+                try
+                {
+                    if (!TryParseTokens(pageBuffer, ref bufferIndex, out tokens, version, encoding))
+                    {
+                        endedOnTerminator = true;
+
+                        // A selection's options are terminator delimited, so a borrowed address for the
+                        // next one says nothing: it starts right after this terminator.
+                        if (lineIndex + 1 < inherited.Length && inherited[lineIndex + 1])
+                            carriedStart = bufferIndex;
+
+                        break;
+                    }
+                }
+                catch (Exception exception) when (exception is IndexOutOfRangeException ||
+                                                  exception is ArgumentOutOfRangeException)
+                {
+                    // Text splits anywhere, but a function token does not, so leave one that crosses
+                    // the boundary to the next page. Only a copy's borrowed addresses land mid token.
+                    if (lineEndIndex != buffer.Count)
+                        carriedStart = tokenIndex;
+
                     break;
+                }
 
                 line.Tokens.AddRange(tokens);
             }
@@ -348,6 +542,34 @@ public class MessageScript
             // Add line to list of lines
             message.Lines.Add(line);
         }
+
+        return endedOnTerminator;
+    }
+
+    /// <summary>
+    /// A read only view of the first bytes of a buffer.
+    /// </summary>
+    private sealed class BufferView : IReadOnlyList<byte>
+    {
+        private readonly IReadOnlyList<byte> mBuffer;
+
+        public BufferView(IReadOnlyList<byte> buffer, int count)
+        {
+            mBuffer = buffer;
+            Count = count;
+        }
+
+        public int Count { get; }
+
+        public byte this[int index] => index < Count ? mBuffer[index] : throw new IndexOutOfRangeException();
+
+        public IEnumerator<byte> GetEnumerator()
+        {
+            for (int i = 0; i < Count; i++)
+                yield return mBuffer[i];
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
     }
 
     private static TokenText ParseSpeakerText(IReadOnlyList<byte> bytes, FormatVersion version, Encoding encoding)
@@ -404,6 +626,40 @@ public class MessageScript
     public List<IDialog> Dialogs { get; }
 
     /// <summary>
+    /// Write the older MSG0 layout: its magic and an 8 byte speaker table header.
+    /// </summary>
+    public bool Version0 { get; set; }
+
+    /// <summary>
+    /// Name of the pragma that carries <see cref="Relocated"/> through the text format.
+    /// </summary>
+    public const string RelocatedPragma = "relocated";
+
+    /// <summary>
+    /// Name of the pragma that carries one <see cref="PinnedSpeakerNames"/> entry through the text
+    /// format, as speaker &lt;index&gt; <see cref="SharedPragmaFlag"/>? [name].
+    /// </summary>
+    public const string SpeakerPragma = "speaker";
+
+    /// <summary>
+    /// Flag on the speaker pragma for a shareable entry.
+    /// </summary>
+    public const string SharedPragmaFlag = "shared";
+
+    /// <summary>
+    /// Speaker table entries that the order of first use does not put at the index they sit at, so
+    /// nothing in the text implies that index. Shareable says whether a dialog of the same name
+    /// reuses the entry. Carried by a pragma.
+    /// </summary>
+    public List<(int Index, TokenText Name, bool Shareable)> PinnedSpeakerNames { get; } = new();
+
+    /// <summary>
+    /// The original file was relocated: it is little endian, stores every pointer relative to the
+    /// position of the pointer itself and keeps each text buffer size big endian.
+    /// </summary>
+    public bool Relocated { get; set; }
+
+    /// <summary>
     /// Creates a new instance of <see cref="MessageScript"/> initialized with default values.
     /// </summary>
     public MessageScript()
@@ -426,6 +682,21 @@ public class MessageScript
     }
 
     /// <summary>
+    /// Gets a unique identifier per dialog, for referring to dialogs by name. Dialogs may share a name,
+    /// so repeats get a numeric suffix.
+    /// </summary>
+    public List<string> GetDialogIdentifiers()
+    {
+        var occurences = new Dictionary<string, int>();
+        var identifiers = new List<string>(Dialogs.Count);
+
+        foreach (var dialog in Dialogs)
+            identifiers.Add(ResolveName(occurences, dialog.Name));
+
+        return identifiers;
+    }
+
+    /// <summary>
     /// Converts this <see cref="MessageScript"/> instance to a <see cref="MessageScriptBinary"/> instance.
     /// </summary>
     /// <returns></returns>
@@ -444,9 +715,14 @@ public class MessageScript
         var builder = new MessageScriptBinaryBuilder((BinaryFormatVersion)FormatVersion);
 
         builder.SetUserId(Id);
+        builder.SetVersion0(Version0);
+        builder.SetRelocated(Relocated);
 
         if (Encoding != null)
             builder.SetEncoding(Encoding);
+
+        foreach (var (index, name, shareable) in PinnedSpeakerNames)
+            builder.PinSpeakerName(index, name, shareable);
 
         foreach (var dialog in Dialogs)
         {

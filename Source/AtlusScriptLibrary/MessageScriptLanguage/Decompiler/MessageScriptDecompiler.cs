@@ -38,10 +38,36 @@ public sealed class MessageScriptDecompiler : IDisposable
     {
         WriteHeaderComment("Decompiled by Atlus Script Tools");
 
+        if (script.Relocated)
+        {
+            mWriter.WriteLine($"[pragma {MessageScript.RelocatedPragma}]");
+            mWriter.WriteLine();
+        }
+
+        foreach (var (index, name, shareable) in script.PinnedSpeakerNames)
+        {
+            WriteOpenTag("pragma");
+            WriteTagArgument(MessageScript.SpeakerPragma);
+            WriteTagArgument(index.ToString());
+            if (shareable)
+                WriteTagArgument(MessageScript.SharedPragmaFlag);
+
+            mWriter.Write(" ");
+            WriteOpenTag();
+            Decompile(name, false);
+            WriteCloseTag();
+
+            WriteCloseTag();
+            mWriter.WriteLine();
+            mWriter.WriteLine();
+        }
+
+        var identifiers = script.GetDialogIdentifiers();
+
         for (var i = 0; i < script.Dialogs.Count; i++)
         {
             var message = script.Dialogs[i];
-            WriteHeaderLine($"const int {FormatIdentifier(message.Name).PadRight(32)} = {i};");
+            WriteHeaderLine($"const int {FormatIdentifier(identifiers[i]).PadRight(32)} = {i};");
             Decompile(message);
             mWriter.WriteLine();
         }
@@ -84,6 +110,10 @@ public sealed class MessageScriptDecompiler : IDisposable
                                 WriteCloseTag();
                             }
                         }
+                        if (message.OmitTrailingTerminator)
+                            WriteTagArgument("noterm");
+                        if (message.ShareSpeakerName)
+                            WriteTagArgument("sharespeaker");
                         WriteCloseTag();
                     }
                     break;
@@ -98,10 +128,16 @@ public sealed class MessageScriptDecompiler : IDisposable
                             mWriter.Write(((VariableSpeaker)message.Speaker).Index.ToString());
                             WriteCloseTag();
                         }
+                        if (message.OmitTrailingTerminator)
+                            WriteTagArgument("noterm");
                         WriteCloseTag();
                     }
                     break;
             }
+        }
+        else if (message.OmitTrailingTerminator)
+        {
+            WriteTag("msg", FormatIdentifier(message.Name), "noterm");
         }
         else
         {
@@ -127,12 +163,16 @@ public sealed class MessageScriptDecompiler : IDisposable
         else
             pattern = ((int)message.Pattern).ToString();
 
-        WriteTag("sel", FormatIdentifier(message.Name), pattern);
+        if (message.OmitTrailingTerminator)
+            WriteTag("sel", FormatIdentifier(message.Name), pattern, "noterm");
+        else
+            WriteTag("sel", FormatIdentifier(message.Name), pattern);
+
         mWriter.WriteLine();
 
-        foreach (var line in message.Options)
+        foreach (var option in message.Options)
         {
-            Decompile(line);
+            Decompile(option);
             mWriter.WriteLine();
         }
     }
@@ -183,15 +223,15 @@ public sealed class MessageScriptDecompiler : IDisposable
                     if (function.Semantic == MessageScriptLibraryFunctionSemantic.Unused && OmitUnusedFunctions)
                         return;
 
-                    if (!string.IsNullOrWhiteSpace(function.Name))
+                    // Writing the name would drop or invent arguments when the library disagrees with
+                    // the token, so keep the raw form and stay reversible.
+                    if (!string.IsNullOrWhiteSpace(function.Name) &&
+                        function.Parameters.Count == token.Arguments.Count)
                     {
                         WriteOpenTag(FormatIdentifier(function.Name));
 
-                        for (var i = 0; i < function.Parameters.Count; i++)
-                        {
-                            var argument = function.Parameters[i];
-                            WriteTagArgument(token.Arguments[i].ToString());
-                        }
+                        foreach (var argument in token.Arguments)
+                            WriteTagArgument(argument.ToString());
 
                         WriteCloseTag();
                         return;
@@ -221,12 +261,26 @@ public sealed class MessageScriptDecompiler : IDisposable
 
     public void Decompile(StringToken token)
     {
-        var textWithEscapeChars = token.Value;
-        foreach(var sequence in MessageScriptLanguage.Compiler.MessageScriptCompiler.ESCAPE_SEQUENCES)
+        // The compiler drops the newlines of the source file's own layout, so a control character in
+        // the text buffer has to be written as a code point to survive recompilation. A backslash
+        // goes the same way: next to a bracket it would read as the escape for one.
+        var start = 0;
+        for (var i = 0; i < token.Value.Length; i++)
         {
-            textWithEscapeChars = textWithEscapeChars.Replace(sequence.Value, sequence.Key);
+            if (token.Value[i] >= ' ' && token.Value[i] != '\\')
+                continue;
+
+            WriteText(token.Value.Substring(start, i - start));
+            WriteTag($"x 0x{(int)token.Value[i]:X2}");
+            start = i + 1;
         }
-        mWriter.Write(token.Value.Replace("[", "\\[").Replace("]", "\\]"));
+
+        WriteText(token.Value.Substring(start));
+    }
+
+    private void WriteText(string text)
+    {
+        mWriter.Write(text.Replace("[", "\\[").Replace("]", "\\]"));
     }
 
     public void Decompile(CodePointToken token)

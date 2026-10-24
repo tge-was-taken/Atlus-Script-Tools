@@ -13,19 +13,23 @@ public class MessageScriptBinaryBuilder
 
     // optional
     private short mUserId;
+    private bool mVersion0;
+    private bool mRelocated;
     private Encoding mEncoding;
     private List<Tuple<BinaryDialogKind, object>> mDialogs;
 
     // temporary storage
     private readonly List<int> mAddressLocations;   // for generating the relocation table
     private int mPosition;                          // used to calculate addresses
-    private readonly List<byte[]> mSpeakerNames;    // for storing the speaker names of dialogue messages
+    private readonly SpeakerTable mSpeakerTable;    // the speaker names of dialogue messages
+    private readonly List<string> mDialogNames;     // untruncated dialog names, for resolving repeated names
 
     public MessageScriptBinaryBuilder(BinaryFormatVersion version)
     {
         mFormatVersion = version;
         mAddressLocations = new List<int>();
-        mSpeakerNames = new List<byte[]>();
+        mSpeakerTable = new SpeakerTable();
+        mDialogNames = new List<string>();
         mPosition = BinaryHeader.SIZE;
         mDialogs = new List<Tuple<BinaryDialogKind, object>>();
     }
@@ -33,6 +37,25 @@ public class MessageScriptBinaryBuilder
     public void SetUserId(short value)
     {
         mUserId = value;
+    }
+
+    public void SetVersion0(bool value)
+    {
+        mVersion0 = value;
+    }
+
+    public void SetRelocated(bool value)
+    {
+        mRelocated = value;
+    }
+
+    /// <summary>
+    /// Declare a speaker table entry that keeps a fixed index, because first use order does not put
+    /// it there. <paramref name="shareable"/> says whether a later dialog of the same name reuses it.
+    /// </summary>
+    public void PinSpeakerName(int index, TokenText name, bool shareable)
+    {
+        mSpeakerTable.Pin(index, ProcessLine(name).ToArray(), shareable);
     }
 
     internal void SetEncoding(Encoding encoding)
@@ -56,11 +79,16 @@ public class MessageScriptBinaryBuilder
             {
                 case SpeakerKind.Named:
                     {
-                        var speakerName = ProcessLine(((NamedSpeaker)message.Speaker).Name);
-                        if (!mSpeakerNames.Any(x => x.SequenceEqual(speakerName)))
-                            mSpeakerNames.Add(speakerName.ToArray());
+                        var name = ((NamedSpeaker)message.Speaker).Name;
+                        var speakerName = ProcessLine(name);
 
-                        binary.SpeakerId = (ushort)mSpeakerNames.FindIndex(x => x.SequenceEqual(speakerName));
+                        // Little endian version 1 shares a table entry for any equal name, while the
+                        // later tools only share plain text and give a name with function tokens its own.
+                        var shareable = mFormatVersion.HasFlag(BinaryFormatVersion.Version1) &&
+                                        !mFormatVersion.HasFlag(BinaryFormatVersion.BigEndian) ||
+                                        name.Tokens.All(x => x.Kind != TokenKind.Function) ||
+                                        message.ShareSpeakerName;
+                        binary.SpeakerId = (ushort)mSpeakerTable.Add(speakerName.ToArray(), shareable);
                     }
                     break;
 
@@ -76,7 +104,8 @@ public class MessageScriptBinaryBuilder
         }
         else
         {
-            binary.SpeakerId = 0xFFFF;
+            // A dialog without pages stores 0 here, not the usual no-speaker sentinel.
+            binary.SpeakerId = (ushort)(binary.PageCount == 0 ? 0 : 0xFFFF);
         }
 
         binary.PageStartAddresses = new int[message.Pages.Count];
@@ -95,12 +124,14 @@ public class MessageScriptBinaryBuilder
                 lineStartAddress += lineBytes.Count;
             }
 
-            textBuffer.Add(0);
+            if (binary.PageCount > 0 && !message.OmitTrailingTerminator)
+                textBuffer.Add(0);
         }
 
         binary.TextBuffer = textBuffer.ToArray();
         binary.TextBufferSize = binary.TextBuffer.Length;
 
+        mDialogNames.Add(message.Name);
         mDialogs.Add(new Tuple<BinaryDialogKind, object>(BinaryDialogKind.Message, binary));
     }
 
@@ -132,12 +163,14 @@ public class MessageScriptBinaryBuilder
                 lineStartAddress += lineBytes.Count;
             }
 
-            textBuffer.Add(0); // intentional
+            if (!message.OmitTrailingTerminator)
+                textBuffer.Add(0); // intentional
         }
 
         binary.TextBuffer = textBuffer.ToArray();
         binary.TextBufferSize = binary.TextBuffer.Length;
 
+        mDialogNames.Add(message.Name);
         mDialogs.Add(new Tuple<BinaryDialogKind, object>(BinaryDialogKind.Selection, binary));
     }
 
@@ -145,7 +178,8 @@ public class MessageScriptBinaryBuilder
     {
         var binary = new MessageScriptBinary
         {
-            mFormatVersion = mFormatVersion
+            // A relocated file is always little endian, whatever endianness the format version asks for.
+            mFormatVersion = mRelocated ? mFormatVersion & ~BinaryFormatVersion.BigEndian : mFormatVersion
         };
 
         // note: DONT CHANGE THE ORDER
@@ -227,17 +261,18 @@ public class MessageScriptBinaryBuilder
         // AAAA BBBB where A is a signifier value for a function and B is the encoded argument byte size
         byte functionSignifier;
 
-        if (mFormatVersion.HasFlag(BinaryFormatVersion.Version1))
-        {
-            functionSignifier = (byte)(0xF0 | token.Arguments.Count * sizeof(short) / 2 + 1 & 0x0F);
-        }
-        else if (mFormatVersion == BinaryFormatVersion.Version1DDS)
+        // Version1DDS carries the Version1 flag, so it has to be tested first.
+        if (mFormatVersion.HasFlag(BinaryFormatVersion.Version1DDS))
         {
             byte argumentByteCount = (byte)(token.Arguments.Count * 2 & 0x0F);
             if (argumentByteCount == 0)
                 argumentByteCount = 1; // tested
 
             functionSignifier = (byte)(0xF0 | argumentByteCount);
+        }
+        else if (mFormatVersion.HasFlag(BinaryFormatVersion.Version1))
+        {
+            functionSignifier = (byte)(0xF0 | token.Arguments.Count * sizeof(short) / 2 + 1 & 0x0F);
         }
         else
         {
@@ -275,13 +310,16 @@ public class MessageScriptBinaryBuilder
         header.FileType = BinaryHeader.FILE_TYPE;
         header.Format = 0;
         header.UserId = mUserId;
-        header.Magic = mFormatVersion.HasFlag(BinaryFormatVersion.BigEndian)
-            ? BinaryHeader.MAGIC_V1_BE
+        header.Magic = mFormatVersion.HasFlag(BinaryFormatVersion.BigEndian) && !mRelocated ? BinaryHeader.MAGIC_V1_BE
+            : mVersion0 ? BinaryHeader.MAGIC_V0
             : BinaryHeader.MAGIC_V1;
         header.ExtSize = 0;
         header.DialogCount = mDialogs?.Count ?? 0;
-        header.IsRelocated = false;
-        header.Version = 2;
+        header.IsRelocated = mRelocated;
+
+        // The values the only known MSG0 file carries here.
+        header.Reserved = (byte)(mVersion0 ? 0x49 : 0);
+        header.Version = (short)(mVersion0 ? 0x40 : 2);
     }
 
     private void BuildWindowHeadersFirstPass(ref BinaryDialogHeader[] headers)
@@ -302,24 +340,79 @@ public class MessageScriptBinaryBuilder
         AddAddressLocation();
         MoveToNextIntPosition();
 
-        speakerHeader.SpeakerCount = mSpeakerNames.Count;
+        mSpeakerTable.FlushPins();
+        speakerHeader.SpeakerCount = mSpeakerTable.Names.Count;
         MoveToNextIntPosition();
 
         speakerHeader.ExtDataOffset = 0;
-        MoveToNextIntPosition();
-
         speakerHeader.Reserved = 0;
-        MoveToNextIntPosition();
+
+        // MSG0 stops the speaker table header after the name array pointer and the count.
+        if (!mVersion0)
+        {
+            MoveToNextIntPosition();
+            MoveToNextIntPosition();
+        }
     }
 
     private void BuildWindowHeadersFinalPass(ref BinaryDialogHeader[] headers)
     {
+        var firstByName = new Dictionary<string, SharedDialogAddresses>();
+
         for (int i = 0; i < headers.Length; i++)
         {
-            headers[i].Data.Offset = GetAlignedAddress();
-            headers[i].Data.Value = UpdateDialogAddressBase(mDialogs[i].Item2);
+            headers[i].DataLocation = GetAlignedAddress();
+
+            // A dialog repeating an earlier dialog's name still gets its own data, but the table entry and
+            // the addresses within it point at the first dialog of that name.
+            if (!firstByName.TryGetValue(mDialogNames[i], out var first))
+            {
+                first = new SharedDialogAddresses { Address = headers[i].DataLocation };
+                firstByName.Add(mDialogNames[i], first);
+            }
+
+            headers[i].Data.Offset = first.Address;
+            headers[i].Data.Value = UpdateDialogPageAddresses(
+                mDialogs[i].Item2, headers[i].DataLocation, first);
         }
     }
+
+    /// <summary>
+    /// The data address and page address array that every dialog of one name emits. Each dialog fills
+    /// the entries that are not there yet from its own text, so a later one reuses what it finds.
+    /// </summary>
+    private sealed class SharedDialogAddresses
+    {
+        public int Address;
+        public readonly List<int> PageAddresses = new();
+    }
+
+    private static void SharePageAddresses(int[] pageAddresses, int dataLocation, int textBufferSize,
+        int textBufferOffset, SharedDialogAddresses shared)
+    {
+        for (int i = 0; i < pageAddresses.Length; i++)
+        {
+            if (i == shared.PageAddresses.Count)
+                shared.PageAddresses.Add(dataLocation + pageAddresses[i]);
+
+            pageAddresses[i] = shared.PageAddresses[i];
+        }
+
+        // Each dialog also leaves an entry at its terminator, which a later dialog of the same name
+        // emits as the start of the page after the last one this dialog has.
+        if (pageAddresses.Length == shared.PageAddresses.Count)
+            shared.PageAddresses.Add(dataLocation + textBufferOffset + textBufferSize - 1);
+    }
+
+    /// <summary>
+    /// Where a dialog's text buffer starts, counted from the start of the dialog's data.
+    /// </summary>
+    private static int GetTextBufferOffset(object dialog) => dialog switch
+    {
+        BinaryMessageDialog message => 0x1C + (message.PageCount * sizeof(int)) + sizeof(int),
+        BinarySelectionDialog selection => 0x20 + (selection.OptionCount * sizeof(int)) + sizeof(int),
+        _ => throw new NotImplementedException(dialog.GetType().ToString())
+    };
 
     private void BuildSpeakerTableHeaderSecondPass(ref BinarySpeakerTableHeader speakerTableHeader)
     {
@@ -337,10 +430,10 @@ public class MessageScriptBinaryBuilder
         for (int i = 0; i < speakerTableHeader.SpeakerNameArray.Value.Length; i++)
         {
             speakerTableHeader.SpeakerNameArray.Value[i].Offset = GetAddress();
-            speakerTableHeader.SpeakerNameArray.Value[i].Value = mSpeakerNames[i].ToList();
+            speakerTableHeader.SpeakerNameArray.Value[i].Value = mSpeakerTable.Names[i].ToList();
 
             // todo: maybe the speakername should include the trailing 0
-            MoveToNextPositionByOffset(mSpeakerNames[i].Length + 1);
+            MoveToNextPositionByOffset(mSpeakerTable.Names[i].Length + 1);
         }
     }
 
@@ -355,24 +448,29 @@ public class MessageScriptBinaryBuilder
         header.FileSize = mPosition;
     }
 
-    private object UpdateDialogAddressBase(object dialog)
+    private object UpdateDialogPageAddresses(object dialog, int dataLocation,
+        SharedDialogAddresses shared)
     {
-        int dialogAddress = GetAddress();
-
         switch (dialog)
         {
             case BinaryMessageDialog dialogue:
                 {
                     mPosition += 0x1C;
 
-                    for (int i = 0; i < dialogue.PageStartAddresses.Length; i++)
+                    // A dialog without pages ends after the speaker field.
+                    if (dialogue.PageCount > 0)
                     {
-                        AddAddressLocation();
-                        dialogue.PageStartAddresses[i] += dialogAddress;
-                        mPosition += 4;
-                    }
+                        SharePageAddresses(dialogue.PageStartAddresses, dataLocation,
+                            dialogue.TextBufferSize, GetTextBufferOffset(dialogue), shared);
 
-                    mPosition += 4 + dialogue.TextBufferSize;
+                        for (int i = 0; i < dialogue.PageStartAddresses.Length; i++)
+                        {
+                            AddAddressLocation();
+                            mPosition += 4;
+                        }
+
+                        mPosition += 4 + dialogue.TextBufferSize;
+                    }
                 }
                 break;
 
@@ -380,10 +478,12 @@ public class MessageScriptBinaryBuilder
                 {
                     mPosition += 0x20;
 
+                    SharePageAddresses(selection.OptionStartAddresses, dataLocation,
+                        selection.TextBufferSize, GetTextBufferOffset(selection), shared);
+
                     for (int i = 0; i < selection.OptionStartAddresses.Length; i++)
                     {
                         AddAddressLocation();
-                        selection.OptionStartAddresses[i] += dialogAddress;
                         mPosition += 4;
                     }
 

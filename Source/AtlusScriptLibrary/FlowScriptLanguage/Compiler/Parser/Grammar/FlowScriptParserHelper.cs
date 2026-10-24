@@ -1,4 +1,6 @@
-﻿using Antlr4.Runtime;
+using Antlr4.Runtime;
+using Antlr4.Runtime.Atn;
+using Antlr4.Runtime.Misc;
 using System.IO;
 
 namespace AtlusScriptLibrary.FlowScriptLanguage.Compiler.Parser.Grammar;
@@ -25,13 +27,13 @@ public static class FlowScriptParserHelper
 
     private static FlowScriptParser.CompilationUnitContext ParseCompilationUnit(AntlrInputStream inputStream, IAntlrErrorListener<IToken> errorListener = null)
     {
-        var lexer = new FlowScriptLexer(inputStream);
-        var tokenStream = new CommonTokenStream(lexer);
+        // The cheap prediction mode parses a large script tens of times faster but can reject
+        // input that needs the full one, so a rejection is retried rather than reported.
+        if (TryParseFast(inputStream, out var cst))
+            return cst;
 
-        // parser
-        var parser = new FlowScriptParser(tokenStream);
-        parser.BuildParseTree = true;
-        //parser.ErrorHandler = new BailErrorStrategy();
+        inputStream.Seek(0);
+        var parser = CreateParser(inputStream);
         parser.ErrorHandler = new DefaultErrorStrategy();
 
         if (errorListener != null)
@@ -40,8 +42,39 @@ public static class FlowScriptParserHelper
             parser.AddErrorListener(errorListener);
         }
 
-        var cst = parser.compilationUnit();
+        return parser.compilationUnit();
+    }
 
-        return cst;
+    private static bool TryParseFast(AntlrInputStream inputStream, out FlowScriptParser.CompilationUnitContext cst)
+    {
+        var parser = CreateParser(inputStream, quiet: true);
+        parser.Interpreter.PredictionMode = PredictionMode.Sll;
+        parser.ErrorHandler = new BailErrorStrategy();
+
+        try
+        {
+            cst = parser.compilationUnit();
+            return true;
+        }
+        catch (ParseCanceledException)
+        {
+            cst = null;
+            return false;
+        }
+    }
+
+    private static FlowScriptParser CreateParser(AntlrInputStream inputStream, bool quiet = false)
+    {
+        var lexer = new FlowScriptLexer(inputStream);
+        var parser = new FlowScriptParser(new CommonTokenStream(lexer));
+        parser.BuildParseTree = true;
+
+        if (quiet)
+        {
+            lexer.RemoveErrorListeners();
+            parser.RemoveErrorListeners();
+        }
+
+        return parser;
     }
 }
