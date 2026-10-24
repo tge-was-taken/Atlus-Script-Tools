@@ -24,8 +24,6 @@ jobs:
             os: windows-latest
           - rid: linux-x64
             os: ubuntu-latest
-          - rid: osx-x64
-            os: macos-13
           - rid: osx-arm64
             os: macos-latest
 
@@ -84,3 +82,57 @@ jobs:
           tag_name: ${{ inputs.tag }}
           prerelease: ${{ inputs.prerelease }}
           files: publish/AtlusScriptTools-${{ matrix.rid }}.zip
+
+  # The portable build is not AOT compiled, so it needs an installed .NET runtime but runs on
+  # any platform the runtime supports, including the ones without a native build above.
+  portable:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      # The ANTLR grammars are regenerated during the build.
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Publish the executables
+        shell: bash
+        run: |
+          set -eu
+          out=publish/AtlusScriptTools-dotnet
+          for project in AtlusScriptCompiler \
+                         Utilities/AtlusFlowScriptExtractor \
+                         Utilities/AtlusMessageScriptExtractor \
+                         Utilities/AtlusScriptDocGen \
+                         Utilities/DumpMessageIds \
+                         Utilities/DumpProcedureIds; do
+            dotnet publish "Source/$project/$(basename "$project").csproj" -c Release \
+              -p:PublishAot=false --no-self-contained -o "$out"
+          done
+          rm -rf "$out"/*.pdb
+
+      - name: Archive
+        shell: bash
+        run: |
+          set -eu
+          cd publish
+          zip -r AtlusScriptTools-dotnet.zip AtlusScriptTools-dotnet
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AtlusScriptTools-dotnet
+          path: publish/AtlusScriptTools-dotnet.zip
+
+      - name: Attach to the release
+        if: inputs.tag != ''
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ inputs.tag }}
+          prerelease: ${{ inputs.prerelease }}
+          files: publish/AtlusScriptTools-dotnet.zip
