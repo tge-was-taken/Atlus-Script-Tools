@@ -27,7 +27,17 @@ dialog
 
 	// [ msg DialogName [SpeakerName] ] text...
 messageDialog
-	: OpenCode MessageDialogTagId Identifier speakerName? DialogFlagId* CloseCode tokenText
+	: OpenCode MessageDialogTagId dialogName speakerName? DialogFlagId* CloseCode tokenText
+	;
+
+	// The flag and pattern words are keywords only where a flag or a pattern is expected, so a
+	// dialog may still be named after one of them.
+dialogName
+	: Identifier
+	| DialogFlagId
+	| PragmaTagId
+	| PragmaFlagId
+	| SelectionDialogPatternId
 	;
 
 speakerName
@@ -36,7 +46,7 @@ speakerName
 
 	// [ sel SelectionName ] text...
 selectionDialog
-	: OpenCode SelectionDialogTagId Identifier selectionDialogPattern? DialogFlagId* CloseCode tokenText
+	: OpenCode SelectionDialogTagId dialogName selectionDialogPattern? DialogFlagId* CloseCode tokenText
 	;
 
 selectionDialogPattern

@@ -1,4 +1,4 @@
-﻿using Antlr4.Runtime;
+using Antlr4.Runtime;
 using Antlr4.Runtime.Tree;
 using AtlusScriptLibrary.Common.Libraries;
 using AtlusScriptLibrary.Common.Logging;
@@ -364,7 +364,10 @@ public class MessageScriptCompiler
                     return false;
             }
             else
-                LogWarning(pragmaContext, $"Unknown pragma: {name}");
+            {
+                LogError(pragmaContext, $"Unknown pragma: {name}");
+                return false;
+            }
         }
 
         foreach (var dialogContext in dialogContexts)
@@ -416,10 +419,10 @@ public class MessageScriptCompiler
         //
         string identifier;
         {
-            if (!TryGetFatal(context, context.Identifier, "Expected dialog window name", out var identifierNode))
+            if (!TryGetFatal(context, context.dialogName, "Expected dialog window name", out var nameContext))
                 return false;
 
-            identifier = ParseIdentifier(identifierNode);
+            identifier = ParseDialogName(nameContext);
         }
 
         LogInfo(context, $"Compiling dialog window: {identifier}");
@@ -495,6 +498,11 @@ public class MessageScriptCompiler
         return true;
     }
 
+    private static string ParseDialogName(MessageScriptParser.DialogNameContext context)
+    {
+        return ParseIdentifier((ITerminalNode)context.GetChild(0));
+    }
+
     private static string ParseIdentifier(ITerminalNode identifierNode)
     {
         var text = identifierNode.Symbol.Text;
@@ -520,10 +528,10 @@ public class MessageScriptCompiler
         //
         string identifier;
         {
-            if (!TryGetFatal(context, context.Identifier, "Expected selection window name", out var identifierNode))
+            if (!TryGetFatal(context, context.dialogName, "Expected selection window name", out var nameContext))
                 return false;
 
-            identifier = ParseIdentifier(identifierNode);
+            identifier = ParseDialogName(nameContext);
         }
 
         LogInfo(context, $"Compiling selection window: {identifier}");
@@ -576,6 +584,12 @@ public class MessageScriptCompiler
         //
         // Create Selection window
         //
+        foreach (var flag in context.DialogFlagId().Where(x => x.GetText() != "noterm"))
+        {
+            LogError(context, $"Selection dialogs take no '{flag.GetText()}' flag");
+            return false;
+        }
+
         selectionWindow = new SelectionDialog(identifier, pattern, options)
         {
             OmitTrailingTerminator = context.DialogFlagId().Any(x => x.GetText() == "noterm")
@@ -612,6 +626,18 @@ public class MessageScriptCompiler
 
             if (lines.Count != 0)
                 name = lines[0];
+        }
+
+        if (index < 0)
+        {
+            LogError(context, $"Speaker table index must not be negative: {index}");
+            return false;
+        }
+
+        if (script.PinnedSpeakerNames.Any(x => x.Index == index))
+        {
+            LogError(context, $"Speaker table index {index} is pinned more than once");
+            return false;
         }
 
         script.PinnedSpeakerNames.Add((index, name, context.PragmaFlagId() != null));
