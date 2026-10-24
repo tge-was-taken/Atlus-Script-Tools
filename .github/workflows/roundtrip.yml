@@ -1,0 +1,76 @@
+name: Round trip
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      sample:
+        description: Take every Nth corpus file. 1 runs all of them.
+        type: string
+        required: false
+        default: '1'
+      games:
+        description: Comma separated game tags to limit the run to. Empty runs all.
+        type: string
+        required: false
+        default: ''
+
+jobs:
+  roundtrip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # The corpus is a private repo, so a pull request from a fork cannot reach it.
+      - id: corpus
+        run: |
+          if [ -n "$KEY" ]; then echo "available=true" >> "$GITHUB_OUTPUT"
+          else echo "::warning::corpus unavailable, skipping the round trip"; fi
+        env:
+          KEY: ${{ secrets.ASSETS_DEPLOY_KEY }}
+
+      - if: steps.corpus.outputs.available
+        uses: actions/checkout@v4
+        with:
+          repository: tge-was-taken/Atlus-Script-Tools-Assets
+          ssh-key: ${{ secrets.ASSETS_DEPLOY_KEY }}
+          path: corpus
+
+      - if: steps.corpus.outputs.available
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      # The ANTLR grammars are regenerated during the build.
+      - if: steps.corpus.outputs.available
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - if: steps.corpus.outputs.available
+        run: dotnet publish Source/AtlusScriptCompiler/AtlusScriptCompiler.csproj -c Release -o compiler
+
+      # A full run is around 32000 compiler invocations, so pull requests take a sample.
+      - if: steps.corpus.outputs.available
+        run: |
+          python3 Scripts/roundtrip.py \
+            --corpus corpus \
+            --exe "$PWD/compiler/AtlusScriptCompiler" \
+            --workdir "$RUNNER_TEMP/roundtrip" \
+            --results results.txt \
+            --sample "${SAMPLE:-$DEFAULT_SAMPLE}" \
+            ${GAMES:+--games "$GAMES"}
+        env:
+          SAMPLE: ${{ inputs.sample }}
+          GAMES: ${{ inputs.games }}
+          DEFAULT_SAMPLE: ${{ github.event_name == 'pull_request' && '10' || '1' }}
+
+      - if: always() && steps.corpus.outputs.available
+        uses: actions/upload-artifact@v4
+        with:
+          name: roundtrip-results
+          path: results.txt
+          if-no-files-found: ignore
