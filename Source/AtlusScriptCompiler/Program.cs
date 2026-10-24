@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Text;
 using AtlusScriptLibrary.Common.Logging;
 using AtlusScriptLibrary.Common.Libraries;
@@ -183,8 +183,8 @@ internal class Program
         Console.WriteLine("            See below for all available libraries.");
         Console.WriteLine();
         Console.WriteLine("Available libraries:");
-        foreach (var lib in LibraryLookup.Libraries)
-            Console.WriteLine($"    {lib.Name} ({lib.ShortName})");
+        foreach (var (name, shortName) in LibraryLookup.LibraryNames)
+            Console.WriteLine($"    {name} ({shortName})");
         Console.WriteLine();
         Console.WriteLine("Available charsets:");
         foreach (var item in AtlusEncoding.AvailableCharsets)
