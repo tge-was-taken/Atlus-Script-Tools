@@ -53,9 +53,9 @@ public class MessageScriptBinaryBuilder
     /// Declare a speaker table entry that keeps a fixed index, because first use order does not put
     /// it there. <paramref name="shareable"/> says whether a later dialog of the same name reuses it.
     /// </summary>
-    public void PinSpeakerName(int index, byte[] name, bool shareable)
+    public void PinSpeakerName(int index, TokenText name, bool shareable)
     {
-        mSpeakerTable.Pin(index, name, shareable);
+        mSpeakerTable.Pin(index, ProcessLine(name).ToArray(), shareable);
     }
 
     internal void SetEncoding(Encoding encoding)

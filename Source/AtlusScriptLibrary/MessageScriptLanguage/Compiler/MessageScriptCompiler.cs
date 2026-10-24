@@ -358,13 +358,10 @@ public class MessageScriptCompiler
             var name = ParseIdentifier(pragmaContext.Identifier());
             if (name == MessageScript.RelocatedPragma)
                 script.Relocated = true;
-            else if (name.StartsWith(MessageScript.SpeakerSlotPragmaPrefix))
+            else if (name == MessageScript.SpeakerPragma)
             {
-                var parts = name.Substring(MessageScript.SpeakerSlotPragmaPrefix.Length).Split('_');
-                if (parts.Length != 3 || !int.TryParse(parts[0], out var index))
-                    LogWarning(pragmaContext, $"Invalid pragma: {name}");
-                else
-                    script.PinnedSpeakerNames.Add((index, AtlusScriptLibrary.Common.HexText.FromHex(parts[2]), parts[1] == "1"));
+                if (!TryCompileSpeakerPragma(pragmaContext, script))
+                    return false;
             }
             else
                 LogWarning(pragmaContext, $"Unknown pragma: {name}");
@@ -584,6 +581,40 @@ public class MessageScriptCompiler
             OmitTrailingTerminator = context.DialogFlagId().Any(x => x.GetText() == "noterm")
         };
 
+        return true;
+    }
+
+    // [ pragma speaker Index shared? [SpeakerName] ]
+    private bool TryCompileSpeakerPragma(MessageScriptParser.PragmaContext context, MessageScript script)
+    {
+        if (!TryGetFatal(context, context.IntLiteral, "Expected speaker table index", out var indexNode) ||
+            !TryParseIntLiteral(indexNode, out var index))
+            return false;
+
+        if (!TryGetFatal(context, context.speakerName, "Expected speaker name", out var speakerNameContext))
+            return false;
+
+        if (!TryGetFatal(speakerNameContext, speakerNameContext.tokenText, "Expected speaker name text",
+                         out var tokenTextContext))
+            return false;
+
+        var name = new TokenText();
+        if (tokenTextContext.ChildCount != 0)
+        {
+            if (!TryCompileTokenText(tokenTextContext, out var lines))
+            {
+                LogError(speakerNameContext, "Failed to compile speaker name");
+                return false;
+            }
+
+            if (lines.Count > 1)
+                LogWarning(tokenTextContext, "More than 1 line for speaker name. Only the 1st line will be used");
+
+            if (lines.Count != 0)
+                name = lines[0];
+        }
+
+        script.PinnedSpeakerNames.Add((index, name, context.PragmaFlagId() != null));
         return true;
     }
 

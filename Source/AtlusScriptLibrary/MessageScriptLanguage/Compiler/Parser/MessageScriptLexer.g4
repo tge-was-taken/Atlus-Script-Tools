@@ -50,6 +50,12 @@ DialogFlagId
 	| 'sharespeaker'
 	;
 
+// shared: the pinned speaker table entry is the one dialogs of that name point at, rather than a
+// duplicate nothing refers to
+PragmaFlagId
+	: 'shared'
+	;
+
 // Keywords
 CloseCode
 	: ']' -> popMode;

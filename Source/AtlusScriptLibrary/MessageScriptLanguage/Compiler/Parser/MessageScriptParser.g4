@@ -15,9 +15,10 @@ compilationUnit
 	: pragma* dialog* EOF
 	;
 
-	// [ pragma name ] a binary detail of the original file that the text does not imply
+	// [ pragma name ] a binary detail of the original file that the text does not imply.
+	// [ pragma speaker Index shared? [SpeakerName] ] pins one speaker table entry.
 pragma
-	: OpenCode PragmaTagId Identifier CloseCode
+	: OpenCode PragmaTagId Identifier IntLiteral? PragmaFlagId? speakerName? CloseCode
 	;
 	
 dialog

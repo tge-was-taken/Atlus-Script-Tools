@@ -1,5 +1,4 @@
-﻿using AtlusScriptLibrary.Common;
-using AtlusScriptLibrary.Common.IO;
+﻿using AtlusScriptLibrary.Common.IO;
 using AtlusScriptLibrary.Common.Text.Encodings;
 using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel;
 using AtlusScriptLibrary.MessageScriptLanguage.BinaryModel.V1;
@@ -60,13 +59,12 @@ public class MessageScript
 
         // A speaker table entry that more than one dialog points at was shared, which the builder
         // only does on its own for a plain text name.
-        var sharedSpeakerIds = binary.DialogHeaders
+        var sharedSpeakerIds = new HashSet<ushort>(binary.DialogHeaders
             .Select(x => x.Data.Value as BinaryMessageDialog?)
             .Where(x => x.HasValue)
             .GroupBy(x => x.Value.SpeakerId)
             .Where(x => x.Count() > 1)
-            .Select(x => x.Key)
-            .ToSet();
+            .Select(x => x.Key));
         var sharesByDefault = instance.FormatVersion.HasFlag(FormatVersion.Version1) &&
                               !instance.FormatVersion.HasFlag(FormatVersion.BigEndian);
         var dialogSpeakers = new List<(int Id, bool Shareable)>();
@@ -231,7 +229,11 @@ public class MessageScript
             pins.Add((mismatch, names[mismatch], used.Contains(mismatch)));
         }
 
-        instance.PinnedSpeakerNames.AddRange(pins.OrderBy(x => x.Index));
+        foreach (var pin in pins.OrderBy(x => x.Index))
+        {
+            var name = ParseSpeakerText(pin.Name, instance.FormatVersion, instance.Encoding);
+            instance.PinnedSpeakerNames.Add((pin.Index, name, pin.Shareable));
+        }
     }
 
 
@@ -634,17 +636,22 @@ public class MessageScript
     public const string RelocatedPragma = "relocated";
 
     /// <summary>
-    /// Prefix of the pragma that carries one <see cref="PinnedSpeakerNames"/> entry through the text
-    /// format, as speakerslot_&lt;index&gt;_&lt;0 or 1 for shareable&gt;_&lt;hex of the encoded name&gt;.
+    /// Name of the pragma that carries one <see cref="PinnedSpeakerNames"/> entry through the text
+    /// format, as speaker &lt;index&gt; <see cref="SharedPragmaFlag"/>? [name].
     /// </summary>
-    public const string SpeakerSlotPragmaPrefix = "speakerslot_";
+    public const string SpeakerPragma = "speaker";
+
+    /// <summary>
+    /// Flag on the speaker pragma for a shareable entry.
+    /// </summary>
+    public const string SharedPragmaFlag = "shared";
 
     /// <summary>
     /// Speaker table entries that the order of first use does not put at the index they sit at, so
     /// nothing in the text implies that index. Shareable says whether a dialog of the same name
     /// reuses the entry. Carried by a pragma.
     /// </summary>
-    public List<(int Index, byte[] Name, bool Shareable)> PinnedSpeakerNames { get; } = new();
+    public List<(int Index, TokenText Name, bool Shareable)> PinnedSpeakerNames { get; } = new();
 
     /// <summary>
     /// The original file was relocated: it is little endian, stores every pointer relative to the

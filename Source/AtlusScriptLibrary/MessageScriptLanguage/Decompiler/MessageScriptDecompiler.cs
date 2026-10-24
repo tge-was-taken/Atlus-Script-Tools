@@ -1,5 +1,4 @@
 ﻿using AtlusScriptLibrary.Common.Libraries;
-using AtlusScriptLibrary.Common;
 using AtlusScriptLibrary.Common.Text;
 using System;
 using System.IO;
@@ -47,7 +46,19 @@ public sealed class MessageScriptDecompiler : IDisposable
 
         foreach (var (index, name, shareable) in script.PinnedSpeakerNames)
         {
-            mWriter.WriteLine($"[pragma {MessageScript.SpeakerSlotPragmaPrefix}{index}_{(shareable ? 1 : 0)}_{HexText.ToHex(name)}]");
+            WriteOpenTag("pragma");
+            WriteTagArgument(MessageScript.SpeakerPragma);
+            WriteTagArgument(index.ToString());
+            if (shareable)
+                WriteTagArgument(MessageScript.SharedPragmaFlag);
+
+            mWriter.Write(" ");
+            WriteOpenTag();
+            Decompile(name, false);
+            WriteCloseTag();
+
+            WriteCloseTag();
+            mWriter.WriteLine();
             mWriter.WriteLine();
         }
 
