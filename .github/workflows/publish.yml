@@ -85,8 +85,10 @@ jobs:
 
   # The portable build is not AOT compiled, so it needs an installed .NET runtime but runs on
   # any platform the runtime supports, including the ones without a native build above.
+  # It builds on Windows because a framework dependent publish emits an apphost for the build
+  # machine, and a .exe is what most users expect; elsewhere run `dotnet AtlusScriptCompiler.dll`.
   portable:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v4
@@ -122,7 +124,7 @@ jobs:
         run: |
           set -eu
           cd publish
-          zip -r AtlusScriptTools-dotnet.zip AtlusScriptTools-dotnet
+          7z a AtlusScriptTools-dotnet.zip AtlusScriptTools-dotnet
 
       - uses: actions/upload-artifact@v4
         with:
